@@ -1,0 +1,27 @@
+schema_version = 1
+
+[[imports]]
+study_id = "kg-llm-in-action-2026"
+imported_at = "2026-07-31"
+source_repository = "https://github.com/restful3/ds4th_study"
+source_commit = "505ebdd9963aa6f56a0a5940bdf210ef080fb130"
+source_materials = "source/Alessandro Negro - Knowledge Graphs and LLMs in Action"
+destination_materials = "materials/aiml/active/knowledge-graphs-and-llms-in-action"
+source_presentations = "docs/studies/knowledge-graphs-and-llms-in-action/presentations"
+destination_presentations = "html/studies/knowledge-graphs-and-llms-in-action/presentations"
+included_local_worktree_changes = false
+supplemental_untracked_paths = [
+  "chapter_12_node_classification_and_link_prediction_with_gnns/src/ch12/model",
+]
+supplemental_reason = "필수 리스팅 소스가 기존 저장소의 광범위한 model/ ignore 규칙에 잘못 제외되어, 비밀값과 생성 캐시를 제외하고 Python 원본 5개만 보완했다."
+
+[[imports]]
+study_id = "machine-trading-2026"
+imported_at = "2026-07-31"
+source_repository = "https://github.com/restful3/ml4t"
+source_commit = "2f7e3801e088ab50f9cd9181f725477443cf8e47"
+source_materials = "source/Chan E. Machine Trading - Deploying Computer Algorithms to Conquer the Markets 2016"
+destination_materials = "materials/quant/active/machine-trading"
+source_presentations = "docs/studies/machine-trading/presentations"
+destination_presentations = "html/studies/machine-trading/presentations"
+included_local_worktree_changes = false

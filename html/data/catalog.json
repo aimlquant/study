@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "sessions": [
+    {
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/machine-trading/presentations/2026-08-22-ch05/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/machine-trading/presentations/2026-08-22-ch05/"
+        },
+        {
+          "kind": "other",
+          "label": "상세 리포트 PDF",
+          "url": "studies/machine-trading/presentations/2026-08-22-ch05/report.pdf"
+        },
+        {
+          "kind": "other",
+          "label": "발표자료 PDF",
+          "url": "studies/machine-trading/presentations/2026-08-22-ch05/presentation.pdf"
+        }
+      ],
+      "date": "2026-08-22",
+      "id": "2026-08-22-machine-trading-ch05",
+      "page_url": "https://restful3.github.io/ai-odyssey-study/sessions/2026-08-22-machine-trading-ch05/",
+      "status": "materials-published",
+      "study_id": "machine-trading-2026",
+      "title": "Chapter 5. 옵션 전략"
+    },
+    {
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-01-ch03/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-01-ch03/"
+        }
+      ],
+      "date": "2026-08-01",
+      "id": "2026-08-01-kg-llm-ch03",
+      "page_url": "https://restful3.github.io/ai-odyssey-study/sessions/2026-08-01-kg-llm-ch03/",
+      "status": "materials-published",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 3. 온톨로지로 첫 지식 그래프 만들기"
+    },
+    {
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/machine-trading/presentations/2026-07-25-ch01/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/machine-trading/presentations/2026-07-25-ch01/"
+        }
+      ],
+      "date": "2026-07-25",
+      "id": "2026-07-25-machine-trading-ch01",
+      "page_url": "https://restful3.github.io/ai-odyssey-study/sessions/2026-07-25-machine-trading-ch01/",
+      "status": "materials-published",
+      "study_id": "machine-trading-2026",
+      "title": "Chapter 1. 알고리즘 트레이딩의 기초"
+    },
+    {
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "Chapter 1 상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "Chapter 1 발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/"
+        },
+        {
+          "kind": "report",
+          "label": "Chapter 2 상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "Chapter 2 발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/"
+        },
+        {
+          "kind": "report",
+          "label": "Chapter 1–2 합본 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "Chapter 1–2 합본 발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/"
+        }
+      ],
+      "date": "2026-07-25",
+      "id": "2026-07-25-kg-llm-ch01-ch02",
+      "page_url": "https://restful3.github.io/ai-odyssey-study/sessions/2026-07-25-kg-llm-ch01-ch02/",
+      "status": "materials-published",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 1–2. 지식 그래프와 LLM, 하이브리드 접근"
+    }
+  ],
+  "site": {
+    "name": "AI Odyssey Study",
+    "name_ko": "AI 오딧세이 스터디",
+    "pages_url": "https://restful3.github.io/ai-odyssey-study/",
+    "repository": "restful3/ai-odyssey-study",
+    "youtube_channel_id": "UCFCw_lSFRhco6h25cXiFecw",
+    "youtube_handle": "@ai_odyssey_study",
+    "youtube_url": "https://www.youtube.com/@ai_odyssey_study"
+  },
+  "studies": [
+    {
+      "archive_path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action",
+      "end_date": "2026-10-24",
+      "id": "kg-llm-in-action-2026",
+      "materials_path": "materials/aiml/active/knowledge-graphs-and-llms-in-action",
+      "presentation_path": "html/studies/knowledge-graphs-and-llms-in-action",
+      "slug": "knowledge-graphs-and-llms-in-action",
+      "source_commit": "505ebdd9963aa6f56a0a5940bdf210ef080fb130",
+      "source_repository": "https://github.com/restful3/ds4th_study",
+      "start_date": "2026-07-25",
+      "status": "active",
+      "title": "Knowledge Graphs and LLMs in Action",
+      "title_ko": "지식 그래프와 LLM 실전",
+      "track": "aiml"
+    },
+    {
+      "archive_path": "materials/quant/archive/machine-trading",
+      "end_date": "2026-09-12",
+      "id": "machine-trading-2026",
+      "materials_path": "materials/quant/active/machine-trading",
+      "presentation_path": "html/studies/machine-trading",
+      "slug": "machine-trading",
+      "source_commit": "2f7e3801e088ab50f9cd9181f725477443cf8e47",
+      "source_repository": "https://github.com/restful3/ml4t",
+      "start_date": "2026-07-25",
+      "status": "active",
+      "title": "Machine Trading",
+      "title_ko": "머신 트레이딩",
+      "track": "quant"
+    }
+  ]
+}

@@ -18,7 +18,7 @@
 
 ## 2. 교안을 먼저 발행
 
-리포트·발표자료를 `docs/studies/<study-slug>/presentations/<session-slug>/`에 둔다.
+리포트·발표자료를 `html/studies/<study-slug>/presentations/<session-slug>/`에 둔다.
 `artifacts`에 사이트 루트 기준 상대 URL을 등록하고 상태를
 `materials-published`로 바꾼다. 사이트를 빌드·검증하고 실제 렌더를 확인한다.
 

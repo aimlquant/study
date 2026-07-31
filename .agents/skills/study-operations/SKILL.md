@@ -25,7 +25,7 @@ upload state in the separate private `ai-odyssey` operations repository.
 
 - New schedule: add a globally unique `session_id` with status `scheduled`.
 - Materials ready: copy public artifacts under
-  `docs/studies/<study-slug>/presentations/<session-slug>/`, register each
+  `html/studies/<study-slug>/presentations/<session-slug>/`, register each
   artifact, then set status to `materials-published`.
 - Video public: verify the YouTube visibility is actually `public`, add the
   11-character `youtube_video_id`, then set status to `video-public`.

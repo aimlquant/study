@@ -3,6 +3,11 @@
 AI 오딧세이 스터디의 공개 학습 허브다. AI/ML과 ML4T 두 스터디의 교재,
 회차별 리포트·발표자료, 공개된 YouTube 영상을 하나의 안정적인 URL 체계로 연결한다.
 
+현재 진행 교재와 기존 공개 발표자료는 각각 `ds4th_study`, `ml4t`의
+검증된 Git 스냅숏에서 가져왔다. 원본 저장소의 로컬 미커밋 변경은 가져오지 않았다.
+단, 기존 ignore 규칙에 잘못 제외된 Chapter 12의 필수 Python 리스팅 5개는
+비밀값·캐시를 제외하고 보완했으며 내역은 마이그레이션 원장에 남겼다.
+
 ## 발행 순서
 
 1. 스터디 일정을 등록한다 (`scheduled`).
@@ -24,16 +29,30 @@ agent-support/
   sessions.toml   # 회차 수명주기와 공개 video ID
   scripts/        # 결정적 사이트 생성기
   procedures/     # 에이전트 공통 운영 절차
-materials/active/ # 진행 중 교재(순차 이전)
-docs/             # GitHub Pages 배포 산출물
+materials/
+  aiml/
+    active/       # 현재 AI/ML 교재
+    archive/      # 종료된 AI/ML 교재
+  quant/
+    active/       # 현재 퀀트 교재
+    archive/      # 종료된 퀀트 교재
+html/             # GitHub Pages 배포 산출물
 ```
+
+현재 교재:
+
+- [`Knowledge Graphs and LLMs in Action`](materials/aiml/active/knowledge-graphs-and-llms-in-action)
+- [`Machine Trading`](materials/quant/active/machine-trading)
+
+이전 기록은 `agent-support/migrations.toml`에서 원본 저장소와 커밋 단위로 확인한다.
 
 ## 로컬 검증
 
 ```bash
-python3 -m unittest discover -s agent-support/tests -v
+uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
+python3 agent-support/scripts/validate-site.py --site html --check-materials
 ```
 
 공개 사이트 기준 URL은 <https://restful3.github.io/ai-odyssey-study/>이고,
