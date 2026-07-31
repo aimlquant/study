@@ -1,0 +1,21 @@
+schema_version = 1
+
+[[studies]]
+id = "kg-llm-in-action-2026"
+track = "aiml"
+slug = "knowledge-graphs-and-llms-in-action"
+title = "Knowledge Graphs and LLMs in Action"
+title_ko = "지식 그래프와 LLM 실전"
+status = "active"
+materials_path = "materials/active/knowledge-graphs-and-llms-in-action"
+source_repository = "https://github.com/restful3/ds4th_study"
+
+[[studies]]
+id = "machine-trading-2026"
+track = "ml4t"
+slug = "machine-trading"
+title = "Machine Trading"
+title_ko = "머신 트레이딩"
+status = "active"
+materials_path = "materials/active/machine-trading"
+source_repository = "https://github.com/restful3/ml4t"

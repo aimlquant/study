@@ -1,0 +1,10 @@
+schema_version = 1
+
+[site]
+name = "AI Odyssey Study"
+name_ko = "AI 오딧세이 스터디"
+repository = "restful3/ai-odyssey-study"
+pages_url = "https://restful3.github.io/ai-odyssey-study/"
+youtube_channel_id = "UCFCw_lSFRhco6h25cXiFecw"
+youtube_handle = "@ai_odyssey_study"
+youtube_url = "https://www.youtube.com/@ai_odyssey_study"

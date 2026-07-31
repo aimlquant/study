@@ -1,0 +1,4 @@
+interface:
+  display_name: "Study Operations"
+  short_description: "Manage study sessions, Pages, and public video links"
+  default_prompt: "Use $study-operations to publish a study session and link its public YouTube video safely."

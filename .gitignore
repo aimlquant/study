@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+*.token.json
+*credentials*.json
+*client_secret*.json
+*.sqlite
+*.sqlite3
+*.db
+tmp/
+.DS_Store
+._*
+# Recordings and generated media stay in the private operations repository.
+*.mp4
+*.mkv
+*.mov
+*.m4a
+*.wav
