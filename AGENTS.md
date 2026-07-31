@@ -6,6 +6,19 @@
 - 공개 YouTube 채널과 회차 페이지는 `session_id`로 연결한다.
 - 기본 응답 언어는 한국어로 하되 코드·명령어·고유명사는 원문을 유지한다.
 
+## Directory lifecycle
+
+- `materials/aiml/active/`: 현재 AI/ML 교재
+- `materials/aiml/archive/`: 종료된 AI/ML 교재
+- `materials/quant/active/`: 현재 퀀트 교재
+- `materials/quant/archive/`: 종료된 퀀트 교재
+- `html/`: GitHub Pages에 그대로 배포되는 공개 HTML·자산
+- `agent-support/`: 레지스트리, 절차, 생성·검증 도구
+
+교재가 끝나면 해당 분야의 `active/<study-slug>`를
+`archive/<study-slug>`로 이동하고 레지스트리를 함께 갱신한다.
+`html/studies/<study-slug>`의 공개 URL은 교재 이동과 무관하게 유지한다.
+
 ## Sources of truth
 
 - `agent-support/site.toml`: 브랜드, 저장소, Pages, 공개 YouTube 채널
@@ -31,6 +44,7 @@
 python3 -m unittest discover -s agent-support/tests -v
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
+python3 agent-support/scripts/validate-site.py --check-materials
 git diff --check
 ```
 

@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""이 교재의 실행 환경을 만든다.
+
+    python3 setup_env.py              # 없는 것만 채운다 (여러 번 실행해도 안전)
+    python3 setup_env.py --recreate   # .venv 를 지우고 다시 만든다
+
+실제 동작은 저장소 공용 패키지 agent-support/studykit 에 있고, 이 파일은 그것을
+호출하는 shim 이다. 교재별 설정은 옆의 study.toml 에 있다.
+
+표준 라이브러리만 쓰므로 시스템 python3 로 실행하면 된다.
+"""
+import argparse
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+# agent-support 를 import 경로에 넣는다 (.venv 가 아직 없을 수 있으므로 .pth 에 의존 못 함)
+REPO_ROOT = HERE.parents[3]
+sys.path.insert(0, str(REPO_ROOT / "agent-support"))
+
+from studykit import bootstrap, config  # noqa: E402
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--recreate", action="store_true",
+                        help=".venv 를 지우고 다시 만든다")
+    parser.add_argument("--skip-verify", action="store_true",
+                        help="마지막 검증을 건너뛴다")
+    args = parser.parse_args()
+
+    study = config.load(HERE)
+    python = bootstrap.bootstrap(study, recreate=args.recreate)
+
+    if not args.skip_verify:
+        verify = REPO_ROOT / "agent-support" / "scripts" / "study-verify.py"
+        if verify.exists():
+            import subprocess
+            bootstrap.step("검증")
+            result = subprocess.run(
+                [str(python), str(verify), str(HERE), "--env-only"]
+            )
+            if result.returncode != 0:
+                print("\n검증 실패. 위 항목을 확인하라.")
+                return 1
+
+    print(bootstrap.next_steps(study, python))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

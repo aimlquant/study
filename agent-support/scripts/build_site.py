@@ -17,9 +17,10 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SITE_CONFIG = REPO_ROOT / "agent-support" / "site.toml"
 DEFAULT_STUDIES = REPO_ROOT / "agent-support" / "studies.toml"
 DEFAULT_SESSIONS = REPO_ROOT / "agent-support" / "sessions.toml"
-DEFAULT_DOCS = REPO_ROOT / "docs"
+DEFAULT_OUTPUT = REPO_ROOT / "html"
 SLUG_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
 VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
+COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 SESSION_STATES = {
     "scheduled",
     "materials-published",
@@ -34,7 +35,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--site-config", type=Path, default=DEFAULT_SITE_CONFIG)
     parser.add_argument("--studies", type=Path, default=DEFAULT_STUDIES)
     parser.add_argument("--sessions", type=Path, default=DEFAULT_SESSIONS)
-    parser.add_argument("--docs", type=Path, default=DEFAULT_DOCS)
+    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--check", action="store_true")
     return parser.parse_args()
 
@@ -129,7 +130,10 @@ def load_model(
             "title",
             "title_ko",
             "materials_path",
+            "archive_path",
+            "presentation_path",
             "source_repository",
+            "source_commit",
         ):
             if (
                 not isinstance(study.get(field), str)
@@ -142,6 +146,40 @@ def load_model(
             raise ValueError(
                 f"invalid study status for {study_id}: "
                 f"{study.get('status')}"
+            )
+        if study["track"] not in {"aiml", "quant"}:
+            raise ValueError(
+                f"invalid study track for {study_id}: {study['track']}"
+            )
+        expected_active = (
+            f"materials/{study['track']}/active/{slug}"
+        )
+        expected_archive = (
+            f"materials/{study['track']}/archive/{slug}"
+        )
+        if study["archive_path"] != expected_archive:
+            raise ValueError(
+                f"archive_path for {study_id} must be {expected_archive}"
+            )
+        expected_materials = (
+            expected_active
+            if study["status"] == "active"
+            else expected_archive
+        )
+        if study["materials_path"] != expected_materials:
+            raise ValueError(
+                f"materials_path for {study_id} must be "
+                f"{expected_materials}"
+            )
+        expected_public = f"html/studies/{slug}"
+        if study["presentation_path"] != expected_public:
+            raise ValueError(
+                f"presentation_path for {study_id} must be "
+                f"{expected_public}"
+            )
+        if not COMMIT_RE.fullmatch(study["source_commit"]):
+            raise ValueError(
+                f"invalid source_commit for {study_id}"
             )
         by_id[study_id] = study
         seen_slugs.add(slug)
@@ -245,6 +283,7 @@ def page(
     body: str,
     canonical: str,
 ) -> str:
+    favicon = stylesheet.rsplit("/", 1)[0] + "/favicon.svg"
     return f"""<!doctype html>
 <html lang="ko">
 <head>
@@ -252,6 +291,7 @@ def page(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)}</title>
   <link rel="canonical" href="{html.escape(canonical)}">
+  <link rel="icon" href="{html.escape(favicon)}" type="image/svg+xml">
   <link rel="stylesheet" href="{stylesheet}">
 </head>
 <body>
@@ -331,6 +371,10 @@ def render_files(
         matching = [
             item for item in sessions if item["study_id"] == study["id"]
         ]
+        materials_url = (
+            f"https://github.com/{site['repository']}/tree/main/"
+            f"{study['materials_path']}"
+        )
         session_cards = (
             "\n".join(
                 render_session_card(item, "../../") for item in matching
@@ -342,6 +386,10 @@ def render_files(
       <p class="eyebrow">{html.escape(study["track"].upper())}</p>
       <h1>{html.escape(study["title_ko"])}</h1>
       <p class="lead">{html.escape(study["title"])}</p>
+      <div class="actions">
+        <a class="button" href="{html.escape(materials_url)}">교재 자료</a>
+        <a class="button button--secondary" href="{html.escape(study["source_repository"])}">이전 저장소</a>
+      </div>
     </header>
     <section>
       <h2>회차</h2>
@@ -453,7 +501,7 @@ def render_files(
 
 
 def write_or_check(
-    docs: Path,
+    output: Path,
     files: dict[Path, str],
     check: bool,
 ) -> bool:
@@ -462,7 +510,7 @@ def write_or_check(
         files.items(),
         key=lambda item: str(item[0]),
     ):
-        target = docs / relative
+        target = output / relative
         current = (
             target.read_text(encoding="utf-8")
             if target.exists()
@@ -496,14 +544,14 @@ def main() -> int:
         )
         files = render_files(site, studies, sessions)
         changed = write_or_check(
-            args.docs.resolve(),
+            args.output.resolve(),
             files,
             args.check,
         )
         if not (
-            args.docs.resolve() / "assets" / "site.css"
+            args.output.resolve() / "assets" / "site.css"
         ).is_file():
-            raise ValueError("docs/assets/site.css is missing")
+            raise ValueError("html/assets/site.css is missing")
     except (OSError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

@@ -30,13 +30,16 @@ SITE = {
 STUDIES = [
     {
         "id": "machine-trading-2026",
-        "track": "ml4t",
+        "track": "quant",
         "slug": "machine-trading",
         "title": "Machine Trading",
         "title_ko": "머신 트레이딩",
         "status": "active",
-        "materials_path": "materials/active/machine-trading",
+        "materials_path": "materials/quant/active/machine-trading",
+        "archive_path": "materials/quant/archive/machine-trading",
+        "presentation_path": "html/studies/machine-trading",
         "source_repository": "https://github.com/restful3/ml4t",
+        "source_commit": "2f7e3801e088ab50f9cd9181f725477443cf8e47",
     }
 ]
 
@@ -144,13 +147,16 @@ youtube_url = "https://www.youtube.com/@ai_odyssey_study"
 schema_version = 1
 [[studies]]
 id = "machine-trading-2026"
-track = "ml4t"
+track = "quant"
 slug = "machine-trading"
 title = "Machine Trading"
 title_ko = "머신 트레이딩"
 status = "active"
-materials_path = "materials/active/machine-trading"
+materials_path = "materials/quant/active/machine-trading"
+archive_path = "materials/quant/archive/machine-trading"
+presentation_path = "html/studies/machine-trading"
 source_repository = "https://github.com/restful3/ml4t"
+source_commit = "2f7e3801e088ab50f9cd9181f725477443cf8e47"
 """,
             encoding="utf-8",
         )
