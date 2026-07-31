@@ -1,0 +1,20 @@
+schema_version = 1
+
+# 회차 등록 예시. 실제 회차를 추가할 때 주석을 복사하지 말고 새 항목을 만든다.
+#
+# [[sessions]]
+# id = "2026-08-01-machine-trading-ch02"
+# study_id = "machine-trading-2026"
+# date = "2026-08-01"
+# title = "Chapter 2. 팩터 모델"
+# presenters = ["발표자"]
+# chapters = ["Chapter 2"]
+# status = "materials-published"
+# artifacts = [
+#   { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-01-ch02/report.html" },
+#   { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-08-01-ch02/" },
+# ]
+#
+# 영상이 public이 된 뒤에만 다음 두 값을 함께 바꾼다.
+# status = "video-public"
+# youtube_video_id = "123456789ab"
