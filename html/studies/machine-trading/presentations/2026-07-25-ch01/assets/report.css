@@ -1,5 +1,5 @@
 /* =========================================================================
- * AI Odyssey Publisher — Report Theme (A4 portrait, long-form research report)
+ * AIML Quant — Report Theme (A4 portrait, long-form research report)
  *
  * 디자인 토큰·시각 컴포넌트는 `theme_slides.css` 와 동기화. 캔버스만
  * 1280×720 고정 슬라이드 → A4 세로 흐름형 문서로 교체했으며, 리포트 전용
@@ -68,13 +68,13 @@ h1, h2, h3, h4, h5, h6 {
   size: A4;
   margin: 18mm 16mm 22mm 16mm;
   @top-left {
-    content: var(--running-header-left, "AI Odyssey · Independent Research");
+    content: var(--running-header-left, "AIML Quant · Independent Research");
     font: 500 9pt 'Inter', 'Noto Sans KR', sans-serif;
     color: #6B6B72;
     padding-bottom: 6mm;
   }
   @top-right {
-    content: var(--running-header-right, "AI Odyssey");
+    content: var(--running-header-right, "AIML Quant");
     font: 700 9pt 'Inter', 'Noto Sans KR', sans-serif;
     letter-spacing: 0.12em;
     color: #0F2C59;
@@ -3476,21 +3476,23 @@ html.reader-size-large .continuous-mode {
     overflow-x: hidden;
   }
   .report-nav-toggle {
-    top: auto;
-    bottom: 18px;
+    position: absolute;
+    top: 18px;
+    bottom: auto;
     left: 18px;
   }
   .report-settings {
-    top: auto;
+    position: absolute;
+    top: 18px;
     right: 18px;
-    bottom: 18px;
+    bottom: auto;
   }
   .report-settings-panel {
-    top: auto;
+    top: 50px;
     right: 0;
-    bottom: 50px;
-    transform: translateY(6px) scale(0.98);
-    transform-origin: bottom right;
+    bottom: auto;
+    transform: translateY(-6px) scale(0.98);
+    transform-origin: top right;
   }
   .continuous-mode .report-cover {
     width: 100% !important;
@@ -3498,7 +3500,7 @@ html.reader-size-large .continuous-mode {
     margin-left: 0 !important;
     margin-right: 0 !important;
     box-sizing: border-box;
-    padding: 44px 18px 32px;
+    padding: 92px 18px 32px;
   }
   .continuous-mode .report-cover__wordmark {
     margin-bottom: 28px;
@@ -3612,7 +3614,7 @@ html.reader-size-large .continuous-mode {
   --brand-primary: #0F2C59;
   --brand-deep: #091F40;
   --brand-active: #2563EB;
-  --running-header-left: "AI Odyssey Study · Study Report";
+  --running-header-left: "AIML Quant · Study Report";
   --running-header-right: "STUDY REPORT";
 }
 html, body, button, input { font-family: Inter, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif; }

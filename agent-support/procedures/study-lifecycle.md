@@ -13,8 +13,13 @@
 ## 1. 회차 URL을 먼저 확정
 
 전역에서 고유한 소문자 ASCII `session_id`를 정한다. 공개 회차 URL은
-`https://restful3.github.io/ai-odyssey-study/sessions/<session_id>/`이며 이후 바꾸지 않는다.
+`https://restful3.github.io/aimlquant/sessions/<session_id>/`이며 이후 바꾸지 않는다.
 영상이 없어도 회차 페이지는 정상적으로 발행되어야 한다.
+
+2026-08-01 저장소 리브랜딩으로 기존
+`https://restful3.github.io/ai-odyssey-study/` 기준 URL을 위 주소로 한 번 이관했다.
+GitHub는 저장소 이름 변경 시 project Pages URL을 자동 리디렉션하지 않으므로,
+이 시점 이후 외부 링크와 새 회차는 `aimlquant` 기준 URL만 사용한다.
 
 ## 2. 교안을 먼저 발행
 
