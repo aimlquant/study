@@ -36,6 +36,28 @@
         {
           "kind": "report",
           "label": "상세 리포트",
+          "url": "studies/machine-trading/presentations/2026-08-01-ch02/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/machine-trading/presentations/2026-08-01-ch02/"
+        }
+      ],
+      "date": "2026-08-01",
+      "id": "2026-08-01-machine-trading-ch02",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-01-machine-trading-ch02/",
+      "status": "video-public",
+      "study_id": "machine-trading-2026",
+      "title": "Chapter 2. 팩터 모델",
+      "youtube_url": "https://www.youtube.com/watch?v=5g2tGIFcpNk",
+      "youtube_video_id": "5g2tGIFcpNk"
+    },
+    {
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
           "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-01-ch03/report.html"
         },
         {
@@ -47,9 +69,11 @@
       "date": "2026-08-01",
       "id": "2026-08-01-kg-llm-ch03",
       "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-01-kg-llm-ch03/",
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 3. 온톨로지로 첫 지식 그래프 만들기"
+      "title": "Chapter 3. 온톨로지로 첫 지식 그래프 만들기",
+      "youtube_url": "https://www.youtube.com/watch?v=hvkIxLlMXCU",
+      "youtube_video_id": "hvkIxLlMXCU"
     },
     {
       "artifacts": [
