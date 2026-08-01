@@ -45,6 +45,44 @@ STUDIES = [
 
 
 class SiteRenderingTest(unittest.TestCase):
+    def test_pages_share_the_presentation_visual_identity(self) -> None:
+        session = {
+            "id": "2026-08-01-machine-trading-ch02",
+            "study_id": "machine-trading-2026",
+            "date": "2026-08-01",
+            "title": "Chapter 2. 팩터 모델",
+            "presenters": ["발표자"],
+            "chapters": ["Chapter 2"],
+            "status": "materials-published",
+            "artifacts": [
+                {
+                    "kind": "slides",
+                    "label": "발표자료",
+                    "url": "studies/machine-trading/presentations/ch02/",
+                }
+            ],
+        }
+
+        files = build_site.render_files(SITE, STUDIES, [session])
+        root_page = files[Path("index.html")]
+        study_page = files[
+            Path("studies") / "machine-trading" / "index.html"
+        ]
+        session_page = files[
+            Path("sessions")
+            / "2026-08-01-machine-trading-ch02"
+            / "index.html"
+        ]
+
+        for rendered in (root_page, study_page, session_page):
+            with self.subTest(page=rendered[:80]):
+                self.assertIn('<html lang="ko" class="theme-light">', rendered)
+                self.assertIn("AI Odyssey Study", rendered)
+        self.assertIn("OPEN STUDY ARCHIVE", root_page)
+        self.assertIn('class="hero-meta"', root_page)
+        self.assertIn("STUDY MATERIALS", study_page)
+        self.assertIn("SESSION ARCHIVE", session_page)
+
     def test_materials_are_published_before_video(self) -> None:
         session = {
             "id": "2026-08-01-machine-trading-ch02",
