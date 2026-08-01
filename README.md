@@ -1,6 +1,6 @@
-# AI Odyssey Study
+# AIML Quant
 
-AI 오딧세이 스터디의 공개 학습 허브다. AI/ML과 ML4T 두 스터디의 교재,
+AIML Quant의 공개 학습 허브다. AI/ML과 Quant 두 스터디의 교재,
 회차별 리포트·발표자료, 공개된 YouTube 영상을 하나의 안정적인 URL 체계로 연결한다.
 
 현재 진행 교재와 기존 공개 발표자료는 각각 `ds4th_study`, `ml4t`의
@@ -55,5 +55,5 @@ python3 agent-support/scripts/build_site.py --check
 python3 agent-support/scripts/validate-site.py --site html --check-materials
 ```
 
-공개 사이트 기준 URL은 <https://restful3.github.io/ai-odyssey-study/>이고,
-YouTube 채널은 [AI 오딧세이 스터디](https://www.youtube.com/@ai_odyssey_study)다.
+공개 사이트 기준 URL은 <https://restful3.github.io/aimlquant/>이고,
+YouTube 채널은 [@aimlquant](https://www.youtube.com/@aimlquant)다.

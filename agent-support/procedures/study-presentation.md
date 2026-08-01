@@ -92,7 +92,7 @@ python3 agent-support/scripts/new-presentation.py \
 
 비교표·대조 도형은 행과 열이 같은 의미 층위를 비교하는지 먼저 확인한다. 형식 추론의 분류와 특정 모델의 작동 특성처럼 층위가 다르면 구분 행·그룹 제목·경계 설명을 두고 동급 선택지처럼 보이지 않게 한다.
 
-교재의 흐름을 운영 안전 관점에서 보강할 때는 유익한 추가라도 출처를 바꾸지 않는다. 예를 들어 원자료의 `관찰 → 새 지식` 사이에 검증 게이트를 넣었다면 `교재 흐름`과 `AI Odyssey 운영 보강`을 본문·캡션·SVG에서 함께 표시한다. 사용자 클릭·수용·실행 결과는 정답 라벨이 아니며, 후보·결정·관찰·검증된 사실을 별도 상태로 관리한다.
+교재의 흐름을 운영 안전 관점에서 보강할 때는 유익한 추가라도 출처를 바꾸지 않는다. 예를 들어 원자료의 `관찰 → 새 지식` 사이에 검증 게이트를 넣었다면 `교재 흐름`과 `AIML Quant 운영 보강`을 본문·캡션·SVG에서 함께 표시한다. 사용자 클릭·수용·실행 결과는 정답 라벨이 아니며, 후보·결정·관찰·검증된 사실을 별도 상태로 관리한다.
 
 ## 5. 리포트 기반 발표자료와 추적 메타데이터
 
@@ -132,7 +132,7 @@ report_source = "report.html"
 ### 자원 안전 브라우저 렌더링
 
 브라우저 screenshot은 owner-only 배포본
-`$HOME/.local/libexec/ai-odyssey-study-safe-browser-shot/safe-browser-shot.sh`만
+`$HOME/.local/libexec/aimlquant-safe-browser-shot/safe-browser-shot.sh`만
 사용한다. 저장소의 `agent-support/scripts/` 파일은 검토·배포
 source이며 직접 실행하지 않는다. raw
 `google-chrome --headless`, 직접 만든 반복 loop, 백그라운드 병렬
@@ -154,7 +154,7 @@ user cgroup 안에서 실행하고, unique profile과 atomic PNG 검증을
 ```bash
 agent-support/scripts/install-safe-browser-shot.sh --verify
 
-runner="$HOME/.local/libexec/ai-odyssey-study-safe-browser-shot/safe-browser-shot.sh"
+runner="$HOME/.local/libexec/aimlquant-safe-browser-shot/safe-browser-shot.sh"
 "$runner" --check
 ```
 
@@ -258,6 +258,6 @@ main에 push되면 GitHub Actions(`.github/workflows/validate-study-site.yml`)�
 ```bash
 gh run list --workflow validate-study-site.yml --branch main --limit 1
 gh run watch <run-id> --exit-status
-gh api repos/restful3/ai-odyssey-study/pages --jq .status
-curl -fsSL "https://restful3.github.io/ai-odyssey-study/<public-path>" | rg "<release-marker>"
+gh api repos/restful3/aimlquant/pages --jq .status
+curl -fsSL "https://restful3.github.io/aimlquant/<public-path>" | rg "<release-marker>"
 ```

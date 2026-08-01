@@ -104,7 +104,7 @@
 
   function savedTheme() {
     try {
-      return window.localStorage.getItem("ai-odyssey-deck-theme");
+      return window.localStorage.getItem("aimlquant-deck-theme");
     } catch (_error) {
       return null;
     }
@@ -116,7 +116,7 @@
     themeButton.setAttribute("aria-pressed", String(theme === "dark"));
     themeButton.setAttribute("title", theme === "dark" ? "라이트 모드로 전환" : "나이트 모드로 전환");
     try {
-      window.localStorage.setItem("ai-odyssey-deck-theme", theme);
+      window.localStorage.setItem("aimlquant-deck-theme", theme);
     } catch (_error) {
       // Local files and private browsing may reject storage. Navigation still works.
     }

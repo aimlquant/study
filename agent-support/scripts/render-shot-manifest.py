@@ -17,7 +17,7 @@ DEFAULT_RUNNER = (
     Path.home()
     / ".local"
     / "libexec"
-    / "ai-odyssey-study-safe-browser-shot"
+    / "aimlquant-safe-browser-shot"
     / "safe-browser-shot.sh"
 )
 DEFAULT_OUTPUT_ROOT = REPO_ROOT / "tmp" / "browser-shots"

@@ -42,5 +42,5 @@
 - **레이아웃 적합성**: 1280x720 뷰포트 내 가로/세로 화면 넘침(Scroll Overflow) 슬라이드 개수 0개 확인.
 
 ## 5. 배포 경로
-- **슬라이드 라이브 URL**: `https://restful3.github.io/ai-odyssey-study/studies/machine-trading/presentations/2026-08-22-ch05/`
-- **리포트 라이브 URL**: `https://restful3.github.io/ai-odyssey-study/studies/machine-trading/presentations/2026-08-22-ch05/report.html`
+- **슬라이드 라이브 URL**: `https://restful3.github.io/aimlquant/studies/machine-trading/presentations/2026-08-22-ch05/`
+- **리포트 라이브 URL**: `https://restful3.github.io/aimlquant/studies/machine-trading/presentations/2026-08-22-ch05/report.html`

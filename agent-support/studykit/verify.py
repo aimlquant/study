@@ -257,7 +257,7 @@ def check_notebook(study: Study, path: Path, check_urls: bool = True) -> list[st
 
     # 4) 저장소 내부를 절대 URL 로 가리키면 푸시 전에는 죽는다
     repo_urls = re.findall(
-        r"\]\((https://github\.com/[^)]*ai-odyssey-study[^)]*)\)",
+        r"\]\((https://github\.com/[^)]*aimlquant[^)]*)\)",
         markdown,
     )
     if repo_urls:

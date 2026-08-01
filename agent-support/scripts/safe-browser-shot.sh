@@ -12,7 +12,7 @@ readonly TASKS_MAX="1024"
 readonly CPU_QUOTA="300%"
 readonly MIN_AVAILABLE_KIB=$((10 * 1024 * 1024))
 readonly MAX_MEMORY_FULL_PSI_AVG10="1.00"
-readonly UNIT_NAME="ai-odyssey-study-safe-browser-shot"
+readonly UNIT_NAME="aimlquant-safe-browser-shot"
 
 url=""
 output=""
@@ -179,7 +179,7 @@ account_home="$(
 )"
 [[ "$account_home" == /* && -d "$account_home" ]] ||
   die "could not resolve the current account home directory"
-trusted_root="$account_home/.local/libexec/ai-odyssey-study-safe-browser-shot"
+trusted_root="$account_home/.local/libexec/aimlquant-safe-browser-shot"
 expected_script="$trusted_root/safe-browser-shot.sh"
 expected_guard="$trusted_root/safe_browser_guard.py"
 script_path="$(realpath -e -- "$0")"
@@ -324,7 +324,7 @@ output="$output_parent/$output_leaf"
 [[ ! -e "$output" || -f "$output" ]] ||
   die "existing output must be a regular file"
 
-lock_path="$runtime_root/ai-odyssey-study-safe-browser-shot.lock"
+lock_path="$runtime_root/aimlquant-safe-browser-shot.lock"
 exec {lock_fd}>"$lock_path"
 if ! flock -n "$lock_fd"; then
   die "another guarded browser render is already running"
@@ -343,12 +343,12 @@ cleanup() {
     systemctl --user stop "${unit_name}.service" >/dev/null 2>&1 || true
   fi
 
-  if [[ -n "$profile_dir" && "$profile_dir" == "$runtime_root"/ai-odyssey-browser-profile.* &&
+  if [[ -n "$profile_dir" && "$profile_dir" == "$runtime_root"/aimlquant-browser-profile.* &&
     -d "$profile_dir" ]]; then
     rm -rf -- "$profile_dir"
   fi
 
-  if [[ -n "$publish_dir" && "$publish_dir" == "$output_parent"/.ai-odyssey-browser-shot.* &&
+  if [[ -n "$publish_dir" && "$publish_dir" == "$output_parent"/.aimlquant-browser-shot.* &&
     -d "$publish_dir" ]]; then
     rm -rf -- "$publish_dir"
   fi
@@ -359,8 +359,8 @@ trap cleanup EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM HUP
 
-profile_dir="$(mktemp -d "$runtime_root/ai-odyssey-browser-profile.XXXXXX")"
-publish_dir="$(mktemp -d "$output_parent/.ai-odyssey-browser-shot.XXXXXX")"
+profile_dir="$(mktemp -d "$runtime_root/aimlquant-browser-profile.XXXXXX")"
+publish_dir="$(mktemp -d "$output_parent/.aimlquant-browser-shot.XXXXXX")"
 temporary_artifact="$publish_dir/render.$output_format"
 
 unit_may_exist=1
@@ -368,7 +368,7 @@ run_status=0
 systemd-run \
   --user \
   --unit="$unit_name" \
-  --description="Guarded AI Odyssey browser artifact" \
+  --description="Guarded AIML Quant browser artifact" \
   --slice=app.slice \
   --service-type=exec \
   --wait \
