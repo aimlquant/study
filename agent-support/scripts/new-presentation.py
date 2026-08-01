@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scaffold an AI Odyssey raw-to-report-to-deck study session."""
+"""Scaffold an AIML Quant raw-to-report-to-deck study session."""
 
 from __future__ import annotations
 

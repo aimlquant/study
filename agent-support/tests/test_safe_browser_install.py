@@ -25,7 +25,7 @@ SCRIPTS = REPO_ROOT / "agent-support" / "scripts"
 INSTALLER_NAME = "install-safe-browser-shot.sh"
 WRAPPER_NAME = "safe-browser-shot.sh"
 GUARD_NAME = "safe_browser_guard.py"
-RUNNER_DIR_NAME = "ai-odyssey-study-safe-browser-shot"
+RUNNER_DIR_NAME = "aimlquant-safe-browser-shot"
 MANIFEST_NAME = "manifest.sha256"
 
 

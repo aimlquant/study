@@ -6,7 +6,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export PATH
 
 readonly PROGRAM_NAME="${0##*/}"
-readonly RUNNER_DIR_NAME="ai-odyssey-study-safe-browser-shot"
+readonly RUNNER_DIR_NAME="aimlquant-safe-browser-shot"
 readonly WRAPPER_NAME="safe-browser-shot.sh"
 readonly GUARD_NAME="safe_browser_guard.py"
 readonly MANIFEST_NAME="manifest.sha256"

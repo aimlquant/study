@@ -1,6 +1,6 @@
 # study-deck-v1 디자인 규칙 · Chapter 1 완성본 기준
 
-이 템플릿은 ConnectBrick 발표자료의 정보 위계와 발표 UX를 `AI Odyssey Study`에 맞게 옮기고, Chapter 1에서 검증한 28장 리포트 파생 흐름과 시각 컴포넌트를 공용화한 1280×720 HTML 덱이다. 로고·고객명·개인 브랜딩은 포함하지 않는다.
+이 템플릿은 ConnectBrick 발표자료의 정보 위계와 발표 UX를 `AIML Quant`에 맞게 옮기고, Chapter 1에서 검증한 28장 리포트 파생 흐름과 시각 컴포넌트를 공용화한 1280×720 HTML 덱이다. 로고·고객명·개인 브랜딩은 포함하지 않는다.
 
 - 완성 기준 예시: `html/studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/index.html`
 - 공통 설계 청사진: `agent-support/templates/STUDY_SESSION_BLUEPRINT.md`

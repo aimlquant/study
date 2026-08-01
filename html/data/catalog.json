@@ -26,7 +26,7 @@
       ],
       "date": "2026-08-22",
       "id": "2026-08-22-machine-trading-ch05",
-      "page_url": "https://restful3.github.io/ai-odyssey-study/sessions/2026-08-22-machine-trading-ch05/",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-22-machine-trading-ch05/",
       "status": "materials-published",
       "study_id": "machine-trading-2026",
       "title": "Chapter 5. 옵션 전략"
@@ -46,7 +46,7 @@
       ],
       "date": "2026-08-01",
       "id": "2026-08-01-kg-llm-ch03",
-      "page_url": "https://restful3.github.io/ai-odyssey-study/sessions/2026-08-01-kg-llm-ch03/",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-01-kg-llm-ch03/",
       "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 3. 온톨로지로 첫 지식 그래프 만들기"
@@ -66,7 +66,7 @@
       ],
       "date": "2026-07-25",
       "id": "2026-07-25-machine-trading-ch01",
-      "page_url": "https://restful3.github.io/ai-odyssey-study/sessions/2026-07-25-machine-trading-ch01/",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-07-25-machine-trading-ch01/",
       "status": "materials-published",
       "study_id": "machine-trading-2026",
       "title": "Chapter 1. 알고리즘 트레이딩의 기초"
@@ -106,20 +106,20 @@
       ],
       "date": "2026-07-25",
       "id": "2026-07-25-kg-llm-ch01-ch02",
-      "page_url": "https://restful3.github.io/ai-odyssey-study/sessions/2026-07-25-kg-llm-ch01-ch02/",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-07-25-kg-llm-ch01-ch02/",
       "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 1–2. 지식 그래프와 LLM, 하이브리드 접근"
     }
   ],
   "site": {
-    "name": "AI Odyssey Study",
-    "name_ko": "AI 오딧세이 스터디",
-    "pages_url": "https://restful3.github.io/ai-odyssey-study/",
-    "repository": "restful3/ai-odyssey-study",
+    "name": "AIML Quant",
+    "name_ko": "AI·ML·Quant",
+    "pages_url": "https://restful3.github.io/aimlquant/",
+    "repository": "restful3/aimlquant",
     "youtube_channel_id": "UCFCw_lSFRhco6h25cXiFecw",
-    "youtube_handle": "@ai_odyssey_study",
-    "youtube_url": "https://www.youtube.com/@ai_odyssey_study"
+    "youtube_handle": "@aimlquant",
+    "youtube_url": "https://www.youtube.com/@aimlquant"
   },
   "studies": [
     {

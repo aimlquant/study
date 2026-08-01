@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the AI Odyssey GitHub Pages tree without dependencies."""
+"""Validate the AIML Quant GitHub Pages tree without dependencies."""
 
 from __future__ import annotations
 

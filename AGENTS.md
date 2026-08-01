@@ -1,4 +1,4 @@
-# AI Odyssey Study agent guide
+# AIML Quant agent guide
 
 ## Purpose
 

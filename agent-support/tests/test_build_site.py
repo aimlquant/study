@@ -19,13 +19,13 @@ SPEC.loader.exec_module(build_site)
 
 
 SITE = {
-    "name": "AI Odyssey Study",
-    "name_ko": "AI 오딧세이 스터디",
-    "repository": "restful3/ai-odyssey-study",
-    "pages_url": "https://restful3.github.io/ai-odyssey-study/",
+    "name": "AIML Quant",
+    "name_ko": "AI·ML·Quant",
+    "repository": "restful3/aimlquant",
+    "pages_url": "https://restful3.github.io/aimlquant/",
     "youtube_channel_id": "UCFCw_lSFRhco6h25cXiFecw",
-    "youtube_handle": "@ai_odyssey_study",
-    "youtube_url": "https://www.youtube.com/@ai_odyssey_study",
+    "youtube_handle": "@aimlquant",
+    "youtube_url": "https://www.youtube.com/@aimlquant",
 }
 STUDIES = [
     {
@@ -45,6 +45,44 @@ STUDIES = [
 
 
 class SiteRenderingTest(unittest.TestCase):
+    def test_pages_share_the_presentation_visual_identity(self) -> None:
+        session = {
+            "id": "2026-08-01-machine-trading-ch02",
+            "study_id": "machine-trading-2026",
+            "date": "2026-08-01",
+            "title": "Chapter 2. 팩터 모델",
+            "presenters": ["발표자"],
+            "chapters": ["Chapter 2"],
+            "status": "materials-published",
+            "artifacts": [
+                {
+                    "kind": "slides",
+                    "label": "발표자료",
+                    "url": "studies/machine-trading/presentations/ch02/",
+                }
+            ],
+        }
+
+        files = build_site.render_files(SITE, STUDIES, [session])
+        root_page = files[Path("index.html")]
+        study_page = files[
+            Path("studies") / "machine-trading" / "index.html"
+        ]
+        session_page = files[
+            Path("sessions")
+            / "2026-08-01-machine-trading-ch02"
+            / "index.html"
+        ]
+
+        for rendered in (root_page, study_page, session_page):
+            with self.subTest(page=rendered[:80]):
+                self.assertIn('<html lang="ko" class="theme-light">', rendered)
+                self.assertIn("AIML Quant", rendered)
+        self.assertIn("OPEN STUDY ARCHIVE", root_page)
+        self.assertIn('class="hero-meta"', root_page)
+        self.assertIn("STUDY MATERIALS", study_page)
+        self.assertIn("SESSION ARCHIVE", session_page)
+
     def test_materials_are_published_before_video(self) -> None:
         session = {
             "id": "2026-08-01-machine-trading-ch02",
@@ -108,7 +146,7 @@ class SiteRenderingTest(unittest.TestCase):
         self.assertEqual(
             catalog["sessions"][0]["page_url"],
             (
-                "https://restful3.github.io/ai-odyssey-study/"
+                "https://restful3.github.io/aimlquant/"
                 "sessions/2026-08-01-machine-trading-ch02/"
             ),
         )
@@ -132,13 +170,13 @@ class LifecycleValidationTest(unittest.TestCase):
             """
 schema_version = 1
 [site]
-name = "AI Odyssey Study"
-name_ko = "AI 오딧세이 스터디"
-repository = "restful3/ai-odyssey-study"
-pages_url = "https://restful3.github.io/ai-odyssey-study/"
+name = "AIML Quant"
+name_ko = "AI·ML·Quant"
+repository = "restful3/aimlquant"
+pages_url = "https://restful3.github.io/aimlquant/"
 youtube_channel_id = "UCFCw_lSFRhco6h25cXiFecw"
-youtube_handle = "@ai_odyssey_study"
-youtube_url = "https://www.youtube.com/@ai_odyssey_study"
+youtube_handle = "@aimlquant"
+youtube_url = "https://www.youtube.com/@aimlquant"
 """,
             encoding="utf-8",
         )

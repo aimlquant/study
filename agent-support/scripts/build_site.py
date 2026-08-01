@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and validate the AI Odyssey Study static site."""
+"""Build and validate the AIML Quant static site."""
 
 from __future__ import annotations
 
@@ -285,7 +285,7 @@ def page(
 ) -> str:
     favicon = stylesheet.rsplit("/", 1)[0] + "/favicon.svg"
     return f"""<!doctype html>
-<html lang="ko">
+<html lang="ko" class="theme-light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -347,10 +347,20 @@ def render_files(
         or '<p class="empty">등록된 회차가 없습니다.</p>'
     )
     root_body = f"""    <header class="hero">
-      <p class="eyebrow">GITHUB PAGES × YOUTUBE</p>
-      <h1>{html.escape(site["name_ko"])}</h1>
-      <p class="lead">교안을 먼저 공개하고, 스터디 영상이 공개되면 같은 회차 페이지에서 연결합니다.</p>
-      <a class="button" href="{html.escape(site["youtube_url"])}">YouTube 채널</a>
+      <div class="cover-brand">
+        <span class="brand-name">{html.escape(site["name"])}</span>
+        <span class="brand-sub">OPEN STUDY ARCHIVE</span>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow">GITHUB PAGES × YOUTUBE</p>
+        <h1>{html.escape(site["name_ko"])}</h1>
+        <p class="lead">교안을 먼저 공개하고, 스터디 영상이 공개되면 같은 회차 페이지에서 연결합니다.</p>
+      </div>
+      <dl class="hero-meta">
+        <div><dt>공개 순서</dt><dd>교안 → 스터디 → 영상</dd></div>
+        <div><dt>학습 영역</dt><dd>AIML · QUANT</dd></div>
+        <div><dt>커뮤니티</dt><dd><a class="meta-link" href="{html.escape(site["youtube_url"])}">YouTube 채널 ↗</a></dd></div>
+      </dl>
     </header>
     <section>
       <h2>진행 중인 스터디</h2>
@@ -381,7 +391,11 @@ def render_files(
             )
             or '<p class="empty">등록된 회차가 없습니다.</p>'
         )
-        body = f"""    <a class="back" href="../../">← 전체 스터디</a>
+        body = f"""    <header class="site-masthead">
+      <a class="brand-name" href="../../">{html.escape(site["name"])}</a>
+      <span class="brand-sub">STUDY MATERIALS</span>
+    </header>
+    <a class="back" href="../../">← 전체 스터디</a>
     <header class="page-header">
       <p class="eyebrow">{html.escape(study["track"].upper())}</p>
       <h1>{html.escape(study["title_ko"])}</h1>
@@ -435,7 +449,11 @@ def render_files(
         presenters = (
             ", ".join(session.get("presenters", [])) or "미정"
         )
-        body = f"""    <a class="back" href="../../studies/{study["slug"]}/">← {html.escape(study["title_ko"])}</a>
+        body = f"""    <header class="site-masthead">
+      <a class="brand-name" href="../../">{html.escape(site["name"])}</a>
+      <span class="brand-sub">SESSION ARCHIVE</span>
+    </header>
+    <a class="back" href="../../studies/{study["slug"]}/">← {html.escape(study["title_ko"])}</a>
     <header class="page-header">
       <p class="eyebrow">{html.escape(str(session["date"]))} · {html.escape(study["track"].upper())}</p>
       <h1>{html.escape(session["title"])}</h1>

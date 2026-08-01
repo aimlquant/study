@@ -13,7 +13,7 @@ import time
 from pathlib import Path
 
 
-UNIT_NAME = "ai-odyssey-study-safe-browser-shot.service"
+UNIT_NAME = "aimlquant-safe-browser-shot.service"
 EXPECTED_CONTROLLERS = {
     "memory.high": "3221225472",
     "memory.max": "4294967296",
