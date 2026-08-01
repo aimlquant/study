@@ -19,13 +19,13 @@ SPEC.loader.exec_module(build_site)
 
 
 SITE = {
-    "name": "AI Odyssey Study",
-    "name_ko": "AI 오딧세이 스터디",
-    "repository": "restful3/ai-odyssey-study",
-    "pages_url": "https://restful3.github.io/ai-odyssey-study/",
+    "name": "AIML Quant",
+    "name_ko": "AI·ML·Quant",
+    "repository": "restful3/aimlquant",
+    "pages_url": "https://restful3.github.io/aimlquant/",
     "youtube_channel_id": "UCFCw_lSFRhco6h25cXiFecw",
-    "youtube_handle": "@ai_odyssey_study",
-    "youtube_url": "https://www.youtube.com/@ai_odyssey_study",
+    "youtube_handle": "@aimlquant",
+    "youtube_url": "https://www.youtube.com/@aimlquant",
 }
 STUDIES = [
     {
@@ -77,7 +77,7 @@ class SiteRenderingTest(unittest.TestCase):
         for rendered in (root_page, study_page, session_page):
             with self.subTest(page=rendered[:80]):
                 self.assertIn('<html lang="ko" class="theme-light">', rendered)
-                self.assertIn("AI Odyssey Study", rendered)
+                self.assertIn("AIML Quant", rendered)
         self.assertIn("OPEN STUDY ARCHIVE", root_page)
         self.assertIn('class="hero-meta"', root_page)
         self.assertIn("STUDY MATERIALS", study_page)
@@ -146,7 +146,7 @@ class SiteRenderingTest(unittest.TestCase):
         self.assertEqual(
             catalog["sessions"][0]["page_url"],
             (
-                "https://restful3.github.io/ai-odyssey-study/"
+                "https://restful3.github.io/aimlquant/"
                 "sessions/2026-08-01-machine-trading-ch02/"
             ),
         )
@@ -170,13 +170,13 @@ class LifecycleValidationTest(unittest.TestCase):
             """
 schema_version = 1
 [site]
-name = "AI Odyssey Study"
-name_ko = "AI 오딧세이 스터디"
-repository = "restful3/ai-odyssey-study"
-pages_url = "https://restful3.github.io/ai-odyssey-study/"
+name = "AIML Quant"
+name_ko = "AI·ML·Quant"
+repository = "restful3/aimlquant"
+pages_url = "https://restful3.github.io/aimlquant/"
 youtube_channel_id = "UCFCw_lSFRhco6h25cXiFecw"
-youtube_handle = "@ai_odyssey_study"
-youtube_url = "https://www.youtube.com/@ai_odyssey_study"
+youtube_handle = "@aimlquant"
+youtube_url = "https://www.youtube.com/@aimlquant"
 """,
             encoding="utf-8",
         )

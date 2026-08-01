@@ -1,6 +1,6 @@
 # study-report-v1 디자인 규칙 · Chapter 1 완성본 기준
 
-이 템플릿은 ConnectBrick ai-odyssey 출판 템플릿의 실제 theme_report.css와 report.js를 AI Odyssey Study용으로 직접 이식하고, Chapter 1 리포트에서 검증한 장문 구조·표·도형·이미지 뷰어를 공용화한 HTML 리포트다. 구조만 참고한 경량 재구현이 아니다. 워드마크·발표 내용·개인 브랜딩은 AI Odyssey Study에 맞게 교체했고 외부 폰트와 Chart.js 의존성은 제거했다.
+이 템플릿은 ConnectBrick ai-odyssey 출판 템플릿의 실제 theme_report.css와 report.js를 AIML Quant용으로 직접 이식하고, Chapter 1 리포트에서 검증한 장문 구조·표·도형·이미지 뷰어를 공용화한 HTML 리포트다. 구조만 참고한 경량 재구현이 아니다. 워드마크·발표 내용·개인 브랜딩은 AIML Quant에 맞게 교체했고 외부 폰트와 Chart.js 의존성은 제거했다.
 
 - 완성 기준 예시: `html/studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/report.html`
 - 공통 설계 청사진: `agent-support/templates/STUDY_SESSION_BLUEPRINT.md`
@@ -9,7 +9,7 @@
 
 - 기준 템플릿: ConnectBrick ai-odyssey의 theme_report.css, report.js, report HTML 구조.
 - 그대로 유지: A4 인쇄 규칙, continuous-mode, 표지, 섹션 계층, 표·그림 캡션, callout, 목차 드로어, 설정 패널, 다크 테마.
-- AI Odyssey 변경: 워드마크, 링크 구조, 시스템 폰트 fallback, skip link, 회차 간 이동 링크, 전체화면 이미지 뷰어.
+- AIML Quant 변경: 워드마크, 링크 구조, 시스템 폰트 fallback, skip link, 회차 간 이동 링크, 전체화면 이미지 뷰어.
 - 금지: 템플릿을 별도 카드형 CSS로 다시 작성하거나, 슬라이드 CSS를 리포트에 재사용하거나, 리포트를 슬라이드 문장 확장본으로 만드는 것.
 
 ## 필수 산출물

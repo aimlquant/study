@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and validate the AI Odyssey Study static site."""
+"""Build and validate the AIML Quant static site."""
 
 from __future__ import annotations
 

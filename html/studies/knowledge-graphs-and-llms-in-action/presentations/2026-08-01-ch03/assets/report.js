@@ -1,4 +1,4 @@
-// AI Odyssey Publisher — Report 런타임 (인터랙티브 HTML + 인쇄 프리프로세스)
+// AIML Quant — Report 런타임 (인터랙티브 HTML + 인쇄 프리프로세스)
 // 슬라이드 `deck.js` 에서 네비게이션·뷰포트 스케일링을 제거하고,
 // 리포트에 필요한 (1) 테마 토글 (2) Chart.js 빌더
 // (4) IntersectionObserver 기반 카운터/애니메이션 (5) TOC 자동 생성
