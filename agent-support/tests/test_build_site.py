@@ -26,6 +26,9 @@ SITE = {
     "youtube_channel_id": "UCFCw_lSFRhco6h25cXiFecw",
     "youtube_handle": "@aimlquant",
     "youtube_url": "https://www.youtube.com/@aimlquant",
+    "kakao_openchat_url": "https://open.kakao.com/o/gtYt0KGi",
+    "contact_email": "restful3@gmail.com",
+    "materials_repository": "aimlquant/study-materials",
 }
 STUDIES = [
     {
@@ -251,6 +254,9 @@ pages_url = "https://restful3.github.io/aimlquant/"
 youtube_channel_id = "UCFCw_lSFRhco6h25cXiFecw"
 youtube_handle = "@aimlquant"
 youtube_url = "https://www.youtube.com/@aimlquant"
+kakao_openchat_url = "https://open.kakao.com/o/gtYt0KGi"
+contact_email = "restful3@gmail.com"
+materials_repository = "aimlquant/study-materials"
 """,
             encoding="utf-8",
         )
@@ -395,6 +401,55 @@ artifacts = [
                 "missing=Chapter 1",
             ):
                 build_site.load_model(*paths)
+
+
+class MaterialsGateTest(unittest.TestCase):
+    """교재는 private 저장소로 가므로, 외부 방문자가 404 대신
+    참여 안내를 보도록 공개 사이트가 안내 페이지를 제공해야 한다."""
+
+    def test_gate_page_is_generated(self) -> None:
+        files = build_site.render_files(SITE, STUDIES, [])
+
+        self.assertIn(Path("materials") / "index.html", files)
+
+    def test_gate_page_invites_participants_without_leaking_the_join_code(
+        self,
+    ) -> None:
+        files = build_site.render_files(SITE, STUDIES, [])
+        gate = files[Path("materials") / "index.html"]
+
+        self.assertIn(SITE["kakao_openchat_url"], gate)
+        self.assertIn(SITE["contact_email"], gate)
+        self.assertIn(SITE["materials_repository"], gate)
+        # 참가 암호는 메일로만 안내한다. 공개 산출물에 넣지 않는다.
+        self.assertNotIn("참가 코드:", gate)
+        self.assertNotIn("암호:", gate)
+
+    def test_gate_page_is_for_every_participant_not_only_presenters(
+        self,
+    ) -> None:
+        files = build_site.render_files(SITE, STUDIES, [])
+        gate = files[Path("materials") / "index.html"]
+
+        self.assertIn("참가자", gate)
+        self.assertNotIn("발표자 전용", gate)
+
+    def test_site_config_requires_the_new_contact_fields(self) -> None:
+        for field in (
+            "kakao_openchat_url",
+            "contact_email",
+            "materials_repository",
+        ):
+            with self.subTest(field=field):
+                broken = dict(SITE)
+                broken.pop(field)
+                with self.assertRaisesRegex(ValueError, field):
+                    build_site.validate_site(broken)
+
+    def test_custom_404_page_is_generated(self) -> None:
+        files = build_site.render_files(SITE, STUDIES, [])
+
+        self.assertIn(Path("404.html"), files)
 
 
 class RealRegistryTest(unittest.TestCase):

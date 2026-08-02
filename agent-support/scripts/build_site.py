@@ -121,6 +121,27 @@ def validate_meeting_url(value: object, label: str) -> str:
     return value
 
 
+def validate_site(site: object) -> None:
+    if not isinstance(site, dict):
+        raise ValueError("site.toml must contain [site]")
+    for field in (
+        "name",
+        "name_ko",
+        "repository",
+        "pages_url",
+        "youtube_channel_id",
+        "youtube_handle",
+        "youtube_url",
+        "kakao_openchat_url",
+        "contact_email",
+        "materials_repository",
+    ):
+        if not isinstance(site.get(field), str) or not site[field].strip():
+            raise ValueError(f"site field is missing or empty: {field}")
+    if not site["pages_url"].endswith("/"):
+        raise ValueError("pages_url must end with '/'")
+
+
 def load_model(
     site_path: Path,
     studies_path: Path,
@@ -137,21 +158,7 @@ def load_model(
         require_schema(data, path)
 
     site = site_data.get("site")
-    if not isinstance(site, dict):
-        raise ValueError("site.toml must contain [site]")
-    for field in (
-        "name",
-        "name_ko",
-        "repository",
-        "pages_url",
-        "youtube_channel_id",
-        "youtube_handle",
-        "youtube_url",
-    ):
-        if not isinstance(site.get(field), str) or not site[field].strip():
-            raise ValueError(f"site field is missing or empty: {field}")
-    if not site["pages_url"].endswith("/"):
-        raise ValueError("pages_url must end with '/'")
+    validate_site(site)
 
     studies = studies_data.get("studies")
     if not isinstance(studies, list) or not studies:
@@ -559,12 +566,87 @@ def render_schedule_row(
         </div>"""
 
 
+def render_materials_gate(site: dict) -> str:
+    """교재는 private 저장소에 있다. 외부 방문자가 GitHub 404를 보는 대신
+    무슨 자료인지와 참여 방법을 안내받도록 공개 사이트가 대신 응답한다."""
+    materials_repo = site["materials_repository"]
+    body = f"""    <header class="site-masthead">
+      <a class="brand-name" href="../">{html.escape(site["name"])}</a>
+      <span class="brand-sub">STUDY MATERIALS</span>
+    </header>
+    <a class="back" href="../">← 스터디 허브</a>
+    <header class="page-header">
+      <p class="eyebrow">참가자 공개 자료</p>
+      <h1>교재 자료</h1>
+      <p class="lead" id="requested-path">스터디 참가자에게 공개되는 자료입니다.</p>
+      <p class="study-description">
+        발표자료에 인용된 교재 원문·해설·소스 코드는 스터디 참가자에게
+        공개합니다. 참가 신청을 하시면 교재 저장소 접근 권한을 드립니다.
+      </p>
+      <div class="actions">
+        <a class="button" href="{html.escape(site["kakao_openchat_url"])}"
+           target="_blank" rel="noopener noreferrer">카카오 오픈채팅 참여 ↗</a>
+        <a class="button button--secondary"
+           href="https://github.com/{html.escape(materials_repo)}"
+           target="_blank" rel="noopener noreferrer">교재 저장소 (참가자) ↗</a>
+      </div>
+      <p class="session-meeting-note">
+        오픈채팅 입장에는 참가 코드가 필요합니다.
+        <a href="mailto:{html.escape(site["contact_email"])}"
+           >{html.escape(site["contact_email"])}</a>
+        로 메일 주시면 코드를 안내해 드립니다.
+      </p>
+    </header>
+    <script>
+      (function () {{
+        var p = new URLSearchParams(location.search).get("p");
+        if (!p) return;
+        var name = p.split("/").pop();
+        var el = document.getElementById("requested-path");
+        if (el) el.textContent = name;
+        var repo = document.querySelector(".button--secondary");
+        if (repo) {{
+          repo.href =
+            "https://github.com/{materials_repo}/blob/main/" + p;
+        }}
+      }})();
+    </script>"""
+    return page(
+        "교재 자료 · 참가자 공개",
+        "../assets/site.css",
+        body,
+        site["pages_url"] + "materials/",
+    )
+
+
+def render_not_found(site: dict) -> str:
+    body = f"""    <header class="page-header">
+      <p class="eyebrow">404</p>
+      <h1>페이지를 찾을 수 없습니다</h1>
+      <p class="lead">주소가 바뀌었거나 아직 공개되지 않은 회차일 수 있습니다.</p>
+      <div class="actions">
+        <a class="button" href="{html.escape(site["pages_url"])}">스터디 허브로</a>
+        <a class="button button--secondary"
+           href="{html.escape(site["youtube_url"])}"
+           target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a>
+      </div>
+    </header>"""
+    return page(
+        "찾을 수 없음",
+        site["pages_url"] + "assets/site.css",
+        body,
+        site["pages_url"],
+    )
+
+
 def render_files(
     site: dict,
     studies: list[dict],
     sessions: list[dict],
 ) -> dict[Path, str]:
     files: dict[Path, str] = {}
+    files[Path("materials") / "index.html"] = render_materials_gate(site)
+    files[Path("404.html")] = render_not_found(site)
     study_by_id = {study["id"]: study for study in studies}
     cards = "\n".join(
         '<a class="card" href="studies/{slug}/">'
@@ -685,9 +767,11 @@ def render_files(
         matching.sort(
             key=lambda item: (str(item["date"]), item["id"])
         )
+        # 교재는 참가자 공개 저장소에 있다. 외부 방문자가 GitHub 404를
+        # 만나지 않도록 안내 페이지를 거쳐 보낸다.
         materials_url = (
-            f"https://github.com/{site['repository']}/tree/main/"
-            f"{study['materials_path']}"
+            "../../materials/?p="
+            + study["materials_path"].removeprefix("materials/")
         )
         schedule_rows = (
             "\n".join(
