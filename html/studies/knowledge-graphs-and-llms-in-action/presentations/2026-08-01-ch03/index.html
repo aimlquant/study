@@ -72,9 +72,12 @@
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.1 · 3.2</span></header>
       <h1>CRISP-DM을 지식 그래프 구축의 질문으로 구체화한다</h1>
       <div class="slide-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/build-pipeline.svg" alt="임상 질문에서 데이터 이해, 기술 선택, 온톨로지와 주석 적재, 정리, 질의로 이어지는 구축 과정">
-          <figcaption><b>교재 그림 3.1·3.2의 공통 흐름</b><span>비즈니스 목표에서 시작</span><span>데이터·기술·모델을 순서대로 결정</span><span>질의 결과로 다시 검증</span></figcaption>
+        <figure class="deck-report-figure deck-report-figure--pair">
+          <div class="deck-figure-pair">
+            <div class="deck-figure-pair__item"><img src="assets/figs/build-pipeline.svg" alt="임상 질문에서 데이터 이해, 기술 선택, 온톨로지와 주석 적재, 질의로 이어지는 장 전체 멘탈 모델"><strong>교재 그림 3.1 · 장 전체의 구체적 구축 경로</strong></div>
+            <div class="deck-figure-pair__item"><img src="assets/figs/crisp-dm-cycle.svg" alt="비즈니스 이해부터 배포까지 반복되는 지식 그래프용 CRISP-DM 순환"><strong>교재 그림 3.2 · 반복 가능한 CRISP-DM 순환</strong></div>
+          </div>
+          <figcaption><b>두 그림은 범위가 다르다</b><span>그림 3.1은 이 장의 임상 사례를 끝까지 펼친 지도</span><span>그림 3.2는 여러 KG 프로젝트에 재사용할 순환 모델</span><span>구체적 경로와 추상 모델을 같은 그림으로 취급하지 않는다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-1">상세 리포트 그림 1 · CRISP-DM 구축 과정</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -88,9 +91,12 @@
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1.1 · 그림 3.3 · 3.4</span></header>
       <h1>같은 이름도 문맥이 다르면 다른 개념이다</h1>
       <div class="slide-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/semantic-bridge.svg" alt="서로 다른 임상 표현을 표준 HPO 개념으로 정렬하고 같은 이름의 질병과 표현형을 구분하는 구조">
-          <figcaption><b>도메인 이해가 만드는 의미 좌표</b><span>동의어는 같은 개념으로 정렬</span><span>중의어는 문맥별 개념으로 분리</span><span>제1형 당뇨병은 질병 ID와 표현형 ID를 구분</span></figcaption>
+        <figure class="deck-report-figure deck-report-figure--pair">
+          <div class="deck-figure-pair">
+            <div class="deck-figure-pair__item"><img src="assets/figs/domain-understanding.svg" alt="임상의의 업무에서 지식 그래프 요구사항을 도출하는 비즈니스와 도메인 이해"><strong>교재 그림 3.3 · 사용자 업무와 요구사항</strong></div>
+            <div class="deck-figure-pair__item"><img src="assets/figs/diabetes-dual-role.svg" alt="제1형 당뇨병을 질병 OMIM ID와 표현형 HPO ID로 구분하는 두 문맥"><strong>교재 그림 3.4 · 같은 이름의 두 문맥 ID</strong></div>
+          </div>
+          <figcaption><b>요구를 먼저 정하고 ID를 나눈다</b><span>그림 3.3은 임상의에게 필요한 기능의 출발점</span><span>그림 3.4는 그 도메인 판단이 실제 식별자에 미치는 결과</span><span>OMIM:222100과 HP:0100651을 이름만 보고 병합하지 않는다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-4">상세 리포트 · 교재 그림 3.4 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -128,11 +134,11 @@
 
     <section class="slide slide--visual" aria-label="표의 한 행을 그래프로 변환" data-report-refs="source-section-3-2 source-section-3-2-1 source-figure-3-6 source-exercise-3-2-1-1" data-source-refs="figure:3.6 exercise:3.2.1-1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2.1 · 그림 3.6 · Exercise 3.2.1-1</span></header>
-      <h1>기술 선택 기준은 ‘관계의 메타데이터를 얼마나 직접 다루는가’다</h1>
+      <h1>기술 선택 기준: 관계 메타데이터를 얼마나 직접 다루는가</h1>
       <div class="slide-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/edge-metadata-options.svg" alt="질병 표현형 연결의 출처 작성자 날짜를 RDF 대안과 LPG로 표현하는 비교">
-          <figcaption><b>교재 그림 3.6의 변환 질문</b><span>질병과 표현형은 노드</span><span>연관은 관계</span><span>source·createdBy·creationDate는 관계별 근거</span></figcaption>
+          <img src="assets/figs/row-to-edge.svg" alt="HPOA 표 한 행이 질병 노드와 표현형 노드 및 출처 작성자 날짜를 가진 관계로 바뀌는 변환">
+          <figcaption><b>교재 그림 3.6의 열별 변환</b><span>질병 ID와 표현형 ID는 노드 식별자</span><span>연관은 HAS_PHENOTYPIC_FEATURE 관계</span><span>source·createdBy·creationDate는 그 관계의 근거</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-6">상세 리포트 그림 6 · 교재 그림 3.6 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -163,7 +169,7 @@
       <h1>데이터베이스 계약을 만든 뒤 OWL을 적재한다</h1>
       <div class="slide-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/build-pipeline.svg" alt="데이터베이스 생성, 제약과 인덱스, Neosemantics 설정, OWL 적재, 노드 보강 단계">
+          <img src="assets/figs/ontology-ingestion.svg" alt="데이터베이스 생성, 제약과 인덱스, Neosemantics 설정, OWL 적재, 레이블과 ID 보강 단계">
           <figcaption><b>교재 그림 3.7의 온톨로지 처리</b><span>Listing 3.13: 작업 DB 준비</span><span>Listing 3.14–3.15: 유일성·명명 규칙 고정</span><span>Listing 3.16–3.17: OWL 적재와 HPO ID 보강</span></figcaption>
         </figure>
       </div>
@@ -200,7 +206,7 @@ SET n:HpoPhenotype,
       <h1>중간 점검에서는 온톨로지 정보와 도메인 정보를 함께 본다</h1>
       <div class="slide-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/two-sources-one-graph.svg" alt="HPO 개념 계층과 표현형 도메인 정보가 LPG로 적재된 구조">
+          <img src="assets/figs/ontology-subgraph.svg" alt="제1형 당뇨병 표현형을 중심으로 온톨로지 메타데이터와 표현형 도메인 계층이 구분되어 적재된 구조">
           <figcaption><b>교재 그림 3.8의 두 층</b><span>왼쪽: OWL에서 온 개념·계층</span><span>오른쪽: 표현형 관련 도메인 정보</span><span>Listing 3.18은 정리 전 중간 상태 점검</span></figcaption>
         </figure>
       </div>
@@ -243,9 +249,12 @@ SET n:HpoPhenotype,
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.10 · 3.11 · Listing 3.25</span></header>
       <h1>먼저 알려진 질병에서 직접 연결된 표현형을 확인한다</h1>
       <div class="slide-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/clinical-query.svg" alt="제1형 당뇨병 질병 노드에서 직접 연결된 표현형을 확인하고 새 관찰을 후보 질의로 넘기는 흐름">
-          <figcaption><b>교재 그림 3.10·3.11의 질의 시작점</b><span>OMIM:222100에서 직접 관계 탐색</span><span>연결된 표현형 집합을 확인</span><span>목록에 없는 새 관찰을 다음 질의에 추가</span></figcaption>
+        <figure class="deck-report-figure deck-report-figure--pair">
+          <div class="deck-figure-pair">
+            <div class="deck-figure-pair__item"><img src="assets/figs/query-workflow.svg" alt="환자 관찰을 표준 식별자로 정규화하고 생성된 지식 그래프를 질의해 후보와 근거를 검토하는 단계"><strong>교재 그림 3.10 · 질의 단계의 전체 흐름</strong></div>
+            <div class="deck-figure-pair__item"><img src="assets/figs/diabetes-phenotype-star.svg" alt="OMIM 222100 제1형 인슐린 의존성 당뇨병에서 직접 연결된 표현형 특징 질의 결과"><strong>교재 그림 3.11 · 직접 연결 질의의 결과</strong></div>
+          </div>
+          <figcaption><b>과정과 결과를 분리해 읽는다</b><span>그림 3.10은 관찰에서 임상의 검토까지의 질의 단계</span><span>그림 3.11은 OMIM:222100의 직접 표현형 연결</span><span>계층으로 암시되는 특징은 아직 포함하지 않는다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-10">상세 리포트 그림 10 · 교재 그림 3.10 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>

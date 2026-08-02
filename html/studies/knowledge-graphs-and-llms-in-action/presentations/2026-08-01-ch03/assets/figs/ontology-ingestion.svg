@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="title desc">
+  <title id="title">Neosemantics로 HPO 온톨로지를 적재하고 처리하는 다섯 단계</title>
+  <desc id="desc">HPO 데이터베이스 생성, 고유성 제약과 인덱스 설정, Neosemantics 명명 규칙 초기화, hp.owl 적재, Resource 노드를 HpoPhenotype과 표준 HPO ID로 보강하는 단계가 순서대로 이어진다.</desc>
+  <defs><marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 18 14" refX="17.5" refY="7" markerWidth="18" markerHeight="14" orient="auto"><path d="M.5.5 17.5 7 .5 13.5Z" fill="#63728a"/></marker><style>text{font-family:'Inter','Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;fill:#172033}.eyebrow{font-size:12px;font-weight:800;letter-spacing:1px;fill:#52647d}.head{font-size:17px;font-weight:800}.small{font-size:12.5px;fill:#56657a}.box{fill:#fff;stroke:#b6c2d1;stroke-width:2}.focus{fill:#0f2c59;stroke:#0f2c59;stroke-width:2}.line{fill:none;stroke:#63728a;stroke-width:3;marker-end:url(#arrow)}</style></defs>
+  <rect width="960" height="330" rx="20" fill="#f7f8fa"/><text x="480" y="43" class="eyebrow" text-anchor="middle">ONTOLOGY INGESTION · LISTING 3.13–3.17</text>
+  <g>
+    <rect class="box" x="24" y="88" width="160" height="150" rx="15"/><text x="44" y="118" class="eyebrow">01 · DATABASE</text><text x="44" y="151" class="head">HPO DB 생성</text><text x="44" y="182" class="small">CREATE DATABASE</text><text x="44" y="204" class="small">작업 경계 고정</text>
+    <rect class="box" x="212" y="88" width="160" height="150" rx="15"/><text x="232" y="118" class="eyebrow">02 · CONTRACT</text><text x="232" y="151" class="head">제약·인덱스</text><text x="232" y="182" class="small">uri · id 고유성</text><text x="232" y="204" class="small">조회 키 준비</text>
+    <rect class="box" x="400" y="88" width="160" height="150" rx="15"/><text x="420" y="118" class="eyebrow">03 · CONFIG</text><text x="420" y="151" class="head">n10s 초기화</text><text x="420" y="182" class="small">URI 처리</text><text x="420" y="204" class="small">Neo4j 명명 규칙</text>
+    <rect class="focus" x="588" y="88" width="160" height="150" rx="15"/><text x="608" y="118" class="eyebrow" style="fill:#c8d6e8">04 · IMPORT</text><text x="608" y="151" class="head" style="fill:#fff">hp.owl 적재</text><text x="608" y="182" class="small" style="fill:#dce6f2">RDF/XML → LPG</text><text x="608" y="204" class="small" style="fill:#dce6f2">계층·메타데이터</text>
+    <rect class="box" x="776" y="88" width="160" height="150" rx="15"/><text x="796" y="118" class="eyebrow">05 · ALIGN</text><text x="796" y="151" class="head">레이블·ID 보강</text><text x="796" y="182" class="small">HpoPhenotype</text><text x="796" y="204" class="small">HP_… → HP:…</text>
+    <path class="line" d="M184 163H212"/><path class="line" d="M372 163H400"/><path class="line" d="M560 163H588"/><path class="line" d="M748 163H776"/>
+  </g>
+  <rect x="119" y="273" width="722" height="34" rx="17" fill="#e4ebf5"/><text x="480" y="295" class="small" text-anchor="middle">적재 성공만 보지 않고, 뒤의 Cypher가 기대하는 레이블·관계 타입·ID까지 확인한다</text>
+</svg>

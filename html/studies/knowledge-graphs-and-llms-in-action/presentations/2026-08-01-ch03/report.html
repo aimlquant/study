@@ -66,8 +66,8 @@
 
       <figure class="report-figure" id="source-figure-3-2" data-source-kind="figure" data-source-ref="3.2">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">교재 그림 3.2 · 지식 그래프에 맞게 조정한 CRISP-DM 모델. 비즈니스 이해(business understanding), 데이터 이해(data understanding), 데이터 준비(data preparation), KG 모델 생성/갱신(KG model creation/update)을 포함한 일부 구성 요소가 이 장에서 다루는 핵심 단계다.</span></figcaption>
-        <img src="assets/figs/build-pipeline.svg" alt="CRISP-DM의 비즈니스 이해, 데이터 이해, 데이터 준비, 그래프 생성과 사용 단계가 순환하는 흐름">
-        <small class="asset-note">같은 도해에서 01–06을 CRISP-DM의 반복 가능한 구축 구간으로 읽는다. 교재 그림 3.2의 전체 순환 중 이 장이 사용하는 부분을 강조한 재구성이다.</small>
+        <img src="assets/figs/crisp-dm-cycle.svg" alt="비즈니스 이해, 데이터 이해, 데이터 준비, 지식 그래프 모델 생성과 갱신, 평가, 배포가 피드백을 통해 순환하는 CRISP-DM 흐름">
+        <small class="asset-note">위쪽의 비즈니스 이해에서 시작해 데이터 이해·준비를 거친 뒤 아래쪽의 모델 생성·평가·배포로 돌아오는 순환으로 읽는다. 교재 그림 3.2에서 이 장이 집중하는 네 단계와 이후 반복 단계를 구분해 재구성했다.</small>
       </figure>
     </section>
 
@@ -82,16 +82,16 @@
 
       <figure class="report-figure" id="source-figure-3-3" data-source-kind="figure" data-source-ref="3.3">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">교재 그림 3.3 · 임상의 활동을 지원하는 KG를 만들기 위해 비즈니스 도메인을 이해하는 단계. 이 단계는 기술적 측면과 엄밀히 연관되지는 않지만, 다음 단계들을 위한 근본적인 토대가 된다.</span></figcaption>
-        <img src="assets/figs/semantic-bridge.svg" alt="서로 다른 임상 표현을 HPO 표준 개념과 식별자로 정렬해 하나의 질의 공간으로 만드는 과정">
-        <small class="asset-note">왼쪽의 임상 표현 차이가 가운데 HPO 식별자로 정렬되어야 오른쪽의 통합 질의가 가능하다. 교재 그림 3.3의 도메인 이해 역할을 의미 정렬 관점으로 재구성했다.</small>
+        <img src="assets/figs/domain-understanding.svg" alt="임상의의 희귀질환 검토 업무에서 계층적 문맥, 질병 표현형 연결, 추적 가능한 근거라는 세 지식 그래프 요구사항을 도출하는 과정">
+        <small class="asset-note">왼쪽의 사용자를 출발점으로 삼아 가운데 의사결정 질문을 거쳐 오른쪽의 세 요구사항을 읽는다. 교재 그림 3.3의 비즈니스·도메인 이해 단계가 이후 데이터와 모델 선택의 토대가 된다는 의미를 재구성했다.</small>
       </figure>
 
       <p>제1형 당뇨병은 이 문맥 의존성을 보여준다. 독립된 질병으로 다룰 때는 OMIM 질병 ID를 쓰지만, 다른 증후군에서 관찰되는 표현형 특징으로 다룰 때는 HPO ID를 쓴다. 이름이 같다고 두 개념을 하나로 합치면 질의의 의미가 무너진다.</p>
 
       <figure class="report-figure" id="source-figure-3-4" data-source-kind="figure" data-source-ref="3.4">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">교재 그림 3.4 · 제1형 당뇨병(Type 1 diabetes mellitus)은 질병으로 볼 수도, 표현형적 특징으로 볼 수도 있다. 맥락에 따라 서로 다른 두 개의 ID를 채택할 수 있다.</span></figcaption>
-        <img src="assets/figs/semantic-bridge.svg" alt="제1형 당뇨병이라는 같은 이름을 질병 ID와 표현형 ID로 구분해 표준 개념에 연결하는 예시">
-        <small class="asset-note">같은 이름을 하나의 문자열로 합치지 말고 사용 맥락에 따라 OMIM:222100과 HP:0100651을 구분해 읽는다. 교재 그림 3.4의 이중 역할을 기존 의미 정렬 도해로 재해석했다.</small>
+        <img src="assets/figs/diabetes-dual-role.svg" alt="제1형 당뇨병이라는 같은 명칭을 독립 질병 문맥의 OMIM 222100과 표현형 특징 문맥의 HP 0100651로 나누는 구조">
+        <small class="asset-note">위의 같은 명칭에서 두 문맥으로 갈라지는 분기를 따라 읽는다. 교재 그림 3.4의 핵심인 질병 ID와 표현형 ID의 역할 구분을 재구성했으며, 두 개체를 이름만 보고 병합해서는 안 된다.</small>
       </figure>
 
       <h3 id="source-section-3-1-2" data-source-kind="section" data-source-ref="3.1.2">3.1.2 데이터 이해 — HPO가 제공하는 두 갈래 정보</h3>
@@ -157,8 +157,8 @@ OMIM:222100 Diabetes...   HP:0000103 OMIM:222100                 IEA            
 
       <figure class="report-figure" id="source-figure-3-6" data-deck-use="required" data-source-kind="figure" data-source-ref="3.6">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">교재 그림 3.6 · 표의 한 행에서 KG 간선으로의 데이터 변환. 표 안의 정보가 KG 노드와 간선의 속성을 정의하는 데 맞게 조정된다.</span></figcaption>
-        <img src="assets/figs/edge-metadata-options.svg" alt="질병과 표현형을 잇는 주석의 출처, 작성자, 날짜를 N항 관계, 명명된 그래프, RDF-star, LPG로 표현하는 비교">
-        <small class="asset-note">표의 한 행이 질병 노드, 표현형 노드, 관계 메타데이터로 나뉘는 지점을 중심으로 읽는다. 교재 그림 3.6과 Listing 3.5–3.12의 공통 목표를 한 도해로 재구성했다.</small>
+        <img src="assets/figs/row-to-edge.svg" alt="HPOA 표 한 행의 질병 ID와 표현형 ID가 두 노드가 되고 작성자, 생성일, 출처가 두 노드를 잇는 관계 속성이 되는 변환">
+        <small class="asset-note">위 표 셀의 색과 NODE·REL PROPERTY 라벨을 아래 그래프의 질병 노드, 표현형 노드, 관계 속성과 대응해 읽는다. 교재 그림 3.6의 한 행에서 한 관계로의 변환을 재구성했으며, 여러 행의 근거 단위를 합쳐 버리지 않는 것이 경계다.</small>
       </figure>
 
       <aside class="source-exercise" id="source-exercise-3-2-1-1" data-source-kind="exercise" data-source-ref="3.2.1-1">
@@ -263,8 +263,8 @@ RETURN r.source, r.createdBy, r.creationDate</code></pre>
 
       <figure class="report-figure" id="source-figure-3-7" data-source-kind="figure" data-source-ref="3.7">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 7</span><span class="asset-caption__title">교재 그림 3.7 · 온톨로지 수집 및 처리(Ontology ingestion and processing)</span></figcaption>
-        <img src="assets/figs/build-pipeline.svg" alt="데이터베이스 생성, 제약과 인덱스, Neosemantics 초기화, OWL 적재, 노드 보강으로 이어지는 온톨로지 처리 단계">
-        <small class="asset-note">도해의 04 구간을 데이터베이스 준비부터 <code>hp.owl</code> 적재와 노드 보강까지로 읽는다. 교재 그림 3.7의 처리 순서를 전체 파이프라인 안에 배치했다.</small>
+        <img src="assets/figs/ontology-ingestion.svg" alt="HPO 데이터베이스 생성, 제약과 인덱스 설정, Neosemantics 초기화, hp.owl 적재, 레이블과 HPO ID 보강으로 이어지는 처리 단계">
+        <small class="asset-note">왼쪽에서 오른쪽으로 데이터베이스 계약을 먼저 만든 뒤 OWL을 적재하고 식별자를 정렬하는 순서로 읽는다. 교재 그림 3.7과 Listing 3.13–3.17의 온톨로지 수집·처리 단계를 재구성했다.</small>
       </figure>
 
       <article class="source-listing" id="source-listing-3-14" data-source-kind="listing" data-source-ref="3.14">
@@ -309,8 +309,8 @@ SET n:HpoPhenotype,
 
       <figure class="report-figure" id="source-figure-3-8" data-source-kind="figure" data-source-ref="3.8">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 8</span><span class="asset-caption__title">교재 그림 3.8 · LPG를 저장 모델로 삼아 그래프 데이터베이스에 적재된 HPO 온톨로지의 일부. 두 종류의 정보를 구별할 수 있다. 온톨로지 정보(왼쪽)와, 표현형 특징과 관련된 도메인 특화 정보(오른쪽)다.</span></figcaption>
-        <img src="assets/figs/two-sources-one-graph.svg" alt="HPO 온톨로지의 개념 계층과 표현형 도메인 정보가 LPG 노드와 관계로 적재된 구조">
-        <small class="asset-note">왼쪽은 개념·계층, 오른쪽은 표현형 관련 도메인 정보라는 두 층을 구분해 읽는다. 교재 그림 3.8의 그래프 화면을 복제하지 않고 구조만 재구성했다.</small>
+        <img src="assets/figs/ontology-subgraph.svg" alt="제1형 당뇨병 표현형을 중심으로 왼쪽에 정의와 동의어와 외부 참조가, 오른쪽에 당뇨병과 내분비계 이상으로 이어지는 계층이 연결된 LPG 구조">
+        <small class="asset-note">가운데 표현형에서 왼쪽으로는 개념을 설명하는 온톨로지 메타데이터를, 오른쪽으로는 질의 가능한 상하위 관계를 따라간다. 교재 그림 3.8의 중간 적재 결과를 두 정보 층으로 재구성했으며 실제 Neo4j 화면 배치를 복제한 것은 아니다.</small>
       </figure>
 
       <article class="source-listing" id="source-listing-3-18" data-source-kind="listing" data-source-ref="3.18">
@@ -424,14 +424,14 @@ FOREACH (_ IN CASE WHEN row[7] IS NOT NULL THEN [1] ELSE [] END |
 
       <figure class="report-figure" id="source-figure-3-10" data-deck-use="required" data-source-kind="figure" data-source-ref="3.10">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 10</span><span class="asset-caption__title">교재 그림 3.10 · 임상의 활동을 지원하기 위해 생성된 KG에 질의하기(Querying the generated KG)</span></figcaption>
-        <img src="assets/figs/clinical-query.svg" alt="환자의 관찰 표현형 다섯 개를 그래프 질의에 넣어 공유 특징 수가 많은 질병 후보를 찾는 흐름">
-        <small class="asset-note">환자 관찰을 표준 HPO 용어로 바꾼 뒤 그래프 후보와 근거를 검토하는 순서로 읽는다. 교재 그림 3.10의 질의 단계를 재구성했다.</small>
+        <img src="assets/figs/query-workflow.svg" alt="환자 전자 건강 기록의 관찰을 HPO와 OMIM 식별자로 정규화하고 생성된 지식 그래프에서 연결과 근거를 조회해 임상의에게 후보와 근거를 제공하는 과정">
+        <small class="asset-note">환자 관찰에서 시작해 문맥별 식별자, 그래프 질의, 임상의 검토로 이동한다. 교재 그림 3.10의 ‘생성된 KG에 질의하기’ 단계를 재구성했으며 출력은 진단이 아니라 근거를 확인할 후보 정보다.</small>
       </figure>
 
       <figure class="report-figure" id="source-figure-3-11" data-source-kind="figure" data-source-ref="3.11">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 11</span><span class="asset-caption__title">교재 그림 3.11 · 제1형 당뇨병과 관련된 모든 표현형 특징을 가져오는 질의의 결과</span></figcaption>
-        <img src="assets/figs/clinical-query.svg" alt="제1형 당뇨병 질병 노드에서 HAS_PHENOTYPIC_FEATURE 관계를 따라 표현형 특징들이 펼쳐지는 결과">
-        <small class="asset-note">가운데 질병에서 연결된 표현형을 먼저 확인한 뒤 새로 관찰한 특징과의 차이를 본다. 교재 그림 3.11의 Neo4j 결과 화면을 복제하지 않고 질의 관계로 재구성했다.</small>
+        <img src="assets/figs/diabetes-phenotype-star.svg" alt="가운데 제1형 인슐린 의존성 당뇨병 OMIM 222100 노드에서 당뇨병, 다뇨증, 자가면역, 다음증, 다갈증, 혈청 1,5-AG 감소, 케톤산증, 고혈당 표현형으로 직접 관계가 뻗는 결과">
+        <small class="asset-note">가운데 질병 노드에서 바깥 표현형으로 향하는 직접 관계만 따라 읽는다. 교재 그림 3.11의 질의 결과를 재구성했으며, 상위·하위 계층을 통해 암시되는 특징은 이 그림에 포함하지 않는다.</small>
       </figure>
 
       <article class="source-listing" id="source-listing-3-25" data-source-kind="listing" data-source-ref="3.25">
@@ -570,7 +570,7 @@ ORDER BY size(features), disease</code></pre>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[2]</span><span>참가자용 원자료: <a href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md" rel="noreferrer" target="_blank">한국어 해설판</a>, <a href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies.md" rel="noreferrer" target="_blank">원문 마크다운</a>.</span></li>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[3]</span><span><a href="https://hpo.jax.org/" rel="noreferrer" target="_blank">Human Phenotype Ontology</a> 공식 포털, <a href="https://purl.obolibrary.org/obo/hp.owl" rel="noreferrer" target="_blank">hp.owl</a>, HPOA release data. <code>latest</code> 배포는 재현 시점을 고정하지 않으므로 실무에서는 릴리스와 체크섬을 기록한다.</span></li>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[4]</span><span>재실행 근거: <a href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/src/ch03/03_chapter_guide.ipynb" rel="noreferrer" target="_blank"><code>03_chapter_guide.ipynb</code></a>. Neo4j 5.26.28, n10s·APOC·GDS, HPOA 2026-06-23 조건의 실행 기록이다.</span></li>
-        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[5]</span><span>그림 1–12는 교재 이미지를 복제하지 않고 원본의 관계와 처리 순서를 발표자가 새로 배치한 SVG다. 동일한 재구성 도해를 서로 다른 원본 그림의 읽기 초점에 맞춰 재사용한 경우 캡션 메모에 범위를 밝혔다.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[5]</span><span>그림 1–12는 교재 이미지를 복제하지 않고 원본의 관계와 처리 순서를 발표자가 새로 배치한 SVG다. 교재 그림 3.1–3.11은 각 좌표의 단계·상태·결과 차이를 보존하도록 서로 다른 도형으로 재구성했다.</span></li>
       </ol>
       <div class="report-jump-links"><a href="./">발표자료</a><a href="../../">회차 목록</a><a href="#summary">문서 처음</a></div>
     </section>

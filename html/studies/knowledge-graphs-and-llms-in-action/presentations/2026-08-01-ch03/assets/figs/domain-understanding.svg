@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" role="img" aria-labelledby="title desc">
+  <title id="title">임상의의 업무에서 지식 그래프 요구사항을 도출하는 도메인 이해</title>
+  <desc id="desc">임상의가 관찰한 표현형으로 희귀질환을 검토하는 업무에서 출발해 계층적 문맥, 질병과 표현형 연결, 추적 가능한 근거라는 세 요구사항을 정하고 이후 데이터와 모델 선택의 기준으로 사용한다.</desc>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 18 14" refX="17.5" refY="7" markerWidth="18" markerHeight="14" orient="auto"><path d="M.5.5 17.5 7 .5 13.5Z" fill="#63728a"/></marker>
+    <style>
+      text{font-family:'Inter','Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;fill:#172033}.eyebrow{font-size:13px;font-weight:800;letter-spacing:1.15px;fill:#52647d}.head{font-size:20px;font-weight:800}.small{font-size:14px;fill:#56657a}.box{fill:#fff;stroke:#b6c2d1;stroke-width:2}.accent{fill:#0f2c59;stroke:#0f2c59}.line{fill:none;stroke:#63728a;stroke-width:3;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="960" height="390" rx="20" fill="#f7f8fa"/>
+  <text x="480" y="43" class="eyebrow" text-anchor="middle">UNDERSTAND THE WORK BEFORE CHOOSING THE GRAPH</text>
+  <rect class="box" x="38" y="78" width="220" height="228" rx="17"/>
+  <circle cx="148" cy="131" r="34" fill="#dfe8f4" stroke="#0f2c59" stroke-width="2"/>
+  <path d="M130 134h36M148 116v36" stroke="#0f2c59" stroke-width="4" stroke-linecap="round"/>
+  <text x="148" y="195" class="head" text-anchor="middle">임상의</text><text x="148" y="225" class="small" text-anchor="middle">관찰한 표현형으로</text><text x="148" y="247" class="small" text-anchor="middle">희귀질환 후보 검토</text><text x="148" y="282" class="eyebrow" text-anchor="middle">TARGET PERSONA</text>
+
+  <rect class="accent" x="348" y="96" width="264" height="192" rx="17"/>
+  <text x="480" y="130" class="eyebrow" text-anchor="middle" style="fill:#c8d6e8">DECISION QUESTIONS</text>
+  <text x="480" y="173" class="head" text-anchor="middle" style="fill:#fff">어떤 특징들이</text><text x="480" y="201" class="head" text-anchor="middle" style="fill:#fff">어떤 질병과 연결되는가?</text>
+  <line x1="391" y1="223" x2="569" y2="223" stroke="#7895bc"/>
+  <text x="480" y="251" class="small" text-anchor="middle" style="fill:#dce6f2">그 연결의 근거는 무엇인가?</text>
+
+  <rect class="box" x="702" y="70" width="220" height="72" rx="14"/><text x="722" y="99" class="eyebrow">REQUIREMENT 1</text><text x="722" y="126" class="head">계층적 문맥</text>
+  <rect class="box" x="702" y="159" width="220" height="72" rx="14"/><text x="722" y="188" class="eyebrow">REQUIREMENT 2</text><text x="722" y="215" class="head">질병–표현형 연결</text>
+  <rect class="box" x="702" y="248" width="220" height="72" rx="14"/><text x="722" y="277" class="eyebrow">REQUIREMENT 3</text><text x="722" y="304" class="head">추적 가능한 근거</text>
+  <path class="line" d="M258 192H348"/><path class="line" d="M612 192H675V106H702"/><path class="line" d="M675 192H702"/><path class="line" d="M675 192V284H702"/>
+  <rect x="258" y="347" width="444" height="28" rx="14" fill="#e4ebf5"/><text x="480" y="366" class="small" text-anchor="middle">이 요구사항이 데이터 선택과 저장 모델의 평가 기준이 된다</text>
+</svg>
