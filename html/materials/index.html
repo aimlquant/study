@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko" class="theme-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>교재 자료 · 참가자 공개</title>
+  <link rel="canonical" href="https://aimlquant.github.io/study/materials/">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="site-masthead">
+      <a class="brand-name" href="../">AIML Quant</a>
+      <span class="brand-sub">STUDY MATERIALS</span>
+    </header>
+    <a class="back" href="../">← 스터디 허브</a>
+    <header class="page-header">
+      <p class="eyebrow">참가자 공개 자료</p>
+      <h1>교재 자료</h1>
+      <p class="lead" id="requested-path">스터디 참가자에게 공개되는 자료입니다.</p>
+      <p class="study-description">
+        발표자료에 인용된 교재 원문·해설·소스 코드는 스터디 참가자에게
+        공개합니다. 참가 신청을 하시면 교재 저장소 접근 권한을 드립니다.
+      </p>
+      <div class="actions">
+        <a class="button" href="https://open.kakao.com/o/gtYt0KGi"
+           target="_blank" rel="noopener noreferrer">카카오 오픈채팅 참여 ↗</a>
+        <a class="button button--secondary"
+           href="https://github.com/aimlquant/study-materials"
+           target="_blank" rel="noopener noreferrer">교재 저장소 (참가자) ↗</a>
+      </div>
+      <p class="session-meeting-note">
+        오픈채팅 입장에는 참가 코드가 필요합니다.
+        <a href="mailto:restful3@gmail.com"
+           >restful3@gmail.com</a>
+        로 메일 주시면 코드를 안내해 드립니다.
+      </p>
+    </header>
+    <script>
+      (function () {
+        var p = new URLSearchParams(location.search).get("p");
+        if (!p) return;
+        var name = p.split("/").pop();
+        var el = document.getElementById("requested-path");
+        if (el) el.textContent = name;
+        var repo = document.querySelector(".button--secondary");
+        if (repo) {
+          repo.href =
+            "https://github.com/aimlquant/study-materials/blob/main/" + p;
+        }
+      })();
+    </script>
+  </main>
+</body>
+</html>
