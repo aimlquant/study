@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import sys
 import tomllib
@@ -684,6 +685,56 @@ def validate_internal_report_references(
         )
 
 
+def validate_unique_source_figure_assets(
+    trace: ReportDeckTraceParser, report_html: Path, errors: list[str]
+) -> None:
+    """Distinct textbook figures must not be caption-only aliases of one image.
+
+    A source-aligned report can legitimately redraw an original figure, but every
+    source coordinate still represents a distinct learning asset. Reusing one
+    ``src`` (or copying the same bytes under another name) hides semantic
+    differences such as stage highlighting, process versus result, or a changed
+    graph state while the captions misleadingly claim that the visuals differ.
+    """
+    source_uses: dict[str, list[str]] = {}
+    content_uses: dict[str, list[tuple[str, str]]] = {}
+    session_root = report_html.parent.resolve()
+
+    for (kind, source_ref), anchor in trace.source_anchors.items():
+        if kind != "figure":
+            continue
+        figure = trace.figures.get(anchor.element_id)
+        if figure is None:
+            continue
+        for source in sorted(figure.image_sources):
+            source_uses.setdefault(source, []).append(source_ref)
+            parsed = urlparse(source)
+            if parsed.scheme or parsed.netloc or not parsed.path:
+                continue
+            asset_path = (report_html.parent / unquote(parsed.path)).resolve()
+            if not within(asset_path, session_root) or not asset_path.is_file():
+                continue
+            digest = hashlib.sha256(asset_path.read_bytes()).hexdigest()
+            content_uses.setdefault(digest, []).append((source_ref, source))
+
+    for source, refs in sorted(source_uses.items()):
+        unique_refs = sorted(set(refs))
+        if len(unique_refs) > 1:
+            errors.append(
+                f"distinct source figures reuse the same image src in {report_html}: "
+                f"{source} -> {[f'figure:{ref}' for ref in unique_refs]}"
+            )
+
+    for uses in content_uses.values():
+        refs = sorted({source_ref for source_ref, _ in uses})
+        sources = sorted({source for _, source in uses})
+        if len(refs) > 1 and len(sources) > 1:
+            errors.append(
+                f"distinct source figures use byte-identical image files in "
+                f"{report_html}: {sources} -> {[f'figure:{ref}' for ref in refs]}"
+            )
+
+
 def validate_font_stack_contract(
     session_dir: Path,
     session_key: str,
@@ -954,6 +1005,7 @@ def validate_metadata(site: Path, studies: dict[str, dict], errors: list[str]) -
                 errors.append(f"duplicate deck id in {deck_html}: {duplicate}")
             validate_caption_sequence(report_trace, report_html, errors)
             validate_internal_report_references(report_trace, report_html, errors)
+            validate_unique_source_figure_assets(report_trace, report_html, errors)
             if report_trace.required_figures_without_id:
                 errors.append(
                     f"{report_trace.required_figures_without_id} required report figure(s) "

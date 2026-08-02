@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -71,6 +72,44 @@ class SourceFidelityTest(unittest.TestCase):
         )
         self.assertEqual(["section:3.1"], deck.slides[0].source_refs)
         self.assertIn("3.1", deck.slides[0].text)
+
+    def test_distinct_source_figures_cannot_reuse_one_image_src(self) -> None:
+        report = validate_site.ReportDeckTraceParser()
+        report.feed(
+            '<figure class="report-figure" id="fig-3-1" '
+            'data-source-kind="figure" data-source-ref="3.1">'
+            '<img src="assets/shared.svg" alt="first"></figure>'
+            '<figure class="report-figure" id="fig-3-2" '
+            'data-source-kind="figure" data-source-ref="3.2">'
+            '<img src="assets/shared.svg" alt="second"></figure>'
+        )
+        errors: list[str] = []
+        validate_site.validate_unique_source_figure_assets(
+            report, Path("/tmp/session/report.html"), errors
+        )
+        self.assertTrue(any("reuse the same image src" in error for error in errors))
+
+    def test_renamed_byte_identical_source_figures_are_rejected(self) -> None:
+        report = validate_site.ReportDeckTraceParser()
+        report.feed(
+            '<figure class="report-figure" id="fig-3-1" '
+            'data-source-kind="figure" data-source-ref="3.1">'
+            '<img src="assets/first.svg" alt="first"></figure>'
+            '<figure class="report-figure" id="fig-3-2" '
+            'data-source-kind="figure" data-source-ref="3.2">'
+            '<img src="assets/second.svg" alt="second"></figure>'
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            assets = session / "assets"
+            assets.mkdir()
+            (assets / "first.svg").write_text("<svg/>", encoding="utf-8")
+            (assets / "second.svg").write_text("<svg/>", encoding="utf-8")
+            errors: list[str] = []
+            validate_site.validate_unique_source_figure_assets(
+                report, session / "report.html", errors
+            )
+        self.assertTrue(any("byte-identical" in error for error in errors))
 
 
 if __name__ == "__main__":

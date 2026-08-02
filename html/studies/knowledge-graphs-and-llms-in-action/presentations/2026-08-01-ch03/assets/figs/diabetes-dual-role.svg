@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-labelledby="title desc">
+  <title id="title">제1형 당뇨병이라는 이름을 질병과 표현형 문맥으로 구분하기</title>
+  <desc id="desc">제1형 당뇨병이라는 같은 이름이 독립된 질병을 뜻할 때는 OMIM 222100을, 다른 증후군에서 관찰되는 표현형 특징을 뜻할 때는 HP 0100651을 사용하며 두 그래프 개체를 합치지 않는다.</desc>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 18 14" refX="17.5" refY="7" markerWidth="18" markerHeight="14" orient="auto"><path d="M.5.5 17.5 7 .5 13.5Z" fill="#63728a"/></marker>
+    <style>text{font-family:'Inter','Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;fill:#172033}.eyebrow{font-size:13px;font-weight:800;letter-spacing:1.15px;fill:#52647d}.head{font-size:21px;font-weight:800}.small{font-size:14px;fill:#56657a}.card{fill:#fff;stroke:#b6c2d1;stroke-width:2}.line{fill:none;stroke:#63728a;stroke-width:3;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="960" height="400" rx="20" fill="#f7f8fa"/>
+  <text x="480" y="42" class="eyebrow" text-anchor="middle">SAME LABEL · DIFFERENT CLINICAL ROLE · DIFFERENT IDENTIFIER</text>
+  <rect x="330" y="68" width="300" height="82" rx="16" fill="#0f2c59"/>
+  <text x="480" y="101" class="head" text-anchor="middle" style="fill:#fff">제1형 당뇨병</text><text x="480" y="128" class="small" text-anchor="middle" style="fill:#dce6f2">문자열만으로는 역할이 정해지지 않는다</text>
+  <path class="line" d="M420 150V181C420 195 250 195 250 217"/><path class="line" d="M540 150V181C540 195 710 195 710 217"/>
+  <rect class="card" x="70" y="217" width="360" height="119" rx="17"/>
+  <text x="96" y="249" class="eyebrow">DISEASE CONTEXT</text><text x="96" y="280" class="head">독립된 질병</text><rect x="266" y="252" width="136" height="44" rx="10" fill="#e5ecf6"/><text x="334" y="280" class="head" text-anchor="middle">OMIM:222100</text><text x="96" y="317" class="small">원인·경과·치료 반응을 갖는 질병 개체</text>
+  <rect class="card" x="530" y="217" width="360" height="119" rx="17"/>
+  <text x="556" y="249" class="eyebrow">PHENOTYPE CONTEXT</text><text x="556" y="280" class="head">관찰된 특징</text><rect x="720" y="252" width="142" height="44" rx="10" fill="#e5ecf6"/><text x="791" y="280" class="head" text-anchor="middle">HP:0100651</text><text x="556" y="317" class="small">다른 증후군을 설명하는 표현형 개체</text>
+  <rect x="185" y="359" width="590" height="27" rx="13.5" fill="#f1dfdc"/><text x="480" y="378" class="small" text-anchor="middle" style="fill:#7c3f3a">이름이 같아도 두 ID를 하나의 그래프 개체로 병합하지 않는다</text>
+</svg>
