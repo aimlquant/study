@@ -20,3 +20,6 @@ tmp/
 *.mov
 *.m4a
 *.wav
+
+# 교재는 aimlquant/study-materials (private) 에서 관리한다
+/materials/
