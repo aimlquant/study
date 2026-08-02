@@ -435,6 +435,9 @@
     }
   ],
   "site": {
+    "contact_email": "restful3@gmail.com",
+    "kakao_openchat_url": "https://open.kakao.com/o/gtYt0KGi",
+    "materials_repository": "aimlquant/study-materials",
     "name": "AIML Quant",
     "name_ko": "AI·ML·Quant",
     "pages_url": "https://aimlquant.github.io/study/",
