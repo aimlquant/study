@@ -21,5 +21,6 @@ tmp/
 *.m4a
 *.wav
 
-# 교재는 aimlquant/study-materials (private) 에서 관리한다
-/materials/
+# 교재는 aimlquant/study-materials (private) 에서 관리한다.
+# 뒤에 슬래시를 붙이면 디렉터리만 매칭해 검증용 심링크가 새어나온다.
+/materials
