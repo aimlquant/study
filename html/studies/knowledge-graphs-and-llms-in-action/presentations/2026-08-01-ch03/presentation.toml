@@ -9,3 +9,5 @@ report_template = "study-report-v1"
 workflow = "raw-report-deck-v1"
 report_source = "report.html"
 artifacts = ["report", "slides"]
+source_fidelity = "source-outline-v1"
+source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md"
