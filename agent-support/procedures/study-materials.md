@@ -474,7 +474,7 @@ Makefile 타깃·액션 순서 = tasks.py 등가 · 챕터 매핑·오프셋 도
 
 ```bash
 python3 agent-support/scripts/build_site.py --check
-python3 agent-support/scripts/validate-site.py --site html --check-materials
+python3 agent-support/scripts/validate-site.py --site html
 ```
 
 ## 8. 커밋

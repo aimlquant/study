@@ -48,7 +48,7 @@ YouTube 설명의 관련 자료 링크는 위 회차 URL을 사용한다. 업로
 uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
-python3 agent-support/scripts/validate-site.py --site html --check-materials
+python3 agent-support/scripts/validate-site.py --site html
 git diff --check
 ```
 

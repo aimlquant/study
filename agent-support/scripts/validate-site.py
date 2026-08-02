@@ -20,6 +20,25 @@ SLUG_RE = re.compile(r"^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$")
 MAX_FILE_BYTES = 10 * 1024 * 1024
 MAX_SESSION_BYTES = 30 * 1024 * 1024
 SUPPORTED_ARTIFACTS = {"report", "slides"}
+SOURCE_FIDELITY_VERSION = "source-outline-v1"
+SOURCE_KINDS = {
+    "section",
+    "figure",
+    "table",
+    "listing",
+    "example",
+    "box",
+    "exercise",
+}
+SOURCE_KIND_LABELS = {
+    "section": "§",
+    "figure": "그림",
+    "table": "표",
+    "listing": "Listing",
+    "example": "예제",
+    "box": "Box",
+    "exercise": "연습문제",
+}
 CAPTION_NUMBER_RE = re.compile(r"^(그림|표)\s+([1-9][0-9]*)$")
 CAPTION_REFERENCE_GROUP_RE = re.compile(
     r"(그림|표)\s*"
@@ -82,9 +101,22 @@ class ReportReferenceTrace:
 
 
 @dataclass
+class SourceMapItemTrace:
+    kind: str
+    ref: str
+    target: str
+    text_parts: list[str] = field(default_factory=list)
+
+    @property
+    def text(self) -> str:
+        return " ".join(" ".join(self.text_parts).split())
+
+
+@dataclass
 class SlideTrace:
     label: str
     refs: list[str]
+    source_refs: list[str]
     image_sources: set[str] = field(default_factory=set)
     report_links: set[str] = field(default_factory=set)
     report_references: list[ReportReferenceTrace] = field(default_factory=list)
@@ -140,6 +172,9 @@ class ReportDeckTraceParser(HTMLParser):
         self.internal_report_references: list[ReportReferenceTrace] = []
         self.unlinked_report_text_parts: list[str] = []
         self.slides: list[SlideTrace] = []
+        self.source_map_items: dict[tuple[str, str], SourceMapItemTrace] = {}
+        self.duplicate_source_map_items: set[tuple[str, str]] = set()
+        self.invalid_source_map_items: list[str] = []
         self.deck_report_source = ""
         self._current_figure: FigureTrace | None = None
         self._current_slide: SlideTrace | None = None
@@ -151,6 +186,7 @@ class ReportDeckTraceParser(HTMLParser):
         self._caption_owner_id = ""
         self._current_table_id = ""
         self._current_report_reference: ReportReferenceTrace | None = None
+        self._current_source_map_item: SourceMapItemTrace | None = None
         self._report_text_section_depth = 0
         self._in_table_caption = False
 
@@ -171,6 +207,7 @@ class ReportDeckTraceParser(HTMLParser):
                 self._current_slide = SlideTrace(
                     label=values.get("aria-label", "").strip(),
                     refs=values.get("data-report-refs", "").split(),
+                    source_refs=values.get("data-source-refs", "").split(),
                 )
                 self._slide_section_depth = self._section_depth
                 self.slides.append(self._current_slide)
@@ -241,6 +278,23 @@ class ReportDeckTraceParser(HTMLParser):
                     self._current_report_reference
                 )
 
+        if tag == "a" and "source-map__item" in classes:
+            kind = values.get("data-source-kind", "").strip()
+            source_ref = values.get("data-source-ref", "").strip()
+            parsed = urlparse(values.get("href", "").strip())
+            target = unquote(parsed.fragment) if not parsed.path else ""
+            if kind not in SOURCE_KINDS or not source_ref or not target:
+                self.invalid_source_map_items.append(
+                    f"kind={kind!r}, ref={source_ref!r}, href={values.get('href', '')!r}"
+                )
+            else:
+                key = (kind, source_ref)
+                if key in self.source_map_items:
+                    self.duplicate_source_map_items.add(key)
+                item = SourceMapItemTrace(kind=kind, ref=source_ref, target=target)
+                self.source_map_items[key] = item
+                self._current_source_map_item = item
+
     def handle_data(self, data: str) -> None:
         if self._caption_chip_parts is not None:
             self._caption_chip_parts.append(data)
@@ -250,6 +304,8 @@ class ReportDeckTraceParser(HTMLParser):
             self._current_figure.note_parts.append(data)
         if self._current_report_reference is not None:
             self._current_report_reference.text_parts.append(data)
+        if self._current_source_map_item is not None:
+            self._current_source_map_item.text_parts.append(data)
         if self._current_slide is not None:
             self._current_slide.text_parts.append(data)
         if (
@@ -289,6 +345,7 @@ class ReportDeckTraceParser(HTMLParser):
             self._current_table_id = ""
         elif tag == "a":
             self._current_report_reference = None
+            self._current_source_map_item = None
         elif tag == "section":
             if self._section_depth == self._report_text_section_depth:
                 self._report_text_section_depth = 0
@@ -322,6 +379,173 @@ def load_toml(path: Path, errors: list[str]) -> dict:
     except tomllib.TOMLDecodeError as exc:
         errors.append(f"invalid TOML in {path}: {exc}")
     return {}
+
+
+def normalize_source_title(value: str) -> str:
+    """Normalize light Markdown used in source captions without rewriting it."""
+    value = re.sub(r"<[^>]+>", " ", value)
+    value = value.replace("\\_", "_")
+    value = re.sub(r"[`*_]", "", value)
+    return " ".join(value.strip().split())
+
+
+def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
+    """Read numbered learning coordinates from a translated/explained chapter."""
+    result: dict[tuple[str, str], str] = {}
+    current_section = "chapter"
+    exercise_counts: dict[str, int] = {}
+    section_re = re.compile(r"^#{1,6}\s+(\d+(?:\.\d+)+)\s+(.+?)\s*$")
+    named_re = re.compile(
+        r"^#{1,6}\s+(Listing|목록|Example|예제|Box|상자)\s+"
+        r"(\d+\.\d+)\s*[:—-]?\s*(.+?)\s*$",
+        re.IGNORECASE,
+    )
+    caption_re = re.compile(r"^(그림|Figure|표|Table)\s+(\d+\.\d+)\s+(.+?)\s*$")
+    exercise_re = re.compile(r"^#{1,6}\s+(?:Exercise\s*\(연습문제\)|연습문제)(?:\s*[—-]\s*)?(.+?)\s*$", re.IGNORECASE)
+
+    for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = raw_line.strip()
+        match = section_re.match(line)
+        if match:
+            current_section = match.group(1)
+            result[("section", current_section)] = normalize_source_title(match.group(2))
+            continue
+        match = named_re.match(line)
+        if match:
+            raw_kind, source_ref, title = match.groups()
+            kind = {
+                "listing": "listing",
+                "목록": "listing",
+                "example": "example",
+                "예제": "example",
+                "box": "box",
+                "상자": "box",
+            }[raw_kind.lower() if raw_kind.isascii() else raw_kind]
+            result[(kind, source_ref)] = normalize_source_title(title)
+            continue
+        match = caption_re.match(line)
+        if match:
+            raw_kind, source_ref, title = match.groups()
+            kind = "figure" if raw_kind.lower() in {"그림", "figure"} else "table"
+            result[(kind, source_ref)] = normalize_source_title(title)
+            continue
+        match = exercise_re.match(line)
+        if match:
+            exercise_counts[current_section] = exercise_counts.get(current_section, 0) + 1
+            source_ref = f"{current_section}-{exercise_counts[current_section]}"
+            result[("exercise", source_ref)] = normalize_source_title(match.group(1))
+    return result
+
+
+def validate_source_fidelity(
+    metadata: dict,
+    study: dict,
+    report_trace: ReportDeckTraceParser,
+    deck_trace: ReportDeckTraceParser,
+    report_html: Path,
+    deck_html: Path,
+    errors: list[str],
+) -> None:
+    fidelity = metadata.get("source_fidelity")
+    source_material = metadata.get("source_material")
+    if not fidelity and not source_material:
+        return
+    if fidelity != SOURCE_FIDELITY_VERSION:
+        errors.append(
+            f"source_fidelity must be {SOURCE_FIDELITY_VERSION!r} in "
+            f"{report_html.parent / 'presentation.toml'}"
+        )
+        return
+    if not isinstance(source_material, str) or not source_material:
+        errors.append(f"source_material is required for source fidelity in {report_html}")
+        return
+
+    relative = Path(source_material)
+    source_path = (REPO_ROOT / relative).resolve()
+    materials_root = (REPO_ROOT / str(study.get("materials_path", ""))).resolve()
+    if relative.is_absolute() or not within(source_path, materials_root):
+        errors.append(
+            f"source_material must remain under the study materials_path in "
+            f"{report_html}: {source_material!r}"
+        )
+        return
+    if not materials_root.is_dir():
+        # 교재는 참가자 공개 저장소에 있다. 그 저장소를 함께 체크아웃하지
+        # 않은 환경에서는 좌표 대조를 할 수 없으므로 경로 형식만 확인한다.
+        # 교재를 실제로 요구하려면 --check-materials 를 쓴다.
+        return
+    if not source_path.is_file():
+        errors.append(f"source_material does not exist for {report_html}: {source_material}")
+        return
+
+    expected = parse_source_outline(source_path)
+    actual = report_trace.source_map_items
+    if not expected:
+        errors.append(f"source_material has no traceable learning coordinates: {source_path}")
+        return
+    for item in report_trace.invalid_source_map_items:
+        errors.append(f"invalid source-map item in {report_html}: {item}")
+    for key in sorted(report_trace.duplicate_source_map_items):
+        errors.append(f"duplicate source-map item in {report_html}: {key[0]}:{key[1]}")
+
+    missing = sorted(set(expected) - set(actual))
+    extra = sorted(set(actual) - set(expected))
+    if missing:
+        errors.append(
+            f"source map is missing coordinate(s) in {report_html}: "
+            f"{[f'{kind}:{ref}' for kind, ref in missing]}"
+        )
+    if extra:
+        errors.append(
+            f"source map has unknown coordinate(s) in {report_html}: "
+            f"{[f'{kind}:{ref}' for kind, ref in extra]}"
+        )
+
+    for key in sorted(set(expected) & set(actual)):
+        item = actual[key]
+        if item.target not in report_trace.ids:
+            errors.append(
+                f"source-map target is missing in {report_html}: "
+                f"{key[0]}:{key[1]} -> #{item.target}"
+            )
+        expected_title = expected[key]
+        if expected_title not in normalize_source_title(item.text):
+            errors.append(
+                f"source-map title differs from source in {report_html}: "
+                f"{key[0]}:{key[1]} expects {expected_title!r}, found {item.text!r}"
+            )
+
+    deck_refs: set[tuple[str, str]] = set()
+    for slide in deck_trace.slides:
+        for token in slide.source_refs:
+            if ":" not in token:
+                errors.append(
+                    f"invalid data-source-refs token in {deck_html} "
+                    f"({slide.label or 'unnamed slide'}): {token!r}"
+                )
+                continue
+            kind, source_ref = token.split(":", 1)
+            key = (kind, source_ref)
+            if key not in expected:
+                errors.append(
+                    f"deck references unknown source coordinate in {deck_html} "
+                    f"({slide.label or 'unnamed slide'}): {token}"
+                )
+                continue
+            deck_refs.add(key)
+            if source_ref not in slide.text:
+                errors.append(
+                    f"deck source coordinate must be visible in {deck_html} "
+                    f"({slide.label or 'unnamed slide'}): {token}"
+                )
+
+    expected_sections = {key for key in expected if key[0] == "section"}
+    missing_deck_sections = sorted(expected_sections - deck_refs)
+    if missing_deck_sections:
+        errors.append(
+            f"deck does not cover source section coordinate(s) in {deck_html}: "
+            f"{[f'{kind}:{ref}' for kind, ref in missing_deck_sections]}"
+        )
 
 
 def within(path: Path, parent: Path) -> bool:
@@ -584,6 +808,23 @@ def validate_registry(
     return result
 
 
+RAW_MATERIALS_LINK_RE = re.compile(
+    r"https://github\.com/[^\"'\s]+/(?:blob|tree)/[^\"'\s]+/materials/"
+)
+
+
+def validate_materials_links(site: Path, errors: list[str]) -> None:
+    """교재는 참가자 공개 저장소에 있으므로 raw GitHub 링크는 외부 방문자에게
+    404가 된다. 발표자료는 안내 페이지(`/materials/?p=...`)를 거쳐야 한다."""
+    for html_path in sorted(site.glob("studies/*/presentations/*/*.html")):
+        text = html_path.read_text(encoding="utf-8", errors="replace")
+        for match in RAW_MATERIALS_LINK_RE.findall(text):
+            errors.append(
+                f"textbook link must go through the invitation page "
+                f"(../../../../materials/?p=...) in {html_path}: {match}"
+            )
+
+
 def validate_metadata(site: Path, studies: dict[str, dict], errors: list[str]) -> None:
     seen: set[tuple[str, str]] = set()
     for metadata_path in sorted(
@@ -681,6 +922,16 @@ def validate_metadata(site: Path, studies: dict[str, dict], errors: list[str]) -
             report_trace.feed(report_html.read_text(encoding="utf-8", errors="replace"))
             deck_trace = ReportDeckTraceParser()
             deck_trace.feed(deck_html.read_text(encoding="utf-8", errors="replace"))
+
+            validate_source_fidelity(
+                metadata,
+                studies[study_id],
+                report_trace,
+                deck_trace,
+                report_html,
+                deck_html,
+                errors,
+            )
 
             for duplicate in sorted(report_trace.duplicate_ids):
                 errors.append(f"duplicate report id in {report_html}: {duplicate}")
@@ -960,6 +1211,7 @@ def main() -> int:
         registry, site, args.check_materials, errors
     )
     validate_metadata(site, studies, errors)
+    validate_materials_links(site, errors)
     validate_html(site, errors, warnings)
 
     for warning in warnings:
