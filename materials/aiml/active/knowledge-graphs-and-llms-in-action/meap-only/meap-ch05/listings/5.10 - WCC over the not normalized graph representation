@@ -1,3 +1,0 @@
-CALL gds.wcc.stream('not-normalized')
-YIELD nodeId,componentId
-RETURN componentId  AS subgraph, count(nodeId) AS componentSize

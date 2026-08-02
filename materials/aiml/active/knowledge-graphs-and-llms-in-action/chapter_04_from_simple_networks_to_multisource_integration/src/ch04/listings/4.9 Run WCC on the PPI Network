@@ -1,2 +1,0 @@
-CALL gds.wcc.write('ppi-graph', { writeProperty: 'componentId' })
-YIELD nodePropertiesWritten, componentCount, componentDistribution;

@@ -1,3 +1,0 @@
-CALL gds.allShortestPaths.stream('NormalizedDiseaseDistance',{})
-YIELD distance
-RETURN distinct distance, count(distance) AS Count

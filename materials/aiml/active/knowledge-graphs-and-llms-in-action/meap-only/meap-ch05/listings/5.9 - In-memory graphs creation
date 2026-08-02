@@ -1,9 +1,0 @@
-CALL gds.graph.project(
-"not-normalized",
-["MiRNA","Disease"],
-["REGULATES","RELATED_TO"]);
-
-CALL gds.graph.project(
-"normalized",
-["MiRNA","Disease","NormalizedDisease"],
-["REGULATES","RELATED_TO","REPRESENTS"])

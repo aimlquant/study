@@ -1,4 +1,0 @@
-MATCH path = (d:Disease)<-[:REGULATES|RELATED_TO]-(m)-[:HAS_TARGET]->(t)
-WHERE d.name = 'celiac disease'
-  AND t.name = 'NM_080601'
-RETURN path

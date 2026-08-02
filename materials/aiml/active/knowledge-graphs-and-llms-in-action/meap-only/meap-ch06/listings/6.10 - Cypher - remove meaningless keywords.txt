@@ -1,3 +1,0 @@
-MATCH (k:Keyword)
-WHERE k.name IN ["first", "second", "third", "last", "last year", "last month"]
-DETACH DELETE k
