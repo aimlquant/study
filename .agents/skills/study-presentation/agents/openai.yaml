@@ -1,4 +1,4 @@
 interface:
   display_name: "스터디 리포트·발표자료"
   short_description: "Build source-aligned study reports and presentations"
-  default_prompt: "Use $study-presentation to rebuild my study report and slide deck from the source so the report body itself preserves every section and asset coordinate in source order."
+  default_prompt: "Use $study-presentation to audit the source, rebuild the report body around exact learning coordinates, derive the deck, and pass source-fidelity and render gates."

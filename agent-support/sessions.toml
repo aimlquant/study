@@ -28,8 +28,6 @@ artifacts = [
   { kind = "slides", label = "Chapter 1 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/" },
   { kind = "report", label = "Chapter 2 상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/report.html" },
   { kind = "slides", label = "Chapter 2 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/" },
-  { kind = "report", label = "Chapter 1–2 합본 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/report.html" },
-  { kind = "slides", label = "Chapter 1–2 합본 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/" },
 ]
 
 [[sessions]]
