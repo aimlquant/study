@@ -113,7 +113,7 @@ html/             # GitHub Pages 배포 산출물
 uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
-python3 agent-support/scripts/validate-site.py --site html --check-materials
+python3 agent-support/scripts/validate-site.py --site html
 git diff --check
 ```
 

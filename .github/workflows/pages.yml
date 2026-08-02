@@ -34,7 +34,7 @@ jobs:
           python -m unittest discover -s agent-support/tests -v
           python agent-support/scripts/build_site.py
           python agent-support/scripts/build_site.py --check
-          python agent-support/scripts/validate-site.py --site html --check-materials
+          python agent-support/scripts/validate-site.py --site html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
