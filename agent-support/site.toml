@@ -3,8 +3,8 @@ schema_version = 1
 [site]
 name = "AIML Quant"
 name_ko = "AI·ML·Quant"
-repository = "restful3/aimlquant"
-pages_url = "https://restful3.github.io/aimlquant/"
+repository = "aimlquant/aimlquant.github.io"
+pages_url = "https://aimlquant.github.io/"
 youtube_channel_id = "UCFCw_lSFRhco6h25cXiFecw"
 youtube_handle = "@aimlquant"
 youtube_url = "https://www.youtube.com/@aimlquant"
