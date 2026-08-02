@@ -30,6 +30,23 @@
     return (h.textContent || '').replace(/\s+/g, ' ').trim();
   }
 
+  // External CSS and fonts can change the document height after Chrome's first
+  // fragment jump. Re-apply the deep link once the final report layout exists.
+  function restoreFragmentPosition() {
+    if (!window.location.hash || window.location.hash.length < 2) return;
+    var id;
+    try { id = decodeURIComponent(window.location.hash.slice(1)); }
+    catch (error) { id = window.location.hash.slice(1); }
+    var target = document.getElementById(id);
+    if (!target) return;
+    window.scrollTo(0, 0);
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        target.scrollIntoView({ block: 'start', inline: 'nearest' });
+      });
+    });
+  }
+
   function ensureHeadingId(h, idx) {
     if (h.id) return h.id;
     h.id = 'toc-heading-' + idx;
@@ -847,5 +864,6 @@
     setupImageLightbox();
     setupObserver();
     window.buildCharts();
+    window.setTimeout(restoreFragmentPosition, 100);
   });
 })();
