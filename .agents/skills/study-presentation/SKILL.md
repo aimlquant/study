@@ -5,7 +5,7 @@ description: Create, revise, review, and prepare paired long-form HTML reports a
 
 # Study Presentation
 
-Read `AGENTS.md`, `agent-support/studies.toml`, and `agent-support/procedures/study-presentation.md` completely before changing presentation files. Those files are the canonical rules and workflow; do not duplicate or override them here.
+Read `AGENTS.md`, `agent-support/studies.toml`, and `agent-support/procedures/study-presentation.md` completely before changing presentation files. Those files are the shared source of truth for Claude Code and Codex; do not duplicate or override them here.
 
 Use the registry to resolve the current learning-material path. It points under
 `materials/<track>/active/` for an active study or
@@ -36,4 +36,4 @@ python3 agent-support/scripts/build_site.py --check
 python3 agent-support/scripts/validate-site.py --check-materials
 ```
 
-Inspect both the rendered report and presentation in a browser when visual behavior matters. For Korean long-form text, verify at the actual desktop, narrow-mobile, and print widths that line wrapping keeps words intact (`word-break: keep-all` with an overflow fallback where appropriate); a clean DOM is not evidence that Korean words are not splitting on screen. Prepare local changes by default; commit, push, open a PR, or change Pages settings only when the user explicitly requests that external action.
+Inspect both the rendered report and presentation in a browser when visual behavior matters. For Korean long-form text, verify at the actual desktop, narrow-mobile, and print widths that line wrapping keeps words intact (`word-break: keep-all` with an overflow fallback where appropriate); a clean DOM is not evidence that Korean words are not splitting on screen. Prepare changes locally by default, and perform commits, pushes, PR creation, or Pages setting changes only when the user explicitly requests them.
