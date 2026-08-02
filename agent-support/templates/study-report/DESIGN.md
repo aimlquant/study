@@ -26,16 +26,12 @@
 ## 표준 정보 구조
 
 1. .report-cover — 워드마크, 챕터, 제목, 부제, 발표자·범위·일시.
-2. Section 00 · Summary — 한 문장 결론, 핵심 질문, 장 전체 논리표.
-3. Section 01 · Context & Concept — 배경, 정의, 구성요소와 관계.
-4. Section 02 · Mechanism — 이전/이후, 입력–변환–검증–결과.
-5. Section 03 · Operating Model — 역할 분담, 반복 루프, 사람의 승인 지점.
-6. Section 04 · Evidence & Limits — 근거, 조건, 실패 모드와 반증 신호.
-7. Section 05 · Cases — 문제–역할–결과–실패 경계로 읽는 사례.
-8. Section 06 · Decision — 적합/비적합 신호, 작은 실험과 중단 기준.
-9. .report-appendix — 용어, 참고문헌, 그림 출처.
+2. Section 00 · Summary — 한 문장 결론, 핵심 질문, 장 전체 논리표, 원본 학습 좌표.
+3. Source Sections — 교재의 장·절 순서와 번호·번역 제목을 그대로 사용한 본문.
+4. AIML Quant Supplements — 재현 감사, 운영 보강과 도입 판단처럼 원본 범위를 넘는 내용.
+5. .report-appendix — 용어, 참고문헌, 그림 출처.
 
-교재의 논리가 더 짧으면 인접 섹션을 합칠 수 있다. 다만 `문제 → 개념 → 메커니즘 → 운영 → 근거/한계 → 사례 → 판단` 중 빠진 축이 없는지 확인한다. 자동 목차는 각 `.report-section`의 직접 자식 `h1`과 본문 `h3`에서 생성되므로 제목 계층을 임의로 건너뛰지 않는다.
+원본 절을 합치거나 순서를 바꾸지 않는다. `문제 → 개념 → 메커니즘 → 운영 → 근거/한계 → 사례 → 판단`은 각 절의 설명 누락을 찾는 체크리스트로만 쓴다. 자동 목차는 각 `.report-section`의 직접 자식 `h1`과 본문 `h3`에서 생성되므로 원본 제목 계층을 유지한다.
 
 본문 섹션마다 가능하면 다음 순서를 사용한다.
 
@@ -64,7 +60,7 @@
 <caption class="cmp-table__caption asset-caption asset-caption--table">
   <div class="asset-caption__inner">
     <span class="asset-caption__chip">표 1</span>
-    <span class="asset-caption__title">제목</span>
+    <span class="asset-caption__title">교재 표 N 해설 · 제목</span>
   </div>
 </caption>
 ~~~
@@ -80,7 +76,7 @@
 <figure class="report-figure" id="fig-example" data-deck-use="required">
   <figcaption class="asset-caption asset-caption--figure">
     <span class="asset-caption__chip">그림 1</span>
-    <span class="asset-caption__title">제목</span>
+    <span class="asset-caption__title">교재 그림 N 해설 · 제목</span>
   </figcaption>
   <img src="assets/figs/example.svg" alt="도형이 전달하는 관계를 설명">
   <small class="asset-note">재구성 범위와 출처.</small>
@@ -97,7 +93,9 @@ SVG는 차트·관계도·플로우·타임라인에만 사용한다. 사람·�
 
 ## 품질 기준
 
-- 본문은 책의 목차를 빠짐없이 따라가되 원문을 길게 복제하지 않는다.
+- 본문은 책의 목차·번호·제목·순서를 빠짐없이 따르되 원문을 길게 복제하지 않는다. 자체 재구성 제목으로 원본 절 제목을 대체하지 않는다.
+- 핵심 요약의 원본 학습 좌표는 원본 절·그림·표·Listing·Example·Box·연습문제를 전수 열거하고 실제 본문 anchor로 연결한다.
+- 리포트 자체 그림·표 번호와 `교재 그림 3.1`, `교재 표 3.2` 같은 원본 번호를 한 캡션에서 명확히 구분한다.
 - 각 핵심 주장에는 정의, 작동 방식, 한계 또는 판단 기준 중 최소 두 가지가 따라야 한다.
 - 한 챕터 리포트에는 원칙적으로 6–10개의 의미 있는 도형/표를 제공하고 각 주요 논리 전환에 최소 하나의 시각적 근거를 둔다. 자료가 시각화에 적합하지 않으면 억지로 채우지 말고 이유를 기록한다.
 - 그림과 표 번호는 각 종류별로 1부터 중복·누락 없이 증가시킨다.
