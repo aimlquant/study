@@ -19,7 +19,7 @@ Before editing, read:
 5. `agent-support/procedures/study-lifecycle.md`
 
 Treat `agent-support/sessions.toml` as the public session registry. Keep private
-upload state in the separate private `ai-odyssey` operations repository.
+upload state in the separate private `aimlquant-media` operations repository.
 
 ## Choose the lifecycle transition
 

@@ -32,7 +32,7 @@ GitHub는 저장소 이름 변경 시 project Pages URL을 자동 리디렉션�
 
 ## 3. 영상 설명에서 Pages로 연결
 
-비공개 `ai-odyssey` 운영 저장소의 업로드 단위에 같은 `session_id`를 사용한다.
+비공개 `aimlquant-media` 운영 저장소의 업로드 단위에 같은 `session_id`를 사용한다.
 YouTube 설명의 관련 자료 링크는 위 회차 URL을 사용한다. 업로드 준비·비공개·일부공개
 단계의 video ID는 공개 저장소로 복사하지 않는다.
 
