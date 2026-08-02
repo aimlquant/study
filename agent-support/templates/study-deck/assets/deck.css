@@ -1371,6 +1371,35 @@ body.chrome-hidden .deck-settings {
 .deck-report-figure figcaption b { color: #fff; background: var(--primary-deep); text-align: center; }
 .deck-report-figure figcaption span { color: var(--muted); }
 
+.slide > h1.source-title {
+  max-width: 1160px;
+  font-size: 40px;
+  line-height: 1.14;
+  letter-spacing: -0.04em;
+}
+
+.slide--section h1.source-title {
+  max-width: 1080px;
+  font-size: 54px;
+  line-height: 1.12;
+}
+
+.slide--visual > .lead {
+  max-width: 1140px;
+  margin-top: 9px;
+  font-size: 16px;
+  line-height: 1.38;
+}
+
+.slide--visual--compact .deck-report-figure img {
+  max-height: 370px;
+}
+
+.deck-report-figure figcaption span strong {
+  color: var(--text);
+  font-weight: 850;
+}
+
 .compare-table--dense th,
 .compare-table--dense td { padding: 13px 16px; font-size: 15px; line-height: 1.35; }
 
