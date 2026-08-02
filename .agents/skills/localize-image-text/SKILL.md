@@ -31,7 +31,8 @@ generative image editing when unchanged pixels, exact identifiers, or connector 
 3. Create one JSON localization spec per image. Use `extends` and variables only after comparing
    the actual pixel geometry of every repeated layout. If boxes, labels, or crop boundaries moved,
    use a standalone spec for that sibling instead of relying on proportional scaling.
-   Read [spec-format.md](references/spec-format.md) when authoring a new spec.
+   Read [spec-format.md](.agents/skills/localize-image-text/references/spec-format.md) when
+   authoring a new spec.
    When reviewed siblings share the same geometry and differ only in active/inactive text color,
    add a `group` key to base text operations and generate each sibling explicitly:
 
@@ -61,8 +62,8 @@ generative image editing when unchanged pixels, exact identifiers, or connector 
    ```
 
 6. Inspect the rendered pixels, not only the spec. Apply every gate in
-   [quality-gates.md](references/quality-gates.md). Fix one defect class across sibling figures,
-   rerender, and reinspect.
+   [quality-gates.md](.agents/skills/localize-image-text/references/quality-gates.md). Fix one
+   defect class across sibling figures, rerender, and reinspect.
 7. Preserve the source asset. Point only localized documents at the localized PNG. Keep an
    editable spec beside the outputs.
 
@@ -82,7 +83,8 @@ generative image editing when unchanged pixels, exact identifiers, or connector 
 ## Iteration discipline
 
 After applying the skill to a real batch, record newly observed failure modes in
-`references/quality-gates.md` and, when enforceable, add the check to `scripts/render.py`.
+`.agents/skills/localize-image-text/references/quality-gates.md` and, when enforceable, add the
+check to `.agents/skills/localize-image-text/scripts/render.py`.
 Validate the skill after every material update:
 
 ```bash
