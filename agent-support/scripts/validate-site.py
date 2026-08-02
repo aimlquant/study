@@ -20,7 +20,7 @@ SLUG_RE = re.compile(r"^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$")
 MAX_FILE_BYTES = 10 * 1024 * 1024
 MAX_SESSION_BYTES = 30 * 1024 * 1024
 SUPPORTED_ARTIFACTS = {"report", "slides"}
-SOURCE_FIDELITY_VERSION = "source-outline-v1"
+SOURCE_FIDELITY_VERSION = "source-structure-v1"
 SOURCE_KINDS = {
     "section",
     "figure",
@@ -101,10 +101,11 @@ class ReportReferenceTrace:
 
 
 @dataclass
-class SourceMapItemTrace:
+class SourceAnchorTrace:
     kind: str
     ref: str
-    target: str
+    element_id: str
+    tag: str
     text_parts: list[str] = field(default_factory=list)
 
     @property
@@ -172,9 +173,10 @@ class ReportDeckTraceParser(HTMLParser):
         self.internal_report_references: list[ReportReferenceTrace] = []
         self.unlinked_report_text_parts: list[str] = []
         self.slides: list[SlideTrace] = []
-        self.source_map_items: dict[tuple[str, str], SourceMapItemTrace] = {}
-        self.duplicate_source_map_items: set[tuple[str, str]] = set()
-        self.invalid_source_map_items: list[str] = []
+        self.source_anchors: dict[tuple[str, str], SourceAnchorTrace] = {}
+        self.source_anchor_order: list[tuple[str, str]] = []
+        self.duplicate_source_anchors: set[tuple[str, str]] = set()
+        self.invalid_source_anchors: list[str] = []
         self.deck_report_source = ""
         self._current_figure: FigureTrace | None = None
         self._current_slide: SlideTrace | None = None
@@ -186,7 +188,7 @@ class ReportDeckTraceParser(HTMLParser):
         self._caption_owner_id = ""
         self._current_table_id = ""
         self._current_report_reference: ReportReferenceTrace | None = None
-        self._current_source_map_item: SourceMapItemTrace | None = None
+        self._active_source_anchors: list[tuple[str, SourceAnchorTrace]] = []
         self._report_text_section_depth = 0
         self._in_table_caption = False
 
@@ -198,6 +200,28 @@ class ReportDeckTraceParser(HTMLParser):
             if element_id in self.ids:
                 self.duplicate_ids.add(element_id)
             self.ids.add(element_id)
+
+        source_kind = values.get("data-source-kind", "").strip()
+        source_ref = values.get("data-source-ref", "").strip()
+        if source_kind or source_ref:
+            if source_kind not in SOURCE_KINDS or not source_ref or not element_id:
+                self.invalid_source_anchors.append(
+                    f"tag={tag!r}, id={element_id!r}, kind={source_kind!r}, "
+                    f"ref={source_ref!r}"
+                )
+            else:
+                key = (source_kind, source_ref)
+                if key in self.source_anchors:
+                    self.duplicate_source_anchors.add(key)
+                trace = SourceAnchorTrace(
+                    kind=source_kind,
+                    ref=source_ref,
+                    element_id=element_id,
+                    tag=tag,
+                )
+                self.source_anchors[key] = trace
+                self.source_anchor_order.append(key)
+                self._active_source_anchors.append((tag, trace))
 
         if tag == "main" and values.get("data-report-source"):
             self.deck_report_source = values["data-report-source"].strip()
@@ -278,23 +302,6 @@ class ReportDeckTraceParser(HTMLParser):
                     self._current_report_reference
                 )
 
-        if tag == "a" and "source-map__item" in classes:
-            kind = values.get("data-source-kind", "").strip()
-            source_ref = values.get("data-source-ref", "").strip()
-            parsed = urlparse(values.get("href", "").strip())
-            target = unquote(parsed.fragment) if not parsed.path else ""
-            if kind not in SOURCE_KINDS or not source_ref or not target:
-                self.invalid_source_map_items.append(
-                    f"kind={kind!r}, ref={source_ref!r}, href={values.get('href', '')!r}"
-                )
-            else:
-                key = (kind, source_ref)
-                if key in self.source_map_items:
-                    self.duplicate_source_map_items.add(key)
-                item = SourceMapItemTrace(kind=kind, ref=source_ref, target=target)
-                self.source_map_items[key] = item
-                self._current_source_map_item = item
-
     def handle_data(self, data: str) -> None:
         if self._caption_chip_parts is not None:
             self._caption_chip_parts.append(data)
@@ -304,8 +311,8 @@ class ReportDeckTraceParser(HTMLParser):
             self._current_figure.note_parts.append(data)
         if self._current_report_reference is not None:
             self._current_report_reference.text_parts.append(data)
-        if self._current_source_map_item is not None:
-            self._current_source_map_item.text_parts.append(data)
+        for _, source_anchor in self._active_source_anchors:
+            source_anchor.text_parts.append(data)
         if self._current_slide is not None:
             self._current_slide.text_parts.append(data)
         if (
@@ -345,7 +352,6 @@ class ReportDeckTraceParser(HTMLParser):
             self._current_table_id = ""
         elif tag == "a":
             self._current_report_reference = None
-            self._current_source_map_item = None
         elif tag == "section":
             if self._section_depth == self._report_text_section_depth:
                 self._report_text_section_depth = 0
@@ -356,6 +362,12 @@ class ReportDeckTraceParser(HTMLParser):
                 self._current_slide = None
                 self._slide_section_depth = 0
             self._section_depth = max(0, self._section_depth - 1)
+
+        for index in range(len(self._active_source_anchors) - 1, -1, -1):
+            source_tag, _ = self._active_source_anchors[index]
+            if source_tag == tag:
+                del self._active_source_anchors[index]
+                break
 
 
 def parse_args() -> argparse.Namespace:
@@ -479,41 +491,44 @@ def validate_source_fidelity(
         return
 
     expected = parse_source_outline(source_path)
-    actual = report_trace.source_map_items
+    actual = report_trace.source_anchors
     if not expected:
         errors.append(f"source_material has no traceable learning coordinates: {source_path}")
         return
-    for item in report_trace.invalid_source_map_items:
-        errors.append(f"invalid source-map item in {report_html}: {item}")
-    for key in sorted(report_trace.duplicate_source_map_items):
-        errors.append(f"duplicate source-map item in {report_html}: {key[0]}:{key[1]}")
+    for item in report_trace.invalid_source_anchors:
+        errors.append(f"invalid source anchor in {report_html}: {item}")
+    for key in sorted(report_trace.duplicate_source_anchors):
+        errors.append(f"duplicate source anchor in {report_html}: {key[0]}:{key[1]}")
 
     missing = sorted(set(expected) - set(actual))
     extra = sorted(set(actual) - set(expected))
     if missing:
         errors.append(
-            f"source map is missing coordinate(s) in {report_html}: "
+            f"report structure is missing coordinate(s) in {report_html}: "
             f"{[f'{kind}:{ref}' for kind, ref in missing]}"
         )
     if extra:
         errors.append(
-            f"source map has unknown coordinate(s) in {report_html}: "
+            f"report structure has unknown coordinate(s) in {report_html}: "
             f"{[f'{kind}:{ref}' for kind, ref in extra]}"
         )
 
     for key in sorted(set(expected) & set(actual)):
         item = actual[key]
-        if item.target not in report_trace.ids:
-            errors.append(
-                f"source-map target is missing in {report_html}: "
-                f"{key[0]}:{key[1]} -> #{item.target}"
-            )
         expected_title = expected[key]
         if expected_title not in normalize_source_title(item.text):
             errors.append(
-                f"source-map title differs from source in {report_html}: "
+                f"source anchor title differs from source in {report_html}: "
                 f"{key[0]}:{key[1]} expects {expected_title!r}, found {item.text!r}"
             )
+
+    expected_order = list(expected)
+    actual_order = [key for key in report_trace.source_anchor_order if key in expected]
+    if not missing and not extra and actual_order != expected_order:
+        errors.append(
+            f"report source coordinates are out of source order in {report_html}: "
+            f"{[f'{kind}:{ref}' for kind, ref in actual_order]}"
+        )
 
     deck_refs: set[tuple[str, str]] = set()
     for slide in deck_trace.slides:

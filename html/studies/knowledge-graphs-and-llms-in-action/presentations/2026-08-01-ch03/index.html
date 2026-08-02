@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Knowledge Graphs and LLMs in Action Chapter 3 온톨로지 기반 HPO 지식 그래프 구축 발표자료">
-  <title>온톨로지로 첫 지식 그래프 만들기</title>
+  <meta name="description" content="Knowledge Graphs and LLMs in Action Chapter 3 원본 흐름을 따라 새로 만든 발표자료">
+  <title>온톨로지로 첫 번째 지식 그래프 만들기</title>
   <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/deck.css">
   <link rel="stylesheet" href="assets/katex/katex.min.css">
@@ -24,11 +24,11 @@
 
   <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
     <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
-      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">REPORT → PRESENTATION</span></header>
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">SOURCE → REPORT → PRESENTATION</span></header>
       <div class="cover-hero">
         <p class="eyebrow">Knowledge Graphs &amp; LLMs in Action · Chapter 03</p>
-        <h1>온톨로지로 첫<br>지식 그래프 만들기</h1>
-        <p class="cover-subtitle">임상 질문에서 HPO 그래프·질의·추론까지</p>
+        <h1>온톨로지로 첫 번째<br>지식 그래프 만들기</h1>
+        <p class="cover-subtitle">원본 §3.1–§3.5를 따라가는 HPO 구축·질의·추론</p>
       </div>
       <dl class="cover-meta">
         <div><dt>발표자</dt><dd>태영</dd></div>
@@ -37,517 +37,365 @@
       </dl>
     </section>
 
-    <section class="slide" aria-label="핵심 질문" data-report-refs="summary table-overview">
+    <section class="slide" aria-label="이 장의 핵심 질문" data-report-refs="summary table-overview">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
-      <h1>데이터를 연결했다고, 의미까지 연결된 걸까?</h1>
-      <p class="lead">희귀질환 후보를 찾으려면 형식 통합보다 먼저 질문·표준 의미·연결 근거를 고정해야 합니다.</p>
+      <h1>관찰한 표현형에서 검토할 질병 후보까지, 무엇을 보존해야 할까?</h1>
+      <p class="lead">3장은 온톨로지 설명이 아니라 실제 HPO 지식 그래프를 완성하는 한 사이클입니다.</p>
       <div class="slide-body">
         <div class="two-col">
-          <article class="panel"><p class="eyebrow">RAW INTEGRATION</p><h2>형식만 맞춘 데이터</h2><ul><li>같은 개념이 여러 이름으로 흩어짐</li><li>같은 약어가 서로 다른 뜻을 가짐</li><li>연결의 출처와 증거를 잃기 쉬움</li></ul></article>
-          <article class="panel panel--accent"><p class="eyebrow">ONTOLOGY-GROUNDED KG</p><h2>질문에 답하는 지식</h2><ul><li>표준 ID와 계층으로 의미 정렬</li><li>질병–표현형 관계에 근거 보존</li><li>직접 연결과 추론 경로를 구분</li></ul></article>
+          <article class="panel"><p class="eyebrow">INPUT</p><h2>두 종류의 HPO 지식</h2><ul><li><code>hp.owl</code>: 표현형 개념과 계층</li><li><code>phenotype.hpoa</code>: 질병–표현형 주석</li><li>표준 ID로 서로 다른 형식을 연결</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">OUTPUT</p><h2>근거를 검토할 수 있는 후보</h2><ul><li>공유 표현형으로 후보 질병 탐색</li><li>관계의 출처·증거·작성일 확인</li><li>직접 사실과 계층 추론을 구분</li></ul></article>
         </div>
-        <p class="takeaway"><strong>오늘의 질문</strong> — 어떤 설계 순서가 그래프를 “저장소”에서 “검토 가능한 임상 지원 도구”로 바꾸는가?</p>
+        <p class="takeaway"><strong>핵심</strong> — 그래프의 가치는 연결 개수가 아니라 연결의 의미와 근거를 다시 설명할 수 있는 데 있습니다.</p>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 리포트 §0 · 핵심 요약</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 리포트 §0 · 이 장의 질문</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="오늘의 흐름" data-report-refs="summary table-overview">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
-      <h1>질문에서 근거 있는 후보까지, 다섯 결정을 따라간다</h1>
-      <p class="lead">도구 기능이 아니라 각 단계가 남겨야 할 검증 산출물을 중심으로 봅니다.</p>
+    <section class="slide" aria-label="교재의 학습 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ROADMAP</span></header>
+      <h1>교재의 다섯 절을 나온 순서대로 따라간다</h1>
+      <p class="lead">각 절의 문제와 산출물이 다음 절의 입력이 되는 연결을 봅니다.</p>
       <div class="slide-body">
-        <div class="flow">
-          <article class="flow__step"><span>01</span><h2>§3.1 문제·데이터</h2><p>임상 질문과 HPO 두 원천</p></article><b class="flow__arrow" aria-hidden="true">→</b>
-          <article class="flow__step"><span>02</span><h2>§3.2–3.3 모델·적재</h2><p>RDF/LPG 선택과 두 원천 결합</p></article><b class="flow__arrow" aria-hidden="true">→</b>
-          <article class="flow__step"><span>03</span><h2>§3.4–3.5 질의·추론</h2><p>후보 경로와 계층적 포함</p></article>
+        <div class="hybrid-loop">
+          <article><span>1</span><strong>§3.1</strong><small>문제·도메인·데이터</small></article><b>→</b>
+          <article><span>2</span><strong>§3.2</strong><small>RDF와 LPG 선택</small></article><b>→</b>
+          <article><span>3</span><strong>§3.3</strong><small>온톨로지·주석 적재</small></article><b>→</b>
+          <article><span>4</span><strong>§3.4</strong><small>후보 질의</small></article><b>→</b>
+          <article class="hybrid-loop__focus"><span>5</span><strong>§3.5</strong><small>계층 추론</small></article>
         </div>
-        <p class="takeaway"><strong>마지막 결정</strong> — 버전·주석·추론·임상 판단의 경계를 어디에서 검증할 것인가.</p>
+        <p class="takeaway"><strong>보충은 마지막</strong> — 원본 §3.5까지 끝낸 뒤에만 재실행 차이와 임상 안전 경계를 덧붙입니다.</p>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-overview">상세 리포트 표 1 · 전체 논리</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-overview">상세 리포트 표 1 · Chapter 3의 학습 흐름</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="문제와 의미 섹션" data-report-refs="problem-domain fig-semantic-bridge table-domain-contract" data-source-refs="section:3.1 section:3.1.1">
-      <p class="eyebrow">교재 §3.1 · §3.1.1 · PROBLEM &amp; DOMAIN</p><h1>그래프보다 먼저 임상 질문을 고정한다</h1><p>형식이 아니라 의미 이질성을 해결할 공통 좌표를 만든다</p><span class="section-number">01</span>
-    </section>
-
-    <section class="slide slide--visual" aria-label="온톨로지가 만드는 의미 다리" data-report-refs="problem-domain semantic-heterogeneity fig-semantic-bridge">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1 · 그림 3.3–3.5</span></header>
-      <h1>온톨로지는 서로 다른 표현을 같은 의미 좌표에 놓는다</h1>
+    <section class="slide slide--visual" aria-label="교재의 전체 구축 모델" data-report-refs="summary source-figure-3-1 source-figure-3-2" data-source-refs="figure:3.1 figure:3.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.1 · 3.2</span></header>
+      <h1>CRISP-DM을 지식 그래프 구축의 질문으로 구체화한다</h1>
       <div class="slide-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/semantic-bridge.svg" alt="동의어, 중의적 약어, 서로 다른 세분성이 HPO 표준 식별자와 계층을 거쳐 통합 질의 공간으로 정렬되는 구조">
-          <figcaption><b>형식 통합 다음의 문제</b><span>동의어는 같은 개념으로 모은다</span><span>중의어는 문맥별 개념으로 나눈다</span><span>세분성은 계층 관계로 보존한다</span></figcaption>
+          <img src="assets/figs/build-pipeline.svg" alt="임상 질문에서 데이터 이해, 기술 선택, 온톨로지와 주석 적재, 정리, 질의로 이어지는 구축 과정">
+          <figcaption><b>교재 그림 3.1·3.2의 공통 흐름</b><span>비즈니스 목표에서 시작</span><span>데이터·기술·모델을 순서대로 결정</span><span>질의 결과로 다시 검증</span></figcaption>
         </figure>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-semantic-bridge">상세 리포트 그림 1 · 의미 다리</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-1">상세 리포트 그림 1 · CRISP-DM 구축 과정</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="임상의에게 필요한 그래프 계약" data-report-refs="problem-domain clinician-question table-domain-contract">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1.1 · DOMAIN</span></header>
-      <h1>목표는 자동 진단이 아니라 검토 가능한 후보 탐색이다</h1>
-      <p class="lead">같은 “당뇨병”도 질병과 표현형이라는 서로 다른 역할을 가질 수 있습니다.</p>
+    <section class="slide slide--section" aria-label="교재 3.1 섹션" data-report-refs="source-section-3-1 source-section-3-1-1 source-section-3-1-2" data-source-refs="section:3.1 section:3.1.1 section:3.1.2">
+      <p class="eyebrow">교재 §3.1 · §3.1.1 · §3.1.2</p><h1>문제와 도메인을 먼저 이해한다</h1><p>임상의의 질문과 HPO 두 원천을 그래프 계약으로 바꾼다</p><span class="section-number">01</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="도메인 이해와 문맥 식별자" data-report-refs="source-section-3-1 source-section-3-1-1 source-figure-3-3 source-figure-3-4" data-source-refs="figure:3.3 figure:3.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1.1 · 그림 3.3 · 3.4</span></header>
+      <h1>같은 이름도 문맥이 다르면 다른 개념이다</h1>
+      <div class="slide-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/semantic-bridge.svg" alt="서로 다른 임상 표현을 표준 HPO 개념으로 정렬하고 같은 이름의 질병과 표현형을 구분하는 구조">
+          <figcaption><b>도메인 이해가 만드는 의미 좌표</b><span>동의어는 같은 개념으로 정렬</span><span>중의어는 문맥별 개념으로 분리</span><span>제1형 당뇨병은 질병 ID와 표현형 ID를 구분</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-4">상세 리포트 · 교재 그림 3.4 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="HPO의 두 데이터 원천" data-report-refs="source-section-3-1 source-section-3-1-2 source-figure-3-5 source-listing-3-1 source-listing-3-2 source-listing-3-3 source-listing-3-4" data-source-refs="figure:3.5 listing:3.1 listing:3.2 listing:3.3 listing:3.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1.2 · 그림 3.5 · Listing 3.1 · 3.2 · 3.3 · 3.4</span></header>
+      <h1>HPO의 ‘의미’와 ‘관찰 근거’는 서로 다른 파일에 있다</h1>
+      <div class="slide-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/two-sources-one-graph.svg" alt="hp.owl의 표현형 정의와 계층, phenotype.hpoa의 질병 표현형 주석과 근거가 표준 ID로 결합되는 구조">
+          <figcaption><b>두 원천, 두 책임</b><span><code>hp.owl</code>: ID·이름·정의·동의어·계층</span><span><code>phenotype.hpoa</code>: 질병 연관·출처·증거·큐레이션</span><span><code>HP:...</code> 표준 ID가 결합 키</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-5">상세 리포트 그림 5 · 교재 그림 3.5 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="OWL과 HPOA 읽기" data-report-refs="source-section-3-1 source-listing-3-1 source-listing-3-2 source-listing-3-3 source-listing-3-4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 Listing 3.1–3.4</span></header>
+      <h1>네 Listing은 입력 파일의 문법보다 역할을 보여준다</h1>
+      <p class="lead">OWL 한 개념과 HPOA 한 행이 그래프에서 무엇이 되는지 대비합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">Listing 3.1–3.3 · OWL</p><h2>개념과 계층</h2><ul><li><code>owl:Class</code>가 표현형 개념</li><li><code>rdfs:subClassOf</code>가 상·하위 관계</li><li>정의·동의어·외부 ID도 독립 트리플</li><li><code>rdflib</code>로 주어별 문장을 탐색</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">Listing 3.4 · HPOA</p><h2>질병–표현형 주장</h2><ul><li>질병 ID와 HPO ID가 한 행에 공존</li><li>논문·증거·빈도·큐레이터 포함</li><li>한 행이 관계 한 건의 후보</li><li>부가 열은 관계 속성으로 보존</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>데이터 이해의 결과</strong> — 노드는 OWL에서, 관계와 provenance는 HPOA에서 온다는 입력 계약이 생깁니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-3-4">상세 리포트 · Listing 3.4 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="교재 3.2 섹션" data-report-refs="source-section-3-2 source-section-3-2-1 source-section-3-2-2" data-source-refs="section:3.2 section:3.2.1 section:3.2.2">
+      <p class="eyebrow">교재 §3.2 · §3.2.1 · §3.2.2</p><h1>RDF와 LPG를 목표로 비교한다</h1><p>관계 하나의 출처·작성자·날짜를 어떻게 표현하고 조회할지 선택한다</p><span class="section-number">02</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="표의 한 행을 그래프로 변환" data-report-refs="source-section-3-2 source-section-3-2-1 source-figure-3-6 source-exercise-3-2-1-1" data-source-refs="figure:3.6 exercise:3.2.1-1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2.1 · 그림 3.6 · Exercise 3.2.1-1</span></header>
+      <h1>기술 선택 기준은 ‘관계의 메타데이터를 얼마나 직접 다루는가’다</h1>
+      <div class="slide-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/edge-metadata-options.svg" alt="질병 표현형 연결의 출처 작성자 날짜를 RDF 대안과 LPG로 표현하는 비교">
+          <figcaption><b>교재 그림 3.6의 변환 질문</b><span>질병과 표현형은 노드</span><span>연관은 관계</span><span>source·createdBy·creationDate는 관계별 근거</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-6">상세 리포트 그림 6 · 교재 그림 3.6 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="네 가지 관계 메타데이터 모델" data-report-refs="source-section-3-2 source-section-3-2-2 source-listing-3-5 source-listing-3-6 source-listing-3-7 source-listing-3-8 source-listing-3-9 source-listing-3-10 source-listing-3-11 source-listing-3-12" data-source-refs="listing:3.5 listing:3.6 listing:3.7 listing:3.8 listing:3.9 listing:3.10 listing:3.11 listing:3.12">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2.2 · Listing 3.5–3.12</span></header>
+      <h1>같은 주장을 네 방식으로 쓰고 다시 읽는다</h1>
+      <p class="lead">표현 예제와 조회 예제가 한 쌍씩 이어진다는 것이 이 소절의 구조입니다.</p>
       <div class="slide-body">
         <div class="fact-grid">
-          <article><span>PHENOTYPE</span><h2>관찰 특징</h2><p>HPO ID와 계층으로 표현한다.</p></article>
-          <article><span>DISEASE</span><h2>질병 실체</h2><p>OMIM 등 독립 식별자로 표현한다.</p></article>
-          <article><span>ANNOTATION</span><h2>근거 있는 연결</h2><p>출처·증거·빈도·작성일을 관계에 둔다.</p></article>
-          <article><span>RESULT</span><h2>검토 후보</h2><p>질병명만 아니라 경로와 근거를 반환한다.</p></article>
+          <article><span>Listing 3.5–3.6</span><h2>N항 관계</h2><p>Annotation 노드를 만들고 질병·표현형·근거를 연결한다.</p></article>
+          <article><span>Listing 3.7–3.8</span><h2>명명된 그래프</h2><p>트리플 묶음에 이름을 붙이고 그 이름에 provenance를 단다.</p></article>
+          <article><span>Listing 3.9–3.10</span><h2>RDF-star</h2><p>트리플 자체를 인용해 메타데이터의 주어로 삼는다.</p></article>
+          <article><span>Listing 3.11–3.12</span><h2>LPG</h2><p>관계가 직접 키–값 속성을 가지고 Cypher에서 바로 반환된다.</p></article>
         </div>
-        <p class="takeaway"><strong>모델의 출발점</strong> — 임상의가 결과 화면에서 확인해야 할 연결과 근거가 노드·관계·속성을 결정합니다.</p>
+        <p class="takeaway"><strong>이 장의 선택</strong> — HPO의 표준 의미는 RDF/OWL에서 받아오되, 애플리케이션 저장 모델은 관계 속성을 직접 다루는 LPG로 정합니다.</p>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-domain-contract">상세 리포트 표 2 · 도메인 계약</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-3-12">상세 리포트 · Listing 3.12 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--visual" aria-label="HPO의 두 데이터 원천" data-report-refs="data-understanding hpo-two-sources fig-two-sources table-source-contract" data-source-refs="section:3.1.2">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1.2 · 그림 3.5–3.6</span></header>
-      <h1>HPO는 ‘정의·계층’과 ‘연관·근거’를 따로 준다</h1>
+    <section class="slide slide--section" aria-label="교재 3.3 섹션" data-report-refs="source-section-3-3 source-section-3-3-1 source-section-3-3-2" data-source-refs="section:3.3 section:3.3.1 section:3.3.2">
+      <p class="eyebrow">교재 §3.3 · §3.3.1 · §3.3.2</p><h1>온톨로지와 주석을 두 단계로 적재한다</h1><p>개념·계층을 먼저 만들고, 질병–표현형 주장을 근거와 함께 연결한다</p><span class="section-number">03</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="온톨로지 적재 단계" data-report-refs="source-section-3-3 source-section-3-3-1 source-listing-3-13 source-figure-3-7 source-listing-3-14 source-listing-3-15 source-listing-3-16 source-listing-3-17" data-source-refs="listing:3.13 figure:3.7 listing:3.14 listing:3.15 listing:3.16 listing:3.17">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3.1 · Listing 3.13–3.17 · 그림 3.7</span></header>
+      <h1>데이터베이스 계약을 만든 뒤 OWL을 적재한다</h1>
       <div class="slide-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/two-sources-one-graph.svg" alt="hp.owl의 표현형 정의와 계층, phenotype.hpoa의 질병 표현형 연관과 근거가 표준 ID로 하나의 LPG에 결합되는 구조">
-          <figcaption><b>두 원천, 두 책임</b><span><code>hp.owl</code>: ID·정의·동의어·계층</span><span><code>phenotype.hpoa</code>: 질병 연관·출처·증거</span><span>표준 <code>hpo_id</code>가 결합 키</span></figcaption>
+          <img src="assets/figs/build-pipeline.svg" alt="데이터베이스 생성, 제약과 인덱스, Neosemantics 설정, OWL 적재, 노드 보강 단계">
+          <figcaption><b>교재 그림 3.7의 온톨로지 처리</b><span>Listing 3.13: 작업 DB 준비</span><span>Listing 3.14–3.15: 유일성·명명 규칙 고정</span><span>Listing 3.16–3.17: OWL 적재와 HPO ID 보강</span></figcaption>
         </figure>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-two-sources">상세 리포트 그림 2 · 두 원천의 결합</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-7">상세 리포트 · 교재 그림 3.7 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="두 원천의 입력 계약" data-report-refs="data-understanding table-source-contract table-build-steps">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1.2 · DATA CONTRACT</span></header>
-      <h1>어느 파일에서 무엇이 정본인지 먼저 고정한다</h1>
-      <p class="lead">두 원천은 형식뿐 아니라 변경 영향과 검증 단위가 다릅니다.</p>
-      <div class="slide-body">
-        <table class="compare-table compare-table--dense">
-          <thead><tr><th>관점</th><th><code>hp.owl</code></th><th><code>phenotype.hpoa</code></th><th>결합 시 확인</th></tr></thead>
-          <tbody>
-            <tr><th>정본</th><td>표현형 ID·정의·계층</td><td>질병–표현형 주석</td><td><code>hpo_id</code> 매칭</td></tr>
-            <tr><th>근거</th><td>개념의 작성·상호참조</td><td>연관의 source·evidence</td><td>관계별 보존</td></tr>
-            <tr><th>변경</th><td>용어·계층의 추가·폐기</td><td>주석·증거의 갱신</td><td>같은 릴리스 조합</td></tr>
-            <tr><th>적재</th><td>Neosemantics RDF import</td><td>Cypher <code>LOAD CSV</code></td><td>건수·결측·ID 감사</td></tr>
-          </tbody>
-        </table>
-        <p class="takeaway"><strong>데이터 계약</strong> — “latest를 읽었다”가 아니라 어떤 스냅샷 조합을 어떤 규칙으로 결합했는지 남깁니다.</p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-source-contract">상세 리포트 표 3 · 입력 계약</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--section" aria-label="표현 모델 선택 섹션" data-report-refs="data-technology fig-edge-metadata table-rdf-lpg" data-source-refs="section:3.2 section:3.2.1">
-      <p class="eyebrow">교재 §3.2 · §3.2.1 · TECHNOLOGY CHOICE</p><h1>표현 모델은 사용자 질문에서 선택한다</h1><p>RDF와 LPG의 우열이 아니라 관계 메타데이터 요구를 비교한다</p><span class="section-number">02</span>
-    </section>
-
-    <section class="slide slide--visual" aria-label="관계 메타데이터 표현 네 가지" data-report-refs="data-technology edge-properties fig-edge-metadata" data-source-refs="section:3.2.2">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2.2 · 그림 3.6</span></header>
-      <h1>RDF도 관계의 근거를 표현한다 — 구조와 비용이 다르다</h1>
-      <div class="slide-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/edge-metadata-options.svg" alt="RDF n항 관계, 명명 그래프, RDF-star, LPG 관계 속성이 한 질병 표현형 주석의 출처 작성자 날짜를 다르게 표현하는 비교">
-          <figcaption><b>같은 의도, 네 모델</b><span>n-ary: Annotation 개념 추가</span><span>named graph / RDF-star: 문장 맥락</span><span>LPG: 개별 관계의 키–값</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-edge-metadata">상세 리포트 그림 3 · 주석 표현 패턴</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="같은 의도를 적는 네 가지 모델" data-report-refs="data-technology rdf-lpg-choice code-edge-metadata fig-edge-metadata">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2.2 · Listing 3.5–3.12</span></header>
-      <h1>같은 의도, 네 모델은 이렇게 다르게 적는다</h1>
-      <p class="lead">연결의 근거를 네 모델에 적고 다시 읽는 예입니다. 모델마다 표현 구조는 다릅니다.</p>
+    <section class="slide" aria-label="Neosemantics 설정과 ID 보강" data-report-refs="source-section-3-3 source-listing-3-14 source-listing-3-15 source-listing-3-16 source-listing-3-17">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 Listing 3.14–3.17</span></header>
+      <h1>설정 한 줄이 뒤의 레이블·관계 타입·ID 문법을 결정한다</h1>
+      <p class="lead">적재 성공보다 이후 질의가 어떤 이름을 기대하게 되는지 이해해야 합니다.</p>
       <div class="slide-body code-layout">
-        <pre class="code-block code-block--dense"><span class="code-comment"># ① N항 관계 — 근거를 담을 노드를 새로 만든다</span>
-_:Annotation :forDisease        OMIM:222100 ;
-             :phenotypicFeature HP:0410050 ;
-             :source            PMID:9357814 .
+        <pre class="code-block code-block--dense"><span class="code-comment">// Listing 3.15 · Neo4j 이름 규칙</span>
+CALL n10s.graphconfig.init();
+CALL n10s.graphconfig.set({handleVocabUris: "IGNORE"});
+CALL n10s.graphconfig.set({applyNeo4jNaming: true});
 
-<span class="code-comment"># ② 명명 그래프 — 문장을 봉투에 넣고 봉투에 적는다</span>
-:G1 { OMIM:222100 :hasPhenotypicFeature HP:0410050 }
-:G1 :source PMID:9357814 .
+<span class="code-comment">// Listing 3.16 · OWL 적재</span>
+CALL n10s.rdf.import.fetch(
+  "http://purl.obolibrary.org/obo/hp.owl",
+  "RDF/XML"
+);
 
-<span class="code-comment"># ③ RDF-star — 문장을 인용한다(인용 자체는 단언이 아님)</span>
-&lt;&lt;OMIM:222100 :hasPhenotypicFeature HP:0410050&gt;&gt; :source PMID:9357814 .
-
-<span class="code-comment">// ④ LPG — 관계 안에 그냥 적는다</span>
-(d)-[:HAS_PHENOTYPIC_FEATURE { source: "PMID:9357814" }]-&gt;(p)</pre>
-        <div>
-          <article class="panel panel--accent">
-            <p class="eyebrow">꺼낼 때의 차이</p>
-            <h2>꺼내는 경로의 길이가 다르다</h2>
-            <ul>
-              <li><b>①</b> 중간 노드를 거쳐 근거를 읽음</li>
-              <li><b>②</b> 봉투 안·밖을 조회 — 묶음 단위는 provenance 설계 선택</li>
-              <li><b>③</b> 인용 ≠ 단언 — <b>엔진의 RDF-star/RDF 1.2 지원</b> 확인</li>
-              <li><b>④</b> 관계 속성을 바로 읽음 — <b>3줄</b></li>
-            </ul>
-          </article>
-        </div>
-      </div>
-      <p class="takeaway"><strong>선택의 근거</strong> — 우열이 아니라, 이 장은 주석별 근거를 관계 속성으로 바로 탐색해야 했습니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#code-edge-metadata">상세 리포트 §2.2 · 네 가지 코드 대조</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="RDF와 LPG 선택 기준" data-report-refs="data-technology rdf-lpg-choice table-rdf-lpg">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2.1 · RDF vs LPG</span></header>
-      <h1>이 사례는 RDF 원천 위에 LPG 애플리케이션 모델을 얹는다</h1>
-      <p class="lead">온톨로지 표현은 입력에서, 관계 중심 탐색은 앱 모델에서 활용합니다.</p>
-      <div class="slide-body">
-        <table class="compare-table compare-table--dense">
-          <thead><tr><th>관점</th><th>RDF 계열</th><th>LPG</th><th>Chapter 3</th></tr></thead>
-          <tbody>
-            <tr><th>기본 표현</th><td>전역 식별 트리플</td><td>노드·고유 관계·속성</td><td>HPO는 RDF/OWL</td></tr>
-            <tr><th>관계 근거</th><td>n-ary·named graph·RDF-star</td><td>관계 키–값</td><td>앱은 LPG</td></tr>
-            <tr><th>강점</th><td>교환·연합·의미·추론</td><td>경로·관계 속성·질의</td><td>n10s로 일부 결합</td></tr>
-            <tr><th>경계</th><td>모델·엔진 지원 복잡성</td><td>OWL 의미 전부를 자동 보존하지 않음</td><td>필요한 계층을 검증</td></tr>
-          </tbody>
-        </table>
-        <p class="takeaway"><strong>선택 질문</strong> — 임상의가 특정 연결의 출처·증거·날짜를 얼마나 직접 비교해야 하는가?</p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-rdf-lpg">상세 리포트 표 8 · RDF/LPG 비교</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--section" aria-label="구축과 운영 섹션" data-report-refs="build-operate fig-build-pipeline table-build-steps fig-annotation-lifecycle table-implementation-audit" data-source-refs="section:3.3 section:3.3.1">
-      <p class="eyebrow">교재 §3.3 · §3.3.1 · BUILD &amp; OPERATE</p><h1>적재는 의미 계약의 구현이다</h1><p>파일을 넣는 순서보다 각 단계가 남길 검증 산출물을 추적한다</p><span class="section-number">03</span>
-    </section>
-
-    <section class="slide slide--visual" aria-label="HPO 지식 그래프 구축 파이프라인" data-report-refs="build-operate crisp-pipeline fig-build-pipeline">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3.1 · 그림 3.1–3.2·3.7</span></header>
-      <h1>임상 질문에서 검증된 질의까지 일곱 단계를 닫는다</h1>
-      <div class="slide-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/build-pipeline.svg" alt="임상 질문, 두 HPO 원천 이해, RDF LPG 선택, 온톨로지 적재, 주석 적재, 정제 점검, 질의와 추론이 이어지는 파이프라인">
-          <figcaption><b>CRISP-DM을 산출물로</b><span>질문·원천·모델 선택을 먼저</span><span>온톨로지와 주석 적재를 분리</span><span>정제 후 대표 질의로 검증</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-build-pipeline">상세 리포트 그림 4 · 구축 파이프라인</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="구축 단계의 품질 질문" data-report-refs="build-operate table-build-steps">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3.1 · BUILD</span></header>
-      <h1>각 적재 명령 뒤에 ‘무엇이 보존됐나’를 묻는다</h1>
-      <p class="lead">성공 로그만으로는 의미·주석·추론이 보존됐는지 알 수 없습니다.</p>
-      <div class="slide-body">
-        <div class="gate-grid">
-          <article><span>CONSTRAINT</span><h2>ID 유일성</h2><p>URI·질병 ID·표현형 ID 중복을 거부한다.</p></article>
-          <article><span>ONTOLOGY</span><h2>계층 보존</h2><p><code>SUBCLASSOF</code> 방향과 건수를 확인한다.</p></article>
-          <article><span>ANNOTATION</span><h2>주석 보존</h2><p>원천 행·관계·근거 속성의 대응을 본다.</p></article>
-          <article><span>CLEANUP</span><h2>필요 정보 유지</h2><p>추론·감사에 쓸 노드까지 지우지 않는다.</p></article>
-        </div>
-        <p class="takeaway"><strong>품질 질문</strong> — 입력 행 하나가 그래프의 어떤 assertion으로 남았는지 역추적할 수 있어야 합니다.</p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-build-steps">상세 리포트 표 9 · 구축 단계</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="HPOA 주석의 생애주기" data-report-refs="build-operate annotation-lifecycle fig-annotation-lifecycle" data-source-refs="section:3.3.2">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3.2 · 그림 3.9</span></header>
-      <h1>한 행은 한 건의 감사 가능한 주장으로 남아야 한다</h1>
-      <div class="slide-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/annotation-lifecycle.svg" alt="HPOA 한 행을 파싱하고 ID로 매칭해 관계를 생성하고 증거를 풍부화한 뒤 건수와 근거를 점검하는 생애주기">
-          <figcaption><b>구현의 핵심 경계</b><span>결측 필드는 조건부로 설정</span><span>증거 코드는 설명과 URL로 풍부화</span><span>관계 MERGE가 주석을 합치지 않는지 확인</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-annotation-lifecycle">상세 리포트 그림 5 · 주석 생애주기</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="두 파일이 만나는 지점" data-report-refs="build-operate crisp-pipeline annotation-lifecycle code-ontology-load code-annotation-load">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3.1–3.3.2 · CODE</span></header>
-      <h1>형식이 다른 두 파일은 결국 이 두 줄에서 만난다</h1>
-      <p class="lead">온톨로지는 URI(<code>…/obo/HP_0410050</code>), 주석 파일은 콜론 표기(<code>HP:0410050</code>). 그냥 두면 영영 만나지 않습니다.</p>
-      <div class="slide-body code-layout">
-        <pre class="code-block code-block--dense"><span class="code-comment">// 책 3.17 — 온톨로지 노드에 '주석 파일과 같은 모양'의 id 를 만든다</span>
-MATCH (n:Resource)
-WHERE n.uri STARTS WITH "http://purl.obolibrary.org/obo/HP"
+<span class="code-comment">// Listing 3.17 · URI를 HP:... ID로</span>
 SET n:HpoPhenotype,
     n.id = coalesce(n.id,
-      replace(apoc.text.replace(n.uri,'(.*)obo/',''), '_', ':'))
-
-<span class="code-comment">// 책 3.20 — 그 id 로 TSV 의 두 열과 맞물린다</span>
-MATCH (dis:HpoDisease)   WHERE dis.id = row[0]  <span class="code-comment">// OMIM:222100</span>
-MATCH (phe:HpoPhenotype) WHERE phe.id = row[3]  <span class="code-comment">// HP:0410050</span>
-MERGE (dis)-[:HAS_PHENOTYPIC_FEATURE]-&gt;(phe)</pre>
-        <div>
-          <article class="panel panel--accent">
-            <p class="eyebrow">이것이 의미 통합의 실체</p>
-            <h2>표준 ID가 공통 언어다</h2>
-            <ul>
-              <li><b>3.17</b>이 URI 앞부분을 잘라내고 <code>_</code>를 <code>:</code>로 바꿔 <b>같은 언어를 쓰게</b> 만듭니다</li>
-              <li><code>coalesce</code> 덕분에 여러 번 실행해도 안전합니다</li>
-              <li><b>3.20</b>은 그 값으로 두 노드를 찾아 선을 잇습니다</li>
-              <li>RDF/XML과 TSV라는 <b>전혀 다른 형식</b>이 여기서 하나의 그래프가 됩니다</li>
-            </ul>
-          </article>
-        </div>
+      replace(apoc.text.replace(n.uri,'(.*)obo/',''), '_', ':'))</pre>
+        <article class="panel panel--accent"><p class="eyebrow">계약의 결과</p><h2>서로 다른 파일이 같은 ID를 쓴다</h2><ul><li>OWL URI <code>.../HP_0410050</code></li><li>HPOA 열 <code>HP:0410050</code></li><li><code>applyNeo4jNaming</code> 때문에 <code>SUBCLASSOF</code></li><li>제약조건이 중복 ID를 적재 시점에 거부</li></ul></article>
       </div>
-      <p class="takeaway"><strong>같은 파일을 세 번 읽는 이유</strong> — 노드를 만들고(3.19), 선을 잇고(3.20), 그 선에 근거를 붙입니다(3.22). 관계를 만들려면 양쪽 노드가 먼저 있어야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#code-annotation-load">상세 리포트 §3.1–3.2 · 파이프라인 코드</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-3-17">상세 리포트 · Listing 3.17 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="코드 감사와 재현 경계" data-report-refs="build-operate implementation-reality table-implementation-audit">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 3-A · AUDIT</span></header>
-      <h1>책의 결과와 현재 실행 결과가 다른 이유를 설명할 수 있어야 한다</h1>
-      <p class="lead">원자료·교재·실습 코드를 대조해 여섯 가지 재현 경계를 확인했습니다.</p>
-      <div class="slide-body">
-        <div class="audit-grid audit-grid--six">
-          <article><span>DATA DRIFT</span><h2>899,558은 기준값</h2><p>교재 2025-02 적재 건수이며 2026-06-23 latest와 같지 않다.</p></article>
-          <article><span>ANNOTATION LOSS</span><h2>쌍 단위 MERGE</h2><p>같은 질병–표현형 쌍의 여러 근거가 덮일 수 있다.</p></article>
-          <article><span>STAGE DEPENDENCY</span><h2>정제 뒤 실패</h2><p>Listing 3.18은 최종 정제 뒤 같은 형태로 실행하면 실패한다.</p></article>
-          <article><span>QUERY SIDE EFFECT</span><h2>읽기 질의의 MERGE</h2><p>Listing 3.21은 미바인딩 관계를 만들 수 있어 <code>MATCH</code>로 고친다.</p></article>
-          <article><span>RESULT SUBSET</span><h2>화이트리스트 ≠ SKIP</h2><p>교재 Listing 3.28은 질병 5개를 직접 지정하고, 소스 3.31은 <code>SKIP 100 LIMIT 5</code>로 자른다.</p></article>
-          <article><span>LISTING MAP</span><h2>교재 ↔ 소스 +3</h2><p><a href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/study.toml" rel="noreferrer" target="_blank"><code>study.toml</code></a> 전수 대응표가 리스팅 정본이다.</p></article>
-        </div>
-        <p class="takeaway"><strong>재현성</strong> — 릴리스 URL·체크섬·적재 단계·질의 버전을 결과와 함께 저장합니다.</p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-implementation-audit">상세 리포트 표 10 · 구현 감사</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="직접 돌려 본 숫자" data-report-refs="build-operate notebook-rerun table-notebook-measurements">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 3-B · 재실행</span></header>
-      <h1>추정이 아니라 직접 돌려 본 숫자입니다</h1>
-      <p class="lead">학습 노트북 <a href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/src/ch03/03_chapter_guide.ipynb" rel="noreferrer" target="_blank"><code>03_chapter_guide.ipynb</code></a>로 Neo4j 5.26.28에서 전 과정을 실행한 결과입니다.</p>
-      <div class="slide-body">
-        <div class="kpi-grid">
-          <article class="kpi"><strong>926,450</strong><p>적재된 트리플<br><small>교재 실행값 899,558 → 16개월 사이 약 2.7만 건 증가</small></p></article>
-          <article class="kpi"><strong>284,994</strong><p>질병–표현형 관계<br><small>표현형 20,413개 · 질병 12,956개 · <code>SUBCLASSOF</code> 24,378개</small></p></article>
-          <article class="kpi"><strong>약 8분</strong><p>책 3.22 한 단계<br><small>28만 5천 관계에 <code>FOREACH</code> 8개를 배치 없이 실행 (496초)</small></p></article>
-        </div>
-        <p class="takeaway"><strong>따라 하기 전에</strong> — 교재는 Neo4j <b>Enterprise</b> 기준입니다. <b>Community 에디션에서는 책의 첫 명령 <code>CREATE DATABASE hpo</code>가 실패</b>합니다(멀티 DB 미지원). 기본 <code>neo4j</code> DB를 쓰면 학습에는 지장이 없습니다. 전체 재구축은 9분 남짓 — <b>시연 중에 실행하지 마세요.</b></p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-notebook-measurements">상세 리포트 표 11 · 실측 대조</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--section" aria-label="질의와 추론 섹션" data-report-refs="query-case reasoning fig-clinical-query table-candidate-results fig-hierarchical-inference table-query-reasoning" data-source-refs="section:3.4 section:3.5">
-      <p class="eyebrow">교재 §3.4 · §3.5 · QUERY &amp; REASONING</p><h1>그래프는 관찰을 후보 경로로 바꾼다</h1><p>직접 연결과 계층으로 도출한 포함을 분리해서 읽는다</p><span class="section-number">04</span>
-    </section>
-
-    <section class="slide slide--visual" aria-label="다섯 표현형으로 후보 질병 순위화" data-report-refs="query-case direct-query fig-clinical-query table-candidate-results">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.4 · 그림 3.10–3.11</span></header>
-      <h1>공유 표현형 수는 후보 조사 순서를 만든다</h1>
+    <section class="slide slide--visual" aria-label="온톨로지 적재 결과" data-report-refs="source-section-3-3 source-figure-3-8 source-listing-3-18" data-source-refs="figure:3.8 listing:3.18">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.8 · Listing 3.18</span></header>
+      <h1>중간 점검에서는 온톨로지 정보와 도메인 정보를 함께 본다</h1>
       <div class="slide-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/clinical-query.svg" alt="제1형 당뇨병 등 다섯 표현형과 질병 후보를 연결하고 공유 특징 수 5, 3, 2 순으로 정렬하는 구조">
-          <figcaption><b>교재 2025-02 스냅샷</b><span>다섯 입력 표현형의 연결을 모은다</span><span>겹치는 특징 수로 후보를 정렬한다</span><span>경로의 source·evidence를 다시 검토한다</span></figcaption>
+          <img src="assets/figs/two-sources-one-graph.svg" alt="HPO 개념 계층과 표현형 도메인 정보가 LPG로 적재된 구조">
+          <figcaption><b>교재 그림 3.8의 두 층</b><span>왼쪽: OWL에서 온 개념·계층</span><span>오른쪽: 표현형 관련 도메인 정보</span><span>Listing 3.18은 정리 전 중간 상태 점검</span></figcaption>
         </figure>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-clinical-query">상세 리포트 그림 6 · 후보 질의</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-8">상세 리포트 · 교재 그림 3.8 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="후보 랭킹의 해석 경계" data-report-refs="query-case direct-query table-candidate-results">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.4 · Listing 3.25–3.26</span></header>
-      <h1>다섯 표현형의 겹침 수를 집계하고 이름으로 동률을 푼다</h1>
-      <p class="lead"><code>count(nodes)</code>는 주석 경로 수이며 진단 확률이 아닙니다.</p>
+    <section class="slide slide--visual" aria-label="주석 적재 생애주기" data-report-refs="source-section-3-3 source-section-3-3-2 source-figure-3-9 source-listing-3-19 source-listing-3-20 source-listing-3-21 source-table-3-1" data-source-refs="figure:3.9 listing:3.19 listing:3.20 listing:3.21 table:3.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3.2 · 그림 3.9 · Listing 3.19–3.21 · 표 3.1</span></header>
+      <h1>HPOA 한 행을 질병 노드와 관계로 바꾼다</h1>
+      <div class="slide-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/annotation-lifecycle.svg" alt="HPOA 행을 파싱해 질병과 표현형을 ID로 매칭하고 관계를 만든 뒤 점검하는 생애주기">
+          <figcaption><b>교재 그림 3.9의 첫 절반</b><span>Listing 3.19: 질병 노드 생성</span><span>Listing 3.20: 표현형과 관계 생성</span><span>Listing 3.21·표 3.1: 연관 표본 확인</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-9">상세 리포트 그림 9 · 교재 그림 3.9 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="주석 관계의 근거 보강" data-report-refs="source-section-3-3 source-listing-3-22 source-listing-3-23 source-listing-3-24" data-source-refs="listing:3.22 listing:3.23 listing:3.24">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 Listing 3.22–3.24</span></header>
+      <h1>관계를 만든 다음, 근거를 붙이고 그래프를 정리한다</h1>
+      <p class="lead">주석의 원본 필드와 파생 설명을 함께 보존해야 역추적할 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="fact-grid">
+          <article><span>Listing 3.22</span><h2>조건부 속성 설정</h2><p>source·evidence·frequency 등 값이 있을 때만 관계를 갱신한다.</p></article>
+          <article><span>Listing 3.23</span><h2>사람이 읽을 근거</h2><p>큐레이터·날짜를 파싱하고 IEA·PCS·TAS 약어를 설명으로 바꾼다.</p></article>
+          <article><span>원본 + 파생</span><h2>감사 가능성</h2><p>파생 속성이 원본 필드를 대체하지 않게 둘을 함께 남긴다.</p></article>
+          <article><span>Listing 3.24</span><h2>정리의 경계</h2><p>보조 노드 삭제 전 건수·백업을 남기고 중간 질의의 전제를 확인한다.</p></article>
+        </div>
+        <p class="takeaway"><strong>주의</strong> — 동일 질병–표현형 쌍에 여러 근거가 있으면 단순 <code>MERGE</code>가 주석을 합치지 않는지 별도로 검증해야 합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-3-24">상세 리포트 · Listing 3.24 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="교재 3.4 섹션" data-report-refs="source-section-3-4" data-source-refs="section:3.4">
+      <p class="eyebrow">교재 §3.4 · QUERY</p><h1>임상의의 질문을 그래프 질의로 바꾼다</h1><p>알려진 질병의 표현형을 확인하고 새 관찰 조합으로 후보를 찾는다</p><span class="section-number">04</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="제1형 당뇨병 표현형 질의" data-report-refs="source-section-3-4 source-figure-3-10 source-figure-3-11 source-listing-3-25" data-source-refs="figure:3.10 figure:3.11 listing:3.25">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.10 · 3.11 · Listing 3.25</span></header>
+      <h1>먼저 알려진 질병에서 직접 연결된 표현형을 확인한다</h1>
+      <div class="slide-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/clinical-query.svg" alt="제1형 당뇨병 질병 노드에서 직접 연결된 표현형을 확인하고 새 관찰을 후보 질의로 넘기는 흐름">
+          <figcaption><b>교재 그림 3.10·3.11의 질의 시작점</b><span>OMIM:222100에서 직접 관계 탐색</span><span>연결된 표현형 집합을 확인</span><span>목록에 없는 새 관찰을 다음 질의에 추가</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-3-10">상세 리포트 그림 10 · 교재 그림 3.10 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="다섯 표현형으로 후보 질병 찾기" data-report-refs="source-section-3-4 source-listing-3-26 source-table-3-2 source-exercise-3-4-1" data-source-refs="listing:3.26 table:3.2 exercise:3.4-1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 Listing 3.26 · 표 3.2 · Exercise 3.4-1</span></header>
+      <h1>공유 표현형 수로 후보를 정렬하고 관계 근거를 다시 연다</h1>
+      <p class="lead">교재 표 3.2에서 다섯 특징이 모두 일치한 후보가 맨 위에 옵니다.</p>
       <div class="slide-body query-strip">
         <pre><code class="language-cypher">MATCH (phe:HpoPhenotype)
 WHERE phe.label IN [
   "Growth delay", "Large knee",
-  "Sensorineural hearing impairment", "Pruritus",
-  "Type I diabetes mellitus"
+  "Sensorineural hearing impairment",
+  "Pruritus", "Type I diabetes mellitus"
 ]
 WITH phe
-MATCH path=(dis:HpoDisease)
-  -[:HAS_PHENOTYPIC_FEATURE]-&gt;(phe)
-UNWIND dis AS nodes
-RETURN dis.id AS disease_id,
-       dis.label AS disease_name,
-       collect(phe.label) AS features,
-       count(nodes) AS num_of_features
-ORDER BY num_of_features DESC, disease_name
-LIMIT 5</code></pre>
-        <div class="ranking-list">
-          <article><b>5/5</b><div><p>Odontochondrodysplasia 2 …</p><small>OMIM:619269 · 다섯 주석 경로</small></div></article>
-          <article><b>3/5</b><div><p>Holoprosencephaly 12 …</p><small>OMIM:618500 · 세 주석 경로</small></div></article>
-          <article><b>2/5</b><div class="tie-list"><small>3-methylglutaconic aciduria VIII · OMIM:614700</small><small>Alobar holoprosencephaly · OMIM:616192</small><small>Alpha-thalassemia/mental retardation, X-linked · OMIM:602782</small></div></article>
-        </div>
-      </div>
-      <p class="takeaway"><strong>빠진 것</strong> — 희귀도·부정 소견·발현 시점·증거 질·환자 맥락은 이 단순 랭킹에 포함되지 않습니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-candidate-results">상세 리포트 표 12 · 후보 해석</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="같은 질의 다른 스냅샷" data-report-refs="query-case rerun-drift table-rerun-candidates notebook-rerun">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 4-A · DRIFT</span></header>
-      <h1>같은 질의를 지금 돌리면 2위 이하가 바뀝니다</h1>
-      <p class="lead">코드는 한 글자도 바뀌지 않았습니다. HPOA 스냅샷만 2025-02 → 2026-06-23으로 바뀌었습니다.</p>
-      <div class="slide-body">
-        <div class="two-col">
-          <article class="panel">
-            <p class="eyebrow">교재 · HPO 2025-02</p>
-            <h2>동률 3건이 2개 공유</h2>
-            <ul>
-              <li><b>5</b> · <a href="https://omim.org/entry/619269" rel="noreferrer" target="_blank">OMIM:619269</a> Ondontochondrodysplasia 2</li>
-              <li><b>3</b> · <a href="https://omim.org/entry/618500" rel="noreferrer" target="_blank">OMIM:618500</a> Holoprosencephaly 12</li>
-              <li><b>2</b> · <a href="https://omim.org/entry/614700" rel="noreferrer" target="_blank">OMIM:614700</a> 3-methylglutaconic aciduria VIII</li>
-              <li><b>2</b> · <a href="https://omim.org/entry/616192" rel="noreferrer" target="_blank">OMIM:616192</a> Alobar holoprosencephaly</li>
-              <li><b>2</b> · <a href="https://omim.org/entry/602782" rel="noreferrer" target="_blank">OMIM:602782</a> Alpha-thalassemia/MR, X-linked</li>
-            </ul>
-          </article>
-          <article class="panel panel--accent">
-            <p class="eyebrow">노트북 재실행 · HPOA 2026-06-23</p>
-            <h2>동률 3건이 3개 공유</h2>
-            <ul>
-              <li><b>5</b> · OMIM:619269 — <b>변화 없음</b></li>
-              <li><b>3</b> · OMIM:618500 — <b>변화 없음</b></li>
-              <li><b>3</b> · <a href="https://omim.org/entry/621585" rel="noreferrer" target="_blank">OMIM:621585</a> Mendez-Johnson syndrome — <b>신규</b></li>
-              <li><b>3</b> · <a href="https://omim.org/entry/256500" rel="noreferrer" target="_blank">OMIM:256500</a> Netherton syndrome — <b>신규</b></li>
-              <li><b>2</b> · <a href="https://omim.org/entry/617248" rel="noreferrer" target="_blank">OMIM:<b>617248</b></a> 3-methylglutaconic VIII — <b>번호 변경</b></li>
-            </ul>
-          </article>
-        </div>
-        <p class="takeaway"><strong>세 가지를 읽습니다</strong> — ① 진단 결론(1위)은 견고합니다. ② 3개 공유가 1건에서 3건으로 늘어 <b>“2위가 도드라진다”는 인상 자체가 사라집니다.</b> ③ 질병 식별자조차 <b>고정된 상수가 아닙니다.</b></p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-rerun-candidates">상세 리포트 표 13 · 순위 대조</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="온톨로지 계층 추론" data-report-refs="reasoning explicit-inferred fig-hierarchical-inference">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.5 · Listing 3.27–3.28</span></header>
-      <h1>계층은 하위 표현형의 주석을 상위 범주 질의에 포함한다</h1>
-      <div class="slide-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/hierarchical-inference.svg" alt="갑상선 생리 이상, 갑상선기능저하증, 갑상선종에서 내분비계 이상 상위 범주로 향하는 자식에서 부모 방향의 SUBCLASSOF 관계와 상위 범주 질의 포함 구조">
-          <figcaption><b>직접 사실 + 암시적 포함</b><span>질병은 하위 표현형에 직접 주석</span><span><code>SUBCLASSOF</code> 저장 방향은 자식→부모</span><span>상위 범주에서 역방향으로 1–3단계를 탐색</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-hierarchical-inference">상세 리포트 그림 7 · 계층 추론</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="직접 질의와 추론 비교" data-report-refs="reasoning reasoning-boundary table-query-reasoning">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.5 · DIRECT vs INFERRED</span></header>
-      <h1>더 넓은 결과가 더 정확한 결과는 아니다</h1>
-      <p class="lead">추론의 가치는 누락을 줄이는 데 있고, 위험은 범위와 설명 경로에 있습니다.</p>
-      <div class="slide-body">
-        <table class="compare-table compare-table--dense">
-          <thead><tr><th>관점</th><th>직접 연결</th><th>계층 추론</th><th>화면에 남길 것</th></tr></thead>
-          <tbody>
-            <tr><th>범위</th><td>명시된 질병–표현형 주석</td><td>하위 표현형을 상위 범주에 포함</td><td>direct / inferred</td></tr>
-            <tr><th>가치</th><td>정확한 provenance 검토</td><td>계층 때문에 숨은 후보 회수</td><td>원 주석·전체 경로</td></tr>
-            <tr><th>위험</th><td>계층 의미를 놓쳐 누락</td><td>관련성 약한 후보 증가</td><td>깊이·규칙·HPO 버전</td></tr>
-            <tr><th>부재</th><td>주석이 없을 수 있음</td><td>하위 개념이 불완전할 수 있음</td><td>없음 ≠ 거짓</td></tr>
-          </tbody>
-        </table>
-        <p class="takeaway"><strong>설명 가능성</strong> — 어떤 하위 표현형과 계층 경로 때문에 포함됐는지 사용자에게 보여줍니다.</p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-query-reasoning">상세 리포트 표 15 · 직접/추론 비교</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="추론은 온톨로지를 따라 바뀐다" data-report-refs="reasoning reasoning-boundary table-inference-drift code-inference">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 5-A · 추론 경계</span></header>
-      <h1>깊이를 정하는 순간 절반을 못 보고, 계층이 바뀌면 결과도 바뀝니다</h1>
-      <p class="lead">노트북이 <code>HP:0000818</code>(내분비계 이상) 아래를 직접 세어 본 결과입니다.</p>
-      <div class="slide-body">
-        <div class="kpi-grid">
-          <article class="kpi"><strong>256</strong><p>깊이 <code>*1..3</code> 하위 표현형<br><small>책 3.27이 실제로 보는 범위</small></p></article>
-          <article class="kpi"><strong>474</strong><p>깊이 무제한 하위 표현형<br><small><code>n10s.inference.nodesInCategory</code>가 보는 범위 — <b>임의로 정한 깊이는 절반을 가린다</b></small></p></article>
-          <article class="kpi"><strong>깊이 4</strong><p><em>Transient neonatal diabetes mellitus</em><br><small>책 표 3.3에 실제로 나오는 항목인데 <code>*1..3</code>으로는 못 찾는다</small></p></article>
-        </div>
-        <p class="takeaway"><strong>더 중요한 발견</strong> — 책 표 3.3이 “내분비계 이상의 하위”로 굵게 강조한 <b><em>Hyperglycemia</em>는 현재 HPO에서 대사 이상 쪽으로 재분류</b>되었습니다. 코드도 데이터도 그대로인데 <b>의미 구조가 바뀌어 추론 결과가 달라진 것</b>입니다. 재현하려면 주석 릴리스뿐 아니라 <b>온톨로지 릴리스도 고정</b>해야 합니다.</p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-inference-drift">상세 리포트 표 14 · 추론 범위 실측</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--section" aria-label="검증과 도입 판단 섹션" data-report-refs="evidence-limits decision fig-validation-gates table-failure-modes table-decision">
-      <p class="eyebrow">AIML Quant 보충 A–B · VALIDATE &amp; DECIDE</p><h1>신뢰도는 가장 짧은 미검증 구간에서 무너진다</h1><p>원천부터 사용자 검토까지 네 게이트를 닫는다</p><span class="section-number">05</span>
-    </section>
-
-    <section class="slide slide--visual" aria-label="네 검증 게이트" data-report-refs="evidence-limits validation-contract fig-validation-gates">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 A · 검증 도해</span></header>
-      <h1>원천·의미·적재·사용을 따로 검증한다</h1>
-      <div class="slide-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/validation-gates.svg" alt="원천, 의미, 적재, 사용의 네 검증 게이트를 통과하고 실패하면 이전 단계로 돌아가며 사람의 검토로 이어지는 구조">
-          <figcaption><b>네 개의 실패 위치</b><span>릴리스와 컬럼이 맞는가</span><span>ID와 계층 의미가 맞는가</span><span>주석 건수가 보존됐는가</span><span>후보와 진단을 구분하는가</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-validation-gates">상세 리포트 그림 8 · 검증 게이트</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="근거 화면은 이미 만들 수 있다" data-report-refs="evidence-limits evidence-drilldown query-case">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.4 연습문제 · 보충 A.2</span></header>
-      <h1>“근거를 열어볼 수 있어야 한다”는 이미 만들 수 있는 질의다</h1>
-      <p class="lead"><a href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md" rel="noreferrer" target="_blank">교재 §3.4 연습문제</a> — 3.26에 관계 속성을 더해 보세요. 달라지는 건 한 군데뿐입니다.</p>
-      <div class="slide-body query-strip">
-        <pre><code class="language-cypher">MATCH (phe:HpoPhenotype)
-WHERE phe.label IN $features
 MATCH (dis:HpoDisease)
   -[rel:HAS_PHENOTYPIC_FEATURE]-&gt;(phe)
-WITH dis, count(DISTINCT phe) AS matched,
-  collect({
-    feature:  phe.label,
-    evidence: rel.evidenceName,
-    source:   rel.source,
-    url:      rel.url,
-    curator:  rel.createdBy,
-    date:     rel.creationDate
-  }) AS grounds
-RETURN dis.id, dis.label, matched, grounds
-ORDER BY matched DESC</code></pre>
+RETURN dis.id, dis.label,
+       collect(phe.label) AS features,
+       count(*) AS num_of_features
+ORDER BY num_of_features DESC, dis.label
+LIMIT 5</code></pre>
         <div class="ranking-list">
-          <article><b>5/5</b><div><p>OMIM:619269 Ondontochondrodysplasia 2</p><small>다섯 특징이 <b>모두 같은 논문 하나</b>에서 — <a href="https://pubmed.ncbi.nlm.nih.gov/32101163" rel="noreferrer" target="_blank">PMID:32101163</a> · Published clinical study · probinson (2021-06-20)</small></div></article>
-          <article><b>3/5</b><div><p>OMIM:618500 Holoprosencephaly 12</p><small>근거가 <b>섞여 있다</b> — 1건은 논문(<a href="https://pubmed.ncbi.nlm.nih.gov/31006513" rel="noreferrer" target="_blank">PMID:31006513</a>), 2건은 <a href="https://omim.org/entry/618500" rel="noreferrer" target="_blank">OMIM</a> 텍스트를 기계가 파싱한 <em>Inferred from electronic annotation</em></small></div></article>
+          <article><b>5/5</b><div><p>OMIM:619269</p><small>Odontochondrodysplasia 2 with hearing loss and diabetes</small></div></article>
+          <article><b>3/5</b><div><p>OMIM:618500</p><small>Holoprosencephaly 12 with or without pancreatic agenesis</small></div></article>
+          <article><b>2/5</b><div><p>세 후보 동률</p><small>교재 표 3.2의 나머지 세 질병</small></div></article>
         </div>
       </div>
-      <p class="takeaway"><strong>겹침 수가 감추는 것</strong> — 같은 “3개 일치”라도 <b>근거의 무게가 다릅니다.</b> 관계에 <code>rel</code>이라는 이름 하나를 붙였을 뿐인데 이 차이가 보입니다. §2.2에서 LPG를 고른 결정이 값을 치르는 지점입니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#evidence-drilldown">상세 리포트 §6.2 · 근거 화면</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <p class="takeaway"><strong>연습문제</strong> — Exercise 3.4-1은 <code>rel</code>의 evidence·source·url까지 반환해 같은 일치 수의 근거 차이를 보게 합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-table-3-2">상세 리포트 표 3 · 교재 표 3.2</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="임상 안전 경계" data-report-refs="evidence-limits medical-boundary table-failure-modes">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 A.3 · SAFETY</span></header>
-      <h1>이 장의 결과는 진단이 아니라 검토 가능한 후보 생성이다</h1>
-      <p class="lead">기술적으로 재현된 경로도 실제 임상 의사결정의 안전성과 유효성을 자동 증명하지 않습니다.</p>
+    <section class="slide slide--section" aria-label="교재 3.5 섹션" data-report-refs="source-section-3-5" data-source-refs="section:3.5">
+      <p class="eyebrow">교재 §3.5 · REASONING</p><h1>명시되지 않은 포함 관계를 계층에서 찾는다</h1><p>직접 주석과 HPO 하위 클래스 경로를 함께 읽는다</p><span class="section-number">05</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="HPO 계층 추론" data-report-refs="source-section-3-5 source-listing-3-27 source-listing-3-28 source-table-3-3" data-source-refs="listing:3.27 listing:3.28 table:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 Listing 3.27 · 3.28 · 표 3.3</span></header>
+      <h1>하위 표현형의 직접 주석을 상위 범주 질의에 포함한다</h1>
+      <div class="slide-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/hierarchical-inference.svg" alt="하위 표현형에서 내분비계 이상 상위 범주로 향하는 SUBCLASSOF 경로와 질병 주석의 추론 포함 구조">
+          <figcaption><b>교재 §3.5의 두 단계</b><span>Listing 3.27: <code>SUBCLASSOF*1..3</code> 하위 개념 탐색</span><span>Listing 3.28: n10s 범주 추론으로 질병 포함</span><span>표 3.3: 직접·추론 표현형을 함께 확인</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-table-3-3">상세 리포트 표 4 · 교재 표 3.3</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="직접 사실과 추론 사실의 경계" data-report-refs="source-section-3-5 source-listing-3-27 source-listing-3-28 source-table-3-3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.5 · DIRECT vs INFERRED</span></header>
+      <h1>추론은 누락을 줄이지만 범위와 설명 책임을 만든다</h1>
+      <p class="lead">더 넓은 결과가 자동으로 더 정확한 결과는 아닙니다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>관점</th><th>직접 주석</th><th>계층 추론</th><th>결과에 남길 것</th></tr></thead>
+          <tbody>
+            <tr><th>근거</th><td>HPOA에 명시된 질병–표현형 관계</td><td>하위 개념과 상위 범주의 경로</td><td>direct / inferred 구분</td></tr>
+            <tr><th>가치</th><td>정확한 provenance 검토</td><td>구체적인 표현형 때문에 숨은 후보 회수</td><td>원 주석과 전체 경로</td></tr>
+            <tr><th>경계</th><td>상위 의미를 놓칠 수 있음</td><td>깊이와 온톨로지 버전에 따라 결과 변동</td><td>릴리스·깊이·관계 방향</td></tr>
+            <tr><th>해석</th><td>명시된 사실</td><td>규칙으로 포함된 사실</td><td>후보이지 진단이 아님</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>설명 가능성</strong> — 어떤 하위 표현형과 어떤 계층 경로 때문에 후보가 포함됐는지 보여줘야 합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-3-5">상세 리포트 §3.5 · 해석 경계</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="재현과 안전 보충 섹션" data-report-refs="supplement table-rerun fig-validation-gates">
+      <p class="eyebrow">AIML Quant 보충 A · REPRODUCTION &amp; SAFETY</p><h1>같은 코드도 데이터와 환경이 달라지면 결과가 달라진다</h1><p>여기부터는 교재 §3.5 이후에 덧붙인 재실행·운영 보충이다</p><span class="section-number">A</span>
+    </section>
+
+    <section class="slide" aria-label="교재와 재실행 스냅샷 차이" data-report-refs="supplement table-rerun">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 A · RERUN</span></header>
+      <h1>숫자가 다르면 실패가 아니라 스냅샷 차이부터 확인한다</h1>
+      <p class="lead">교재의 2025년 2월 결과와 2026년 재실행 결과를 섞어 읽지 않습니다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>899,558</strong><p>교재 OWL 적재 문장<br><small>Neo4j 5.20 · 2025-02 HPO</small></p></article>
+          <article class="kpi"><strong>926,450</strong><p>재실행 OWL 적재 문장<br><small>Neo4j 5.26.28 · 2026 조건</small></p></article>
+          <article class="kpi"><strong>1위 유지</strong><p>Listing 3.26 후보<br><small>하위 순위와 일부 계층은 변동</small></p></article>
+        </div>
+        <p class="takeaway"><strong>재현 계약</strong> — HPO/HPOA 릴리스, 체크섬, Neo4j·n10s·APOC 버전, 실행 단계와 질의 버전을 함께 기록합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-rerun">상세 리포트 표 5 · 교재와 재실행 비교</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="네 검증 게이트" data-report-refs="supplement fig-validation-gates">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 A · VALIDATION</span></header>
+      <h1>후보가 나오기까지 네 검증 게이트를 따로 닫는다</h1>
+      <div class="slide-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/validation-gates.svg" alt="식별자와 입력, 적재 보존성, 질의 재현성, 임상 검토의 네 검증 게이트">
+          <figcaption><b>검증 실패의 위치를 분리</b><span>식별자와 입력 릴리스</span><span>적재 건수와 관계 근거 보존</span><span>질의 결과 재현과 사람의 최종 검토</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-validation-gates">상세 리포트 그림 12 · 네 검증 게이트</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="임상 의사결정 지원 경계" data-report-refs="supplement supplement-boundary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 A.1 · SAFETY</span></header>
+      <h1>그래프가 반환한 질병명은 진단이 아니다</h1>
+      <p class="lead">이 장은 HPO 데이터로 질의와 추론을 학습하는 개념 증명입니다.</p>
       <div class="slide-body">
         <div class="fact-grid fact-grid--safety">
-          <article><span>SCOPE</span><h2>교육용 개념 증명</h2><p>HPO 위에서 질의와 계층 추론이 작동하는 방식을 보여준다.</p></article>
-          <article><span>DATA GOVERNANCE</span><h2>EHR·동의·권한 부재</h2><p>실제 환자 수집, 비식별화, 접근 통제는 이 장의 범위 밖이다.</p></article>
-          <article><span>CLINICAL CONTEXT</span><h2>부정·시점·빈도 부재</h2><p>부정 표현형, 발현 시점, 환자군별 빈도를 단순 겹침 수가 반영하지 않는다.</p></article>
-          <article><span>ACCOUNTABILITY</span><h2>검증·규제·책임 부재</h2><p>임상 검증과 규제 준수, 최종 판단 책임은 별도 절차로 남는다.</p></article>
+          <article><span>SCOPE</span><h2>교육용 후보 생성</h2><p>공유 특징과 계층 경로로 추가 검토 순서를 만든다.</p></article>
+          <article><span>MISSING CONTEXT</span><h2>환자 맥락 부재</h2><p>부정 표현형, 발현 시점, 환자군별 빈도는 단순 집계에 없다.</p></article>
+          <article><span>GOVERNANCE</span><h2>EHR 절차 부재</h2><p>동의·권한·비식별화·규제와 책임 배분은 별도 문제다.</p></article>
+          <article><span>HANDOFF</span><h2>사람의 검토</h2><p>원 주석·추론 경로·릴리스와 함께 임상의에게 넘긴다.</p></article>
         </div>
-        <div class="safety-flow" aria-label="후보명, 원 주석과 추론 경로, 데이터 버전을 함께 제시하고 임상의 검토로 넘기며 진단 확정과 구분한다">
-          <span>후보명</span><b>+</b><span>원 주석·추론 경로</span><b>+</b><span>데이터 버전</span><b>→</b><strong>임상의 검토</strong><em>≠ 진단 확정</em>
-        </div>
-        <p class="takeaway"><strong>안전 원칙</strong> — 질병명만 내보내지 말고 원 주석·추론 경로·데이터 버전을 함께 보여준 뒤 사람의 검토로 넘깁니다.</p>
+        <div class="safety-flow" aria-label="후보, 근거, 버전을 함께 제시하고 임상의 검토로 넘기며 진단 확정과 구분한다"><span>후보</span><b>+</b><span>원 주석·경로</span><b>+</b><span>버전</span><b>→</b><strong>임상의 검토</strong><em>≠ 진단 확정</em></div>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#medical-boundary">상세 리포트 §6.3 · 임상 안전 경계</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#supplement-boundary">상세 리포트 보충 A.1 · 안전 경계</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="온톨로지 기반 KG 도입 판단" data-report-refs="decision technology-decision table-decision">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 B.1 · DECISION</span></header>
-      <h1>온톨로지와 그래프는 질문에 필요한 만큼만 쓴다</h1>
-      <p class="lead">기술 이름보다 문제의 모양과 운영 책임으로 도입 여부를 판단합니다.</p>
+    <section class="slide" aria-label="스터디 확인 질문" data-report-refs="summary source-section-3-1 source-section-3-2 source-section-3-3 source-section-3-4 source-section-3-5 supplement">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>다섯 질문으로 Chapter 3의 연결을 확인한다</h1>
+      <p class="lead">원본의 각 절에서 다음 절로 넘어가는 이유를 설명해 봅시다.</p>
       <div class="slide-body">
-        <div class="decision-grid">
-          <article><p class="eyebrow">GOOD SIGNAL</p><h2>도입 가치가 커진다</h2><ul><li>동의어·중의어·세분성 통합 오류가 큼</li><li>관계 경로와 provenance가 답의 근거</li><li>계층으로 검색 누락을 줄여야 함</li><li>릴리스·매핑·품질 소유자가 있음</li></ul></article>
-          <article><p class="eyebrow">WARNING SIGNAL</p><h2>다른 접근이 단순하다</h2><ul><li>단일 시스템의 고정 코드만 사용</li><li>테이블 필터·집계로 충분</li><li>분류체계가 불안정하고 정확 일치만 요구</li><li>질병명만 반환하고 검토 책임자가 없음</li></ul></article>
+        <div class="question-list question-list--five">
+          <article><span>Q1</span><p>§3.1에서 <code>hp.owl</code>과 <code>phenotype.hpoa</code>의 책임은 어떻게 다른가?</p></article>
+          <article><span>Q2</span><p>§3.2에서 LPG를 선택한 요구사항은 무엇인가?</p></article>
+          <article><span>Q3</span><p>§3.3에서 OWL과 TSV가 실제로 만나는 키는 무엇인가?</p></article>
+          <article><span>Q4</span><p>§3.4의 일치 수가 진단 확률이 아닌 이유는 무엇인가?</p></article>
+          <article><span>Q5</span><p>§3.5의 추론 결과를 설명하려면 어떤 경로와 버전을 남겨야 하는가?</p></article>
         </div>
-        <p class="takeaway"><strong>최소 파일럿</strong> — 대표 질문 3개, 고정 HPO 스냅샷, 주석 보존 모델, 직접/추론 분리 화면으로 시작합니다.</p>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-decision">상세 리포트 표 17 · 도입 판단</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 리포트 처음부터 다시 보기</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="발표 정리 질문" data-report-refs="decision discussion table-discussion">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 B.3 · CHECKPOINT</span></header>
-      <h1>세 질문으로 우리 시스템의 책임을 드러낸다</h1>
-      <p class="lead">용어 암기보다 설계 결정을 말할 수 있는지 확인합니다.</p>
-      <div class="slide-body">
-        <div class="question-list">
-          <article><span>Q1</span><p>우리 데이터의 “같은 개념”은 누가 승인하고 버전 관리하는가?</p></article>
-          <article><span>Q2</span><p>한 관계에 여러 근거가 있을 때 어떤 모델로 모두 보존할 것인가?</p></article>
-          <article><span>Q3</span><p>추론으로 포함된 후보의 원 주석과 계층 경로를 어떻게 설명할 것인가?</p></article>
-        </div>
-        <p class="takeaway"><strong>토론</strong> — 가장 답하기 어려운 질문이 지금 설계에서 가장 짧은 미검증 구간입니다.</p>
-      </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-discussion">상세 리포트 표 18 · 토론 질문</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary decision minimum-pilot">
-      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">QUESTION → EVIDENCE</span></header>
+    <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary source-section-3-1 source-section-3-2 source-section-3-3 source-section-3-4 source-section-3-5 supplement">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">QUESTION → MEANING → EVIDENCE</span></header>
       <div class="closing-body">
         <p class="eyebrow">THREE TAKEAWAYS</p>
-        <h1>그래프의 완성은 적재 성공이 아니라 검토 가능한 근거다</h1>
+        <h1>첫 지식 그래프의 완성은 근거를 다시 설명할 수 있는 상태다</h1>
         <div class="card-grid">
-          <article class="card"><span>01</span><h2>질문이 모델을 고른다</h2><p>임상의의 대표 질문과 오류 비용에서 노드·관계·속성을 도출합니다.</p></article>
-          <article class="card"><span>02</span><h2>온톨로지가 의미를 고정한다</h2><p>표준 ID·동의어·계층으로 여러 원천을 같은 질의 공간에 둡니다.</p></article>
-          <article class="card"><span>03</span><h2>근거 경로가 신뢰를 정한다</h2><p>주석·버전·직접/추론 경로를 남기고 최종 판단은 사람에게 둡니다.</p></article>
+          <article class="card"><span>01</span><h2>질문이 모델을 고른다</h2><p>임상의가 확인할 후보와 근거에서 노드·관계·속성을 도출합니다.</p></article>
+          <article class="card"><span>02</span><h2>표준 ID가 원천을 잇는다</h2><p>OWL의 개념 계층과 HPOA의 주석을 같은 HPO ID로 결합합니다.</p></article>
+          <article class="card"><span>03</span><h2>직접 사실과 추론을 구분한다</h2><p>원 주석·계층 경로·릴리스를 남기고 최종 판단은 사람에게 둡니다.</p></article>
         </div>
         <p class="closing-question">Q&amp;A</p>
       </div>
-      <div class="closing-links"><a class="back-link" href="report.html#summary">상세 리포트 처음부터 읽기</a><a class="back-link" href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md" rel="noreferrer" target="_blank">교재 3장 해설판</a><a class="back-link" href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/src/ch03/03_chapter_guide.ipynb" rel="noreferrer" target="_blank">학습 노트북</a><a class="back-link" href="../../">회차 목록으로 돌아가기</a></div>
+      <div class="closing-links"><a class="back-link" href="report.html#summary">상세 리포트</a><a class="back-link" href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md" rel="noreferrer" target="_blank">한국어 해설판</a><a class="back-link" href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/src/ch03/03_chapter_guide.ipynb" rel="noreferrer" target="_blank">학습 노트북</a><a class="back-link" href="../../">회차 목록</a></div>
     </section>
   </main>
 
   <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
-  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><p class="toc-intro">모든 슬라이드는 상세 리포트의 근거 위치와 연결됩니다.</p><div id="tocItems"></div></aside>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><p class="toc-intro">모든 슬라이드는 새 상세 리포트의 근거 위치와 연결됩니다.</p><div id="tocItems"></div></aside>
   <nav class="deck-controls" aria-label="슬라이드 제어"><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></nav>
   <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
   <script src="assets/deck.js"></script>

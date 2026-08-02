@@ -52,16 +52,15 @@ class SourceFidelityTest(unittest.TestCase):
             outline[("listing", "3.20")],
         )
 
-    def test_trace_parser_collects_visible_source_map_and_deck_refs(self) -> None:
+    def test_trace_parser_collects_integrated_source_anchors_and_deck_refs(self) -> None:
         report = validate_site.ReportDeckTraceParser()
         report.feed(
-            '<section class="report-section" id="source-3-1">'
-            '<a class="source-map__item" data-source-kind="section" '
-            'data-source-ref="3.1" href="#source-3-1">'
-            '§ 3.1 원본 제목</a></section>'
+            '<section class="report-section" id="source-3-1" '
+            'data-source-kind="section" data-source-ref="3.1">'
+            '<h1>3.1 원본 제목</h1><p>해설 본문</p></section>'
         )
-        item = report.source_map_items[("section", "3.1")]
-        self.assertEqual("source-3-1", item.target)
+        item = report.source_anchors[("section", "3.1")]
+        self.assertEqual("source-3-1", item.element_id)
         self.assertIn("원본 제목", item.text)
 
         deck = validate_site.ReportDeckTraceParser()
