@@ -9,8 +9,11 @@ import json
 import re
 import sys
 import tomllib
-from datetime import date
+from collections import Counter
+from datetime import date, time
 from pathlib import Path, PurePosixPath
+from urllib.parse import parse_qs, urlsplit
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -21,6 +24,7 @@ DEFAULT_OUTPUT = REPO_ROOT / "html"
 SLUG_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
 VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
+WEBEX_MTID_RE = re.compile(r"^m[0-9a-f]{32}$")
 SESSION_STATES = {
     "scheduled",
     "materials-published",
@@ -28,6 +32,24 @@ SESSION_STATES = {
     "cancelled",
 }
 ARTIFACT_KINDS = {"report", "slides", "notebook", "code", "other"}
+WEEKDAYS = {
+    "monday": 0,
+    "tuesday": 1,
+    "wednesday": 2,
+    "thursday": 3,
+    "friday": 4,
+    "saturday": 5,
+    "sunday": 6,
+}
+WEEKDAY_LABELS = {
+    "monday": "월요일",
+    "tuesday": "화요일",
+    "wednesday": "수요일",
+    "thursday": "목요일",
+    "friday": "금요일",
+    "saturday": "토요일",
+    "sunday": "일요일",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -79,6 +101,26 @@ def validate_relative_url(value: object, label: str) -> str:
     return value
 
 
+def validate_meeting_url(value: object, label: str) -> str:
+    if not isinstance(value, str) or not value:
+        raise ValueError(f"{label} must be a non-empty URL")
+    parsed = urlsplit(value)
+    hostname = (parsed.hostname or "").lower()
+    meeting_ids = parse_qs(parsed.query).get("MTID", [])
+    if (
+        parsed.scheme != "https"
+        or not hostname.endswith(".webex.com")
+        or not parsed.path.endswith("/j.php")
+        or len(meeting_ids) != 1
+        or not WEBEX_MTID_RE.fullmatch(meeting_ids[0])
+        or parsed.fragment
+    ):
+        raise ValueError(
+            f"{label} must be an HTTPS Webex join URL with a valid MTID"
+        )
+    return value
+
+
 def load_model(
     site_path: Path,
     studies_path: Path,
@@ -118,6 +160,8 @@ def load_model(
         )
     by_id: dict[str, dict] = {}
     seen_slugs: set[str] = set()
+    study_dates: dict[str, tuple[date, date]] = {}
+    planned_chapters: dict[str, list[str]] = {}
     for study in studies:
         study_id = require_slug(study.get("id"), "study id")
         slug = require_slug(study.get("slug"), "study slug")
@@ -129,6 +173,14 @@ def load_model(
             "track",
             "title",
             "title_ko",
+            "description_ko",
+            "start_date",
+            "end_date",
+            "weekday",
+            "start_time",
+            "end_time",
+            "timezone",
+            "venue",
             "materials_path",
             "archive_path",
             "presentation_path",
@@ -142,6 +194,52 @@ def load_model(
                 raise ValueError(
                     f"study {study_id} field is missing or empty: {field}"
                 )
+        try:
+            start_date = date.fromisoformat(study["start_date"])
+            end_date = date.fromisoformat(study["end_date"])
+        except ValueError as exc:
+            raise ValueError(
+                f"invalid study date range for {study_id}"
+            ) from exc
+        if start_date > end_date:
+            raise ValueError(
+                f"study start_date must not exceed end_date: {study_id}"
+            )
+        weekday = study["weekday"]
+        if weekday not in WEEKDAYS:
+            raise ValueError(
+                f"invalid weekday for {study_id}: {weekday}"
+            )
+        try:
+            start_time = time.fromisoformat(study["start_time"])
+            end_time = time.fromisoformat(study["end_time"])
+        except ValueError as exc:
+            raise ValueError(
+                f"invalid study time range for {study_id}"
+            ) from exc
+        if start_time >= end_time:
+            raise ValueError(
+                f"study start_time must precede end_time: {study_id}"
+            )
+        try:
+            ZoneInfo(study["timezone"])
+        except ZoneInfoNotFoundError as exc:
+            raise ValueError(
+                f"invalid timezone for {study_id}: {study['timezone']}"
+            ) from exc
+        chapters = study.get("planned_chapters")
+        if (
+            not isinstance(chapters, list)
+            or not chapters
+            or any(
+                not isinstance(chapter, str) or not chapter.strip()
+                for chapter in chapters
+            )
+            or len(set(chapters)) != len(chapters)
+        ):
+            raise ValueError(
+                f"planned_chapters must be a unique string array: {study_id}"
+            )
         if study.get("status") not in {"active", "archived"}:
             raise ValueError(
                 f"invalid study status for {study_id}: "
@@ -182,12 +280,17 @@ def load_model(
                 f"invalid source_commit for {study_id}"
             )
         by_id[study_id] = study
+        study_dates[study_id] = (start_date, end_date)
+        planned_chapters[study_id] = chapters
         seen_slugs.add(slug)
 
     sessions = sessions_data.get("sessions", [])
     if not isinstance(sessions, list):
         raise ValueError("sessions must be an array of tables")
     seen_sessions: set[str] = set()
+    covered_chapters: dict[str, Counter[str]] = {
+        study_id: Counter() for study_id in by_id
+    }
     for session in sessions:
         session_id = require_slug(session.get("id"), "session id")
         if session_id in seen_sessions:
@@ -199,11 +302,25 @@ def load_model(
                 f"unknown study_id for {session_id}: {study_id}"
             )
         try:
-            date.fromisoformat(str(session.get("date")))
+            session_date = date.fromisoformat(str(session.get("date")))
         except ValueError as exc:
             raise ValueError(
                 f"invalid date for {session_id}: {session.get('date')}"
             ) from exc
+        if not session_id.startswith(f"{session_date.isoformat()}-"):
+            raise ValueError(
+                f"session id must start with its date: {session_id}"
+            )
+        study_start, study_end = study_dates[study_id]
+        if not study_start <= session_date <= study_end:
+            raise ValueError(
+                f"session date is outside its study range: {session_id}"
+            )
+        expected_weekday = WEEKDAYS[by_id[study_id]["weekday"]]
+        if session_date.weekday() != expected_weekday:
+            raise ValueError(
+                f"session date does not match study weekday: {session_id}"
+            )
         if (
             not isinstance(session.get("title"), str)
             or not session["title"].strip()
@@ -218,6 +335,14 @@ def load_model(
                 raise ValueError(
                     f"{field} must be a string array for {session_id}"
                 )
+        unknown_chapters = sorted(
+            set(session["chapters"]) - set(planned_chapters[study_id])
+        )
+        if unknown_chapters:
+            raise ValueError(
+                f"unknown planned chapter for {session_id}: "
+                f"{', '.join(unknown_chapters)}"
+            )
         status = session.get("status")
         if status not in SESSION_STATES:
             raise ValueError(
@@ -247,12 +372,41 @@ def load_model(
                 artifact.get("url"),
                 f"artifact URL for {session_id}",
             )
+        meeting_url = session.get("meeting_url")
+        meeting_status = session.get("meeting_status")
+        if meeting_status is not None and meeting_status not in {
+            "pending",
+            "available",
+            "ended",
+        }:
+            raise ValueError(
+                f"invalid meeting_status for {session_id}: "
+                f"{meeting_status}"
+            )
+        if meeting_url is not None:
+            session["meeting_url"] = validate_meeting_url(
+                meeting_url,
+                f"meeting_url for {session_id}",
+            )
+            if meeting_status in {"pending", "ended"}:
+                raise ValueError(
+                    f"{meeting_status} meeting must not publish a "
+                    f"meeting_url: {session_id}"
+                )
+        elif meeting_status == "available":
+            raise ValueError(
+                f"available meeting requires meeting_url: {session_id}"
+            )
         if (
             status in {"materials-published", "video-public"}
             and not artifacts
         ):
             raise ValueError(
                 f"{status} requires at least one artifact for {session_id}"
+            )
+        if status == "scheduled" and artifacts:
+            raise ValueError(
+                f"scheduled session must not publish artifacts: {session_id}"
             )
         video_id = session.get("youtube_video_id")
         if status == "video-public":
@@ -268,6 +422,25 @@ def load_model(
             raise ValueError(
                 "non-public session must not store youtube_video_id: "
                 f"{session_id}"
+            )
+        if status != "cancelled":
+            covered_chapters[study_id].update(session["chapters"])
+
+    for study_id, chapters in planned_chapters.items():
+        counts = covered_chapters[study_id]
+        missing = [chapter for chapter in chapters if counts[chapter] == 0]
+        duplicates = [
+            chapter for chapter in chapters if counts[chapter] > 1
+        ]
+        if missing or duplicates:
+            details = []
+            if missing:
+                details.append(f"missing={', '.join(missing)}")
+            if duplicates:
+                details.append(f"duplicate={', '.join(duplicates)}")
+            raise ValueError(
+                f"session plan does not cover {study_id}: "
+                + "; ".join(details)
             )
 
     sessions.sort(
@@ -312,16 +485,78 @@ def status_label(status: str) -> str:
     }[status]
 
 
-def render_session_card(session: dict, prefix: str = "") -> str:
+def presenter_label(session: dict) -> str:
+    return ", ".join(session.get("presenters", [])) or "미정"
+
+
+def meeting_state(session: dict) -> str:
+    if session.get("meeting_url"):
+        return "available"
+    return session.get("meeting_status", "pending")
+
+
+def study_schedule_label(study: dict) -> str:
+    return (
+        f"매주 {WEEKDAY_LABELS[study['weekday']]} "
+        f"{study['start_time']}–{study['end_time']} · {study['venue']}"
+    )
+
+
+def render_session_card(
+    session: dict,
+    study: dict,
+    prefix: str = "",
+) -> str:
+    chapters = " · ".join(session.get("chapters", []))
+    time_and_venue = (
+        f"{study['start_time']}–{study['end_time']} · {study['venue']}"
+    )
     return (
         f'<a class="card" href="{prefix}sessions/{session["id"]}/">'
         f'<span class="badge badge--{session["status"]}">'
         f'{status_label(session["status"])}</span>'
         f'<p class="eyebrow">{html.escape(str(session["date"]))}</p>'
         f'<h3>{html.escape(session["title"])}</h3>'
-        f'<p>{html.escape(" · ".join(session.get("chapters", [])))}</p>'
+        '<div class="session-card-meta">'
+        f'<span>{html.escape(chapters)}</span>'
+        f'<span>{html.escape(time_and_venue)}</span>'
+        f'<span>발표: {html.escape(presenter_label(session))}</span>'
+        "</div>"
         "</a>"
     )
+
+
+def render_schedule_row(
+    session: dict,
+    study: dict,
+    prefix: str = "",
+) -> str:
+    meeting_url = session.get("meeting_url")
+    state = meeting_state(session)
+    meeting = (
+        f'<a class="schedule-webex" href="{html.escape(meeting_url)}" '
+        'target="_blank" rel="noopener noreferrer">Webex 접속 ↗</a>'
+        if state == "available"
+        else (
+            '<span class="schedule-ended">종료</span>'
+            if state == "ended"
+            else '<span class="schedule-tbd">추후 공지</span>'
+        )
+    )
+    chapters = " · ".join(session.get("chapters", []))
+    return f"""        <div class="schedule-row">
+          <div class="schedule-when">
+            <strong>{html.escape(str(session["date"]))}</strong>
+            <span>{html.escape(study["start_time"])}–{html.escape(study["end_time"])}</span>
+          </div>
+          <div class="schedule-topic">
+            <span class="badge badge--{session["status"]}">{status_label(session["status"])}</span>
+            <span class="schedule-chapters">{html.escape(chapters)}</span>
+            <a href="{prefix}sessions/{session["id"]}/">{html.escape(session["title"])}</a>
+          </div>
+          <div class="schedule-presenter"><span class="schedule-mobile-label">발표</span>{html.escape(presenter_label(session))}</div>
+          <div class="schedule-meeting"><span class="schedule-mobile-label">접속</span>{meeting}</div>
+        </div>"""
 
 
 def render_files(
@@ -334,18 +569,74 @@ def render_files(
     cards = "\n".join(
         '<a class="card" href="studies/{slug}/">'
         '<span class="badge">{track}</span>'
-        "<h2>{title_ko}</h2><p>{title}</p></a>".format(
+        "<h2>{title_ko}</h2><p>{title}</p>"
+        '<p class="study-card-description">{description}</p>'
+        '<p class="study-card-schedule">{schedule}</p></a>'.format(
             slug=study["slug"],
             track=html.escape(study["track"].upper()),
             title_ko=html.escape(study["title_ko"]),
             title=html.escape(study["title"]),
+            description=html.escape(study["description_ko"]),
+            schedule=html.escape(study_schedule_label(study)),
         )
         for study in studies
     )
+    published_sessions = sorted(
+        (
+            item
+            for item in sessions
+            if item["status"] in {"materials-published", "video-public"}
+        ),
+        key=lambda item: (str(item["date"]), item["id"]),
+        reverse=True,
+    )
     recent = (
-        "\n".join(render_session_card(item) for item in sessions[:8])
+        "\n".join(
+            render_session_card(item, study_by_id[item["study_id"]])
+            for item in published_sessions[:8]
+        )
         or '<p class="empty">등록된 회차가 없습니다.</p>'
     )
+    root_schedules = []
+    for study in sorted(
+        studies,
+        key=lambda item: (item["start_time"], item["track"]),
+    ):
+        matching = sorted(
+            (
+                item
+                for item in sessions
+                if item["study_id"] == study["id"]
+            ),
+            key=lambda item: (str(item["date"]), item["id"]),
+        )
+        rows = "\n".join(
+            render_schedule_row(item, study)
+            for item in matching
+        )
+        root_schedules.append(
+            f"""      <article class="track-schedule" id="{study["track"]}-schedule">
+        <header class="track-schedule-header">
+          <div>
+            <p class="eyebrow">{html.escape(study["track"].upper())}</p>
+            <h3>{html.escape(study["title_ko"])}</h3>
+            <p>{html.escape(study["description_ko"])}</p>
+          </div>
+          <div class="track-schedule-meta">
+            <span>{html.escape(study_schedule_label(study))}</span>
+            <span>{html.escape(study["start_date"])}–{html.escape(study["end_date"])}</span>
+            <a href="studies/{study["slug"]}/#schedule">스터디 상세 →</a>
+          </div>
+        </header>
+        <div class="schedule-board">
+          <div class="schedule-head" aria-hidden="true">
+            <span>일시</span><span>범위</span><span>발표자</span><span>접속</span>
+          </div>
+{rows}
+        </div>
+      </article>"""
+        )
+    root_schedule_html = "\n".join(root_schedules)
     root_body = f"""    <header class="hero">
       <div class="cover-brand">
         <span class="brand-name">{html.escape(site["name"])}</span>
@@ -355,6 +646,9 @@ def render_files(
         <p class="eyebrow">GITHUB PAGES × YOUTUBE</p>
         <h1>{html.escape(site["name_ko"])}</h1>
         <p class="lead">교안을 먼저 공개하고, 스터디 영상이 공개되면 같은 회차 페이지에서 연결합니다.</p>
+        <div class="actions hero-actions">
+          <a class="button" href="#schedule">전체 일정·Webex 보기</a>
+        </div>
       </div>
       <dl class="hero-meta">
         <div><dt>공개 순서</dt><dd>교안 → 스터디 → 영상</dd></div>
@@ -366,8 +660,15 @@ def render_files(
       <h2>진행 중인 스터디</h2>
       <div class="grid">{cards}</div>
     </section>
+    <section id="schedule">
+      <h2>전체 스터디 일정</h2>
+      <p class="section-intro">기존 스터디 README처럼 날짜·발표자·접속 링크를 한곳에 모았습니다. 종료·미정 상태와 공개된 회차 자료도 함께 확인할 수 있습니다.</p>
+      <div class="root-schedules">
+{root_schedule_html}
+      </div>
+    </section>
     <section>
-      <h2>최근 회차</h2>
+      <h2>공개된 교안</h2>
       <div class="grid">{recent}</div>
     </section>"""
     files[Path("index.html")] = page(
@@ -381,13 +682,17 @@ def render_files(
         matching = [
             item for item in sessions if item["study_id"] == study["id"]
         ]
+        matching.sort(
+            key=lambda item: (str(item["date"]), item["id"])
+        )
         materials_url = (
             f"https://github.com/{site['repository']}/tree/main/"
             f"{study['materials_path']}"
         )
-        session_cards = (
+        schedule_rows = (
             "\n".join(
-                render_session_card(item, "../../") for item in matching
+                render_schedule_row(item, study, "../../")
+                for item in matching
             )
             or '<p class="empty">등록된 회차가 없습니다.</p>'
         )
@@ -400,14 +705,26 @@ def render_files(
       <p class="eyebrow">{html.escape(study["track"].upper())}</p>
       <h1>{html.escape(study["title_ko"])}</h1>
       <p class="lead">{html.escape(study["title"])}</p>
+      <p class="study-description">{html.escape(study["description_ko"])}</p>
+      <dl class="study-facts">
+        <div><dt>기간</dt><dd>{html.escape(study["start_date"])}–{html.escape(study["end_date"])}</dd></div>
+        <div><dt>일정</dt><dd>{html.escape(study_schedule_label(study))}</dd></div>
+        <div><dt>시간대</dt><dd>{html.escape(study["timezone"])}</dd></div>
+      </dl>
       <div class="actions">
         <a class="button" href="{html.escape(materials_url)}">교재 자료</a>
         <a class="button button--secondary" href="{html.escape(study["source_repository"])}">이전 저장소</a>
       </div>
     </header>
-    <section>
-      <h2>회차</h2>
-      <div class="grid">{session_cards}</div>
+    <section id="schedule">
+      <h2>전체 일정</h2>
+      <p class="section-intro">발표 담당과 Webex 접속 링크를 확인하세요. 미정 항목은 확정되는 대로 갱신합니다.</p>
+      <div class="schedule-board">
+        <div class="schedule-head" aria-hidden="true">
+          <span>일시</span><span>범위</span><span>발표자</span><span>접속</span>
+        </div>
+{schedule_rows}
+      </div>
     </section>"""
         canonical = (
             site["pages_url"] + f"studies/{study['slug']}/"
@@ -423,6 +740,20 @@ def render_files(
 
     for session in sessions:
         study = study_by_id[session["study_id"]]
+        meeting_url = session.get("meeting_url")
+        state = meeting_state(session)
+        meeting_access = (
+            '<div class="actions session-access">'
+            f'<a class="button" href="{html.escape(meeting_url)}" '
+            'target="_blank" rel="noopener noreferrer">'
+            'Webex 접속 ↗</a></div>'
+            if state == "available"
+            else (
+                '<p class="session-meeting-note">접속 링크: 종료된 회차</p>'
+                if state == "ended"
+                else '<p class="session-meeting-note">접속 링크: 추후 공지</p>'
+            )
+        )
         artifacts = (
             "".join(
                 '<a class="button button--secondary" '
@@ -433,6 +764,7 @@ def render_files(
             or '<p class="empty">교안 준비 중입니다.</p>'
         )
         video_id = session.get("youtube_video_id")
+        status = session["status"]
         if video_id:
             watch_url = (
                 f"https://www.youtube.com/watch?v={video_id}"
@@ -441,23 +773,33 @@ def render_files(
         <iframe src="https://www.youtube.com/embed/{video_id}" title="{html.escape(session["title"])}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
       <a class="button" href="{watch_url}">YouTube에서 보기·댓글 참여</a>"""
-        else:
+        elif status == "materials-published":
             video = """<div class="pending">
         <strong>영상 준비 중</strong>
         <p>교안을 먼저 공개했습니다. 영상이 공개되면 이 페이지에서 연결합니다.</p>
       </div>"""
-        presenters = (
-            ", ".join(session.get("presenters", [])) or "미정"
-        )
+        elif status == "scheduled":
+            video = """<div class="pending">
+        <strong>일정 등록</strong>
+        <p>교안과 영상은 공개 준비가 끝나는 순서대로 이 페이지에 연결합니다.</p>
+      </div>"""
+        else:
+            video = """<div class="pending pending--cancelled">
+        <strong>취소된 회차</strong>
+        <p>이 회차는 취소되었습니다. 변경된 일정은 스터디 목록에서 확인해 주세요.</p>
+      </div>"""
+        presenters = presenter_label(session)
         body = f"""    <header class="site-masthead">
       <a class="brand-name" href="../../">{html.escape(site["name"])}</a>
       <span class="brand-sub">SESSION ARCHIVE</span>
     </header>
     <a class="back" href="../../studies/{study["slug"]}/">← {html.escape(study["title_ko"])}</a>
     <header class="page-header">
-      <p class="eyebrow">{html.escape(str(session["date"]))} · {html.escape(study["track"].upper())}</p>
+      <p class="eyebrow">{html.escape(str(session["date"]))} · {html.escape(study["start_time"])}–{html.escape(study["end_time"])} · {html.escape(study["track"].upper())}</p>
       <h1>{html.escape(session["title"])}</h1>
       <p class="lead">발표: {html.escape(presenters)}</p>
+      <p class="session-venue">장소: {html.escape(study["venue"])} · {html.escape(study["timezone"])}</p>
+      {meeting_access}
     </header>
     <section>
       <h2>발표자료</h2>
@@ -486,13 +828,18 @@ def render_files(
             "study_id": session["study_id"],
             "date": str(session["date"]),
             "title": session["title"],
+            "presenters": session.get("presenters", []),
+            "chapters": session.get("chapters", []),
             "status": session["status"],
+            "meeting_status": meeting_state(session),
             "page_url": (
                 site["pages_url"]
                 + f"sessions/{session['id']}/"
             ),
             "artifacts": session.get("artifacts", []),
         }
+        if session.get("meeting_url"):
+            public["meeting_url"] = session["meeting_url"]
         if session.get("youtube_video_id"):
             video_id = session["youtube_video_id"]
             public["youtube_video_id"] = video_id

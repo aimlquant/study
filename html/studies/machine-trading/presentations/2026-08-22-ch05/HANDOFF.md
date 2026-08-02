@@ -37,7 +37,7 @@
   - 위 항목들은 책 출력값을 정직한 Output-only 스냅샷으로 보존 처리.
 
 ## 4. 품질 검증 상태
-- **빌드 검증**: `build-index.py` 및 `validate-site.py` 100% 통과 (경고/오류 0건).
+- **빌드 검증**: `build_site.py --check` 및 `validate-site.py` 100% 통과 (경고/오류 0건).
 - **콘솔 에러**: Playwright 구동 브라우저 상에서 Javascript 런타임 에러 0건 (TOC/Nav 버튼 Event Listener null 버그 완벽 수정).
 - **레이아웃 적합성**: 1280x720 뷰포트 내 가로/세로 화면 넘침(Scroll Overflow) 슬라이드 개수 0개 확인.
 

@@ -26,7 +26,7 @@ AIML Quant의 공개 학습 허브다. AI/ML과 Quant 두 스터디의 교재,
 agent-support/
   site.toml       # 브랜드·GitHub Pages·YouTube 공개 채널
   studies.toml    # 진행 교재와 공개 자료 경로
-  sessions.toml   # 회차 수명주기와 공개 video ID
+  sessions.toml   # 일정·발표자·Webex·회차 수명주기와 공개 video ID
   scripts/        # 결정적 사이트 생성기
   procedures/     # 에이전트 공통 운영 절차
 materials/
@@ -44,7 +44,68 @@ html/             # GitHub Pages 배포 산출물
 - [`Knowledge Graphs and LLMs in Action`](materials/aiml/active/knowledge-graphs-and-llms-in-action)
 - [`Machine Trading`](materials/quant/active/machine-trading)
 
-이전 기록은 `agent-support/migrations.toml`에서 원본 저장소와 커밋 단위로 확인한다.
+## 일정·발표자·Webex
+
+스터디는 매주 토요일 Webex에서 진행한다. 발표자와 접속 링크가 미정인 회차는
+확정되는 대로 갱신한다. 모바일에 최적화된 일정은 각 스터디의 GitHub Pages에서 볼 수 있다.
+
+- [Quant 전체 일정](https://restful3.github.io/aimlquant/studies/machine-trading/#schedule): 08:00–10:00, 2026-07-25~2026-09-12
+- [AI/ML 전체 일정](https://restful3.github.io/aimlquant/studies/knowledge-graphs-and-llms-in-action/#schedule): 09:00–10:00, 2026-07-25~2026-10-24
+- Quant 발표자: 정훈, 종훈, 태호, 태영, 핀조이 (미정 3회)
+- AI/ML 발표자: 수경, 태영, 종훈(S), 두균, 종훈(L), 재익, 태호, 정훈 (미정 6회)
+
+### Quant · Machine Trading
+
+| 날짜 | 시간 | 범위 | 발표자 | Webex | 회차 페이지 |
+|---|---|---|---|---|---|
+| 2026-07-25 | 08:00–10:00 | Chapter 1 | 정훈 | 종료 | [자료](https://restful3.github.io/aimlquant/sessions/2026-07-25-machine-trading-ch01/) |
+| 2026-08-01 | 08:00–10:00 | Chapter 2 | 종훈 | 종료 | [자료·영상](https://restful3.github.io/aimlquant/sessions/2026-08-01-machine-trading-ch02/) |
+| 2026-08-08 | 08:00–10:00 | Chapter 3 | 태호 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6) | [회차](https://restful3.github.io/aimlquant/sessions/2026-08-08-machine-trading-ch03/) |
+| 2026-08-15 | 08:00–10:00 | Chapter 4 | 태영 | [접속](https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79) | [회차](https://restful3.github.io/aimlquant/sessions/2026-08-15-machine-trading-ch04/) |
+| 2026-08-22 | 08:00–10:00 | Chapter 5 | 핀조이 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf) | [자료](https://restful3.github.io/aimlquant/sessions/2026-08-22-machine-trading-ch05/) |
+| 2026-08-29 | 08:00–10:00 | Chapter 6 | 미정 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf) | [회차](https://restful3.github.io/aimlquant/sessions/2026-08-29-machine-trading-ch06/) |
+| 2026-09-05 | 08:00–10:00 | Chapter 7 | 미정 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-09-05-machine-trading-ch07/) |
+| 2026-09-12 | 08:00–10:00 | Chapter 8 | 미정 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-09-12-machine-trading-ch08/) |
+
+### AI/ML · Knowledge Graphs and LLMs in Action
+
+| 날짜 | 시간 | 범위 | 발표자 | Webex | 회차 페이지 |
+|---|---|---|---|---|---|
+| 2026-07-25 | 09:00–10:00 | Chapter 1–2 | 수경 | 종료 | [자료](https://restful3.github.io/aimlquant/sessions/2026-07-25-kg-llm-ch01-ch02/) |
+| 2026-08-01 | 09:00–10:00 | Chapter 3 | 태영 | 종료 | [자료·영상](https://restful3.github.io/aimlquant/sessions/2026-08-01-kg-llm-ch03/) |
+| 2026-08-08 | 09:00–10:00 | Chapter 4 | 종훈(S) | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6) | [회차](https://restful3.github.io/aimlquant/sessions/2026-08-08-kg-llm-ch04/) |
+| 2026-08-15 | 09:00–10:00 | Chapter 5 | 두균 | [접속](https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79) | [회차](https://restful3.github.io/aimlquant/sessions/2026-08-15-kg-llm-ch05/) |
+| 2026-08-22 | 09:00–10:00 | Chapter 6 | 종훈(L) | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf) | [회차](https://restful3.github.io/aimlquant/sessions/2026-08-22-kg-llm-ch06/) |
+| 2026-08-29 | 09:00–10:00 | Chapter 7 | 재익 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf) | [회차](https://restful3.github.io/aimlquant/sessions/2026-08-29-kg-llm-ch07/) |
+| 2026-09-05 | 09:00–10:00 | Chapter 8 | 태호 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-09-05-kg-llm-ch08/) |
+| 2026-09-12 | 09:00–10:00 | Chapter 9 | 정훈 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-09-12-kg-llm-ch09/) |
+| 2026-09-19 | 09:00–10:00 | Chapter 10 | 미정 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-09-19-kg-llm-ch10/) |
+| 2026-09-26 | 09:00–10:00 | Chapter 11 | 미정 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-09-26-kg-llm-ch11/) |
+| 2026-10-03 | 09:00–10:00 | Chapter 12 | 미정 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-10-03-kg-llm-ch12/) |
+| 2026-10-10 | 09:00–10:00 | Chapter 13 | 미정 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-10-10-kg-llm-ch13/) |
+| 2026-10-17 | 09:00–10:00 | Chapter 14 | 미정 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-10-17-kg-llm-ch14/) |
+| 2026-10-24 | 09:00–10:00 | Chapter 15 | 미정 | 추후 공지 | [회차](https://restful3.github.io/aimlquant/sessions/2026-10-24-kg-llm-ch15/) |
+
+날짜·챕터·발표자·Webex 링크·발행 상태의 정본은
+[`agent-support/sessions.toml`](agent-support/sessions.toml)이다. 참여자는
+[`QUICKSTART.md`](QUICKSTART.md)에서 준비·발행 흐름을 확인할 수 있다.
+
+## 정본과 이전 저장소
+
+2026-07-31 병합 이후 새 일정·교재 경로·공개 회차의 정본은 이 저장소다.
+`ds4th_study`와 `ml4t`는 이전 이력과 병합 전 자료를 보존하는 출처이며, 다시 가져올 때는
+공개 커밋과 범위를 [`agent-support/migrations.toml`](agent-support/migrations.toml)에 기록한다.
+원본 저장소의 로컬 미커밋 변경은 자동으로 포함하지 않는다.
+
+- 이전 AI/ML 기록: <https://github.com/restful3/ds4th_study>
+- 이전 ML4T 기록: <https://github.com/restful3/ml4t>
+
+## 공개 자료의 권리 경계
+
+업스트림 코드가 공개되어 있어도 책 본문·표·그림의 재배포 권리까지 자동으로 생기지는 않는다.
+권리 확인 없는 책 그림·표 스캔은 새로 추가하지 않고 자체 도식과 최소 인용을 사용한다.
+현재 Knowledge Graph 교재 노트북에 포함된 책 그림 attachment는 승인된 예외가 아니라
+삭제·재도식화·비공개 전환 중 방침 결정이 필요한 알려진 항목이다.
 
 ## 로컬 검증
 
@@ -53,6 +114,7 @@ uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/test
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
 python3 agent-support/scripts/validate-site.py --site html --check-materials
+git diff --check
 ```
 
 공개 사이트 기준 URL은 <https://restful3.github.io/aimlquant/>이고,

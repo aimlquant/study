@@ -3761,4 +3761,13 @@ svg.report-lightbox__visual {
 @media print {
   [data-report-zoomable="true"] { cursor: default !important; outline: none !important; box-shadow: none !important; filter: none !important; }
   .report-lightbox { display: none !important; }
+  pre {
+    overflow-x: visible !important;
+  }
+  pre,
+  pre code {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+  }
 }
