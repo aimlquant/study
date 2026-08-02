@@ -7,6 +7,7 @@
 3. `materials_path`가 실제로 존재하는지 확인한다. 스터디가 종료된 경우
    같은 분야의 `materials/<track>/archive/`를 가리켜야 한다.
 4. 사용자의 기존 변경과 같은 회차 발표 폴더가 있는지 `git status`와 파일 검색으로 확인한다.
+5. 기존 회차를 교체·통합·삭제할 때는 공식본, 보존본, 중복 파생본, 미등재 형제 산출물과 공개 링크를 먼저 inventory한다. 회차 ID와 회차 페이지 URL은 이름이 낡아 보여도 바꾸지 않는다.
 
 정보가 없으면 발표 제목이나 담당자를 임의로 확정하지 않는다. 작업을 진행하는 데 반드시 필요한 값만 사용자에게 묻는다.
 
@@ -18,7 +19,7 @@
 - 원자료의 주장 강도와 주체를 함께 기록한다. `가능하다·도울 수 있다·조건부로 강화한다`를 리포트에서 `한다·증명한다·보장한다`로 높이지 않고, `저자들의 경험상·해당 실험에서`를 무주체의 일반 사실로 바꾸지 않는다. 발표자가 더 보수적인 도입 기준이나 운영 확장을 제안하면 `교재의 주장`과 `이 리포트의 제안`을 본문·캡션·도형에서 눈에 보이게 분리한다.
 - `agent-support/templates/STUDY_SESSION_BLUEPRINT.md`와 그 문서가 가리키는 Chapter 1 완성본을 품질 기준으로 사용하되, Chapter 1의 재구성 목차를 다른 장에 복제하지 않는다. 리포트의 1차 목차는 원본 장·절 순서와 번호·번역 제목으로 고정하고 학습 목표, 데모와 보충 해설을 그 안에 배치한다. 이 단계에서 슬라이드는 제목 목록 이상의 회차별 본문을 작성하지 않는다.
 - `문제 → 개념 → 메커니즘 → 운영 구조 → 근거와 한계 → 사례 → 판단 → 요약`은 목차 템플릿이 아니라 내용 누락을 찾는 체크리스트다. 원본 순서를 바꾸거나 원본 절 제목을 대체하지 않는다.
-- 50분 발표는 보통 18–30장으로 구성하고, 처음 3장은 표지·핵심 질문·전체 흐름, 마지막 2장은 확인 질문·세 문장 요약으로 둔다. 리포트 시각자료가 많으면 한 장에 욱여넣지 말고 슬라이드를 나눈다.
+- 50분 발표는 보통 18–30장으로 구성하고, 처음 3장은 표지·핵심 질문·전체 흐름, 마지막 2장은 확인 질문·세 문장 요약으로 둔다. 다만 source-fidelity 회차는 원본 좌표 전수 커버리지와 한 장 한 그림을 지키기 위해 이 범위를 넘을 수 있다. 리포트 시각자료가 많으면 한 장에 욱여넣지 말고 슬라이드를 나눈다.
 - 발표자료는 의미 있는 그림 하나를 슬라이드 하나에 배치하는 것을 기본으로 한다. 서로 다른 원본 그림을 한 장에 함께 두는 것은 두 그림의 동시 비교 자체가 학습 과제이고 최종 프로젝터 크기에서도 세부가 읽힐 때만 허용한다. 같은 절에 속한다는 이유만으로 그림을 묶지 않는다.
 - 리포트는 정의·배경·논리·사례·판단 기준·용어를 보존하고, 슬라이드는 그중 발표에 필요한 메시지만 압축한다.
 - 상세 리포트는 실제 `study-report-v1`의 ConnectBrick 계열 컴포넌트(`report-section`, `section-summary`, `cmp-table`, `report-figure`, `callout--*`)로 작성한다. 표지만 닮은 별도 경량 CSS나 카드 모음으로 대체하지 않는다.
@@ -52,12 +53,11 @@ html/studies/<study-slug>/presentations/<session-slug>/
 ```bash
 python3 agent-support/scripts/new-presentation.py \
   --study kg-llm-in-action-2026 \
-  --session 2026-07-25-ch01-ch02 \
-  --title "지식 그래프와 LLM: 강력한 조합" \
-  --date 2026-07-25 \
-  --presenter "수경" \
-  --chapter "Chapter 1" \
-  --chapter "Chapter 2"
+  --session 2026-08-01-ch03 \
+  --title "온톨로지로 첫 번째 지식 그래프 만들기" \
+  --date 2026-08-01 \
+  --presenter "태영" \
+  --chapter "Chapter 3"
 ```
 
 - 리포트 규칙은 `agent-support/templates/study-report/DESIGN.md`, 슬라이드 규칙은 `agent-support/templates/study-deck/DESIGN.md`에서 확인한다.
@@ -118,30 +118,32 @@ python3 agent-support/scripts/new-presentation.py \
 
 ```toml
 study_id = "kg-llm-in-action-2026"
-session_id = "2026-07-25-ch01-ch02"
-title = "지식 그래프와 LLM: 강력한 조합"
-date = "2026-07-25"
-presenters = ["수경"]
-chapters = ["Chapter 1", "Chapter 2"]
+session_id = "2026-08-01-ch03"
+title = "온톨로지로 첫 번째 지식 그래프 만들기"
+date = "2026-08-01"
+presenters = ["태영"]
+chapters = ["Chapter 3"]
 template = "study-deck-v1"
 report_template = "study-report-v1"
 artifacts = ["report", "slides"]
 workflow = "raw-report-deck-v1"
 report_source = "report.html"
+source_fidelity = "source-structure-v1"
+source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md"
 ```
 
 생성 직후의 `index.html`은 구조 청사진일 뿐 완성된 회차 발표자료가 아니다. 리포트 게이트를 통과한 뒤 다음 규칙으로 내용을 교체한다.
 
 - `<main>`의 `data-report-source="report.html"`을 유지한다.
 - 모든 `.slide`에 근거가 된 리포트 절·표·그림 ID를 공백으로 구분해 `data-report-refs`로 기록한다.
-- 모든 원본 본문 절을 적어도 한 슬라이드의 `data-source-refs="section:3.1 section:3.1.1"`처럼 기록하고, 같은 슬라이드 화면에도 `교재 §3.1.1`을 보이게 표시한다. 코드·표·그림을 설명하면 해당 `listing:3.13`, `table:3.2`, `figure:3.7` 좌표도 추가한다.
-- 원본 절 구분 슬라이드의 주 제목은 해설판의 번역 장·절 제목과 일치시킨다. 각 소절의 첫 본문 슬라이드도 정확한 소절 제목을 눈에 띄게 보여 주고, 같은 소절의 후속 슬라이드에서만 결론형 제목으로 압축한다.
+- 모든 원본 본문 절을 적어도 한 슬라이드의 `data-source-refs="section:3.1 section:3.1.1"`처럼 기록하고, 같은 슬라이드 화면에도 `§3.1.1`을 보이게 표시한다. 코드·표·그림을 설명하면 해당 `listing:3.13`, `table:3.2`, `figure:3.7` 좌표도 추가한다. 해설판에서 여러 줄로 감긴 캡션은 이어 읽되, 좌표와 첫 완결 문장인 캡션 제목을 정확히 보존하고 뒤의 설명 문장은 그대로 전재하지 않고 독립적인 학습 해설로 다시 쓴다.
+- 원본 절마다 정확히 한 슬라이드에 `data-source-title="section:3.1.1"` 책임 표지를 둔다. 이 슬라이드는 같은 토큰을 `data-source-refs`에도 포함하고 해설판의 정확한 번역 제목을 눈에 띄게 보여 준다. 그룹 divider가 여러 소절 좌표를 미리 참조해도 제목 책임은 각 소절의 전용 슬라이드에 둘 수 있다. 같은 소절의 후속 슬라이드에서만 결론형 제목으로 압축한다.
 - 낯선 용어는 처음 필요한 슬라이드에서 한 문장으로 정의한다. 그림 슬라이드는 `어떻게 읽는가 / 왜 필요한가 / 해석 또는 실패 경계`를 최대 세 개의 짧은 설명으로 제공하고, 넘치면 글자를 줄이지 말고 슬라이드를 나눈다.
 - 리포트의 모든 본문 절과 `data-deck-use="required"` 그림이 적어도 한 슬라이드에서 참조되게 한다.
 - 리포트의 주장·용어·논리 순서를 그대로 유지하며 발표 밀도로 압축한다. 새 주장을 슬라이드에서만 만들지 않는다.
 - 리포트 SVG가 화면에서 읽히면 같은 `src` 파일을 직접 사용한다. 복잡하면 의미·번호·관계를 유지한 CSS/SVG 발표용 버전을 만들고 정확한 `report.html#<figure-id>` 링크를 표시한다. 실제 adapted 사례가 생기기 전에는 참조 ID만 적고 그림을 생략하는 예외를 만들지 않는다.
 - 목차는 별도 파일로 만들지 않고 각 슬라이드의 고유한 `aria-label`에서 자동 생성한다.
-- 발표자료의 모든 본문 그림은 클릭과 Enter/Space로 전체화면 확대 보기를 열고, 확대·축소·이동·Esc 닫기를 지원한다. 블록 코드는 언어 라벨과 코드 창 헤더를 표시해 일반 카드나 산문과 시각적으로 구분한다.
+- 발표자료의 모든 본문 그림은 클릭과 Enter/Space로 전체화면 확대 보기를 열고, 확대·축소·이동·Esc 닫기를 지원한다. 서로 다른 원본 그림 좌표를 한 슬라이드에서 동시에 설명하는 실제 비교라면 `data-figure-comparison="intentional"`을 두고 최종 크기에서 둘 다 읽히는지 확인한다. 블록 코드는 `<pre>` 또는 그 직계 `<code>`에 언어 표지를 두고 코드 창 헤더를 표시해 일반 카드나 산문과 시각적으로 구분한다.
 
 기존 회차를 수정할 때는 변경된 리포트 ID를 `data-report-refs`에서 역검색해 연결된 슬라이드를 모두 재감사한다. 수정 전 핵심 표현도 리포트와 슬라이드 전체에서 검색하여 남은 문구를 확인한다. 주장뿐 아니라 조건·예외·숫자·시점·귀속, `aria-label`, `data-report-refs`, 링크와 화면에 보이는 `상세 리포트 표/그림 N`, 앵커 밖 본문·로드맵의 번호와 범위 표기를 함께 갱신한다. 특히 `저자들의 경험상`, `당시 실행`, `기본 조건 대비` 같은 주장 소유권·비교 조건은 섹션 요약·슬라이드·SVG 라벨까지 보존한다. 반대로 슬라이드에서만 새 주장이나 단서가 생기지 않았는지도 리포트와 대조한 뒤 두 게이트를 다시 통과한다.
 
@@ -259,9 +261,11 @@ alt·캡션·도형의 의미 일치는 자동 정규식으로 판정하지 않�
 ## 7. 인덱스와 검증
 
 ```bash
+uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
-python3 agent-support/scripts/validate-site.py --site html
+python3 agent-support/scripts/validate-site.py --site html --check-materials
+git diff --check
 ```
 
 필요하면 `python3 -m http.server 8000 -d html`로 실제 화면을 확인한다. 검증 실패를 무시하거나 검증 규칙을 약화하지 말고 원인을 수정한다.
@@ -274,6 +278,7 @@ main에 push되면 GitHub Actions(`.github/workflows/pages.yml`)가 같은 검�
 
 - 변경 파일과 검증 결과, 리포트·발표자료의 로컬 확인 URL을 사용자에게 보고한다.
 - 같은 날짜·챕터의 독립본과 기존 합본을 함께 보존하면 인덱스 메타데이터에서 합본을 `합본·보존용`처럼 명확히 구분해 공식 읽기 경로를 혼동하지 않게 한다.
+- 사용자가 중복 파생본 삭제를 지시하면 합본의 고유 자산을 독립본에 재배정할지 명시적으로 판정한 뒤, 산출물 디렉터리와 레지스트리의 artifact 링크를 함께 제거한다. 고정 회차 ID와 회차 페이지 URL은 유지하고 생성 페이지를 다시 빌드해 로컬 링크 무결성을 확인한다.
 - 커밋, 푸시, PR과 Pages 설정 변경은 사용자가 명시적으로 요청했을 때만 수행한다.
 - 사용자가 배포를 요청했으면 push 뒤 GitHub Actions 검증 성공과 Pages 상태 `built`를 기다리고, 공개 리포트·발표 URL에서 이번 변경을 식별하는 문구나 앵커를 직접 확인한 뒤 완료로 보고한다.
 - Pages가 배포되더라도 `active → archive` 이동과 무관하게 `html/studies/<study-slug>` 공개 URL은 유지한다.
@@ -282,5 +287,5 @@ main에 push되면 GitHub Actions(`.github/workflows/pages.yml`)가 같은 검�
 gh run list --workflow pages.yml --branch main --limit 1
 gh run watch <run-id> --exit-status
 gh api repos/restful3/aimlquant/pages --jq .status
-curl -fsSL "https://restful3.github.io/aimlquant/<public-path>" | rg "<release-marker>"
+curl -fsSL "https://aimlquant.github.io/study/<public-path>" | rg "<release-marker>"
 ```
