@@ -1,6 +1,6 @@
 ---
 name: study-operations
-description: Publish and maintain AI Odyssey Study sessions, GitHub Pages materials, and public YouTube links. Use when adding a study session, publishing reports or slides, connecting a public video, checking the materials-to-video lifecycle, or updating the two active study tracks in ai-odyssey-study.
+description: Publish and maintain AIML Quant sessions, GitHub Pages materials, and public YouTube links. Use when adding a study session, publishing reports or slides, connecting a public video, checking the materials-to-video lifecycle, or updating the two active study tracks in aimlquant.
 ---
 
 # Study Operations
@@ -23,7 +23,11 @@ upload state in the separate private `ai-odyssey` operations repository.
 
 ## Choose the lifecycle transition
 
-- New schedule: add a globally unique `session_id` with status `scheduled`.
+- New schedule: add a globally unique `session_id` with status `scheduled`,
+  plus its date, chapters, presenters, and the public `meeting_url` when the
+  Webex join URL is confirmed. Do not use `#` or invent a placeholder URL.
+- Meeting ended: remove the join URL and set `meeting_status = "ended"` so
+  member-facing schedules do not advertise a stale Webex button.
 - Materials ready: copy public artifacts under
   `html/studies/<study-slug>/presentations/<session-slug>/`, register each
   artifact, then set status to `materials-published`.
@@ -39,7 +43,7 @@ repository.
 
 Use this stable URL in the YouTube description:
 
-`https://restful3.github.io/ai-odyssey-study/sessions/<session_id>/`
+`https://restful3.github.io/aimlquant/sessions/<session_id>/`
 
 Do not rename an already published session ID. The site builder creates the
 reverse YouTube link and embed when the public video ID is present.
@@ -53,9 +57,10 @@ report directly.
 Run:
 
 ```bash
-python3 -m unittest discover -s agent-support/tests -v
+uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
+python3 agent-support/scripts/validate-site.py --site html --check-materials
 git diff --check
 ```
 

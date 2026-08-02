@@ -23,7 +23,7 @@
 
 - `agent-support/site.toml`: 브랜드, 저장소, Pages, 공개 YouTube 채널
 - `agent-support/studies.toml`: 진행 교재와 공개 경로
-- `agent-support/sessions.toml`: 회차, 발행 상태, 공개 YouTube video ID
+- `agent-support/sessions.toml`: 일정, 발표자, 공개 Webex, 발행 상태, 공개 YouTube video ID
 - `agent-support/procedures/study-lifecycle.md`: 교안과 영상의 양방향 연결 절차
 
 ## Safety boundaries
@@ -41,7 +41,7 @@
 변경 뒤 다음을 실행한다.
 
 ```bash
-python3 -m unittest discover -s agent-support/tests -v
+uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
 python3 agent-support/scripts/validate-site.py --check-materials

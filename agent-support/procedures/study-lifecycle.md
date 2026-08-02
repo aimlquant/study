@@ -2,7 +2,10 @@
 
 ## 정본과 상태
 
-`agent-support/sessions.toml`을 공개 회차 메타데이터의 정본으로 사용한다.
+`agent-support/sessions.toml`을 날짜·챕터·발표자·공개 Webex 접속 링크·발행 상태를
+포함한 공개 회차 메타데이터의 정본으로 사용한다. `meeting_url`은 실제 접속 URL이
+확정된 회차에만 기록하고 `#` 같은 임시 링크를 넣지 않는다. 종료된 회차는 접속
+URL을 제거하고 `meeting_status = "ended"`로 바꾸어 오래된 접속 버튼을 노출하지 않는다.
 허용 상태와 의미는 다음과 같다.
 
 - `scheduled`: 일정만 등록됨
@@ -42,9 +45,11 @@ YouTube 설명의 관련 자료 링크는 위 회차 URL을 사용한다. 업로
 ## 5. 검증
 
 ```bash
-python3 -m unittest discover -s agent-support/tests -v
+uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v
 python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
+python3 agent-support/scripts/validate-site.py --site html --check-materials
+git diff --check
 ```
 
 회차 페이지 URL이 YouTube 설명과 일치하고, Pages의 video ID가 공개 영상과 일치하며,

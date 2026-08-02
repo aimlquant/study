@@ -1,18 +1,35 @@
 schema_version = 1
 
 [[sessions]]
-id = "2026-08-22-machine-trading-ch05"
+id = "2026-07-25-machine-trading-ch01"
 study_id = "machine-trading-2026"
-date = "2026-08-22"
-title = "Chapter 5. 옵션 전략"
-presenters = ["핀조이"]
-chapters = ["Chapter 5"]
+date = "2026-07-25"
+title = "Chapter 1. 알고리즘 트레이딩의 기초"
+presenters = ["정훈"]
+chapters = ["Chapter 1"]
 status = "materials-published"
+meeting_status = "ended"
 artifacts = [
-  { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-22-ch05/report.html" },
-  { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-08-22-ch05/" },
-  { kind = "other", label = "상세 리포트 PDF", url = "studies/machine-trading/presentations/2026-08-22-ch05/report.pdf" },
-  { kind = "other", label = "발표자료 PDF", url = "studies/machine-trading/presentations/2026-08-22-ch05/presentation.pdf" },
+  { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-07-25-ch01/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-07-25-ch01/" },
+]
+
+[[sessions]]
+id = "2026-07-25-kg-llm-ch01-ch02"
+study_id = "kg-llm-in-action-2026"
+date = "2026-07-25"
+title = "Chapter 1–2. 지식 그래프와 LLM, 하이브리드 접근"
+presenters = ["수경"]
+chapters = ["Chapter 1", "Chapter 2"]
+status = "materials-published"
+meeting_status = "ended"
+artifacts = [
+  { kind = "report", label = "Chapter 1 상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/report.html" },
+  { kind = "slides", label = "Chapter 1 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/" },
+  { kind = "report", label = "Chapter 2 상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/report.html" },
+  { kind = "slides", label = "Chapter 2 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/" },
+  { kind = "report", label = "Chapter 1–2 합본 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/report.html" },
+  { kind = "slides", label = "Chapter 1–2 합본 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/" },
 ]
 
 [[sessions]]
@@ -23,6 +40,7 @@ title = "Chapter 2. 팩터 모델"
 presenters = ["종훈"]
 chapters = ["Chapter 2"]
 status = "video-public"
+meeting_status = "ended"
 youtube_video_id = "5g2tGIFcpNk"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-01-ch02/report.html" },
@@ -37,6 +55,7 @@ title = "Chapter 3. 온톨로지로 첫 지식 그래프 만들기"
 presenters = ["태영"]
 chapters = ["Chapter 3"]
 status = "video-public"
+meeting_status = "ended"
 youtube_video_id = "hvkIxLlMXCU"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-01-ch03/report.html" },
@@ -44,34 +63,180 @@ artifacts = [
 ]
 
 [[sessions]]
-id = "2026-07-25-machine-trading-ch01"
+id = "2026-08-08-machine-trading-ch03"
 study_id = "machine-trading-2026"
-date = "2026-07-25"
-title = "Chapter 1. 알고리즘 트레이딩의 기초"
-presenters = ["정훈"]
-chapters = ["Chapter 1"]
+date = "2026-08-08"
+title = "Chapter 3. 시계열 분석"
+presenters = ["태호"]
+chapters = ["Chapter 3"]
+status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6"
+
+[[sessions]]
+id = "2026-08-08-kg-llm-ch04"
+study_id = "kg-llm-in-action-2026"
+date = "2026-08-08"
+title = "Chapter 4. 단순 네트워크에서 멀티소스 통합으로"
+presenters = ["종훈(S)"]
+chapters = ["Chapter 4"]
+status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6"
+
+[[sessions]]
+id = "2026-08-15-machine-trading-ch04"
+study_id = "machine-trading-2026"
+date = "2026-08-15"
+title = "Chapter 4. 인공지능 기법"
+presenters = ["태영"]
+chapters = ["Chapter 4"]
+status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79"
+
+[[sessions]]
+id = "2026-08-15-kg-llm-ch05"
+study_id = "kg-llm-in-action-2026"
+date = "2026-08-15"
+title = "Chapter 5. 비정형 데이터에서 도메인 특화 지식 추출"
+presenters = ["두균"]
+chapters = ["Chapter 5"]
+status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79"
+
+[[sessions]]
+id = "2026-08-22-machine-trading-ch05"
+study_id = "machine-trading-2026"
+date = "2026-08-22"
+title = "Chapter 5. 옵션 전략"
+presenters = ["핀조이"]
+chapters = ["Chapter 5"]
 status = "materials-published"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf"
 artifacts = [
-  { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-07-25-ch01/report.html" },
-  { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-07-25-ch01/" },
+  { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-22-ch05/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-08-22-ch05/" },
+  { kind = "other", label = "상세 리포트 PDF", url = "studies/machine-trading/presentations/2026-08-22-ch05/report.pdf" },
+  { kind = "other", label = "발표자료 PDF", url = "studies/machine-trading/presentations/2026-08-22-ch05/presentation.pdf" },
 ]
 
 [[sessions]]
-id = "2026-07-25-kg-llm-ch01-ch02"
+id = "2026-08-22-kg-llm-ch06"
 study_id = "kg-llm-in-action-2026"
-date = "2026-07-25"
-title = "Chapter 1–2. 지식 그래프와 LLM, 하이브리드 접근"
-presenters = ["수경"]
-chapters = ["Chapter 1", "Chapter 2"]
-status = "materials-published"
-artifacts = [
-  { kind = "report", label = "Chapter 1 상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/report.html" },
-  { kind = "slides", label = "Chapter 1 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/" },
-  { kind = "report", label = "Chapter 2 상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/report.html" },
-  { kind = "slides", label = "Chapter 2 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/" },
-  { kind = "report", label = "Chapter 1–2 합본 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/report.html" },
-  { kind = "slides", label = "Chapter 1–2 합본 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/" },
-]
+date = "2026-08-22"
+title = "Chapter 6. LLM으로 지식 그래프 구축하기"
+presenters = ["종훈(L)"]
+chapters = ["Chapter 6"]
+status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf"
+
+[[sessions]]
+id = "2026-08-29-machine-trading-ch06"
+study_id = "machine-trading-2026"
+date = "2026-08-29"
+title = "Chapter 6. 장중 거래와 시장 미시구조"
+presenters = []
+chapters = ["Chapter 6"]
+status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf"
+
+[[sessions]]
+id = "2026-08-29-kg-llm-ch07"
+study_id = "kg-llm-in-action-2026"
+date = "2026-08-29"
+title = "Chapter 7. 개체명 중의성 해소"
+presenters = ["재익"]
+chapters = ["Chapter 7"]
+status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf"
+
+[[sessions]]
+id = "2026-09-05-machine-trading-ch07"
+study_id = "machine-trading-2026"
+date = "2026-09-05"
+title = "Chapter 7. 비트코인"
+presenters = []
+chapters = ["Chapter 7"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-09-05-kg-llm-ch08"
+study_id = "kg-llm-in-action-2026"
+date = "2026-09-05"
+title = "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
+presenters = ["태호"]
+chapters = ["Chapter 8"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-09-12-machine-trading-ch08"
+study_id = "machine-trading-2026"
+date = "2026-09-12"
+title = "Chapter 8. 알고리즘 트레이딩은 몸과 마음에 이롭다"
+presenters = []
+chapters = ["Chapter 8"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-09-12-kg-llm-ch09"
+study_id = "kg-llm-in-action-2026"
+date = "2026-09-12"
+title = "Chapter 9. 지식 그래프 위의 머신러닝 입문"
+presenters = ["정훈"]
+chapters = ["Chapter 9"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-09-19-kg-llm-ch10"
+study_id = "kg-llm-in-action-2026"
+date = "2026-09-19"
+title = "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
+presenters = []
+chapters = ["Chapter 10"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-09-26-kg-llm-ch11"
+study_id = "kg-llm-in-action-2026"
+date = "2026-09-26"
+title = "Chapter 11. 그래프 표현 학습과 그래프 신경망"
+presenters = []
+chapters = ["Chapter 11"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-03-kg-llm-ch12"
+study_id = "kg-llm-in-action-2026"
+date = "2026-10-03"
+title = "Chapter 12. GNN 기반 노드 분류와 링크 예측"
+presenters = []
+chapters = ["Chapter 12"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-10-kg-llm-ch13"
+study_id = "kg-llm-in-action-2026"
+date = "2026-10-10"
+title = "Chapter 13. 지식 그래프 기반 검색 증강 생성"
+presenters = []
+chapters = ["Chapter 13"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-17-kg-llm-ch14"
+study_id = "kg-llm-in-action-2026"
+date = "2026-10-17"
+title = "Chapter 14. 자연어로 지식 그래프에 질문하기"
+presenters = []
+chapters = ["Chapter 14"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-24-kg-llm-ch15"
+study_id = "kg-llm-in-action-2026"
+date = "2026-10-24"
+title = "Chapter 15. LangGraph로 QA 에이전트 구축"
+presenters = []
+chapters = ["Chapter 15"]
+status = "scheduled"
 
 # 영상이 실제 public이 된 뒤에만 대상 회차에 다음 두 값을 함께 적용한다.
 # status = "video-public"

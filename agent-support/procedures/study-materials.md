@@ -473,8 +473,8 @@ Makefile 타깃·액션 순서 = tasks.py 등가 · 챕터 매핑·오프셋 도
 사이트 파일을 바꿨으면 추가로 실행한다.
 
 ```bash
-python3 agent-support/scripts/build-index.py --check
-python3 agent-support/scripts/validate-site.py --check-materials
+python3 agent-support/scripts/build_site.py --check
+python3 agent-support/scripts/validate-site.py --site html --check-materials
 ```
 
 ## 8. 커밋

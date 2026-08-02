@@ -2,6 +2,182 @@
   "schema_version": 1,
   "sessions": [
     {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 15"
+      ],
+      "date": "2026-10-24",
+      "id": "2026-10-24-kg-llm-ch15",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-10-24-kg-llm-ch15/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 15. LangGraph로 QA 에이전트 구축"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 14"
+      ],
+      "date": "2026-10-17",
+      "id": "2026-10-17-kg-llm-ch14",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-10-17-kg-llm-ch14/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 14. 자연어로 지식 그래프에 질문하기"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 13"
+      ],
+      "date": "2026-10-10",
+      "id": "2026-10-10-kg-llm-ch13",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-10-10-kg-llm-ch13/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 13. 지식 그래프 기반 검색 증강 생성"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 12"
+      ],
+      "date": "2026-10-03",
+      "id": "2026-10-03-kg-llm-ch12",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-10-03-kg-llm-ch12/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 12. GNN 기반 노드 분류와 링크 예측"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 11"
+      ],
+      "date": "2026-09-26",
+      "id": "2026-09-26-kg-llm-ch11",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-09-26-kg-llm-ch11/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 11. 그래프 표현 학습과 그래프 신경망"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 10"
+      ],
+      "date": "2026-09-19",
+      "id": "2026-09-19-kg-llm-ch10",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-09-19-kg-llm-ch10/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 8"
+      ],
+      "date": "2026-09-12",
+      "id": "2026-09-12-machine-trading-ch08",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-09-12-machine-trading-ch08/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-trading-2026",
+      "title": "Chapter 8. 알고리즘 트레이딩은 몸과 마음에 이롭다"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 9"
+      ],
+      "date": "2026-09-12",
+      "id": "2026-09-12-kg-llm-ch09",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-09-12-kg-llm-ch09/",
+      "presenters": [
+        "정훈"
+      ],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 9. 지식 그래프 위의 머신러닝 입문"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 7"
+      ],
+      "date": "2026-09-05",
+      "id": "2026-09-05-machine-trading-ch07",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-09-05-machine-trading-ch07/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-trading-2026",
+      "title": "Chapter 7. 비트코인"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 8"
+      ],
+      "date": "2026-09-05",
+      "id": "2026-09-05-kg-llm-ch08",
+      "meeting_status": "pending",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-09-05-kg-llm-ch08/",
+      "presenters": [
+        "태호"
+      ],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 6"
+      ],
+      "date": "2026-08-29",
+      "id": "2026-08-29-machine-trading-ch06",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-29-machine-trading-ch06/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-trading-2026",
+      "title": "Chapter 6. 장중 거래와 시장 미시구조"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 7"
+      ],
+      "date": "2026-08-29",
+      "id": "2026-08-29-kg-llm-ch07",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-29-kg-llm-ch07/",
+      "presenters": [
+        "재익"
+      ],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 7. 개체명 중의성 해소"
+    },
+    {
       "artifacts": [
         {
           "kind": "report",
@@ -24,12 +200,105 @@
           "url": "studies/machine-trading/presentations/2026-08-22-ch05/presentation.pdf"
         }
       ],
+      "chapters": [
+        "Chapter 5"
+      ],
       "date": "2026-08-22",
       "id": "2026-08-22-machine-trading-ch05",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf",
       "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-22-machine-trading-ch05/",
+      "presenters": [
+        "핀조이"
+      ],
       "status": "materials-published",
       "study_id": "machine-trading-2026",
       "title": "Chapter 5. 옵션 전략"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 6"
+      ],
+      "date": "2026-08-22",
+      "id": "2026-08-22-kg-llm-ch06",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-22-kg-llm-ch06/",
+      "presenters": [
+        "종훈(L)"
+      ],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 6. LLM으로 지식 그래프 구축하기"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 4"
+      ],
+      "date": "2026-08-15",
+      "id": "2026-08-15-machine-trading-ch04",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-15-machine-trading-ch04/",
+      "presenters": [
+        "태영"
+      ],
+      "status": "scheduled",
+      "study_id": "machine-trading-2026",
+      "title": "Chapter 4. 인공지능 기법"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 5"
+      ],
+      "date": "2026-08-15",
+      "id": "2026-08-15-kg-llm-ch05",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-15-kg-llm-ch05/",
+      "presenters": [
+        "두균"
+      ],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 5. 비정형 데이터에서 도메인 특화 지식 추출"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 3"
+      ],
+      "date": "2026-08-08",
+      "id": "2026-08-08-machine-trading-ch03",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-08-machine-trading-ch03/",
+      "presenters": [
+        "태호"
+      ],
+      "status": "scheduled",
+      "study_id": "machine-trading-2026",
+      "title": "Chapter 3. 시계열 분석"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 4"
+      ],
+      "date": "2026-08-08",
+      "id": "2026-08-08-kg-llm-ch04",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6",
+      "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-08-kg-llm-ch04/",
+      "presenters": [
+        "종훈(S)"
+      ],
+      "status": "scheduled",
+      "study_id": "kg-llm-in-action-2026",
+      "title": "Chapter 4. 단순 네트워크에서 멀티소스 통합으로"
     },
     {
       "artifacts": [
@@ -44,9 +313,16 @@
           "url": "studies/machine-trading/presentations/2026-08-01-ch02/"
         }
       ],
+      "chapters": [
+        "Chapter 2"
+      ],
       "date": "2026-08-01",
       "id": "2026-08-01-machine-trading-ch02",
+      "meeting_status": "ended",
       "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-01-machine-trading-ch02/",
+      "presenters": [
+        "종훈"
+      ],
       "status": "video-public",
       "study_id": "machine-trading-2026",
       "title": "Chapter 2. 팩터 모델",
@@ -66,9 +342,16 @@
           "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-01-ch03/"
         }
       ],
+      "chapters": [
+        "Chapter 3"
+      ],
       "date": "2026-08-01",
       "id": "2026-08-01-kg-llm-ch03",
+      "meeting_status": "ended",
       "page_url": "https://restful3.github.io/aimlquant/sessions/2026-08-01-kg-llm-ch03/",
+      "presenters": [
+        "태영"
+      ],
       "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 3. 온톨로지로 첫 지식 그래프 만들기",
@@ -88,9 +371,16 @@
           "url": "studies/machine-trading/presentations/2026-07-25-ch01/"
         }
       ],
+      "chapters": [
+        "Chapter 1"
+      ],
       "date": "2026-07-25",
       "id": "2026-07-25-machine-trading-ch01",
+      "meeting_status": "ended",
       "page_url": "https://restful3.github.io/aimlquant/sessions/2026-07-25-machine-trading-ch01/",
+      "presenters": [
+        "정훈"
+      ],
       "status": "materials-published",
       "study_id": "machine-trading-2026",
       "title": "Chapter 1. 알고리즘 트레이딩의 기초"
@@ -128,9 +418,17 @@
           "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01-ch02/"
         }
       ],
+      "chapters": [
+        "Chapter 1",
+        "Chapter 2"
+      ],
       "date": "2026-07-25",
       "id": "2026-07-25-kg-llm-ch01-ch02",
+      "meeting_status": "ended",
       "page_url": "https://restful3.github.io/aimlquant/sessions/2026-07-25-kg-llm-ch01-ch02/",
+      "presenters": [
+        "수경"
+      ],
       "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 1–2. 지식 그래프와 LLM, 하이브리드 접근"
@@ -148,33 +446,72 @@
   "studies": [
     {
       "archive_path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action",
+      "description_ko": "지식 그래프와 LLM을 결합해 검증 가능하고 설명 가능한 하이브리드 지능형 시스템을 설계합니다.",
       "end_date": "2026-10-24",
+      "end_time": "10:00",
       "id": "kg-llm-in-action-2026",
       "materials_path": "materials/aiml/active/knowledge-graphs-and-llms-in-action",
+      "planned_chapters": [
+        "Chapter 1",
+        "Chapter 2",
+        "Chapter 3",
+        "Chapter 4",
+        "Chapter 5",
+        "Chapter 6",
+        "Chapter 7",
+        "Chapter 8",
+        "Chapter 9",
+        "Chapter 10",
+        "Chapter 11",
+        "Chapter 12",
+        "Chapter 13",
+        "Chapter 14",
+        "Chapter 15"
+      ],
       "presentation_path": "html/studies/knowledge-graphs-and-llms-in-action",
       "slug": "knowledge-graphs-and-llms-in-action",
-      "source_commit": "505ebdd9963aa6f56a0a5940bdf210ef080fb130",
+      "source_commit": "c17e79bf7feba943e66069eb24c1fcf55db82407",
       "source_repository": "https://github.com/restful3/ds4th_study",
       "start_date": "2026-07-25",
+      "start_time": "09:00",
       "status": "active",
+      "timezone": "Asia/Seoul",
       "title": "Knowledge Graphs and LLMs in Action",
       "title_ko": "지식 그래프와 LLM 실전",
-      "track": "aiml"
+      "track": "aiml",
+      "venue": "Webex",
+      "weekday": "saturday"
     },
     {
       "archive_path": "materials/quant/archive/machine-trading",
+      "description_ko": "알고리즘 트레이딩의 데이터·모델·리스크·실행 기법을 재현 실험과 함께 학습합니다.",
       "end_date": "2026-09-12",
+      "end_time": "10:00",
       "id": "machine-trading-2026",
       "materials_path": "materials/quant/active/machine-trading",
+      "planned_chapters": [
+        "Chapter 1",
+        "Chapter 2",
+        "Chapter 3",
+        "Chapter 4",
+        "Chapter 5",
+        "Chapter 6",
+        "Chapter 7",
+        "Chapter 8"
+      ],
       "presentation_path": "html/studies/machine-trading",
       "slug": "machine-trading",
-      "source_commit": "2f7e3801e088ab50f9cd9181f725477443cf8e47",
+      "source_commit": "1146578b271f890c7b29495acea49fdbb168468b",
       "source_repository": "https://github.com/restful3/ml4t",
       "start_date": "2026-07-25",
+      "start_time": "08:00",
       "status": "active",
+      "timezone": "Asia/Seoul",
       "title": "Machine Trading",
       "title_ko": "머신 트레이딩",
-      "track": "quant"
+      "track": "quant",
+      "venue": "Webex",
+      "weekday": "saturday"
     }
   ]
 }

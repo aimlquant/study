@@ -187,6 +187,10 @@ a {
   font-weight: 600;
 }
 
+.hero-actions {
+  margin-top: 30px;
+}
+
 .meta-link {
   color: var(--primary);
   font-weight: 900;
@@ -215,6 +219,197 @@ section > h2::after {
   border-radius: 4px;
   background: var(--primary);
   content: "";
+}
+
+.section-intro {
+  max-width: 760px;
+  margin: -10px 0 24px;
+  color: var(--muted);
+}
+
+.root-schedules {
+  display: grid;
+  gap: 54px;
+}
+
+.track-schedule {
+  scroll-margin-top: 24px;
+}
+
+.track-schedule-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.45fr);
+  gap: 34px;
+  align-items: end;
+  margin-bottom: 18px;
+  padding: 28px 30px;
+  border-left: 4px solid var(--primary);
+  border-radius: 0 12px 12px 0;
+  background:
+    radial-gradient(circle at 94% 10%, var(--primary-soft), transparent 17rem),
+    var(--surface);
+  box-shadow: 0 14px 38px rgb(15 44 89 / 8%);
+}
+
+.track-schedule-header .eyebrow {
+  margin-bottom: 8px;
+}
+
+.track-schedule-header h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.55rem, 3vw, 2.15rem);
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+.track-schedule-header p:not(.eyebrow) {
+  max-width: 720px;
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.track-schedule-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 0.83rem;
+  font-weight: 750;
+}
+
+.track-schedule-meta a {
+  margin-top: 7px;
+  color: var(--primary);
+  font-weight: 900;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.schedule-board {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.schedule-head,
+.schedule-row {
+  display: grid;
+  grid-template-columns: 10.5rem minmax(0, 1fr) 7rem 8.5rem;
+  gap: 20px;
+  align-items: center;
+}
+
+.schedule-head {
+  padding: 13px 22px;
+  color: var(--primary);
+  background: var(--primary-soft);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.schedule-row {
+  min-height: 118px;
+  padding: 20px 22px;
+  border-top: 1px solid var(--border);
+}
+
+.schedule-when {
+  display: flex;
+  flex-direction: column;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.schedule-when strong {
+  font-size: 0.95rem;
+}
+
+.schedule-when span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.schedule-topic {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 9px;
+}
+
+.schedule-topic .badge {
+  min-height: 24px;
+  padding: 3px 9px;
+  font-size: 0.62rem;
+}
+
+.schedule-chapters {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.schedule-topic > a {
+  flex-basis: 100%;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 850;
+  line-height: 1.45;
+  text-decoration-color: rgb(15 44 89 / 32%);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.schedule-presenter,
+.schedule-meeting {
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.schedule-webex {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 11px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.schedule-webex:hover,
+.schedule-webex:focus-visible {
+  color: #fff;
+  background: var(--primary);
+  outline: none;
+}
+
+.schedule-tbd,
+.schedule-ended {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.schedule-ended {
+  color: var(--positive);
+  font-weight: 850;
+}
+
+.schedule-mobile-label {
+  display: none;
 }
 
 .grid {
@@ -271,6 +466,36 @@ section > h2::after {
   margin: 6px 0 0;
   color: var(--muted);
   line-height: 1.58;
+}
+
+.card .study-card-schedule {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--primary);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.card .study-card-description {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.session-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.session-card-meta span:last-child {
+  color: var(--primary);
 }
 
 .card .eyebrow {
@@ -386,6 +611,65 @@ section > h2::after {
   z-index: 1;
 }
 
+.study-description {
+  max-width: 780px;
+  margin: 24px 0 0;
+  color: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.study-facts {
+  display: grid;
+  max-width: 920px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 28px 0 0;
+}
+
+.study-facts div {
+  min-width: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: rgb(255 255 255 / 72%);
+}
+
+.study-facts dt {
+  margin-bottom: 5px;
+  color: var(--primary);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.study-facts dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.session-venue {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.session-access {
+  margin-top: 18px;
+}
+
+.session-meeting-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -409,6 +693,15 @@ section > h2::after {
   margin-bottom: 7px;
   color: var(--primary-deep);
   font-size: 1.12rem;
+}
+
+.pending--cancelled {
+  border-left-color: var(--negative);
+  background: var(--negative-soft);
+}
+
+.pending--cancelled strong {
+  color: var(--negative);
 }
 
 .pending p,
@@ -527,9 +820,93 @@ section > h2::after {
     grid-template-columns: 1fr;
   }
 
+  .root-schedules {
+    gap: 42px;
+  }
+
+  .track-schedule-header {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+
+  .schedule-board {
+    display: grid;
+    gap: 14px;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .schedule-head {
+    display: none;
+  }
+
+  .schedule-row {
+    grid-template-areas:
+      "when when"
+      "topic topic"
+      "presenter meeting";
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px 14px;
+    min-height: 0;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    box-shadow: 0 12px 30px rgb(15 44 89 / 8%);
+  }
+
+  .schedule-when {
+    grid-area: when;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .schedule-topic {
+    grid-area: topic;
+  }
+
+  .schedule-presenter {
+    grid-area: presenter;
+  }
+
+  .schedule-meeting {
+    grid-area: meeting;
+    text-align: right;
+  }
+
+  .schedule-presenter,
+  .schedule-meeting {
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .schedule-mobile-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 0.66rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  .study-facts {
+    grid-template-columns: 1fr;
+  }
+
   .card {
     min-height: 168px;
     padding: 26px 24px 22px;
+  }
+
+  .session-card-meta {
+    flex-direction: column;
+    gap: 4px;
   }
 
   section {

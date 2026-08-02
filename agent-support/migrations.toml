@@ -25,3 +25,26 @@ destination_materials = "materials/quant/active/machine-trading"
 source_presentations = "docs/studies/machine-trading/presentations"
 destination_presentations = "html/studies/machine-trading/presentations"
 included_local_worktree_changes = false
+
+[[syncs]]
+study_id = "kg-llm-in-action-2026"
+synced_at = "2026-08-01"
+source_repository = "https://github.com/restful3/ds4th_study"
+from_commit = "505ebdd9963aa6f56a0a5940bdf210ef080fb130"
+to_commit = "c17e79bf7feba943e66069eb24c1fcf55db82407"
+scope = [
+  "Chapter 3 report and slide corrections",
+  "study presentation procedure, blueprint, and agent skills",
+]
+included_local_worktree_changes = false
+
+[[syncs]]
+study_id = "machine-trading-2026"
+synced_at = "2026-08-01"
+source_repository = "https://github.com/restful3/ml4t"
+from_commit = "2f7e3801e088ab50f9cd9181f725477443cf8e47"
+to_commit = "1146578b271f890c7b29495acea49fdbb168468b"
+scope = [
+  "Chapter 2 report, slide deck, presentation metadata, and local assets",
+]
+included_local_worktree_changes = false

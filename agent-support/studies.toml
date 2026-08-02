@@ -6,14 +6,25 @@ track = "aiml"
 slug = "knowledge-graphs-and-llms-in-action"
 title = "Knowledge Graphs and LLMs in Action"
 title_ko = "지식 그래프와 LLM 실전"
+description_ko = "지식 그래프와 LLM을 결합해 검증 가능하고 설명 가능한 하이브리드 지능형 시스템을 설계합니다."
 status = "active"
 start_date = "2026-07-25"
 end_date = "2026-10-24"
+weekday = "saturday"
+start_time = "09:00"
+end_time = "10:00"
+timezone = "Asia/Seoul"
+venue = "Webex"
+planned_chapters = [
+  "Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4", "Chapter 5",
+  "Chapter 6", "Chapter 7", "Chapter 8", "Chapter 9", "Chapter 10",
+  "Chapter 11", "Chapter 12", "Chapter 13", "Chapter 14", "Chapter 15",
+]
 materials_path = "materials/aiml/active/knowledge-graphs-and-llms-in-action"
 archive_path = "materials/aiml/archive/knowledge-graphs-and-llms-in-action"
 presentation_path = "html/studies/knowledge-graphs-and-llms-in-action"
 source_repository = "https://github.com/restful3/ds4th_study"
-source_commit = "505ebdd9963aa6f56a0a5940bdf210ef080fb130"
+source_commit = "c17e79bf7feba943e66069eb24c1fcf55db82407"
 
 [[studies]]
 id = "machine-trading-2026"
@@ -21,11 +32,21 @@ track = "quant"
 slug = "machine-trading"
 title = "Machine Trading"
 title_ko = "머신 트레이딩"
+description_ko = "알고리즘 트레이딩의 데이터·모델·리스크·실행 기법을 재현 실험과 함께 학습합니다."
 status = "active"
 start_date = "2026-07-25"
 end_date = "2026-09-12"
+weekday = "saturday"
+start_time = "08:00"
+end_time = "10:00"
+timezone = "Asia/Seoul"
+venue = "Webex"
+planned_chapters = [
+  "Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4",
+  "Chapter 5", "Chapter 6", "Chapter 7", "Chapter 8",
+]
 materials_path = "materials/quant/active/machine-trading"
 archive_path = "materials/quant/archive/machine-trading"
 presentation_path = "html/studies/machine-trading"
 source_repository = "https://github.com/restful3/ml4t"
-source_commit = "2f7e3801e088ab50f9cd9181f725477443cf8e47"
+source_commit = "1146578b271f890c7b29495acea49fdbb168468b"
