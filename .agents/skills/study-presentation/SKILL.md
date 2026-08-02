@@ -38,6 +38,10 @@ Derive the deck's narrative, claims, terminology, tables, SVGs, and CSS relation
 
 In audience-facing figure labels, use the concise source coordinate `그림 N` rather than the redundant prefix `교재 그림 N`; retain `data-source-ref` and nearby citations for machine and human traceability. Make every deck image operable by click and keyboard to open the built-in fullscreen zoom viewer. Render every block-level code sample with a visible language label and code-window chrome so it cannot be mistaken for prose or a generic dark panel.
 
+Use one substantive figure per slide by default. Split distinct source figures across slides even when they share a subsection; keep two figures together only when simultaneous visual comparison is the slide's actual learning task and both remain legible at final projector size. A source section divider must show the source explainer's exact translated chapter or section title, and the first slide for each subsection must show that exact subsection title prominently. Keep later conclusion-style titles only for follow-up slides within the already visible subsection.
+
+Make compressed deck explanations beginner-friendly without turning slides into report pages. At the first relevant slide, define unfamiliar terms in plain language. For visual slides, explain how to read the figure, why the relationship matters, and the main interpretation or failure boundary in at most three short points; if that overflows, add a slide rather than shrinking the type.
+
 When revising either artifact, re-audit the paired report and every slide that cites a changed section, table, or figure. The deck must neither lag behind changed report claims nor introduce claims absent from the report. Update conditions, terminology, visible report-reference labels—including roadmap/body text—and trace metadata together, then pass both gates again.
 
 After creating or editing a report or deck, run:
