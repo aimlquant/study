@@ -55,31 +55,26 @@
         <thead><tr><th>단계</th><th>질문</th><th>주장</th><th>실무 판단</th></tr></thead>
         <tbody><tr><td>01</td><td>핵심 질문</td><td>저자의 주장</td><td>적용·비적용 기준</td></tr><tr><td>02</td><td>다음 질문</td><td>작동 방식</td><td>검증할 증거</td></tr></tbody>
       </table>
-      <section class="source-map" id="source-map" aria-labelledby="source-map-title">
-        <div class="source-map__head">
-          <div><span class="source-map__kicker">SOURCE-FAITHFUL NAVIGATION</span><h2 id="source-map-title">0.1 교재 원본 좌표 대응</h2></div>
-          <p>완성 전 이 예시를 원본의 모든 장·절·그림·표·Listing·예제·연습문제와 본문 앵커의 전수 대응으로 교체한다.</p>
-        </div>
-        <div class="source-map__grid">
-          <section class="source-map__group"><h3>원본 장·절</h3><ol><li><a class="source-map__item" data-source-kind="section" data-source-ref="SOURCE-SECTION" href="#concept"><b>§ [원본 절 번호]</b> [원본 절 제목]</a></li></ol></section>
-          <section class="source-map__group"><h3>원본 자산</h3><ol><li><a class="source-map__item" data-source-kind="figure" data-source-ref="SOURCE-FIGURE" href="#fig-concept"><b>그림 [원본 번호]</b> [원본 그림 제목]</a></li></ol></section>
-        </div>
-      </section>
     </section>
 
-    <section class="report-section s1 page-break" id="concept">
+    <section class="report-section s1 page-break" id="concept" data-source-kind="section" data-source-ref="[원본 절 번호]">
       <div class="report-section__kicker">교재 §[원본 절 번호] · 원본 장·절</div>
       <h1>[원본 절 번호] [원본 절 제목]</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>정의와 경계를 한 문장으로 적는다.</li><li>구성요소 사이의 관계를 적는다.</li><li>쉽게 오해하는 지점을 적는다.</li></ul></div></div>
-      <h2>[원본 소절 번호] [원본 소절 제목]</h2>
+      <h2 id="source-subsection" data-source-kind="section" data-source-ref="[원본 소절 번호]">[원본 소절 번호] [원본 소절 제목]</h2>
       <p>독자가 이 장을 읽는 데 필요한 용어를 먼저 정의한다. 비슷한 개념과 무엇이 다른지, 어떤 책임을 포함하고 무엇은 포함하지 않는지 설명한다.</p>
       <h2>AIML Quant 보충 [원본 절 번호]-A · 구조와 흐름</h2>
       <p>구성요소를 나열하는 데서 끝내지 말고 입력, 변환, 검증, 결과가 어떻게 이어지는지 설명한다. 아래 도형을 회차의 실제 SVG로 교체하고 캡션에 재구성 범위와 출처를 남긴다.</p>
-      <figure class="report-figure" id="fig-concept" data-deck-use="required">
+      <figure class="report-figure" id="fig-concept" data-deck-use="required" data-source-kind="figure" data-source-ref="[원본 번호]">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">교재 그림 [원본 번호] 해설 · 핵심 구조 도형</span></figcaption>
         <img src="assets/figs/concept-flow.svg" alt="입력, 변환, 검증된 결과가 왼쪽에서 오른쪽으로 이어지는 핵심 구조">
         <small class="asset-note">템플릿 예시. 실제 회차에서는 assets/figs/ 아래의 별도 SVG와 구체적인 alt·출처로 교체한다.</small>
       </figure>
+      <article class="source-listing" id="listing-example" data-source-kind="listing" data-source-ref="[원본 Listing 번호]">
+        <h4>Listing [원본 Listing 번호] [원본 코드 제목]</h4>
+        <p>코드가 해결하는 문제와 실행 전제를 먼저 설명하고, 아래 코드는 필요한 범위만 싣는다.</p>
+        <pre><code>example(input) -&gt; validated_output</code></pre>
+      </article>
       <div class="callout--insight"><span class="callout__kicker">읽기 포인트</span><div class="callout__body"><p>핵심 아이디어가 해결하는 문제와 새로 만드는 비용을 같은 섹션에서 다룬다.</p></div></div>
     </section>
 

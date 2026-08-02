@@ -1309,6 +1309,19 @@ body.chrome-hidden .deck-settings {
   font-weight: 700;
 }
 
+.question-list--five {
+  gap: 9px;
+}
+
+.question-list--five article {
+  min-height: 65px;
+  padding: 11px 22px;
+}
+
+.question-list--five p {
+  font-size: 17px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
