@@ -43,7 +43,7 @@ repository.
 
 Use this stable URL in the YouTube description:
 
-`https://aimlquant.github.io/sessions/<session_id>/`
+`https://aimlquant.github.io/study/sessions/<session_id>/`
 
 Do not rename an already published session ID. The site builder creates the
 reverse YouTube link and embed when the public video ID is present.

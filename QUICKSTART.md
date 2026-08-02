@@ -5,8 +5,8 @@
 발표 날짜·챕터·발표자는 공개 사이트의 스터디별 `전체 일정` 또는
 [`agent-support/sessions.toml`](agent-support/sessions.toml)에서 확인한다.
 
-- [AI/ML 전체 일정](https://aimlquant.github.io/studies/knowledge-graphs-and-llms-in-action/)
-- [Quant 전체 일정](https://aimlquant.github.io/studies/machine-trading/)
+- [AI/ML 전체 일정](https://aimlquant.github.io/study/studies/knowledge-graphs-and-llms-in-action/)
+- [Quant 전체 일정](https://aimlquant.github.io/study/studies/machine-trading/)
 
 `발표자 미정`인 회차는 담당자가 정해진 뒤 레지스트리를 먼저 갱신한다.
 
