@@ -1,4 +1,4 @@
 interface:
   display_name: "스터디 리포트·발표자료"
-  short_description: "Build and validate paired study reports and presentations"
-  default_prompt: "Use $study-presentation to prepare and validate the report and slide deck for my assigned study session."
+  short_description: "Build source-aligned study reports and presentations"
+  default_prompt: "Use $study-presentation to preserve the source outline and asset coordinates while preparing and validating my study report and slide deck."
