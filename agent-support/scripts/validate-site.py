@@ -119,6 +119,9 @@ class SlideTrace:
     label: str
     refs: list[str]
     source_refs: list[str]
+    source_title_ref: str = ""
+    figure_comparison: str = ""
+    code_blocks_with_language: list[bool] = field(default_factory=list)
     image_sources: set[str] = field(default_factory=set)
     report_links: set[str] = field(default_factory=set)
     report_references: list[ReportReferenceTrace] = field(default_factory=list)
@@ -192,6 +195,8 @@ class ReportDeckTraceParser(HTMLParser):
         self._active_source_anchors: list[tuple[str, SourceAnchorTrace]] = []
         self._report_text_section_depth = 0
         self._in_table_caption = False
+        self._active_slide_pre_language: bool | None = None
+        self._active_slide_pre_child_depth = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = {name.lower(): value or "" for name, value in attrs}
@@ -233,6 +238,10 @@ class ReportDeckTraceParser(HTMLParser):
                     label=values.get("aria-label", "").strip(),
                     refs=values.get("data-report-refs", "").split(),
                     source_refs=values.get("data-source-refs", "").split(),
+                    source_title_ref=values.get("data-source-title", "").strip(),
+                    figure_comparison=values.get(
+                        "data-figure-comparison", ""
+                    ).strip(),
                 )
                 self._slide_section_depth = self._section_depth
                 self.slides.append(self._current_slide)
@@ -283,6 +292,21 @@ class ReportDeckTraceParser(HTMLParser):
         ):
             self._current_figure.has_accessible_visual = True
 
+        if tag == "pre" and self._current_slide is not None:
+            self._active_slide_pre_language = bool(
+                values.get("data-code-language", "").strip()
+                or any(name.startswith("language-") for name in classes)
+            )
+            self._active_slide_pre_child_depth = 0
+        elif self._active_slide_pre_language is not None:
+            if tag == "code" and self._active_slide_pre_child_depth == 0:
+                self._active_slide_pre_language = (
+                    self._active_slide_pre_language
+                    or bool(values.get("data-code-language", "").strip())
+                    or any(name.startswith("language-") for name in classes)
+                )
+            self._active_slide_pre_child_depth += 1
+
         if tag == "a" and self._current_slide is not None:
             parsed = urlparse(values.get("href", "").strip())
             if parsed.path == "report.html" and parsed.fragment:
@@ -327,6 +351,18 @@ class ReportDeckTraceParser(HTMLParser):
             self.unlinked_report_text_parts.append(data)
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "pre" and self._active_slide_pre_language is not None:
+            if self._current_slide is not None:
+                self._current_slide.code_blocks_with_language.append(
+                    self._active_slide_pre_language
+                )
+            self._active_slide_pre_language = None
+            self._active_slide_pre_child_depth = 0
+        elif self._active_slide_pre_language is not None:
+            self._active_slide_pre_child_depth = max(
+                0, self._active_slide_pre_child_depth - 1
+            )
+
         if tag == "span" and self._caption_chip_parts is not None:
             chip = " ".join(" ".join(self._caption_chip_parts).split())
             match = CAPTION_NUMBER_RE.fullmatch(chip)
@@ -402,6 +438,18 @@ def normalize_source_title(value: str) -> str:
     return " ".join(value.strip().split())
 
 
+def source_caption_title(value: str) -> str:
+    """Return the exact caption title without its explanatory tail.
+
+    Source captions can wrap across Markdown lines and continue for several
+    sentences. The public artifact keeps the coordinate and first complete
+    sentence verbatim; later sentences belong in independently written prose.
+    """
+    normalized = normalize_source_title(value)
+    first_sentence = re.match(r"^(.+?[.!?])(?:\s|$)", normalized)
+    return first_sentence.group(1) if first_sentence else normalized
+
+
 def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
     """Read numbered learning coordinates from a translated/explained chapter."""
     result: dict[tuple[str, str], str] = {}
@@ -409,25 +457,30 @@ def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
     exercise_counts: dict[str, int] = {}
     section_re = re.compile(r"^#{1,6}\s+(\d+(?:\.\d+)+)\s+(.+?)\s*$")
     named_re = re.compile(
-        r"^#{1,6}\s+(Listing|목록|Example|예제|Box|상자)\s+"
-        r"(\d+\.\d+)\s*[:—-]?\s*(.+?)\s*$",
+        r"^(?:#{1,6}\s+)?(Listing|리스팅|목록|Example|예제|Box|상자)\s+"
+        r"(\d+\.\d+)(?:\s*[:—-]\s*|\s+)(.+?)\s*$",
         re.IGNORECASE,
     )
     caption_re = re.compile(r"^(그림|Figure|표|Table)\s+(\d+\.\d+)\s+(.+?)\s*$")
     exercise_re = re.compile(r"^#{1,6}\s+(?:Exercise\s*\(연습문제\)|연습문제)(?:\s*[—-]\s*)?(.+?)\s*$", re.IGNORECASE)
 
-    for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+    lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    line_index = 0
+    while line_index < len(lines):
+        raw_line = lines[line_index]
         line = raw_line.strip()
         match = section_re.match(line)
         if match:
             current_section = match.group(1)
             result[("section", current_section)] = normalize_source_title(match.group(2))
+            line_index += 1
             continue
         match = named_re.match(line)
         if match:
             raw_kind, source_ref, title = match.groups()
             kind = {
                 "listing": "listing",
+                "리스팅": "listing",
                 "목록": "listing",
                 "example": "example",
                 "예제": "example",
@@ -435,19 +488,52 @@ def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
                 "상자": "box",
             }[raw_kind.lower() if raw_kind.isascii() else raw_kind]
             result[(kind, source_ref)] = normalize_source_title(title)
+            line_index += 1
             continue
         match = caption_re.match(line)
         if match:
             raw_kind, source_ref, title = match.groups()
             kind = "figure" if raw_kind.lower() in {"그림", "figure"} else "table"
-            result[(kind, source_ref)] = normalize_source_title(title)
+            caption_lines = [title]
+            continuation_index = line_index + 1
+            while continuation_index < len(lines):
+                continuation = lines[continuation_index].strip()
+                if not continuation:
+                    break
+                if (
+                    continuation.startswith(
+                        ("#", "![](", "```", "---", "|", "<table")
+                    )
+                    or section_re.match(continuation)
+                    or named_re.match(continuation)
+                    or caption_re.match(continuation)
+                ):
+                    break
+                caption_lines.append(continuation)
+                continuation_index += 1
+            result[(kind, source_ref)] = source_caption_title(
+                " ".join(caption_lines)
+            )
+            line_index = continuation_index
             continue
         match = exercise_re.match(line)
         if match:
             exercise_counts[current_section] = exercise_counts.get(current_section, 0) + 1
             source_ref = f"{current_section}-{exercise_counts[current_section]}"
             result[("exercise", source_ref)] = normalize_source_title(match.group(1))
+        line_index += 1
     return result
+
+
+def parse_source_chapter_title(path: Path) -> str:
+    """Return the exact translated chapter title without explainer suffixes."""
+    heading_re = re.compile(r"^#\s+(.+?)\s*$")
+    suffix_re = re.compile(r"\s*[—-]\s*쉬운\s+해설판\s*$")
+    for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        match = heading_re.match(raw_line.strip())
+        if match:
+            return normalize_source_title(suffix_re.sub("", match.group(1)))
+    return ""
 
 
 def validate_source_fidelity(
@@ -458,6 +544,7 @@ def validate_source_fidelity(
     report_html: Path,
     deck_html: Path,
     errors: list[str],
+    warnings: list[str] | None = None,
 ) -> None:
     fidelity = metadata.get("source_fidelity")
     source_material = metadata.get("source_material")
@@ -486,16 +573,34 @@ def validate_source_fidelity(
         # 교재는 참가자 공개 저장소에 있다. 그 저장소를 함께 체크아웃하지
         # 않은 환경에서는 좌표 대조를 할 수 없으므로 경로 형식만 확인한다.
         # 교재를 실제로 요구하려면 --check-materials 를 쓴다.
+        if warnings is not None:
+            warnings.append(
+                f"source-fidelity comparison skipped because materials_path is "
+                f"not available for {report_html}: {materials_root}"
+            )
         return
     if not source_path.is_file():
         errors.append(f"source_material does not exist for {report_html}: {source_material}")
         return
 
     expected = parse_source_outline(source_path)
+    expected_chapter_title = parse_source_chapter_title(source_path)
     actual = report_trace.source_anchors
     if not expected:
         errors.append(f"source_material has no traceable learning coordinates: {source_path}")
         return
+    metadata_title = normalize_source_title(str(metadata.get("title", "")))
+    metadata_title = re.sub(
+        r"^Chapter\s+\d+(?:\.\d+)*\.\s*", "", metadata_title, flags=re.IGNORECASE
+    )
+    if not expected_chapter_title:
+        errors.append(f"source_material has no chapter title: {source_path}")
+    elif metadata_title != expected_chapter_title:
+        errors.append(
+            f"presentation title differs from source chapter title in "
+            f"{report_html.parent / 'presentation.toml'}: "
+            f"expects {expected_chapter_title!r}, found {metadata_title!r}"
+        )
     for item in report_trace.invalid_source_anchors:
         errors.append(f"invalid source anchor in {report_html}: {item}")
     for key in sorted(report_trace.duplicate_source_anchors):
@@ -532,6 +637,7 @@ def validate_source_fidelity(
         )
 
     deck_refs: set[tuple[str, str]] = set()
+    title_slides: dict[tuple[str, str], list[SlideTrace]] = {}
     for slide in deck_trace.slides:
         for token in slide.source_refs:
             if ":" not in token:
@@ -555,12 +661,86 @@ def validate_source_fidelity(
                     f"({slide.label or 'unnamed slide'}): {token}"
                 )
 
+        if slide.source_title_ref:
+            if ":" not in slide.source_title_ref:
+                errors.append(
+                    f"invalid data-source-title token in {deck_html} "
+                    f"({slide.label or 'unnamed slide'}): "
+                    f"{slide.source_title_ref!r}"
+                )
+            else:
+                kind, source_ref = slide.source_title_ref.split(":", 1)
+                key = (kind, source_ref)
+                if kind != "section" or key not in expected:
+                    errors.append(
+                        f"data-source-title must name a source section in "
+                        f"{deck_html} ({slide.label or 'unnamed slide'}): "
+                        f"{slide.source_title_ref}"
+                    )
+                else:
+                    title_slides.setdefault(key, []).append(slide)
+                    if slide.source_title_ref not in slide.source_refs:
+                        errors.append(
+                            f"data-source-title must also appear in data-source-refs "
+                            f"in {deck_html} ({slide.label or 'unnamed slide'}): "
+                            f"{slide.source_title_ref}"
+                        )
+
+        figure_refs = {
+            token for token in slide.source_refs if token.startswith("figure:")
+        }
+        if (
+            len(figure_refs) > 1
+            and slide.figure_comparison != "intentional"
+        ):
+            errors.append(
+                f"slide references multiple source figures without an intentional "
+                f"comparison marker in {deck_html} "
+                f"({slide.label or 'unnamed slide'}): {sorted(figure_refs)}"
+            )
+        for has_language in slide.code_blocks_with_language:
+            if not has_language:
+                errors.append(
+                    f"deck code block lacks a language marker on <pre> or its "
+                    f"direct <code> in {deck_html} "
+                    f"({slide.label or 'unnamed slide'})"
+                )
+
     expected_sections = {key for key in expected if key[0] == "section"}
     missing_deck_sections = sorted(expected_sections - deck_refs)
     if missing_deck_sections:
         errors.append(
             f"deck does not cover source section coordinate(s) in {deck_html}: "
             f"{[f'{kind}:{ref}' for kind, ref in missing_deck_sections]}"
+        )
+
+    for key in sorted(expected_sections):
+        slides = title_slides.get(key, [])
+        if len(slides) != 1:
+            errors.append(
+                f"deck must declare exactly one data-source-title for "
+                f"{key[0]}:{key[1]} in {deck_html}: found {len(slides)}"
+            )
+            continue
+        expected_title = expected[key]
+        if expected_title not in normalize_source_title(slides[0].text):
+            errors.append(
+                f"deck source title differs from source in {deck_html} "
+                f"({slides[0].label or 'unnamed slide'}): {key[0]}:{key[1]} "
+                f"expects {expected_title!r}, found {slides[0].text!r}"
+            )
+
+    required_source_figures = {
+        key
+        for key, anchor in report_trace.source_anchors.items()
+        if key[0] == "figure" and anchor.element_id in report_trace.required_figures
+    }
+    missing_required_source_figures = sorted(required_source_figures - deck_refs)
+    if missing_required_source_figures:
+        errors.append(
+            f"deck does not cover required source figure coordinate(s) in "
+            f"{deck_html}: "
+            f"{[f'{kind}:{ref}' for kind, ref in missing_required_source_figures]}"
         )
 
 
@@ -891,7 +1071,12 @@ def validate_materials_links(site: Path, errors: list[str]) -> None:
             )
 
 
-def validate_metadata(site: Path, studies: dict[str, dict], errors: list[str]) -> None:
+def validate_metadata(
+    site: Path,
+    studies: dict[str, dict],
+    errors: list[str],
+    warnings: list[str],
+) -> None:
     seen: set[tuple[str, str]] = set()
     for metadata_path in sorted(
         site.glob("studies/*/presentations/*/presentation.toml")
@@ -997,6 +1182,7 @@ def validate_metadata(site: Path, studies: dict[str, dict], errors: list[str]) -
                 report_html,
                 deck_html,
                 errors,
+                warnings,
             )
 
             for duplicate in sorted(report_trace.duplicate_ids):
@@ -1277,7 +1463,7 @@ def main() -> int:
     studies = validate_registry(
         registry, site, args.check_materials, errors
     )
-    validate_metadata(site, studies, errors)
+    validate_metadata(site, studies, errors, warnings)
     validate_materials_links(site, errors)
     validate_html(site, errors, warnings)
 
