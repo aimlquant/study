@@ -6,18 +6,30 @@
 - 공개 YouTube 채널과 회차 페이지는 `session_id`로 연결한다.
 - 기본 응답 언어는 한국어로 하되 코드·명령어·고유명사는 원문을 유지한다.
 
+## Repositories
+
+- `aimlquant/study` (공개, 이 저장소): `html/` 공개 산출물과 `agent-support/` 도구
+- `aimlquant/study-materials` (비공개): 교재 원문·해설·소스. 스터디 참가자에게 공개
+- 로컬은 `aimlquant/` 아래 `study/`와 `study-materials/`를 나란히 둔다
+
+저장소 이름이 곧 공개 URL 경로다. `study` → `https://aimlquant.github.io/study/`.
+
 ## Directory lifecycle
 
-- `materials/aiml/active/`: 현재 AI/ML 교재
-- `materials/aiml/archive/`: 종료된 AI/ML 교재
-- `materials/quant/active/`: 현재 퀀트 교재
-- `materials/quant/archive/`: 종료된 퀀트 교재
+- `study-materials/aiml/active/`: 현재 AI/ML 교재
+- `study-materials/aiml/archive/`: 종료된 AI/ML 교재
+- `study-materials/quant/active/`: 현재 퀀트 교재
+- `study-materials/quant/archive/`: 종료된 퀀트 교재
 - `html/`: GitHub Pages에 그대로 배포되는 공개 HTML·자산
 - `agent-support/`: 레지스트리, 절차, 생성·검증 도구
 
 교재가 끝나면 해당 분야의 `active/<study-slug>`를
 `archive/<study-slug>`로 이동하고 레지스트리를 함께 갱신한다.
 `html/studies/<study-slug>`의 공개 URL은 교재 이동과 무관하게 유지한다.
+
+`studies.toml`의 `materials_path`는 `materials/<track>/...` 형식을 유지한다.
+이는 교재 저장소 안의 논리 좌표이며, 안내 페이지가 앞의 `materials/`를 떼고
+링크를 만든다.
 
 ## Sources of truth
 
@@ -46,6 +58,13 @@ python3 agent-support/scripts/build_site.py
 python3 agent-support/scripts/build_site.py --check
 python3 agent-support/scripts/validate-site.py --site html
 git diff --check
+```
+
+교재 내용을 검증하는 테스트는 `study-materials`가 없으면 건너뛴다. 교재를
+건드리는 작업이면 두 저장소를 함께 놓고 전체를 돌린다.
+
+```bash
+ln -sfn ../study-materials materials   # 검증 뒤 rm materials
 ```
 
 HTML·CSS·SVG를 변경하면 실제 GitHub Pages 표시 크기의 데스크톱·모바일 렌더를
