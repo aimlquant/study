@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="480" viewBox="0 0 1120 480" role="img" aria-labelledby="title desc">
+  <title id="title">단변량에서 은닉 상태까지 이어지는 시계열 모델 지도</title>
+  <desc id="desc">AR과 ARMA, VAR과 VEC, 상태공간과 칼만 필터가 관측 가격에서 거래 규칙으로 이어진다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M1 1L11 6L1 11Z" fill="#0f2c59"/></marker>
+    <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#111827}.box{stroke:#0f2c59;stroke-width:2}.h{font-size:25px;font-weight:800}.s{font-size:17px;fill:#475569}.tag{font-size:15px;font-weight:800;fill:#0f2c59}</style>
+  </defs>
+  <rect width="1120" height="480" rx="24" fill="#fafaf9"/>
+  <text class="t tag" x="70" y="64">관측값의 범위를 넓히고, 보이지 않는 상태까지 추정한다</text>
+  <g class="t">
+    <rect class="box" x="70" y="135" width="230" height="155" rx="20" fill="#dbeafe"/>
+    <text class="h" x="185" y="190" text-anchor="middle">AR · ARMA · ARIMA</text><text class="s" x="185" y="228" text-anchor="middle">한 시계열의 과거값과</text><text class="s" x="185" y="255" text-anchor="middle">과거 예측오차</text>
+    <path d="M300 212H386" stroke="#0f2c59" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+    <rect class="box" x="400" y="135" width="230" height="155" rx="20" fill="#dcfce7"/>
+    <text class="h" x="515" y="190" text-anchor="middle">VAR · VEC</text><text class="s" x="515" y="228" text-anchor="middle">여러 자산의 상호작용과</text><text class="s" x="515" y="255" text-anchor="middle">수준 이탈의 복원력</text>
+    <path d="M630 212H716" stroke="#0f2c59" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+    <rect class="box" x="730" y="135" width="320" height="155" rx="20" fill="#fef3c7"/>
+    <text class="h" x="890" y="190" text-anchor="middle">상태공간 · 칼만 필터</text><text class="s" x="890" y="228" text-anchor="middle">이동평균·헤지비율 같은</text><text class="s" x="890" y="255" text-anchor="middle">은닉 상태를 순차 추정</text>
+  </g>
+  <rect x="178" y="350" width="764" height="66" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <text class="t s" x="560" y="392" text-anchor="middle">공통 계약: t까지 관측 → t+1 예측 → 다음 시점 포지션 → 비용 차감 → 표본외 평가</text>
+</svg>

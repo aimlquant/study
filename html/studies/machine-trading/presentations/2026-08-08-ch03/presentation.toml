@@ -1,0 +1,13 @@
+study_id = "machine-trading-2026"
+session_id = "2026-08-08-ch03"
+title = "시계열 분석"
+date = "2026-08-08"
+presenters = ["태호"]
+chapters = ["Chapter 3"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+source_fidelity = "source-structure-v1"
+source_material = "materials/quant/active/machine-trading/chapter_3_time_series_analysis/03_chapter_3_time_series_analysis_ko_explained.md"

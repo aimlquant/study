@@ -267,7 +267,18 @@
       "title": "Chapter 5. 비정형 데이터에서 도메인 특화 지식 추출"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/machine-trading/presentations/2026-08-08-ch03/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/machine-trading/presentations/2026-08-08-ch03/"
+        }
+      ],
       "chapters": [
         "Chapter 3"
       ],
@@ -279,7 +290,7 @@
       "presenters": [
         "태호"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-trading-2026",
       "title": "Chapter 3. 시계열 분석"
     },

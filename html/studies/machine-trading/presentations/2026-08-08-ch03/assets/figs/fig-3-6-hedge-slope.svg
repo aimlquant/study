@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="480" viewBox="0 0 1120 480" role="img" aria-labelledby="title desc">
+  <title id="title">EWC와 EWA 사이 칼만 필터 기울기 추정 재구성</title><desc id="desc">시간에 따라 변하는 EWA 대비 EWC의 헤지 기울기가 관측이 들어올 때마다 갱신된다.</desc>
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#111827}.h{font-size:22px;font-weight:900}.s{font-size:15px;fill:#475569}.axis{stroke:#334155;stroke-width:2}.g{stroke:#cbd5e1;stroke-width:1}</style>
+  <rect width="1120" height="480" rx="24" fill="#fafaf9"/><text class="t h" x="70" y="56">은닉 상태 ① · 시간가변 헤지 기울기 β(t)</text>
+  <g transform="translate(90 90)"><line class="axis" x1="0" y1="300" x2="930" y2="300"/><line class="axis" x1="0" y1="25" x2="0" y2="300"/><line class="g" x1="0" y1="150" x2="930" y2="150"/><path d="M0 52L32 116L70 98L105 165L145 210L190 190L230 220L270 178L315 188L355 152L405 136L450 158L500 122L545 86L590 112L630 146L680 172L725 128L770 164L820 142L870 108L930 118" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <rect x="755" y="92" width="285" height="88" rx="16" fill="#dbeafe" stroke="#0f2c59" stroke-width="2"/><text class="t h" x="898" y="128" text-anchor="middle">고정 비율이 아니다</text><text class="t s" x="898" y="154" text-anchor="middle">새 관측마다 순차 갱신</text>
+</svg>
