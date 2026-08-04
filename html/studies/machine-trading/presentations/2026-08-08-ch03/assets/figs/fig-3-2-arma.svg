@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="480" viewBox="0 0 1120 480" role="img" aria-labelledby="title desc">
+  <title id="title">AUD.USD ARMA(2,5) 거래 전략 자산곡선 재구성</title><desc id="desc">ARMA 전략의 중간가격 기준 누적 자산은 상승하지만 AR(10)보다 낮은 교재 보고 연율 60퍼센트다.</desc>
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#111827}.h{font-size:22px;font-weight:900}.s{font-size:15px;fill:#475569}.g{stroke:#cbd5e1;stroke-width:1}.axis{stroke:#334155;stroke-width:2}</style>
+  <rect width="1120" height="480" rx="24" fill="#fafaf9"/><text class="t h" x="70" y="56">ARMA(2, 5) · 과거 충격을 더 기억한 모델</text>
+  <g transform="translate(90 85)"><line class="axis" x1="0" y1="310" x2="900" y2="310"/><line class="axis" x1="0" y1="20" x2="0" y2="310"/><line class="g" x1="0" y1="210" x2="900" y2="210"/><line class="g" x1="0" y1="110" x2="900" y2="110"/>
+    <path d="M0 300L65 282L130 294L195 286L255 275L315 278L375 258L435 267L500 224L565 205L625 190L690 205L750 164L810 150L860 138L900 116" fill="none" stroke="#059669" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="t s" x="0" y="342">표본외 시작</text><text class="t s" x="900" y="342" text-anchor="end">표본외 종료</text><text class="t s" x="-18" y="305" text-anchor="end">1.0</text><text class="t s" x="-18" y="120" text-anchor="end">약 1.6</text>
+  </g>
+  <rect x="790" y="94" width="250" height="86" rx="16" fill="#dcfce7" stroke="#0f2c59" stroke-width="2"/><text class="t h" x="915" y="128" text-anchor="middle">연율 60%</text><text class="t s" x="915" y="154" text-anchor="middle">복잡성 증가 ≠ 성과 증가</text>
+</svg>

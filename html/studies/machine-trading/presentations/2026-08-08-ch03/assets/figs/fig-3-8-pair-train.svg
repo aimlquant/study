@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="480" viewBox="0 0 1120 480" role="img" aria-labelledby="title desc">
+  <title id="title">EWC EWA 칼만 필터 전략 표본내 재구성</title><desc id="desc">학습 구간에서 동적 헤지 전략의 누적 자산이 계단식으로 상승한다.</desc>
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#111827}.h{font-size:22px;font-weight:900}.s{font-size:15px;fill:#475569}.axis{stroke:#334155;stroke-width:2}.g{stroke:#cbd5e1;stroke-width:1}</style>
+  <rect width="1120" height="480" rx="24" fill="#fafaf9"/><text class="t h" x="70" y="56">EWA–EWC 동적 헤지 · 표본내</text>
+  <g transform="translate(90 90)"><line class="axis" x1="0" y1="300" x2="930" y2="300"/><line class="axis" x1="0" y1="25" x2="0" y2="300"/><line class="g" x1="0" y1="210" x2="930" y2="210"/><line class="g" x1="0" y1="120" x2="930" y2="120"/><path d="M0 285L80 280L80 265L150 265L150 240L235 240L235 225L320 225L320 198L400 198L400 180L475 180L475 150L550 150L550 112L630 112L630 82L710 82L710 72L790 72L790 62L930 62" fill="none" stroke="#059669" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <rect x="750" y="95" width="290" height="86" rx="16" fill="#dcfce7" stroke="#0f2c59" stroke-width="2"/><text class="t h" x="895" y="130" text-anchor="middle">임계값 진입·청산</text><text class="t s" x="895" y="156" text-anchor="middle">예측오차가 ±1σ를 넘을 때</text>
+</svg>

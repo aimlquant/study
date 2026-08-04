@@ -67,8 +67,12 @@ date = "2026-08-08"
 title = "Chapter 3. 시계열 분석"
 presenters = ["태호"]
 chapters = ["Chapter 3"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-08-ch03/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-08-08-ch03/" },
+]
 
 [[sessions]]
 id = "2026-08-08-kg-llm-ch04"
