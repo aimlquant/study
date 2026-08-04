@@ -113,6 +113,10 @@ python3 agent-support/scripts/new-presentation.py \
 ## 5. 리포트 기반 발표자료와 추적 메타데이터
 
 제목, 발표자, 날짜, 챕터와 공개 산출물 목록은 `presentation.toml`에 기록한다.
+리포트와 덱 어디에서도 참조하지 않는 공개 SVG를 사용자 승인 없이 삭제하지 않는다.
+보존해야 한다면 `[[retained_unreferenced_assets]]`에 상대 `path`와 구체적인 `reason`을
+기록한다. 검증기는 설명 없는 미참조 SVG, 존재하지 않는 경로, 다시 참조되기 시작한
+자산의 낡은 보존 기록을 모두 실패로 처리한다.
 
 예시 메타데이터:
 
@@ -141,7 +145,7 @@ source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/cha
 - 낯선 용어는 처음 필요한 슬라이드에서 한 문장으로 정의한다. 그림 슬라이드는 `어떻게 읽는가 / 왜 필요한가 / 해석 또는 실패 경계`를 최대 세 개의 짧은 설명으로 제공하고, 넘치면 글자를 줄이지 말고 슬라이드를 나눈다.
 - 리포트의 모든 본문 절과 `data-deck-use="required"` 그림이 적어도 한 슬라이드에서 참조되게 한다.
 - 리포트의 주장·용어·논리 순서를 그대로 유지하며 발표 밀도로 압축한다. 새 주장을 슬라이드에서만 만들지 않는다.
-- 리포트 SVG가 화면에서 읽히면 같은 `src` 파일을 직접 사용한다. 복잡하면 의미·번호·관계를 유지한 CSS/SVG 발표용 버전을 만들고 정확한 `report.html#<figure-id>` 링크를 표시한다. 실제 adapted 사례가 생기기 전에는 참조 ID만 적고 그림을 생략하는 예외를 만들지 않는다.
+- 리포트 SVG가 화면에서 읽히면 같은 `src` 파일을 직접 사용한다. 복잡하면 의미·번호·관계를 유지한 CSS/SVG 발표용 버전을 만들고 `data-report-visual-adaptation="intentional"`, 원본 리포트 그림 ID의 `data-report-refs`, 정확한 `report.html#<figure-id>` 링크를 함께 표시한다. 리포트에 먼저 존재하지 않는 덱 전용 그림은 만들지 않는다.
 - 목차는 별도 파일로 만들지 않고 각 슬라이드의 고유한 `aria-label`에서 자동 생성한다.
 - 발표자료의 모든 본문 그림은 클릭과 Enter/Space로 전체화면 확대 보기를 열고, 확대·축소·이동·Esc 닫기를 지원한다. 서로 다른 원본 그림 좌표를 한 슬라이드에서 동시에 설명하는 실제 비교라면 `data-figure-comparison="intentional"`을 두고 최종 크기에서 둘 다 읽히는지 확인한다. 블록 코드는 `<pre>` 또는 그 직계 `<code>`에 언어 표지를 두고 코드 창 헤더를 표시해 일반 카드나 산문과 시각적으로 구분한다.
 
@@ -200,9 +204,31 @@ runner가 headroom, lock, cgroup, timeout 또는 PNG 검증으로 실패하면
 slide를 검사할 때도 호출을 직렬로 실행하고 각 종료코드를 확인한다.
 
 여러 화면은 repo driver가 설치본 runner를 직렬 호출하게 한다. manifest와
-모든 output은 `tmp/browser-shots/` 아래에 두며 driver가 첫 실패에서 중단하게
-한다. 이 driver는 브라우저를 직접 띄우지 않으므로 각 capture의 기존
+모든 output은 `tmp/browser-shots/` 아래에 둔다. driver는 각 capture를 제한된
+횟수만큼 재시도하고, 재시도를 모두 소진한 항목은 실패로 수집하며,
+나머지 capture를 계속한 뒤 최종 요약과 0이 아닌 종료 코드를 낸다. `--skip-existing`은
+남길 output이 모두 같은 소스·렌더러 변경 묶음에서 생성됐음을 증명한 뒤에만
+사용한다. 이 driver는 브라우저를 직접 띄우지 않으므로 각 capture의 기존
 headroom·lock·cgroup·atomic 검증이 그대로 유지된다.
+
+긴 리포트의 깊은 fragment가 반복해 빈 화면으로 나오더라도 raw Chrome이나
+Puppeteer로 runner를 우회하지 않는다. `report.js`의 hash 복원 로직이나
+보호된 runner를 수정하고, runner 소스를 바꿘다면 재설치·검증한 뒤 새로
+렌더한다. 그전까지는 신선한 전체 페이지나 A4 렌더가 실제로 증명하는
+범위만 인정하고, 해당 fragment는 미검증으로 기록한다.
+
+`study-report-v1` 런타임에는 one-shot Chromium의 깊은 fragment 빈 화면을
+피하기 위한 opt-in QA 모드가 있다. 일반 독자의 문서와 hash 이동을 바꾸지
+않고 캡처할 때 URL을
+`report.html?fragment-capture=1#<section-id>`로 만든다. 이 모드는 대상
+섹션보다 앞선 report sibling만 렌더 흐름에서 제외하므로 실제 HTML·CSS·자산을
+그대로 검사할 수 있다. 이 모드도 빈 화면이면 위 원칙대로 hash 복원 또는
+보호된 runner를 고친다.
+
+SVG 안의 텍스트는 KaTeX auto-render 대상이 아니다. `$...$`, `\\phi` 같은
+수식 구문을 SVG `<text>`에 넣지 말고 `φ` 같은 Unicode 기호나 일반 텍스트를
+쓴다. 긴 수식과 해석은 HTML 캡션·본문으로 옮기고, 한 그림에서 발견하면 형제
+SVG 전체를 같은 패턴으로 감사한다.
 
 ```bash
 python3 agent-support/scripts/render-shot-manifest.py \
@@ -230,12 +256,14 @@ python3 agent-support/scripts/inspect-study-pdf.py \
 - 본문에서 출처명이 일반 기법의 대리 주어로 반복되지 않는지, 출처 표현을 옮긴 뒤에도 주장 소유권·조건·시점·범위가 보존되는지, 각 그림·표 `asset-note`가 읽는 법과 해석 경계를 재구성 메모보다 먼저 제공하는지 문맥으로 검토한다.
 - 모든 표와 도형에 번호·제목을 붙이고, 도형에는 구체적인 대체 텍스트와 재구성 범위·출처를 표시한다.
 - 진청 역상 SVG의 흰색 글자, 화살표 path의 불필요한 fill, 모바일 가로 넘침과 표·도형 잘림을 실제 렌더링으로 확인한다.
+- `marker-end`가 있는 SVG `<path>` 커넥터는 `fill:none`을 명시한다. SVG 기본 `fill:black`이 꺾은선을 암묵 폐합해 검은 쐐기로 만드는 회귀를 자동 검사하고 실제 렌더에서도 확인한다.
 - 한글 장문은 데스크톱·좁은 모바일·A4 인쇄 폭에서 어절 중간 줄바꿈이 없는지 육안으로 확인한다. 필요하면 본문에 `word-break: keep-all`과 긴 URL·코드용 overflow fallback을 함께 적용하고, DOM/CSS 선언만 보고 통과시키지 않는다.
 - 같은 의미 수준의 박스는 공통 그리드에 맞추고 화살표 끝은 의도한 면의 경계에 닿게 한다. 한 도형에서 시각 결함을 찾으면 그 회차의 모든 형제 도형에서 같은 유형을 조사하고 함께 고친다.
 - 리포트 본문 CSS와 외부 SVG의 기본 한글 `font-family` 순서를 같게 유지한다. 외부 SVG는 페이지 CSS 변수를 상속하지 않으므로 SVG 안에 동일한 리터럴 스택을 둔다.
 - 리포트의 목차 드로어, 테마 전환, Print/PDF와 Report/Slides/Index 링크가 동작해야 한다.
 - 리포트의 모든 본문 그림을 클릭과 Enter로 열 수 있고, 버튼·휠·핀치로 확대하며 드래그·방향키로 이동하고 Esc로 닫은 뒤 원래 이미지로 포커스가 돌아오는지 확인한다.
 - A4 PDF를 실제로 생성해 페이지 수, 러닝 헤더, 참고문헌 번호 중복과 과도한 빈 페이지를 확인한다.
+- A4 PDF의 페이지 래스터와 텍스트 추출에서 절 제목이 페이지 경계에 갈라지지 않는지 확인한다. 회차별 `report.css`는 스냅샷으로 보존하되 공용 템플릿의 한글 폰트·줄바꿈, 인쇄 절 시작, 제목 `break-inside` 계약은 동기화하고 회차 고유 러닝 헤더·페이지 라벨은 유지한다.
 - 새로 만들거나 문구·레이아웃을 바꾼 슬라이드는 최소 `1600×900`과 `1366×768` 두 16:9 화면에서 다시 렌더링하여 글자·코드·각주가 잘리거나 겹치지 않는지 확인한다. 한 슬라이드에서 결함을 찾으면 같은 레이아웃을 쓰는 형제 슬라이드도 같은 두 화면에서 조사한다.
 - 캡처 명령이 성공했어도 단색·빈 화면이면 렌더 검증으로 인정하지 않는다. 실제 픽셀 내용을 열어 확인하고, 로컬 서버 URL은 절차 예시처럼 `localhost`를 사용한다.
 - 키보드로 슬라이드를 이동할 수 있어야 한다.

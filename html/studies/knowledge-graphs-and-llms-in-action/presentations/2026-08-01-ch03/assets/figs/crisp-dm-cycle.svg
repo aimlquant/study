@@ -1,17 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 60 920 310" role="img" aria-labelledby="title desc">
   <title id="title">지식 그래프 구축에 맞게 조정한 CRISP-DM 순환</title>
   <desc id="desc">비즈니스 이해, 데이터 이해, 데이터 준비, 지식 그래프 모델 생성과 갱신, 평가, 배포가 순환하며 이 장은 앞의 네 단계를 집중해서 다룬다.</desc>
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 18 14" refX="17.5" refY="7" markerWidth="18" markerHeight="14" orient="auto"><path d="M.5.5 17.5 7 .5 13.5Z" fill="#63728a"/></marker>
     <style>
-      text{font-family:'Inter','Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;fill:#172033}
+      text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#172033}
       .eyebrow{font-size:13px;font-weight:800;letter-spacing:1.2px;fill:#52647d}.head{font-size:19px;font-weight:800}.small{font-size:13px;fill:#56657a}
       .focus{fill:#fff;stroke:#0f2c59;stroke-width:2.5}.model{fill:#0f2c59;stroke:#0f2c59;stroke-width:2.5}.later{fill:#edf1f6;stroke:#b7c2d1;stroke-width:2}
       .line{fill:none;stroke:#63728a;stroke-width:3;marker-end:url(#arrow)}
     </style>
   </defs>
   <rect width="960" height="420" rx="20" fill="#f7f8fa"/>
-  <text x="480" y="42" class="eyebrow" text-anchor="middle">CRISP-DM FOR KNOWLEDGE GRAPH DEVELOPMENT</text>
   <g>
     <rect class="focus" x="35" y="72" width="250" height="94" rx="15"/>
     <text x="58" y="104" class="eyebrow">01 · BUSINESS</text><text x="58" y="134" class="head">비즈니스 이해</text><text x="58" y="155" class="small">임상의의 질문과 성공 기준</text>
@@ -30,5 +29,4 @@
     <path class="line" d="M800 166V254"/><path class="line" d="M675 301H605"/><path class="line" d="M355 301H285"/>
     <path class="line" d="M35 301C8 301 8 119 35 119"/>
   </g>
-  <text x="480" y="390" class="small" text-anchor="middle">진한 테두리와 남색 단계가 이 장의 중심 범위 · 결과는 다음 반복의 입력</text>
 </svg>

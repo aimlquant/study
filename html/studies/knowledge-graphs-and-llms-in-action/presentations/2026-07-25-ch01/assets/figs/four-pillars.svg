@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 96 780 310" role="img" aria-labelledby="title desc">
   <title id="title">지식 그래프의 네 기둥</title><desc id="desc">진화, 의미, 통합, 학습 네 기둥이 단일 신뢰 원천과 여러 애플리케이션을 연결한다.</desc>
-  <defs><style>.t{font-family:Inter,'Noto Sans KR',sans-serif}.h{font-size:19px;font-weight:800}.sh{font-size:15px;font-weight:800}.b{font-size:13px}.m{font-size:12px;fill:#6B6B72}.box{fill:#fff;stroke:#B7C2D1;stroke-width:1.5}.soft{fill:#F2F5F9}.navy{fill:#0F2C59}.line{stroke:#B7C2D1;stroke-width:2}</style></defs>
-  <rect width="920" height="430" rx="12" fill="#FAFAF9"/><text class="t h" x="34" y="44">네 기둥은 그래프 저장소를 ‘살아 있는 지식 계층’으로 바꾼다</text><text class="t m" x="34" y="68">한 기둥만 강해서는 충분하지 않다. 변화·의미·통합·학습이 함께 작동해야 여러 앱이 지식을 재사용한다.</text>
+  <defs><style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}.h{font-size:19px;font-weight:800}.sh{font-size:15px;font-weight:800}.b{font-size:13px}.m{font-size:12px;fill:#6B6B72}.box{fill:#fff;stroke:#B7C2D1;stroke-width:1.5}.soft{fill:#F2F5F9}.navy{fill:#0F2C59}.line{stroke:#B7C2D1;stroke-width:2}</style></defs>
+  <rect width="920" height="430" rx="12" fill="#FAFAF9"/>
   <rect class="navy" x="90" y="112" width="740" height="52" rx="7"/><text x="460" y="144" text-anchor="middle" fill="#fff" class="t sh">여러 애플리케이션 · 여러 질문 · 여러 사용자</text>
   <line class="line" x1="174" y1="164" x2="174" y2="300"/><line class="line" x1="365" y1="164" x2="365" y2="300"/><line class="line" x1="555" y1="164" x2="555" y2="300"/><line class="line" x1="746" y1="164" x2="746" y2="300"/>
   <g transform="translate(96 188)"><rect class="box" width="156" height="122" rx="8"/><text class="t sh" x="78" y="34" text-anchor="middle">진화</text><text class="t m" x="78" y="60" text-anchor="middle">새 사실을 계속 흡수</text><text class="t m" x="78" y="81" text-anchor="middle">부분 구조를 확장</text><text class="t m" x="78" y="102" text-anchor="middle">시간에 따른 변화</text></g>

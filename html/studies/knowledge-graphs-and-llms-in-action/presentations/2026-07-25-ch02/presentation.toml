@@ -11,3 +11,23 @@ report_source = "report.html"
 artifacts = ["report", "slides"]
 source_fidelity = "source-structure-v1"
 source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_02_intelligent_systems_a_hybrid_approach/02_intelligent_systems_a_hybrid_approach_ko_explained.md"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/hybrid-loop.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/intelligent-architecture.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/knowledge-acquisition.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/purpose-driven.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/reasoning-engines.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"

@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 475" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="25 60 910 405" role="img" aria-labelledby="title desc">
   <title id="title">임상 질문에서 HPO 기반 지식 그래프와 검증된 질의까지 이어지는 구축 파이프라인</title>
   <desc id="desc">비즈니스 질문, 두 데이터 원천 이해, 기술 선택, 제약과 온톨로지 적재, 주석 병합과 관계 풍부화, 정제, 직접 질의와 계층 추론의 일곱 단계가 이어지며 각 전환에 검증 게이트가 있다.</desc>
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 18 14" refX="17.5" refY="7" markerWidth="18" markerHeight="14" orient="auto"><path d="M.5.5 17.5 7 .5 13.5Z" fill="#63728a"/></marker>
     <style>
-      text{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}
+      text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#172033}
       .eyebrow{font-size:14px;font-weight:800;letter-spacing:1.3px;fill:#52647d}
       .head{font-size:18px;font-weight:800}
       .small{font-size:13px;fill:#56657a}
@@ -14,7 +14,6 @@
     </style>
   </defs>
   <rect width="960" height="475" rx="20" fill="#f7f8fa"/>
-  <text x="55" y="44" class="eyebrow">CRISP-DM을 KG 구축 질문으로 구체화</text>
 
   <g>
     <rect class="box" x="48" y="77" width="196" height="91" rx="14"/>

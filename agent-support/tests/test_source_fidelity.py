@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import importlib.util
+import re
 import sys
 import tempfile
 import unittest
+from html import unescape
 from pathlib import Path
 from unittest import mock
 
@@ -36,6 +38,14 @@ CHAPTER_TWO_SOURCE = (
     / "materials/aiml/active/knowledge-graphs-and-llms-in-action"
     / "chapter_02_intelligent_systems_a_hybrid_approach"
     / "02_intelligent_systems_a_hybrid_approach_ko_explained.md"
+)
+CHAPTER_TWO_SESSION = (
+    REPO_ROOT
+    / "html/studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02"
+)
+KG_PRESENTATIONS = (
+    REPO_ROOT
+    / "html/studies/knowledge-graphs-and-llms-in-action/presentations"
 )
 
 SYNTHETIC_SOURCE = """\
@@ -84,6 +94,15 @@ SYNTHETIC_DECK = """\
 
 
 class SourceFidelityTest(unittest.TestCase):
+    def test_chapter_title_strips_plain_or_easy_explainer_suffix(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "chapter.md"
+            source.write_text("# 시계열 분석 — 해설판\n", encoding="utf-8")
+            self.assertEqual("시계열 분석", validate_site.parse_source_chapter_title(source))
+
+            source.write_text("# 시계열 분석 — 쉬운 해설판\n", encoding="utf-8")
+            self.assertEqual("시계열 분석", validate_site.parse_source_chapter_title(source))
+
     def validate_synthetic_source_fidelity(
         self,
         *,
@@ -155,6 +174,25 @@ class SourceFidelityTest(unittest.TestCase):
             validate_site.parse_source_chapter_title(CHAPTER_TWO_SOURCE),
         )
 
+    def test_chapter_two_deck_preserves_listing_2_1_prompt_verbatim(self) -> None:
+        report_html = (CHAPTER_TWO_SESSION / "report.html").read_text(encoding="utf-8")
+        deck_html = (CHAPTER_TWO_SESSION / "index.html").read_text(encoding="utf-8")
+        report_match = re.search(
+            r'id="source-listing-2-1".*?<code[^>]*>(.*?)</code>',
+            report_html,
+            re.DOTALL,
+        )
+        deck_match = re.search(
+            r'data-source-refs="listing:2\.1".*?<code[^>]*>(.*?)</code>',
+            deck_html,
+            re.DOTALL,
+        )
+
+        self.assertIsNotNone(report_match)
+        self.assertIsNotNone(deck_match)
+        assert report_match and deck_match
+        self.assertEqual(unescape(report_match.group(1)), unescape(deck_match.group(1)))
+
     @unittest.skipUnless(
         CHAPTER_THREE_SOURCE.is_file(),
         "교재는 aimlquant/study-materials (private) 에 있다. "
@@ -218,6 +256,115 @@ class SourceFidelityTest(unittest.TestCase):
         self.assertEqual("section:2.1", slide.source_title_ref)
         self.assertEqual("intentional", slide.figure_comparison)
         self.assertEqual([True], slide.code_blocks_with_language)
+
+    def test_deck_visual_must_derive_from_report(self) -> None:
+        report = validate_site.ReportDeckTraceParser()
+        report.feed(
+            '<figure class="report-figure" id="report-figure">'
+            '<img src="assets/report.svg" alt="report"></figure>'
+        )
+        deck = validate_site.ReportDeckTraceParser()
+        deck.feed(
+            '<main data-report-source="report.html"><section class="slide" '
+            'aria-label="deck only" data-report-refs="report-figure">'
+            '<img src="assets/deck.svg" alt="deck"></section></main>'
+        )
+        errors: list[str] = []
+        validate_site.validate_deck_visual_provenance(
+            report, deck, Path("/tmp/session/index.html"), errors
+        )
+        self.assertTrue(any("deck image must first appear" in error for error in errors))
+
+    def test_intentional_deck_visual_adaptation_names_and_links_report_figure(self) -> None:
+        report = validate_site.ReportDeckTraceParser()
+        report.feed(
+            '<figure class="report-figure" id="report-figure">'
+            '<img src="assets/report.svg" alt="report"></figure>'
+        )
+        deck = validate_site.ReportDeckTraceParser()
+        deck.feed(
+            '<main data-report-source="report.html"><section class="slide" '
+            'aria-label="adapted" data-report-refs="report-figure" '
+            'data-report-visual-adaptation="intentional">'
+            '<a href="report.html#report-figure">source</a>'
+            '<img src="assets/deck.svg" alt="deck"></section></main>'
+        )
+        errors: list[str] = []
+        validate_site.validate_deck_visual_provenance(
+            report, deck, Path("/tmp/session/index.html"), errors
+        )
+        self.assertEqual([], errors)
+
+    def test_unreferenced_public_svg_requires_retention_record(self) -> None:
+        report = validate_site.ReportDeckTraceParser()
+        report.feed(
+            '<figure class="report-figure" id="used">'
+            '<img src="assets/figs/used.svg" alt="used"></figure>'
+        )
+        deck = validate_site.ReportDeckTraceParser()
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            figures = session / "assets/figs"
+            figures.mkdir(parents=True)
+            (figures / "used.svg").write_text("<svg/>", encoding="utf-8")
+            (figures / "dormant.svg").write_text("<svg/>", encoding="utf-8")
+            errors: list[str] = []
+            validate_site.validate_retained_unreferenced_assets(
+                {}, session, report, deck, errors
+            )
+        self.assertTrue(any("unreferenced public SVG" in error for error in errors))
+
+    def test_retained_unreferenced_svg_needs_reason_and_must_stay_dormant(self) -> None:
+        report = validate_site.ReportDeckTraceParser()
+        report.feed(
+            '<figure class="report-figure" id="used">'
+            '<img src="assets/figs/used.svg" alt="used"></figure>'
+        )
+        deck = validate_site.ReportDeckTraceParser()
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            figures = session / "assets/figs"
+            figures.mkdir(parents=True)
+            (figures / "used.svg").write_text("<svg/>", encoding="utf-8")
+            errors: list[str] = []
+            validate_site.validate_retained_unreferenced_assets(
+                {
+                    "retained_unreferenced_assets": [
+                        {"path": "assets/figs/used.svg", "reason": ""}
+                    ]
+                },
+                session,
+                report,
+                deck,
+                errors,
+            )
+        self.assertTrue(any("needs a reason" in error for error in errors))
+        self.assertTrue(any("record is stale" in error for error in errors))
+
+    def test_declared_dormant_svg_is_auditable_without_deletion(self) -> None:
+        report = validate_site.ReportDeckTraceParser()
+        deck = validate_site.ReportDeckTraceParser()
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            figures = session / "assets/figs"
+            figures.mkdir(parents=True)
+            (figures / "dormant.svg").write_text("<svg/>", encoding="utf-8")
+            errors: list[str] = []
+            validate_site.validate_retained_unreferenced_assets(
+                {
+                    "retained_unreferenced_assets": [
+                        {
+                            "path": "assets/figs/dormant.svg",
+                            "reason": "이전 대안 도형을 명시적 폐기 결정 전까지 보존",
+                        }
+                    ]
+                },
+                session,
+                report,
+                deck,
+                errors,
+            )
+        self.assertEqual([], errors)
 
     def test_deck_parser_flags_unlabelled_block_code(self) -> None:
         deck = validate_site.ReportDeckTraceParser()
@@ -332,6 +479,49 @@ class SourceFidelityTest(unittest.TestCase):
                 report, session / "report.html", errors
             )
         self.assertTrue(any("byte-identical" in error for error in errors))
+
+    def test_marker_ended_svg_path_requires_explicit_no_fill(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            figures = session / "assets/figs"
+            figures.mkdir(parents=True)
+            (figures / "bad.svg").write_text(
+                '<svg xmlns="http://www.w3.org/2000/svg">'
+                '<style>.line{stroke:#000;marker-end:url(#a)}</style>'
+                '<path class="line" d="M0 0H10"/></svg>',
+                encoding="utf-8",
+            )
+            errors: list[str] = []
+            validate_site.validate_svg_connector_fill_contract(session, errors)
+        self.assertTrue(any("fill:none" in error for error in errors))
+
+    def test_marker_ended_svg_path_with_no_fill_passes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            figures = session / "assets/figs"
+            figures.mkdir(parents=True)
+            (figures / "good.svg").write_text(
+                '<svg xmlns="http://www.w3.org/2000/svg">'
+                '<style>.line{fill:none;stroke:#000;marker-end:url(#a)}</style>'
+                '<path class="line" d="M0 0H10"/></svg>',
+                encoding="utf-8",
+            )
+            errors: list[str] = []
+            validate_site.validate_svg_connector_fill_contract(session, errors)
+        self.assertEqual([], errors)
+
+    def test_kg_source_fidelity_reports_keep_shared_css_contracts(self) -> None:
+        for session_name in (
+            "2026-07-25-ch01",
+            "2026-07-25-ch02",
+            "2026-08-01-ch03",
+        ):
+            with self.subTest(session=session_name):
+                errors: list[str] = []
+                validate_site.validate_source_fidelity_report_css(
+                    KG_PRESENTATIONS / session_name, errors
+                )
+                self.assertEqual([], errors)
 
 
 if __name__ == "__main__":

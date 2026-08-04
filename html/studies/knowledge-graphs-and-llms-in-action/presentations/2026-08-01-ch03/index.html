@@ -217,6 +217,8 @@ CALL n10s.rdf.import.fetch(
 );
 
 <span class="code-comment">// Listing 3.17 · URI를 HP:... ID로</span>
+MATCH (n:Resource)
+WHERE n.uri STARTS WITH "http://purl.obolibrary.org/obo/HP"
 SET n:HpoPhenotype,
     n.id = coalesce(n.id,
       replace(apoc.text.replace(n.uri,'(.*)obo/',''), '_', ':'))</pre>
@@ -258,7 +260,7 @@ SET n:HpoPhenotype,
       <div class="slide-body">
         <div class="fact-grid">
           <article><span>Listing 3.22</span><h2>조건부 속성 설정</h2><p>source·evidence·frequency 등 값이 있을 때만 관계를 갱신한다.</p></article>
-          <article><span>Listing 3.23</span><h2>사람이 읽을 근거</h2><p>큐레이터·날짜를 파싱하고 IEA·PCS·TAS 약어를 설명으로 바꾼다.</p></article>
+          <article><span>Listing 3.23</span><h2>사람이 읽을 근거</h2><p>큐레이터·날짜·출처 URL을 파생하고 IEA·PCS·TAS 약어를 설명으로 바꾼다.</p></article>
           <article><span>원본 + 파생</span><h2>감사 가능성</h2><p>파생 속성이 원본 필드를 대체하지 않게 둘을 함께 남긴다.</p></article>
           <article><span>Listing 3.24</span><h2>정리의 경계</h2><p>보조 노드 삭제 전 건수·백업을 남기고 중간 질의의 전제를 확인한다.</p></article>
         </div>
@@ -300,7 +302,7 @@ SET n:HpoPhenotype,
     <section class="slide" aria-label="다섯 표현형으로 후보 질병 찾기" data-report-refs="source-section-3-4 source-listing-3-26 source-table-3-2 source-exercise-3-4-1" data-source-refs="listing:3.26 table:3.2 exercise:3.4-1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 Listing 3.26 · 표 3.2 · Exercise 3.4-1</span></header>
       <h1 class="source-title">Listing 3.26 특정 표현형 특징과 연관된 질병 찾기</h1>
-      <p class="lead">다섯 표현형 중 데이터에 연결된 개수를 세어 후보를 정렬합니다. 일치 수는 검색 순위일 뿐 진단 확률은 아닙니다.</p>
+      <p class="lead">원문의 불필요한 <code>UNWIND</code>를 제거하고 <code>count(*)</code>로 행을 세는 실행 보정본입니다. 일치 수는 검색 순위일 뿐 진단 확률은 아닙니다.</p>
       <div class="slide-body query-strip">
         <pre data-code-language="Cypher" aria-label="Cypher 코드 블록"><code class="language-cypher">MATCH (phe:HpoPhenotype)
 WHERE phe.label IN [
@@ -314,10 +316,10 @@ MATCH (dis:HpoDisease)
 RETURN dis.id, dis.label,
        collect(phe.label) AS features,
        count(*) AS num_of_features
-ORDER BY num_of_features DESC, dis.label
+ORDER BY num_of_features DESC, disease_name
 LIMIT 5</code></pre>
         <div class="ranking-list">
-          <article><b>5/5</b><div><p>OMIM:619269</p><small>Odontochondrodysplasia 2 with hearing loss and diabetes</small></div></article>
+          <article><b>5/5</b><div><p>OMIM:619269</p><small>Ondontochondrodysplasia 2 with hearing loss and diabetes</small></div></article>
           <article><b>3/5</b><div><p>OMIM:618500</p><small>Holoprosencephaly 12 with or without pancreatic agenesis</small></div></article>
           <article><b>2/5</b><div><p>세 후보 동률</p><small>교재 표 3.2의 나머지 세 질병</small></div></article>
         </div>
@@ -330,7 +332,7 @@ LIMIT 5</code></pre>
       <p class="eyebrow">교재 §3.5 · REASONING</p><h1 class="source-title">3.5 KG 위에서 추론하기 — 명시되지 않은 사실을 논리로 끌어내기</h1><p>직접 기록된 주석에 HPO의 하위 클래스 경로를 더해 상위 범주에 포함되는 후보를 찾는다.</p><span class="section-number">05</span>
     </section>
 
-    <section class="slide slide--visual" aria-label="HPO 계층 추론" data-report-refs="source-section-3-5 source-listing-3-27 source-listing-3-28 source-table-3-3" data-source-refs="listing:3.27 listing:3.28 table:3.3">
+    <section class="slide slide--visual" aria-label="HPO 계층 추론" data-report-refs="source-section-3-5 fig-hierarchical-inference source-listing-3-27 source-listing-3-28 source-table-3-3" data-source-refs="listing:3.27 listing:3.28 table:3.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 Listing 3.27 · 3.28 · 표 3.3</span></header>
       <h1>하위 표현형의 직접 주석을 상위 범주 질의에 포함한다</h1>
       <p class="lead">계층 추론은 그래프에 새 임상 주석을 쓰는 것이 아니라, 이미 존재하는 <code>SUBCLASSOF</code> 경로를 따라 상위 개념의 범위를 계산하는 과정입니다.</p>
@@ -340,7 +342,7 @@ LIMIT 5</code></pre>
           <figcaption><b>§3.5 · 직접 주석에서 계층 추론으로</b><span><strong>범위 찾기</strong> — Listing 3.27이 <code>SUBCLASSOF*1..3</code>으로 상위 범주의 하위 표현형을 찾는다.</span><span><strong>질병 포함하기</strong> — Listing 3.28이 그 하위 표현형에 직접 연결된 질병까지 반환한다.</span><span><strong>설명할 것</strong> — 표 3.3의 결과에는 원 주석과 후보를 포함시킨 전체 계층 경로가 필요하다.</span></figcaption>
         </figure>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#source-table-3-3">상세 리포트 표 4 · 교재 표 3.3</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-hierarchical-inference">상세 리포트 그림 12 · 계층 추론</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide" aria-label="직접 사실과 추론 사실의 경계" data-report-refs="source-section-3-5 source-listing-3-27 source-listing-3-28 source-table-3-3">
@@ -391,7 +393,7 @@ LIMIT 5</code></pre>
           <figcaption><b>실패 위치를 네 단계로 분리</b><span><strong>ID·입력</strong> — namespace와 HPO/HPOA 릴리스가 서로 맞는지 확인한다.</span><span><strong>적재·질의</strong> — 노드·관계 건수와 근거 속성, 같은 질의의 재현 여부를 확인한다.</span><span><strong>임상 검토</strong> — 후보와 추론 경로를 사람이 거절·보류할 수 있게 제시한다.</span></figcaption>
         </figure>
       </div>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-validation-gates">상세 리포트 그림 12 · 네 검증 게이트</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-validation-gates">상세 리포트 그림 13 · 네 검증 게이트</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide" aria-label="임상 의사결정 지원 경계" data-report-refs="supplement supplement-boundary">

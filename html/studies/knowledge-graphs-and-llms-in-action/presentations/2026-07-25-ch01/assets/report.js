@@ -31,7 +31,9 @@
   }
 
   // External CSS and fonts can change the document height after Chrome's first
-  // fragment jump. Re-apply the deep link once the final report layout exists.
+  // fragment jump. Align once synchronously at load, then re-apply after paint.
+  // Do not reset to the document top first: headless captures can otherwise
+  // record that transient frame as a blank deep-link viewport.
   function restoreFragmentPosition() {
     if (!window.location.hash || window.location.hash.length < 2) return;
     var id;
@@ -39,7 +41,7 @@
     catch (error) { id = window.location.hash.slice(1); }
     var target = document.getElementById(id);
     if (!target) return;
-    window.scrollTo(0, 0);
+    target.scrollIntoView({ block: 'start', inline: 'nearest' });
     window.requestAnimationFrame(function () {
       window.requestAnimationFrame(function () {
         target.scrollIntoView({ block: 'start', inline: 'nearest' });
@@ -864,6 +866,7 @@
     setupImageLightbox();
     setupObserver();
     window.buildCharts();
+    restoreFragmentPosition();
     window.setTimeout(restoreFragmentPosition, 100);
   });
 })();
