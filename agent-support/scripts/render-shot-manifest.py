@@ -5,8 +5,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import struct
 import subprocess
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
@@ -48,6 +50,23 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--runner", type=Path, default=DEFAULT_RUNNER)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
+    parser.add_argument(
+        "--retries",
+        type=int,
+        default=3,
+        help="retry each failed capture this many times (default: 3)",
+    )
+    parser.add_argument(
+        "--retry-delay",
+        type=float,
+        default=1.0,
+        help="initial retry and runner handoff delay in seconds (default: 1.0)",
+    )
+    parser.add_argument(
+        "--skip-existing",
+        action="store_true",
+        help="resume a batch by skipping outputs that pass artifact validation",
+    )
     return parser.parse_args()
 
 
@@ -171,36 +190,127 @@ def runner_command(runner: Path, capture: Capture) -> list[str]:
     return command
 
 
+def minimum_png_bytes(capture: Capture) -> int:
+    """Reject implausibly empty screenshots without penalizing small viewports."""
+
+    return max(1024, min(8192, (capture.width * capture.height) // 100))
+
+
+def output_problem(capture: Capture) -> str | None:
+    """Return a concise validation failure, or ``None`` for a usable artifact."""
+
+    try:
+        data = capture.output.read_bytes()
+    except OSError:
+        return "output file is missing or unreadable"
+    if capture.output_format == "png":
+        if not data.startswith(b"\x89PNG\r\n\x1a\n"):
+            return "PNG signature is missing"
+        if len(data) < 24 or data[12:16] != b"IHDR":
+            return "PNG IHDR is missing"
+        width, height = struct.unpack(">II", data[16:24])
+        if (width, height) != (capture.width, capture.height):
+            return (
+                f"PNG dimensions are {width}x{height}, expected "
+                f"{capture.width}x{capture.height}"
+            )
+        required = minimum_png_bytes(capture)
+        if len(data) < required:
+            return (
+                f"PNG is implausibly small ({len(data)} bytes; "
+                f"minimum {required})"
+            )
+        return None
+    if not data.startswith(b"%PDF-"):
+        return "PDF signature is missing"
+    return None
+
+
+def output_looks_complete(capture: Capture) -> bool:
+    return output_problem(capture) is None
+
+
 def main() -> int:
     args = parse_args()
     try:
+        if not 0 <= args.retries <= 10:
+            raise ValueError("--retries must be between 0 and 10")
+        if not 0 <= args.retry_delay <= 60:
+            raise ValueError("--retry-delay must be between 0 and 60")
         runner = args.runner.resolve(strict=True)
         if not runner.is_file():
             raise ValueError(f"runner is not a regular file: {runner}")
         captures = load_manifest(args.manifest, args.output_root)
+        completed = 0
+        skipped = 0
+        failures: list[tuple[int, Capture, int]] = []
+        launched = False
         for index, capture in enumerate(captures, start=1):
+            if args.skip_existing and output_looks_complete(capture):
+                skipped += 1
+                print(
+                    f"[{index}/{len(captures)}] skip complete {capture.output}",
+                    flush=True,
+                )
+                continue
             print(
                 f"[{index}/{len(captures)}] {capture.output_format} "
                 f"{capture.width}x{capture.height} -> {capture.output}",
                 flush=True,
             )
-            result = subprocess.run(
-                runner_command(runner, capture),
-                check=False,
-                text=True,
-                capture_output=True,
-            )
-            if result.stdout:
-                print(result.stdout.rstrip())
-            if result.stderr:
-                print(result.stderr.rstrip(), file=sys.stderr)
-            if result.returncode:
+            final_status = 1
+            for attempt in range(1, args.retries + 2):
+                # The guarded runner uses a transient user service. Give
+                # systemd a handoff window before reusing its fixed service
+                # name; retries use exponential backoff for slower teardown.
+                if launched and args.retry_delay:
+                    delay = min(args.retry_delay * (2 ** (attempt - 1)), 30.0)
+                    time.sleep(delay)
+                launched = True
+                result = subprocess.run(
+                    runner_command(runner, capture),
+                    check=False,
+                    text=True,
+                    capture_output=True,
+                )
+                if result.stdout:
+                    print(result.stdout.rstrip())
+                if result.stderr:
+                    print(result.stderr.rstrip(), file=sys.stderr)
+                final_status = result.returncode
+                if not final_status:
+                    problem = output_problem(capture)
+                    if problem:
+                        final_status = 65
+                        print(
+                            f"capture {index} attempt {attempt}/{args.retries + 1} "
+                            f"produced an invalid artifact: {problem}",
+                            file=sys.stderr,
+                        )
+                    else:
+                        completed += 1
+                        break
+                else:
+                    print(
+                        f"capture {index} attempt {attempt}/{args.retries + 1} "
+                        f"failed with exit status {final_status}",
+                        file=sys.stderr,
+                    )
+            else:
+                failures.append((index, capture, final_status))
+
+        print(
+            "capture summary: "
+            f"completed={completed} skipped={skipped} failed={len(failures)}"
+        )
+        if failures:
+            for index, capture, status in failures:
                 print(
-                    f"capture {index} failed with exit status {result.returncode}",
+                    f"FAILED [{index}/{len(captures)}] status={status} "
+                    f"output={capture.output}",
                     file=sys.stderr,
                 )
-                return result.returncode
-        print(f"completed {len(captures)} guarded capture(s)")
+            return failures[0][2] or 1
         return 0
     except (OSError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

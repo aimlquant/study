@@ -8,6 +8,7 @@ import hashlib
 import re
 import sys
 import tomllib
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 from pathlib import Path
@@ -65,12 +66,7 @@ CJK_WRAP_DECLARATIONS = (
     ),
 )
 
-# Registered 2026-07-27. Remove one entry only after that published session's
-# SVGs have been updated, rendered at final size, and visually rechecked.
-FONT_STACK_DRIFT_ALLOWLIST = {
-    "kg-llm-in-action-2026/2026-07-25-ch01",
-    "kg-llm-in-action-2026/2026-08-01-ch03",
-}
+FONT_STACK_DRIFT_ALLOWLIST: set[str] = set()
 
 
 @dataclass
@@ -121,6 +117,7 @@ class SlideTrace:
     source_refs: list[str]
     source_title_ref: str = ""
     figure_comparison: str = ""
+    visual_adaptation: str = ""
     code_blocks_with_language: list[bool] = field(default_factory=list)
     image_sources: set[str] = field(default_factory=set)
     report_links: set[str] = field(default_factory=set)
@@ -241,6 +238,9 @@ class ReportDeckTraceParser(HTMLParser):
                     source_title_ref=values.get("data-source-title", "").strip(),
                     figure_comparison=values.get(
                         "data-figure-comparison", ""
+                    ).strip(),
+                    visual_adaptation=values.get(
+                        "data-report-visual-adaptation", ""
                     ).strip(),
                 )
                 self._slide_section_depth = self._section_depth
@@ -528,7 +528,7 @@ def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
 def parse_source_chapter_title(path: Path) -> str:
     """Return the exact translated chapter title without explainer suffixes."""
     heading_re = re.compile(r"^#\s+(.+?)\s*$")
-    suffix_re = re.compile(r"\s*[—-]\s*쉬운\s+해설판\s*$")
+    suffix_re = re.compile(r"\s*[—-]\s*(?:쉬운\s+)?해설판\s*$")
     for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         match = heading_re.match(raw_line.strip())
         if match:
@@ -915,6 +915,276 @@ def validate_unique_source_figure_assets(
             )
 
 
+def validate_deck_visual_provenance(
+    report_trace: ReportDeckTraceParser,
+    deck_trace: ReportDeckTraceParser,
+    deck_html: Path,
+    errors: list[str],
+) -> None:
+    """Require every deck image to exist in the report or name its adaptation source."""
+    report_sources = {
+        source
+        for figure in report_trace.figures.values()
+        for source in figure.image_sources
+    }
+    report_figure_ids = set(report_trace.figures)
+
+    for slide in deck_trace.slides:
+        deck_only = sorted(slide.image_sources - report_sources)
+        if not deck_only:
+            continue
+        source_figures = set(slide.refs) & report_figure_ids
+        linked_source_figures = slide.report_links & source_figures
+        if (
+            slide.visual_adaptation == "intentional"
+            and source_figures
+            and linked_source_figures
+        ):
+            continue
+        errors.append(
+            f"deck image must first appear in the report or declare an intentional "
+            f"adaptation linked to a report figure in {deck_html} "
+            f"({slide.label or 'unnamed slide'}): {deck_only}"
+        )
+
+
+def normalize_session_asset_source(source: str) -> str | None:
+    parsed = urlparse(source)
+    if parsed.scheme or parsed.netloc or parsed.path.startswith("/"):
+        return None
+    path = Path(unquote(parsed.path))
+    if not path.parts or ".." in path.parts:
+        return None
+    return path.as_posix()
+
+
+def validate_retained_unreferenced_assets(
+    metadata: dict,
+    session_dir: Path,
+    report_trace: ReportDeckTraceParser,
+    deck_trace: ReportDeckTraceParser,
+    errors: list[str],
+) -> None:
+    """Require every dormant public SVG to have an explicit retention record."""
+    records = metadata.get("retained_unreferenced_assets", [])
+    if not isinstance(records, list):
+        errors.append(
+            f"retained_unreferenced_assets must be an array of tables in "
+            f"{session_dir / 'presentation.toml'}"
+        )
+        records = []
+
+    referenced: set[str] = set()
+    sources = {
+        item
+        for figure in report_trace.figures.values()
+        for item in figure.image_sources
+    } | {
+        item
+        for slide in deck_trace.slides
+        for item in slide.image_sources
+    }
+    for source in sources:
+        normalized = normalize_session_asset_source(source)
+        if normalized:
+            referenced.add(normalized)
+
+    figures_dir = session_dir / "assets/figs"
+    public_svgs = {
+        path.relative_to(session_dir).as_posix()
+        for path in figures_dir.glob("*.svg")
+        if path.is_file()
+    }
+    actual_unreferenced = public_svgs - referenced
+    declared: set[str] = set()
+
+    for index, record in enumerate(records, 1):
+        if not isinstance(record, dict):
+            errors.append(
+                f"retained_unreferenced_assets entry {index} must be a table in "
+                f"{session_dir / 'presentation.toml'}"
+            )
+            continue
+        path_value = record.get("path")
+        reason = record.get("reason")
+        normalized = (
+            normalize_session_asset_source(path_value)
+            if isinstance(path_value, str)
+            else None
+        )
+        if (
+            not normalized
+            or not normalized.startswith("assets/figs/")
+            or not normalized.endswith(".svg")
+        ):
+            errors.append(
+                f"invalid retained unreferenced SVG path in "
+                f"{session_dir / 'presentation.toml'}: {path_value!r}"
+            )
+            continue
+        if normalized in declared:
+            errors.append(
+                f"duplicate retained unreferenced SVG in "
+                f"{session_dir / 'presentation.toml'}: {normalized}"
+            )
+            continue
+        declared.add(normalized)
+        if not isinstance(reason, str) or not reason.strip():
+            errors.append(
+                f"retained unreferenced SVG needs a reason in "
+                f"{session_dir / 'presentation.toml'}: {normalized}"
+            )
+        if normalized not in public_svgs:
+            errors.append(
+                f"retained unreferenced SVG does not exist in {session_dir}: "
+                f"{normalized}"
+            )
+        elif normalized in referenced:
+            errors.append(
+                f"retention record is stale because the SVG is now referenced in "
+                f"{session_dir}: {normalized}"
+            )
+
+    undeclared = sorted(actual_unreferenced - declared)
+    if undeclared:
+        errors.append(
+            f"unreferenced public SVG(s) must be removed with user approval or "
+            f"declared with a retention reason in {session_dir / 'presentation.toml'}: "
+            f"{undeclared}"
+        )
+
+
+def parse_css_declarations(block: str) -> dict[str, str]:
+    declarations: dict[str, str] = {}
+    for declaration in block.split(";"):
+        if ":" not in declaration:
+            continue
+        name, value = declaration.split(":", 1)
+        declarations[name.strip().lower()] = value.strip().lower()
+    return declarations
+
+
+def validate_svg_connector_fill_contract(
+    session_dir: Path,
+    errors: list[str],
+) -> None:
+    """A marker-ended SVG path is a connector and must not use SVG's black fill."""
+    figures_dir = session_dir / "assets" / "figs"
+    if not figures_dir.is_dir():
+        return
+
+    for svg_path in sorted(figures_dir.glob("*.svg")):
+        svg_text = svg_path.read_text(encoding="utf-8", errors="replace")
+        class_rules = {
+            name: parse_css_declarations(block)
+            for name, block in re.findall(
+                r"\.([A-Za-z_][\w-]*)\s*\{([^{}]*)\}", svg_text
+            )
+        }
+        try:
+            root = ET.fromstring(svg_text)
+        except ET.ParseError as exc:
+            errors.append(f"invalid SVG XML in {svg_path}: {exc}")
+            continue
+
+        for element in root.iter():
+            if element.tag.rsplit("}", 1)[-1] != "path":
+                continue
+            declarations: dict[str, str] = {}
+            for class_name in element.attrib.get("class", "").split():
+                declarations.update(class_rules.get(class_name, {}))
+            declarations.update(
+                parse_css_declarations(element.attrib.get("style", ""))
+            )
+            for name in ("stroke", "fill", "marker-end"):
+                if name in element.attrib:
+                    declarations[name] = element.attrib[name].strip().lower()
+
+            stroke = declarations.get("stroke", "")
+            marker_end = declarations.get("marker-end", "")
+            fill = declarations.get("fill", "")
+            if stroke and stroke != "none" and marker_end and fill != "none":
+                element_id = element.attrib.get("id", "<unnamed>")
+                errors.append(
+                    f"marker-ended SVG path must declare fill:none in {svg_path}: "
+                    f"path {element_id} has fill={fill or '<implicit black>'}"
+                )
+
+
+def css_rule_has_contract(
+    css_text: str,
+    selectors: set[str],
+    declarations: tuple[re.Pattern[str], ...],
+) -> bool:
+    stripped = CSS_COMMENT_RE.sub(" ", css_text)
+    for match in CSS_RULE_RE.finditer(stripped):
+        actual_selectors = {
+            " ".join(selector.split()).lower()
+            for selector in match.group(1).split(",")
+        }
+        if not selectors.issubset(actual_selectors):
+            continue
+        if all(pattern.search(match.group(2)) for pattern in declarations):
+            return True
+    return False
+
+
+def validate_source_fidelity_report_css(
+    session_dir: Path,
+    errors: list[str],
+) -> None:
+    """Protect shared report-template contracts while allowing session labels."""
+    css_path = session_dir / "assets" / "report.css"
+    template_path = (
+        REPO_ROOT / "agent-support/templates/study-report/assets/report.css"
+    )
+    if not css_path.is_file() or not template_path.is_file():
+        return
+    css_text = css_path.read_text(encoding="utf-8", errors="replace")
+    template_text = template_path.read_text(encoding="utf-8", errors="replace")
+    expected_font = report_font_stack(template_text)
+    actual_font = report_font_stack(css_text)
+    if not expected_font or actual_font != expected_font:
+        errors.append(
+            f"source-fidelity report CSS must retain the template Korean font "
+            f"stack in {css_path}: expected {','.join(expected_font) or '<missing>'}, "
+            f"found {','.join(actual_font) or '<missing>'}"
+        )
+
+    contracts = (
+        (
+            {
+                ".continuous-mode .report-section:not(.s0)",
+                ".continuous-mode .report-appendix",
+            },
+            (
+                re.compile(r"break-before\s*:\s*page\s*!important", re.I),
+                re.compile(r"page-break-before\s*:\s*always\s*!important", re.I),
+            ),
+            "print section page breaks",
+        ),
+        (
+            {"h1", "h2", "h3", "h4", "h5", "h6"},
+            (
+                re.compile(r"break-inside\s*:\s*avoid", re.I),
+                re.compile(r"page-break-inside\s*:\s*avoid", re.I),
+            ),
+            "heading page integrity",
+        ),
+        (
+            {".continuous-mode .report-cover__subtitle"},
+            (re.compile(r"word-break\s*:\s*keep-all", re.I),),
+            "cover subtitle Korean wrapping",
+        ),
+    )
+    for selectors, declarations, label in contracts:
+        if not css_rule_has_contract(css_text, selectors, declarations):
+            errors.append(
+                f"source-fidelity report CSS is missing the shared {label} "
+                f"contract in {css_path}"
+            )
+
+
 def validate_font_stack_contract(
     session_dir: Path,
     session_key: str,
@@ -1183,6 +1453,22 @@ def validate_metadata(
                 deck_html,
                 errors,
                 warnings,
+            )
+            if metadata.get("source_fidelity") == SOURCE_FIDELITY_VERSION:
+                validate_source_fidelity_report_css(metadata_path.parent, errors)
+                validate_svg_connector_fill_contract(metadata_path.parent, errors)
+            validate_deck_visual_provenance(
+                report_trace,
+                deck_trace,
+                deck_html,
+                errors,
+            )
+            validate_retained_unreferenced_assets(
+                metadata,
+                metadata_path.parent,
+                report_trace,
+                deck_trace,
+                errors,
             )
 
             for duplicate in sorted(report_trace.duplicate_ids):

@@ -59,6 +59,8 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.024em;
   line-height: 1.2;
   text-wrap: balance;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 /* ===== A4 @page (인쇄 시 페이지 규격 + 러닝 헤더/푸터) =====
@@ -1651,6 +1653,24 @@ body.chrome-hidden .report-settings {
   box-shadow: 0 1px 3px rgba(0,0,0,0.03);
   break-inside: avoid;
   page-break-inside: avoid;
+}
+.section-summary > span {
+  display: block;
+  position: relative;
+  padding: 2px 0 2px 22px;
+  font-size: 9.8pt;
+  line-height: 1.55;
+  color: var(--text);
+}
+.section-summary > span + span { margin-top: 6px; }
+.section-summary > span::before {
+  content: "";
+  position: absolute;
+  left: 6px; top: 9px;
+  width: 7px; height: 7px;
+  background: var(--brand-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(15,44,89,0.10);
 }
 .section-summary__kicker {
   display: flex;

@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 20 900 410" role="img" aria-labelledby="title desc">
   <title id="title">LPG에 적재된 HPO 온톨로지의 메타데이터 층과 표현형 계층</title>
   <desc id="desc">왼쪽에는 제1형 당뇨병 표현형의 정의, 동의어, 외부 참조 같은 온톨로지 메타데이터가 있고 오른쪽에는 당뇨병 상위 개념과 여러 하위 표현형이 SUBCLASSOF 관계로 연결된 도메인 계층이 있다.</desc>
   <defs>
     <marker id="arrow-meta" markerUnits="userSpaceOnUse" viewBox="0 0 18 14" refX="17.5" refY="7" markerWidth="15" markerHeight="12" orient="auto"><path d="M.5.5 17.5 7 .5 13.5Z" fill="#8b7756"/></marker>
     <marker id="arrow-domain" markerUnits="userSpaceOnUse" viewBox="0 0 18 14" refX="17.5" refY="7" markerWidth="15" markerHeight="12" orient="auto"><path d="M.5.5 17.5 7 .5 13.5Z" fill="#0f2c59"/></marker>
-    <style>text{font-family:'Inter','Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;fill:#172033}.eyebrow{font-size:12px;font-weight:800;letter-spacing:1px}.head{font-size:17px;font-weight:800}.small{font-size:12px;fill:#56657a}.meta{fill:#eee6d8;stroke:#8b7756;stroke-width:2}.domain{fill:#e4ebf5;stroke:#0f2c59;stroke-width:2}.focus{fill:#0f2c59;stroke:#0f2c59}.meta-edge{fill:none;stroke:#8b7756;stroke-width:2.3;marker-end:url(#arrow-meta)}.domain-edge{fill:none;stroke:#0f2c59;stroke-width:2.5;marker-end:url(#arrow-domain)}</style>
+    <style>text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#172033}.eyebrow{font-size:12px;font-weight:800;letter-spacing:1px}.head{font-size:17px;font-weight:800}.small{font-size:12px;fill:#56657a}.meta{fill:#eee6d8;stroke:#8b7756;stroke-width:2}.domain{fill:#e4ebf5;stroke:#0f2c59;stroke-width:2}.focus{fill:#0f2c59;stroke:#0f2c59}.meta-edge{fill:none;stroke:#8b7756;stroke-width:2.3;marker-end:url(#arrow-meta)}.domain-edge{fill:none;stroke:#0f2c59;stroke-width:2.5;marker-end:url(#arrow-domain)}</style>
   </defs>
   <rect width="960" height="480" rx="20" fill="#f7f8fa"/><line x1="480" y1="62" x2="480" y2="445" stroke="#d3d9e2" stroke-width="2" stroke-dasharray="7 7"/>
   <text x="240" y="39" class="eyebrow" text-anchor="middle" fill="#786544">ONTOLOGY METADATA</text><text x="720" y="39" class="eyebrow" text-anchor="middle" fill="#0f2c59">PHENOTYPE DOMAIN HIERARCHY</text>
@@ -18,5 +18,4 @@
   <rect class="domain" x="560" y="342" width="170" height="70" rx="14"/><text x="645" y="370" class="head" text-anchor="middle">제2형 당뇨병</text><text x="645" y="394" class="small" text-anchor="middle">하위 표현형</text>
   <rect class="domain" x="752" y="342" width="170" height="70" rx="14"/><text x="837" y="370" class="head" text-anchor="middle">당뇨병성 케톤산증</text><text x="837" y="394" class="small" text-anchor="middle">하위 표현형</text>
   <path class="domain-edge" d="M626 226H706"/><path class="domain-edge" d="M807 205V158"/><path class="domain-edge" d="M645 342V304C645 291 768 291 768 275"/><path class="domain-edge" d="M837 342V275"/>
-  <text x="480" y="453" class="small" text-anchor="middle">왼쪽은 개념을 설명하는 문장 · 오른쪽은 질의 가능한 상하위 구조</text>
 </svg>

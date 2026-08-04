@@ -11,3 +11,19 @@ report_source = "report.html"
 artifacts = ["report", "slides"]
 source_fidelity = "source-structure-v1"
 source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_01_knowledge_graphs_and_llms_a_killer_combination/01_knowledge_graphs_and_llms_a_killer_combination_ko_explained.md"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/extraction-bottleneck.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/hybrid-loop.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/technology-semantics.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/use-case-map.svg"
+reason = "이전 대안 도형이며 사용자 명시 폐기 결정 전까지 보존"

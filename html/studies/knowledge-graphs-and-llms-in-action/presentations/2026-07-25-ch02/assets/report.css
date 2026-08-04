@@ -59,6 +59,8 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.024em;
   line-height: 1.2;
   text-wrap: balance;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 /* ===== A4 @page (인쇄 시 페이지 규격 + 러닝 헤더/푸터) =====
@@ -1651,6 +1653,24 @@ body.chrome-hidden .report-settings {
   box-shadow: 0 1px 3px rgba(0,0,0,0.03);
   break-inside: avoid;
   page-break-inside: avoid;
+}
+.section-summary > span {
+  display: block;
+  position: relative;
+  padding: 2px 0 2px 22px;
+  font-size: 9.8pt;
+  line-height: 1.55;
+  color: var(--text);
+}
+.section-summary > span + span { margin-top: 6px; }
+.section-summary > span::before {
+  content: "";
+  position: absolute;
+  left: 6px; top: 9px;
+  width: 7px; height: 7px;
+  background: var(--brand-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(15,44,89,0.10);
 }
 .section-summary__kicker {
   display: flex;
@@ -3648,6 +3668,18 @@ html, body, button, input { font-family: var(--font-sans-ko); }
 .skip-link:focus { top: 16px; }
 .report-jump-links { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
 .report-jump-links a { font-size:9pt; font-weight:700; text-decoration:none; color:var(--brand-deep); border:1px solid var(--border); padding:5px 9px; border-radius:4px; background:var(--surface); }
+.source-listing, .source-exercise {
+  margin: 24px 0;
+  padding: 18px 20px;
+  border: 1px solid #d8e2ee;
+  border-left: 4px solid #8db2dd;
+  border-radius: 8px;
+  background: #f7f9fc;
+  break-inside: avoid;
+  scroll-margin-top: 84px;
+}
+.source-listing h4, .source-exercise h4 { margin: 0 0 10px; color: var(--brand-deep); font-size: 11pt; line-height: 1.45; }
+.source-listing p:last-child, .source-exercise p:last-child { margin-bottom: 0; }
 .report-appendix ol.references li::before,
 .s-refs ol.references li::before { content: none !important; }
 @media print { .skip-link, .report-jump-links { display:none !important; } }
@@ -3792,16 +3824,29 @@ svg.report-lightbox__visual {
   [data-report-zoomable="true"] { cursor: default !important; outline: none !important; box-shadow: none !important; filter: none !important; }
   .report-lightbox { display: none !important; }
 
+  .continuous-mode .report-section:not(.s0),
+  .continuous-mode .report-appendix {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
   /* Browser-oriented continuous mode still prints as true A4 pages. */
   .continuous-mode .report-cover {
     break-after: page !important;
     page-break-after: always !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 210mm;
     max-width: none;
     min-height: 297mm;
     margin: 0;
     padding: 54mm 28mm 30mm 30mm;
     border-bottom: 0;
+  }
+  .continuous-mode .report-cover__wordmark {
+    display: flex;
+    margin-bottom: 18mm;
   }
   .continuous-mode .report-cover__signature { max-width: 100%; }
   .continuous-mode .report-cover__kicker {
@@ -3813,7 +3858,7 @@ svg.report-lightbox__visual {
   }
   .continuous-mode .report-cover__title {
     max-width: 150mm;
-    font-size: 30pt;
+    font-size: 40pt;
     line-height: 1.08;
   }
   .continuous-mode .report-cover__subtitle {
