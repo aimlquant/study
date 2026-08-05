@@ -52,6 +52,12 @@ requires exactly one approved caption for the recording, so use this order:
 5. upload privately, attach approved metadata, caption, thumbnail, and
    playlist, then make the video public only after all gates pass.
 
+Do not infer execution readiness from the upload dry-run bucket alone. A live
+upload performs a fresh owner inventory and duplicate check, which also needs
+`owner_search_page` quota. Check that execution-time search gate before saying
+an upload can start; at the 80 percent guard, wait for the Pacific-day reset
+instead of bypassing the ledger.
+
 For technical lectures, compare the preferred transcription model with an
 independent draft and check formulas, numbers, and domain terms against the
 slides. If a spare remote GPU is used, work in an isolated temporary directory,
