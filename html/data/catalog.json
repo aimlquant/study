@@ -430,9 +430,11 @@
       "presenters": [
         "수경"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 1–2. 지식 그래프와 LLM, 하이브리드 접근"
+      "title": "Chapter 1–2. 지식 그래프와 LLM, 하이브리드 접근",
+      "youtube_url": "https://www.youtube.com/watch?v=h8XwFQllWcQ",
+      "youtube_video_id": "h8XwFQllWcQ"
     }
   ],
   "site": {
