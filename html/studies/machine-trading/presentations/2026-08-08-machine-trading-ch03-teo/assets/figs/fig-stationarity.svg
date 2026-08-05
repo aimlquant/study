@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 360" width="920" height="360" role="img" aria-label="AR(1) 계수 파이의 크기가 시계열의 성격을 셋으로 가르는 구조. 파이의 절댓값이 1보다 작으면 약정상이며 평균선 주위로 되돌아오는 평균회귀, 파이가 정확히 1이면 어제 값에 잡음만 더해지는 랜덤워크, 절댓값이 1보다 크면 한 방향으로 발산하는 추세가 된다. 아래에는 재현으로 확인한 AUD.USD 파이 추정값 0.9999983과 비트코인 일봉 0.9883526가 표시되어 두 자산 모두 랜덤워크 경계에 붙어 있음을 보여준다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+
+  <rect width="920" height="360" fill="#FAFAF9"/>
+  <g font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">AR(1)의 계수 φ 하나가 시계열의 성격을 셋으로 가른다</text>
+    <text x="32" y="54" font-size="12.5" fill="#6B6B72">Y(t) − μ = φ · ( Y(t−1) − μ ) + ε(t)</text>
+
+    <!-- Panel 1 : mean reverting -->
+    <rect x="32" y="74" width="272" height="150" rx="8" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="48" y="98" font-size="12.5" font-weight="700" fill="#0F2C59">| φ | &lt; 1 · 약정상</text>
+    <text x="48" y="116" font-size="11.5" fill="#6B6B72">평균회귀 — 벗어나면 당겨온다</text>
+    <line x1="48" y1="176" x2="288" y2="176" stroke="#C9C7C2" stroke-width="1" stroke-dasharray="4 4"/>
+    <text x="292" y="180" font-size="10" fill="#9A9893" text-anchor="end">μ</text>
+    <path d="M48 176L64 152L80 190L96 160L112 188L128 166L144 184L160 162L176 186L192 168L208 182L224 170L240 180L256 172L272 178L288 174"
+          fill="none" stroke="#0F2C59" stroke-width="2"/>
+
+    <!-- Panel 2 : random walk -->
+    <rect x="324" y="74" width="272" height="150" rx="8" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="340" y="98" font-size="12.5" font-weight="700" fill="#0F2C59">φ = 1 · 랜덤워크</text>
+    <text x="340" y="116" font-size="11.5" fill="#6B6B72">방향에 기억이 없다</text>
+    <line x1="340" y1="176" x2="580" y2="176" stroke="#C9C7C2" stroke-width="1" stroke-dasharray="4 4"/>
+    <path d="M340 176L356 168L372 178L388 158L404 166L420 150L436 162L452 144L468 156L484 138L500 152L516 140L532 130L548 142L564 126L580 134"
+          fill="none" stroke="#0F2C59" stroke-width="2"/>
+
+    <!-- Panel 3 : trending -->
+    <rect x="616" y="74" width="272" height="150" rx="8" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="632" y="98" font-size="12.5" font-weight="700" fill="#C0392B">| φ | &gt; 1 · 발산</text>
+    <text x="632" y="116" font-size="11.5" fill="#6B6B72">추세 — 한 방향으로 뻗는다</text>
+    <line x1="632" y1="176" x2="872" y2="176" stroke="#C9C7C2" stroke-width="1" stroke-dasharray="4 4"/>
+    <path d="M632 178L664 174L696 166L728 152L760 132L792 108L824 82L856 60L872 50"
+          fill="none" stroke="#C0392B" stroke-width="2"/>
+
+    <line x1="32" y1="252" x2="888" y2="252" stroke="#D8D6D1" stroke-width="1"/>
+
+    <text x="32" y="282" font-size="13" font-weight="700" fill="#0F0F10">재현으로 확인한 실제 위치 — 둘 다 랜덤워크 경계에 붙어 있다</text>
+
+    <g font-size="12.5">
+      <rect x="32" y="296" width="416" height="46" rx="6" fill="#EDF1F7" stroke="#B9C6DA"/>
+      <text x="48" y="316" font-weight="700" fill="#0F2C59">AUD.USD 1분 중간가격</text>
+      <text x="48" y="334" fill="#0F0F10">φ̂ = 0.9999983 · 책·소스 0.999998 과 일치</text>
+
+      <rect x="472" y="296" width="416" height="46" rx="6" fill="#EDF1F7" stroke="#B9C6DA"/>
+      <text x="488" y="316" font-weight="700" fill="#0F2C59">BTC/USD 일봉 345개</text>
+      <text x="488" y="334" fill="#0F0F10">φ̂ = 0.9883526 · 소스 주석 0.989484 와 0.003 이내</text>
+    </g>
+  </g>
+</svg>

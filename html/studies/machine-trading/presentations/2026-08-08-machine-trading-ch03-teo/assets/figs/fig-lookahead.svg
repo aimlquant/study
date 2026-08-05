@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" role="img" aria-label="AR(10) 전략의 세 경로를 같은 시간축 위에 비교한 도해. 첫째 원본 경로는 계수 추정 구간이 학습 구간과 테스트 구간 전체를 덮어 테스트 구간이 추정에 섞이며 연환산 수익 158.36퍼센트를 낸다. 둘째 학습 구간만으로 다시 적합한 수정 경로는 연환산 수익 140.27퍼센트로 낮아진다. 셋째 같은 수정 경로에 관측된 반스프레드를 시장가 비용으로 차감하면 연환산 수익이 마이너스 99.97퍼센트가 되어 알파가 사라진다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+
+  <defs>
+
+    <pattern id="laHatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#FDECEC"/>
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#C0392B" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="920" height="400" fill="#FAFAF9"/>
+  <g font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">같은 AR(10) 모형, 추정창과 비용만 바꾼 세 경로</text>
+    <text x="32" y="54" font-size="12.5" fill="#6B6B72">AUD.USD 1분봉 2,963,610개 · train 2,604,510 · test 359,100 (마지막 1년)</text>
+
+    <!-- time axis header -->
+    <text x="128" y="86" font-size="11.5" font-weight="700" fill="#6B6B72" text-anchor="middle">TRAIN 2,604,510 봉</text>
+    <text x="700" y="86" font-size="11.5" font-weight="700" fill="#6B6B72" text-anchor="middle">TEST 359,100 봉</text>
+    <line x1="620" y1="94" x2="620" y2="330" stroke="#9A9893" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+    <!-- Row A : source, full-sample fit -->
+    <text x="32" y="120" font-size="12.5" font-weight="700" fill="#0F0F10">① 원본 buildARp_AUDUSD.m</text>
+    <text x="32" y="138" font-size="11.5" fill="#6B6B72">fit = estimate(model, mid)</text>
+    <rect x="256" y="106" width="364" height="40" rx="4" fill="#0F2C59"/>
+    <text x="438" y="131" font-size="12" fill="#FFFFFF" text-anchor="middle">계수 추정 구간</text>
+    <rect x="620" y="106" width="164" height="40" rx="4" fill="url(#laHatch)" stroke="#C0392B"/>
+    <text x="702" y="131" font-size="11.5" fill="#C0392B" text-anchor="middle" font-weight="700">추정에 섞임</text>
+    <text x="796" y="126" font-size="13" font-weight="700" fill="#0F0F10">+158.36%</text>
+    <text x="796" y="142" font-size="10.5" fill="#C0392B">look-ahead 포함</text>
+
+    <!-- Row B : train-only correction -->
+    <text x="32" y="196" font-size="12.5" font-weight="700" fill="#0F0F10">② train-only 수정</text>
+    <text x="32" y="214" font-size="11.5" fill="#6B6B72">end = aud_train_end</text>
+    <rect x="256" y="182" width="364" height="40" rx="4" fill="#0F2C59"/>
+    <text x="438" y="207" font-size="12" fill="#FFFFFF" text-anchor="middle">계수 추정 구간</text>
+    <rect x="620" y="182" width="164" height="40" rx="4" fill="#FFFFFF" stroke="#2E7D5B" stroke-width="1.5"/>
+    <text x="702" y="207" font-size="11.5" fill="#2E7D5B" text-anchor="middle" font-weight="700">순수 표본 외</text>
+    <text x="796" y="202" font-size="13" font-weight="700" fill="#0F0F10">+140.27%</text>
+    <text x="796" y="218" font-size="10.5" fill="#6B6B72">Sharpe 6.867</text>
+
+    <!-- Row C : execution cost -->
+    <text x="32" y="272" font-size="12.5" font-weight="700" fill="#0F0F10">③ ② + 체결비용</text>
+    <text x="32" y="290" font-size="11.5" fill="#6B6B72">관측 반스프레드 × 회전율</text>
+    <rect x="256" y="258" width="364" height="40" rx="4" fill="#0F2C59"/>
+    <text x="438" y="283" font-size="12" fill="#FFFFFF" text-anchor="middle">계수 추정 구간</text>
+    <rect x="620" y="258" width="164" height="40" rx="4" fill="#FDECEC" stroke="#C0392B" stroke-width="1.5"/>
+    <text x="702" y="283" font-size="11.5" fill="#C0392B" text-anchor="middle" font-weight="700">시장가 체결</text>
+    <text x="796" y="278" font-size="13" font-weight="700" fill="#C0392B">−99.97%</text>
+    <text x="796" y="294" font-size="10.5" fill="#6B6B72">평균 스프레드 1.42bps</text>
+
+    <line x1="32" y1="330" x2="888" y2="330" stroke="#D8D6D1" stroke-width="1"/>
+
+    <text x="32" y="358" font-size="12.5" fill="#0F0F10"><tspan font-weight="700">읽는 순서</tspan> — ①과 ②의 차이는 누수의 크기(18%p), ②와 ③의 차이는 체결 가능성의 크기(240%p)다.</text>
+    <text x="32" y="378" font-size="12" fill="#6B6B72">누수를 고쳐도 알파가 남는다는 뜻이 아니다. 두 검증은 서로를 대체하지 않는다.</text>
+  </g>
+</svg>
