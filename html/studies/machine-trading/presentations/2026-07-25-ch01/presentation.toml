@@ -9,3 +9,7 @@ report_template = "study-report-v1"
 workflow = "raw-report-deck-v1"
 report_source = "report.html"
 artifacts = ["report", "slides"]
+revision_date = "2026-08-05"
+source_fidelity = "source-structure-v1"
+source_outline_style = "ordered-headings-v1"
+source_material = "materials/quant/active/machine-trading/chapter_1_the_basics_of_algorithmic_trading/01_chapter_1_the_basics_of_algorithmic_trading_ko_explained.md"

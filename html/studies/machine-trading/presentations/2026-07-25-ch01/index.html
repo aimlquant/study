@@ -37,6 +37,7 @@
         <div><dt>발표자</dt><dd>정훈</dd></div>
         <div><dt>학습 범위</dt><dd>Chapter 1 (pp. 1&#126;26)</dd></div>
         <div><dt>일시</dt><dd>2026-07-25</dd></div>
+        <div><dt>개정</dt><dd>2026-08-05</dd></div>
       </dl>
     </section>
 
@@ -70,14 +71,14 @@
       <footer class="slide-footer"><span>Chapter 1 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="시스템과 데이터 섹션" data-report-refs="system-data">
-      <p class="eyebrow">SECTION 01</p><h1>시스템의 순환과 데이터의 함정</h1><p>전략이 딛고 서는 재료를 먼저 의심한다</p><span class="section-number">01</span>
+    <section class="slide slide--section" aria-label="알고리즘 트레이딩 개요" data-report-refs="system-data source-section-1-0" data-source-refs="section:1.0" data-source-title="section:1.0">
+      <p class="eyebrow">교재 흐름 · 1.0</p><h1>들어가며 — 알고리즘 트레이딩을 한눈에</h1><p>전략이 딛고 서는 데이터·프로그램·주문의 순환을 먼저 본다</p><span class="section-number">01</span>
     </section>
 
-    <section class="slide" aria-label="알고리즘 트레이딩의 순환 구조" data-report-refs="system-data fig-trading-loop">
+    <section class="slide" aria-label="알고리즘 트레이딩의 순환 구조" data-report-refs="system-data fig-trading-loop" data-source-refs="figure:1.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SYSTEM LOOP</span></header>
       <h1>중심에는 하나의 전략 프로그램이 있다</h1>
-      <p class="lead">데이터 → 전략 프로그램 → 주문 → 상태 수신의 순환. 저자는 백테스트와 실거래를 일부러 같은 상자로 그린다.</p>
+      <p class="lead">교재 그림 1.1 알고리즘 트레이딩 개요 — 데이터 → 전략 프로그램 → 주문 → 상태 수신의 순환. 저자는 백테스트와 실거래를 일부러 같은 상자로 그린다.</p>
       <div class="slide-body">
         <img src="assets/figs/fig-trading-loop.svg" alt="시장 데이터가 전략 프로그램으로 들어가 API로 주문을 제출하고 브로커 체결 뒤 주문 상태가 되돌아오는 순환. 전략 프로그램은 하나로 강조." style="max-width:100%;max-height:46vh;object-fit:contain;display:block;margin:0.4rem auto">
         <p class="takeaway"><strong>기억할 점</strong> — 순환의 중심이 <em>단일</em> 전략 프로그램이라는 점이 2절의 원칙으로 이어진다.</p>
@@ -85,10 +86,10 @@
       <footer class="slide-footer"><span>Chapter 1 · 순환 구조</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="데이터를 속이는 편향" data-report-refs="system-data table-bias">
+    <section class="slide" aria-label="과거 시장 데이터와 편향" data-report-refs="system-data source-section-1-1 table-bias" data-source-refs="section:1.1" data-source-title="section:1.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">DATA TRAPS</span></header>
       <h1>백테스트를 부풀리는 것은 전략이 아니라 데이터다</h1>
-      <p class="lead">편향은 아이디어가 아니라 재료에서 들어온다. 좋아 보이는 백테스트일수록 데이터를 먼저 의심한다.</p>
+      <p class="lead">과거 시장 데이터 — 전략을 검증할 재료를 어디서 구하는가. 편향은 아이디어가 아니라 재료에서 들어온다.</p>
       <div class="slide-body">
         <div class="two-col">
           <article class="panel"><p class="eyebrow">생존 편향</p><h2>사라진 종목을 뺀다</h2><ul><li>수익률·승률이 실제보다 높아 보임</li><li>방어: 상장폐지 포함 데이터셋</li></ul></article>
@@ -99,8 +100,23 @@
       <footer class="slide-footer"><span>Chapter 1 · 데이터 함정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="검증과 실행 일치 섹션" data-report-refs="verify-execute">
-      <p class="eyebrow">SECTION 02</p><h1>검증한 것과 거래하는 것을 일치시킨다</h1><p>같은 프로그램이 신뢰의 근거다</p><span class="section-number">02</span>
+    <section class="slide" aria-label="실시간 시장 데이터와 지연시간" data-report-refs="system-data source-section-1-2" data-source-refs="section:1.2" data-source-title="section:1.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">실시간 데이터</span></header>
+      <h1>실시간 시장 데이터 — 지연시간이 곧 비용이 되는 세계</h1>
+      <p class="lead">전략의 시간축이 짧아질수록 데이터가 도착하는 몇 밀리초가 체결 가격과 기회를 바꾼다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>일간</span><h2>브로커 피드</h2><p>개장·마감 거래라면 대체로 충분하다.</p></article>
+          <article class="card"><span>25ms+</span><h2>통합 피드</h2><p>일반 장중 전략이 비용과 신선도를 절충한다.</p></article>
+          <article class="card"><span>&lt;10ms</span><h2>직접·저지연 피드</h2><p>고빈도 전략은 높은 데이터 비용을 감수한다.</p></article>
+        </div>
+        <p class="takeaway"><strong>판단</strong> — 가장 빠른 피드가 아니라 전략의 허용 지연과 기대수익을 함께 만족하는 피드를 고른다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 1 · 실시간 데이터</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="백테스팅과 트레이딩 플랫폼" data-report-refs="verify-execute source-section-1-3" data-source-refs="section:1.3" data-source-title="section:1.3">
+      <p class="eyebrow">교재 흐름 · 1.3</p><h1>백테스팅과 트레이딩 플랫폼 — 검증한 것과 거래하는 것을 어떻게 일치시키는가</h1><p>같은 프로그램이 신뢰의 근거다</p><span class="section-number">02</span>
     </section>
 
     <section class="slide" aria-label="동일 프로그램 원칙" data-report-refs="verify-execute fig-same-program">
@@ -128,8 +144,8 @@
       <footer class="slide-footer"><span>Chapter 1 · 언어와 성능</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="브로커와 운영 섹션" data-report-refs="broker-ops">
-      <p class="eyebrow">SECTION 03</p><h1>브로커 — 수수료보다 안전성</h1><p>백테스트에 안 나타나는 비용을 본다</p><span class="section-number">03</span>
+    <section class="slide slide--section" aria-label="브로커와 운영" data-report-refs="broker-ops source-section-1-4" data-source-refs="section:1.4" data-source-title="section:1.4">
+      <p class="eyebrow">교재 흐름 · 1.4</p><h1>브로커 — 수수료보다 중요한 것은 안전성이다</h1><p>백테스트에 안 나타나는 비용을 본다</p><span class="section-number">03</span>
     </section>
 
     <section class="slide" aria-label="수수료보다 안전성" data-report-refs="broker-ops table-broker">
@@ -147,13 +163,13 @@
       <footer class="slide-footer"><span>Chapter 1 · 브로커</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="성과 지표 섹션" data-report-refs="metrics">
-      <p class="eyebrow">SECTION 04</p><h1>성과 지표 — 무엇으로 판단하는가</h1><p>절대 수익이 숨기는 것을 드러낸다</p><span class="section-number">04</span>
+    <section class="slide slide--section" aria-label="성과 지표" data-report-refs="metrics source-section-1-5" data-source-refs="section:1.5" data-source-title="section:1.5">
+      <p class="eyebrow">교재 흐름 · 1.5</p><h1>성과 지표 — 무엇으로 전략의 좋고 나쁨을 판단하는가</h1><p>절대 수익이 숨기는 것을 드러낸다</p><span class="section-number">04</span>
     </section>
 
-    <section class="slide" aria-label="CAGR과 복리와 레버리지" data-report-refs="metrics">
+    <section class="slide" aria-label="CAGR과 복리" data-report-refs="metrics source-section-1-5-1" data-source-refs="section:1.5.1" data-source-title="section:1.5.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">COMPOUNDING</span></header>
-      <h1>복리는 수익도, 손실도 극단으로 키운다</h1>
+      <h1>CAGR — 복리로 굴렸을 때의 성장률</h1>
       <p class="lead">하루 1%를 252일 복리로 얻으면 CAGR은 단순 합산과 크게 벌어진다 — 그러나 레버리지는 파멸도 부른다.</p>
       <div class="slide-body">
         <div class="kpi-grid">
@@ -167,9 +183,24 @@
       <footer class="slide-footer"><span>Chapter 1 · CAGR·레버리지</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="성과 지표의 관계" data-report-refs="metrics fig-metric-map table-metrics">
+    <section class="slide" aria-label="켈리 공식과 최적 레버리지" data-report-refs="metrics source-section-1-5-2" data-source-refs="section:1.5.2" data-source-title="section:1.5.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">레버리지</span></header>
+      <h1>켈리 공식 — 최적 레버리지는 어떻게 정하는가</h1>
+      <p class="lead">장기 복리 성장률을 최대화하는 크기는 평균 초과수익과 분산의 비율로 정해진다.</p>
+      <div class="slide-body">
+        <p style="text-align:center;font-size:1.2em">$$f^*=\frac{\mathbb{E}[r-r_f]}{\mathrm{Var}(r-r_f)}$$</p>
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">수학의 답</p><h2>전 켈리</h2><p>추정치가 정확하고 투자기간이 충분히 길다는 가정에서 복리 성장을 극대화한다.</p></article>
+          <article class="panel panel--accent"><p class="eyebrow">실전의 답</p><h2>분수 켈리</h2><p>평균수익 추정 오차와 꼬리위험을 인정해 절반 켈리처럼 노출을 낮춘다.</p></article>
+        </div>
+        <p class="takeaway"><strong>핵심</strong> — 공식보다 어려운 것은 입력값을 믿을 수 있는가이다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 1 · 켈리 공식</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="샤프 최대 낙폭 칼마" data-report-refs="metrics source-section-1-5-3 fig-metric-map table-metrics" data-source-refs="section:1.5.3" data-source-title="section:1.5.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METRIC MAP</span></header>
-      <h1>지표들은 같은 수익률을 다른 각도로 본다</h1>
+      <h1>샤프 비율, 최대 낙폭, 그리고 칼마 비율</h1>
       <p class="lead">한 지표만으로 판단하지 않는다. 수익·위험·꼬리위험·레버리지를 함께 읽어야 그림이 완성된다.</p>
       <div class="slide-body">
         <img src="assets/figs/fig-metric-map.svg" alt="수익률 시계열에서 CAGR(복리 성장), Sharpe(위험조정), 최대 낙폭(꼬리위험)이 갈라지고 Calmar는 CAGR÷|MDD|, Kelly는 평균÷분산으로 연결." style="max-width:100%;max-height:44vh;object-fit:contain;display:block;margin:0.3rem auto">
@@ -178,14 +209,14 @@
       <footer class="slide-footer"><span>Chapter 1 · 지표 관계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="포트폴리오 최적화 섹션" data-report-refs="portfolio-opt">
-      <p class="eyebrow">SECTION 05</p><h1>자본 배분의 수학 — 세 개의 Box</h1><p>공식 데이터로 재현한 근거</p><span class="section-number">05</span>
+    <section class="slide slide--section" aria-label="포트폴리오 최적화" data-report-refs="portfolio-opt source-section-1-6" data-source-refs="section:1.6" data-source-title="section:1.6">
+      <p class="eyebrow">교재 흐름 · 1.6</p><h1>포트폴리오 최적화 — 자본을 어떻게 나눌 것인가</h1><p>공식 데이터로 재현한 세 가지 Box</p><span class="section-number">05</span>
     </section>
 
-    <section class="slide" aria-label="로그수익률 근사와 수렴" data-report-refs="portfolio-opt table-convergence">
+    <section class="slide" aria-label="로그수익률 근사와 수렴" data-report-refs="portfolio-opt source-box-1-1 table-convergence" data-source-refs="box:1.1 table:1.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">BOX 1.1</span></header>
       <h1>잘게 쪼갤수록 $\mu \approx m - s^2/2$ 는 정확해진다</h1>
-      <p class="lead">순수익률 기대치를 로그수익률의 평균·분산으로 근사한다. 기간을 잘게 쪼갤수록 항등식 오차가 줄어든다.</p>
+      <p class="lead">Box 1.1 순수익률과 로그 수익률의 평균. 교재 표 1.2를 재현하면 기간을 잘게 쪼갤수록 항등식 오차가 줄어든다.</p>
       <div class="slide-body">
         <table class="compare-table">
           <thead><tr><th>$N$</th><th>Python 오차</th><th>책 오차</th></tr></thead>
@@ -201,21 +232,21 @@
       <footer class="slide-footer"><span>Chapter 1 · Box 1.1</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="효율적 프런티어와 접점 포트폴리오" data-report-refs="portfolio-opt fig-efficient-frontier table-tangency">
+    <section class="slide" aria-label="효율적 프런티어와 접점 포트폴리오" data-report-refs="portfolio-opt source-section-1-6-1 fig-efficient-frontier table-tangency" data-source-refs="section:1.6.1 figure:1.2" data-source-title="section:1.6.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">BOX 1.2</span></header>
-      <h1>효율적 프런티어의 접점이 Sharpe 최대점</h1>
+      <h1>효율적 프런티어 — 위험과 수익의 최적 절충선</h1>
       <p class="lead">이차계획법으로 6개 국가 ETF의 프런티어를 구한다. 롱온리 접점 비중은 책과 소수 다섯째 자리까지 일치.</p>
       <div class="slide-body">
         <img src="assets/figs/fig-efficient-frontier.png" alt="위험 대비 기대수익의 효율적 프런티어 곡선과 접점(Sharpe 최대) 포트폴리오, 그리고 6개 ETF의 최적 배분 막대." style="max-width:100%;max-height:44vh;object-fit:contain;display:block;margin:0.3rem auto">
-        <p class="source-note">공식 데이터(epchan.com/book3, SHA-256 검증) 기반. 접점 vs 책 최대 오차 $4.4\times10^{-5}$ · daily Sharpe ≈ 0.0283.</p>
+        <p class="source-note">교재 그림 1.2 효율적 프런티어. 공식 데이터(epchan.com/book3, SHA-256 검증) 기반 · 접점 vs 책 최대 오차 $4.4\times10^{-5}$.</p>
         <p class="takeaway"><strong>접점 비중</strong> — EWC 45.1% · EWG 26.3% · EWY 28.5% (나머지 0, 롱온리).</p>
       </div>
       <footer class="slide-footer"><span>Chapter 1 · Box 1.2</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="복리 Sharpe 켈리는 같은 해" data-report-refs="portfolio-opt table-kelly">
+    <section class="slide" aria-label="복리 Sharpe 켈리는 같은 해" data-report-refs="portfolio-opt source-section-1-6-2 table-kelly" data-source-refs="section:1.6.2" data-source-title="section:1.6.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">BOX 1.3</span></header>
-      <h1>복리 극대화 = Sharpe 극대화 = 켈리 배분</h1>
+      <h1>복리 성장 극대화 = 샤프 비율 극대화 = 켈리 배분</h1>
       <p class="lead">공매도를 허용하면 최적 자본 배분이 닫힌 형태로 떨어진다. 더 높은 Sharpe에는 대가가 따른다.</p>
       <div class="slide-body">
         <p style="text-align:center;font-size:1.15em">$$F^{*} = C^{-1}M$$</p>
@@ -231,8 +262,8 @@
       <footer class="slide-footer"><span>Chapter 1 · Box 1.3</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="추정 위험과 판단 섹션" data-report-refs="estimation-risk">
-      <p class="eyebrow">SECTION 06</p><h1>추정 위험과 현실적 배분</h1><p>최적해가 아름다울수록 추정을 의심한다</p><span class="section-number">06</span>
+    <section class="slide slide--section" aria-label="현실의 개입" data-report-refs="estimation-risk source-section-1-6-3" data-source-refs="section:1.6.3" data-source-title="section:1.6.3">
+      <p class="eyebrow">교재 흐름 · 1.6.3</p><h1>현실의 개입 — 최소분산과 위험균형</h1><p>최적해가 아름다울수록 추정을 의심한다</p><span class="section-number">06</span>
     </section>
 
     <section class="slide" aria-label="최적해를 그대로 못 믿는 이유" data-report-refs="estimation-risk fig-estimation-risk">
@@ -282,7 +313,7 @@
     <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary estimation-risk">
       <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">WRAP UP</span></header>
       <div class="closing-body">
-        <p class="eyebrow">KEY TAKEAWAYS</p>
+        <p class="eyebrow">핵심 정리</p>
         <h1>세 문장으로 남기는 1장</h1>
         <div class="card-grid">
           <article class="card"><span>01</span><h2>검증=실행</h2><p>같은 프로그램·편향 없는 데이터로, 검증한 그대로 거래한다.</p></article>

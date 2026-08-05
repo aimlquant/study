@@ -450,8 +450,15 @@ def source_caption_title(value: str) -> str:
     return first_sentence.group(1) if first_sentence else normalized
 
 
-def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
-    """Read numbered learning coordinates from a translated/explained chapter."""
+def parse_source_outline(
+    path: Path, outline_style: str | None = None
+) -> dict[tuple[str, str], str]:
+    """Read learning coordinates from a translated/explained chapter.
+
+    The default contract follows explicitly numbered headings. Some books use
+    ordered prose headings instead, so ``ordered-headings-v1`` assigns stable
+    chapter-derived coordinates while preserving the headings verbatim.
+    """
     result: dict[tuple[str, str], str] = {}
     current_section = "chapter"
     exercise_counts: dict[str, int] = {}
@@ -463,8 +470,24 @@ def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
     )
     caption_re = re.compile(r"^(그림|Figure|표|Table)\s+(\d+\.\d+)\s+(.+?)\s*$")
     exercise_re = re.compile(r"^#{1,6}\s+(?:Exercise\s*\(연습문제\)|연습문제)(?:\s*[—-]\s*)?(.+?)\s*$", re.IGNORECASE)
+    heading_re = re.compile(r"^(#{2,3})\s+(.+?)\s*$")
+    chapter_number_re = re.compile(r"^#\s+.*?\b(\d+)\b")
+    explicit_h2_re = re.compile(r"^(\d+)[.)]\s+(.+)$")
+    explicit_h3_re = re.compile(r"^(\d+)[-.)](\d+)\)?\s+(.+)$")
+    appendix_titles = {"요약", "연습문제", "핵심 용어 정리"}
 
     lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    path_chapter_match = re.search(r"chapter[_ -]?0*(\d+)", str(path), re.IGNORECASE)
+    chapter_number = path_chapter_match.group(1) if path_chapter_match else "1"
+    for raw_line in lines:
+        chapter_match = chapter_number_re.match(raw_line.strip())
+        if chapter_match:
+            chapter_number = chapter_match.group(1)
+            break
+    h2_index = 0
+    h3_index = 0
+    ordered_parent_section = f"{chapter_number}.0"
+    skip_ordered_section = False
     line_index = 0
     while line_index < len(lines):
         raw_line = lines[line_index]
@@ -521,6 +544,47 @@ def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
             exercise_counts[current_section] = exercise_counts.get(current_section, 0) + 1
             source_ref = f"{current_section}-{exercise_counts[current_section]}"
             result[("exercise", source_ref)] = normalize_source_title(match.group(1))
+            line_index += 1
+            continue
+        if outline_style == "ordered-headings-v1":
+            match = heading_re.match(line)
+            if match:
+                hashes, raw_title = match.groups()
+                title = normalize_source_title(raw_title)
+                if len(hashes) == 2:
+                    skip_ordered_section = (
+                        title in appendix_titles or title.startswith("주석")
+                    )
+                    if skip_ordered_section:
+                        line_index += 1
+                        continue
+                    h3_index = 0
+                    explicit = explicit_h2_re.match(title)
+                    if title.startswith(("들어가며", "도입")):
+                        source_ref = f"{chapter_number}.0"
+                    elif explicit:
+                        source_ref = f"{chapter_number}.{explicit.group(1)}"
+                        title = normalize_source_title(explicit.group(2))
+                    else:
+                        h2_index += 1
+                        source_ref = f"{chapter_number}.{h2_index}"
+                    current_section = source_ref
+                    ordered_parent_section = source_ref
+                    result[("section", source_ref)] = title
+                elif not skip_ordered_section:
+                    # Boxes and examples are independently traceable named
+                    # coordinates and must not be counted twice as sections.
+                    if not named_re.match(line):
+                        h3_index += 1
+                        explicit = explicit_h3_re.match(title)
+                        if explicit:
+                            source_ref = (
+                                f"{chapter_number}.{explicit.group(1)}.{explicit.group(2)}"
+                            )
+                            title = normalize_source_title(explicit.group(3))
+                        else:
+                            source_ref = f"{ordered_parent_section}.{h3_index}"
+                        result[("section", source_ref)] = title
         line_index += 1
     return result
 
@@ -528,7 +592,9 @@ def parse_source_outline(path: Path) -> dict[tuple[str, str], str]:
 def parse_source_chapter_title(path: Path) -> str:
     """Return the exact translated chapter title without explainer suffixes."""
     heading_re = re.compile(r"^#\s+(.+?)\s*$")
-    suffix_re = re.compile(r"\s*[—-]\s*(?:쉬운\s+)?해설판\s*$")
+    suffix_re = re.compile(
+        r"(?:\s*[—-]\s*(?:쉬운\s+)?해설판|\s*\((?:쉬운\s+)?해설판\))\s*$"
+    )
     for raw_line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         match = heading_re.match(raw_line.strip())
         if match:
@@ -583,7 +649,14 @@ def validate_source_fidelity(
         errors.append(f"source_material does not exist for {report_html}: {source_material}")
         return
 
-    expected = parse_source_outline(source_path)
+    outline_style = metadata.get("source_outline_style")
+    if outline_style not in (None, "ordered-headings-v1"):
+        errors.append(
+            f"unknown source_outline_style in {report_html.parent / 'presentation.toml'}: "
+            f"{outline_style!r}"
+        )
+        return
+    expected = parse_source_outline(source_path, outline_style)
     expected_chapter_title = parse_source_chapter_title(source_path)
     actual = report_trace.source_anchors
     if not expected:
@@ -655,7 +728,14 @@ def validate_source_fidelity(
                 )
                 continue
             deck_refs.add(key)
-            if source_ref not in slide.text:
+            expected_title = expected[key]
+            coordinate_is_visible = source_ref in slide.text
+            if outline_style == "ordered-headings-v1" and kind == "section":
+                coordinate_is_visible = (
+                    coordinate_is_visible
+                    or expected_title in normalize_source_title(slide.text)
+                )
+            if not coordinate_is_visible:
                 errors.append(
                     f"deck source coordinate must be visible in {deck_html} "
                     f"({slide.label or 'unnamed slide'}): {token}"

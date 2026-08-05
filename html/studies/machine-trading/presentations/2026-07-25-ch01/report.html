@@ -38,13 +38,14 @@
         <div><dt>발표자</dt><dd>정훈</dd></div>
         <div><dt>범위</dt><dd>Chapter 1</dd></div>
         <div><dt>발행</dt><dd>2026-07-25</dd></div>
+        <div><dt>개정</dt><dd>2026-08-05 · 원문 구조 대조</dd></div>
       </dl>
     </section>
 
     <section class="report-section s0 page-break" id="summary">
-      <div class="report-section__kicker">Section 00 · Executive Summary</div>
+      <div class="report-section__kicker">먼저 읽는 핵심 요약</div>
       <h1>0. 핵심 요약</h1>
-      <div class="callout--hero"><span class="callout__kicker">One Sentence</span><span class="callout__body">알고리즘 트레이딩은 <strong>검증한 그대로 거래하고(동일 프로그램·편향 제거) → 성과를 위험조정 지표로 재고 → 자본을 수학적으로 배분하되, 추정 위험 때문에 최소분산·위험균형으로 물러설 줄 아는 것</strong>이다.</span></div>
+      <div class="callout--hero"><span class="callout__kicker">한 문장으로</span><span class="callout__body">알고리즘 트레이딩은 <strong>검증한 그대로 거래하고(동일 프로그램·편향 제거) → 성과를 위험조정 지표로 재고 → 자본을 수학적으로 배분하되, 추정 위험 때문에 최소분산·위험균형으로 물러설 줄 아는 것</strong>이다.</span></div>
       <p>『Machine Trading』 1장은 이후 모든 장에서 반복해 쓰일 기초를 한자리에 모은다. 데이터를 어디서 어떻게 구하고, 검증한 모델을 실전과 어떻게 일치시키며, 브로커를 무엇으로 고르고, 전략의 좋고 나쁨을 어떤 지표로 재며, 마지막으로 여러 전략(자산)에 자본을 어떻게 나눌지를 다룬다. 이 장은 개별 전략을 만들지 않는다. 대신 <strong>모든 전략이 딛고 설 공통 지반</strong>을 정의한다.</p>
       <div class="section-summary"><div class="section-summary__kicker">이 장을 관통하는 질문</div><div class="section-summary__body"><ul>
         <li><strong>신뢰</strong> — 백테스트에서 좋았던 전략을 실전에서도 같은 것이라 믿을 근거는 무엇인가?</li>
@@ -64,19 +65,21 @@
     </section>
 
     <section class="report-section s1 page-break" id="system-data">
-      <div class="report-section__kicker">Section 01 · System &amp; Data</div>
+      <div class="report-section__kicker">교재 흐름 · 데이터와 시스템</div>
       <h1>1. 시스템의 순환 구조와 데이터의 함정</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>알고리즘 트레이딩은 <strong>데이터 → 전략 프로그램 → 주문 → 상태 수신</strong>의 순환이다.</li>
         <li>백테스트를 부풀리는 두 편향은 <strong>생존 편향</strong>과 <strong>미래 정보 편향</strong>이다.</li>
         <li>실시간 세계에서는 <strong>지연시간(latency)</strong>이 곧 비용이 된다.</li>
       </ul></div></div>
+      <h2 id="source-section-1-0" data-source-kind="section" data-source-ref="1.0">들어가며 — 알고리즘 트레이딩을 한눈에</h2>
       <p>전략 프로그램은 시장 데이터(과거든 실시간이든)를 입력받아 판단하고, API로 브로커에 주문을 제출한 뒤, 체결·대기 같은 주문 상태를 다시 받아 온다. 저자가 그림 1.1에서 <strong>백테스트 프로그램과 실시간 실행 프로그램을 일부러 같은 상자로 그린</strong> 것이 이 장의 첫 번째 신념이다(2절에서 이어진다).</p>
-      <figure class="report-figure" id="fig-trading-loop" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">알고리즘 트레이딩의 순환 — 하나의 전략 프로그램이 중심</span></figcaption>
+      <figure class="report-figure" id="fig-trading-loop" data-deck-use="required" data-source-kind="figure" data-source-ref="1.1">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">알고리즘 트레이딩 개요 — 하나의 전략 프로그램이 중심인 순환</span></figcaption>
         <img src="assets/figs/fig-trading-loop.svg" alt="시장 데이터가 전략 프로그램으로 들어가 API로 주문을 제출하고, 브로커가 체결한 뒤 주문 상태가 전략 프로그램으로 되돌아오는 순환. 전략 프로그램 상자는 하나로 강조되어 있다.">
         <small class="asset-note">교재 그림 1.1의 논리를 발표자가 재구성. 핵심은 데이터·주문·상태가 하나의 순환을 이루고 그 중심에 단일 전략 프로그램이 있다는 점.</small>
       </figure>
+      <h2 id="source-section-1-1" data-source-kind="section" data-source-ref="1.1">과거 시장 데이터 — 전략을 검증할 재료를 어디서 구하는가</h2>
       <p>백테스트의 재료인 과거 데이터에는 두 가지 착시가 숨는다. <strong>생존 편향(survivorship bias)</strong>은 살아남은 종목만 넣고 상장폐지된 종목을 빼서 성과를 좋아 보이게 하고, <strong>미래 정보 편향(look-ahead bias)</strong>은 그 시점엔 알 수 없던 미래 정보(예: 나중에 발표된 재무수정치, 사후 조정된 가격)가 과거 데이터에 섞여 드는 오류다. 선물은 만기가 다른 계약을 <strong>롤오버(rollover)</strong>로 이어 붙일 때 연속계약 구성 방식에 따라 결과가 달라진다.</p>
       <table class="cmp-table" id="table-bias">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">데이터가 백테스트를 속이는 방식과 방어</span></div></caption>
@@ -88,12 +91,14 @@
           <tr><td>지연시간</td><td>사건이 프로그램에 닿는 시간</td><td>실시간 전략에서 체결가·기회를 잠식</td><td>BBO·내재변동성 곡면 등 데이터 신선도 관리</td></tr>
         </tbody>
       </table>
+      <h2 id="source-section-1-2" data-source-kind="section" data-source-ref="1.2">실시간 시장 데이터 — 지연시간이 곧 비용이 되는 세계</h2>
+      <p>일간 전략에는 브로커의 실시간 피드로 충분할 수 있지만, 장중 전략은 사건 발생부터 프로그램 도착까지의 <strong>지연시간</strong>이 체결 기회와 가격을 직접 잠식한다. 허용 지연이 25ms인지 10ms 미만인지에 따라 통합 피드와 거래소 직접 피드의 비용 구조가 달라진다.</p>
       <div class="callout--insight"><span class="callout__kicker">읽기 포인트</span><div class="callout__body"><p>좋아 보이는 백테스트를 만나면 전략의 아이디어보다 <strong>데이터의 편향</strong>을 먼저 의심한다. 편향은 전략이 아니라 재료에서 들어오기 때문이다.</p></div></div>
     </section>
 
     <section class="report-section s2 page-break" id="verify-execute">
-      <div class="report-section__kicker">Section 02 · Verify = Execute</div>
-      <h1>2. 검증한 것과 거래하는 것을 일치시키기</h1>
+      <div class="report-section__kicker">교재 흐름 · 검증과 실행</div>
+      <h1 id="source-section-1-3" data-source-kind="section" data-source-ref="1.3">백테스팅과 트레이딩 플랫폼 — 검증한 것과 거래하는 것을 어떻게 일치시키는가</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>같은 프로그램을 쓰면 <strong>백테스트한 모델을 글자 하나 다르지 않게</strong> 실전에서 굴린다.</li>
         <li>MATLAB·R·Python 같은 <strong>REPL 언어</strong>는 빠른 연구·수정에 유리하다.</li>
@@ -105,13 +110,25 @@
         <img src="assets/figs/fig-same-program.svg" alt="하나의 동일 전략 코드가 백테스트(과거 데이터)와 실거래(실시간 데이터)로 갈라지되 같은 로직을 쓴다. 코드가 분기하면 검증한 것과 다른 것을 거래하게 된다는 경고가 붉은 점선으로 표시된다.">
         <small class="asset-note">교재의 "backtest = live" 원칙을 발표자가 재구성. 붉은 점선은 코드 분기 시의 위험 경로.</small>
       </figure>
+      <table class="cmp-table" id="source-table-1-1" data-source-kind="table" data-source-ref="1.1">
+        <caption><strong>교재 표 1.1 · 퀀트 트레이딩을 위한 세 가지 프로그래밍 언어 순위 (1부터 3까지, 1 = 최고, 3 = 최저.)</strong></caption>
+        <thead><tr><th>특징</th><th>MATLAB</th><th>R</th><th>Python</th></tr></thead>
+        <tbody>
+          <tr><td>사용 용이성</td><td>1</td><td>2</td><td>2</td></tr>
+          <tr><td>IDE 완성도</td><td>1</td><td>3</td><td>1</td></tr>
+          <tr><td>속도</td><td>1</td><td>3</td><td>2</td></tr>
+          <tr><td>툴박스</td><td>2</td><td>1</td><td>1</td></tr>
+          <tr><td>C/C++ 컴파일</td><td>1</td><td>N/A</td><td>1</td></tr>
+          <tr><td>브로커 연결성</td><td>1</td><td>2</td><td>2</td></tr>
+        </tbody>
+      </table>
       <p>연구 단계에서는 컴파일 없이 바로 실행·수정하는 <strong>REPL 언어</strong>(MATLAB·R·Python)가 반복 속도를 높인다. 그러나 실전의 지연시간·안정성 요구가 커지면 성능이 중요한 부분을 컴파일 언어로 다시 구현해야 할 수 있다. 저자의 회사가 C#으로 시스템을 한 번 더 독립 구축하는 이유가 이것이다. 이때 <strong>두 구현의 결과를 대조</strong>하는 것이 곧 "같은 것을 거래한다"는 원칙을 지키는 검증이 된다.</p>
       <div class="callout--insight"><span class="callout__kicker">트레이드오프</span><div class="callout__body"><p>동일 프로그램은 <strong>일치</strong>를 얻지만 언어·성능의 <strong>타협</strong>을 부른다. 별도 구현은 성능을 얻지만 <strong>drift 위험</strong>을 낳는다. 그래서 별도 구현을 하면 반드시 교차 대조로 되묶는다.</p></div></div>
     </section>
 
     <section class="report-section s3 page-break" id="broker-ops">
-      <div class="report-section__kicker">Section 03 · Broker &amp; Operations</div>
-      <h1>3. 브로커 — 수수료보다 안전성이 먼저다</h1>
+      <div class="report-section__kicker">교재 흐름 · 브로커와 운영</div>
+      <h1 id="source-section-1-4" data-source-kind="section" data-source-ref="1.4">브로커 — 수수료보다 중요한 것은 안전성이다</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>브로커 선택의 첫 기준은 낮은 수수료가 아니라 <strong>자산의 안전성</strong>이다.</li>
         <li>미국은 파산 시 <strong>SIPC</strong>가 고객 자산을 한도까지 보호한다.</li>
@@ -132,17 +149,21 @@
     </section>
 
     <section class="report-section s4 page-break" id="metrics">
-      <div class="report-section__kicker">Section 04 · Performance Metrics</div>
-      <h1>4. 성과 지표 — 무엇으로 좋고 나쁨을 판단하는가</h1>
+      <div class="report-section__kicker">교재 흐름 · 성과 측정</div>
+      <h1 id="source-section-1-5" data-source-kind="section" data-source-ref="1.5">성과 지표 — 무엇으로 전략의 좋고 나쁨을 판단하는가</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li><strong>CAGR</strong>는 복리의 힘을 보여 주지만 레버리지에 따라 극단으로 벌어진다.</li>
         <li><strong>켈리 공식</strong>은 장기 복리를 극대화하는 최적 레버리지를 준다.</li>
         <li><strong>Sharpe·MDD·Calmar</strong>는 수익을 위험·꼬리위험으로 나눠 본다.</li>
       </ul></div></div>
+      <h2 id="source-section-1-5-1" data-source-kind="section" data-source-ref="1.5.1">CAGR — 복리로 굴렸을 때의 성장률</h2>
       <p>절대 수익만 보면 위험을 숨긴다. 이 장의 지표들은 수익을 <strong>위험·레버리지·꼬리위험</strong>의 렌즈로 다시 본다. 먼저 <strong>CAGR(연평균 복합 성장률)</strong>은 복리로 굴렸을 때의 연 성장률이다. 하루 1%씩 252 거래일을 복리로 얻으면</p>
       <p style="text-align:center">$$1.01^{252} - 1 \approx 1127\%$$</p>
-      <p>가 되어, 단순 합산 <span>$252\%$</span> 와 크게 벌어진다(재현 실험도 CAGR <span>$\approx 1127\%$</span> 로 일치). 그러나 복리는 손실에서도 잔인하다. 레버리지 <span>$5\times$</span> 로 굴리다 블랙먼데이급 <span>$-20\%$</span> 충격을 맞으면 자본은 <span>$5 \times (-20\%) = -100\%$</span>, 즉 전액 소멸한다. 그래서 <strong>최적 레버리지</strong>를 정하는 <strong>켈리 공식</strong>이 필요하다.</p>
+      <p>가 되어, 단순 합산 <span>$252\%$</span> 와 크게 벌어진다(재현 실험도 CAGR <span>$\approx 1127\%$</span> 로 일치). 그러나 복리는 손실에서도 잔인하다. 레버리지 <span>$5\times$</span> 로 굴리다 블랙먼데이급 <span>$-20\%$</span> 충격을 맞으면 자본은 <span>$5 \times (-20\%) = -100\%$</span>, 즉 전액 소멸한다.</p>
+      <h2 id="source-section-1-5-2" data-source-kind="section" data-source-ref="1.5.2">켈리 공식 — 최적 레버리지는 어떻게 정하는가</h2>
+      <p>장기 복리 성장률을 최대화하려면 평균 초과수익을 분산으로 나눈 켈리 레버리지를 출발점으로 삼는다. 추정 오차와 파산 위험 때문에 실전에서는 절반 켈리처럼 더 보수적인 크기를 함께 검토한다.</p>
       <p style="text-align:center">$$\text{Optimal leverage} = \frac{\text{Mean of Excess Returns}}{\text{Variance of Excess Returns}}$$</p>
+      <h2 id="source-section-1-5-3" data-source-kind="section" data-source-ref="1.5.3">샤프 비율, 최대 낙폭, 그리고 칼마 비율</h2>
       <figure class="report-figure" id="fig-metric-map">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">성과 지표의 관계 — 하나의 수익률 시계열에서 갈라지는 렌즈들</span></figcaption>
         <img src="assets/figs/fig-metric-map.svg" alt="수익률 시계열에서 CAGR(복리 성장), Sharpe(위험조정 수익), 최대 낙폭(꼬리 위험)이 갈라지고, Calmar는 CAGR을 최대 낙폭 절댓값으로 나눈 값, Kelly는 초과수익 평균을 분산으로 나눈 최적 레버리지로 연결된다.">
@@ -159,12 +180,12 @@
           <tr><td>Calmar 비율</td><td>회복력(수익/낙폭)</td><td><span>$\dfrac{\text{CAGR}}{|\text{MDD}_{3\text{y}}|}$</span></td><td>최근 3년 창에 의존</td></tr>
         </tbody>
       </table>
-      <div class="callout--hero"><span class="callout__kicker">Evidence Rule</span><span class="callout__body">한 지표만으로 전략을 판단하지 않는다. <strong>수익(CAGR)·위험(Sharpe)·꼬리위험(MDD·Calmar)·레버리지(Kelly)</strong> 를 함께 읽어야 그림이 완성된다.</span></div>
+      <div class="callout--hero"><span class="callout__kicker">판단 원칙</span><span class="callout__body">한 지표만으로 전략을 판단하지 않는다. <strong>수익(CAGR)·위험(Sharpe)·꼬리위험(MDD·Calmar)·레버리지(Kelly)</strong> 를 함께 읽어야 그림이 완성된다.</span></div>
     </section>
 
     <section class="report-section s5 page-break" id="portfolio-opt">
-      <div class="report-section__kicker">Section 05 · Portfolio Optimization</div>
-      <h1>5. 자본 배분의 수학 — 세 개의 Box로 읽기</h1>
+      <div class="report-section__kicker">교재 흐름 · 포트폴리오 최적화</div>
+      <h1 id="source-section-1-6" data-source-kind="section" data-source-ref="1.6">포트폴리오 최적화 — 자본을 어떻게 나눌 것인가</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li><strong>Box 1.1</strong>: 로그수익률 평균과 순수익률의 관계 <span>$\mu \approx m - s^2/2$</span> 는 잘게 쪼갤수록 정확해진다.</li>
         <li><strong>Box 1.2</strong>: 이차계획법으로 <strong>효율적 프런티어</strong>와 접점(tangency) 포트폴리오를 구한다.</li>
@@ -172,12 +193,12 @@
       </ul></div></div>
       <p>이 절의 근거는 저자의 <strong>공식 데이터</strong>를 그대로 재현한 실험이다. 6개 국가 ETF(EWC 캐나다·EWG 독일·EWJ 일본·EWQ 프랑스·EWU 영국·EWY 한국), 2005-05-12&#126;2015-04-17, 2,500 거래일. 아카이브·입력 파일은 SHA-256으로 검증했고(부록 참조), 15개 자동 검증이 모두 통과했다.</p>
 
-      <h3>Box 1.1 — 순수익률과 로그수익률의 평균</h3>
+      <h3 id="source-box-1-1" data-source-kind="box" data-source-ref="1.1">Box 1.1 — 순수익률과 로그 수익률의 평균</h3>
       <p>순수익률 <span>$\text{Net}(t)=\frac{P(t)}{P(t-1)}-1$</span> 와 로그수익률 <span>$\text{Log}(t)=\log P(t)-\log P(t-1)$</span> 는 다르지만, 로그수익률 평균 <span>$m$</span> 과 분산 <span>$s^2$</span> 로 순수익률 기대치 <span>$\mu$</span> 를 근사할 수 있다.</p>
       <p style="text-align:center">$$\mu \approx m - \frac{s^2}{2} \tag{1.1}$$</p>
       <p>기간을 <span>$N$</span> 개로 잘게 쪼갤수록 이 항등식의 오차가 줄어든다. 재현 실험(NumPy PCG64, seed 1, 200개 시드 중앙값 기준)은 이를 정확히 확인한다.</p>
-      <table class="cmp-table" id="table-convergence">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">식 (1.1) 항등식 오차의 수렴 — Python 재현 vs 책</span></div></caption>
+      <table class="cmp-table" id="table-convergence" data-source-kind="table" data-source-ref="1.2">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">순수익률과 로그 수익률의 평균 — 식 (1.1) 오차 수렴 재현</span></div></caption>
         <thead><tr><th><span>$N$</span></th><th>Python 항등식 오차</th><th>책 항등식 오차</th><th>해석</th></tr></thead>
         <tbody>
           <tr><td>100</td><td><span>$4.5\times10^{-6}$</span></td><td><span>$9.4\times10^{-4}$</span></td><td>거칠다(부호도 어긋날 수 있음)</td></tr>
@@ -191,15 +212,16 @@
         <small class="asset-note">재현 실험 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_1_the_basics_of_algorithmic_trading/src/run_chapter1_analysis.py" target="_blank"><code>run_chapter1_analysis.py</code></a> 산출(figures/net_vs_log_returns.png). seed 1만이 아니라 200시드 중앙값·범위를 함께 그려 표본운을 공개.</small>
       </figure>
 
-      <h3>Box 1.2 — 효율적 프런티어와 접점 포트폴리오</h3>
+      <h3 id="source-section-1-6-1" data-source-kind="section" data-source-ref="1.6.1">효율적 프런티어 — 위험과 수익의 최적 절충선</h3>
       <p>목표 수익률마다 위험(분산)을 최소화한 포트폴리오들의 곡선이 <strong>효율적 프런티어</strong>다. 이는 <strong>이차계획법(QP)</strong>으로 푼다.</p>
       <p style="text-align:center">$$\min\ \tfrac{1}{2}\,x'Hx + f'x \quad \text{s.t.}\ Ax \le b,\ A_{eq}x = b_{eq}$$</p>
       <p>원점에서 그은 직선이 프런티어에 접하는 <strong>접점(tangency) 포트폴리오</strong>가 Sharpe 최대 지점이다. 롱온리(long-only) 제약에서 재현한 접점 비중은 책과 소수점 다섯 자리까지 일치했다(최대 절대 오차 <span>$4.4\times10^{-5}$</span>).</p>
-      <figure class="report-figure" id="fig-efficient-frontier" data-deck-use="required">
+      <figure class="report-figure" id="fig-efficient-frontier" data-deck-use="required" data-source-kind="figure" data-source-ref="1.2">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">효율적 프런티어와 접점 포트폴리오 — 6개 국가 ETF</span></figcaption>
         <img src="assets/figs/fig-efficient-frontier.png" alt="위험(변동성) 대비 기대수익의 효율적 프런티어 곡선과, 원점에서 접하는 접점 포트폴리오(Sharpe 최대 지점)를 표시한 그래프. 6개 국가 ETF의 롱온리 최적화 결과.">
         <small class="asset-note">재현 실험 산출(figures/efficient_frontier.png). 공식 데이터(epchan.com/book3, SHA-256 검증) 기반. 접점 daily Sharpe <span>$\approx 0.0283$</span>.</small>
       </figure>
+      <h3 id="source-box-1-2" data-source-kind="box" data-source-ref="1.2">Box 1.2 — 이차계획법으로 효율적 프런티어 계산하기</h3>
       <table class="cmp-table" id="table-tangency">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 6</span><span class="asset-caption__title">접점 포트폴리오 비중(롱온리) — Python 재현 vs 책</span></div></caption>
         <thead><tr><th>ETF</th><th>Python 비중</th><th>책 비중</th></tr></thead>
@@ -211,9 +233,10 @@
         </tbody>
       </table>
 
-      <h3>Box 1.3 — 복리 극대화 = Sharpe 극대화 = 켈리 배분</h3>
+      <h3 id="source-section-1-6-2" data-source-kind="section" data-source-ref="1.6.2">복리 성장 극대화 = 샤프 비율 극대화 = 켈리 배분</h3>
       <p>저자는 라그랑주 승수로, 복리 성장률 극대화와 Sharpe 극대화가 같은 해로 이어짐을 보인다. 공매도를 허용하면(무제약) 최적 자본 배분은 닫힌 형태로 떨어진다.</p>
       <p style="text-align:center">$$F^{*} = C^{-1}M$$</p>
+      <h3 id="source-box-1-3" data-source-kind="box" data-source-ref="1.3">Box 1.3 — 포트폴리오의 샤프 비율 최대화</h3>
       <p>여기서 <span>$M$</span> 은 기대 초과수익 벡터, <span>$C$</span> 는 공분산 행렬이다. 재현 실험에서 무제약 켈리 배분은 롱온리보다 Sharpe가 높았지만(<span>$0.0385 &gt; 0.0283$</span>), 그 대가로 공매도를 포함한 <strong>총노출(gross exposure)이 <span>$8.42\times$</span></strong> 에 달했다. 즉 "수학적으로 더 좋은" 해가 실전에서는 위험할 수 있다 — 6절의 주제다.</p>
       <table class="cmp-table" id="table-kelly">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">무제약 켈리 배분 vs 롱온리 접점 — 더 높은 Sharpe의 비용</span></div></caption>
@@ -227,8 +250,8 @@
     </section>
 
     <section class="report-section s6 page-break" id="estimation-risk">
-      <div class="report-section__kicker">Section 06 · Estimation Risk &amp; Decision</div>
-      <h1>6. 추정 위험과 현실적 배분 — 언제 물러설 것인가</h1>
+      <div class="report-section__kicker">교재 흐름 · 현실의 제약</div>
+      <h1 id="source-section-1-6-3" data-source-kind="section" data-source-ref="1.6.3">현실의 개입 — 최소분산과 위험균형</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>최적해 <span>$F^*=C^{-1}M$</span> 는 추정된 <span>$M,C$</span> 에 극도로 민감하다.</li>
         <li>표본을 반으로 나누면 최적 비중이 <strong>완전히 뒤집힌다</strong> — 추정 위험의 실증.</li>
@@ -251,11 +274,11 @@
           <tr><td>위험균형</td><td>변동성(대각 <span>$C$</span>)</td><td>위험 기여 균등, 견고</td><td>전염 위험, 레버리지 필요</td></tr>
         </tbody>
       </table>
-      <div class="callout--hero"><span class="callout__kicker">Final Takeaway</span><span class="callout__body">최적화의 답이 아름다울수록 그 안의 <strong>추정</strong>을 의심하라. 실전의 순서는 <strong>데이터 감사 → 동일 프로그램 → 위험조정 측정 → 추정을 덜 믿는 배분</strong>이다.</span></div>
+      <div class="callout--hero"><span class="callout__kicker">최종 판단</span><span class="callout__body">최적화의 답이 아름다울수록 그 안의 <strong>추정</strong>을 의심하라. 실전의 순서는 <strong>데이터 감사 → 동일 프로그램 → 위험조정 측정 → 추정을 덜 믿는 배분</strong>이다.</span></div>
     </section>
 
     <section class="report-appendix s-glossary page-break" id="glossary">
-      <div class="report-section__kicker">Appendix A · Glossary</div>
+      <div class="report-section__kicker">부록 A · 핵심 용어</div>
       <h1>핵심 용어</h1>
       <table class="cmp-table" id="table-glossary"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 9</span><span class="asset-caption__title">핵심 용어 사전</span></div></caption><thead><tr><th>용어</th><th>이 장에서의 의미</th></tr></thead><tbody>
         <tr><td>생존 편향</td><td>살아남은 종목만 넣어 성과가 좋아 보이는 착시</td></tr>
@@ -280,7 +303,7 @@
     </section>
 
     <section class="report-appendix s-refs page-break" id="references">
-      <div class="report-section__kicker">Appendix B · References</div>
+      <div class="report-section__kicker">부록 B · 참고 자료</div>
       <h1>참고 자료와 도형 출처</h1>
       <ol class="references" style="list-style:none;padding:0;">
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>Ernest P. Chan, <em>Machine Trading: Deploying Computer Algorithms to Conquer the Markets</em>, Wiley, 2017 — Chapter 1 「The Basics of Algorithmic Trading」, pp. 1&#126;26. 저장소 한국어 해설판: <a href="../../../../materials/?p=quant/active/machine-trading/chapter_1_the_basics_of_algorithmic_trading/01_chapter_1_the_basics_of_algorithmic_trading_ko_explained.md" target="_blank"><code>01_chapter_1_..._ko_explained.md</code></a>.</span></li>

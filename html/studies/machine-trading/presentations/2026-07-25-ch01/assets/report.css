@@ -7,7 +7,11 @@
  * ========================================================================= */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root { interpolate-size: allow-keywords; }
+:root {
+  interpolate-size: allow-keywords;
+  --font-sans-ko: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic',
+    'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;
+}
 
 /* ===== THEMES (class-based, 슬라이드와 완전 동일) ===== */
 html.theme-dark {
@@ -37,7 +41,7 @@ html.theme-light {
 html, body { min-height: 100%; }
 html { background: var(--bg); }
 body {
-  font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-sans-ko);
   word-break: keep-all;
   overflow-wrap: break-word;
   background: var(--bg);
@@ -51,10 +55,12 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--text);
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  font-family: var(--font-sans-ko);
   letter-spacing: -0.024em;
   line-height: 1.2;
   text-wrap: balance;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 /* ===== A4 @page (인쇄 시 페이지 규격 + 러닝 헤더/푸터) =====
@@ -3763,4 +3769,12 @@ svg.report-lightbox__visual {
 @media print {
   [data-report-zoomable="true"] { cursor: default !important; outline: none !important; box-shadow: none !important; filter: none !important; }
   .report-lightbox { display: none !important; }
+
+  .continuous-mode .report-section:not(.s0),
+  .continuous-mode .report-appendix {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
 }
+
+.continuous-mode .report-cover__subtitle { word-break: keep-all; }
