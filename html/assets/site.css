@@ -729,6 +729,75 @@ section > h2::after {
   border: 0;
 }
 
+.home-video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.home-video-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.home-video-embed {
+  max-width: none;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.home-video-copy {
+  padding: 22px 24px 24px;
+}
+
+.home-video-copy h3 {
+  margin: 8px 0 10px;
+  font-size: 1.18rem;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+}
+
+.home-video-copy h3 a {
+  text-decoration: none;
+}
+
+.home-video-copy h3 a:hover,
+.home-video-copy h3 a:focus-visible,
+.home-video-links a:hover,
+.home-video-links a:focus-visible {
+  color: var(--blue);
+  outline: none;
+}
+
+.home-video-copy > p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.home-video-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.home-video-links a {
+  color: var(--primary);
+  font-size: 0.84rem;
+  font-weight: 900;
+  text-underline-offset: 4px;
+}
+
 @media (max-width: 700px) {
   html {
     background: var(--bg);
@@ -818,6 +887,14 @@ section > h2::after {
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .home-video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-video-copy {
+    padding: 20px;
   }
 
   .root-schedules {

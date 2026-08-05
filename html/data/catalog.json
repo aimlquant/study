@@ -392,9 +392,11 @@
       "presenters": [
         "정훈"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-trading-2026",
-      "title": "Chapter 1. 알고리즘 트레이딩의 기초"
+      "title": "Chapter 1. 알고리즘 트레이딩의 기초",
+      "youtube_url": "https://www.youtube.com/watch?v=U7-GdSKOyvQ",
+      "youtube_video_id": "U7-GdSKOyvQ"
     },
     {
       "artifacts": [
