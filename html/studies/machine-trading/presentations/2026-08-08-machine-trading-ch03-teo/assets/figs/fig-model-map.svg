@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" width="920" height="420" role="img" aria-label="3장의 모형 지도. 위쪽은 단변량 관측 모형 AR ARMA ARIMA, 다변량 관측 모형 VAR과 VEC, 은닉 상태 모형인 상태공간과 칼만 필터 세 계열이 관측 범위와 상태 가정에 따라 나란히 놓인 구조. 아래쪽은 세 계열이 공유하는 다섯 단계 거래 파이프라인으로 추정창 고정, 1스텝 예측, 부호를 포지션으로, 다음 시점 수익 실현, 체결비용 차감 순서로 이어진다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+
+  <defs>
+
+    <marker id="mmArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#0F2C59"/>
+    </marker>
+    <marker id="mmArrowGrey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#6B6B72"/>
+    </marker>
+  </defs>
+  <rect width="920" height="420" fill="#FAFAF9"/>
+  <g font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+
+    <text x="32" y="38" font-size="15" font-weight="700" fill="#0F0F10">관측 범위와 상태 가정에 따른 세 계열</text>
+    <text x="32" y="58" font-size="12.5" fill="#6B6B72">오른쪽으로 갈수록 모수가 늘고 과적합 위험이 커진다</text>
+
+    <rect x="32" y="76" width="256" height="104" rx="8" fill="#FFFFFF" stroke="#0F2C59" stroke-width="1.5"/>
+    <text x="48" y="102" font-size="11.5" font-weight="700" fill="#0F2C59" letter-spacing="0.6">UNIVARIATE · 관측</text>
+    <text x="48" y="126" font-size="14.5" font-weight="700" fill="#0F0F10">AR(p) · ARMA(p,q)</text>
+    <text x="48" y="147" font-size="14.5" font-weight="700" fill="#0F0F10">ARIMA(p,d,q)</text>
+    <text x="48" y="168" font-size="12" fill="#6B6B72">한 자산의 과거 가격과 과거 잡음</text>
+
+    <path d="M292 128H326" stroke="#0F2C59" stroke-width="2" fill="none" marker-end="url(#mmArrow)"/>
+
+    <rect x="332" y="76" width="256" height="104" rx="8" fill="#FFFFFF" stroke="#0F2C59" stroke-width="1.5"/>
+    <text x="348" y="102" font-size="11.5" font-weight="700" fill="#0F2C59" letter-spacing="0.6">MULTIVARIATE · 관측</text>
+    <text x="348" y="126" font-size="14.5" font-weight="700" fill="#0F0F10">VAR(p) → VEC(q)</text>
+    <text x="348" y="147" font-size="12" fill="#6B6B72">여러 자산을 행렬 계수로 연결</text>
+    <text x="348" y="168" font-size="12" fill="#6B6B72">C = Φ − I 로 수준 되돌림을 읽음</text>
+
+    <path d="M592 128H626" stroke="#0F2C59" stroke-width="2" fill="none" marker-end="url(#mmArrow)"/>
+
+    <rect x="632" y="76" width="256" height="104" rx="8" fill="#0F2C59"/>
+    <text x="648" y="102" font-size="11.5" font-weight="700" fill="#9DB4D8" letter-spacing="0.6">LATENT STATE · 은닉</text>
+    <text x="648" y="126" font-size="14.5" font-weight="700" fill="#FFFFFF">상태공간 · 칼만 필터</text>
+    <text x="648" y="147" font-size="12" fill="#D5DFEE">관측되지 않는 이동평균·헤지비율</text>
+    <text x="648" y="168" font-size="12" fill="#D5DFEE">모수가 가장 많고 과적합에 가장 취약</text>
+
+    <line x1="32" y1="212" x2="888" y2="212" stroke="#D8D6D1" stroke-width="1"/>
+
+    <text x="32" y="244" font-size="15" font-weight="700" fill="#0F0F10">모형이 달라도 거래 파이프라인은 같다</text>
+    <text x="32" y="264" font-size="12.5" fill="#6B6B72">이 다섯 단계를 각각 검증하지 않으면 어느 모형이든 같은 방식으로 무너진다</text>
+
+    <g font-size="12.5">
+      <rect x="32" y="284" width="152" height="70" rx="6" fill="#FFFFFF" stroke="#B9C6DA"/>
+      <text x="108" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#0F2C59">STEP 1</text>
+      <text x="108" y="330" text-anchor="middle" fill="#0F0F10">추정창 고정</text>
+      <text x="108" y="346" text-anchor="middle" font-size="11" fill="#6B6B72">train만 사용</text>
+
+      <path d="M188 319H206" stroke="#6B6B72" stroke-width="1.6" fill="none" marker-end="url(#mmArrowGrey)"/>
+
+      <rect x="212" y="284" width="152" height="70" rx="6" fill="#FFFFFF" stroke="#B9C6DA"/>
+      <text x="288" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#0F2C59">STEP 2</text>
+      <text x="288" y="330" text-anchor="middle" fill="#0F0F10">1스텝 예측</text>
+      <text x="288" y="346" text-anchor="middle" font-size="11" fill="#6B6B72">t 까지로 t+1</text>
+
+      <path d="M368 319H386" stroke="#6B6B72" stroke-width="1.6" fill="none" marker-end="url(#mmArrowGrey)"/>
+
+      <rect x="392" y="284" width="152" height="70" rx="6" fill="#FFFFFF" stroke="#B9C6DA"/>
+      <text x="468" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#0F2C59">STEP 3</text>
+      <text x="468" y="330" text-anchor="middle" fill="#0F0F10">부호 → 포지션</text>
+      <text x="468" y="346" text-anchor="middle" font-size="11" fill="#6B6B72">t 시점에 결정</text>
+
+      <path d="M548 319H566" stroke="#6B6B72" stroke-width="1.6" fill="none" marker-end="url(#mmArrowGrey)"/>
+
+      <rect x="572" y="284" width="152" height="70" rx="6" fill="#FFFFFF" stroke="#B9C6DA"/>
+      <text x="648" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#0F2C59">STEP 4</text>
+      <text x="648" y="330" text-anchor="middle" fill="#0F0F10">t+1 수익 실현</text>
+      <text x="648" y="346" text-anchor="middle" font-size="11" fill="#6B6B72">한 시점 지연</text>
+
+      <path d="M728 319H746" stroke="#6B6B72" stroke-width="1.6" fill="none" marker-end="url(#mmArrowGrey)"/>
+
+      <rect x="752" y="284" width="136" height="70" rx="6" fill="#FDECEC" stroke="#C0392B"/>
+      <text x="820" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#C0392B">STEP 5</text>
+      <text x="820" y="330" text-anchor="middle" fill="#0F0F10">체결비용 차감</text>
+      <text x="820" y="346" text-anchor="middle" font-size="11" fill="#C0392B">여기서 대부분 소멸</text>
+    </g>
+
+    <text x="32" y="392" font-size="12" fill="#6B6B72">STEP 1 을 어기면 look-ahead, STEP 4 를 어기면 미래 수익 참조, STEP 5 를 빼면 체결 불가능한 알파가 남는다.</text>
+  </g>
+</svg>
