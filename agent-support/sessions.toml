@@ -21,8 +21,9 @@ date = "2026-07-25"
 title = "Chapter 1–2. 지식 그래프와 LLM, 하이브리드 접근"
 presenters = ["수경"]
 chapters = ["Chapter 1", "Chapter 2"]
-status = "materials-published"
+status = "video-public"
 meeting_status = "ended"
+youtube_video_id = "h8XwFQllWcQ"
 artifacts = [
   { kind = "report", label = "Chapter 1 상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/report.html" },
   { kind = "slides", label = "Chapter 1 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch01/" },
