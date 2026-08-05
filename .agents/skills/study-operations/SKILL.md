@@ -39,6 +39,35 @@ Never store a private or unlisted video ID, OAuth credential, cookie, local
 recording path, subtitle work file, or upload recovery ledger in this public
 repository.
 
+## Prepare private media artifacts in dependency order
+
+In the separate `aimlquant-media` operations repository, finish captions
+before creating the official thumbnail. The thumbnail workflow deliberately
+requires exactly one approved caption for the recording, so use this order:
+
+1. generate and review the caption;
+2. re-run caption quality and terminology audits after every edit;
+3. approve exactly one caption for the recording and language;
+4. render, register, visually inspect, and approve the thumbnail;
+5. upload privately, attach approved metadata, caption, thumbnail, and
+   playlist, then make the video public only after all gates pass.
+
+Do not infer execution readiness from the upload dry-run bucket alone. A live
+upload performs a fresh owner inventory and duplicate check, which also needs
+`owner_search_page` quota. Check that execution-time search gate before saying
+an upload can start; at the 80 percent guard, wait for the Pacific-day reset
+instead of bypassing the ledger.
+
+For technical lectures, compare the preferred transcription model with an
+independent draft and check formulas, numbers, and domain terms against the
+slides. If a spare remote GPU is used, work in an isolated temporary directory,
+transfer no credentials, verify source and result hashes locally, and remove
+only the exact temporary paths after the artifacts are safely registered.
+
+Render thumbnails at 1280x720 and inspect both the full render and a 320x180
+downscale. Check Korean title wrapping, chapter badge, presenter/date footer,
+alignment, clipping, and contrast at the smaller size.
+
 ## Preserve the reciprocal links
 
 Use this stable URL in the YouTube description:

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="머신 트레이딩 Chapter 2 상세 스터디 리포트">
-  <title>팩터 모델 · 상세 리포트</title>
+  <meta name="description" content="머신 트레이딩 Chapter 2 팩터 모델 상세 스터디 리포트">
+  <title>팩터 모델 — 왜 위험을 사는 것이 돈이 되는가 · 상세 리포트</title>
   <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/report.css">
   <link rel="stylesheet" href="assets/katex/katex.min.css">
@@ -32,19 +32,20 @@
     <section class="report-cover">
       <div class="report-cover__wordmark"><span class="report-cover__wordmark-name">AIML Quant</span><span class="report-cover__wordmark-sub">머신 트레이딩</span></div>
       <span class="report-cover__kicker">Study Report · Chapter 2</span>
-      <h1 class="report-cover__title">팩터 모델</h1>
+      <h1 class="report-cover__title">팩터 모델 — 왜 위험을 사는 것이 돈이 되는가</h1>
       <p class="report-cover__subtitle">예측력은 어디서 오고, 무엇 때문에 뒤집히는가</p>
       <dl class="report-cover__meta">
         <div><dt>발표자</dt><dd>종훈</dd></div>
         <div><dt>범위</dt><dd>Chapter 2</dd></div>
         <div><dt>발행</dt><dd>2026-08-01</dd></div>
+        <div><dt>개정</dt><dd>2026-08-05 · 원문 구조 대조</dd></div>
       </dl>
     </section>
 
     <section class="report-section s0 page-break" id="summary">
-      <div class="report-section__kicker">Section 00 · Executive Summary</div>
+      <div class="report-section__kicker">먼저 읽는 핵심 요약</div>
       <h1>0. 핵심 요약</h1>
-      <div class="callout--hero"><span class="callout__kicker">One Sentence</span><span class="callout__body">팩터 수익은 <strong>분산으로 없앨 수 없는 위험을 떠안은 대가</strong>이기 때문에 알파와 달리 사라지지 않지만, 그 예측력은 <strong>유니버스·측정 정의·구성 방식·코드 한 글자</strong> 에 따라 크기는 물론 <strong>부호까지</strong> 뒤집힌다.</span></div>
+      <div class="callout--hero"><span class="callout__kicker">한 문장으로</span><span class="callout__body">팩터 수익은 <strong>분산으로 없앨 수 없는 위험을 떠안은 대가</strong>이기 때문에 알파와 달리 사라지지 않지만, 그 예측력은 <strong>유니버스·측정 정의·구성 방식·코드 한 글자</strong> 에 따라 크기는 물론 <strong>부호까지</strong> 뒤집힌다.</span></div>
       <p>『Machine Trading』 2장은 "무엇을 사면 오르는가"의 목록이 아니다. 이 장이 실제로 가르치는 것은 <strong>예측력이라는 주장이 성립하려면 무엇이 함께 고정되어야 하는가</strong>이다. 같은 ROE 요인이 대형주에서는 0이고 소형주에서는 5%를 넘으며, 같은 유동성 요인이 상위 3,500 종목에서는 "비유동주를 사라"이고 SPX 안에서는 정반대다. 같은 공매도 잔량이 SIR로 재면 공매도자가 틀렸다고, DTC로 재면 옳았다고 말한다. 이 장의 예제들은 팩터가 통한 사례집이 아니라 <strong>주장이 무너지는 방식의 카탈로그</strong>에 가깝다.</p>
       <div class="section-summary"><div class="section-summary__kicker">이 장을 관통하는 질문</div><div class="section-summary__body"><ul>
         <li><strong>왜</strong> — 알파가 아니라 팩터를 공부하는 이유는 무엇인가? (닳아 없어지지 않기 때문)</li>
@@ -67,8 +68,8 @@
     </section>
 
     <section class="report-section s1 page-break" id="alpha-vs-factor">
-      <div class="report-section__kicker">Section 01 · Why Factors</div>
-      <h1>1. 알파는 숨겨야 하고, 팩터는 대놓고 판다</h1>
+      <div class="report-section__kicker">교재 흐름 · 팩터를 쓰는 이유</div>
+      <h1 id="source-section-2-0" data-source-kind="section" data-source-ref="2.0">도입 — 알파는 비밀이지만, 팩터는 대놓고 판다</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li><strong>알파</strong>는 팩터 위험과 무관한 초과수익이라 분산으로 위험을 0까지 줄일 수 있다 — 그래서 모두가 원하고, 그래서 닳아 없어진다.</li>
         <li><strong>팩터 위험</strong>은 아무리 분산해도 남는다 — 그래서 남들이 꺼리고, 그 대가가 해마다 살아남는다.</li>
@@ -87,8 +88,8 @@
     </section>
 
     <section class="report-section s2 page-break" id="two-coordinates">
-      <div class="report-section__kicker">Section 02 · Two Coordinate Systems</div>
-      <h1>2. 두 좌표계 — 무엇이 관측되고 무엇을 회귀로 캐내는가</h1>
+      <div class="report-section__kicker">교재 흐름 · 시계열 좌표계</div>
+      <h1 id="source-section-2-1" data-source-kind="section" data-source-ref="2.1">시계열 요인 — 시간에 따라 변하지만 종목을 가리지 않는 힘</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li><strong>시계열 요인</strong>은 시간에 따라 변하되 종목을 가리지 않는다(시장수익·HML·SMB·UMD). 요인은 관측되고 <strong>적재량 <span>$\beta(s)$</span> 를 회귀로 캔다</strong>.</li>
         <li><strong>횡단면 요인</strong>은 종목마다 다르되 시간에는 무던하다(ROE·BM·P/E·유동성). <strong>적재량이 관측되고 요인을 회귀로 캔다</strong> — 거울상이다.</li>
@@ -126,8 +127,8 @@
     </section>
 
     <section class="report-section s3 page-break" id="fama-french-bug">
-      <div class="report-section__kicker">Section 03 · Example 2.1 &amp; the Bug</div>
-      <h1>3. 예제 2.1 — 콜론 하나가 시장중립을 순숏으로 바꾼다</h1>
+      <div class="report-section__kicker">교재 예제 · 구현 검증</div>
+      <h1 id="source-example-2-1" data-source-kind="example" data-source-ref="2.1">예제 2.1 — 파마-프렌치 3요인으로 다음 날 수익을 예측하기</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>파마-프렌치 3요인으로 <strong>다음 날</strong> 수익을 예측하면 표본 내는 화려하고 표본 밖은 무너진다.</li>
         <li>공식 <code>.m</code> 파일의 롱 라인에 <strong>콜론이 빠져</strong> 있어, 상위 50개가 아니라 <strong>위에서 50번째 종목 한 개</strong> 만 롱한다 — 즉 순숏 포트폴리오다.</li>
@@ -158,22 +159,24 @@
         <img src="assets/figs/fig-bug-equity.png" alt="2010년 7월부터 2014년 초까지 표본 밖 누적수익. 공식 버그 버전인 50숏 1롱은 지속적으로 하락해 마이너스 21퍼센트로 끝나고, 수정한 50대50 버전은 완만히 상승해 플러스 14퍼센트 부근에서 유지된다.">
         <small class="asset-note">재현 실험 산출. 예측 모델은 완전히 동일하고 <strong>포지션 구성 코드 한 줄</strong>만 다르다. 백테스트 결과의 부호가 전략 아이디어가 아니라 구현 세부에서 갈릴 수 있다는 실증.</small>
       </figure>
-      <div class="callout--hero"><span class="callout__kicker">Evidence Rule</span><span class="callout__body">공개된 코드의 출력을 재현했다는 사실은 <strong>전략이 옳다는 뜻이 아니다</strong>. 무엇을 재현했는지 — 의도인지 버그인지 — 를 먼저 확정해야 한다. 그리고 원본과 수정본의 수치를 <strong>섞어서 책과 비교하지 않는다</strong>.</span></div>
+      <div class="callout--hero"><span class="callout__kicker">근거 판정 원칙</span><span class="callout__body">공개된 코드의 출력을 재현했다는 사실은 <strong>전략이 옳다는 뜻이 아니다</strong>. 무엇을 재현했는지 — 의도인지 버그인지 — 를 먼저 확정해야 한다. 그리고 원본과 수정본의 수치를 <strong>섞어서 책과 비교하지 않는다</strong>.</span></div>
     </section>
 
     <section class="report-section s4 page-break" id="fundamental-factors">
-      <div class="report-section__kicker">Section 04 · Examples 2.2&#126;2.3</div>
-      <h1>4. 횡단면 펀더멘털 — 약한 설명력으로도 돈이 되는 이유, 그리고 그 함정</h1>
+      <div class="report-section__kicker">교재 흐름 · 횡단면 좌표계</div>
+      <h1 id="source-section-2-2" data-source-kind="section" data-source-ref="2.2">횡단면 요인 — 종목마다 다르지만 시간엔 무던한 특성</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>규모에 무관한 27개 펀더멘털 적재량으로 다음 분기를 예측하면 OOS CAGR 12.35%가 나온다 — <span>$R^2$</span> 은 겨우 <strong>0.015</strong> 인데도.</li>
         <li>규모 비례 요인까지 112개를 다 넣으면 훈련 <span>$R^2$</span> 이 0.961로 뛰지만 테스트셋에서 <strong>완전히 무너진다</strong> — 과적합의 교과서적 사례.</li>
         <li>ROE 단일 요인(20.17%)이 ROE+BM 두 요인(9.32%)보다 강하다. 그러나 이 수익의 상당 부분은 <strong>숨은 시장 베팅</strong> 이다.</li>
       </ul></div></div>
+      <h2 id="source-example-2-2" data-source-kind="example" data-source-ref="2.2">예제 2.2 — 횡단면 팩터 모델로 다음 분기 수익을 예측하기</h2>
       <p>기업 재무제표의 거의 모든 항목이 횡단면 적재량이 될 수 있으므로, 오히려 무엇을 넣을지 정하기가 어렵다. 예제 2.2는 출발점으로 <strong>규모에 무관한 비율 형태</strong>의 27개를 전부 넣는다(총매출·시가총액처럼 규모에 비례하는 것은 뺀다 — 그 부분은 시계열 SMB 요인이 더 잘 잡기 때문이다). 분기 ARQ 5개 + trailing ART 22개 구성이다.</p>
       <p>회귀 적합은 매우 약하다. <code>fitlm</code> 이 NaN 행을 자동으로 무시하므로 실제로는 <em>모든 재무 변수가 확보되는 실적 발표일</em>에 대해서만 회귀하게 되고, 종목당 분기에 딱 하루만 입력으로 쓰인다. 그 결과 <span>$R^2=0.015$</span>. 그런데도 이 전략은 OOS에서 CAGR 12.35%·Sharpe 1.68·MDD 7.6%를 낸다.</p>
       <div class="callout--insight"><span class="callout__kicker">설명력이 1.5%인데 왜 되는가</span><div class="callout__body"><p>우리는 <strong>정확한 수익 값</strong>을 맞힐 필요가 없다. 어떤 종목이 다른 종목보다 조금이라도 더 오를지 <strong>순서</strong>만 살짝 맞히면, 수백 종목에 롱-숏을 쌓았을 때 그 미세한 우위가 누적된다. 개별 예측은 거의 잡음이지만 잡음은 분산으로 씻겨 나가고 미약한 신호만 남는다. 금융에서 약한 <span>$R^2$</span> 이 "쓸모없음"을 뜻하지 않는 이유다.</p></div></div>
       <p>반대 방향의 교훈도 같은 예제에 들어 있다. 규모에 비례하는 것까지 포함해 <strong>112개</strong>를 몽땅 넣으면 훈련셋 <span>$R^2$</span> 이 0.961(조정 <span>$R^2$</span> 도 0.671)로 크게 개선되고 훈련 CAGR은 48%에 이르지만, 테스트셋에서는 <strong>음의 CAGR</strong> 로 무너진다. 요인을 늘려 얻은 설명력이 곧바로 과적합이 된 것이다.</p>
-      <h3>4.1 ROE와 BM — 두 팩터에서 한 팩터로</h3>
+      <h2 id="source-section-2-3" data-source-kind="section" data-source-ref="2.3">두 팩터 모델 — 재무 원리에서 유도된 놀랍도록 단순한 조합</h2>
+      <h3 id="source-example-2-3" data-source-kind="example" data-source-ref="2.3">예제 2.3 — ROE·BM 팩터 모델로 다음 달 수익을 예측하기</h3>
       <p>Chattopadhyay, Lyle, Wang (2015)은 재무의 기본 원리에서 유도한 지극히 단순한 두 팩터 모델을 제시했다. 적재량은 <span>$\log(\mathrm{ROE})$</span> 와 <span>$\log(\mathrm{BM})$</span> 이며, ROE는 로그를 취하기 좋도록 "1 + 이익률" 형태로 정의한다.</p>
       <p style="text-align:center">$$\mathrm{ROE}(i,s) = 1 + X(i,s)\big/\mathrm{Book}(i-1,s)$$</p>
       <p>여기서 <span>$X(i,s)$</span> 는 가장 최근 분기 <span>$i$</span> 의 특별항목 반영 전 순이익, <span>$\mathrm{Book}(i-1,s)$</span> 는 직전 분기 장부가다. 구현에서는 <code>ARQ_EPS</code> 를 직전 분기 <code>ARQ_BVPS</code> 로 나누고, BM은 <code>ARQ_PB</code> 의 역수를 쓴다. 순이익이나 장부가가 음수인 종목은 NaN으로 설정해 입력에서 제거한다(금융 연구의 통상 관행).</p>
@@ -197,14 +200,15 @@
     </section>
 
     <section class="report-section s5 page-break" id="exotic-factors">
-      <div class="report-section__kicker">Section 05 · Options, Short Interest &amp; Liquidity</div>
-      <h1>5. 재무제표 밖의 팩터 — 그리고 부호가 뒤집히는 순간들</h1>
+      <div class="report-section__kicker">교재 흐름 · 시장 미시구조 신호</div>
+      <h1 id="source-section-2-4" data-source-kind="section" data-source-ref="2.4">옵션 가격으로 주식 수익을 예측하기 — 더 똑똑한 사람들의 베팅 엿보기</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>옵션 트레이더는 레버리지와 정밀한 방향 베팅 때문에 <strong>정보 우위의 흔적을 옵션 가격에 먼저 남긴다</strong> — 다섯 팩터가 모두 이 하나의 논리를 다른 각도에서 읽는다.</li>
         <li>공매도 잔량은 <strong>SIR로 재면 공매도자가 틀렸고 DTC로 재면 옳았다</strong> — 같은 직관, 다른 측정, 반대 결론.</li>
         <li>유동성 팩터는 상위 3,500 종목에서는 "비유동주를 사라"지만 SPX 안에서는 <strong>부호가 반대</strong> 다.</li>
         <li>이 절의 팩터들은 <strong>라이선스 데이터 부재로 재현하지 못했다</strong> — 수식과 데이터 요건만 설명한다.</li>
       </ul></div></div>
+      <h2 id="source-section-2-4-1" data-source-kind="section" data-source-ref="2.4.1">내재 모멘트 (Implied Moments)</h2>
       <p>이 절 전체를 관통하는 논리를 먼저 잡아 두면 다섯 소절이 한눈에 들어온다. 옵션은 레버리지가 크고 방향성 베팅을 정교하게 표현할 수 있어, 정보 우위를 가진 트레이더가 견해를 실행하기에 주식보다 매력적이다. 그래서 이들이 어느 종목에 확신을 가지면 그 흔적이 콜·풋의 내재 변동성과 왜도, 수요에 <strong>먼저</strong> 새겨진다. 주가는 아직 안 움직였는데 옵션 시장이 먼저 술렁이는 것이다.</p>
       <figure class="report-figure" id="fig-option-signals" data-deck-use="required">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 7</span><span class="asset-caption__title">옵션 시장에 먼저 새겨지는 정보 — 세 갈래로 읽는 법</span></figcaption>
@@ -215,7 +219,16 @@
       <p style="text-align:center">$$\mathrm{Vol}=\frac{\mathrm{CIV}(0.5)+\mathrm{PIV}(-0.5)}{2},\qquad \mathrm{Skew}=\mathrm{CIV}(0.25)-\mathrm{PIV}(-0.25)$$</p>
       <p style="text-align:center">$$\mathrm{Kurt}=\mathrm{CIV}(0.25)+\mathrm{PIV}(-0.25)-\mathrm{CIV}(0.5)-\mathrm{PIV}(-0.5)$$</p>
       <p>연구자들은 기대 수익이 이 세 모멘트 각각과 강한 <strong>양의 관계</strong>를 가짐을 발견했다. 이유는 CAPM의 논리 그대로다 — 높은 위험은 높은 수익으로 보상받아야 하고, 첨도는 <strong>꼬리 위험</strong>의 다른 이름이다. 왜도가 높은 종목의 기대 수익이 높은 이유는, 상승을 기대하는 투자자들이 OTM 콜을 사거나 OTM 풋을 팔아 내재 왜도를 끌어올리기 때문이다.</p>
+      <h3 id="source-example-2-4" data-source-kind="example" data-source-ref="2.4">예제 2.4 — 내재 모멘트가 높은(낮은) 주식을 롱(숏) 하기</h3>
       <p>포트폴리오는 <strong>다중 정렬(multisort)</strong> 로 짠다. 왜도로 정렬해 상위 30% → 그 부분집합을 첨도로 정렬해 상위 30% → 다시 변동성으로 상위 30%가 롱이고, 매 단계 하위 30%가 숏이다. 매달 정렬해 한 달 보유하면 레버리지 없이 연 <strong>9.68%</strong>. 그런데 예제 2.4에서 이를 SPX 종목에만 적용하자 결과는 <strong>거의 정확히 0</strong> 이었다. 두 팩터 모델과 똑같이, <em>이 요인들은 대형주에서 예측력이 없다.</em></p>
+      <h3 id="source-section-2-4-2" data-source-kind="section" data-source-ref="2.4.2">내재 변동성의 월간 변화 (Monthly Change in Implied Volatilities)</h3>
+      <p>내재 변동성의 <strong>수준</strong> 대신 최근 한 달의 <strong>변화</strong>를 읽으면 새 정보의 유입을 더 직접적으로 포착한다. 월 변화가 큰 종목을 사고 작은 종목을 파는 10분위 포트폴리오는 원 연구에서 연 6% 이상의 스프레드를 보였다.</p>
+      <h3 id="source-section-2-4-3" data-source-kind="section" data-source-ref="2.4.3">풋-콜 내재 변동성 (Put-call Implied Volatilities)</h3>
+      <p>같은 행사가·만기의 풋과 콜이 풋-콜 패리티에서 얼마나 어긋나는지를 미결제약정으로 가중해 스마트 머니의 방향성을 읽는다. 다만 원 연구의 12.4%는 마지막 3년 3.7%로 감쇠했다.</p>
+      <h3 id="source-section-2-4-4" data-source-kind="section" data-source-ref="2.4.4">OTM 풋 − ATM 콜 내재 변동성 (OTM Put–ATM Call Implied Volatilities)</h3>
+      <p>OTM 풋 수요가 ATM 콜보다 강하면 하락 헤지 수요가 비싸진다. 이 신호는 기대수익과 음의 관계이므로 <strong>낮은 스큐를 사고 높은 스큐를 파는</strong> 방향으로 구성해야 한다.</p>
+      <h3 id="source-section-2-4-5" data-source-kind="section" data-source-ref="2.4.5">내재 시장 변동성의 일간 변화 (Daily Change in Implied Market Volatility)</h3>
+      <p>개별 종목 수익이 시장 내재변동성 변화에 얼마나 민감한지를 추정하면 헤지 자산의 가격을 읽을 수 있다. 시장 불안 때 잘 버티는 높은 적재량 종목은 보험처럼 비싸 기대수익이 낮아진다.</p>
       <table class="cmp-table" id="table-factor-catalog">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">재무제표 밖 팩터 카탈로그 — 논문 수치와 대형주에서의 운명</span></div></caption>
         <thead><tr><th>팩터</th><th>무엇을 재는가</th><th>구성 방식</th><th>원 논문 CAGR</th><th>알려진 한계</th></tr></thead>
@@ -230,7 +243,7 @@
           <tr><td>유동성</td><td>거래량 ÷ 발행주식</td><td>Ibbotson: 상위 3,500 · 연 1회 재조정</td><td>7.27% (1972&#126;2013)</td><td>SPX에선 <strong>부호가 반대</strong>(반전 시 8.4%)</td></tr>
         </tbody>
       </table>
-      <h3>5.1 같은 개념, 다른 정의, 뒤집힌 결론</h3>
+      <h3 id="source-section-2-5" data-source-kind="section" data-source-ref="2.5">공매도 잔량 — 공매도자는 정말 더 잘 아는가?</h3>
       <p>공매도자는 이론상 무한대의 위험에 노출되므로 평균적 투자자보다 정보에 밝을 것이라 기대할 만하다. 그렇다면 공매도 잔량은 미래 수익에 대해 음의 요인을 가져야 한다. <strong>SIR</strong>(빌린 주식 ÷ 총 발행주식)로 SPX 종목을 매일 정렬해 하위 10분위를 사고 상위 10분위를 팔면 — 수익은 음수다. 반대로 하면 CAGR 2.2%. 즉 이 척도로는 <em>가장 많이 공매도된 종목이 실제로 올랐다</em>.</p>
       <p>그런데 <strong>DTC</strong>(빌린 주식 ÷ 일평균 거래량, 20일 이동평균 사용)로 바꾸면 같은 기간 CAGR 5.8%·Sharpe 1.1이 나온다. 이제 요인은 실제로 음수이고 <em>공매도자가 옳았다</em>. DTC는 빌린 주식을 되사는 데 며칠이 걸리는지를 재므로, 단순 비율인 SIR보다 공매도 압력의 "무게"를 더 잘 담는다. 그마저도 2012년 이후 부호가 뒤집힌 것으로 보인다.</p>
       <figure class="report-figure" id="fig-sign-flip" data-deck-use="required">
@@ -238,6 +251,7 @@
         <img src="assets/figs/fig-sign-flip.svg" alt="위쪽은 유니버스 축이다. 유동성 팩터는 상위 3500 종목에서 비유동주 롱으로 CAGR 7.27퍼센트이지만, SPX 대형주만 보면 비유동주 롱이 손실이라 부호를 반전해야 플러스 8.4퍼센트가 된다. 아래쪽은 측정 정의 축으로, 공매도 잔량을 SIR 즉 대차주식 나누기 발행주식으로 재느냐 다른 정의로 재느냐에 따라 결론이 갈린다.">
         <small class="asset-note">발표자 재구성. 두 축은 독립이 아니라 같은 함정의 두 얼굴 — <strong>팩터의 부호는 절대적이지 않고 적용 대상과 측정 방식에 딸린 값</strong>이다.</small>
       </figure>
+      <h3 id="source-section-2-6" data-source-kind="section" data-source-ref="2.6">유동성 — 덜 팔리는 주식이 더 오른다?</h3>
       <p>유동성도 같은 이야기다. Ibbotson (2014)은 시가총액 상위 3,500 종목을 유동성(12개월 거래량 합 ÷ 총 발행주식)으로 정렬해 1분위(가장 덜 유동적)를 사고 4분위를 팔아 1972&#126;2013년 CAGR 7.27%를 얻었다. 그런데 대상을 SPX로 좁히고 매일 재조정하는 변형에서는 <strong>음의 수익</strong>이 나왔고, 반대로 가장 덜 유동적인 50개를 팔고 가장 유동적인 50개를 사자 CAGR 8.4%가 나왔다 — <em>정반대다</em>. 유동성 프리미엄은 본래 소형·비유동주에서 나오는데 대형주 세계에는 그런 극단이 없기 때문이다.</p>
       <h3>5.2 이 절을 재현하지 못한 이유</h3>
       <p>공식 ZIP에는 이 절들의 MATLAB 소스가 모두 들어 있다(<code>impliedSkewKurtVol.m</code>, <code>shortInterest_SPX.m</code>, <code>liquidity.m</code> 등). 그러나 필요한 <strong>OptionMetrics 변동성 표면</strong>, <strong>Compustat 공매도 잔량</strong>, <strong>거래량·발행주식 패널</strong>이 없다. 편리한 현대 데이터로 바꿔 놓고 "수치 재현"이라 부르지 않기 위해, 이 절들은 수식과 데이터 요건만 설명한다. 실제로 확인한 것은 형식 점검뿐이다 — 30일 ATM/OTM 변동성 예시에서 <span>$\mathrm{Vol}=0.230$</span>, <span>$\mathrm{Skew}=-0.120$</span>, <span>$\mathrm{Kurt}=0.040$</span> 이 서로 일관되는지 확인했고, 이는 <strong>수식 점검이지 백테스트가 아니다</strong>. 만기 보간·델타 보간·bid/ask·생존한 옵션만 쓰는 선택을 처리할 원시 패널이 없기 때문이다.</p>
@@ -257,13 +271,14 @@
     </section>
 
     <section class="report-section s6 page-break" id="statistical-factors">
-      <div class="report-section__kicker">Section 06 · Example 2.5 · PCA</div>
-      <h1>6. 통계적 팩터 — 이름 없는 요인을 데이터에서 캐내기</h1>
+      <div class="report-section__kicker">교재 흐름 · 데이터가 만든 팩터</div>
+      <h1 id="source-section-2-7" data-source-kind="section" data-source-ref="2.7">통계적 팩터 — 이름 없는 요인을 데이터에서 캐내기</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>PCA는 공분산 행렬을 대각화해 <strong>서로 직교하며 분산을 큰 순서로 설명하는</strong> 성분을 뽑는다 — 요인도 적재량도 미리 주어지지 않는다.</li>
         <li>2단계다. ① PCA로 팩터 시계열을 얻고 ② <strong>다음 날</strong> 수익을 그 팩터에 회귀해 예측 적재량 <span>$\widehat\beta$</span> 를 구한다. 이 <span>$\widehat\beta$</span> 는 더 이상 고유벡터가 아니다.</li>
         <li>책은 매일 재적합해 CAGR 15.6%를 보고한다. 이 회차의 <strong>21일 재적합 적응</strong> 은 −0.82%로, 같은 조건의 재현이 아니다.</li>
       </ul></div></div>
+      <h2 id="source-example-2-5" data-source-kind="example" data-source-ref="2.5">예제 2.5 — PCA로 예측적 통계 팩터 찾기</h2>
       <p>지금까지의 팩터는 관측되거나(HML) 재무제표에 적혀 있었다(ROE). <strong>통계적 팩터(statistical factor)</strong> 는 둘 다 아니다. 요인이 무엇인지도, 적재량이 무엇인지도 모르는 채로, 우리가 요구하는 것은 두 조건뿐이다 — (1) <span>$i$</span> 번째 팩터가 포착하는 성분은 <span>$j$</span> 번째와 <strong>직교</strong>하고, (2) 첫 성분의 분산이 가장 크며 순서대로 작아진다. 수익의 공분산 행렬을 대각화하고 고유벡터를 고윳값 내림차순으로 정렬해 <span>$i$</span> 번째 고유벡터를 <span>$\beta_i(s)$</span> 로 쓰면 두 조건이 동시에 만족된다. 이것이 <strong>주성분분석(PCA)</strong> 이다.</p>
       <figure class="report-figure" id="fig-pca-pipeline" data-deck-use="required">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 9</span><span class="asset-caption__title">2단계 파이프라인 — 이름 없는 요인을 캐내고, 서술을 예측으로 바꾼다</span></figcaption>
@@ -294,8 +309,8 @@
     </section>
 
     <section class="report-section s7 page-break" id="decision">
-      <div class="report-section__kicker">Section 07 · Combination &amp; Decision</div>
-      <h1>7. 묶는 법과 판단 — 회귀보다 순위, 그리고 비용</h1>
+      <div class="report-section__kicker">교재 흐름 · 결합과 판단</div>
+      <h1 id="source-section-2-8" data-source-kind="section" data-source-ref="2.8">다 함께 넣기 — 여러 팩터를 하나의 모델로 묶기</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>여러 팩터를 한 회귀에 넣을 수 있지만 <strong>공선성</strong>은 AIC/BIC 기준의 단계적 회귀로 줄인다.</li>
         <li>정밀한 회귀 예측보다 <strong>순위(rank) 방법론</strong>이 나은 경우가 많다 — 이상치에 면역이기 때문이다(스피어만 순위상관과 같은 지혜).</li>
@@ -328,11 +343,11 @@
       </table>
       <h3>7.2 이 재현이 확인하지 못한 것</h3>
       <p>정직하게 남겨 둘 한계가 있다. <strong>Look-ahead</strong> — 훈련/테스트는 시간 순서로 나눴지만 회계 정보의 실제 공개시각은 검증하지 못했다. <strong>생존·선택 편향</strong> — 역사적 CRSP 유니버스라는 책의 설명에 의존하며 독립 구성종목 파일이 없다. <strong>거래비용</strong> — 편도 2bps 민감도만 계산했고 borrow fee, locate, 시장충격, 호가 스프레드는 없다. <strong>다중검정</strong> — 27개 요인·여러 보유기간·정렬 순서를 시도하면 data snooping이 커진다. <strong>노출</strong> — 50/50 종목 수가 beta·산업·시가총액 중립을 보장하지 않는다. <strong>PCA</strong> — 부호와 성분은 창마다 회전하며 경제적 의미가 고정되지 않는다.</p>
-      <div class="callout--hero"><span class="callout__kicker">Final Takeaway</span><span class="callout__body">이 장의 결론은 "팩터가 수익을 보장한다"가 아니다. <strong>원본 버그 하나가 시장중립 모델을 순숏 모델로 바꾸고, 유니버스·측정 정의·순노출·비용이 각각 부호를 뒤집는다.</strong> 재사용할 원칙은 요인 수식·정보 가용시점·포지션 구성·비용·표본 외 적용을 <strong>따로따로</strong> 검증하는 것이다.</span></div>
+      <div class="callout--hero"><span class="callout__kicker">최종 판단</span><span class="callout__body">이 장의 결론은 "팩터가 수익을 보장한다"가 아니다. <strong>원본 버그 하나가 시장중립 모델을 순숏 모델로 바꾸고, 유니버스·측정 정의·순노출·비용이 각각 부호를 뒤집는다.</strong> 재사용할 원칙은 요인 수식·정보 가용시점·포지션 구성·비용·표본 외 적용을 <strong>따로따로</strong> 검증하는 것이다.</span></div>
     </section>
 
     <section class="report-appendix s-glossary page-break" id="glossary">
-      <div class="report-section__kicker">Appendix A · Glossary</div>
+      <div class="report-section__kicker">부록 A · 핵심 용어</div>
       <h1>핵심 용어</h1>
       <table class="cmp-table" id="table-glossary"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 9</span><span class="asset-caption__title">핵심 용어 사전</span></div></caption><thead><tr><th>용어</th><th>이 장에서의 의미</th></tr></thead><tbody>
         <tr><td>팩터 위험 (factor risk)</td><td>특정 공통 요인에 노출되어 그 요인이 나쁜 방향으로 갈 때 함께 손실을 보는 위험. 분산으로 없앨 수 없다</td></tr>
@@ -364,7 +379,7 @@
     </section>
 
     <section class="report-appendix s-refs page-break" id="references">
-      <div class="report-section__kicker">Appendix B · References</div>
+      <div class="report-section__kicker">부록 B · 참고 자료</div>
       <h1>참고 자료와 도형 출처</h1>
       <ol class="references" style="list-style:none;padding:0;">
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>Ernest P. Chan, <em>Machine Trading: Deploying Computer Algorithms to Conquer the Markets</em>, Wiley, 2017 — Chapter 2 「Factor Models」. 저장소 한국어 해설판: <a href="../../../../materials/?p=quant/active/machine-trading/chapter_2_factor_models/02_chapter_2_factor_models_ko_explained.md" target="_blank"><code>02_chapter_2_..._ko_explained.md</code></a>.</span></li>

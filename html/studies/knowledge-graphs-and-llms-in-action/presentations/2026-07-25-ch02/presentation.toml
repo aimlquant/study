@@ -9,6 +9,7 @@ report_template = "study-report-v1"
 workflow = "raw-report-deck-v1"
 report_source = "report.html"
 artifacts = ["report", "slides"]
+revision_date = "2026-08-05"
 source_fidelity = "source-structure-v1"
 source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_02_intelligent_systems_a_hybrid_approach/02_intelligent_systems_a_hybrid_approach_ko_explained.md"
 
