@@ -92,6 +92,22 @@ SYNTHETIC_DECK = """\
 </main>
 """
 
+ORDERED_SOURCE = """\
+# 팩터 모델 (해설판)
+
+## 도입 — 알파와 팩터
+
+## 1. 시계열 요인
+
+### 예제 2.1 — 다음 날 수익 예측
+
+## 2. 횡단면 요인
+
+### 2-1) 적재량 읽기
+
+## 요약
+"""
+
 
 class SourceFidelityTest(unittest.TestCase):
     def test_chapter_title_strips_plain_or_easy_explainer_suffix(self) -> None:
@@ -102,6 +118,30 @@ class SourceFidelityTest(unittest.TestCase):
 
             source.write_text("# 시계열 분석 — 쉬운 해설판\n", encoding="utf-8")
             self.assertEqual("시계열 분석", validate_site.parse_source_chapter_title(source))
+
+            source.write_text("# 시계열 분석 (해설판)\n", encoding="utf-8")
+            self.assertEqual("시계열 분석", validate_site.parse_source_chapter_title(source))
+
+    def test_ordered_heading_outline_assigns_stable_chapter_coordinates(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "chapter_2.md"
+            source.write_text(ORDERED_SOURCE, encoding="utf-8")
+            outline = validate_site.parse_source_outline(
+                source, "ordered-headings-v1"
+            )
+
+        self.assertEqual(
+            [
+                ("section", "2.0"),
+                ("section", "2.1"),
+                ("example", "2.1"),
+                ("section", "2.2"),
+                ("section", "2.2.1"),
+            ],
+            list(outline),
+        )
+        self.assertEqual("도입 — 알파와 팩터", outline[("section", "2.0")])
+        self.assertNotIn(("section", "2.3"), outline)
 
     def validate_synthetic_source_fidelity(
         self,
