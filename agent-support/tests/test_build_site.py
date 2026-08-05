@@ -214,12 +214,20 @@ class SiteRenderingTest(unittest.TestCase):
             / "2026-08-01-machine-trading-ch02"
             / "index.html"
         ]
+        root_page = files[Path("index.html")]
         catalog = json.loads(files[Path("data") / "catalog.json"])
 
         self.assertIn(
             "https://www.youtube.com/embed/123456789ab",
             page,
         )
+        self.assertIn("최근 공개 영상", root_page)
+        self.assertIn(
+            "https://www.youtube.com/embed/123456789ab",
+            root_page,
+        )
+        self.assertIn('class="home-video-grid"', root_page)
+        self.assertIn('loading="lazy"', root_page)
         self.assertEqual(
             catalog["sessions"][0]["page_url"],
             (

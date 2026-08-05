@@ -7,8 +7,9 @@ date = "2026-07-25"
 title = "Chapter 1. 알고리즘 트레이딩의 기초"
 presenters = ["정훈"]
 chapters = ["Chapter 1"]
-status = "materials-published"
+status = "video-public"
 meeting_status = "ended"
+youtube_video_id = "U7-GdSKOyvQ"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-07-25-ch01/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-07-25-ch01/" },

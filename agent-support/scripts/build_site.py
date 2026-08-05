@@ -533,6 +533,27 @@ def render_session_card(
     )
 
 
+def render_home_video_card(session: dict, study: dict) -> str:
+    video_id = session["youtube_video_id"]
+    session_url = f'sessions/{session["id"]}/'
+    watch_url = f"https://www.youtube.com/watch?v={video_id}"
+    title = html.escape(session["title"])
+    return f"""<article class="home-video-card">
+        <div class="video home-video-embed">
+          <iframe src="https://www.youtube.com/embed/{video_id}" title="{title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="home-video-copy">
+          <p class="eyebrow">{html.escape(str(session["date"]))} · {html.escape(study["title_ko"])}</p>
+          <h3><a href="{session_url}">{title}</a></h3>
+          <p>발표: {html.escape(presenter_label(session))}</p>
+          <div class="home-video-links">
+            <a href="{session_url}">교안·발표자료 보기 →</a>
+            <a href="{watch_url}">YouTube에서 보기 ↗</a>
+          </div>
+        </div>
+      </article>"""
+
+
 def render_schedule_row(
     session: dict,
     study: dict,
@@ -679,6 +700,18 @@ def render_files(
         )
         or '<p class="empty">등록된 회차가 없습니다.</p>'
     )
+    public_videos = sorted(
+        (item for item in sessions if item["status"] == "video-public"),
+        key=lambda item: (str(item["date"]), item["id"]),
+        reverse=True,
+    )
+    home_videos = (
+        "\n".join(
+            render_home_video_card(item, study_by_id[item["study_id"]])
+            for item in public_videos[:4]
+        )
+        or '<p class="empty">공개된 영상이 없습니다.</p>'
+    )
     root_schedules = []
     for study in sorted(
         studies,
@@ -741,6 +774,13 @@ def render_files(
     <section>
       <h2>진행 중인 스터디</h2>
       <div class="grid">{cards}</div>
+    </section>
+    <section id="videos">
+      <h2>최근 공개 영상</h2>
+      <p class="section-intro">최신 공개 영상을 이 페이지에서 바로 재생하거나 회차별 교안·발표자료와 함께 볼 수 있습니다.</p>
+      <div class="home-video-grid">
+{home_videos}
+      </div>
     </section>
     <section id="schedule">
       <h2>전체 스터디 일정</h2>
