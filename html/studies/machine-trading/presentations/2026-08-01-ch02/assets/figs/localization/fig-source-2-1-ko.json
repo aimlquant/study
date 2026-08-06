@@ -1,0 +1,32 @@
+{
+  "title": "Figure 2.1 Korean localization",
+  "source": "../../../../../../../../../study-materials/quant/active/machine-trading/chapter_2_factor_models/images/c27e3a2a971411dd7987bb2e084157eb36a3e5df47498d52d808a41826adf8d5.jpg",
+  "output": "../fig-source-2-1-ko.png",
+  "coordinate_space": [673, 582],
+  "operations": [
+    {"type": "rect", "box": [76, 0, 592, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [90, 0, 560, 23], "text": "SPX 펀더멘털 요인 선형회귀", "font": "bold", "font_size": 18, "min_font_size": 16, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [0, 124, 38, 320], "fill": "#ffffff"},
+    {"type": "text", "box": [1, 132, 34, 300], "text": "누적수익", "font": "regular", "font_size": 24, "min_font_size": 20, "fill": "#111111", "align": "center", "valign": "center", "rotation": 90},
+    {"type": "rect", "box": [67, 494, 54, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [68, 495, 52, 21], "text": "6월", "font": "regular", "font_size": 17, "min_font_size": 15, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [139, 494, 68, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [140, 495, 66, 21], "text": "12월", "font": "regular", "font_size": 17, "min_font_size": 15, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [224, 494, 54, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [225, 495, 52, 21], "text": "6월", "font": "regular", "font_size": 17, "min_font_size": 15, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [297, 494, 68, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [298, 495, 66, 21], "text": "12월", "font": "regular", "font_size": 17, "min_font_size": 15, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [382, 494, 54, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [383, 495, 52, 21], "text": "6월", "font": "regular", "font_size": 17, "min_font_size": 15, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [455, 494, 68, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [456, 495, 66, 21], "text": "12월", "font": "regular", "font_size": 17, "min_font_size": 15, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [540, 494, 54, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [541, 495, 52, 21], "text": "6월", "font": "regular", "font_size": 17, "min_font_size": 15, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [613, 494, 60, 24], "fill": "#ffffff"},
+    {"type": "text", "box": [614, 495, 58, 21], "text": "12월", "font": "regular", "font_size": 17, "min_font_size": 15, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [58, 476, 22, 30], "fill": "#ffffff"},
+    {"type": "text", "box": [58, 478, 21, 25], "text": "0", "font": "regular", "font_size": 19, "min_font_size": 17, "fill": "#111111", "align": "right", "valign": "center"},
+    {"type": "rect", "box": [322, 542, 120, 40], "fill": "#ffffff"},
+    {"type": "text", "box": [330, 546, 104, 32], "text": "날짜", "font": "regular", "font_size": 22, "min_font_size": 18, "fill": "#111111", "align": "center", "valign": "center"}
+  ]
+}

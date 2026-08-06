@@ -1462,6 +1462,63 @@ body.chrome-hidden .deck-settings {
   font-weight: 700;
 }
 
+/* Shared quality contracts: stable section-title measure and symmetric four-card grid. */
+.slide--section {
+  display: none;
+  justify-content: center;
+  padding: 76px 88px;
+}
+.slide--section.is-active { display: flex; }
+.section-copy {
+  display: grid;
+  align-content: center;
+  max-width: 980px;
+  min-height: 420px;
+}
+.slide--section .section-copy .eyebrow { margin: 0 0 22px; }
+.slide--section .section-copy h1 {
+  max-width: 980px;
+  margin: 0;
+  color: #fff;
+  font-size: 52px;
+  font-weight: 950;
+  line-height: 1.12;
+  letter-spacing: -0.052em;
+  text-wrap: balance;
+}
+.slide--section[data-density="long"] .section-copy h1 {
+  max-width: 1020px;
+  font-size: 43px;
+  line-height: 1.15;
+}
+.slide--section .section-copy > p:last-child {
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 23px;
+  line-height: 1.4;
+}
+.section-number {
+  right: 76px;
+  bottom: 34px;
+  font-size: 150px;
+}
+.card-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.card-grid--four .card {
+  min-height: 202px;
+  padding: 24px 20px;
+}
+.card-grid--four .card > span {
+  width: auto;
+  min-width: 44px;
+  padding: 0 11px;
+  font-size: 13px;
+}
+.card-grid--four .card h2 { font-size: 21px; }
+.card-grid--four .card p { font-size: 16px; line-height: 1.42; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
