@@ -30,6 +30,41 @@
     return (h.textContent || '').replace(/\s+/g, ' ').trim();
   }
 
+  // External CSS and fonts can change the document height after Chrome's first
+  // fragment jump. Align once synchronously at load, then re-apply after paint.
+  // Do not reset to the document top first: headless captures can otherwise
+  // record that transient frame as a blank deep-link viewport.
+  function restoreFragmentPosition() {
+    if (!window.location.hash || window.location.hash.length < 2) return;
+    var id;
+    try { id = decodeURIComponent(window.location.hash.slice(1)); }
+    catch (error) { id = window.location.hash.slice(1); }
+    var target = document.getElementById(id);
+    if (!target) return;
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('fragment-capture') === '1') {
+      // Visual QA may remove only report siblings before the target section.
+      // Ordinary reader hash links keep the document untouched.
+      var section = target.closest('.report-section, .report-appendix') || target;
+      var report = section.closest('.report');
+      if (report) {
+        Array.from(report.children).forEach(function (child) {
+          if (child === section || child.compareDocumentPosition(section) & Node.DOCUMENT_POSITION_CONTAINED_BY) return;
+          if (child.compareDocumentPosition(section) & Node.DOCUMENT_POSITION_FOLLOWING) child.style.display = 'none';
+        });
+      }
+      document.documentElement.classList.add('report-fragment-capture');
+      window.scrollTo(0, 0);
+      return;
+    }
+    target.scrollIntoView({ block: 'start', inline: 'nearest' });
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        target.scrollIntoView({ block: 'start', inline: 'nearest' });
+      });
+    });
+  }
+
   function ensureHeadingId(h, idx) {
     if (h.id) return h.id;
     h.id = 'toc-heading-' + idx;
@@ -847,5 +882,7 @@
     setupImageLightbox();
     setupObserver();
     window.buildCharts();
+    restoreFragmentPosition();
+    window.setTimeout(restoreFragmentPosition, 100);
   });
 })();

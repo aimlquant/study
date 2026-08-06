@@ -161,7 +161,19 @@ class BrowserCommandTests(unittest.TestCase):
         command = self.guard.build_browser_command(args)
 
         self.assertIn("--screenshot=/tmp/output", command)
+        self.assertIn("--virtual-time-budget=6000", command)
         self.assertFalse(any(value.startswith("--print-to-pdf=") for value in command))
+
+    def test_png_command_can_omit_virtual_time_budget(self) -> None:
+        base = {**self.base, "virtual_time_budget": None}
+        args = SimpleNamespace(**base, format="png")
+
+        command = self.guard.build_browser_command(args)
+
+        self.assertFalse(
+            any(value.startswith("--virtual-time-budget=") for value in command)
+        )
+        self.assertIn("--screenshot=/tmp/output", command)
 
     def test_pdf_command_uses_print_output_without_browser_headers(self) -> None:
         args = SimpleNamespace(**self.base, format="pdf")

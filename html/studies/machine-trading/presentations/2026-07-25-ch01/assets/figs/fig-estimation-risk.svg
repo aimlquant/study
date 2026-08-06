@@ -18,13 +18,13 @@
   <text class="t" x="470" y="110" fill="#B91C1C">추정 위험</text>
   <text class="warn" x="470" y="127">비중 급변 · gross 8.4×</text>
   <text class="warn" x="470" y="142">기간 바뀌면 해가 뒤집힘</text>
-  <path class="a" d="M162,122 H198"/>
-  <path class="a" d="M350,122 H386"/>
+  <path class="a" d="M162,122 H200"/>
+  <path class="a" d="M350,122 H388"/>
   <rect class="box" x="586" y="30" width="126" height="56" rx="9"/>
   <text class="t" x="649" y="52">최소분산</text><text class="s" x="649" y="70">C만 사용</text>
   <rect class="box" x="586" y="158" width="126" height="56" rx="9"/>
   <text class="t" x="649" y="180">위험균형</text><text class="s" x="649" y="198">σ 역비례 배분</text>
-  <path class="a" d="M552,110 C572,80 566,64 584,58"/>
-  <path class="a" d="M552,134 C572,164 566,180 584,186"/>
+  <path class="a" d="M552,110 C574,80 568,64 586,58"/>
+  <path class="a" d="M552,134 C574,164 568,180 586,186"/>
   <text class="e" x="568" y="122">물러서기</text>
 </svg>
