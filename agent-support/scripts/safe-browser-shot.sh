@@ -19,7 +19,7 @@ output=""
 output_format="png"
 width="1600"
 height="900"
-virtual_time_budget_ms="6000"
+virtual_time_budget_ms=""
 virtual_time_budget_set=0
 runtime_max_sec="120"
 check_only=0
@@ -38,7 +38,7 @@ Options:
   --pdf                           shorthand for --format pdf
   --width PIXELS                  viewport width (320..4096; default 1600)
   --height PIXELS                 viewport height (180..32000; default 900)
-  --virtual-time-budget MS        Chrome virtual-time budget (default PNG 6000, PDF 15000)
+  --virtual-time-budget MS        Chrome virtual-time budget (default PNG off, PDF 15000)
   --timeout SECONDS               hard cgroup runtime (5..120; default 120)
   --check                         check dependencies, host headroom, and policy only
   -h, --help                      show this help
@@ -137,7 +137,9 @@ fi
 
 require_integer_range "--width" "$width" 320 4096
 require_integer_range "--height" "$height" 180 32000
-require_integer_range "--virtual-time-budget" "$virtual_time_budget_ms" 1 60000
+if [[ -n "$virtual_time_budget_ms" ]]; then
+  require_integer_range "--virtual-time-budget" "$virtual_time_budget_ms" 1 60000
+fi
 require_integer_range "--timeout" "$runtime_max_sec" 5 120
 
 for command_name in awk basename chmod dirname flock getconf getent grep id \
@@ -365,6 +367,18 @@ temporary_artifact="$publish_dir/render.$output_format"
 
 unit_may_exist=1
 run_status=0
+guard_args=(
+  --browser "$browser"
+  --profile "$profile_dir"
+  --output "$temporary_artifact"
+  --format "$output_format"
+  --viewport "$width,$height"
+  --url "$url"
+)
+if [[ -n "$virtual_time_budget_ms" ]]; then
+  guard_args+=(--virtual-time-budget "$virtual_time_budget_ms")
+fi
+
 systemd-run \
   --user \
   --unit="$unit_name" \
@@ -390,13 +404,7 @@ systemd-run \
   --setenv="PYTHONDONTWRITEBYTECODE=1" \
   "$python_runner" \
   "$guard_path" \
-  --browser "$browser" \
-  --profile "$profile_dir" \
-  --output "$temporary_artifact" \
-  --format "$output_format" \
-  --viewport "$width,$height" \
-  --virtual-time-budget "$virtual_time_budget_ms" \
-  --url "$url" ||
+  "${guard_args[@]}" ||
   run_status=$?
 unit_may_exist=0
 

@@ -108,6 +108,20 @@ ORDERED_SOURCE = """\
 ## 요약
 """
 
+ORDERED_SOURCE_WITH_NUMBERED_EXERCISES = """\
+# 알고리즘 트레이딩의 기초 — 해설판
+
+## 들어가며
+
+## 연습문제
+
+**1.1.** API란 무엇입니까?
+
+**1.2.** 동일 프로그램을 쓰는 이점은 무엇입니까?
+
+## 핵심 용어 정리
+"""
+
 
 class SourceFidelityTest(unittest.TestCase):
     def test_chapter_title_strips_plain_or_easy_explainer_suffix(self) -> None:
@@ -142,6 +156,28 @@ class SourceFidelityTest(unittest.TestCase):
         )
         self.assertEqual("도입 — 알파와 팩터", outline[("section", "2.0")])
         self.assertNotIn(("section", "2.3"), outline)
+
+    def test_bold_numbered_exercises_are_opt_in_traceable_coordinates(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "chapter_1.md"
+            source.write_text(
+                ORDERED_SOURCE_WITH_NUMBERED_EXERCISES, encoding="utf-8"
+            )
+            default_outline = validate_site.parse_source_outline(
+                source, "ordered-headings-v1"
+            )
+            exercise_outline = validate_site.parse_source_outline(
+                source, "ordered-headings-v1", "bold-numbered-v1"
+            )
+
+        self.assertFalse(any(kind == "exercise" for kind, _ in default_outline))
+        self.assertEqual(
+            [
+                (("exercise", "1.1"), "연습문제 1.1"),
+                (("exercise", "1.2"), "연습문제 1.2"),
+            ],
+            [item for item in exercise_outline.items() if item[0][0] == "exercise"],
+        )
 
     def validate_synthetic_source_fidelity(
         self,
@@ -402,6 +438,51 @@ class SourceFidelityTest(unittest.TestCase):
                 session,
                 report,
                 deck,
+                errors,
+            )
+        self.assertEqual([], errors)
+
+    def test_noncanonical_public_html_requires_retention_record(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            (session / "index.html").write_text("canonical", encoding="utf-8")
+            (session / "report.html").write_text("report", encoding="utf-8")
+            (session / "index_presenter.html").write_text("draft", encoding="utf-8")
+            errors: list[str] = []
+            validate_site.validate_retained_alternate_html({}, session, errors)
+        self.assertTrue(any("non-canonical public session HTML" in error for error in errors))
+
+    def test_retained_alternate_html_needs_reason_and_must_exist(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            errors: list[str] = []
+            validate_site.validate_retained_alternate_html(
+                {
+                    "retained_alternate_html": [
+                        {"path": "index_presenter.html", "reason": ""}
+                    ]
+                },
+                session,
+                errors,
+            )
+        self.assertTrue(any("needs a reason" in error for error in errors))
+        self.assertTrue(any("does not exist" in error for error in errors))
+
+    def test_declared_alternate_html_is_auditable_without_deletion(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            session = Path(directory)
+            (session / "index_presenter.html").write_text("draft", encoding="utf-8")
+            errors: list[str] = []
+            validate_site.validate_retained_alternate_html(
+                {
+                    "retained_alternate_html": [
+                        {
+                            "path": "index_presenter.html",
+                            "reason": "발표자 원본을 명시적 폐기 결정 전까지 보존",
+                        }
+                    ]
+                },
+                session,
                 errors,
             )
         self.assertEqual([], errors)
