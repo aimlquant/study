@@ -71,12 +71,12 @@
       <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.0</p><h1>도입 — 알파는 비밀이지만, 팩터는 대놓고 판다</h1><p>위험이 대가이기 때문에 살아남는다</p></div><span class="section-number">01</span>
     </section>
 
-    <section class="slide" aria-label="알파와 팩터 프리미엄의 대비" data-report-refs="alpha-vs-factor fig-alpha-vs-factor">
+    <section class="slide slide--compact slide--figure" aria-label="알파와 팩터 프리미엄의 대비" data-report-refs="alpha-vs-factor fig-alpha-vs-factor">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">WHY FACTORS</span></header>
       <h1>공짜 점심이라서 사라지고, 불편한 대가라서 남는다</h1>
       <p class="lead">알파는 분산으로 위험을 0까지 줄일 수 있어 모두가 원한다 — 그래서 닳는다. 팩터 위험은 분산해도 남는다 — 그래서 보상이 남는다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-alpha-vs-factor.svg" alt="왼쪽 알파는 팩터 위험과 무관한 초과수익이라 모두가 원하고 확산과 수용력 한계로 닳아 없어지며 숨겨야 한다. 오른쪽 팩터 프리미엄은 위험을 감수한 대가라 공짜가 아니고 해마다 남으며 대놓고 팔 수 있다." style="max-width:100%;max-height:46vh;object-fit:contain;display:block;margin:0.4rem auto">
+        <img src="assets/figs/fig-alpha-vs-factor.svg" alt="왼쪽 알파는 팩터 위험과 무관한 초과수익이라 모두가 원하고 확산과 수용력 한계로 닳아 없어지며 숨겨야 한다. 오른쪽 팩터 프리미엄은 위험을 감수한 대가라 공짜가 아니고 해마다 남으며 대놓고 팔 수 있다.">
         <p class="takeaway"><strong>질문의 전환</strong> — "얼마나 버는가"가 아니라 <em>"내가 무슨 위험을 사고 있는가"</em>.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 2 · 알파 vs 팩터</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -100,12 +100,12 @@
       <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.1</p><h1>시계열 요인 — 시간에 따라 변하지만 종목을 가리지 않는 힘</h1><p>관측한 공통 요인에서 종목별 적재량을 캐낸다</p></div><span class="section-number">02</span>
     </section>
 
-    <section class="slide" aria-label="시계열 요인과 횡단면 요인의 거울상" data-report-refs="two-coordinates source-section-2-2 fig-two-coordinates table-two-coordinates" data-source-refs="section:2.2" data-source-title="section:2.2">
+    <section class="slide slide--compact slide--figure" aria-label="시계열 요인과 횡단면 요인의 거울상" data-report-refs="two-coordinates source-section-2-2 fig-two-coordinates table-two-coordinates" data-source-refs="section:2.2" data-source-title="section:2.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">COORDINATES</span></header>
       <h1>횡단면 요인 — 종목마다 다르지만 시간엔 무던한 특성</h1>
       <p class="lead">시계열은 요인이 주어지고 적재량을 캔다. 횡단면은 적재량이 재무제표에 적혀 있고 요인을 캔다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-two-coordinates.svg" alt="가운데 회귀식을 두고 위쪽 시계열 요인에서는 시장수익률 HML SMB UMD가 관측되고 적재량 베타를 회귀로 캐며, 아래쪽 횡단면 요인에서는 ROE BM P/E 유동성 공매도잔량이 관측되고 요인을 회귀로 캔다." style="max-width:100%;max-height:44vh;object-fit:contain;display:block;margin:0.3rem auto">
+        <img src="assets/figs/fig-two-coordinates.svg" alt="가운데 회귀식을 두고 위쪽 시계열 요인에서는 시장수익률 HML SMB UMD가 관측되고 적재량 베타를 회귀로 캐며, 아래쪽 횡단면 요인에서는 ROE BM P/E 유동성 공매도잔량이 관측되고 요인을 회귀로 캔다.">
         <p class="takeaway"><strong>실무 영향</strong> — 수식은 같아도 <em>데이터 준비와 회귀 코드가 통째로</em> 달라진다. 먼저 구분한다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 2 · 두 좌표계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -131,12 +131,12 @@
       <div class="section-copy"><p class="eyebrow">교재 예제 · 2.1</p><h1>예제 2.1 — 파마-프렌치 3요인으로 다음 날 수익을 예측하기</h1><p>콜론 하나가 만든 순숏 포트폴리오부터 바로잡는다</p></div><span class="section-number">03</span>
     </section>
 
-    <section class="slide" aria-label="공식 코드의 인덱싱 버그" data-report-refs="fama-french-bug fig-indexing-bug">
+    <section class="slide slide--compact slide--figure" aria-label="공식 코드의 인덱싱 버그" data-report-refs="fama-french-bug fig-indexing-bug">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">THE BUG</span></header>
       <h1>숏은 <code>I(1:topN)</code>, 롱은 <code>I(end-topN+1)</code> — 콜론이 빠졌다</h1>
       <p class="lead">상위 50개가 아니라 <em>위에서 50번째 종목 딱 하나</em>를 롱한다. 책이 출력한 것은 50숏 1롱의 순숏 포트폴리오다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-indexing-bug.svg" alt="예측 수익 오름차순 정렬 배열에서 원본 m 파일은 숏에 하위 50개를 의도대로 선택하지만 롱에는 콜론이 빠져 스칼라 한 개만 롱하며, 그 결과 순숏 포트폴리오가 되어 표본 밖 마이너스 6.55퍼센트 샤프 마이너스 0.60이 된다." style="max-width:100%;max-height:44vh;object-fit:contain;display:block;margin:0.3rem auto">
+        <img src="assets/figs/fig-indexing-bug.svg" alt="예측 수익 오름차순 정렬 배열에서 원본 m 파일은 숏에 하위 50개를 의도대로 선택하지만 롱에는 콜론이 빠져 스칼라 한 개만 롱하며, 그 결과 순숏 포트폴리오가 되어 표본 밖 마이너스 6.55퍼센트 샤프 마이너스 0.60이 된다.">
         <p class="source-note">출처: 공식 <code>FamaFrenchFactors_predictive.m</code>. Python 재현도 같은 순위를 선택하도록 구현해 버그를 그대로 재현했다.</p>
         <p class="takeaway"><strong>핵심</strong> — 이 일치는 전략이 옳다는 증거가 아니라 <em>버그를 정확히 재현했다</em>는 증거다.</p>
       </div>
@@ -231,12 +231,12 @@
       <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.4</p><h1>옵션 가격으로 주식 수익을 예측하기 — 더 똑똑한 사람들의 베팅 엿보기</h1><p>수준·변화·풋과 콜의 차이를 나눠 읽는다</p></div><span class="section-number">05</span>
     </section>
 
-    <section class="slide slide--compact slide--option-signals" aria-label="내재 모멘트" data-report-refs="exotic-factors source-section-2-4-1 source-example-2-4 fig-option-signals" data-source-refs="section:2.4.1 example:2.4" data-source-title="section:2.4.1">
+    <section class="slide slide--compact slide--figure slide--option-signals" aria-label="내재 모멘트" data-report-refs="exotic-factors source-section-2-4-1 source-example-2-4 fig-option-signals" data-source-refs="section:2.4.1 example:2.4" data-source-title="section:2.4.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPTION SIGNALS</span></header>
       <h1>내재 모멘트 (Implied Moments)</h1>
       <p class="lead">예제 2.4 — 내재 모멘트가 높은(낮은) 주식을 롱(숏) 하기. 정보 우위는 주가보다 옵션에 먼저 새겨진다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-option-signals.svg" alt="정보 우위 트레이더가 옵션에 먼저 흔적을 남긴다는 전제에서 세 갈래가 나온다. 내재 모멘트 수준을 3단 다중정렬 상하위 30퍼센트로 읽으면 9.68퍼센트, 내재 변동성의 월간 변화로 읽으면 6퍼센트 이상, 풋-콜 패리티 이탈을 미결제약정 가중으로 읽으면 12.4퍼센트다." style="max-width:100%;max-height:42vh;object-fit:contain;display:block;margin:0.3rem auto">
+        <img src="assets/figs/fig-option-signals.svg" alt="정보 우위 트레이더가 옵션에 먼저 흔적을 남긴다는 전제에서 세 갈래가 나온다. 내재 모멘트 수준을 3단 다중정렬 상하위 30퍼센트로 읽으면 9.68퍼센트, 내재 변동성의 월간 변화로 읽으면 6퍼센트 이상, 풋-콜 패리티 이탈을 미결제약정 가중으로 읽으면 12.4퍼센트다.">
         <p class="source-note">표시된 CAGR은 모두 <strong>원 논문이 자기 유니버스에서 보고한 값</strong>이며 이 회차의 재현값이 아니다.</p>
         <p class="takeaway"><strong>그런데 예제 2.4</strong> — 같은 내재 모멘트 전략을 SPX에만 적용하면 결과는 <em>거의 정확히 0</em>이다.</p>
       </div>
@@ -287,12 +287,12 @@
       <footer class="slide-footer"><span>Chapter 2 · 시장 IV 변화</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="공매도 잔량" data-report-refs="exotic-factors source-section-2-5 fig-sign-flip table-factor-catalog" data-source-refs="section:2.5" data-source-title="section:2.5">
+    <section class="slide slide--compact slide--figure" aria-label="공매도 잔량" data-report-refs="exotic-factors source-section-2-5 fig-sign-flip table-factor-catalog" data-source-refs="section:2.5" data-source-title="section:2.5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SIGN FLIP</span></header>
       <h1>공매도 잔량 — 공매도자는 정말 더 잘 아는가?</h1>
       <p class="lead">같은 개념을 다르게 재거나 다른 종목 집합에 적용하면 결론이 반대가 된다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-sign-flip.svg" alt="세 축에서 각각 부호가 뒤집힌다. 유니버스 축에서 유동성 팩터는 상위 3500 종목의 비유동주 롱으로 CAGR 7.27퍼센트이지만 SPX 대형주에서는 손실이라 반전해야 8.4퍼센트가 된다. 측정 정의 축에서 SIR로 재면 공매도자가 틀렸다고 나오지만 DTC로 재면 5.8퍼센트 샤프 1.1로 옳았다고 나온다. 구성 방식 축에서 순매수 그대로면 9.3퍼센트이지만 5분위 롱숏 시장중립으로 바꾸면 마이너스 9.2퍼센트다." style="max-width:100%;max-height:44vh;object-fit:contain;display:block;margin:0.3rem auto">
+        <img src="assets/figs/fig-sign-flip.svg" alt="세 축에서 각각 부호가 뒤집힌다. 유니버스 축에서 유동성 팩터는 상위 3500 종목의 비유동주 롱으로 CAGR 7.27퍼센트이지만 SPX 대형주에서는 손실이라 반전해야 8.4퍼센트가 된다. 측정 정의 축에서 SIR로 재면 공매도자가 틀렸다고 나오지만 DTC로 재면 5.8퍼센트 샤프 1.1로 옳았다고 나온다. 구성 방식 축에서 순매수 그대로면 9.3퍼센트이지만 5분위 롱숏 시장중립으로 바꾸면 마이너스 9.2퍼센트다.">
         <p class="source-note">SIR = 대차주식÷발행주식 · DTC = 대차주식÷일평균거래량(20일 이동평균). DTC조차 2012년 이후 부호가 뒤집힌 것으로 보인다.</p>
         <p class="takeaway"><strong>규칙</strong> — 논문의 수치는 <em>그 유니버스·그 정의에 딸린 값</em>이다. 내 환경에서 다시 재기 전엔 믿지 않는다.</p>
       </div>
@@ -348,12 +348,12 @@
       <footer class="slide-footer"><span>Chapter 2 · 원문 그림 2.4</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact slide--diagram" aria-label="PCA 2단계 파이프라인" data-report-refs="statistical-factors source-example-2-5 fig-pca-pipeline" data-source-refs="example:2.5">
+    <section class="slide slide--compact slide--figure slide--diagram" aria-label="PCA 2단계 파이프라인" data-report-refs="statistical-factors source-example-2-5 fig-pca-pipeline" data-source-refs="example:2.5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">PCA PIPELINE</span></header>
       <h1>데이터가 스스로 공통 요인을 자백하게 만든다</h1>
       <p class="lead">예제 2.5 — PCA로 예측적 통계 팩터 찾기. 공분산 행렬에서 성분을 뽑은 뒤 <em>다음 날</em> 수익에 회귀한다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-pca-pipeline.svg" alt="1단계는 룩백 252일 수익 행렬에서 전 기간 유한한 300개 이상 종목만 남기고 공분산 행렬을 대각화해 상위 5성분을 얻으며 평균 설명분산 54.3퍼센트다. 2단계는 그 팩터에 다음 날 수익을 종목별 다중회귀로 회귀시켜 예측 적재량을 얻되 마지막 날은 학습에서 제외한다." style="max-width:100%;max-height:44vh;object-fit:contain;display:block;margin:0.3rem auto">
+        <img src="assets/figs/fig-pca-pipeline.svg" alt="1단계는 룩백 252일 수익 행렬에서 전 기간 유한한 300개 이상 종목만 남기고 공분산 행렬을 대각화해 상위 5성분을 얻으며 평균 설명분산 54.3퍼센트다. 2단계는 그 팩터에 다음 날 수익을 종목별 다중회귀로 회귀시켜 예측 적재량을 얻되 마지막 날은 학습에서 제외한다.">
         <p class="takeaway"><strong>핵심 장치</strong> — 마지막 날을 학습에서 빼고 <em>예측에만</em> 쓴다. 미래 정보를 한 톨이라도 흘리면 백테스트 전체가 거짓이 된다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 2 · PCA 2단계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -395,12 +395,12 @@
       <footer class="slide-footer"><span>Chapter 2 · 결합 방법</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="거래비용 민감도" data-report-refs="decision fig-cost-sensitivity">
+    <section class="slide slide--compact slide--figure slide--cost-figure" aria-label="거래비용 민감도" data-report-refs="decision fig-cost-sensitivity">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">COST</span></header>
       <h1>편도 2bps가 회전율 높은 전략의 부호를 바꾼다</h1>
       <p class="lead">분기·월 보유 전략은 거의 무감각하다. 매일 재조정하는 전략은 같은 비용에 훨씬 크게 깎인다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-cost-sensitivity.png" alt="네 전략의 비용 전후 CAGR 막대그래프. 27개 요인은 0.123에서 0.121로, ROE와 BM은 0.093에서 0.086으로, ROE 단독은 0.202에서 0.194로 거의 유지되지만 PCA는 이미 0 아래에서 더 내려간다." style="max-width:100%;max-height:42vh;object-fit:contain;display:block;margin:0.3rem auto">
+        <img src="assets/figs/fig-cost-sensitivity.png" alt="네 전략의 비용 전후 CAGR 막대그래프. 27개 요인은 0.123에서 0.121로, ROE와 BM은 0.093에서 0.086으로, ROE 단독은 0.202에서 0.194로 거의 유지되지만 PCA는 이미 0 아래에서 더 내려간다.">
         <p class="source-note">그림에 없는 수정 파마-프렌치(일간 재조정)는 <strong>+3.80% → −2.78%</strong> 로 부호가 바뀐다.</p>
         <p class="takeaway"><strong>실무</strong> — 비용 민감도를 성과표와 <em>같은 화면</em>에서 본다. 나중에 붙이는 항목이 아니다.</p>
       </div>
