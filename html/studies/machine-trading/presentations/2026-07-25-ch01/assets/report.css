@@ -234,6 +234,115 @@ h1, h2, h3, h4, h5, h6 {
 .report a { color: var(--brand-primary); text-decoration: none; border-bottom: 1px solid rgba(15,44,89,0.3); }
 .report a:hover { border-bottom-color: var(--brand-primary); }
 
+/* Chapter 1 quality revision components */
+.snapshot-note,
+.current-check {
+  margin: 16px 0;
+  padding: 14px 16px;
+  background: var(--brand-soft);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--brand-primary);
+  border-radius: 8px;
+}
+
+.snapshot-note strong,
+.current-check > strong {
+  color: var(--brand-primary);
+}
+
+.current-check p {
+  margin-top: 0.45em;
+}
+
+.decision-steps {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+  padding-left: 22px;
+}
+
+.formula-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 14px 0;
+}
+
+.formula-pair > div {
+  padding: 14px 16px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  break-inside: avoid;
+}
+
+.formula-pair p {
+  color: var(--text-secondary);
+}
+
+.formula-hero {
+  padding: 10px;
+  color: var(--brand-primary);
+  text-align: center;
+  background: var(--brand-soft);
+  border-radius: 8px;
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.exercise-grid article {
+  padding: 12px 14px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  break-inside: avoid;
+}
+
+.exercise-grid strong {
+  color: var(--brand-primary);
+  font-size: 10pt;
+}
+
+.exercise-grid p {
+  margin-top: 3px;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+
+.reference-list {
+  list-style: none;
+  padding: 0;
+}
+
+.reference-list li {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.reference-list li > span {
+  color: var(--brand-primary);
+  font-weight: 800;
+}
+
+.reference-list li p {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .formula-pair,
+  .exercise-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== PAGE BREAK UTILITIES ===== */
 .page-break { break-before: page; page-break-before: always; }
 .page-break-after { break-after: page; page-break-after: always; }
@@ -3770,10 +3879,49 @@ svg.report-lightbox__visual {
   [data-report-zoomable="true"] { cursor: default !important; outline: none !important; box-shadow: none !important; filter: none !important; }
   .report-lightbox { display: none !important; }
 
+  /* The browser article header is compact on screen, but it is still the
+   * document cover in the downloadable PDF. Keep the following summary from
+   * being split between the cover sheet and an almost-empty second page. */
+  .continuous-mode .report-cover {
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+
   .continuous-mode .report-section:not(.s0),
   .continuous-mode .report-appendix {
     break-before: page !important;
     page-break-before: always !important;
+  }
+
+  /* Section 6 exceeded one A4 sheet by only its closing paragraph. Compact
+   * that self-contained page instead of orphaning two lines on a new sheet. */
+  .continuous-mode #estimation-risk > p {
+    margin-bottom: 4pt;
+    line-height: 1.5;
+  }
+  .continuous-mode #estimation-risk .report-figure {
+    margin: 6pt 0 8pt;
+  }
+  .continuous-mode #estimation-risk .report-figure > img,
+  .continuous-mode #estimation-risk .report-figure > svg {
+    margin: 2pt auto;
+  }
+  .continuous-mode #estimation-risk .report-figure > .asset-note {
+    margin-top: 2pt;
+    font-size: 8.5pt;
+    line-height: 1.35;
+  }
+  .continuous-mode #estimation-risk table.cmp-table {
+    margin: 5pt 0 7pt;
+  }
+  .continuous-mode #estimation-risk table.cmp-table thead th,
+  .continuous-mode #estimation-risk table.cmp-table tbody td {
+    padding: 4px 7px;
+    line-height: 1.35;
+  }
+  .continuous-mode #estimation-risk > p:last-child {
+    font-size: 9.4pt;
+    line-height: 1.45;
   }
 }
 

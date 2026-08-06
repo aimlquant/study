@@ -1,25 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 250" font-family="Noto Sans CJK KR, Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, NanumGothic, Inter, system-ui, sans-serif" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" font-family="Noto Sans CJK KR, Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, NanumGothic, Inter, system-ui, sans-serif" role="img">
   <defs>
     <marker id="ah3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
     <style>
-      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}.key{fill:#0F2C59;stroke:#0F2C59}
-      .t{fill:#0F0F10;font-size:12.5px;font-weight:600;text-anchor:middle}.tk{fill:#fff}
-      .s{fill:#57534E;font-size:10px;text-anchor:middle}.sk{fill:#C7D2E6}
-      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah3)}
-      .e{fill:#0F2C59;font-size:10.5px;text-anchor:middle;paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3px;stroke-linejoin:round}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.5}.key{fill:#0F2C59;stroke:#0F2C59}
+      .soft{fill:#EAF0F9;stroke:#0F2C59;stroke-width:1.3}
+      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}.tk{fill:#fff}
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}.sk{fill:#C7D2E6}
+      .a{stroke:#0F2C59;stroke-width:1.5;fill:none;marker-end:url(#ah3)}
     </style>
   </defs>
-  <rect class="box key" x="16" y="96" width="150" height="58" rx="10"/>
-  <text class="t tk" x="91" y="120">수익률 시계열</text><text class="s sk" x="91" y="137">전략의 원자료</text>
-  <rect class="box" x="250" y="25"  width="180" height="52" rx="9"/><text class="t" x="340" y="46">CAGR</text><text class="s" x="340" y="63">복리 성장률</text>
-  <rect class="box" x="250" y="99"  width="180" height="52" rx="9"/><text class="t" x="340" y="120">Sharpe 비율</text><text class="s" x="340" y="137">위험조정 수익</text>
-  <rect class="box" x="250" y="184" width="180" height="52" rx="9"/><text class="t" x="340" y="205">최대 낙폭(MDD)</text><text class="s" x="340" y="222">꼬리 위험</text>
-  <path class="a" d="M166,112 C210,88 210,55 248,51"/>
-  <path class="a" d="M166,125 H248"/>
-  <path class="a" d="M166,138 C210,170 210,206 248,210"/>
-  <rect class="box" x="500" y="99" width="184" height="52" rx="9"/><text class="t" x="592" y="120">Calmar = CAGR / |MDD|</text><text class="s" x="592" y="137">회복력 지표</text>
-  <path class="a" d="M430,51 C470,51 470,110 498,118"/>
-  <path class="a" d="M430,210 C470,210 470,140 498,132"/>
-  <rect class="box" x="500" y="25" width="184" height="52" rx="9"/><text class="t" x="592" y="46">Kelly = 평균 / 분산</text><text class="s" x="592" y="63">최적 레버리지</text>
-  <path class="a" d="M91,96 C91,48 190,4 240,4 H592 V25"/>
+  <rect class="box key" x="18" y="112" width="152" height="62" rx="10"/>
+  <text class="t tk" x="94" y="137">수익률 시계열</text><text class="s sk" x="94" y="155">전략의 원자료</text>
+
+  <rect class="box" x="248" y="18" width="182" height="52" rx="9"/>
+  <text class="t" x="339" y="39">CAGR</text><text class="s" x="339" y="56">복리 성장률</text>
+  <rect class="box" x="248" y="84" width="182" height="52" rx="9"/>
+  <text class="t" x="339" y="105">Sharpe 비율</text><text class="s" x="339" y="122">단위 변동성당 수익</text>
+  <rect class="box" x="248" y="150" width="182" height="52" rx="9"/>
+  <text class="t" x="339" y="171">최대 낙폭(MDD)</text><text class="s" x="339" y="188">고점 대비 손실의 깊이</text>
+  <rect class="box" x="248" y="216" width="182" height="52" rx="9"/>
+  <text class="t" x="339" y="237">MDD duration</text><text class="s" x="339" y="254">고점 회복까지의 시간</text>
+
+  <path class="a" d="M170,124 C205,96 210,44 248,44"/>
+  <path class="a" d="M170,137 C205,127 210,110 248,110"/>
+  <path class="a" d="M170,150 C205,161 210,176 248,176"/>
+  <path class="a" d="M170,163 C205,193 210,242 248,242"/>
+
+  <rect class="box" x="536" y="18" width="234" height="58" rx="9"/>
+  <text class="t" x="653" y="42">Kelly = 평균 / 분산</text><text class="s" x="653" y="60">가우스 근사의 최적 레버리지</text>
+  <path class="a" d="M94,112 V47 H536"/>
+
+  <rect class="soft" x="536" y="105" width="234" height="58" rx="9"/>
+  <text class="t" x="653" y="129">CAGR / |MDD|</text><text class="s" x="653" y="147">성장 대비 꼬리 손실</text>
+  <path class="a" d="M430,44 H486 V119 H536"/>
+  <path class="a" d="M430,176 H486 V149 H536"/>
+
+  <rect class="box" x="536" y="211" width="108" height="58" rx="9"/>
+  <text class="t" x="590" y="234">Calmar</text><text class="s" x="590" y="252">최근 3년 MDD</text>
+  <rect class="box" x="662" y="211" width="108" height="58" rx="9"/>
+  <text class="t" x="716" y="234">MAR</text><text class="s" x="716" y="252">전체 이력 MDD</text>
+  <path class="a" d="M628,163 V188 H590 V211"/>
+  <path class="a" d="M678,163 V188 H716 V211"/>
 </svg>

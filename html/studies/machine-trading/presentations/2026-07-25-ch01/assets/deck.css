@@ -1353,3 +1353,637 @@ body.chrome-hidden .deck-settings {
     display: none !important;
   }
 }
+
+/* ===== Chapter 1 quality revision · 2026-08-06 =====
+ * The deck keeps one 1280×720 semantic grid. Long section titles use an
+ * explicit density variant; content slides reserve the footer as its own row.
+ */
+.slide {
+  padding: 34px 64px 28px;
+  overflow: hidden;
+}
+
+.slide-header,
+.cover-brand {
+  min-height: 36px;
+  margin-bottom: 18px;
+}
+
+.slide > h1 {
+  max-width: 1160px;
+  font-size: 38px;
+  line-height: 1.14;
+}
+
+.slide > h1::after {
+  width: 54px;
+  height: 4px;
+  margin-top: 12px;
+}
+
+.lead {
+  max-width: 1150px;
+  margin-top: 10px;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.slide-body {
+  justify-content: flex-start;
+  padding: 14px 0 12px;
+}
+
+.slide-footer {
+  flex: 0 0 auto;
+  min-height: 30px;
+  padding-top: 9px;
+  font-size: 13px;
+}
+
+.slide--section {
+  display: none;
+  justify-content: center;
+  padding: 76px 88px;
+}
+
+.slide--section.is-active {
+  display: flex;
+}
+
+.section-copy {
+  display: grid;
+  align-content: center;
+  max-width: 980px;
+  min-height: 420px;
+}
+
+.slide--section .section-copy .eyebrow {
+  margin: 0 0 22px;
+}
+
+.slide--section .section-copy h1 {
+  max-width: 980px;
+  margin: 0;
+  color: #fff;
+  font-size: 52px;
+  font-weight: 950;
+  line-height: 1.12;
+  letter-spacing: -0.052em;
+  text-wrap: balance;
+}
+
+.slide--section[data-density="long"] .section-copy h1 {
+  max-width: 1020px;
+  font-size: 43px;
+  line-height: 1.15;
+}
+
+.slide--section .section-copy > p:last-child {
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 23px;
+  line-height: 1.4;
+}
+
+.section-number {
+  right: 76px;
+  bottom: 34px;
+  font-size: 150px;
+}
+
+.card-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card-grid--four .card {
+  min-height: 202px;
+  padding: 24px 20px;
+}
+
+.compact-cards .card {
+  min-height: 190px;
+}
+
+.card-grid--four .card > span {
+  width: auto;
+  min-width: 44px;
+  padding: 0 11px;
+  font-size: 13px;
+}
+
+.card-grid--four .card h2 {
+  font-size: 21px;
+}
+
+.card p,
+.panel p,
+.panel li {
+  font-size: 17px;
+  line-height: 1.46;
+}
+
+.takeaway {
+  margin-top: auto;
+  padding: 11px 0 9px 16px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.source-note,
+.deck-figure figcaption {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.snapshot-strip,
+.assumption-strip,
+.notation-strip {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 16px;
+  padding: 13px 16px;
+  color: var(--text);
+  background: var(--primary-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.snapshot-strip strong,
+.assumption-strip strong,
+.notation-strip b {
+  color: var(--primary);
+}
+
+.snapshot-strip {
+  display: block;
+}
+
+.deck-figure {
+  display: grid;
+  place-items: center;
+  gap: 7px;
+  min-height: 0;
+  margin: 0;
+}
+
+.deck-figure img {
+  display: block;
+  width: 100%;
+  max-width: 920px;
+  max-height: 280px;
+  object-fit: contain;
+}
+
+.deck-figure--wide img {
+  max-width: 1040px;
+  max-height: 300px;
+}
+
+.deck-figure--frontier img {
+  max-width: 1180px;
+  max-height: 390px;
+}
+
+.price-ladder {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.price-ladder li {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: center;
+  min-height: 90px;
+  padding: 14px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--primary);
+  border-radius: 11px;
+  box-shadow: var(--shadow);
+}
+
+.price-ladder li > span {
+  color: var(--primary);
+  font-size: 28px;
+  font-weight: 950;
+}
+
+.price-ladder strong {
+  font-size: 21px;
+}
+
+.price-ladder p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.price-ladder .is-caution {
+  border-left-color: var(--warning);
+}
+
+.latency-chain,
+.equation-flow {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.latency-chain > div,
+.equation-flow > article,
+.process-grid article {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  min-height: 154px;
+  padding: 18px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.latency-chain > b,
+.equation-flow > b {
+  align-self: center;
+  color: var(--primary);
+  font-size: 25px;
+}
+
+.latency-chain span,
+.process-grid span,
+.equation-flow span {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.latency-chain strong,
+.equation-flow strong {
+  font-size: 20px;
+}
+
+.latency-chain small,
+.equation-flow p,
+.process-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.compare-table {
+  font-size: 17px;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 12px 16px;
+  line-height: 1.35;
+}
+
+.compare-table thead th {
+  font-size: 15px;
+}
+
+.compare-table--dense {
+  font-size: 16px;
+}
+
+.compare-table--dense th,
+.compare-table--dense td,
+.compare-table--compact th,
+.compare-table--compact td {
+  padding: 9px 14px;
+}
+
+.mini-panels {
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.mini-panels .panel {
+  min-height: 92px;
+  padding: 15px 22px;
+}
+
+.mini-panels .panel h2 {
+  margin-bottom: 5px;
+  font-size: 19px;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.process-grid article {
+  min-height: 190px;
+}
+
+.process-grid h2 {
+  margin: 8px 0 2px;
+  font-size: 21px;
+}
+
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.three-col .panel {
+  min-height: 250px;
+  padding: 26px 28px;
+}
+
+.metric-strip {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.metric-strip article {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  min-height: 190px;
+  padding: 20px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.metric-strip > b {
+  align-self: center;
+  color: var(--primary);
+  font-size: 30px;
+}
+
+.metric-label {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.metric-strip strong {
+  color: var(--primary);
+  font-size: 46px;
+  line-height: 1.05;
+}
+
+.metric-strip .formula-value {
+  font-size: 39px;
+}
+
+.metric-strip p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.formula-layout,
+.derivation-grid,
+.formula-pair-deck,
+.box-result {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.formula-card,
+.risk-card,
+.derivation-grid article,
+.formula-pair-deck article,
+.box-result {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.formula-card,
+.risk-card {
+  min-height: 260px;
+  padding: 25px 30px;
+}
+
+.formula-card .katex-display {
+  margin: 18px 0 22px;
+  font-size: 1.45em;
+}
+
+.formula-card dl {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+}
+
+.formula-card dl div {
+  display: grid;
+  grid-template-columns: 105px 1fr;
+}
+
+.formula-card dt {
+  color: var(--primary);
+  font-weight: 900;
+}
+
+.formula-card dd {
+  margin: 0;
+  font-size: 16px;
+}
+
+.risk-card {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border-color: color-mix(in srgb, var(--negative) 42%, var(--border));
+  background: color-mix(in srgb, var(--negative) 7%, var(--surface));
+}
+
+.risk-card > span {
+  color: var(--negative);
+  font-weight: 900;
+}
+
+.risk-card strong {
+  font-size: 42px;
+}
+
+.risk-card h2 {
+  margin: 0;
+  color: var(--negative);
+  font-size: 36px;
+}
+
+.risk-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.formula-pair-deck article,
+.derivation-grid article {
+  display: grid;
+  align-content: center;
+  min-height: 190px;
+  padding: 24px 28px;
+}
+
+.formula-pair-deck span,
+.derivation-grid span {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.formula-pair-deck strong,
+.derivation-grid strong {
+  margin: 12px 0;
+  font-size: 27px;
+}
+
+.formula-pair-deck p,
+.derivation-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.notation-strip {
+  justify-content: space-around;
+}
+
+.box-result {
+  align-items: center;
+  padding: 18px 26px;
+}
+
+.formula-hero-deck {
+  display: grid;
+  place-items: center;
+  min-height: 112px;
+  color: var(--primary);
+  font-size: 1.45em;
+}
+
+.box-result p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.equation-flow {
+  margin-top: 34px;
+}
+
+.equation-flow > article {
+  min-height: 180px;
+}
+
+.assumption-strip--warn {
+  border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
+  background: color-mix(in srgb, var(--warning) 8%, var(--surface));
+}
+
+.chart-with-result {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(250px, 0.55fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.chart-with-result > img {
+  width: 100%;
+  max-height: 330px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.chart-with-result > div {
+  display: grid;
+  gap: 12px;
+}
+
+.chart-with-result article {
+  display: grid;
+  align-content: center;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.chart-with-result span {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.chart-with-result strong {
+  margin: 4px 0;
+  font-size: 24px;
+}
+
+.chart-with-result p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.question-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.question-grid article {
+  min-height: 238px;
+  padding: 24px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 5px solid var(--primary);
+  border-radius: 11px;
+  box-shadow: var(--shadow);
+}
+
+.question-grid span {
+  color: var(--primary);
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.question-grid p {
+  margin: 18px 0 0;
+  font-size: 17px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.slide--closing .card {
+  min-height: 180px;
+  padding: 22px;
+}
+
+.slide--closing .card p {
+  font-size: 16px;
+}

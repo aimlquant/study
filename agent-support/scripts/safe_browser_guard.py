@@ -286,7 +286,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", required=True)
     parser.add_argument("--format", choices=("png", "pdf"), default="png")
     parser.add_argument("--viewport", required=True)
-    parser.add_argument("--virtual-time-budget", required=True)
+    parser.add_argument("--virtual-time-budget")
     parser.add_argument("--url", required=True)
     return parser.parse_args()
 
@@ -307,9 +307,10 @@ def build_browser_command(args: argparse.Namespace) -> list[str]:
         "--mute-audio",
         "--run-all-compositor-stages-before-draw",
         f"--user-data-dir={args.profile}",
-        f"--virtual-time-budget={args.virtual_time_budget}",
         f"--window-size={args.viewport}",
     ]
+    if args.virtual_time_budget is not None:
+        command.append(f"--virtual-time-budget={args.virtual_time_budget}")
     if args.format == "pdf":
         command.extend(
             [
