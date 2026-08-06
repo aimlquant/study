@@ -1,0 +1,36 @@
+{
+  "title": "Machine Trading Chapter 1 efficient frontier Korean localization",
+  "source": "fig-efficient-frontier.png",
+  "output": "fig-efficient-frontier-ko.png",
+  "coordinate_space": [2062, 783],
+  "variables": {
+    "paper": "#ffffff",
+    "ink": "#111111"
+  },
+  "operations": [
+    {"type": "rect", "box": [260, 0, 610, 47], "fill": "${paper}"},
+    {"type": "text", "box": [260, 3, 610, 40], "text": "롱온리 효율적 프런티어", "font": "regular", "font_size": 28, "min_font_size": 26, "fill": "${ink}", "align": "center", "valign": "center"},
+
+    {"type": "rect", "box": [1330, 0, 610, 47], "fill": "${paper}"},
+    {"type": "text", "box": [1330, 3, 610, 40], "text": "최적 배분", "font": "regular", "font_size": 28, "min_font_size": 26, "fill": "${ink}", "align": "center", "valign": "center"},
+
+    {"type": "rect", "box": [184, 68, 214, 29], "fill": "${paper}"},
+    {"type": "text", "box": [193, 68, 200, 29], "text": "효율적 프런티어", "font": "regular", "font_size": 23, "min_font_size": 20, "fill": "${ink}", "align": "left", "valign": "center"},
+    {"type": "rect", "box": [184, 100, 214, 27], "fill": "${paper}"},
+    {"type": "text", "box": [193, 100, 200, 27], "text": "접점", "font": "regular", "font_size": 23, "min_font_size": 20, "fill": "${ink}", "align": "left", "valign": "center"},
+    {"type": "rect", "box": [184, 129, 214, 29], "fill": "${paper}"},
+    {"type": "text", "box": [193, 129, 200, 29], "text": "최소분산", "font": "regular", "font_size": 23, "min_font_size": 20, "fill": "${ink}", "align": "left", "valign": "center"},
+
+    {"type": "rect", "box": [0, 212, 43, 354], "fill": "${paper}"},
+    {"type": "text", "box": [1, 212, 40, 354], "text": "연환산 기대수익률", "font": "regular", "font_size": 23, "min_font_size": 21, "fill": "${ink}", "align": "center", "valign": "center", "rotation": 90},
+    {"type": "rect", "box": [405, 734, 330, 49], "fill": "${paper}"},
+    {"type": "text", "box": [405, 738, 330, 39], "text": "연환산 변동성", "font": "regular", "font_size": 23, "min_font_size": 21, "fill": "${ink}", "align": "center", "valign": "center"},
+
+    {"type": "rect", "box": [1027, 230, 47, 345], "fill": "${paper}"},
+    {"type": "text", "box": [1029, 230, 39, 345], "text": "포트폴리오 비중", "font": "regular", "font_size": 23, "min_font_size": 21, "fill": "${ink}", "align": "center", "valign": "center", "rotation": 90},
+    {"type": "rect", "box": [1804, 68, 228, 29], "fill": "${paper}"},
+    {"type": "text", "box": [1812, 68, 198, 29], "text": "접점", "font": "regular", "font_size": 23, "min_font_size": 20, "fill": "${ink}", "align": "left", "valign": "center"},
+    {"type": "rect", "box": [1804, 100, 228, 28], "fill": "${paper}"},
+    {"type": "text", "box": [1812, 100, 198, 28], "text": "최소분산", "font": "regular", "font_size": 23, "min_font_size": 20, "fill": "${ink}", "align": "left", "valign": "center"}
+  ]
+}

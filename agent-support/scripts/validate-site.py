@@ -451,7 +451,9 @@ def source_caption_title(value: str) -> str:
 
 
 def parse_source_outline(
-    path: Path, outline_style: str | None = None
+    path: Path,
+    outline_style: str | None = None,
+    exercise_style: str | None = None,
 ) -> dict[tuple[str, str], str]:
     """Read learning coordinates from a translated/explained chapter.
 
@@ -470,6 +472,9 @@ def parse_source_outline(
     )
     caption_re = re.compile(r"^(그림|Figure|표|Table)\s+(\d+\.\d+)\s+(.+?)\s*$")
     exercise_re = re.compile(r"^#{1,6}\s+(?:Exercise\s*\(연습문제\)|연습문제)(?:\s*[—-]\s*)?(.+?)\s*$", re.IGNORECASE)
+    bold_numbered_exercise_re = re.compile(
+        r"^\*\*(\d+\.\d+)\.\*\*\s+(.+?)\s*$"
+    )
     heading_re = re.compile(r"^(#{2,3})\s+(.+?)\s*$")
     chapter_number_re = re.compile(r"^#\s+.*?\b(\d+)\b")
     explicit_h2_re = re.compile(r"^(\d+)[.)]\s+(.+)$")
@@ -488,6 +493,7 @@ def parse_source_outline(
     h3_index = 0
     ordered_parent_section = f"{chapter_number}.0"
     skip_ordered_section = False
+    in_numbered_exercises = False
     line_index = 0
     while line_index < len(lines):
         raw_line = lines[line_index]
@@ -546,12 +552,20 @@ def parse_source_outline(
             result[("exercise", source_ref)] = normalize_source_title(match.group(1))
             line_index += 1
             continue
+        if exercise_style == "bold-numbered-v1" and in_numbered_exercises:
+            match = bold_numbered_exercise_re.match(line)
+            if match:
+                source_ref = match.group(1)
+                result[("exercise", source_ref)] = f"연습문제 {source_ref}"
+                line_index += 1
+                continue
         if outline_style == "ordered-headings-v1":
             match = heading_re.match(line)
             if match:
                 hashes, raw_title = match.groups()
                 title = normalize_source_title(raw_title)
                 if len(hashes) == 2:
+                    in_numbered_exercises = title == "연습문제"
                     skip_ordered_section = (
                         title in appendix_titles or title.startswith("주석")
                     )
@@ -656,7 +670,14 @@ def validate_source_fidelity(
             f"{outline_style!r}"
         )
         return
-    expected = parse_source_outline(source_path, outline_style)
+    exercise_style = metadata.get("source_exercise_style")
+    if exercise_style not in (None, "bold-numbered-v1"):
+        errors.append(
+            f"unknown source_exercise_style in {report_html.parent / 'presentation.toml'}: "
+            f"{exercise_style!r}"
+        )
+        return
+    expected = parse_source_outline(source_path, outline_style, exercise_style)
     expected_chapter_title = parse_source_chapter_title(source_path)
     actual = report_trace.source_anchors
     if not expected:
@@ -1134,6 +1155,80 @@ def validate_retained_unreferenced_assets(
         )
 
 
+def validate_retained_alternate_html(
+    metadata: dict,
+    session_dir: Path,
+    errors: list[str],
+) -> None:
+    """Require every non-canonical public session HTML file to be auditable."""
+    records = metadata.get("retained_alternate_html", [])
+    if not isinstance(records, list):
+        errors.append(
+            f"retained_alternate_html must be an array of tables in "
+            f"{session_dir / 'presentation.toml'}"
+        )
+        records = []
+
+    canonical = {"index.html", "report.html"}
+    public_alternates = {
+        path.name
+        for path in session_dir.glob("*.html")
+        if path.is_file() and path.name not in canonical
+    }
+    declared: set[str] = set()
+
+    for index, record in enumerate(records, 1):
+        if not isinstance(record, dict):
+            errors.append(
+                f"retained_alternate_html entry {index} must be a table in "
+                f"{session_dir / 'presentation.toml'}"
+            )
+            continue
+        path_value = record.get("path")
+        reason = record.get("reason")
+        normalized = (
+            normalize_session_asset_source(path_value)
+            if isinstance(path_value, str)
+            else None
+        )
+        if (
+            not normalized
+            or Path(normalized).name != normalized
+            or not normalized.endswith(".html")
+            or normalized in canonical
+        ):
+            errors.append(
+                f"invalid retained alternate HTML path in "
+                f"{session_dir / 'presentation.toml'}: {path_value!r}"
+            )
+            continue
+        if normalized in declared:
+            errors.append(
+                f"duplicate retained alternate HTML in "
+                f"{session_dir / 'presentation.toml'}: {normalized}"
+            )
+            continue
+        declared.add(normalized)
+        if not isinstance(reason, str) or not reason.strip():
+            errors.append(
+                f"retained alternate HTML needs a reason in "
+                f"{session_dir / 'presentation.toml'}: {normalized}"
+            )
+        if normalized not in public_alternates:
+            errors.append(
+                f"retained alternate HTML does not exist in {session_dir}: "
+                f"{normalized}"
+            )
+
+    undeclared = sorted(public_alternates - declared)
+    if undeclared:
+        errors.append(
+            f"non-canonical public session HTML must be removed with user approval or "
+            f"declared with a retention reason in {session_dir / 'presentation.toml'}: "
+            f"{undeclared}"
+        )
+
+
 def parse_css_declarations(block: str) -> dict[str, str]:
     declarations: dict[str, str] = {}
     for declaration in block.split(";"):
@@ -1548,6 +1643,11 @@ def validate_metadata(
                 metadata_path.parent,
                 report_trace,
                 deck_trace,
+                errors,
+            )
+            validate_retained_alternate_html(
+                metadata,
+                metadata_path.parent,
                 errors,
             )
 

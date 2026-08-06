@@ -117,6 +117,9 @@ python3 agent-support/scripts/new-presentation.py \
 보존해야 한다면 `[[retained_unreferenced_assets]]`에 상대 `path`와 구체적인 `reason`을
 기록한다. 검증기는 설명 없는 미참조 SVG, 존재하지 않는 경로, 다시 참조되기 시작한
 자산의 낡은 보존 기록을 모두 실패로 처리한다.
+회차 루트의 `index.html`·`report.html` 이외 공개 HTML도 같은 원칙을 적용한다.
+사용자 삭제 승인 없이 없애지 말고 `[[retained_alternate_html]]`에 파일명과 보존 이유,
+canonical 진입점과의 관계를 기록한다.
 
 예시 메타데이터:
 
@@ -133,6 +136,8 @@ artifacts = ["report", "slides"]
 workflow = "raw-report-deck-v1"
 report_source = "report.html"
 source_fidelity = "source-structure-v1"
+source_outline_style = "ordered-headings-v1"
+source_exercise_style = "bold-numbered-v1"
 source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md"
 ```
 
@@ -210,6 +215,12 @@ slide를 검사할 때도 호출을 직렬로 실행하고 각 종료코드를 �
 남길 output이 모두 같은 소스·렌더러 변경 묶음에서 생성됐음을 증명한 뒤에만
 사용한다. 이 driver는 브라우저를 직접 띄우지 않으므로 각 capture의 기존
 headroom·lock·cgroup·atomic 검증이 그대로 유지된다.
+
+PNG 캡처에는 Chrome virtual-time budget을 기본으로 넣지 않는다. Chrome 150처럼
+일부 버전은 one-shot screenshot을 이미 쓴 뒤에도 virtual time 종료를 기다리며
+간헐적으로 멈출 수 있다. 특별히 지연 렌더를 기다려야 하는 화면만 manifest의
+`virtual_time_budget`을 명시하고, 기본 캡처는 실제 `load` 완료 뒤의 PNG를 사용한다.
+PDF는 deferred KaTeX를 기다리기 위해 설치본의 15초 기본 budget을 유지한다.
 
 긴 리포트의 깊은 fragment가 반복해 빈 화면으로 나오더라도 raw Chrome이나
 Puppeteer로 runner를 우회하지 않는다. `report.js`의 hash 복원 로직이나

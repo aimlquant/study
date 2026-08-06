@@ -274,6 +274,41 @@ a {
   font-size: 25px;
 }
 
+.section-copy {
+  display: grid;
+  align-content: center;
+  max-width: 980px;
+  min-height: 420px;
+}
+
+.slide--section .section-copy .eyebrow {
+  margin: 0 0 22px;
+}
+
+.slide--section .section-copy h1 {
+  max-width: 980px;
+  margin: 0;
+  color: #fff;
+  font-size: 52px;
+  font-weight: 950;
+  line-height: 1.12;
+  letter-spacing: -0.052em;
+  text-wrap: balance;
+}
+
+.slide--section[data-density="long"] .section-copy h1 {
+  max-width: 1020px;
+  font-size: 43px;
+  line-height: 1.15;
+}
+
+.slide--section .section-copy > p:last-child {
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 23px;
+  line-height: 1.4;
+}
+
 .section-number {
   position: absolute;
   right: 80px;
@@ -415,6 +450,23 @@ a {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+}
+
+.card-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card-grid--four .card {
+  min-height: 202px;
+  padding: 24px 20px;
+}
+
+.card-grid--four .card > span {
+  width: auto;
+  min-width: 44px;
+  padding: 0 11px;
+  font-size: 13px;
 }
 
 .kpi {
