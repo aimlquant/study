@@ -143,12 +143,12 @@
       <footer class="slide-footer"><span>Chapter 2 · 인덱싱 버그</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="버그와 수정본의 자산곡선 비교" data-report-refs="fama-french-bug fig-bug-equity table-fama">
+    <section class="slide slide--compact slide--figure slide--figure-table" aria-label="버그와 수정본의 자산곡선 비교" data-report-refs="fama-french-bug fig-bug-equity table-fama">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SAME MODEL</span></header>
       <h1>예측 모델은 같고, 포지션 구성 한 줄만 다르다</h1>
       <p class="lead">그런데 표본 밖 결과의 부호가 갈린다 — 백테스트 결과가 아이디어가 아니라 구현에서 갈릴 수 있다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-bug-equity.png" alt="2010년 7월부터 2014년 초까지 표본 밖 누적수익. 버그 버전은 지속 하락해 마이너스 21퍼센트로 끝나고 수정한 50대50 버전은 완만히 상승해 플러스 14퍼센트 부근을 유지한다." style="max-width:100%;max-height:168px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <img src="assets/figs/fig-bug-equity.png" alt="2010년 7월부터 2014년 초까지 표본 밖 누적수익. 버그 버전은 지속 하락해 마이너스 21퍼센트로 끝나고 수정한 50대50 버전은 완만히 상승해 플러스 14퍼센트 부근을 유지한다.">
         <table class="compare-table">
           <thead><tr><th>구성</th><th>표본 밖 CAGR / Sharpe</th><th>2bps 차감 후</th></tr></thead>
           <tbody>
@@ -181,24 +181,24 @@
       <footer class="slide-footer"><span>Chapter 2 · 설명력의 역설</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact slide--data" aria-label="27개 펀더멘털 적재량 모델의 원문 결과" data-report-refs="fundamental-factors source-table-2-1 source-figure-2-1" data-source-refs="table:2.1 figure:2.1">
+    <section class="slide slide--compact slide--data slide--figure slide--figure-chart" aria-label="27개 펀더멘털 적재량 모델의 원문 결과" data-report-refs="fundamental-factors source-table-2-1 source-figure-2-1" data-source-refs="table:2.1 figure:2.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE FIGURE 2.1</span></header>
       <h1>27개 규모 독립 적재량으로도 약한 순서 신호는 누적된다</h1>
       <p class="lead">원문 표 2.1은 분기 비율 5개와 최근 1년 비율 22개를 열거한다. 원문 그림 2.1은 그 모델의 표본 밖 경로다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-source-2-1-ko.png" alt="2010년 6월부터 2013년 12월까지 27개 규모 독립 펀더멘털 적재량 모델의 표본 밖 누적수익. 2011년 하반기와 2012년 중반의 낙폭을 거쳐 약 0.5까지 상승한다." style="max-width:100%;max-height:310px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <img src="assets/figs/fig-source-2-1-ko.png" alt="2010년 6월부터 2013년 12월까지 27개 규모 독립 펀더멘털 적재량 모델의 표본 밖 누적수익. 2011년 하반기와 2012년 중반의 낙폭을 거쳐 약 0.5까지 상승한다.">
         <p class="source-note">원문 그림 2.1 국문화. 교재 보고값: CAGR 12.3% · Sharpe 1.7 · MDD 7.6%.</p>
         <p class="takeaway"><strong>읽는 법</strong> — $R^2=0.015$ 는 수익의 크기를 못 맞힌다는 뜻이지, <em>횡단면 순서를 전혀 못 맞힌다는 뜻은 아니다</em>.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 2 · 원문 표 2.1 / 그림 2.1</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact slide--data" aria-label="단일 및 두 팩터 모델의 원문 결과" data-report-refs="fundamental-factors source-figure-2-2 source-example-2-3 table-fundamental" data-source-refs="figure:2.2 example:2.3">
+    <section class="slide slide--compact slide--data slide--figure slide--figure-table" aria-label="단일 및 두 팩터 모델의 원문 결과" data-report-refs="fundamental-factors source-figure-2-2 source-example-2-3 table-fundamental" data-source-refs="figure:2.2 example:2.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE FIGURE 2.2</span></header>
       <h1>ROE 단독이 ROE+BM보다 강하다 — 원그림과 재현표를 분리해 읽는다</h1>
       <p class="lead">예제 2.3 — 원문 그림 2.2는 두 모델의 경로, 아래 표는 동일 아카이브를 이용한 Python 수치 재현이다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-source-2-2-ko.png" alt="2010년 6월부터 2013년 12월까지 표본 밖 누적수익. 빨간 log ROE 단일 모델은 약 0.9, 파란 log ROE 더하기 log BM 모델은 약 0.36까지 오른다. 두 곡선 모두 2011년 하반기에 함께 급락한다." style="max-width:100%;max-height:174px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <img src="assets/figs/fig-source-2-2-ko.png" alt="2010년 6월부터 2013년 12월까지 표본 밖 누적수익. 빨간 log ROE 단일 모델은 약 0.9, 파란 log ROE 더하기 log BM 모델은 약 0.36까지 오른다. 두 곡선 모두 2011년 하반기에 함께 급락한다.">
         <table class="compare-table">
           <thead><tr><th>모델</th><th>보유</th><th>표본 밖 CAGR / Sharpe</th></tr></thead>
           <tbody>
@@ -231,7 +231,7 @@
       <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.4</p><h1>옵션 가격으로 주식 수익을 예측하기 — 더 똑똑한 사람들의 베팅 엿보기</h1><p>수준·변화·풋과 콜의 차이를 나눠 읽는다</p></div><span class="section-number">05</span>
     </section>
 
-    <section class="slide slide--compact slide--figure slide--option-signals" aria-label="내재 모멘트" data-report-refs="exotic-factors source-section-2-4-1 source-example-2-4 fig-option-signals" data-source-refs="section:2.4.1 example:2.4" data-source-title="section:2.4.1">
+    <section class="slide slide--compact slide--figure" aria-label="내재 모멘트" data-report-refs="exotic-factors source-section-2-4-1 source-example-2-4 fig-option-signals" data-source-refs="section:2.4.1 example:2.4" data-source-title="section:2.4.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPTION SIGNALS</span></header>
       <h1>내재 모멘트 (Implied Moments)</h1>
       <p class="lead">예제 2.4 — 내재 모멘트가 높은(낮은) 주식을 롱(숏) 하기. 정보 우위는 주가보다 옵션에 먼저 새겨진다.</p>
@@ -299,12 +299,12 @@
       <footer class="slide-footer"><span>Chapter 2 · 부호 반전</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact" aria-label="유동성 팩터와 유니버스" data-report-refs="exotic-factors source-section-2-6 source-figure-2-3 table-factor-catalog" data-source-refs="section:2.6 figure:2.3" data-source-title="section:2.6">
+    <section class="slide slide--compact slide--figure slide--figure-chart" aria-label="유동성 팩터와 유니버스" data-report-refs="exotic-factors source-section-2-6 source-figure-2-3 table-factor-catalog" data-source-refs="section:2.6 figure:2.3" data-source-title="section:2.6">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE FIGURE 2.3</span></header>
       <h1>유동성 — 덜 팔리는 주식이 더 오른다?</h1>
       <p class="lead">원문 그림 2.3은 가장 유동적인 50개를 사고 가장 덜 유동적인 50개를 판 결과다. 소형주에서 알려진 방향과 반대다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-source-2-3-ko.png" alt="2007년부터 2014년 초까지 SPX 유동성 팩터의 누적수익. 2009년 전후 빠르게 상승한 뒤 큰 낙폭을 거치며 약 0.75에서 끝난다." style="max-width:100%;max-height:300px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <img src="assets/figs/fig-source-2-3-ko.png" alt="2007년부터 2014년 초까지 SPX 유동성 팩터의 누적수익. 2009년 전후 빠르게 상승한 뒤 큰 낙폭을 거치며 약 0.75에서 끝난다.">
         <p class="source-note">원문 그림 2.3 국문화. 상위 3,500종목의 비유동주 롱은 CAGR 7.27%, SPX에서는 반전한 방향이 8.4%다.</p>
         <p class="takeaway"><strong>원칙</strong> — 팩터의 부호는 절대값이 아니라 유니버스와 측정 정의에 딸린 값이다.</p>
       </div>
@@ -336,19 +336,19 @@
       <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.7</p><h1>통계적 팩터 — 이름 없는 요인을 데이터에서 캐내기</h1><p>요인도 적재량도 주어지지 않을 때</p></div><span class="section-number">06</span>
     </section>
 
-    <section class="slide slide--compact slide--data" aria-label="통계적 팩터의 원문 결과" data-report-refs="statistical-factors source-figure-2-4" data-source-refs="figure:2.4">
+    <section class="slide slide--compact slide--data slide--figure slide--figure-chart" aria-label="통계적 팩터의 원문 결과" data-report-refs="statistical-factors source-figure-2-4" data-source-refs="figure:2.4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE FIGURE 2.4</span></header>
       <h1>교재의 PCA 전략은 매 거래일 다시 적합해 15.6%를 보고한다</h1>
       <p class="lead">원문 그림 2.4의 조건은 상위 5개 성분 · 252일 룩백 · 일간 재적합이다. 뒤의 21일 적응과 같은 실험이 아니다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-source-2-4-ko.png" alt="2008년부터 2014년 초까지 교재의 통계적 팩터 전략 누적수익. 2009년 전후 급상승하고 2011년 큰 낙폭을 거친 뒤 약 1.4에서 끝난다." style="max-width:100%;max-height:305px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <img src="assets/figs/fig-source-2-4-ko.png" alt="2008년부터 2014년 초까지 교재의 통계적 팩터 전략 누적수익. 2009년 전후 급상승하고 2011년 큰 낙폭을 거친 뒤 약 1.4에서 끝난다.">
         <p class="source-note">원문 그림 2.4 국문화. 교재 보고값: CAGR 15.6%.</p>
         <p class="takeaway"><strong>비교의 전제</strong> — 재적합 주기가 다르면 전략이 다르다. 원문 결과와 적응 결과를 한 이름으로 합치지 않는다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 2 · 원문 그림 2.4</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact slide--figure slide--diagram" aria-label="PCA 2단계 파이프라인" data-report-refs="statistical-factors source-example-2-5 fig-pca-pipeline" data-source-refs="example:2.5">
+    <section class="slide slide--compact slide--figure" aria-label="PCA 2단계 파이프라인" data-report-refs="statistical-factors source-example-2-5 fig-pca-pipeline" data-source-refs="example:2.5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">PCA PIPELINE</span></header>
       <h1>데이터가 스스로 공통 요인을 자백하게 만든다</h1>
       <p class="lead">예제 2.5 — PCA로 예측적 통계 팩터 찾기. 공분산 행렬에서 성분을 뽑은 뒤 <em>다음 날</em> 수익에 회귀한다.</p>
@@ -359,12 +359,12 @@
       <footer class="slide-footer"><span>Chapter 2 · PCA 2단계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact slide--data slide--pca-result" aria-label="책의 일간 재적합과 21일 적응의 차이" data-report-refs="statistical-factors table-pca fig-pca-equity">
+    <section class="slide slide--compact slide--data slide--figure slide--figure-table" aria-label="책의 일간 재적합과 21일 적응의 차이" data-report-refs="statistical-factors table-pca fig-pca-equity">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ADAPTATION</span></header>
       <h1>재적합 주기만 바꿔도 결과가 뒤집힌다</h1>
       <p class="lead">책은 매 거래일 재적합해 15.6%를 보고한다. 이 회차는 21일마다만 재적합했다 — <em>같은 조건의 재현이 아니다</em>.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-pca-equity.png" alt="2008년부터 2014년까지 PCA 5팩터 21일 재조정 적응의 누적수익. 2009년 초 마이너스 17퍼센트까지 떨어진 뒤 회복하지만 기간 내내 0선 아래에 머물다 마이너스 5퍼센트 부근에서 끝난다." style="max-width:100%;max-height:180px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <img src="assets/figs/fig-pca-equity.png" alt="2008년부터 2014년까지 PCA 5팩터 21일 재조정 적응의 누적수익. 2009년 초 마이너스 17퍼센트까지 떨어진 뒤 회복하지만 기간 내내 0선 아래에 머물다 마이너스 5퍼센트 부근에서 끝난다.">
         <table class="compare-table">
           <thead><tr><th>항목</th><th>책 (일간 재적합)</th><th>재현 적응 (21일)</th></tr></thead>
           <tbody>
@@ -395,7 +395,7 @@
       <footer class="slide-footer"><span>Chapter 2 · 결합 방법</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact slide--figure slide--cost-figure" aria-label="거래비용 민감도" data-report-refs="decision fig-cost-sensitivity">
+    <section class="slide slide--compact slide--figure slide--figure-chart" aria-label="거래비용 민감도" data-report-refs="decision fig-cost-sensitivity">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">COST</span></header>
       <h1>편도 2bps가 회전율 높은 전략의 부호를 바꾼다</h1>
       <p class="lead">분기·월 보유 전략은 거의 무감각하다. 매일 재조정하는 전략은 같은 비용에 훨씬 크게 깎인다.</p>
