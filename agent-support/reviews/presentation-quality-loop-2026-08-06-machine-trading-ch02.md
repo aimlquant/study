@@ -70,9 +70,10 @@ case-insensitive, with a regression test covering uppercase labels.
 The independent Chapter 2 request is recorded as peer-council request
 `cad208605e9d41b5a843b5b4c41bbc34`. The requested `study:4` Claude window contained unrelated
 unsubmitted user input, so the safe nudge did not overwrite it and the request remained queued
-during Round 2. A fixed-tree final review is requested before publication if that exact window
-becomes available. Until its response is recorded, the peer criterion is **pending**, not
-mutually sufficient; the Codex six-gate verdict below is independent.
+during Round 2. The fixed-tree final review is request `5dc17e58b9494ffe81a8e25798ff5071`,
+scoped to commit `1e9d6f5`; its safe nudge was likewise deferred by the same unsubmitted input.
+Until a response is recorded, the peer criterion is **pending**, not mutually sufficient; the
+Codex six-gate verdict below is independent.
 
 ## Final render evidence
 
@@ -109,6 +110,15 @@ mutually sufficient; the Codex six-gate verdict below is independent.
 | 4. Beginner friendliness | Sufficient | The sequence moves from definition to source evidence, failure boundary, reproduction scope, and practice checkpoint. |
 | 5. Audience-facing prose | Sufficient | Exact source titles are preserved while bounded layout rules keep them readable. |
 | 6. Render quality | Sufficient | 108 deck frames, responsive report captures, localized-figure contact sheet, and every A4 page were inspected at final display size. |
+
+## Final verification
+
+- `228` unit tests passed; `6` environment-dependent tests skipped.
+- `build_site.py` reported the generated site already up to date.
+- `build_site.py --check` passed.
+- `validate-site.py --site html` passed for 44 HTML files; the eight warnings are the existing
+  external YouTube iframe review notices.
+- `git diff --check` and the localization-skill validator passed.
 
 The Codex quality gates are sufficient. Mutual sufficiency remains pending the exact-window Claude
 response and the final publication checks.
