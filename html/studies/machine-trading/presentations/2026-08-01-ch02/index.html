@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1" data-quality-revision="2026-08-06">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,7 @@
         <div><dt>발표자</dt><dd>종훈</dd></div>
         <div><dt>학습 범위</dt><dd>Chapter 2</dd></div>
         <div><dt>일시</dt><dd>2026-08-01</dd></div>
-        <div><dt>개정</dt><dd>2026-08-05</dd></div>
+        <div><dt>개정</dt><dd>2026-08-06</dd></div>
       </dl>
     </section>
 
@@ -56,7 +56,7 @@
       <h1>왜 팩터인가 → 어떻게 캐내는가 → 무엇이 뒤집는가</h1>
       <p class="lead">개념에서 시작해 네 개의 예제를 지나, 마지막에 판단 기준으로 모은다.</p>
       <div class="slide-body">
-        <div class="card-grid">
+        <div class="card-grid card-grid--four">
           <article class="card"><span>01</span><h2>왜 팩터인가</h2><p>알파는 닳고 팩터는 남는다 — 위험이 대가이기 때문에.</p></article>
           <article class="card"><span>02</span><h2>두 좌표계</h2><p>시계열과 횡단면은 관측·회귀의 방향이 거울상이다.</p></article>
           <article class="card"><span>03</span><h2>네 예제</h2><p>파마-프렌치 · 펀더멘털 · 옵션/공매도/유동성 · PCA.</p></article>
@@ -68,7 +68,7 @@
     </section>
 
     <section class="slide slide--section" aria-label="왜 팩터인가" data-report-refs="alpha-vs-factor source-section-2-0" data-source-refs="section:2.0" data-source-title="section:2.0">
-      <p class="eyebrow">교재 흐름 · 2.0</p><h1>도입 — 알파는 비밀이지만, 팩터는 대놓고 판다</h1><p>위험이 대가이기 때문에 살아남는다</p><span class="section-number">01</span>
+      <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.0</p><h1>도입 — 알파는 비밀이지만, 팩터는 대놓고 판다</h1><p>위험이 대가이기 때문에 살아남는다</p></div><span class="section-number">01</span>
     </section>
 
     <section class="slide" aria-label="알파와 팩터 프리미엄의 대비" data-report-refs="alpha-vs-factor fig-alpha-vs-factor">
@@ -96,8 +96,8 @@
       <footer class="slide-footer"><span>Chapter 2 · 정의와 한계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="시계열 요인" data-report-refs="two-coordinates source-section-2-1" data-source-refs="section:2.1" data-source-title="section:2.1">
-      <p class="eyebrow">교재 흐름 · 2.1</p><h1>시계열 요인 — 시간에 따라 변하지만 종목을 가리지 않는 힘</h1><p>관측한 공통 요인에서 종목별 적재량을 캐낸다</p><span class="section-number">02</span>
+    <section class="slide slide--section" data-density="long" aria-label="시계열 요인" data-report-refs="two-coordinates source-section-2-1" data-source-refs="section:2.1" data-source-title="section:2.1">
+      <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.1</p><h1>시계열 요인 — 시간에 따라 변하지만 종목을 가리지 않는 힘</h1><p>관측한 공통 요인에서 종목별 적재량을 캐낸다</p></div><span class="section-number">02</span>
     </section>
 
     <section class="slide" aria-label="시계열 요인과 횡단면 요인의 거울상" data-report-refs="two-coordinates source-section-2-2 fig-two-coordinates table-two-coordinates" data-source-refs="section:2.2" data-source-title="section:2.2">
@@ -127,8 +127,8 @@
       <footer class="slide-footer"><span>Chapter 2 · 서술 vs 예측</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="예제 2.1과 인덱싱 버그" data-report-refs="fama-french-bug source-example-2-1" data-source-refs="example:2.1">
-      <p class="eyebrow">교재 예제 · 2.1</p><h1>예제 2.1 — 파마-프렌치 3요인으로 다음 날 수익을 예측하기</h1><p>콜론 하나가 만든 순숏 포트폴리오부터 바로잡는다</p><span class="section-number">03</span>
+    <section class="slide slide--section" data-density="long" aria-label="예제 2.1과 인덱싱 버그" data-report-refs="fama-french-bug source-example-2-1" data-source-refs="example:2.1">
+      <div class="section-copy"><p class="eyebrow">교재 예제 · 2.1</p><h1>예제 2.1 — 파마-프렌치 3요인으로 다음 날 수익을 예측하기</h1><p>콜론 하나가 만든 순숏 포트폴리오부터 바로잡는다</p></div><span class="section-number">03</span>
     </section>
 
     <section class="slide" aria-label="공식 코드의 인덱싱 버그" data-report-refs="fama-french-bug fig-indexing-bug">
@@ -161,8 +161,8 @@
       <footer class="slide-footer"><span>Chapter 2 · 원본 vs 수정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="두 팩터 모델" data-report-refs="fundamental-factors source-section-2-3" data-source-refs="section:2.3" data-source-title="section:2.3">
-      <p class="eyebrow">교재 흐름 · 2.3</p><h1>두 팩터 모델 — 재무 원리에서 유도된 놀랍도록 단순한 조합</h1><p>약한 설명력과 숨은 시장 베팅을 함께 본다</p><span class="section-number">04</span>
+    <section class="slide slide--section" data-density="long" aria-label="두 팩터 모델" data-report-refs="fundamental-factors source-section-2-3" data-source-refs="section:2.3" data-source-title="section:2.3">
+      <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.3</p><h1>두 팩터 모델 — 재무 원리에서 유도된 놀랍도록 단순한 조합</h1><p>약한 설명력과 숨은 시장 베팅을 함께 본다</p></div><span class="section-number">04</span>
     </section>
 
     <section class="slide" aria-label="약한 설명력과 과적합의 대비" data-report-refs="fundamental-factors source-example-2-2" data-source-refs="example:2.2">
@@ -181,23 +181,34 @@
       <footer class="slide-footer"><span>Chapter 2 · 설명력의 역설</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact slide--data" aria-label="세 펀더멘털 모델의 표본 밖 성과" data-report-refs="fundamental-factors source-example-2-3 fig-fundamental-equity table-fundamental" data-source-refs="example:2.3">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">REPRODUCED</span></header>
-      <h1>ROE 단독이 ROE+BM보다 강하다 — 책과 소수점까지 일치</h1>
-      <p class="lead">예제 2.3 — ROE·BM 팩터 모델로 다음 달 수익을 예측하기. 세 모델 모두 허용오차 $10^{-5}$ 로 수치 재현했다.</p>
+    <section class="slide slide--compact slide--data" aria-label="27개 펀더멘털 적재량 모델의 원문 결과" data-report-refs="fundamental-factors source-table-2-1 source-figure-2-1" data-source-refs="table:2.1 figure:2.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE FIGURE 2.1</span></header>
+      <h1>27개 규모 독립 적재량으로도 약한 순서 신호는 누적된다</h1>
+      <p class="lead">원문 표 2.1은 분기 비율 5개와 최근 1년 비율 22개를 열거한다. 원문 그림 2.1은 그 모델의 표본 밖 경로다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-fundamental-equity.png" alt="2010년 7월부터 2014년 초까지 세 전략 누적수익. log ROE 단독이 약 0.9로 가장 높고 27개 요인이 약 0.5, log BM 더하기 log ROE가 약 0.37이며 2011년 8월 부근에 셋 모두 동시 급락한다." style="max-width:100%;max-height:150px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <img src="assets/figs/fig-source-2-1-ko.png" alt="2010년 6월부터 2013년 12월까지 27개 규모 독립 펀더멘털 적재량 모델의 표본 밖 누적수익. 2011년 하반기와 2012년 중반의 낙폭을 거쳐 약 0.5까지 상승한다." style="max-width:100%;max-height:310px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <p class="source-note">원문 그림 2.1 국문화. 교재 보고값: CAGR 12.3% · Sharpe 1.7 · MDD 7.6%.</p>
+        <p class="takeaway"><strong>읽는 법</strong> — $R^2=0.015$ 는 수익의 크기를 못 맞힌다는 뜻이지, <em>횡단면 순서를 전혀 못 맞힌다는 뜻은 아니다</em>.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 2 · 원문 표 2.1 / 그림 2.1</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--compact slide--data" aria-label="단일 및 두 팩터 모델의 원문 결과" data-report-refs="fundamental-factors source-figure-2-2 source-example-2-3 table-fundamental" data-source-refs="figure:2.2 example:2.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE FIGURE 2.2</span></header>
+      <h1>ROE 단독이 ROE+BM보다 강하다 — 원그림과 재현표를 분리해 읽는다</h1>
+      <p class="lead">예제 2.3 — 원문 그림 2.2는 두 모델의 경로, 아래 표는 동일 아카이브를 이용한 Python 수치 재현이다.</p>
+      <div class="slide-body">
+        <img src="assets/figs/fig-source-2-2-ko.png" alt="2010년 6월부터 2013년 12월까지 표본 밖 누적수익. 빨간 log ROE 단일 모델은 약 0.9, 파란 log ROE 더하기 log BM 모델은 약 0.36까지 오른다. 두 곡선 모두 2011년 하반기에 함께 급락한다." style="max-width:100%;max-height:174px;object-fit:contain;display:block;margin:0 auto 0.35rem">
         <table class="compare-table">
           <thead><tr><th>모델</th><th>보유</th><th>표본 밖 CAGR / Sharpe</th></tr></thead>
           <tbody>
-            <tr><td>27개 펀더멘털 요인</td><td>63일</td><td>12.35% / 1.676</td></tr>
             <tr><td>$\log(\mathrm{BM})+\log(\mathrm{ROE})$</td><td>21일</td><td>9.32% / 1.011</td></tr>
             <tr><td>$\log(\mathrm{ROE})$ 단독</td><td>21일</td><td><strong>20.17% / 1.305</strong></td></tr>
           </tbody>
         </table>
-        <p class="takeaway"><strong>단서</strong> — 서로 다른 요인 집합인데 동시에 꺾인다면, 공통의 <em>시장 성분</em>을 공유한다는 뜻이다.</p>
+        <p class="takeaway"><strong>단서</strong> — 두 곡선이 동시에 꺾인다면, 다른 적재량을 써도 공통의 <em>시장 성분</em>을 공유한다는 뜻이다.</p>
       </div>
-      <footer class="slide-footer"><span>Chapter 2 · 예제 2.2&#126;2.3</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><span>Chapter 2 · 원문 그림 2.2 / 예제 2.3</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide" aria-label="숨은 시장 베팅의 발견" data-report-refs="fundamental-factors">
@@ -216,8 +227,8 @@
       <footer class="slide-footer"><span>Chapter 2 · 순노출의 함정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="옵션 가격과 주식 수익" data-report-refs="exotic-factors source-section-2-4" data-source-refs="section:2.4" data-source-title="section:2.4">
-      <p class="eyebrow">교재 흐름 · 2.4</p><h1>옵션 가격으로 주식 수익을 예측하기 — 더 똑똑한 사람들의 베팅 엿보기</h1><p>수준·변화·풋과 콜의 차이를 나눠 읽는다</p><span class="section-number">05</span>
+    <section class="slide slide--section" data-density="long" aria-label="옵션 가격과 주식 수익" data-report-refs="exotic-factors source-section-2-4" data-source-refs="section:2.4" data-source-title="section:2.4">
+      <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.4</p><h1>옵션 가격으로 주식 수익을 예측하기 — 더 똑똑한 사람들의 베팅 엿보기</h1><p>수준·변화·풋과 콜의 차이를 나눠 읽는다</p></div><span class="section-number">05</span>
     </section>
 
     <section class="slide slide--compact slide--option-signals" aria-label="내재 모멘트" data-report-refs="exotic-factors source-section-2-4-1 source-example-2-4 fig-option-signals" data-source-refs="section:2.4.1 example:2.4" data-source-title="section:2.4.1">
@@ -288,15 +299,16 @@
       <footer class="slide-footer"><span>Chapter 2 · 부호 반전</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="유동성 팩터와 유니버스" data-report-refs="exotic-factors source-section-2-6 fig-sign-flip table-factor-catalog" data-source-refs="section:2.6" data-source-title="section:2.6">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">유니버스 경계</span></header>
+    <section class="slide slide--compact" aria-label="유동성 팩터와 유니버스" data-report-refs="exotic-factors source-section-2-6 source-figure-2-3 table-factor-catalog" data-source-refs="section:2.6 figure:2.3" data-source-title="section:2.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE FIGURE 2.3</span></header>
       <h1>유동성 — 덜 팔리는 주식이 더 오른다?</h1>
-      <p class="lead">소형·비유동주 프리미엄을 대형주 유니버스에 그대로 옮기면 신호의 부호가 뒤집힌다.</p>
+      <p class="lead">원문 그림 2.3은 가장 유동적인 50개를 사고 가장 덜 유동적인 50개를 판 결과다. 소형주에서 알려진 방향과 반대다.</p>
       <div class="slide-body">
-        <div class="two-col"><article class="panel"><p class="eyebrow">상위 3,500종목</p><h2>비유동주 롱 · CAGR 7.27%</h2><p>12개월 거래량÷발행주식, 연 1회 재조정.</p></article><article class="panel panel--accent"><p class="eyebrow">SPX 대형주</p><h2>같은 방향은 손실</h2><p>반대로 유동주를 사야 CAGR 8.4% — 정반대다.</p></article></div>
+        <img src="assets/figs/fig-source-2-3-ko.png" alt="2007년부터 2014년 초까지 SPX 유동성 팩터의 누적수익. 2009년 전후 빠르게 상승한 뒤 큰 낙폭을 거치며 약 0.75에서 끝난다." style="max-width:100%;max-height:300px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <p class="source-note">원문 그림 2.3 국문화. 상위 3,500종목의 비유동주 롱은 CAGR 7.27%, SPX에서는 반전한 방향이 8.4%다.</p>
         <p class="takeaway"><strong>원칙</strong> — 팩터의 부호는 절대값이 아니라 유니버스와 측정 정의에 딸린 값이다.</p>
       </div>
-      <footer class="slide-footer"><span>Chapter 2 · 유동성</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><span>Chapter 2 · 원문 그림 2.3</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide" aria-label="재현 경계와 라이선스 데이터 한계" data-report-refs="exotic-factors table-repro-scope">
@@ -321,7 +333,19 @@
     </section>
 
     <section class="slide slide--section" aria-label="통계적 팩터" data-report-refs="statistical-factors source-section-2-7" data-source-refs="section:2.7" data-source-title="section:2.7">
-      <p class="eyebrow">교재 흐름 · 2.7</p><h1>통계적 팩터 — 이름 없는 요인을 데이터에서 캐내기</h1><p>요인도 적재량도 주어지지 않을 때</p><span class="section-number">06</span>
+      <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.7</p><h1>통계적 팩터 — 이름 없는 요인을 데이터에서 캐내기</h1><p>요인도 적재량도 주어지지 않을 때</p></div><span class="section-number">06</span>
+    </section>
+
+    <section class="slide slide--compact slide--data" aria-label="통계적 팩터의 원문 결과" data-report-refs="statistical-factors source-figure-2-4" data-source-refs="figure:2.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE FIGURE 2.4</span></header>
+      <h1>교재의 PCA 전략은 매 거래일 다시 적합해 15.6%를 보고한다</h1>
+      <p class="lead">원문 그림 2.4의 조건은 상위 5개 성분 · 252일 룩백 · 일간 재적합이다. 뒤의 21일 적응과 같은 실험이 아니다.</p>
+      <div class="slide-body">
+        <img src="assets/figs/fig-source-2-4-ko.png" alt="2008년부터 2014년 초까지 교재의 통계적 팩터 전략 누적수익. 2009년 전후 급상승하고 2011년 큰 낙폭을 거친 뒤 약 1.4에서 끝난다." style="max-width:100%;max-height:305px;object-fit:contain;display:block;margin:0 auto 0.35rem">
+        <p class="source-note">원문 그림 2.4 국문화. 교재 보고값: CAGR 15.6%.</p>
+        <p class="takeaway"><strong>비교의 전제</strong> — 재적합 주기가 다르면 전략이 다르다. 원문 결과와 적응 결과를 한 이름으로 합치지 않는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 2 · 원문 그림 2.4</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--compact slide--diagram" aria-label="PCA 2단계 파이프라인" data-report-refs="statistical-factors source-example-2-5 fig-pca-pipeline" data-source-refs="example:2.5">
@@ -354,7 +378,7 @@
     </section>
 
     <section class="slide slide--section" aria-label="여러 팩터 결합" data-report-refs="decision source-section-2-8" data-source-refs="section:2.8" data-source-title="section:2.8">
-      <p class="eyebrow">교재 흐름 · 2.8</p><h1>다 함께 넣기 — 여러 팩터를 하나의 모델로 묶기</h1><p>회귀보다 순위, 그리고 비용까지 본다</p><span class="section-number">07</span>
+      <div class="section-copy"><p class="eyebrow">교재 흐름 · 2.8</p><h1>다 함께 넣기 — 여러 팩터를 하나의 모델로 묶기</h1><p>회귀보다 순위, 그리고 비용까지 본다</p></div><span class="section-number">07</span>
     </section>
 
     <section class="slide" aria-label="회귀보다 순위 방법론이 나은 이유" data-report-refs="decision">
@@ -394,7 +418,7 @@
             <tr><td>유니버스 일치</td><td>ROE 대형주 거의 0 vs 소형주 5%+</td><td>부호까지 뒤집힌다</td></tr>
             <tr><td>측정 정의</td><td>SIR vs DTC — 반대 결론</td><td>결론이 반대가 된다</td></tr>
             <tr><td>순노출</td><td>SPY 헤지 시 ROE/BM 대략 0</td><td>강세장 베팅으로 판명</td></tr>
-            <tr><td>표본 분리</td><td>표본 내 105% → 밖 −6.6%</td><td>백테스트 전체가 무의미</td></tr>
+            <tr><td>표본 분리</td><td>교재 242%·3.7 → OOS 음수; 재현 −6.55%</td><td>백테스트 전체가 무의미</td></tr>
             <tr><td>요인 개수</td><td>112개 훈련 $R^2$ 0.961 → 테스트 음수</td><td>표본 밖에서 무너진다</td></tr>
             <tr><td>거래비용</td><td>+3.80% → −2.78%</td><td>부호가 바뀐다</td></tr>
             <tr><td>정보 가용시점</td><td><strong>이 재현은 검증하지 못했다</strong></td><td>look-ahead bias</td></tr>
@@ -421,7 +445,7 @@
       <footer class="slide-footer"><span>Chapter 2 · 정리 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary decision">
+    <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary decision source-summary">
       <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">WRAP UP</span></header>
       <div class="closing-body">
         <p class="eyebrow">핵심 정리</p>

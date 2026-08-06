@@ -470,7 +470,10 @@ def parse_source_outline(
         r"(\d+\.\d+)(?:\s*[:—-]\s*|\s+)(.+?)\s*$",
         re.IGNORECASE,
     )
-    caption_re = re.compile(r"^(그림|Figure|표|Table)\s+(\d+\.\d+)\s+(.+?)\s*$")
+    caption_re = re.compile(
+        r"^(그림|Figure|표|Table)\s+(\d+\.\d+)\s+(.+?)\s*$",
+        re.IGNORECASE,
+    )
     exercise_re = re.compile(r"^#{1,6}\s+(?:Exercise\s*\(연습문제\)|연습문제)(?:\s*[—-]\s*)?(.+?)\s*$", re.IGNORECASE)
     bold_numbered_exercise_re = re.compile(
         r"^\*\*(\d+\.\d+)\.\*\*\s+(.+?)\s*$"

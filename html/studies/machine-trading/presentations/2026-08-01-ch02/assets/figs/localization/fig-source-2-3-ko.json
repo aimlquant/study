@@ -1,0 +1,14 @@
+{
+  "title": "Figure 2.3 Korean localization",
+  "source": "../../../../../../../../../study-materials/quant/active/machine-trading/chapter_2_factor_models/images/e1e975dbcbc26b0c596c0c2974f5a8d7ff13235e3f00b3ac170044a93a01db14.jpg",
+  "output": "../fig-source-2-3-ko.png",
+  "coordinate_space": [681, 579],
+  "operations": [
+    {"type": "rect", "box": [215, 0, 340, 38], "fill": "#ffffff"},
+    {"type": "text", "box": [225, 2, 320, 33], "text": "팩터로서의 유동성", "font": "bold", "font_size": 23, "min_font_size": 20, "fill": "#111111", "align": "center", "valign": "center"},
+    {"type": "rect", "box": [0, 126, 38, 320], "fill": "#ffffff"},
+    {"type": "text", "box": [1, 136, 34, 300], "text": "누적수익", "font": "regular", "font_size": 24, "min_font_size": 20, "fill": "#111111", "align": "center", "valign": "center", "rotation": 90},
+    {"type": "rect", "box": [324, 539, 120, 40], "fill": "#ffffff"},
+    {"type": "text", "box": [332, 543, 104, 32], "text": "날짜", "font": "regular", "font_size": 22, "min_font_size": 18, "fill": "#111111", "align": "center", "valign": "center"}
+  ]
+}
