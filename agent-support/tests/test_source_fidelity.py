@@ -157,6 +157,21 @@ class SourceFidelityTest(unittest.TestCase):
         self.assertEqual("도입 — 알파와 팩터", outline[("section", "2.0")])
         self.assertNotIn(("section", "2.3"), outline)
 
+    def test_source_outline_accepts_uppercase_english_caption_labels(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "chapter_2.md"
+            source.write_text(
+                "# 팩터 모델\n\nTABLE 2.1 Input loadings\n\n"
+                "FIGURE 2.1 Cross-sectional result\n",
+                encoding="utf-8",
+            )
+            outline = validate_site.parse_source_outline(source)
+
+        self.assertEqual("Input loadings", outline[("table", "2.1")])
+        self.assertEqual(
+            "Cross-sectional result", outline[("figure", "2.1")]
+        )
+
     def test_bold_numbered_exercises_are_opt_in_traceable_coordinates(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / "chapter_1.md"
