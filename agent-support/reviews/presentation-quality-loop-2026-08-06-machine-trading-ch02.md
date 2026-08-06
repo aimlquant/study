@@ -122,3 +122,61 @@ Codex six-gate verdict below is independent.
 
 The Codex quality gates are sufficient. Mutual sufficiency remains pending the exact-window Claude
 response and the final publication checks.
+
+## Round 3 — deployed-deck full visual audit
+
+### Scope and independent baseline
+
+- Audited the deployed 36-slide deck from `origin/main` at `a12f4f8` before consulting this
+  ledger's earlier verdicts.
+- Generated and inspected 108 fresh baseline captures at `1600×900`, `1366×768`, and
+  `390×844` under `tmp/browser-shots/mt-ch2-full-audit/baseline-*`.
+- Contact sheets were used to scan every slide and original-resolution captures were used for
+  the reported and high-risk figure, table, diagram, and checkpoint layouts.
+- Gates 1–5 remained sufficient because no explanatory content, source mapping, claim ownership,
+  or audience-facing prose changed. Gate 6 needed revision for the two defects below.
+
+### Defects and repair decisions
+
+| Slide | Observed defect | Decision and changed layer |
+| --- | --- | --- |
+| 16 | The near-square `673×637` source figure shared the generic stacked figure-plus-table cap (`max-height: 240px`). The slide did not overflow, but the primary figure was needlessly small while internal body space remained unused. | Added the aspect-aware `.slide--figure-table-portrait` contract: the near-square figure and two-row comparison table now share a side-by-side grid, while the wide chart on slide 30 keeps the existing stacked contract. Changed `index.html` and `assets/deck.css`. |
+| 35 | CSS defined the intended `.question-list article/span/p` cards, but the deck used an unstyled `<ol><li>` structure. The three prompts collapsed into sparse plain text and left most of the slide unused. | Aligned the markup with the existing card contract and added the checkpoint slide variant. Prompt wording was not changed. Changed `index.html`. |
+
+No analogous defect was found in the remaining figure-only, diagram, wide figure-plus-table,
+comparison-card, or checklist siblings. Mobile gray space outside the fixed 16:9 stage was treated
+as expected viewport letterboxing, not as slide-internal whitespace.
+
+### Skill and procedure update
+
+- Added an aspect-ratio rule for mixed figure-and-table layouts instead of forcing near-square and
+  wide assets through one height cap.
+- Recorded that contact sheets prove coverage but not final-size legibility; reported and affected
+  layout representatives must also be opened at original resolution.
+- Recorded the distinction between fixed-stage mobile letterboxing and unexplained whitespace
+  inside the slide.
+- Strengthened the deployment gate: match the Pages run `headSha` to merged `main`, put the
+  cache-busting query before the fragment, and inspect exact public deep links at desktop and
+  mobile after deployment.
+
+### Post-repair render evidence
+
+- Root: `tmp/browser-shots/mt-ch2-full-audit/`
+- `final-1600`, `final-1366`, and `final-mobile` contain 36 validated captures each; both manifest
+  runs ended with `failed=0`.
+- Inspected all 18 final contact sheets covering all 36 slides at all three viewports.
+- Inspected final original-resolution desktop slides 5, 16, 19, 24, 30, and 35, plus final mobile
+  slides 16, 19, 24, 30, and 35. Slide 19 is no longer needlessly small; slide 24 stays within its
+  stage; slides 16 and 35 use the available body area without clipping or overlap.
+- Final Round 3 render-quality verdict: **sufficient**. No further deck repair was required.
+
+### Round 3 verification
+
+- `228` unit tests passed; `6` environment-dependent tests skipped.
+- `build_site.py` and `build_site.py --check` passed with the generated site already current.
+- `validate-site.py --site html` passed for 44 HTML files; the eight warnings are the existing
+  external YouTube iframe review notices.
+- `git diff --check` passed.
+
+This was a Codex-only visual iteration. No new peer request was opened and the earlier pending
+Claude requests are not treated as responses; mutual sufficiency remains pending.

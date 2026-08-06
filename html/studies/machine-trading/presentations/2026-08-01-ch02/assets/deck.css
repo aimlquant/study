@@ -1392,6 +1392,37 @@ body.chrome-hidden .deck-settings {
   max-height: 240px;
 }
 
+.slide--figure-table-portrait .slide-body {
+  display: grid;
+  grid-template-columns: minmax(350px, 0.7fr) minmax(0, 1.3fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 28px;
+  row-gap: 10px;
+}
+
+.slide--figure-table-portrait img {
+  grid-column: 1;
+  grid-row: 1;
+  max-height: 330px;
+}
+
+.slide--figure-table-portrait .compare-table {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 15px;
+}
+
+.slide--figure-table-portrait .compare-table th,
+.slide--figure-table-portrait .compare-table td {
+  padding: 14px 16px;
+}
+
+.slide--figure-table-portrait .takeaway {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
 .hierarchy {
   display: flex;
   align-items: center;
