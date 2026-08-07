@@ -28,7 +28,7 @@
       <div class="cover-hero">
         <p class="eyebrow">머신 트레이딩 · Chapter 3</p>
         <h1>시계열 분석</h1>
-        <p class="cover-subtitle">가격과 수익률에 남은 시간적 패턴, 자산 간 관계, 장기 균형, 숨은 추세를 찾아 매매 신호로 바꾼다</p>
+        <p class="cover-subtitle">가격과 수익률에 남은 시간적 패턴, 자산 간 관계, 수준 되돌림, 숨은 추세를 찾아 매매 신호로 바꾼다</p>
       </div>
       <dl class="cover-meta">
         <div><dt>발표자</dt><dd>태호</dd></div>
@@ -60,7 +60,7 @@
               <li>과거 충격과 잡음의 기억 → <strong>ARMA</strong></li>
               <li>추세를 제거한 변화량 → <strong>ARIMA</strong></li>
               <li>다른 종목과의 상호작용 → <strong>VAR</strong></li>
-              <li>장기 균형에서 벗어난 정도 → <strong>VEC</strong></li>
+              <li>어제의 수준이 끌어당기는 힘 → <strong>VEC</strong></li>
               <li>직접 관측되지 않는 추세와 관계 → <strong>칼만 필터</strong></li>
             </ul>
           </article>
@@ -79,10 +79,10 @@
           <article class="card"><span>02</span><h2>AR(p)</h2><p>평균 이탈과 자기회귀</p></article>
           <article class="card"><span>03</span><h2>ARMA · ARIMA</h2><p>잡음의 기억과 차분</p></article>
           <article class="card"><span>04</span><h2>VAR(p)</h2><p>종목 간 상호작용</p></article>
-          <article class="card"><span>05</span><h2>VEC(q)</h2><p>장기 균형에서 벗어난 힘</p></article>
+          <article class="card"><span>05</span><h2>VEC(q)</h2><p>어제의 수준이 끌어당기는 힘</p></article>
           <article class="card"><span>06–07</span><h2>상태공간 · 칼만 필터</h2><p>숨겨진 상태와 과적합</p></article>
         </div>
-        <p class="takeaway"><strong>분석 대상의 확장</strong> — 평균 이탈 → 잡음의 기억 → 차분 → 종목 간 상호작용 → 균형 이탈 → 은닉 상태</p>
+        <p class="takeaway"><strong>분석 대상의 확장</strong> — 평균 이탈 → 잡음의 기억 → 차분 → 종목 간 상호작용 → 수준 이탈 → 은닉 상태</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -277,7 +277,7 @@ pos(yF - mid &lt; 0) = -1;       %    낮으면 매도</code></pre>
     <section class="slide" aria-label="표 3.1과 그림 3.1 AR(10) 거래 전략" data-report-refs="ar-models source-table-3-1 source-fig-3-1" data-source-refs="table:3.1 figure:3.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AR(p) · 표 3.1 · 그림 3.1</span></header>
       <h1>표본외 연율화 158% — 그런데 조건이 붙는다</h1>
-      <p class="lead">표 3.1의 φ₁은 1에 매우 가깝습니다 — 되돌림은 있지만 랜덤워크와 구분하기 어려울 만큼 느립니다.</p>
+      <p class="lead">표 3.1의 φ₁은 1에 매우 가깝습니다 — 되돌림은 있지만 랜덤 워크와 구분하기 어려울 만큼 느립니다.</p>
       <div class="slide-body">
         <img src="assets/figs/src-fig-3-1-ar10-equity.svg" alt="AR(10) 모델로 AUD.USD 중간가격을 예측해 만든 거래 전략의 표본외 누적수익 개형. 곡선이 되돌림 없이 꾸준히 우상향해 연율화 158퍼센트에 도달하며, 이 수익이 중간가격 체결을 전제로 한다는 설명이 붙어 있다." style="width:100%;max-height:40vh;object-fit:contain;display:block;margin:0 auto">
         <p class="takeaway"><strong>교재의 단서</strong> — 중간가격에 체결하려면 지정가 주문을 관리하는 <strong>저지연 실행</strong>이 반드시 필요합니다. 연습문제 3.2가 이 지점을 정확히 겨냥합니다.</p>
@@ -290,13 +290,13 @@ pos(yF - mid &lt; 0) = -1;       %    낮으면 매도</code></pre>
       <h1>φ 하나가 성격을 정한다 — 표 3.1의 φ₁은 어디에 있나</h1>
       <p class="lead">평균과 분산이 시간에 따라 일정하면 <strong>약정상</strong>입니다. AR(1)은 <strong>|φ| &lt; 1</strong>일 때 약정상이고, 약정상이면 <strong>평균회귀</strong>합니다(Chan, 2013).</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-phi-three.svg" alt="평균 100에 어제 가격 110인 상황에서 세 경로를 비교한 도해. 파이가 0.8이면 편차 10이 8, 6.4, 5.1로 줄며 가격이 100으로 되돌아가고, 파이가 1이면 편차가 유지되어 랜덤워크가 되며, 파이가 1.2이면 편차가 커져 평균에서 멀어진다." style="width:100%;max-height:38vh;object-fit:contain;display:block;margin:0 auto">
-        <p class="takeaway"><strong>|φ| &gt; 1이면 추세, φ = 1이면 랜덤워크</strong> — 표 3.1의 φ₁은 0.99 칸에 가깝습니다. 약정상이긴 하지만 되돌림이 랜덤워크와 구분하기 어려울 만큼 느리다는 뜻입니다.</p>
+        <img src="assets/figs/fig-phi-three.svg" alt="평균 100에 어제 가격 110인 상황에서 세 경로를 비교한 도해. 파이가 0.8이면 편차 10이 8, 6.4, 5.1로 줄며 가격이 100으로 되돌아가고, 파이가 1이면 편차가 유지되어 랜덤 워크가 되며, 파이가 1.2이면 편차가 커져 평균에서 멀어진다." style="width:100%;max-height:38vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>|φ| &gt; 1이면 추세, φ = 1이면 랜덤 워크</strong> — 표 3.1의 φ₁은 0.99 칸에 가깝습니다. 약정상이긴 하지만 되돌림이 랜덤 워크와 구분하기 어려울 만큼 느리다는 뜻입니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · φ의 의미</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="호가 반등과 중간가격" data-report-refs="ar-models fig-bounce table-price-views">
+    <section class="slide" aria-label="매수–매도 호가 반등과 중간가격" data-report-refs="ar-models fig-bounce table-price-views">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">MICROSTRUCTURE</span></header>
       <h1>왜 체결가가 아니라 중간가격인가</h1>
       <div class="slide-body">
@@ -399,7 +399,7 @@ bic = reshape(bic, size(LOGL));</code></pre>
           <tbody>
             <tr><td>μ</td><td>2.8038e−06</td><td>사실상 0 — 1분 중간가격이라 방향성 표류가 없다</td></tr>
             <tr><td><strong>φ₁</strong></td><td><strong>0.649011</strong></td><td>바로 전 값의 영향이 가장 크다 · |φ₁| &lt; 1이 확실해졌다</td></tr>
-            <tr><td>φ₂</td><td>0.350986</td><td><strong>φ₁ + φ₂ ≈ 1.000</strong> — 둘을 합치면 거의 랜덤워크다</td></tr>
+            <tr><td>φ₂</td><td>0.350986</td><td><strong>φ₁ + φ₂ ≈ 1.000</strong> — 둘을 합치면 거의 랜덤 워크다</td></tr>
             <tr><td><strong>θ₁</strong></td><td><strong>0.345806</strong></td><td>직전 예측오차가 다음 값으로 이어진다 — MA 항의 값어치</td></tr>
             <tr><td>θ₂ ~ θ₅</td><td>−0.0091 · −0.0106 · −0.0103 · −0.0025</td><td>크기가 0에 가깝다 — 사실상 θ₁ 하나가 일한다</td></tr>
           </tbody>
@@ -682,7 +682,7 @@ positions  = (retF - sectorRetF) ...
             <ul>
               <li>VAR는 가격을 예측하니 신호를 만들려면 <span>$Y_t - Y_{t-1}$</span>을 <strong>다시 계산</strong>해야 한다</li>
               <li>계수 0.4가 큰지 작은지는 A가 200달러, B가 30달러면 판단할 수 없다</li>
-              <li>랜덤워크에 가까우면 자기 계수가 <strong>0.99</strong>로 나와 당연한 말만 남는다 — 표 3.3이 정확히 그랬다</li>
+              <li>랜덤 워크에 가까우면 자기 계수가 <strong>0.99</strong>로 나와 당연한 말만 남는다 — 표 3.3이 정확히 그랬다</li>
             </ul>
           </article>
           <article class="panel panel--accent">
@@ -691,7 +691,7 @@ positions  = (retF - sectorRetF) ...
             <ul>
               <li><span>$Y_t = M + \Phi Y_{t-1} + \varepsilon_t$</span>에서 양변에 <span>$-Y_{t-1}$</span></li>
               <li><span>$\Delta Y_t = M + C\,Y_{t-1} + \varepsilon_t$</span>, 여기서 <strong><span>$C = \Phi - I$</span></strong></li>
-              <li>독립변수가 둘이다 — 과거 <strong>변화량</strong>은 단기 움직임, 과거 <strong>수준</strong>은 장기 균형에서 벗어난 정도</li>
+              <li>독립변수가 둘이다 — 과거 <strong>변화량</strong>은 단기 움직임, 과거 <strong>수준</strong>은 어제의 수준이 오늘의 변화를 끌어당기는 힘</li>
             </ul>
           </article>
         </div>
@@ -702,10 +702,10 @@ positions  = (retF - sectorRetF) ...
 
     <section class="slide" aria-label="오차수정이 작동하는 방식" data-report-refs="vec-models fig-vec">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VEC · 오차수정</span></header>
-      <h1>‘오차’는 예측 실패가 아니라 균형에서 벗어난 정도다</h1>
+      <h1>‘오차’는 예측 실패가 아니라 수준에서 벗어난 정도다</h1>
       <div class="slide-body">
-        <img src="assets/figs/fig-vec-correction.svg" alt="장기 균형이 A는 B의 두 배인 상황에서 A가 110, B가 50이면 이탈이 플러스 10이고 계수 마이너스 0.2를 곱해 델타 A가 마이너스 2가 되어 하락하며, A가 90이면 이탈이 마이너스 10이라 델타 A가 플러스 2가 되어 상승한다는 도해. 아래에 VAR 양변에서 이전 가격을 빼면 C가 파이 빼기 항등행렬이 되어 VEC가 유도된다는 관계가 정리되어 있다." style="width:100%;max-height:38vh;object-fit:contain;display:block;margin:0 auto">
-        <p class="takeaway"><strong>균형 조합은 C가 만듭니다</strong> — <span>$Y_{t-1}$</span> 자체가 A−2B인 것이 아니라, C의 한 행 <span>$[-0.2,\ 0.4]$</span>를 곱하면 <span>$-0.2(A_{t-1} - 2B_{t-1})$</span>이 되는 것입니다. 그래서 대각 원소만이 아니라 <strong>행 전체</strong>를 봐야 합니다.</p>
+        <img src="assets/figs/fig-vec-correction.svg" alt="안정적으로 묶인 관계가 A는 B의 두 배인 상황에서 A가 110, B가 50이면 이탈이 플러스 10이고 계수 마이너스 0.2를 곱해 델타 A가 마이너스 2가 되어 하락하며, A가 90이면 벗어난 정도가 마이너스 10이라 델타 A가 플러스 2가 되어 상승한다는 도해. 아래에 VAR 양변에서 이전 가격을 빼면 C가 파이 빼기 항등행렬이 되어 VEC가 유도된다는 관계가 정리되어 있다." style="width:100%;max-height:38vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>그 조합은 C가 만듭니다</strong> — <span>$Y_{t-1}$</span> 자체가 A−2B인 것이 아니라, C의 한 행 <span>$[-0.2,\ 0.4]$</span>를 곱하면 <span>$-0.2(A_{t-1} - 2B_{t-1})$</span>이 되는 것입니다. 그래서 대각 원소만이 아니라 <strong>행 전체</strong>를 봐야 합니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 오차수정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -739,8 +739,8 @@ positions  = (retF - sectorRetF) ...
             <p class="eyebrow">C를 분해해서 읽으면</p>
             <h2>C = αβᵀ</h2>
             <ul>
-              <li><span>$\beta^{\top}Y_{t-1}$</span> — <strong>장기 균형에서 벗어난 정도</strong> (예: A − 2B)</li>
-              <li><span>$\alpha$</span> — <strong>균형으로 돌아오는 속도</strong></li>
+              <li><span>$\beta^{\top}Y_{t-1}$</span> — <strong>안정적으로 묶인 조합에서 벗어난 정도</strong> (예: A − 2B)</li>
+              <li><span>$\alpha$</span> — <strong>되돌아오는 속도</strong></li>
               <li><span>$\alpha = [-0.2,\ 0.1]$</span>이고 10만큼 벗어났다면 ΔA = −2, ΔB = +1로 서로를 향해 움직인다</li>
               <li>교재는 “C가 유의한 음의 고유값을 만든다”고 표현한다</li>
             </ul>
@@ -779,7 +779,7 @@ positions  = (retF - sectorRetF) ...
             <ul>
               <li><strong>AR · ARMA</strong> — 자기 과거값과 과거 충격</li>
               <li><strong>VAR</strong> — 다른 종목의 과거값까지</li>
-              <li><strong>VEC</strong> — 종목 간 장기 균형에서 벗어난 정도</li>
+              <li><strong>VEC</strong> — 어제의 가격 수준이 끌어당기는 힘</li>
               <li>공통점 — 핵심 변수가 전부 <strong>관측된 값</strong>이다</li>
             </ul>
           </article>
@@ -804,7 +804,7 @@ positions  = (retF - sectorRetF) ...
       <div class="slide-body">
         <div class="two-col">
           <article class="panel">
-            <p class="eyebrow">① 상태전이방정식</p>
+            <p class="eyebrow">① 상태 전이 방정식</p>
             <h2>x(t) = A x(t−1) + B u(t)</h2>
             <ul>
               <li><strong>A</strong> — 이전 상태가 얼마나 이어지는가</li>
@@ -814,7 +814,7 @@ positions  = (retF - sectorRetF) ...
             </ul>
           </article>
           <article class="panel panel--accent">
-            <p class="eyebrow">② 측정방정식</p>
+            <p class="eyebrow">② 측정 방정식</p>
             <h2>y(t) = C x(t) + D ε(t)</h2>
             <ul>
               <li><strong>C</strong> — 상태가 관측값에 반영되는 방식</li>
@@ -1093,7 +1093,7 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <div class="slide-body">
         <div class="two-col">
           <article class="panel">
-            <p class="eyebrow">① 체질 변화 (regime change)</p>
+            <p class="eyebrow">① 레짐 변화 (regime change)</p>
             <h2>공적분이 깨졌을 수 있다</h2>
             <ul>
               <li>예전에는 <span>$EWC_t \approx \beta_t EWA_t + \alpha_t$</span>가 안정적으로 유지됐다</li>
@@ -1143,7 +1143,7 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
             </ul>
           </article>
         </div>
-        <p class="takeaway"><strong>데이터가 많다는 조건이 곧 방향을 가리킵니다</strong> — 그래서 이 방법들은 <strong>인트라데이 트레이딩</strong>에서 특히 유망합니다.</p>
+        <p class="takeaway"><strong>데이터가 많다는 조건이 곧 방향을 가리킵니다</strong> — 그래서 이 방법들은 <strong>일중(intraday) 트레이딩</strong>에서 특히 유망합니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 요약</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
