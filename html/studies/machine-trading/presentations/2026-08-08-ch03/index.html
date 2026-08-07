@@ -763,7 +763,7 @@ positions  = (retF - sectorRetF) ...
     <section class="slide slide--section" aria-label="상태공간 모델 섹션" data-report-refs="state-space">
       <p class="eyebrow">SECTION 06</p>
       <h1>상태공간 모델</h1>
-      <p>보이지 않는 것을 추정한다</p>
+      <p>보이지 않는 것을 추정한다 — 이동평균과 헤지비율, 두 예시</p>
       <span class="section-number">06</span>
     </section>
 
@@ -961,14 +961,7 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <footer class="slide-footer"><span>Chapter 3 · 과적합</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="EWA EWC 섹션" data-report-refs="ewa-ewc">
-      <p class="eyebrow">SECTION 07</p>
-      <h1>EWA–EWC</h1>
-      <p>헤지비율을 은닉 상태로 둔다</p>
-      <span class="section-number">07</span>
-    </section>
-
-    <section class="slide" aria-label="은닉 상태를 헤지비율로 바꾸다" data-report-refs="ewa-ewc">
+    <section class="slide" aria-label="은닉 상태를 헤지비율로 바꾸다" data-report-refs="state-space">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EWA–EWC · 설정</span></header>
       <h1>같은 도구, 전혀 다른 문제</h1>
       <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
@@ -1002,7 +995,7 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <footer class="slide-footer"><span>Chapter 3 · EWA–EWC 설정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="잔차로 읽는 페어 트레이딩" data-report-refs="ewa-ewc">
+    <section class="slide" aria-label="잔차로 읽는 페어 트레이딩" data-report-refs="state-space">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EWA–EWC · 신호</span></header>
       <h1>β = 0.8, α = 5, EWA = 50이면 정상 EWC는 45</h1>
       <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
@@ -1034,7 +1027,7 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <footer class="slide-footer"><span>Chapter 3 · 잔차와 신호</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="그림 3.6과 3.7 기울기와 오프셋 추정값" data-report-refs="ewa-ewc source-fig-3-6 source-fig-3-7" data-source-refs="figure:3.6 figure:3.7" data-figure-comparison="intentional">
+    <section class="slide" aria-label="그림 3.6과 3.7 기울기와 오프셋 추정값" data-report-refs="state-space source-fig-3-6 source-fig-3-7" data-source-refs="figure:3.6 figure:3.7" data-figure-comparison="intentional">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">그림 3.6 · 3.7</span></header>
       <h1>헤지비율은 상수가 아니다</h1>
       <p class="lead">그림 3.6의 세로축 <code>Slope = x(t,1)</code>이 곧 <strong>β<sub>t</sub></strong>입니다.</p>
@@ -1048,7 +1041,7 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <footer class="slide-footer"><span>Chapter 3 · 은닉 헤지비율</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="표 3.6 B 행렬과 공분산" data-report-refs="ewa-ewc">
+    <section class="slide" aria-label="표 3.6 B 행렬과 공분산" data-report-refs="state-space">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EWA–EWC · 표 3.6</span></header>
       <h1>이번에는 교차상관을 제약하지 않았다</h1>
       <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
@@ -1081,7 +1074,7 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <footer class="slide-footer"><span>Chapter 3 · 표 3.6</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="그림 3.8과 3.9 페어 전략 학습과 테스트" data-report-refs="ewa-ewc source-fig-3-8 source-fig-3-9" data-source-refs="figure:3.8 figure:3.9" data-figure-comparison="intentional">
+    <section class="slide" aria-label="그림 3.8과 3.9 페어 전략 학습과 테스트" data-report-refs="state-space source-fig-3-8 source-fig-3-9" data-source-refs="figure:3.8 figure:3.9" data-figure-comparison="intentional">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">그림 3.8 · 3.9</span></header>
       <h1>학습 +58% · 테스트 사실상 0</h1>
       <div class="slide-body">
@@ -1094,7 +1087,7 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <footer class="slide-footer"><span>Chapter 3 · 페어 전략</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="두 가지 원인과 처방" data-report-refs="ewa-ewc exercises">
+    <section class="slide" aria-label="두 가지 원인과 처방" data-report-refs="state-space exercises">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EWA–EWC · 해석</span></header>
       <h1>체질이 변했나, 잡음을 외웠나</h1>
       <div class="slide-body">
