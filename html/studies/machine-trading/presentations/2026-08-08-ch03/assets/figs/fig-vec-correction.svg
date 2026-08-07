@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" role="img" aria-label="VEC 오차수정이 작동하는 방식을 두 경우로 보여주는 도해. 장기 균형은 A가 B의 두 배여서 A 빼기 2B가 0이다. 왼쪽 경우는 A가 110, B가 50이라 균형 이탈이 플러스 10이고, 계수 마이너스 0.2를 곱하면 델타 A가 마이너스 2가 되어 A가 내려가며 균형으로 돌아간다. 오른쪽 경우는 A가 90, B가 50이라 이탈이 마이너스 10이고 델타 A가 플러스 2가 되어 A가 올라간다. 아래에는 VAR에서 양변에 이전 가격을 빼면 C가 파이 빼기 항등행렬이 되어 VEC가 유도된다는 관계가 정리되어 있다.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" role="img" aria-label="VEC 오차수정이 작동하는 방식을 두 경우로 보여주는 도해. 안정적으로 묶인 관계는 A가 B의 두 배여서 A 빼기 2B가 0이다. 왼쪽 경우는 A가 110, B가 50이라 벗어난 정도가 플러스 10이고, 계수 마이너스 0.2를 곱하면 델타 A가 마이너스 2가 되어 A가 내려가며 관계 쪽으로 돌아간다. 오른쪽 경우는 A가 90, B가 50이라 벗어난 정도가 마이너스 10이고 델타 A가 플러스 2가 되어 A가 올라간다. 아래에는 VAR에서 양변에 이전 가격을 빼면 C가 파이 빼기 항등행렬이 되어 VEC가 유도된다는 관계가 정리되어 있다.">
   <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
   <rect width="920" height="400" fill="#FAFAF9"/>
   <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
 
-    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">‘오차’는 예측 실패가 아니라 장기 균형에서 벗어난 정도다</text>
-    <text x="32" y="56" font-size="12.5" fill="#6B6B72">가정한 장기 관계: A ≈ 2B, 즉 A − 2B ≈ 0 &#160;·&#160; 추정된 식: ΔA(t) = −0.2 ( A(t−1) − 2B(t−1) ) + …</text>
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">‘오차’는 예측 실패가 아니라 수준에서 벗어난 정도다</text>
+    <text x="32" y="56" font-size="12.5" fill="#6B6B72">안정적으로 묶인 관계: A ≈ 2B, 즉 A − 2B ≈ 0 &#160;·&#160; 추정된 식: ΔA(t) = −0.2 ( A(t−1) − 2B(t−1) ) + …</text>
 
     <!-- case 1 -->
     <rect x="32" y="76" width="416" height="212" rx="10" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.4"/>
@@ -21,7 +21,7 @@
 
     <line x1="52" y1="196" x2="428" y2="196" stroke="#E4E2DE"/>
     <text x="52" y="222" font-size="12" fill="#6B6B72">A가 약 2만큼 내려가며</text>
-    <text x="52" y="244" font-size="12.5" font-weight="700" fill="#0F0F10">균형(A = 2B) 쪽으로 되돌아간다</text>
+    <text x="52" y="244" font-size="12.5" font-weight="700" fill="#0F0F10">묶인 관계(A = 2B)로 되돌아간다</text>
     <path d="M300 234 L360 234" stroke="#C0392B" stroke-width="2.4" fill="none"/>
     <path d="M360 234 l-8 -5 l0 10 z" fill="#C0392B"/>
     <text x="392" y="238" font-size="12" fill="#C0392B">하락</text>
@@ -41,7 +41,7 @@
 
     <line x1="492" y1="196" x2="868" y2="196" stroke="#E4E2DE"/>
     <text x="492" y="222" font-size="12" fill="#6B6B72">A가 약 2만큼 올라가며</text>
-    <text x="492" y="244" font-size="12.5" font-weight="700" fill="#0F0F10">같은 균형 쪽으로 되돌아간다</text>
+    <text x="492" y="244" font-size="12.5" font-weight="700" fill="#0F0F10">같은 관계 쪽으로 되돌아간다</text>
     <path d="M740 234 L800 234" stroke="#2E7D5B" stroke-width="2.4" fill="none"/>
     <path d="M800 234 l-8 -5 l0 10 z" fill="#2E7D5B"/>
     <text x="832" y="238" font-size="12" fill="#2E7D5B">상승</text>
