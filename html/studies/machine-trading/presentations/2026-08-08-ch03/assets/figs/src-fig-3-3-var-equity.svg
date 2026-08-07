@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" role="img" aria-label="VAR(1) 모델을 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 누적수익 개형. 곡선은 오르내림을 반복하면서도 전체적으로 우상향해 연율 48퍼센트, 샤프 비율 0.9에 이른다. 샤프 0.9는 등락이 상당하다는 뜻이라는 설명이 붙어 있다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="880" height="410" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">샤프 0.9는 '자주 틀리면서도 전체로는 이긴다'는 뜻이다</text>
+    <text x="32" y="56" font-size="12.5" fill="#6B6B72">VAR(1) · 컴퓨터 하드웨어 주식 · 섹터 중립 배분 &#160;·&#160; 연율 48%, 샤프 0.9</text>
+    <rect x="32" y="76" width="816" height="254" rx="10" fill="#FFFFFF" stroke="#0F2C59" stroke-width="1.4"/>
+    <text x="52" y="102" font-size="12" font-weight="700" fill="#0F2C59">누적수익</text>
+    <line x1="90.0" y1="122" x2="90.0" y2="272" stroke="#C9C7C2"/>
+    <line x1="90.0" y1="254" x2="824" y2="254" stroke="#C9C7C2" stroke-dasharray="3 3"/>
+    <text x="82.0" y="126" font-size="10" fill="#9A9893" text-anchor="end">높음</text>
+    <text x="82.0" y="258" font-size="10" fill="#9A9893" text-anchor="end">0</text>
+    <polyline points="90,254 146,246 203,251 259,233 316,224 372,235 429,216 485,201 542,210 598,187 655,177 711,184 768,163 824,148" fill="none" stroke="#0F2C59" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="824" y="116" font-size="15" font-weight="800" fill="#0F2C59" text-anchor="end">연율 48% · 샤프 0.9</text>
+    <text x="163" y="290" font-size="10" fill="#9A9893" text-anchor="middle">구간 초</text>
+    <text x="457" y="290" font-size="10" fill="#9A9893" text-anchor="middle">중반</text>
+    <text x="751" y="290" font-size="10" fill="#9A9893" text-anchor="middle">구간 말</text>
+    <line x1="52" y1="302" x2="828" y2="302" stroke="#E4E2DE"/>
+    <text x="52" y="320" font-size="10.5" fill="#6B6B72">눌리는 구간이 반복된다 — 앞선 두 그림의 매끄러움과 대비된다</text>
+    <rect x="32" y="348" width="816" height="54" rx="8" fill="#EDF1F7"/>
+    <text x="52" y="372" font-size="12.5" fill="#0F0F10">업종 전체의 등락에는 걸지 않고 <tspan font-weight="700">업종 안의 순위</tspan>에만 거는 배분이다.</text>
+    <text x="52" y="394" font-size="11.5" fill="#6B6B72">그래서 시장이 통째로 오르든 내리든 손익은 종목 간 격차에서만 나온다. 발표자 재구성 · 개형만 전달한다.</text>
+  </g>
+</svg>

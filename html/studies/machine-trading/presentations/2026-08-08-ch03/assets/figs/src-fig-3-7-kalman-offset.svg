@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" role="img" aria-label="EWC와 EWA 사이 오프셋에 대한 칼만 필터 추정값의 시간 변화 개형. 초기 과도 구간 이후 값이 자리를 잡지만 기울기보다 더 크게 표류하며 구간에 따라 수준 자체가 달라진다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="880" height="380" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">오프셋도 함께 움직인다 — 관계의 위치까지 변한다</text>
+    <text x="32" y="56" font-size="12.5" fill="#6B6B72">기울기가 두 종목의 민감도라면, 오프셋은 그 관계가 놓인 높이다</text>
+    <rect x="32" y="76" width="816" height="212" rx="10" fill="#FFFFFF" stroke="#2E7D5B" stroke-width="1.4"/>
+    <text x="52" y="102" font-size="12" font-weight="700" fill="#2E7D5B">그림 3.7 · 오프셋 추정값의 시간 변화</text>
+    <line x1="108" y1="120" x2="108" y2="258" stroke="#C9C7C2"/>
+    <line x1="108" y1="258" x2="824" y2="258" stroke="#C9C7C2"/>
+    <text x="100" y="124" font-size="10" fill="#9A9893" text-anchor="end">높음</text>
+    <text x="100" y="262" font-size="10" fill="#9A9893" text-anchor="end">낮음</text>
+    <rect x="108" y="120" width="86" height="138" fill="#FDECEC" opacity="0.65"/>
+    <text x="151" y="138" font-size="10" fill="#C0392B" text-anchor="middle">초기 과도</text>
+    <polyline points="108,189 150,244 192,172 234,217 276,195 319,189 361,197 403,186 445,178 487,189 529,172 571,161 613,167 656,150 698,159 740,148 782,156 824,164" fill="none" stroke="#2E7D5B" stroke-width="2.4" stroke-linejoin="round"/>
+    <text x="108" y="278" font-size="10" fill="#9A9893">2006</text>
+    <text x="466" y="278" font-size="10" fill="#9A9893" text-anchor="middle">2009</text>
+    <text x="824" y="278" font-size="10" fill="#9A9893" text-anchor="end">2012</text>
+    <rect x="32" y="304" width="816" height="60" rx="8" fill="#EDF1F7"/>
+    <text x="52" y="328" font-size="12.5" fill="#0F0F10">두 값이 같이 흔들린다는 것은 <tspan font-weight="700">관계 자체가 시간에 따라 재정의된다</tspan>는 뜻이다.</text>
+    <text x="52" y="350" font-size="11.5" fill="#6B6B72">그래서 오늘의 스프레드가 큰지 작은지도 '오늘 기준'으로 다시 재야 한다. 발표자 재구성 · 개형만 전달한다.</text>
+  </g>
+</svg>

@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Machine Trading Chapter 3 시계열 분석 발표자료">
-  <title>시계열 분석</title>
+  <title>Chapter 3. 시계열 분석</title>
   <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/deck.css">
   <link rel="stylesheet" href="assets/katex/katex.min.css">
@@ -23,321 +22,1187 @@
   </div>
 
   <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
-    <section class="slide slide--cover" aria-label="시계열 분석 표지" data-report-refs="summary">
+
+    <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
       <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
       <div class="cover-hero">
-        <p class="eyebrow">MACHINE TRADING · CHAPTER 3</p>
+        <p class="eyebrow">머신 트레이딩 · Chapter 3</p>
         <h1>시계열 분석</h1>
-        <p class="cover-subtitle">예측 모형보다 먼저 정보 경계와 체결 가능성을 묻는다</p>
+        <p class="cover-subtitle">가격과 수익률에 남은 시간적 패턴, 자산 간 관계, 장기 균형, 숨은 추세를 찾아 매매 신호로 바꾼다</p>
       </div>
-      <dl class="cover-meta"><div><dt>발표자</dt><dd>태호</dd></div><div><dt>학습 범위</dt><dd>Chapter 3</dd></div><div><dt>일시</dt><dd>2026-08-08</dd></div></dl>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>태호</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 3 (pp. 59–82)</dd></div>
+        <div><dt>일시</dt><dd>2026-08-08</dd></div>
+      </dl>
     </section>
 
-    <section class="slide" aria-label="발표를 관통하는 세 질문" data-report-refs="summary table-overview">
+    <section class="slide" aria-label="예측 대상으로서의 가격" data-report-refs="summary table-overview">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
-      <h1>좋은 예측은 곧 좋은 거래일까?</h1>
-      <p class="lead">모델 이름을 외우기 전에 세 경계를 하나의 검증 계약으로 묶는다.</p>
-      <div class="slide-body">
-        <div class="card-grid">
-          <article class="card"><span>01</span><h2>기억</h2><p>과거 가격·오차·다른 자산·은닉 상태 중 무엇을 쓰는가?</p></article>
-          <article class="card"><span>02</span><h2>시간 경계</h2><p>시간 t의 정보만으로 t+1을 예측하고 한 시점 뒤에 거래하는가?</p></article>
-          <article class="card"><span>03</span><h2>실행</h2><p>중간가격 우위가 스프레드와 회전율 뒤에도 남는가?</p></article>
-        </div>
-        <p class="takeaway"><strong>한 문장 결론</strong> — 복잡한 모델보다 학습·예측·포지션·비용·표본외 평가의 경계가 먼저다.</p>
-      </div>
-      <footer class="slide-footer"><span>Chapter 3 · 핵심 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="시계열 모델 전체 지도" data-report-refs="summary fig-model-map">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">MODEL MAP</span></header>
-      <h1>기억의 범위를 넓히며 모델이 확장된다</h1>
-      <p class="lead">한 가격의 기억에서 여러 자산의 연결, 보이지 않는 상태 추정으로 이동한다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure"><img src="assets/figs/concept-flow.svg" alt="AR에서 VAR와 상태공간 모델을 거쳐 거래 규칙으로 이어지는 모델 지도"><figcaption><b>그림 1</b><span>단변량 → 다변량 → 은닉 상태</span><span>표현력과 추정 부담이 함께 증가</span><a class="report-ref" href="report.html#fig-model-map">리포트 근거</a></figcaption></figure>
-      </div>
-      <footer class="slide-footer"><span>Chapter 3 · 모델 지도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="왜 시계열 분석인가" data-report-refs="why-time-series">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">WHY TIME SERIES</span></header>
-      <h1>가격의 순서 자체가 정보가 되는 시장</h1>
-      <p class="lead">통화·비트코인처럼 펀더멘털 직관이 약한 시장에서 시계열은 실용적인 출발점이다.</p>
+      <h1>가격을 직접 맞히는 대신, 시계열 속 구조를 본다</h1>
+      <p class="lead">여섯 모형 모두 미래 가격이 아니라 <strong>시계열 속 구조</strong>를 추정하기 위한 도구입니다.</p>
       <div class="slide-body">
         <div class="two-col">
-          <article class="panel"><p class="eyebrow">MODEL</p><h2>시간의 기억을 묻는다</h2><ul><li>정상성: 평균·분산이 시간에 따라 안정적인가</li><li>지연값: 과거가 현재에 얼마나 남는가</li><li>혁신: 과거로 설명하지 못한 새 충격은 무엇인가</li></ul></article>
-          <article class="panel panel--accent"><p class="eyebrow">TRADING</p><h2>체결 가능한가를 묻는다</h2><ul><li>신호 시점과 손익 시점을 분리</li><li>중간가격과 bid/ask를 분리</li><li>표본내 설명과 표본외 성과를 분리</li></ul></article>
+          <article class="panel">
+            <p class="eyebrow">모형 이름만 나열하면</p>
+            <h2>AR → ARMA → ARIMA → VAR → VEC → 칼만 필터</h2>
+            <ul>
+              <li>수식과 용어만 늘어날 뿐, 각 모형이 왜 필요한지는 보이지 않는다</li>
+              <li>자연스럽게 “어느 모형이 가장 좋은가?”를 묻게 된다</li>
+              <li>정작 각 모형이 어떤 문제를 해결하려는지는 놓치게 된다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">모형이 보는 대상을 따라가면</p>
+            <h2>앞선 모형이 놓친 정보를 하나씩 더한다</h2>
+            <ul>
+              <li>평균에서 벗어난 움직임 → <strong>AR</strong></li>
+              <li>과거 충격과 잡음의 기억 → <strong>ARMA</strong></li>
+              <li>추세를 제거한 변화량 → <strong>ARIMA</strong></li>
+              <li>다른 종목과의 상호작용 → <strong>VAR</strong></li>
+              <li>장기 균형에서 벗어난 정도 → <strong>VEC</strong></li>
+              <li>직접 관측되지 않는 추세와 관계 → <strong>칼만 필터</strong></li>
+            </ul>
+          </article>
         </div>
-        <p class="takeaway"><strong>경계</strong> — “다음 값을 예측한다”와 “비용 후 수익을 낸다”는 서로 다른 주장이다.</p>
+        <p class="takeaway"><strong>모형이 늘어나는 이유</strong> — 복잡한 수식을 쓰기 위해서가 아니라 앞선 모형이 놓친 정보를 보기 위해서입니다. 다만 새 정보를 볼 때마다 추정할 대상도 하나씩 늘어납니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 핵심 요약</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="오늘의 흐름과 이 자료의 구조" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>오늘의 흐름</h1>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>01</span><h2>들어가며</h2><p>정상성에서 공적분까지, 분석의 출발점</p></article>
+          <article class="card"><span>02</span><h2>AR(p)</h2><p>평균 이탈과 자기회귀</p></article>
+          <article class="card"><span>03</span><h2>ARMA · ARIMA</h2><p>잡음의 기억과 차분</p></article>
+          <article class="card"><span>04</span><h2>VAR(p)</h2><p>종목 간 상호작용</p></article>
+          <article class="card"><span>05</span><h2>VEC(q)</h2><p>장기 균형에서 벗어난 힘</p></article>
+          <article class="card"><span>06–07</span><h2>상태공간 · 칼만 필터</h2><p>숨겨진 상태와 과적합</p></article>
+        </div>
+        <p class="takeaway"><strong>분석 대상의 확장</strong> — 평균 이탈 → 잡음의 기억 → 차분 → 종목 간 상호작용 → 균형 이탈 → 은닉 상태</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="들어가며 섹션" data-report-refs="intro table-ta-vs-tsa">
+      <p class="eyebrow">SECTION 01</p>
+      <h1>들어가며</h1>
+      <p>시계열 분석은 어디에 쓰는가</p>
+      <aside style="margin-top:30px;max-width:900px;border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:16px 20px 14px;background:rgba(255,255,255,0.05);">
+        <p style="margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:0.09em;color:#8ab4f8;">참고 · 기술적 분석과 시계열 분석은 다르다</p>
+        <p style="margin:0 0 12px;font-size:15px;color:rgba(255,255,255,0.78);">기술적 분석은 <strong style="color:#fff;">투자 철학이자 매매 방법</strong>, 시계열 분석은 <strong style="color:#fff;">데이터를 다루는 수학·통계 기법</strong>입니다.</p>
+        <table style="width:100%;border-collapse:collapse;font-size:14.5px;color:rgba(255,255,255,0.85);">
+          <thead>
+            <tr style="color:rgba(255,255,255,0.5);font-size:12.5px;text-align:left;">
+              <th style="width:16%;padding:0 12px 7px 0;font-weight:600;">구분</th>
+              <th style="width:38%;padding:0 12px 7px 0;font-weight:600;">기술적 분석</th>
+              <th style="padding:0 0 7px;font-weight:600;">시계열 분석</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:5px 12px 5px 0;border-top:1px solid rgba(255,255,255,0.12);">목적</td><td style="padding:5px 12px 5px 0;border-top:1px solid rgba(255,255,255,0.12);">매매 신호 찾기</td><td style="padding:5px 0;border-top:1px solid rgba(255,255,255,0.12);">미래 데이터 예측</td></tr>
+            <tr><td style="padding:5px 12px 5px 0;border-top:1px solid rgba(255,255,255,0.12);">기반</td><td style="padding:5px 12px 5px 0;border-top:1px solid rgba(255,255,255,0.12);">차트, 패턴, 지표</td><td style="padding:5px 0;border-top:1px solid rgba(255,255,255,0.12);">통계학, 확률론</td></tr>
+            <tr><td style="padding:5px 12px 5px 0;border-top:1px solid rgba(255,255,255,0.12);">데이터</td><td style="padding:5px 12px 5px 0;border-top:1px solid rgba(255,255,255,0.12);">가격, 거래량</td><td style="padding:5px 0;border-top:1px solid rgba(255,255,255,0.12);">가격, 거래량, 금리, 환율 등 시간 데이터</td></tr>
+            <tr><td style="padding:5px 12px 5px 0;border-top:1px solid rgba(255,255,255,0.12);">대표 기법</td><td style="padding:5px 12px 5px 0;border-top:1px solid rgba(255,255,255,0.12);">이동평균, MACD, RSI, 볼린저밴드</td><td style="padding:5px 0;border-top:1px solid rgba(255,255,255,0.12);">AR, ARIMA, VAR, GARCH, 칼만 필터</td></tr>
+          </tbody>
+        </table>
+      </aside>
+      <span class="section-number">01</span>
+    </section>
+
+    <section class="slide" aria-label="경제학과 신호처리의 도구" data-report-refs="intro">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">WHY</span></header>
+      <h1>경제학과 신호처리의 도구를 트레이딩에 적용한다</h1>
+      <p class="lead">경제학자·전기공학자가 오래 해 온 일 — 트레이더도 본질은 같습니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="panel">
+            <p class="eyebrow">두 분야에서 가져온 도구</p>
+            <h2>계량경제학과 신호처리</h2>
+            <ul>
+              <li>ARIMA·VAR·VEC — 과거 패턴과 변수 간 관계를 모델링</li>
+              <li>이동평균·칼만 필터 — 잡음을 걸러내고 숨겨진 상태를 추정</li>
+              <li>두 계열 모두 퀀트 투자에서 널리 쓰인다</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <p class="eyebrow">특히 잘 맞는 시장</p>
+            <h2>통화와 비트코인</h2>
+            <ul>
+              <li>펀더멘털과 직관이 부족하거나 단기 예측에 유용하지 않다</li>
+              <li>교과서적 경제 모형으로 월별 환율 변동을 설명하기 어렵다</li>
+              <li>그래서 가격의 통계적 패턴과 신호 구조를 직접 분석한다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">주식에도 적용할 수 있다</p>
+            <h2>대체가 아니라 보완</h2>
+            <ul>
+              <li>주식에는 실적과 가치평가 정보가 풍부하다</li>
+              <li>그럼에도 단기 움직임·종목 간 상호작용·공적분·숨은 추세에 유용하다</li>
+              <li>통화로 설명한 원리를 주식 사례로 확장한다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>이 장이 다루는 것</strong> — 가격을 단순히 맞히는 방법이 아니라, 계량경제학과 신호처리의 도구로 가격 시계열 속 <strong>패턴 · 관계 · 숨겨진 상태</strong>를 추정하는 방법입니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 들어가며</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="AR 모델 섹션" data-report-refs="ar-models">
-      <p class="eyebrow">SECTION 01</p><h1>AR(p)</h1><p>한 가격의 과거가 현재에 남기는 선형 기억</p><span class="section-number">01</span>
+    <section class="slide" aria-label="정상성과 공적분" data-report-refs="intro fig-stationarity">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">STATIONARITY</span></header>
+      <h1>모든 모형이 딛고 선 전제 — 정상성과 공적분</h1>
+      <p class="lead">정상성은 하나를 보고, 공적분은 둘의 관계를 봅니다.</p>
+      <div class="slide-body">
+        <img src="assets/figs/fig-stationary-vs-coint.svg" alt="왼쪽은 100에서 160까지 오르는 비정상 가격과 그것을 수익률로 바꾸면 0퍼센트 근처를 오가는 정상 시계열이 되는 모습, 오른쪽은 삼성전자와 하이닉스가 각각 비정상이지만 삼성에서 하이닉스의 두 배를 뺀 스프레드가 0 근처를 오가 정상이 되는 모습을 보여주는 도해" style="width:100%;max-height:44vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>이 전제가 쓰이는 곳</strong> — VEC와 EWA–EWC 페어가 전부 “스프레드는 정상이다”라는 가정 위에 서 있습니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 정상성과 공적분</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--visual" aria-label="AR1 계수의 세 구간" data-report-refs="ar-models fig-ar-regimes">
+    <section class="slide slide--section" aria-label="AR(p) 섹션" data-report-refs="ar-models">
+      <p class="eyebrow">SECTION 02</p>
+      <h1>AR(p)</h1>
+      <p>과거의 자기 자신으로 예측한다</p>
+      <span class="section-number">02</span>
+    </section>
+
+    <section class="slide" aria-label="AR(1) 가장 단순한 모델" data-report-refs="ar-models">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AR(1)</span></header>
-      <h1>φ는 충격이 얼마나 오래 남는지를 말한다</h1>
-      <p class="lead">통계적 부등식만 보지 말고 1과의 거리와 거래 빈도를 함께 읽는다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure"><img src="assets/figs/ar-regimes.svg" alt="AR1 계수에 따른 평균회귀 랜덤워크 발산 구간"><figcaption><b>그림 2</b><span>|φ|&lt;1 평균회귀 · φ=1 랜덤워크</span><span>AUD.USD 0.99997은 실질적으로 1에 매우 가깝다</span><a class="report-ref" href="report.html#fig-ar-regimes">리포트 근거</a></figcaption></figure>
+      <h1>AR(1) — 두 시점을 잇는 선형 회귀일 뿐이다</h1>
+      <div class="katex-equation" style="margin:0.3rem 0 0.5rem;">
+        $$ Y(t) - \mu = \phi\,\big(Y(t-1) - \mu\big) + \varepsilon(t) $$
+      </div>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">식을 이루는 세 기호</p>
+            <h2>이름이 자기회귀인 이유</h2>
+            <ul>
+              <li><strong>Y(t)</strong> — 시각 t에서의 가격</li>
+              <li><strong>φ</strong> — (자기)회귀 계수</li>
+              <li><strong>ε</strong> — 평균이 0인 가우시안 잡음, <strong>혁신(innovation)</strong>이라고도 부른다</li>
+              <li>자기 자신의 과거로 자신을 설명하므로 <strong>자기회귀 과정</strong>이다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">한 문장으로 줄이면</p>
+            <h2>오늘 가격은 어제 가격의 영향을 받는다</h2>
+            <ul>
+              <li><strong>회귀</strong> — 다른 변수로 목표 값을 예측</li>
+              <li><strong>자기회귀</strong> — 자기 자신의 과거 값으로 현재를 예측</li>
+              <li>어제 삼성전자가 100,000원이면 오늘은 99,800 · 100,100 · 100,300 근처다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>예측 대상</strong>은 가격이 아니라 <strong>평균에서 벗어난 정도</strong>, 그리고 핵심은 <strong>φ를 어떻게 구하는가</strong>입니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · AR(1)</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="AR 차수와 BIC" data-report-refs="ar-models source-table-3-1 code-ar-bic">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AR(p) &amp; BIC</span></header>
-      <h1>시차를 늘리면 적합도와 과적합이 함께 커진다</h1>
-      <p class="lead">BIC는 로그가능도 개선과 모수 수 벌점을 함께 비교해 차수 p를 고른다.</p>
-      <div class="slide-body">
-        <div class="kpi-grid">
-          <article class="kpi"><strong>60</strong><h2>후보 시차</h2><p>p=1…60을 같은 학습 구간에서 비교한다.</p></article>
-          <article class="kpi"><strong>10</strong><h2>선택된 차수</h2><p>교재의 AUD.USD 사례는 AR(10)을 사용한다.</p></article>
-          <article class="kpi"><strong>0.993434</strong><h2>φ₁</h2><p>직전 가격 영향이 대부분을 차지한다.</p></article>
-        </div>
-        <p class="takeaway"><strong>주의</strong> — 학습 구간을 선언한 뒤 실제 적합 입력도 반드시 같은 구간이어야 한다.</p>
+    <section class="slide" aria-label="AR(p) 일반화와 차수 선택" data-report-refs="ar-models">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AR(p)</span></header>
+      <h1>어디까지 거슬러 볼 것인가</h1>
+      <div class="katex-equation" style="margin:0.3rem 0 0.5rem;">
+        $$ Y(t) = \mu + \phi_1 Y(t-1) + \phi_2 Y(t-2) + \cdots + \phi_p Y(t-p) + \varepsilon(t) $$
       </div>
-      <footer class="slide-footer"><span>Chapter 3 · AR 차수 선택</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">다시 보면</p>
+            <h2>다중 회귀 모델일 뿐이다</h2>
+            <ul>
+              <li><strong>종속변수</strong> — 시간 t의 가격</li>
+              <li><strong>독립변수</strong> — 최대 p개 시차의 과거 가격</li>
+              <li>보통의 회귀와 달라진 점은 설명변수가 <strong>자기 자신의 과거</strong>라는 것뿐</li>
+              <li>AR(1)은 어제만, AR(3)이면 3일 전까지 본다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">그럼 p는 몇으로</p>
+            <h2>많이 넣을수록 좋은 것이 아니다</h2>
+            <ul>
+              <li>AR(100)이면 우연한 패턴까지 외운다 → <strong>과적합</strong></li>
+              <li><strong>BIC</strong> = 음의 로그우도(적합도) + p에 비례하는 <strong>복잡도 벌점</strong></li>
+              <li>AR(1) 100 · AR(5) 90 · AR(20) 95 → <strong>AR(5)</strong>를 고른다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>완전 탐색</strong> — 가능한 p를 전부 넣어 BIC를 계산하고 <strong>가장 작은 값</strong>을 고릅니다. 잘 맞는 모델이 아니라 <strong>합이 가장 작은 모델</strong>입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 차수 선택</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--visual" aria-label="교재 그림 3.1 AR10 전략" data-report-refs="ar-models source-fig-3-1" data-source-refs="figure:3.1">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">BOOK RESULT</span></header>
-      <h1>AR(10)의 높은 중간가격 수익</h1>
-      <p class="lead">교재 그림 3.1은 표본외 자산곡선과 연율 수익률 158%를 보고한다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure"><img src="assets/figs/fig-3-1-ar10.svg" alt="AUD USD AR10 전략 자산곡선"><figcaption><b>그림 3</b><span>교재 그림 3.1 재구성</span><span>중간가격 성과는 체결 가능성을 보장하지 않는다</span><a class="report-ref" href="report.html#source-fig-3-1">리포트 근거</a></figcaption></figure>
+    <section class="slide" aria-label="탐색에서 매매 신호까지" data-report-refs="ar-models">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AR(p) · 절차</span></header>
+      <h1>탐색 → 추정 → 예측 → 신호</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel" style="padding-top:18px;">
+            <p class="eyebrow">학습 2007-07-24 ~ 2014-08-12 · 표본외 ~ 2015-08-03</p>
+            <pre class="code-block" style="min-height:0;margin:8px 0 0;padding:16px 18px;font-size:12.5px;line-height:1.6;border-radius:8px;"><code class="language-matlab">for p = 1:60                  % ① AR(1) ~ AR(60)
+    [~,~,logL] = estimate(arima(p,0,0), mid);
+    LOGL(p) = logL;           % ② 각 모델의 로그우도
+end
+[~, bic]  = aicbic(LOGL, P+1, n);   % ③ 적합도 + 벌점
+[~, pMin] = min(bic);               % ④ 최소 BIC → 10
+
+fit = estimate(arima(pMin,0,0), mid);          % ⑤ 계수
+y   = forecast(fit, 1, 'Y0', mid(t-pMin+1:t)); % ⑥ 다음 1분
+
+pos(yF - mid &gt; 0) =  1;       % ⑦ 예측이 높으면 매수
+pos(yF - mid &lt; 0) = -1;       %    낮으면 매도</code></pre>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">한 줄씩 풀면</p>
+            <ul style="margin-top:6px;">
+              <li><strong>①</strong> 어제 하나만 볼지 60분 전까지 볼지, <strong>후보를 전부</strong> 학습합니다</li>
+              <li><strong>②</strong> 각 후보가 데이터를 얼마나 잘 설명하는지(로그우도) 모읍니다</li>
+              <li><strong>③</strong> 거기에 <strong>복잡도 벌점</strong>을 더해 BIC를 계산합니다</li>
+              <li><strong>④</strong> BIC가 가장 작은 차수를 고릅니다 → <strong>p = 10</strong></li>
+              <li><strong>⑤</strong> 그 AR(10)의 μ, φ₁ … φ₁₀를 추정합니다 <em>(표 3.1)</em></li>
+              <li><strong>⑥</strong> 최근 10개를 넣으면 <strong>다음 1분</strong> 가격이 나옵니다</li>
+              <li><strong>⑦</strong> 예측이 현재보다 높으면 매수, 낮으면 매도</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>신호는 비교 한 번</strong> — 현재 100.00에 예측이 100.03이면 매수, 99.98이면 매도입니다. <code>yF(t)</code>는 t까지의 데이터로 만든 값이므로 <strong>t+1에 대한 예측</strong>이라는 점만 주의하면 됩니다.</p>
       </div>
-      <footer class="slide-footer"><span>Chapter 3 · AR(10) 사례</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><span>Chapter 3 · 전략 구성</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="표 3.1과 그림 3.1 AR(10) 거래 전략" data-report-refs="ar-models source-table-3-1 source-fig-3-1" data-source-refs="table:3.1 figure:3.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AR(p) · 표 3.1 · 그림 3.1</span></header>
+      <h1>표본외 연율화 158% — 그런데 조건이 붙는다</h1>
+      <p class="lead">표 3.1의 φ₁은 1에 매우 가깝습니다 — 되돌림은 있지만 랜덤워크와 구분하기 어려울 만큼 느립니다.</p>
+      <div class="slide-body">
+        <img src="assets/figs/src-fig-3-1-ar10-equity.svg" alt="AR(10) 모델로 AUD.USD 중간가격을 예측해 만든 거래 전략의 표본외 누적수익 개형. 곡선이 되돌림 없이 꾸준히 우상향해 연율화 158퍼센트에 도달하며, 이 수익이 중간가격 체결을 전제로 한다는 설명이 붙어 있다." style="width:100%;max-height:40vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>교재의 단서</strong> — 중간가격에 체결하려면 지정가 주문을 관리하는 <strong>저지연 실행</strong>이 반드시 필요합니다. 연습문제 3.2가 이 지점을 정확히 겨냥합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 그림 3.1</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="계수가 만드는 세 갈래" data-report-refs="ar-models fig-phi table-phi">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AR(1) 직관</span></header>
+      <h1>φ 하나가 성격을 정한다 — 표 3.1의 φ₁은 어디에 있나</h1>
+      <p class="lead">평균과 분산이 시간에 따라 일정하면 <strong>약정상</strong>입니다. AR(1)은 <strong>|φ| &lt; 1</strong>일 때 약정상이고, 약정상이면 <strong>평균회귀</strong>합니다(Chan, 2013).</p>
+      <div class="slide-body">
+        <img src="assets/figs/fig-phi-three.svg" alt="평균 100에 어제 가격 110인 상황에서 세 경로를 비교한 도해. 파이가 0.8이면 편차 10이 8, 6.4, 5.1로 줄며 가격이 100으로 되돌아가고, 파이가 1이면 편차가 유지되어 랜덤워크가 되며, 파이가 1.2이면 편차가 커져 평균에서 멀어진다." style="width:100%;max-height:38vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>|φ| &gt; 1이면 추세, φ = 1이면 랜덤워크</strong> — 표 3.1의 φ₁은 0.99 칸에 가깝습니다. 약정상이긴 하지만 되돌림이 랜덤워크와 구분하기 어려울 만큼 느리다는 뜻입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · φ의 의미</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="호가 반등과 중간가격" data-report-refs="ar-models fig-bounce table-price-views">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">MICROSTRUCTURE</span></header>
+      <h1>왜 체결가가 아니라 중간가격인가</h1>
+      <div class="slide-body">
+        <img src="assets/figs/fig-bidask-bounce.svg" alt="매도호가 100.02, 중간가격 100.01, 매수호가 100.00이 변하지 않는데도 급히 사는 사람과 급히 파는 사람이 번갈아 체결해 체결가만 오르내리는 모습과, 그 신호로 즉시 매수 후 즉시 매도하면 마이너스 0.02가 된다는 계산을 보여주는 도해" style="width:100%;max-height:40vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>본문 158%와 연습문제 3.2의 답 사이의 거리</strong>가 곧 중간가격 가정의 값입니다. 통계적 평균회귀와 거래 가능한 평균회귀는 다릅니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 체결가와 중간가격</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--section" aria-label="ARMA와 ARIMA 섹션" data-report-refs="arma-arima">
-      <p class="eyebrow">SECTION 02</p><h1>ARMA · ARIMA</h1><p>가격의 기억에 예측오차와 차분을 더한다</p><span class="section-number">02</span>
+      <p class="eyebrow">SECTION 03</p>
+      <h1>ARMA(p, q) · ARIMA(p, d, q)</h1>
+      <p>잡음의 기억을 더한다</p>
+      <span class="section-number">03</span>
     </section>
 
-    <section class="slide slide--visual" aria-label="교재 그림 3.2 ARMA 전략" data-report-refs="arma-arima source-fig-3-2 source-table-3-2" data-source-refs="figure:3.2">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ARMA(2,5)</span></header>
-      <h1>과거 가격과 과거 예측오차를 함께 쓴다</h1>
-      <p class="lead">ARMA는 AR의 지연 가격과 MA의 지연 혁신을 결합한다. 교재 그림 3.2의 보고치는 연율 60%다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure"><img src="assets/figs/fig-3-2-arma.svg" alt="AUD USD ARMA 2 5 전략 자산곡선"><figcaption><b>그림 4</b><span>교재 그림 3.2 재구성</span><span>ARIMA는 여기에 d회 차분을 더해 비정상 수준을 다룬다</span><a class="report-ref" href="report.html#source-fig-3-2">리포트 근거</a></figcaption></figure>
+    <section class="slide" aria-label="ARMA가 시차를 줄이는 방식" data-report-refs="arma-arima">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ARMA(p, q)</span></header>
+      <h1>과거 오차까지 보면 시차가 줄어든다</h1>
+      <p class="lead">AR(10)이 시차를 열 개나 요구한 것은 <strong>구조가 단순해서 항으로 보완</strong>했기 때문입니다.</p>
+      <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
+        $$ Y(t) = \mu + \phi_1 Y(t-1) + \cdots + \phi_p Y(t-p) + \varepsilon(t) + \theta_1 \varepsilon(t-1) + \cdots + \theta_q \varepsilon(t-q) $$
       </div>
-      <footer class="slide-footer"><span>Chapter 3 · ARMA와 ARIMA</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="VAR와 VEC 비교" data-report-refs="var-vec source-table-3-3 source-table-3-4 source-table-3-5">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VAR · VEC</span></header>
-      <h1>여러 자산을 함께 보면 관계도 모수가 된다</h1>
-      <p class="lead">VAR는 각 자산을 모든 자산의 지연값으로 설명하고, VEC는 수준 이탈의 복원을 더한다.</p>
       <div class="slide-body">
-        <table class="compare-table"><thead><tr><th>관점</th><th>VAR(p)</th><th>VEC(q)</th></tr></thead><tbody>
-          <tr><th>입력</th><td>여러 자산의 지연 수준</td><td>변화량 + 수준 관계</td></tr>
-          <tr><th>핵심 질문</th><td>서로의 과거가 다음 값을 설명하는가</td><td>장기 관계 이탈이 복원되는가</td></tr>
-          <tr><th>위험</th><td>자산 수와 시차에 따라 모수 폭증</td><td>음의 대각만으로 공적분을 확정</td></tr>
-        </tbody></table>
-        <p class="takeaway"><strong>실무 제약</strong> — 교재는 대각 행렬 제약으로 복잡도를 낮추지만, 경제적 정당화와 표본외 검증이 필요하다.</p>
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">무엇을 보는가</p>
+            <h2>AR · MA · ARMA</h2>
+            <ul>
+              <li><strong>AR</strong> — 과거 <strong>가격</strong>을 본다</li>
+              <li><strong>MA</strong> — 과거 <strong>예측오차</strong>를 본다</li>
+              <li><strong>ARMA</strong> — 둘을 함께 쓴다</li>
+              <li>지연된 잡음 항 q개를 더한 것뿐인데 필요한 시차가 크게 준다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">오차가 왜 정보인가</p>
+            <h2>방금의 예측 실패도 다음에 이어진다</h2>
+            <ul>
+              <li>예측 100.00, 실제 100.05 → <strong>ε = +0.05</strong></li>
+              <li>그 어긋남이 다음 가격에 영향을 줄 수 있다고 본다</li>
+              <li>AR은 가격의 과거만, ARMA는 <strong>가격이 설명하지 못한 부분</strong>까지</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>정식 명칭은 자기회귀 이동평균 과정</strong> — q개의 지연 잡음 항이 여기서 말하는 ‘이동평균’입니다.</p>
       </div>
-      <footer class="slide-footer"><span>Chapter 3 · 다변량 모델</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><span>Chapter 3 · ARMA(p, q)</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--visual" aria-label="교재 그림 3.3 VAR 전략" data-report-refs="var-vec source-fig-3-3" data-source-refs="figure:3.3">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VAR(1)</span></header>
-      <h1>공통 섹터 움직임을 제거한 상대 신호</h1>
-      <p class="lead">교재 그림 3.3은 컴퓨터 하드웨어 주식의 예측에서 횡단면 평균을 빼 포지션을 만든다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure"><img src="assets/figs/fig-3-3-var.svg" alt="컴퓨터 하드웨어 주식 VAR1 전략 자산곡선"><figcaption><b>그림 5</b><span>교재 그림 3.3 재구성</span><span>공통 방향보다 상대 예측을 거래한다</span><a class="report-ref" href="report.html#source-fig-3-3">리포트 근거</a></figcaption></figure>
+    <section class="slide" aria-label="p와 q 두 변수 완전 탐색" data-report-refs="arma-arima">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ARMA · 차수 탐색</span></header>
+      <h1>변수가 둘이면 반복문도 둘이다</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel" style="padding-top:18px;">
+            <p class="eyebrow">p ≤ 10, q ≤ 9 — 90개 조합을 전부</p>
+            <pre class="code-block" style="min-height:0;margin:8px 0 0;padding:16px 18px;font-size:12px;line-height:1.58;border-radius:8px;"><code class="language-matlab">for p = 1:10
+  for q = 1:9
+    [~,~,logL] = estimate(arima(p,0,q), mid);
+    LOGL(p,q) = logL;
+    PQ(p,q)   = p + q;      % 벌점 항
+  end
+end
+[~,bic] = aicbic(LOGL(:), PQ(:)+1, n);
+[bicMin, pMin] = min(bic);
+
+bic(:)    = NaN;            % 최소 셀만 남긴다
+bic(pMin) = bicMin;
+bic = reshape(bic, size(LOGL));</code></pre>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">되돌린 표를 눈으로 읽는다</p>
+            <h2>행이 p, 열이 q</h2>
+            <table class="compare-table" style="font-size:0.8rem;margin:6px 0 10px;">
+              <thead><tr><th></th><th>q=3</th><th>q=4</th><th>q=5</th><th>q=6</th></tr></thead>
+              <tbody>
+                <tr><td><strong>p=1</strong></td><td>NaN</td><td>NaN</td><td>NaN</td><td>NaN</td></tr>
+                <tr><td><strong>p=2</strong></td><td>NaN</td><td>NaN</td><td><strong>−3.4695</strong></td><td>NaN</td></tr>
+                <tr><td><strong>p=3</strong></td><td>NaN</td><td>NaN</td><td>NaN</td><td>NaN</td></tr>
+              </tbody>
+            </table>
+            <ul>
+              <li>숫자가 하나만 찍히므로 <strong>행 2 · 열 5</strong>를 바로 읽는다 → <strong>ARMA(2, 5)</strong></li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>AR(p)와 같은 절차, 차원만 하나 늘었습니다</strong> — 벌점 항으로 쓸 모수 개수를 <code>PQ = p + q</code>에 함께 담아 두는 것이 요령입니다.</p>
       </div>
-      <footer class="slide-footer"><span>Chapter 3 · VAR 사례</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><span>Chapter 3 · 차수 탐색</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="표 3.2 ARMA(2,5) 계수" data-report-refs="arma-arima source-table-3-2" data-source-refs="table:3.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ARMA · 표 3.2</span></header>
+      <h1>가격 두 개와 오차 다섯 개</h1>
+      <p class="lead">AR(10)은 가격 열 개를 썼습니다. ARMA(2, 5)는 <strong>가격 2 + 오차 5</strong>로 같은 일을 합니다.</p>
+      <div class="slide-body">
+        <table class="compare-table" style="font-size:0.84rem;">
+          <thead><tr><th>계수</th><th>추정값</th><th>읽는 법</th></tr></thead>
+          <tbody>
+            <tr><td>μ</td><td>2.8038e−06</td><td>사실상 0 — 1분 중간가격이라 방향성 표류가 없다</td></tr>
+            <tr><td><strong>φ₁</strong></td><td><strong>0.649011</strong></td><td>바로 전 값의 영향이 가장 크다 · |φ₁| &lt; 1이 확실해졌다</td></tr>
+            <tr><td>φ₂</td><td>0.350986</td><td><strong>φ₁ + φ₂ ≈ 1.000</strong> — 둘을 합치면 거의 랜덤워크다</td></tr>
+            <tr><td><strong>θ₁</strong></td><td><strong>0.345806</strong></td><td>직전 예측오차가 다음 값으로 이어진다 — MA 항의 값어치</td></tr>
+            <tr><td>θ₂ ~ θ₅</td><td>−0.0091 · −0.0106 · −0.0103 · −0.0025</td><td>크기가 0에 가깝다 — 사실상 θ₁ 하나가 일한다</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>한 가지 유보</strong> — AR(2)의 정상성을 정하는 것은 φ₁ 하나가 아니라 <strong>φ₁ + φ₂</strong>이고, 그 합이 0.999997입니다. “강한 평균회귀”는 φ₁만 떼어 본 진술로 읽는 편이 안전합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 표 3.2</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="그림 3.2 ARMA 거래 전략" data-report-refs="arma-arima source-fig-3-2" data-source-refs="figure:3.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ARMA · 그림 3.2</span></header>
+      <h1>더 정교한 모델이 더 적게 벌었다</h1>
+      <p class="lead">같은 절차로 차수를 다시 고르고 계수를 추정해 <strong>같은 표본외 구간을 백테스트</strong>했더니 158% → 60%.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel" style="padding:18px;">
+            <img src="assets/figs/src-fig-3-2-arma-equity.svg" alt="ARMA(2,5) 모델로 만든 AUD.USD 거래 전략의 표본외 누적수익 개형. 곡선이 우상향하지만 AR(10)보다 완만하고 중간에 눌리는 구간이 있으며 연율화 수익률이 158퍼센트에서 60퍼센트로 떨어진다." style="width:100%;object-fit:contain;display:block;margin:0 auto">
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">기대는 반대였다</p>
+            <h2>왜 수익이 떨어졌나</h2>
+            <ul>
+              <li><strong>예측력 ≠ 수익</strong> — 잘 설명하는 것과 버는 것은 다른 질문이다</li>
+              <li><strong>과적합</strong> — 2007–2014에서 맞던 패턴이 2014–2015에도 남는다는 보장은 없다</li>
+              <li><strong>작은 우위는 비용에 먹힌다</strong> — 우위 +0.005인데 스프레드가 0.010이면 남는 게 없다</li>
+              <li><strong>되돌아온다 ≠ 벌 수 있다</strong> — 언제 팔고 언제 살지는 별개 문제다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>MA 항을 더한 복잡성이 값을 하지 못했습니다</strong> — 적합도가 좋아지는 것과 성과가 좋아지는 것은 별개입니다. 같은 교훈이 뒤의 칼만 필터에서 훨씬 크게 반복됩니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · ARMA(2, 5)</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="ARIMA 차분과 ARMA" data-report-refs="arma-arima">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ARIMA(p, d, q)</span></header>
+      <h1>차분해야 ARMA를 쓸 수 있다</h1>
+      <p class="lead">가격은 평균이 계속 변합니다. 그래서 <strong>변화량을 만든 뒤</strong> 거기에 ARMA를 적용합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">숫자로 보면</p>
+            <h2>가격 100 · 102 · 101 · 104</h2>
+            <ul>
+              <li>차분하면 <strong>2 · −1 · 3</strong> — 평균이 움직이지 않는다</li>
+              <li><span>$Y(t)$</span>가 ARIMA(p, 1, q) ⟺ <span>$\Delta Y(t)$</span>가 ARMA(p, q)</li>
+              <li><strong>p</strong> 과거 변화량 개수 · <strong>d</strong> 차분 횟수 · <strong>q</strong> 과거 오차 개수</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">로그가격이면 더 쉽다</p>
+            <h2>차분이 곧 로그수익률</h2>
+            <ul>
+              <li><span>$\Delta \log P_t = \log(P_t / P_{t-1})$</span></li>
+              <li>100 → 102면 <span>$\log(1.02) \approx 2\%$</span></li>
+              <li>그래서 <strong>로그가격 ARIMA(p, 1, q) = 로그수익률 ARMA(p, q)</strong></li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>ARMA는 정상 시계열의 도구</strong>입니다. 가격 → 차분 → 변화량(수익률) → ARMA, 이 전체를 한 이름으로 부른 것이 ARIMA입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · ARIMA</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="Integrated 이름의 유래" data-report-refs="arma-arima">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ARIMA · Integrated</span></header>
+      <h1>왜 하필 ‘누적(Integrated)’인가</h1>
+      <p class="lead">모델 안에서 적분을 한다는 뜻이 아닙니다 — <strong>차분값을 누적하면 원래 가격이 복원되기 때문</strong>입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">차분은 분해, 누적은 복원</p>
+            <h2>100에서 다시 104로</h2>
+            <ul>
+              <li>가격 100 · 102 · 101 · 104 → 차분 <strong>2 · −1 · 3</strong></li>
+              <li>100 + 2 = 102 → 102 − 1 = 101 → 101 + 3 = <strong>104</strong></li>
+              <li>연속수학에서 변화율을 적분하면 원래 함수가 나오는 것과 같은 관계</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">그래서 d가 뜻하는 것</p>
+            <h2>몇 번 차분해야 정상이 되는가</h2>
+            <ul>
+              <li><strong>d = 0</strong> — 차분 없이 이미 정상</li>
+              <li><strong>d = 1</strong> — 한 번 차분하면 정상 → <span>$I(1)$</span></li>
+              <li><strong>d = 2</strong> — 두 번 차분해야 정상</li>
+              <li>금융에서는 <span>$d = 1$</span>이 가장 단순하고 가장 흔하다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>I는 데이터의 성질을 가리키는 이름</strong>입니다 — “차분해야 ARMA를 쓸 수 있고, 그 차분값을 누적하면 원래 시계열이 되는” 데이터라는 뜻입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · Integrated</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="수준을 보는 모델이 더 유연한 이유" data-report-refs="arma-arima">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">수준 vs 변화량</span></header>
+      <h1>그럼 수익률로 바꾸는 게 나은가</h1>
+      <p class="lead">시차를 줄일 수 있다면 그렇습니다. 그런데 교재는 <strong>그런 경우를 한 번도 못 봤다</strong>고 합니다 — AUD.USD도 p=1, q=9.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">헷갈리기 쉬운 두 진술</p>
+            <h2>하나는 참, 하나는 거짓</h2>
+            <ul>
+              <li><strong>참</strong> — 로그가격 ARIMA(p, 1, q) = 로그수익률 ARIMA(p, 0, q)</li>
+              <li><strong>거짓</strong> — 로그가격 ARMA(p, q) = 로그수익률의 어떤 ARMA(p′, q′)</li>
+              <li>ΔY의 ARMA는 늘 Y의 ARMA로 바꿀 수 있지만 <strong>그 반대는 아니다</strong></li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">이유는 쓸 수 있는 독립변수의 폭</p>
+            <h2>Y 모델은 수준과 변화량을 함께 쓴다</h2>
+            <ul>
+              <li>ΔY 모델의 독립변수는 <strong>ΔY뿐</strong></li>
+              <li>Y 모델은 <span>$0.5Y_{t-1} - 0.5Y_{t-2} = 0.5\Delta Y_{t-1}$</span> 처럼 <strong>변화량도 표현</strong>한다</li>
+              <li>자동차로 치면 ΔY는 이동 거리, Y는 <strong>현재 위치</strong> — 목적지에서 얼마나 벗어났는지는 위치를 봐야 안다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>변화량을 예측하면서 수준도 함께 보고 싶다면</strong> — 다음 절 VAR(p)의 끝에 나오는 <strong>VEC</strong>가 정확히 그 모델입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 수준과 변화량</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="BIC와 차수 선택" data-report-refs="arma-arima fig-bic table-bic-aic table-logret">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">차수 선택</span></header>
+      <h1>차수를 고른 것은 BIC다 — 가장 잘 맞는 모델이 아니다</h1>
+      <div class="katex-equation" style="margin:0.3rem 0 0.5rem;">
+        $$ \mathrm{BIC} = -2\log(L) + k\log(n) $$
+      </div>
+      <div class="slide-body">
+        <img src="assets/figs/fig-bic-tradeoff.svg" alt="AR(1)은 적합도 210에 벌점 10을 더해 220, AR(2)는 200에 15를 더해 215로 가장 작고, AR(10)은 적합도가 180으로 가장 좋지만 벌점 60 때문에 합이 240이 되어 탈락하는 막대 그래프와, 데이터 1000개일 때 AIC 벌점이 파라미터당 2인 반면 BIC는 약 6.9라는 비교" style="width:100%;max-height:36vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>왜 Bayesian인가</strong> — P(모델 | 데이터)를 제대로 구하려면 모든 계수에 대해 적분해야 합니다. 데이터가 많을 때 그 적분을 근사한 것이 BIC입니다(Schwarz, 1978).</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 차수 선택</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="VAR 섹션" data-report-refs="var-models">
+      <p class="eyebrow">SECTION 04</p>
+      <h1>VAR(p)</h1>
+      <p>이웃 종목을 함께 본다</p>
+      <span class="section-number">04</span>
+    </section>
+
+    <section class="slide" aria-label="VAR은 AR의 다변량 일반화" data-report-refs="var-models">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VAR(p)</span></header>
+      <h1>계수를 행렬로 올리면 여러 종목을 함께 본다</h1>
+      <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
+        $$ \begin{bmatrix} AAPL_t \\ HPQ_t \end{bmatrix} = \begin{bmatrix} 0.7 & 0.2 \\ 0.1 & 0.8 \end{bmatrix} \begin{bmatrix} AAPL_{t-1} \\ HPQ_{t-1} \end{bmatrix} + \begin{bmatrix} \varepsilon_{1,t} \\ \varepsilon_{2,t} \end{bmatrix} $$
+      </div>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">AR(1)과 무엇이 다른가</p>
+            <h2>이웃의 어제까지 본다</h2>
+            <ul>
+              <li>AR(1)은 AAPL을 <strong>AAPL의 어제</strong>로만 설명한다</li>
+              <li>VAR(1)은 AAPL을 <strong>AAPL·HPQ의 어제</strong>로 함께 설명한다</li>
+              <li>어제 AAPL 100, HPQ 50이면 → 0.7(100)+0.2(50) = <strong>80</strong>, 0.1(100)+0.8(50) = <strong>50</strong></li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">행렬을 읽는 법</p>
+            <h2>대각은 자기, 비대각은 이웃</h2>
+            <ul>
+              <li><span>$\phi_{11}$</span> 어제 AAPL → 오늘 AAPL · <span>$\phi_{12}$</span> 어제 HPQ → 오늘 AAPL</li>
+              <li>종목이 m개면 계수는 <strong><span>$m \times m$</span> 행렬</strong>이 된다</li>
+              <li><strong>p</strong>는 AR과 같다 — VAR(2)면 어제와 그제를 모두 쓴다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>같은 산업군에 잘 맞는 이유</strong> — 반도체 가격 · PC 수요 · 환율 · 공급망 같은 공통 요인 때문에 한 종목이 먼저 움직이고 나머지가 뒤따르는 패턴이 생깁니다. AR은 종목을 따로 보므로 이것을 놓칩니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · VAR(p)</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="잡음 조건과 데이터 선택" data-report-refs="var-models">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VAR · 가정과 데이터</span></header>
+      <h1>같은 날은 허용, 다른 날은 금지</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">잡음에 건 두 조건</p>
+            <h2>횡단면 상관 O · 시계열 상관 X</h2>
+            <ul>
+              <li>같은 날 반도체 호재 → AAPL 오차 +2%, HPQ 오차 +1.5% <strong>가능</strong></li>
+              <li>월요일 AAPL 오차와 화요일 HPQ 오차는 <strong>무관하다고 가정</strong></li>
+              <li>어제의 영향은 <span>$\Phi Y_{t-1}$</span>이 이미 설명해야 한다 — 오차는 <strong>남은 새 충격</strong>이다</li>
+              <li>오차가 시간으로 이어진다면 모델이 과거 정보를 덜 쓴 신호다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">무엇으로 검증했나</p>
+            <h2>컴퓨터 하드웨어 5종목</h2>
+            <ul>
+              <li>2007-01-03 당시 S&amp;P 500의 <strong>AAPL · EMC · HPQ · NTAP · SNDK</strong></li>
+              <li>2007-01-03 ~ 2013-12-31 CRSP <strong>장 마감 중간가격</strong></li>
+              <li>체결가를 쓰면 100.02 → 99.98 → 100.02로 <strong>허위 평균회귀</strong>가 보인다</li>
+              <li>중간가격은 그동안 100.00에 붙박여 있었을 뿐이다</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 가정과 데이터</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="표 3.3 VAR(1) 추정 결과" data-report-refs="var-models source-table-3-3" data-source-refs="table:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VAR · 표 3.3</span></header>
+      <h1>대각이 전부 1에 붙어 있다</h1>
+      <p class="lead">BIC를 최소화하는 차수는 <strong>p = 1</strong>이었습니다. 대부분의 산업군에서 나오는 전형적인 결과입니다.</p>
+      <div class="slide-body">
+        <table class="compare-table" style="font-size:0.84rem;">
+          <thead><tr><th>종목</th><th>상수 오프셋 μ</th><th>자기 계수 Φ<sub>ii</sub></th><th>잡음 분산</th></tr></thead>
+          <tbody>
+            <tr><td>AAPL</td><td>3.88363</td><td><strong>0.991815</strong></td><td>36.2559</td></tr>
+            <tr><td>EMC</td><td>0.669367</td><td><strong>0.970934</strong></td><td>0.256786</td></tr>
+            <tr><td>HPQ</td><td>1.75474</td><td><strong>0.965626</strong></td><td>1.41323</td></tr>
+            <tr><td>NTAP</td><td>1.701</td><td><strong>1.00662</strong></td><td>1.70138</td></tr>
+            <tr><td>SNDK</td><td>1.8752</td><td><strong>0.998657</strong></td><td>2.17779</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>여기서 아래첨자는 시차가 아니라 종목입니다.</strong> 자기 계수가 0.9656~1.0066 사이에 모여 있어 “오늘이 어제와 거의 같다”는 말만 남습니다 — 이 불편함이 다음 절 VEC를 부릅니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 표 3.3</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="섹터 중립 비중 계산" data-report-refs="var-models fig-sector">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">포트폴리오 구성</span></header>
+      <h1>중립성은 부과한 제약이 아니라 식에서 따라 나온다</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel" style="padding:18px;">
+            <img src="assets/figs/fig-sector-neutral.svg" alt="네 단계 도해. 예측수익률 AAPL 2퍼센트, HPQ 1퍼센트, NTAP 마이너스 1퍼센트에서 업종 평균 0.667퍼센트를 빼면 플러스 1.333, 플러스 0.333, 마이너스 1.667이고 합이 0이며, 절댓값 합 3.333으로 나누면 플러스 40퍼센트, 플러스 10퍼센트, 마이너스 50퍼센트 비중이 되어 순노출이 0이 된다." style="width:100%;object-fit:contain;display:block;margin:0 auto">
+          </article>
+          <article class="panel panel--accent" style="padding-top:18px;">
+            <p class="eyebrow">코드로는 세 줄</p>
+            <pre class="code-block" style="min-height:0;margin:8px 0 12px;padding:14px 16px;font-size:11.5px;line-height:1.55;border-radius:8px;"><code class="language-matlab">retF       = (yF - mid) ./ mid;
+sectorRetF = mean(retF, 2);
+positions  = (retF - sectorRetF) ...
+   ./ sum(abs(retF - sectorRetF), 2);</code></pre>
+            <ul>
+              <li>마지막 정규화로 <strong>총시장가치(gross market value)가 항상 1</strong>이 된다</li>
+              <li><strong>Chan(2013) 식 4.1과 다른 점</strong> — 그쪽은 전일 <em>실현</em> 수익률에 평균회귀를 가정해 비례상수가 −1, 여기는 <em>예측</em> 수익률에 <strong>+1</strong></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 섹터 중립</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="그림 3.3 VAR 거래 전략" data-report-refs="var-models source-fig-3-3" data-source-refs="figure:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VAR · 그림 3.3</span></header>
+      <h1>연율 48%, 샤프 0.9 — 앞의 두 곡선과 성격이 다르다</h1>
+      <div class="slide-body">
+        <img src="assets/figs/src-fig-3-3-var-equity.svg" alt="VAR(1) 모델을 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 누적수익 개형. 곡선이 오르내림을 반복하면서도 전체적으로 우상향해 연율 48퍼센트, 샤프 비율 0.9에 이른다." style="width:100%;max-height:40vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>눌리는 구간이 반복됩니다</strong> — 그림 3.1·3.2의 거의 매끄러운 곡선과 대비됩니다. 업종 방향이 아니라 <strong>업종 안의 순위</strong>에만 걸었기 때문에, 업종이 통째로 오르든 내리든 손익은 종목 간 격차에서 나옵니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 그림 3.3</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="VEC 섹션" data-report-refs="vec-models">
+      <p class="eyebrow">SECTION 05</p>
+      <h1>VEC(q)</h1>
+      <p>변화량을 예측하되 수준도 본다</p>
+      <span class="section-number">05</span>
+    </section>
+
+    <section class="slide" aria-label="왜 VEC로 다시 쓰는가" data-report-refs="vec-models">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VEC · 왜 필요한가</span></header>
+      <h1>궁금한 것은 가격이 아니라 변화량이다</h1>
+      <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
+        $$ \Delta Y(t) = M + C\,Y(t-1) + A_1 \Delta Y(t-1) + \cdots + A_k \Delta Y(t-k) + \varepsilon(t) $$
+      </div>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">VAR가 불편한 두 가지</p>
+            <h2>돌아가고, 읽히지 않는다</h2>
+            <ul>
+              <li>VAR는 가격을 예측하니 신호를 만들려면 <span>$Y_t - Y_{t-1}$</span>을 <strong>다시 계산</strong>해야 한다</li>
+              <li>계수 0.4가 큰지 작은지는 A가 200달러, B가 30달러면 판단할 수 없다</li>
+              <li>랜덤워크에 가까우면 자기 계수가 <strong>0.99</strong>로 나와 당연한 말만 남는다 — 표 3.3이 정확히 그랬다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">새 모델이 아니다</p>
+            <h2>VAR 양변에서 Y(t−1)을 빼면 끝</h2>
+            <ul>
+              <li><span>$Y_t = M + \Phi Y_{t-1} + \varepsilon_t$</span>에서 양변에 <span>$-Y_{t-1}$</span></li>
+              <li><span>$\Delta Y_t = M + C\,Y_{t-1} + \varepsilon_t$</span>, 여기서 <strong><span>$C = \Phi - I$</span></strong></li>
+              <li>독립변수가 둘이다 — 과거 <strong>변화량</strong>은 단기 움직임, 과거 <strong>수준</strong>은 장기 균형에서 벗어난 정도</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway">가격은 100 → 105 → 110처럼 평균이 계속 변하지만 변화량은 5, 5, 5로 안정적입니다. <strong>통계적으로도 변화량을 모델링하는 편이 자연스럽습니다.</strong></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · VEC 유도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="오차수정이 작동하는 방식" data-report-refs="vec-models fig-vec">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VEC · 오차수정</span></header>
+      <h1>‘오차’는 예측 실패가 아니라 균형에서 벗어난 정도다</h1>
+      <div class="slide-body">
+        <img src="assets/figs/fig-vec-correction.svg" alt="장기 균형이 A는 B의 두 배인 상황에서 A가 110, B가 50이면 이탈이 플러스 10이고 계수 마이너스 0.2를 곱해 델타 A가 마이너스 2가 되어 하락하며, A가 90이면 이탈이 마이너스 10이라 델타 A가 플러스 2가 되어 상승한다는 도해. 아래에 VAR 양변에서 이전 가격을 빼면 C가 파이 빼기 항등행렬이 되어 VEC가 유도된다는 관계가 정리되어 있다." style="width:100%;max-height:38vh;object-fit:contain;display:block;margin:0 auto">
+        <p class="takeaway"><strong>균형 조합은 C가 만듭니다</strong> — <span>$Y_{t-1}$</span> 자체가 A−2B인 것이 아니라, C의 한 행 <span>$[-0.2,\ 0.4]$</span>를 곱하면 <span>$-0.2(A_{t-1} - 2B_{t-1})$</span>이 되는 것입니다. 그래서 대각 원소만이 아니라 <strong>행 전체</strong>를 봐야 합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 오차수정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="표 3.4 오차수정 행렬" data-report-refs="vec-models source-table-3-4" data-source-refs="table:3.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VEC · 표 3.4</span></header>
+      <h1>1을 빼는 순간 읽히는 값이 된다</h1>
+      <p class="lead">표 3.3의 자기 계수에서 1을 빼면 표 3.4의 대각 원소가 그대로 나옵니다 — <strong>C = Φ − I</strong>가 숫자로 확인됩니다.</p>
+      <div class="slide-body">
+        <table class="compare-table" style="font-size:0.84rem;">
+          <thead><tr><th>종목</th><th>표 3.3 Φ<sub>ii</sub></th><th>− 1</th><th>표 3.4 C<sub>ii</sub></th><th>읽는 법</th></tr></thead>
+          <tbody>
+            <tr><td>AAPL</td><td>0.991815</td><td>→</td><td><strong>−0.0082</strong></td><td>약하게 되돌아온다</td></tr>
+            <tr><td>EMC</td><td>0.970934</td><td>→</td><td><strong>−0.0291</strong></td><td>같은 방향, 조금 더 강하다</td></tr>
+            <tr><td>HPQ</td><td>0.965626</td><td>→</td><td><strong>−0.0344</strong></td><td>다섯 중 되돌림이 가장 강하다</td></tr>
+            <tr><td>NTAP</td><td>1.00662</td><td>→</td><td><strong>+0.0066</strong></td><td>1보다 컸으므로 부호가 뒤집힌다 — 추세 지속</td></tr>
+            <tr><td>SNDK</td><td>0.998657</td><td>→</td><td><strong>−0.0013</strong></td><td>음수지만 거의 0이다</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway">정확히 읽으면 “모두 음수”가 아니라 <strong>NTAP를 제외한 모든 대각 원소가 음수</strong>입니다. 표 3.3에서 “전부 1 근처”라 읽기 어렵던 정보가 <strong>되돌아오는가 이어가는가</strong>로 바뀌었습니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 표 3.4</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="요한센 검정과 공적분" data-report-refs="vec-models">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VEC · 공적분</span></header>
+      <h1>공적분이 없어도 VEC는 쓸 수 있다</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">C를 분해해서 읽으면</p>
+            <h2>C = αβᵀ</h2>
+            <ul>
+              <li><span>$\beta^{\top}Y_{t-1}$</span> — <strong>장기 균형에서 벗어난 정도</strong> (예: A − 2B)</li>
+              <li><span>$\alpha$</span> — <strong>균형으로 돌아오는 속도</strong></li>
+              <li><span>$\alpha = [-0.2,\ 0.1]$</span>이고 10만큼 벗어났다면 ΔA = −2, ΔB = +1로 서로를 향해 움직인다</li>
+              <li>교재는 “C가 유의한 음의 고유값을 만든다”고 표현한다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">두 가지를 구분하면</p>
+            <h2>검정과 예측은 목적이 다르다</h2>
+            <ul>
+              <li>표준 요한센 검정은 음의 고유값 하나를 보는 것이 아니라 <strong>trace · 최대고유값 통계량</strong>으로 공적분 순위를 정한다</li>
+              <li>다섯 종목 전체로 뚜렷한 공적분 조합이 없어도 C는 <strong>다음 변화량</strong>을 알려 준다</li>
+              <li>실제로 HPQ는 되돌아오고 NTAP는 추세를 이어간다 — 종목마다 성질이 다르다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>규모와 단위에 관한 단서 둘</strong> — S&amp;P 500 전 종목이면 계수가 <span>$m^2$</span>로 불어나 메모리부터 확인해야 합니다. 그리고 이 모델들은 가격보다 <strong>로그가격</strong>에서 더 잘 작동합니다(연습문제 3.7).</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 공적분</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--section" aria-label="상태공간 모델 섹션" data-report-refs="state-space">
-      <p class="eyebrow">SECTION 03</p><h1>State Space Models</h1><p>눈에 보이지 않는 시간가변 상태를 추정한다</p><span class="section-number">03</span>
+      <p class="eyebrow">SECTION 06</p>
+      <h1>상태공간 모델</h1>
+      <p>보이지 않는 것을 추정한다</p>
+      <span class="section-number">06</span>
     </section>
 
-    <section class="slide slide--visual" aria-label="상태 전이와 측정 구조" data-report-refs="state-space fig-state-space">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">STATE SPACE</span></header>
-      <h1>상태와 관측을 두 방정식으로 분리한다</h1>
-      <p class="lead">상태 전이는 은닉 변수가 움직이는 법, 측정 방정식은 상태가 가격으로 드러나는 법을 정의한다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure"><img src="assets/figs/state-space.svg" alt="이전 상태에서 현재 상태와 관측으로 이어지는 상태공간 모델"><figcaption><b>그림 6</b><span>예측과 새 관측을 순차 결합</span><span>잡음 공분산도 추정 대상이므로 과적합을 경계</span><a class="report-ref" href="report.html#fig-state-space">리포트 근거</a></figcaption></figure>
-      </div>
-      <footer class="slide-footer"><span>Chapter 3 · 상태공간 모델</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="교재 그림 3.4 칼만 표본내" data-report-refs="state-space source-fig-3-4" data-source-refs="figure:3.4">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">KALMAN · TRAIN</span></header>
-      <h1>표본내에서는 은닉 이동평균이 수익을 만든다</h1>
-      <p class="lead">교재 그림 3.4는 컴퓨터 하드웨어 주식의 칼만 필터 전략을 학습 구간에서 평가한다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/fig-3-4-kalman-train.svg" alt="칼만 필터 전략 표본내 자산곡선"><figcaption><b>그림 7</b><span>교재 그림 3.4 재구성</span><span>표본내 상승은 아직 미래 성과가 아니다</span><a class="report-ref" href="report.html#source-fig-3-4">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>Chapter 3 · 칼만 표본내</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="교재 그림 3.5 칼만 표본외" data-report-refs="state-space source-fig-3-5" data-source-refs="figure:3.5">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">KALMAN · TEST</span></header>
-      <h1>같은 전략이 표본외에서는 약해진다</h1>
-      <p class="lead">교재 그림 3.5는 표본내와 다른 표본외 경로를 보여 준다. 일반화 여부는 이 구간에서 판정한다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/fig-3-5-kalman-test.svg" alt="칼만 필터 전략 표본외 자산곡선"><figcaption><b>그림 8</b><span>교재 그림 3.5 재구성</span><span>과적합과 레짐 변화 가능성을 분리해 조사</span><a class="report-ref" href="report.html#source-fig-3-5">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>Chapter 3 · 칼만 표본외</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="교재 그림 3.6 동적 헤지 기울기" data-report-refs="state-space source-fig-3-6" data-source-refs="figure:3.6">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">DYNAMIC HEDGE</span></header>
-      <h1>헤지비율은 고정 상수가 아니라 상태가 된다</h1>
-      <p class="lead">교재 그림 3.6은 EWA 대비 EWC의 기울기가 시간에 따라 변하는 추정 경로를 보여 준다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/fig-3-6-hedge-slope.svg" alt="EWA EWC 동적 헤지 기울기"><figcaption><b>그림 9</b><span>교재 그림 3.6 재구성</span><span>기울기 변화가 두 ETF 관계의 레짐 이동을 담는다</span><a class="report-ref" href="report.html#source-fig-3-6">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>Chapter 3 · 동적 기울기</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="교재 그림 3.7 동적 오프셋" data-report-refs="state-space source-fig-3-7" data-source-refs="figure:3.7">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">DYNAMIC OFFSET</span></header>
-      <h1>절편도 시간가변 상태로 함께 추정한다</h1>
-      <p class="lead">교재 그림 3.7의 오프셋은 기울기만으로 설명되지 않는 두 가격의 수준 차이를 흡수한다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/fig-3-7-offset.svg" alt="EWA EWC 동적 오프셋"><figcaption><b>그림 10</b><span>교재 그림 3.7 재구성</span><span>기울기와 절편을 함께 갱신해 예측오차를 만든다</span><a class="report-ref" href="report.html#source-fig-3-7">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>Chapter 3 · 동적 오프셋</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="교재 그림 3.8 페어 전략 표본내" data-report-refs="state-space source-fig-3-8" data-source-refs="figure:3.8">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">PAIR · TRAIN</span></header>
-      <h1>예측오차 임계값을 페어 포지션으로 바꾼다</h1>
-      <p class="lead">교재 그림 3.8은 동적 헤지비율과 오프셋으로 구성한 EWC–EWA 전략의 학습 성과다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/fig-3-8-pair-train.svg" alt="EWA EWC 페어 전략 표본내 자산곡선"><figcaption><b>그림 11</b><span>교재 그림 3.8 재구성</span><span>작은 오차를 거래하지 않도록 임계값을 둔다</span><a class="report-ref" href="report.html#source-fig-3-8">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>Chapter 3 · 페어 표본내</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="교재 그림 3.9 페어 전략 표본외" data-report-refs="state-space source-fig-3-9" data-source-refs="figure:3.9">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">PAIR · TEST</span></header>
-      <h1>표본외 평탄화가 모델의 한계를 드러낸다</h1>
-      <p class="lead">교재 그림 3.9는 같은 규칙의 표본외 성과가 약해지는 장면을 숨기지 않는다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/fig-3-9-pair-test.svg" alt="EWA EWC 페어 전략 표본외 자산곡선"><figcaption><b>그림 12</b><span>교재 그림 3.9 재구성</span><span>학습 성과를 미래 상한으로 간주하지 않는다</span><a class="report-ref" href="report.html#source-fig-3-9">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>Chapter 3 · 페어 표본외</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="Chapter 3 모델 선택 요약" data-report-refs="chapter-summary">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHAPTER SUMMARY</span></header>
-      <h1>무엇을 기억할지에 따라 모델을 고른다</h1>
-      <p class="lead">모델의 이름보다 입력되는 기억과 실패 경계를 먼저 분류한다.</p>
+    <section class="slide" aria-label="앞의 네 모형과 무엇이 다른가" data-report-refs="state-space fig-hidden">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">상태공간 · 발상</span></header>
+      <h1>보이는 가격 뒤의 ‘숨겨진 상태’를 본다</h1>
+      <p class="lead">앞의 네 모형이 쓰는 변수는 모두 <strong>이미 관측된 값</strong>이었습니다.</p>
       <div class="slide-body">
-        <table class="compare-table compare-table--dense"><thead><tr><th>모델</th><th>기억</th><th>먼저 볼 위험</th></tr></thead><tbody>
-          <tr><th>AR</th><td>과거 가격</td><td>단위근·호가 반등</td></tr><tr><th>ARMA / ARIMA</th><td>가격 + 오차 / 차분</td><td>차수 선택·비정상성</td></tr><tr><th>VAR / VEC</th><td>여러 자산 + 장기 관계</td><td>차원·공적분·유니버스</td></tr><tr><th>SSM / Kalman</th><td>은닉 시간가변 상태</td><td>잡음 모수·레짐 변화</td></tr>
-        </tbody></table>
-        <p class="takeaway"><strong>공통 판정</strong> — 같은 시간·가격·비용 계약에서 표본외 성과가 남는가?</p>
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">지금까지의 모형</p>
+            <h2>관측된 값에서 다음 값을 예측</h2>
+            <ul>
+              <li><strong>AR · ARMA</strong> — 자기 과거값과 과거 충격</li>
+              <li><strong>VAR</strong> — 다른 종목의 과거값까지</li>
+              <li><strong>VEC</strong> — 종목 간 장기 균형에서 벗어난 정도</li>
+              <li>공통점 — 핵심 변수가 전부 <strong>관측된 값</strong>이다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">상태공간 모델의 생각</p>
+            <h2>관측가격 = 숨겨진 상태 + 잡음</h2>
+            <ul>
+              <li>시장가격에는 기초 추세 · 시장 상태 · 일시적 쏠림 · 잡음이 섞여 있다</li>
+              <li>관측 <strong>103</strong> = 숨은 추세 <strong>101</strong> + 잡음 <strong>+2</strong></li>
+              <li>3일선 · 20일선 · EMA 중 무엇이 진짜인지 정답이 없으니, <strong>기간을 정하는 대신 추세 자체를 추정</strong>한다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>한 걸음 더 간다</strong> — 보이는 가격만으로 다음 가격을 맞히는 데서 나아가, 가격 뒤에 숨은 추세·관계·시장 상태를 <strong>먼저 추정</strong>합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 숨겨진 상태</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="두 식을 기호별로 읽기" data-report-refs="state-space table-noise">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">상태공간 · 두 식</span></header>
+      <h1>상태는 변하고, 우리는 잡음이 섞인 결과만 본다</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">① 상태전이방정식</p>
+            <h2>x(t) = A x(t−1) + B u(t)</h2>
+            <ul>
+              <li><strong>A</strong> — 이전 상태가 얼마나 이어지는가</li>
+              <li><strong>u(t)</strong> — 새로 발생한 예측 불가능한 <strong>상태 충격</strong></li>
+              <li><strong>B</strong> — 그 충격이 상태를 얼마나 움직이는가</li>
+              <li>오늘의 상태 = 어제가 이어진 부분 + 새로 생긴 변화</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">② 측정방정식</p>
+            <h2>y(t) = C x(t) + D ε(t)</h2>
+            <ul>
+              <li><strong>C</strong> — 상태가 관측값에 반영되는 방식</li>
+              <li><strong>ε(t)</strong> — 관측할 때만 섞이는 <strong>측정 잡음</strong></li>
+              <li><strong>D</strong> — 관측잡음의 크기</li>
+              <li>관측가격 = 상태가 드러난 값 + 일시적 흔들림</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>숫자로 따라가면</strong> — <span>$x_t = x_{t-1} + 0.5u_t$</span>에 어제 100, <span>$u_t = 1$</span>이면 오늘 상태는 <strong>100.5</strong>. 여기에 <span>$y_t = x_t + 2\varepsilon_t$</span>, <span>$\varepsilon_t = 1$</span>이면 시장에서 보이는 값은 <strong>102.5</strong>입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 두 방정식</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="칼만 필터 세 단계" data-report-refs="state-space">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">칼만 필터</span></header>
+      <h1>예측하고, 비교하고, 신뢰도만큼 수정한다</h1>
+      <p class="lead">칼만 필터는 상태공간 모델이 아니라, 그 안에서 <strong>숨은 상태를 추정하는 알고리즘</strong>입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">세 단계</p>
+            <h2>100 · 104 · 101</h2>
+            <ul>
+              <li><strong>① 예측</strong> — 어제 추정이 100이면 오늘 사전 예측도 100</li>
+              <li><strong>② 비교</strong> — 실제 관측이 104면 차이 +4, 이것이 <strong>혁신</strong>이다</li>
+              <li><strong>③ 수정</strong> — <span>$\hat{x}_t = 100 + K(104 - 100)$</span>, <span>$K = 0.25$</span>면 <strong>101</strong></li>
+              <li>관측은 104였지만 추정한 추세는 101 — 나머지 3은 잡음으로 본 것이다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">칼만 이득 K가 정하는 것</p>
+            <h2>오늘 관측을 얼마나 믿을까</h2>
+            <ul>
+              <li><strong>D가 크면</strong> — 가격이 시끄럽다 → K 작아짐 → 관측을 덜 반영</li>
+              <li><strong>B가 크면</strong> — 추세가 잘 변한다 → K 커짐 → 관측을 더 반영</li>
+              <li>기간을 사람이 정하는 이동평균과 달리 <strong>불확실성에 따라 자동으로 가중</strong>한다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>이 장의 모형은 여기서 한 번 더 단순해집니다</strong> — <span>$A = I$</span>, <span>$C = I$</span>로 두면 학습에서 추정할 것은 <strong>B와 D 두 개뿐</strong>입니다(표 3.5, 비대각은 0으로 제약). 그런데도 다음 장에서 보듯 과적합이 일어납니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 칼만 필터</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="다섯 종목 다섯 개의 숨은 추세" data-report-refs="state-space source-table-3-5" data-source-refs="table:3.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">상태공간 · 표 3.5</span></header>
+      <h1>5개 종목에 각각 하나의 숨은 추세를 둔다</h1>
+      <p class="lead">VAR에서 쓴 <strong>컴퓨터 하드웨어 다섯 종목</strong>에 그대로 적용합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">왜 B와 D를 대각행렬로 두나</p>
+            <h2>추정할 것을 줄이려는 선택</h2>
+            <ul>
+              <li>AAPL · EMC · HPQ · NTAP · SNDK, 각 종목에 상태 하나씩</li>
+              <li><span>$A = I$</span> · <span>$C = I$</span> — 추세는 그대로 이어지고, 각 추세가 자기 종목 가격에 반영된다</li>
+              <li>상태잡음도 측정잡음도 종목 간 <strong>무상관</strong>, 분산만 각자 다르다 → <strong>B·D 모두 <span>$5\times5$</span> 대각</strong></li>
+              <li>제약을 풀면 모수가 급증해 <strong>최적화 시간과 과적합 위험이 함께 커진다</strong></li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">표 3.5 · 학습 구간에서 추정한 값</p>
+            <h2>부호는 읽지 않아도 된다</h2>
+            <ul>
+              <li>잡음이 0을 중심으로 대칭이고 교차상관도 없어 <strong>크기만</strong> 의미가 있다</li>
+              <li><strong>B · 상태잡음</strong> — AAPL <strong>3.74</strong> · EMC 0.34 · HPQ 0.73 · NTAP 0.67 · SNDK 1.00</li>
+              <li><strong>D · 측정잡음</strong> — AAPL <strong>≈ 0</strong> · EMC 0.08 · HPQ 0.22 · NTAP 0.19 · SNDK 0.15</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>AAPL이 눈에 띕니다</strong> — 상태잡음 3.74에 측정잡음이 사실상 0이니, 필터가 <strong>관측을 거의 그대로 믿는다</strong>는 뜻입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 표 3.5</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="필터링에서 매매 신호까지" data-report-refs="state-space">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">칼만 · 신호 생성</span></header>
+      <h1>필터링 가격은 관측가격과 거의 같다</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel" style="padding-top:18px;">
+            <p class="eyebrow">filter 함수가 돌려주는 것</p>
+            <pre class="code-block" style="min-height:0;margin:8px 0 10px;padding:15px 17px;font-size:12px;line-height:1.58;border-radius:8px;"><code class="language-matlab">[x, logL, output] = filter(model, y);
+for t = 1:length(output)
+    yF(t,:) = output(t).ForecastedObs';
+end
+retF = (yF - y) ./ y;   % 예측수익률</code></pre>
+            <ul>
+              <li><code>x(t)</code>는 시점 t까지의 가격으로 추정한 <strong>필터링된 가격, 곧 이동평균</strong></li>
+              <li>관측가격과의 차이가 <strong>대개 0.1% 미만</strong>이다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">왜 내일도 오늘과 비슷한가</p>
+            <h2>식에서 바로 나온다</h2>
+            <ul>
+              <li><span>$x_{t+1} = x_t + Bu_{t+1}$</span>이고 <span>$\mathbb{E}[u_{t+1}] = 0$</span></li>
+              <li>따라서 <span>$\mathbb{E}[x_{t+1}\mid t] = x_t$</span> → <span>$\hat{y}_{t+1} \approx y_t$</span></li>
+              <li>그래도 <strong>종목별로 예측수익률은 조금씩 다르고</strong>, 그 차이가 신호가 된다</li>
+              <li>오늘 100에 내일 예측 100.3이면 <span>$\hat{r} = 0.3\%$</span></li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>그다음은 VAR 절과 똑같습니다</strong> — 다섯 종목의 예측수익률을 업종 평균과 비교해 강한 종목은 매수, 약한 종목은 공매도하는 섹터 중립 배분을 만듭니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 신호 생성</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="그림 3.4와 3.5 칼만 필터 학습과 테스트" data-report-refs="state-space source-fig-3-4 source-fig-3-5" data-source-refs="figure:3.4 figure:3.5" data-figure-comparison="intentional">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">그림 3.4 · 3.5</span></header>
+      <h1>가격을 잘 따라간다고 미래를 잘 맞히는 것은 아니다</h1>
+      <div class="slide-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;">
+          <img src="assets/figs/src-fig-3-4-kalman-hw-train.svg" alt="칼만 필터를 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 학습 구간 누적수익 개형. 곡선이 되돌림 없이 꾸준히 크게 상승한다." style="width:100%;max-height:34vh;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-5-kalman-hw-test.svg" alt="같은 칼만 필터 전략을 테스트 구간에서 실행한 누적수익 개형. 곡선이 올랐다 내렸다를 반복하다 0 근처에서 끝난다." style="width:100%;max-height:34vh;object-fit:contain;display:block">
+        </div>
+        <p class="takeaway"><strong>학습 구간</strong>에서는 필터가 가격을 매우 잘 따라가고 전략도 높은 누적수익을 냈습니다. <strong>테스트 구간</strong>에서는 정체와 손실 구간이 나타나 그 성과가 재현되지 않습니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 표본내 vs 표본외</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="과적합의 크기와 필터링의 본래 의미" data-report-refs="state-space fig-overfit">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERFITTING</span></header>
+      <h1>학습 +230% vs 테스트 ≈ 0%</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel" style="padding:18px;">
+            <img src="assets/figs/fig-overfit.svg" alt="왼쪽 학습 구간 그래프는 2007년부터 2010년까지 상승해 누적수익률 약 230퍼센트에 이르고, 오른쪽 테스트 구간 그래프는 2011년 말 약 22퍼센트까지 올랐다가 2013년 마이너스 10퍼센트까지 내려가 0 근처에서 끝나며, 두 그래프의 세로축 눈금이 10배 이상 다르다는 점이 표시되어 있다." style="width:100%;object-fit:contain;display:block;margin:0 auto">
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">왜 놀라운가 · 그리고 그다음</p>
+            <h2>모수가 적다고 과적합이 사라지지는 않는다</h2>
+            <ul>
+              <li>복잡한 매매규칙을 배운 것이 아니라 <strong>B와 D의 크기</strong>만 배웠는데도 이만큼 갈렸다</li>
+              <li><strong>다른 상태를 두어도 된다</strong> — <span>$x_t = [\text{추세},\ \text{기울기}]$</span>로 두면 추세추종이 된다(연습문제 3.8)</li>
+              <li>추정된 상태 자체가 쓸모 있다 — 추세·기울기·<strong>시간에 따라 변하는 헤지비율</strong></li>
+              <li><strong>필터링의 본래 의미</strong> — 잡음 속에서 안 보이는 신호를 추정하는 것(호드릭–프레스콧·웨이블릿도 같은 계열)</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>물어야 할 것</strong> — 현재 가격을 잘 설명하는가가 아니라, <strong>추정한 상태가 새 데이터에서도 거래 가능한 정보로 이어지는가</strong>입니다. 다음 절 EWA–EWC가 세 번째 항목을 그대로 보여 줍니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 과적합</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="EWA EWC 섹션" data-report-refs="ewa-ewc">
+      <p class="eyebrow">SECTION 07</p>
+      <h1>EWA–EWC</h1>
+      <p>헤지비율을 은닉 상태로 둔다</p>
+      <span class="section-number">07</span>
+    </section>
+
+    <section class="slide" aria-label="은닉 상태를 헤지비율로 바꾸다" data-report-refs="ewa-ewc">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EWA–EWC · 설정</span></header>
+      <h1>같은 도구, 전혀 다른 문제</h1>
+      <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
+        $$ EWC_t = \underbrace{\begin{bmatrix} EWA_t & 1 \end{bmatrix}}_{C_t} \begin{bmatrix} \beta_t \\ \alpha_t \end{bmatrix} + D\,\varepsilon_t $$
+      </div>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">앞 절과 무엇이 달라졌나</p>
+            <h2>은닉 상태의 정의를 바꿨을 뿐</h2>
+            <ul>
+              <li>이동평균 사례 — <span>$x_t$</span> = 가격의 <strong>숨은 추세</strong></li>
+              <li>여기서는 — <span>$x_t = [\beta_t,\ \alpha_t]^{\top}$</span>, <strong>헤지비율과 절편</strong></li>
+              <li>관측 <span>$y$</span>는 <strong>EWC 하나</strong>인 스칼라</li>
+              <li>EWA는 관측이 아니라 <strong>시변 측정행렬</strong> <span>$C_t$</span>로 들어간다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">왜 회귀로는 안 되나</p>
+            <h2>관계 자체가 변한다</h2>
+            <ul>
+              <li>회귀는 <span>$\beta = 0.8$</span> <strong>하나</strong>로 고정한다</li>
+              <li>실제로는 0.75 → 0.80 → 0.90 → 0.70처럼 움직인다</li>
+              <li>그래서 <span>$\beta$</span>에 <span>$t$</span>를 붙여 <strong>시장에 따라 변하는 은닉 상태</strong>로 본다</li>
+              <li><span>$x_t = x_{t-1} + Bu_t$</span> — 어제 값에서 크게 벗어나진 않되 조금씩 변한다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>무엇을 은닉 상태로 두느냐에 따라 전혀 다른 문제가 됩니다</strong> — 도구는 그대로입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · EWA–EWC 설정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="잔차로 읽는 페어 트레이딩" data-report-refs="ewa-ewc">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EWA–EWC · 신호</span></header>
+      <h1>β = 0.8, α = 5, EWA = 50이면 정상 EWC는 45</h1>
+      <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
+        $$ e_t = EWC_t - \big(\beta_t EWA_t + \alpha_t\big) $$
+      </div>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">잔차가 곧 신호</p>
+            <h2>세 경우</h2>
+            <ul>
+              <li>실제 <strong>45</strong> → <span>$e_t = 0$</span> · 정상 관계, 거래할 이유가 없다</li>
+              <li>실제 <strong>42</strong> → <span>$e_t = -3$</span> · EWC가 싸다 → <strong>EWC 매수 · EWA 0.8단위 매도</strong></li>
+              <li>실제 <strong>48</strong> → <span>$e_t = +3$</span> · EWC가 비싸다 → <strong>EWC 매도 · EWA 매수</strong></li>
+              <li>β가 <em>얼마나 반대로 잡을지</em>를 알려 준다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">같은 차이가 두 가지 일을 한다</p>
+            <h2>매매 신호이자 상태 수정</h2>
+            <ul>
+              <li>42가 관측되면 필터는 <span>$\beta$</span>를 0.80 → <strong>0.79</strong>, <span>$\alpha$</span>를 5 → <strong>4.8</strong>로 갱신한다</li>
+              <li>동시에 “−3만큼 싸다”가 진입 신호가 된다</li>
+              <li>실제 임계값은 예측 표준편차와 비교해 정한다 — <strong>그날의 불확실성에 따라 함께 움직인다</strong></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 잔차와 신호</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="그림 3.6과 3.7 기울기와 오프셋 추정값" data-report-refs="ewa-ewc source-fig-3-6 source-fig-3-7" data-source-refs="figure:3.6 figure:3.7" data-figure-comparison="intentional">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">그림 3.6 · 3.7</span></header>
+      <h1>헤지비율은 상수가 아니다</h1>
+      <p class="lead">그림 3.6의 세로축 <code>Slope = x(t,1)</code>이 곧 <strong>β<sub>t</sub></strong>입니다.</p>
+      <div class="slide-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;">
+          <img src="assets/figs/src-fig-3-6-kalman-slope.svg" alt="EWC와 EWA 사이 기울기에 대한 칼만 필터 추정값의 시간 변화 개형. 초기 과도 구간을 지나면 안정되지만 이후에도 완만하게 오르내리며 한 값에 머물지 않는다." style="width:100%;max-height:30vh;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-7-kalman-offset.svg" alt="EWC와 EWA 사이 오프셋에 대한 칼만 필터 추정값의 시간 변화 개형. 초기 과도 구간 이후 자리를 잡지만 기울기보다 더 크게 표류한다." style="width:100%;max-height:30vh;object-fit:contain;display:block">
+        </div>
+        <p class="takeaway"><strong>2006년 초 1.4 초과 → 2007년 0.4 → 2009년 1.1 → 이후 0.7~1.0.</strong> 일반 회귀라면 <strong>0.8 하나</strong>를 내놓았을 자리에 칼만 필터는 구간마다 다른 값을 줍니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 은닉 헤지비율</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="표 3.6 B 행렬과 공분산" data-report-refs="ewa-ewc">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EWA–EWC · 표 3.6</span></header>
+      <h1>이번에는 교차상관을 제약하지 않았다</h1>
+      <div class="katex-equation" style="margin:0.2rem 0 0.4rem;">
+        $$ B = \begin{bmatrix} -0.01 & 0.02 \\ 0.41 & -0.32 \end{bmatrix} \qquad D = -0.08 \qquad \operatorname{Cov}(\omega) = \begin{bmatrix} 0.00055 & -0.011 \\ -0.011 & 0.27 \end{bmatrix} $$
+      </div>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">B의 비대각이 살아 있다</p>
+            <h2>상태 충격이 서로 섞인다</h2>
+            <ul>
+              <li><span>$\omega_1 = -0.01u_1 + 0.02u_2$</span> — <strong>헤지비율 β</strong>를 흔드는 충격</li>
+              <li><span>$\omega_2 = 0.41u_1 - 0.32u_2$</span> — <strong>절편 α</strong>를 흔드는 충격</li>
+              <li>표 3.5에서는 대각으로 제약했지만 여기서는 풀었다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">공분산에서 읽을 것 셋</p>
+            <h2>가정이 아니라 추정 결과</h2>
+            <ul>
+              <li>β의 분산 <strong>0.00055</strong> — 아주 작다, <strong>천천히 움직인다</strong></li>
+              <li>α의 분산 <strong>0.27</strong> — 훨씬 크다, <strong>크게 움직인다</strong></li>
+              <li>공분산 <strong>−0.011</strong> — 0이 아니다, 둘은 완전히 독립이 아니다</li>
+              <li>Chan(2013)은 무상관에 분산 ≈ 0.0001로 <em>가정</em>했다 — 추정하니 전혀 다른 그림</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway">측정잡음도 임의로 0.001로 두는 대신 <span>$D^2 = 0.0059$</span>로 추정했습니다. <strong>가정을 데이터로 바꾼 것이 이 사례의 개선점</strong>인데, 그것이 곧 다음 장의 위험이 됩니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 표 3.6</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="그림 3.8과 3.9 페어 전략 학습과 테스트" data-report-refs="ewa-ewc source-fig-3-8 source-fig-3-9" data-source-refs="figure:3.8 figure:3.9" data-figure-comparison="intentional">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">그림 3.8 · 3.9</span></header>
+      <h1>학습 +58% · 테스트 사실상 0</h1>
+      <div class="slide-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;">
+          <img src="assets/figs/src-fig-3-8-kalman-pair-train.svg" alt="EWC와 EWA 페어에 칼만 필터를 적용한 학습 구간 누적수익 개형. 전반부에는 오르지만 중반부터 기울기가 눕기 시작해 뒤쪽은 거의 평평하다." style="width:100%;max-height:30vh;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-9-kalman-pair-test.svg" alt="같은 전략의 테스트 구간 누적수익 개형. 곡선이 작게 오르내릴 뿐 거의 수평으로 이어져 학습 구간 후반부의 정체가 그대로 계속된다." style="width:100%;max-height:30vh;object-fit:contain;display:block">
+        </div>
+        <p class="takeaway"><strong>학습</strong> 0 → 0.2 → 0.4 → 0.58인데 <strong>2009년 이후 0.58에서 멈춥니다</strong> — 테스트를 보기 전에 이미 신호가 있었습니다. <strong>테스트</strong>는 +0.01까지 올랐다가 −0.038까지 내려가 −0.005로 끝납니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 페어 전략</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="두 가지 원인과 처방" data-report-refs="ewa-ewc exercises">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EWA–EWC · 해석</span></header>
+      <h1>체질이 변했나, 잡음을 외웠나</h1>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">① 체질 변화 (regime change)</p>
+            <h2>공적분이 깨졌을 수 있다</h2>
+            <ul>
+              <li>예전에는 <span>$EWC_t \approx \beta_t EWA_t + \alpha_t$</span>가 안정적으로 유지됐다</li>
+              <li>어느 시점부터 두 ETF의 경제적 관계가 달라졌다면?</li>
+              <li>그렇다면 <strong>“벌어지면 다시 돌아온다”</strong>는 페어 트레이딩의 전제 자체가 무너진다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">② B에 대한 과적합 — 저자가 더 유력하게 본다</p>
+            <h2>구조가 아니라 잡음을 맞춘 것</h2>
+            <ul>
+              <li>표 3.6의 네 값을 학습 데이터에 정교하게 맞췄다</li>
+              <li>그것이 지속되는 시장 구조가 아니라 <strong>학습 기간의 잡음</strong>이었다면?</li>
+              <li>학습에는 잘 맞고 새 데이터에는 안 맞는다 → <strong>과적합</strong></li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>연습문제 3.6이 처방입니다</strong> — <span>$B$</span>를 대각행렬로 <em>제약</em>하면 CAGR 26.2%·샤프 2.4가 나오는지 확인하라는 것. 모델을 키우는 게 아니라 <strong>줄이는</strong> 방향입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 3 · 두 가지 해석</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="요약" data-report-refs="chapter-summary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SUMMARY</span></header>
+      <h1>제약을 걸고, 데이터를 늘려라</h1>
+      <p class="lead">시계열 분석은 <strong>아직 직관이 없는 새 상품·새 시장</strong>에서 가장 먼저 시도해 볼 기법입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel">
+            <p class="eyebrow">무엇을 봤고, 무엇이 위험한가</p>
+            <h2>선형이라고 만만하지 않다</h2>
+            <ul>
+              <li>퀀트 전략에 널리 쓰여 온 대표적 <strong>선형</strong> 시계열 모형들을 훑었다</li>
+              <li>선형이지만 <strong>추정할 파라미터가 많은 경우가 흔하다</strong></li>
+              <li>그래서 <strong>과적합은 늘 존재하는 위험</strong>이다</li>
+              <li>특히 상태공간 모델 — <strong>자체 동학을 가진 은닉 변수</strong>까지 추정해야 한다</li>
+            </ul>
+          </article>
+          <article class="panel panel--accent">
+            <p class="eyebrow">그래서 성공적으로 쓰려면</p>
+            <h2>미지 파라미터를 줄인다</h2>
+            <ul>
+              <li>적절한 제약을 <strong>신중하게</strong> 부과하는 것이 관건이다</li>
+              <li>ARMA · VAR — <strong>시차를 1로 제한</strong></li>
+              <li>SSM — <strong>잡음 간 교차상관을 0으로</strong> 가정</li>
+              <li>제약만큼 중요한 것이 <strong>많은 데이터로 학습하는 것</strong> — 궁극적 해결책이다</li>
+            </ul>
+          </article>
+        </div>
+        <p class="takeaway"><strong>데이터가 많다는 조건이 곧 방향을 가리킵니다</strong> — 그래서 이 방법들은 <strong>인트라데이 트레이딩</strong>에서 특히 유망합니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 요약</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="연습문제 학습 지도" data-report-refs="exercises table-exercises">
+    <section class="slide" aria-label="연습문제" data-report-refs="exercises">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">EXERCISES</span></header>
-      <h1>연습문제는 세 층으로 다시 풀어 본다</h1>
-      <p class="lead">수식 확인, 추정 설계, 거래 검증을 한 문제 안에서 분리한다.</p>
+      <h1>연습문제 — 본문이 넘어간 자리를 정확히 겨냥한다</h1>
       <div class="slide-body">
-        <div class="card-grid">
-          <article class="card"><span>3.1–3.3</span><h2>모형 성질</h2><p>AR 정상성, 기대값, ARMA 예측식을 확인한다.</p></article>
-          <article class="card"><span>3.4–3.6</span><h2>차수와 관계</h2><p>BIC, VAR·VEC, 상태공간 식을 설계한다.</p></article>
-          <article class="card"><span>3.7–3.8</span><h2>거래 검증</h2><p>칼만 신호와 표본외·비용 후 성과를 판정한다.</p></article>
-        </div>
-        <p class="takeaway"><strong>풀이 원칙</strong> — 답을 얻는 코드보다 그 코드가 사용할 수 있는 정보 시점을 먼저 적는다.</p>
+        <table class="compare-table" style="font-size:0.82rem;">
+          <thead><tr><th>문제</th><th>묻는 것</th><th>본문의 어느 대목인가</th></tr></thead>
+          <tbody>
+            <tr><td><strong>3.2</strong></td><td>시장가 주문만 쓰면 CAGR은?</td><td>그림 3.1의 158%가 중간가격 가정에 얼마나 기대는가</td></tr>
+            <tr><td><strong>3.3</strong></td><td>로그수익률·로그가격 모델의 동등성, p=1·q=9</td><td>“수익률로 바꿔도 간결해지지 않는다”의 확인</td></tr>
+            <tr><td><strong>3.5</strong></td><td>더 큰 <span>$N$</span>을 강제하려면 어떤 제약?</td><td>표 3.5의 제약이 결과를 어떻게 바꾸는가</td></tr>
+            <tr><td><strong>3.6</strong></td><td><span>$B$</span>가 대각이면 CAGR 26.2%·샤프 2.4?</td><td>그림 3.8·3.9의 부진이 제약 하나로 뒤집히는가</td></tr>
+            <tr><td><strong>3.7</strong></td><td>로그가격으로 VAR·VEC를 다시 하면?</td><td>표 3.3·3.4에 로그 변환을 실제 적용</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway">여덟 문제 중 다섯이 <strong>“가정을 바꾸면 결과가 어떻게 되는가”</strong>를 묻습니다. 모델을 새로 만드는 문제가 아니라 <strong>전제를 흔들어 보는</strong> 문제입니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 연습문제</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="주석과 코드 사용 경계" data-report-refs="endnotes">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ENDNOTES</span></header>
-      <h1>패키지는 계산을 대신하지만 검증 계약은 대신하지 않는다</h1>
-      <p class="lead">교재의 MATLAB·Econometrics Toolbox 흐름을 사용할 때도 세 가지를 직접 고정한다.</p>
-      <div class="slide-body">
-        <div class="card-grid">
-          <article class="card"><span>DATA</span><h2>데이터 경계</h2><p>입력 열, 기간, 유니버스와 가격 종류를 기록한다.</p></article>
-          <article class="card"><span>TIME</span><h2>시간 경계</h2><p>학습·예측·포지션·손익의 시점을 분리한다.</p></article>
-          <article class="card"><span>COST</span><h2>실행 경계</h2><p>스프레드, 수수료, 회전율과 체결 규칙을 적용한다.</p></article>
-        </div>
-        <p class="takeaway"><strong>재현 가능성</strong> — 같은 수치보다 같은 입력과 추정 창을 재현하는 것이 먼저다.</p>
-      </div>
-      <footer class="slide-footer"><span>Chapter 3 · 주석</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--section" aria-label="AIML Quant 재현 감사 섹션" data-report-refs="reproduction-audit">
-      <p class="eyebrow">AIML QUANT SUPPLEMENT</p><h1>재현 감사</h1><p>수익률보다 먼저 시간·가격·데이터 경계를 재현한다</p><span class="section-number">04</span>
-    </section>
-
-    <section class="slide slide--visual" aria-label="예측을 거래로 바꾸는 정보 경계" data-report-refs="reproduction-audit fig-information-boundary">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">INFORMATION BOUNDARY</span></header>
-      <h1>예측 신호는 다섯 개의 문을 통과해야 한다</h1>
-      <p class="lead">학습 창 고정부터 표본외 판정까지 한 단계라도 섞이면 성과의 의미가 달라진다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/mechanism-path.svg" alt="학습 창 예측 포지션 비용 표본외 판정 흐름"><figcaption><b>그림 13</b><span>시간 t의 정보로 t+1만 예측</span><span>실패하면 모델보다 검증 계약으로 되돌아간다</span><a class="report-ref" href="report.html#fig-information-boundary">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>AIML Quant · 정보 경계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual slide--visual--compact" aria-label="Python 재현 모델 지도" data-report-refs="reproduction-audit fig-repro-map">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">REPRODUCTION MAP</span></header>
-      <h1>재현은 모델·예측·포지션·비용을 분해한다</h1>
-      <p class="lead">공식 소스와 제공 데이터로 가능한 범위를 먼저 고정한 뒤 모델별 판정을 내렸다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/repro-model-map.png" alt="Chapter 3 모델에서 거래까지의 Python 재현 지도"><figcaption><b>그림 14</b><span>공식 입력 · published replay · 방법론적 적응을 구분</span><span>같은 결과보다 같은 추정 경계를 우선</span><a class="report-ref" href="report.html#fig-repro-map">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>AIML Quant · 재현 지도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual slide--visual--compact" aria-label="AR과 ARMA 재현 진단" data-report-refs="reproduction-audit fig-repro-ar table-reproduction-results">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AR · ARMA AUDIT</span></header>
-      <h1>AR(10) 158%에는 전체표본 적합 누수가 있었다</h1>
-      <p class="lead">원본 코드는 trainset을 선언했지만 실제 AR 적합에는 전체 mid를 사용했다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/repro-ar-diagnostics.png" alt="AR ARMA BIC 계수 자산곡선 비용 민감도 진단"><figcaption><b>그림 15</b><span>전체표본 158.36% · train-only 140.27%</span><span>관측 스프레드 반영 뒤 순연율은 약 −100%</span><a class="report-ref" href="report.html#fig-repro-ar">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>AIML Quant · 단변량 재현</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual slide--visual--compact" aria-label="다변량과 상태공간 재현 진단" data-report-refs="multivariate-repro fig-repro-multivariate table-reproduction-results">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VAR · KALMAN AUDIT</span></header>
-      <h1>정확 재현과 방법론적 적응을 같은 말로 부르지 않는다</h1>
-      <p class="lead">원본 CRSP midquote 패널이 없어 공식 close 입력으로 적응했고, 표본외 성과는 약했다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/repro-multivariate.png" alt="VAR VEC 칼만 필터 표본외 진단"><figcaption><b>그림 16</b><span>VAR 표본외 −4.97% · Kalman 후반 −1.77%</span><span>입력 차이를 공개해 증거 등급을 낮춘다</span><a class="report-ref" href="report.html#fig-repro-multivariate">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>AIML Quant · 다변량 재현</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual slide--visual--compact" aria-label="EWA EWC 칼만 재현" data-report-refs="multivariate-repro fig-repro-pair">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">PAIR REPLAY</span></header>
-      <h1>학습 Sharpe 1.24가 테스트에서는 −0.13이 된다</h1>
-      <p class="lead">published-parameter replay는 학습 구간 상승과 마지막 250일의 약화를 분리해 보여 준다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure"><img src="assets/figs/repro-pair-kalman.png" alt="EWA EWC 칼만 기울기 예측오차 학습 테스트 성과"><figcaption><b>그림 17</b><span>학습 연율 9.57% · 테스트 −0.53%</span><span>분할선 뒤 성과를 별도 기준 1로 재시작</span><a class="report-ref" href="report.html#fig-repro-pair">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>AIML Quant · 페어 재현</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="반복 검증 루프" data-report-refs="multivariate-repro fig-validation-loop">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VALIDATION LOOP</span></header>
-      <h1>표본외 붕괴는 전체 계약을 다시 보는 신호다</h1>
-      <p class="lead">모델을 바꾸기 전에 차수·학습 창·포지션 지연·비용·레짐 관측을 순환 점검한다.</p>
-      <div class="slide-body report-visual-body"><figure class="deck-report-figure deck-report-figure--tall"><img src="assets/figs/operating-loop.svg" alt="시계열 전략 반복 검증 루프"><figcaption><b>그림 18</b><span>선택 → 적합 → 예측 → 비용 → 표본외 관측</span><span>실패 원인을 데이터·시간·비용 계약으로 환류</span><a class="report-ref" href="report.html#fig-validation-loop">리포트 근거</a></figcaption></figure></div>
-      <footer class="slide-footer"><span>AIML Quant · 검증 루프</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="시계열 전략 도입 판단" data-report-refs="glossary table-decision table-glossary">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">DECISION GUIDE</span></header>
-      <h1>다섯 경계 중 하나라도 흐리면 중단한다</h1>
-      <p class="lead">모델 성능이 아니라 재현 가능하고 체결 가능한 실험인지로 진행 여부를 판단한다.</p>
-      <div class="slide-body">
-        <table class="compare-table compare-table--dense"><thead><tr><th>경계</th><th>진행 신호</th><th>중단·재설계 신호</th></tr></thead><tbody>
-          <tr><th>시간</th><td>t 정보로 t+1만 예측</td><td>전체표본 적합·당일 손익 혼용</td></tr><tr><th>가격</th><td>bid/ask와 비용</td><td>중간가격 수익만 주장</td></tr><tr><th>데이터</th><td>유니버스·기간·출처 고정</td><td>다른 입력을 정확 재현으로 표시</td></tr><tr><th>모수</th><td>사전 차수·제약</td><td>성과 후 반복 선택</td></tr><tr><th>운영</th><td>표본외·레짐 감시</td><td>학습 성과를 미래 상한으로 간주</td></tr>
-        </tbody></table>
-      </div>
-      <footer class="slide-footer"><span>Chapter 3 · 도입 판단</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--closing" aria-label="시계열 분석 정리와 질의응답" data-report-refs="summary chapter-summary glossary">
-      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">WRAP UP</span></header>
+    <section class="slide slide--closing" aria-label="마무리" data-report-refs="chapter-summary glossary references">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CLOSING</span></header>
+      <h1>토론하고 싶은 것</h1>
       <div class="closing-body">
-        <p class="eyebrow">KEY TAKEAWAYS</p><h1>예측을 거래 가능한 검증 계약으로</h1>
-        <div class="card-grid">
-          <article class="card"><span>01</span><h2>모델</h2><p>무엇을 기억할지에 따라 AR·VAR·SSM을 고른다.</p></article>
-          <article class="card"><span>02</span><h2>경계</h2><p>학습·예측·지연 포지션·비용을 분리한다.</p></article>
-          <article class="card"><span>03</span><h2>판정</h2><p>표본외와 체결비용 뒤에 남는 성과만 믿는다.</p></article>
-        </div>
-        <p class="closing-question">Q&amp;A</p>
+        <p class="closing-question">우리 환경에서 <strong>중간가격 체결</strong>을 전제할 수 있는 시장이 있는가? 없다면 그림 3.1의 158%는 우리에게 어떤 숫자로 번역되는가?</p>
+        <ul>
+          <li><strong>제약의 선택</strong> — 시차를 1로 제한하는 것과 잡음 교차상관을 0으로 두는 것 중 무엇을 먼저 풀어 볼 것인가?</li>
+          <li><strong>과적합 판정</strong> — 그림 3.4·3.5 정도로 갈리면 버린다는 기준을 미리 숫자로 정해 둘 수 있는가?</li>
+          <li><strong>모델과 수익의 괴리</strong> — ARMA(2, 5)는 통계적으로 낫지만 덜 벌었다. 우리는 무엇을 기준으로 고를 것인가?</li>
+        </ul>
+        <nav class="closing-links" aria-label="관련 문서">
+          <a href="report.html">상세 리포트</a>
+          <a href="report.html#glossary">핵심 용어</a>
+          <a href="report.html#references">참고 자료</a>
+          <a href="../../">회차 목록</a>
+        </nav>
       </div>
-      <div class="closing-links"><a class="back-link" href="report.html">상세 리포트 읽기</a><a class="back-link" href="../../">회차 목록으로 돌아가기</a></div>
+      <footer class="slide-footer"><span>Chapter 3 · 마무리</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
+
   </main>
 
   <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
   <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
-  <nav class="deck-controls" aria-label="슬라이드 제어"><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></nav>
+  <nav class="deck-controls" aria-label="슬라이드 제어">
+    <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
+  </nav>
   <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+
   <script src="assets/deck-lightbox.js"></script>
   <script src="assets/deck.js"></script>
   <script defer src="assets/katex/katex.min.js"></script>
