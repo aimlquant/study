@@ -42,14 +42,14 @@
       <h1>가격을 직접 맞히는 대신, 시계열 속 구조를 본다</h1>
       <p class="lead">이름만 나열하면 왜 필요한지 보이지 않습니다. <strong>각 모형이 답하는 질문</strong>으로 보면 한 줄로 이어집니다.</p>
       <div class="slide-body">
-        <table class="compare-table" style="font-size:0.86rem;">
-          <thead><tr><th style="width:42%;">질문</th><th style="width:22%;">개념</th><th>연결되는 모형</th></tr></thead>
+        <table class="compare-table" style="font-size:0.82rem;">
+          <thead><tr><th style="width:33%;">질문</th><th style="width:13%;">개념</th><th style="width:32%;">모형이 보는 대상</th><th>연결되는 모형</th></tr></thead>
           <tbody>
-            <tr><td>하나의 시계열이 안정적인가?</td><td><strong>정상성</strong></td><td>AR · ARMA</td></tr>
-            <tr><td>비정상이면 어떻게 하나?</td><td><strong>차분</strong></td><td>ARIMA</td></tr>
-            <tr><td>다른 종목의 과거 움직임도 같이 볼까?</td><td><strong>다변량 관계</strong></td><td>VAR</td></tr>
-            <tr><td>여러 비정상 시계열 사이에 안정적인 조합이 있는가?</td><td><strong>공적분</strong></td><td>VEC</td></tr>
-            <tr><td>관측되지 않는 상태를 추정할까?</td><td><strong>은닉 상태</strong></td><td>SSM · 칼만 필터</td></tr>
+            <tr><td>하나의 시계열이 안정적인가?</td><td><strong>정상성</strong></td><td>평균 이탈 · 과거의 예측오차</td><td>AR · ARMA</td></tr>
+            <tr><td>비정상이면 어떻게 하나?</td><td><strong>차분</strong></td><td>추세를 제거한 변화량</td><td>ARIMA</td></tr>
+            <tr><td>다른 종목의 과거 움직임도 같이 볼까?</td><td><strong>다변량 관계</strong></td><td>종목 간 상호작용</td><td>VAR</td></tr>
+            <tr><td>여러 비정상 시계열 사이에 안정적인 조합이 있는가?</td><td><strong>공적분</strong></td><td>어제의 수준이 끌어당기는 힘</td><td>VEC</td></tr>
+            <tr><td>관측되지 않는 상태를 추정할까?</td><td><strong>은닉 상태</strong></td><td>관측되지 않는 추세와 관계</td><td>SSM · 칼만 필터</td></tr>
           </tbody>
         </table>
         <p class="takeaway"><strong>모형이 늘어나는 이유</strong> — 복잡한 수식을 쓰기 위해서가 아니라 앞선 모형이 놓친 정보를 보기 위해서입니다. 다만 새 정보를 볼 때마다 추정할 대상도 하나씩 늘어납니다.</p>
