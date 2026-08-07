@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" role="img" aria-label="상태공간 모형에서 은닉 추세와 관측 가격이 어떻게 갈라지는지 보여주는 도해. 위쪽 점선 영역은 관측되지 않는 은닉 추세로 100.0, 100.5, 101.0, 101.3처럼 부드럽게 움직이고, 아래쪽 실선 영역은 우리가 실제로 보는 시장가격으로 102.0, 99.8, 103.2, 100.7처럼 크게 흔들린다. 두 층은 상태전이방정식과 측정방정식으로 연결되며, 오른쪽에는 5일선 103, 20일선 99, 지수이동평균 101처럼 계산 방법마다 값이 달라지므로 어느 것도 유일한 정답이 아니라는 설명이 있다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="920" height="400" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">이동평균에 정답이 없다는 사실이, 그것을 ‘은닉 변수’로 두자는 근거다</text>
+
+    <!-- hidden layer -->
+    <rect x="32" y="54" width="556" height="118" rx="10" fill="#EDF1F7" stroke="#0F2C59" stroke-width="1.4" stroke-dasharray="7 5"/>
+    <text x="52" y="78" font-size="11.5" font-weight="700" fill="#0F2C59" letter-spacing="0.5">HIDDEN · 볼 수 없는 진짜 추세 x(t)</text>
+    <polyline points="80,138 200,131 320,124 440,120 552,116" fill="none" stroke="#0F2C59" stroke-width="2.8"/>
+    <g fill="#0F2C59">
+      <circle cx="80" cy="138" r="4"/><circle cx="200" cy="131" r="4"/><circle cx="320" cy="124" r="4"/><circle cx="440" cy="120" r="4"/>
+    </g>
+    <g font-size="11" fill="#0F2C59">
+      <text x="80" y="158" text-anchor="middle">100.0</text><text x="200" y="158" text-anchor="middle">100.5</text>
+      <text x="320" y="158" text-anchor="middle">101.0</text><text x="440" y="158" text-anchor="middle">101.3</text>
+    </g>
+    <text x="560" y="142" font-size="10.5" fill="#6B6B72">부드럽다</text>
+
+    <!-- arrows between layers -->
+    <g stroke="#8A9CBB" stroke-width="1.8" fill="none">
+      <path d="M80 176 L80 208"/><path d="M200 176 L200 208"/><path d="M320 176 L320 208"/><path d="M440 176 L440 208"/>
+    </g>
+    <text x="252" y="198" font-size="11" fill="#6B6B72">+ 관측 잡음</text>
+
+    <!-- observed layer -->
+    <rect x="32" y="216" width="556" height="118" rx="10" fill="#FFFFFF" stroke="#0F2C59" stroke-width="1.4"/>
+    <text x="52" y="240" font-size="11.5" font-weight="700" fill="#0F2C59" letter-spacing="0.5">OBSERVED · 우리가 보는 시장가격 y(t)</text>
+    <polyline points="80,272 200,306 320,262 440,298 552,280" fill="none" stroke="#C0392B" stroke-width="2.8"/>
+    <g fill="#C0392B">
+      <circle cx="80" cy="272" r="4"/><circle cx="200" cy="306" r="4"/><circle cx="320" cy="262" r="4"/><circle cx="440" cy="298" r="4"/>
+    </g>
+    <g font-size="11" fill="#C0392B">
+      <text x="80" y="262" text-anchor="middle">102.0</text><text x="200" y="324" text-anchor="middle">99.8</text>
+      <text x="320" y="252" text-anchor="middle">103.2</text><text x="440" y="318" text-anchor="middle">100.7</text>
+    </g>
+    <text x="560" y="286" font-size="10.5" fill="#6B6B72">흔들린다</text>
+
+    <!-- equations + MA ambiguity -->
+    <rect x="612" y="54" width="276" height="118" rx="10" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="632" y="78" font-size="11.5" font-weight="700" fill="#0F2C59">두 방정식</text>
+    <text x="632" y="106" font-size="12.5" fill="#0F0F10">x(t) = x(t−1) + B·u(t)</text>
+    <text x="632" y="126" font-size="10.5" fill="#6B6B72">상태전이 — 추세는 조금씩만 변한다</text>
+    <text x="632" y="150" font-size="12.5" fill="#0F0F10">y(t) = x(t) + D·ε(t)</text>
+    <text x="632" y="166" font-size="10.5" fill="#6B6B72">측정 — 잡음이 섞여 관측된다</text>
+
+    <rect x="612" y="216" width="276" height="118" rx="10" fill="#FDF6EC" stroke="#D9A441"/>
+    <text x="632" y="240" font-size="11.5" font-weight="700" fill="#9A6B10">같은 날, 같은 데이터인데</text>
+    <g font-size="12.5" fill="#0F0F10">
+      <text x="632" y="266">5일 이동평균</text><text x="868" y="266" text-anchor="end" font-weight="700">103</text>
+      <text x="632" y="290">20일 이동평균</text><text x="868" y="290" text-anchor="end" font-weight="700">99</text>
+      <text x="632" y="314">20일 지수이동평균</text><text x="868" y="314" text-anchor="end" font-weight="700">101</text>
+    </g>
+
+    <line x1="32" y1="352" x2="888" y2="352" stroke="#D8D6D1"/>
+    <text x="32" y="378" font-size="12.5" fill="#0F0F10">기간 5일·20일은 <tspan font-weight="700">사람이 정한 규칙</tspan>일 뿐이다. 그래서 “진짜 추세”를 관측되지 않는 상태로 두고, 관측가격으로 그것을 추정한다 — 이것이 칼만 필터다.</text>
+  </g>
+</svg>

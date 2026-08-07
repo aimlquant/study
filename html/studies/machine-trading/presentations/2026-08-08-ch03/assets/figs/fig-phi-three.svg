@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" width="920" height="380" role="img" aria-label="AR(1)의 계수 파이가 만드는 세 가지 경로를 평균 100, 시작값 110에서 비교한 도해. 파이가 0.8이면 평균으로부터의 편차 10이 8, 6.4로 줄어들며 가격이 108, 106.4, 105.1을 거쳐 100으로 되돌아간다. 파이가 1이면 편차 10이 그대로 유지되어 110 근처에 머물고 평균으로 끌어당기는 힘이 없다. 파이가 1.2이면 편차가 12, 14.4, 17.3으로 커져 가격이 평균에서 점점 멀어진다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="920" height="380" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">평균 100, 어제 110 — 계수 φ 하나가 세 갈래를 만든다</text>
+    <text x="32" y="54" font-size="12.5" fill="#6B6B72">AR 모델이 예측하는 것은 가격이 아니라 <tspan font-weight="700">평균에서 벗어난 정도(편차)</tspan>다. 오늘 편차 = φ × 어제 편차.</text>
+
+    <!-- shared mean line label -->
+    <text x="32" y="196" font-size="10.5" fill="#9A9893">평균 100</text>
+
+    <!-- panel 1 -->
+    <rect x="32" y="72" width="272" height="216" rx="8" fill="#FFFFFF" stroke="#2E7D5B" stroke-width="1.4"/>
+    <text x="52" y="98" font-size="13" font-weight="700" fill="#2E7D5B">φ = 0.8 · 평균회귀</text>
+    <line x1="52" y1="192" x2="284" y2="192" stroke="#C9C7C2" stroke-dasharray="4 4"/>
+    <polyline points="60,120 105,134 150,148 195,160 240,170 280,180" fill="none" stroke="#2E7D5B" stroke-width="2.6"/>
+    <circle cx="60" cy="120" r="3.5" fill="#2E7D5B"/>
+    <g font-size="10.5" fill="#0F0F10">
+      <text x="60" y="112" text-anchor="middle">110</text>
+      <text x="105" y="126" text-anchor="middle">108</text>
+      <text x="150" y="140" text-anchor="middle">106.4</text>
+      <text x="195" y="152" text-anchor="middle">105.1</text>
+      <text x="240" y="162" text-anchor="middle">104</text>
+    </g>
+    <text x="52" y="216" font-size="11.5" fill="#6B6B72">편차 10 → 8 → 6.4 → 5.1 …</text>
+    <text x="52" y="238" font-size="12" fill="#0F0F10">평균으로 <tspan font-weight="700">끌어당기는 힘</tspan>이 있다</text>
+    <text x="52" y="262" font-size="11.5" fill="#2E7D5B">|φ| &lt; 1 → 약정상</text>
+
+    <!-- panel 2 -->
+    <rect x="324" y="72" width="272" height="216" rx="8" fill="#FFFFFF" stroke="#0F2C59" stroke-width="1.4"/>
+    <text x="344" y="98" font-size="13" font-weight="700" fill="#0F2C59">φ = 1 · 랜덤워크</text>
+    <line x1="344" y1="192" x2="576" y2="192" stroke="#C9C7C2" stroke-dasharray="4 4"/>
+    <polyline points="352,120 397,112 442,126 487,116 532,130 572,120" fill="none" stroke="#0F2C59" stroke-width="2.6"/>
+    <circle cx="352" cy="120" r="3.5" fill="#0F2C59"/>
+    <g font-size="10.5" fill="#0F0F10">
+      <text x="352" y="112" text-anchor="middle">110</text>
+      <text x="397" y="104" text-anchor="middle">111</text>
+      <text x="442" y="140" text-anchor="middle">109</text>
+      <text x="487" y="108" text-anchor="middle">112</text>
+      <text x="532" y="144" text-anchor="middle">108</text>
+    </g>
+    <text x="344" y="216" font-size="11.5" fill="#6B6B72">편차 10 → 10 → 10 …</text>
+    <text x="344" y="238" font-size="12" fill="#0F0F10">끌어당기는 힘이 <tspan font-weight="700">없다</tspan></text>
+    <text x="344" y="262" font-size="11.5" fill="#0F2C59">변화량만 랜덤 · 오늘이 내일의 출발점</text>
+
+    <!-- panel 3 -->
+    <rect x="616" y="72" width="272" height="216" rx="8" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.4"/>
+    <text x="636" y="98" font-size="13" font-weight="700" fill="#C0392B">φ = 1.2 · 추세·발산</text>
+    <line x1="636" y1="192" x2="868" y2="192" stroke="#C9C7C2" stroke-dasharray="4 4"/>
+    <polyline points="644,168 689,158 734,144 779,124 824,100 864,84" fill="none" stroke="#C0392B" stroke-width="2.6"/>
+    <circle cx="644" cy="168" r="3.5" fill="#C0392B"/>
+    <g font-size="10.5" fill="#0F0F10">
+      <text x="644" y="182" text-anchor="middle">110</text>
+      <text x="689" y="150" text-anchor="middle">112</text>
+      <text x="734" y="136" text-anchor="middle">114.4</text>
+      <text x="779" y="116" text-anchor="middle">117.3</text>
+      <text x="824" y="92" text-anchor="middle">120.7</text>
+    </g>
+    <text x="636" y="216" font-size="11.5" fill="#6B6B72">편차 10 → 12 → 14.4 → 17.3 …</text>
+    <text x="636" y="238" font-size="12" fill="#0F0F10">평균에서 <tspan font-weight="700">멀어진다</tspan></text>
+    <text x="636" y="262" font-size="11.5" fill="#C0392B">|φ| &gt; 1 → 비정상</text>
+
+    <line x1="32" y1="310" x2="888" y2="310" stroke="#D8D6D1"/>
+    <text x="32" y="338" font-size="12.5" fill="#0F0F10"><tspan font-weight="700">φ는 사람이 정하지 않는다</tspan> — 여러 값을 넣어 보고 실제와 오차가 가장 작은 값을 데이터가 골라 준다(회귀·MLE).</text>
+    <text x="32" y="360" font-size="12" fill="#6B6B72">그래서 φ 하나만 봐도 그 시계열의 성격을 읽을 수 있다.</text>
+  </g>
+</svg>

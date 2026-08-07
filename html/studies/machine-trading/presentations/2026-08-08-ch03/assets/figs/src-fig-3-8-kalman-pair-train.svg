@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" role="img" aria-label="EWC와 EWA 페어에 칼만 필터를 적용한 거래 전략의 학습 구간 누적수익 개형. 곡선이 전반부에는 오르지만 중반부터 기울기가 눕기 시작해 뒤쪽은 거의 평평하다. 테스트 구간을 보기 전에 학습 구간 안에서 이미 문제가 드러난다는 점이 강조되어 있다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="880" height="410" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">학습 구간 안에서 이미 평평해졌다 — 테스트를 보기 전에 드러난 신호</text>
+    <text x="32" y="56" font-size="12.5" fill="#6B6B72">칼만 필터 페어 트레이딩 · EWC–EWA · 학습 구간(표본내) &#160;·&#160; 곡선이 꺾이는 지점이 결론을 말해 준다</text>
+    <rect x="32" y="76" width="816" height="254" rx="10" fill="#FFFFFF" stroke="#2E7D5B" stroke-width="1.4"/>
+    <text x="52" y="102" font-size="12" font-weight="700" fill="#2E7D5B">학습 구간 누적수익</text>
+    <line x1="90.0" y1="122" x2="90.0" y2="272" stroke="#C9C7C2"/>
+    <line x1="90.0" y1="258" x2="824" y2="258" stroke="#C9C7C2" stroke-dasharray="3 3"/>
+    <text x="82.0" y="126" font-size="10" fill="#9A9893" text-anchor="end">높음</text>
+    <text x="82.0" y="262" font-size="10" fill="#9A9893" text-anchor="end">0</text>
+    <polyline points="90,258 146,235 203,215 259,195 316,178 372,163 429,155 485,149 542,146 598,145 655,143 711,142 768,143 824,141" fill="none" stroke="#2E7D5B" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="824" y="116" font-size="15" font-weight="800" fill="#2E7D5B" text-anchor="end">전반부 뒤 정체</text>
+    <text x="163" y="290" font-size="10" fill="#9A9893" text-anchor="middle">학습 초</text>
+    <text x="420" y="290" font-size="10" fill="#9A9893" text-anchor="middle">전반부 끝</text>
+    <text x="751" y="290" font-size="10" fill="#9A9893" text-anchor="middle">학습 말</text>
+    <line x1="52" y1="302" x2="828" y2="302" stroke="#E4E2DE"/>
+    <text x="52" y="320" font-size="10.5" fill="#2E7D5B">학습 구간인데도 뒤쪽 절반에서 기울기가 눕는다 — 흔치 않은 모습이다</text>
+    <rect x="32" y="348" width="816" height="54" rx="8" fill="#EDF1F7"/>
+    <text x="52" y="372" font-size="12.5" fill="#0F0F10">교재는 두 가지 해석을 나란히 둔다 — EWA와 EWC가 실제로 <tspan font-weight="700">공적분에서 이탈</tspan>했거나, 잡음 공분산 B를 과적합했거나.</text>
+    <text x="52" y="394" font-size="11.5" fill="#6B6B72">학습 구간에서 곡선이 눕는다면 그 뒤를 굳이 확인하지 않아도 결과를 짐작할 수 있다. 발표자 재구성 · 개형만 전달한다.</text>
+  </g>
+</svg>

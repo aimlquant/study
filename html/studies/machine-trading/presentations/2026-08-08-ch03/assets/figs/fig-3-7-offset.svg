@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="480" viewBox="0 0 1120 480" role="img" aria-labelledby="title desc">
-  <title id="title">EWC와 EWA 사이 칼만 필터 오프셋 추정 재구성</title><desc id="desc">헤지 회귀의 상수 오프셋이 시간에 따라 변하며 기울기와 함께 은닉 상태로 추정된다.</desc>
-  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#111827}.h{font-size:22px;font-weight:900}.s{font-size:15px;fill:#475569}.axis{stroke:#334155;stroke-width:2}.g{stroke:#cbd5e1;stroke-width:1}</style>
-  <rect width="1120" height="480" rx="24" fill="#fafaf9"/><text class="t h" x="70" y="56">은닉 상태 ② · 시간가변 오프셋 α(t)</text>
-  <g transform="translate(90 90)"><line class="axis" x1="0" y1="300" x2="930" y2="300"/><line class="axis" x1="0" y1="25" x2="0" y2="300"/><line class="g" x1="0" y1="165" x2="930" y2="165"/><path d="M0 252L40 226L78 245L120 210L160 232L200 198L245 180L285 205L330 164L375 176L420 142L465 128L510 148L555 106L600 122L645 92L690 112L735 78L780 98L825 64L875 82L930 58" fill="none" stroke="#d97706" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
-  <rect x="735" y="96" width="305" height="88" rx="16" fill="#fef3c7" stroke="#0f2c59" stroke-width="2"/><text class="t h" x="888" y="132" text-anchor="middle">β와 α를 함께 추정</text><text class="t s" x="888" y="158" text-anchor="middle">관계 수준 자체의 이동을 허용</text>
-</svg>

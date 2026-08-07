@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" role="img" aria-label="같은 칼만 필터 전략을 테스트 구간에서 실행한 누적수익 개형. 곡선이 올랐다 내렸다를 반복하다 0 근처에서 끝난다. 학습 구간의 상승이 테스트 구간에서 재현되지 않는다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="880" height="410" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">같은 전략, 다른 구간 — 방향성이 사라진다</text>
+    <text x="32" y="56" font-size="12.5" fill="#6B6B72">상태공간 모델 · 같은 종목 · 테스트 구간(표본외) &#160;·&#160; 그림 3.4와 세로축 의미가 다름에 유의</text>
+    <rect x="32" y="76" width="816" height="254" rx="10" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.4"/>
+    <text x="52" y="102" font-size="12" font-weight="700" fill="#C0392B">테스트 구간 누적수익</text>
+    <line x1="90.0" y1="122" x2="90.0" y2="272" stroke="#C9C7C2"/>
+    <line x1="90.0" y1="209" x2="824" y2="209" stroke="#C9C7C2" stroke-dasharray="3 3"/>
+    <text x="82.0" y="126" font-size="10" fill="#9A9893" text-anchor="end">소폭 +</text>
+    <text x="82.0" y="213" font-size="10" fill="#9A9893" text-anchor="end">0</text>
+    <text x="82.0" y="276" font-size="10" fill="#9A9893" text-anchor="end">−</text>
+    <polyline points="90,209 146,180 203,155 259,190 316,168 372,201 429,231 485,217 542,196 598,225 655,212 711,199 768,215 824,207" fill="none" stroke="#C0392B" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="824" y="116" font-size="15" font-weight="800" fill="#C0392B" text-anchor="end">0 근처</text>
+    <text x="163" y="290" font-size="10" fill="#9A9893" text-anchor="middle">테스트 초</text>
+    <text x="457" y="290" font-size="10" fill="#9A9893" text-anchor="middle">중반</text>
+    <text x="751" y="290" font-size="10" fill="#9A9893" text-anchor="middle">테스트 말</text>
+    <line x1="52" y1="302" x2="828" y2="302" stroke="#E4E2DE"/>
+    <text x="52" y="320" font-size="10.5" fill="#C0392B">추정한 모수는 두 개뿐인데도 이만큼 무너진다</text>
+    <rect x="32" y="348" width="816" height="54" rx="8" fill="#EDF1F7"/>
+    <text x="52" y="372" font-size="12.5" fill="#0F0F10">은닉 변수가 매 시점 자유롭게 움직이므로, 명시적 모수가 적어도 <tspan font-weight="700">실질 자유도는 크다</tspan>.</text>
+    <text x="52" y="394" font-size="11.5" fill="#6B6B72">표본내 성과가 좋다는 사실은 그 자체로 예측력의 증거가 되지 못한다. 발표자 재구성 · 개형만 전달한다.</text>
+  </g>
+</svg>

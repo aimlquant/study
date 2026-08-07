@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" role="img" aria-label="호가 반등이 만드는 가짜 평균회귀를 보여주는 도해. 위쪽은 호가창으로 매도호가 100.02, 중간가격 100.01, 매수호가 100.00이 그대로 유지된다. 가운데는 급하게 사는 사람과 급하게 파는 사람이 번갈아 체결해 체결가가 100.02와 100.00 사이를 오르내리는 모습이고, 그 아래 중간가격은 100.01로 평탄하다. 아래쪽은 즉시 매수 후 즉시 매도하면 가격이 그대로여도 0.02원 손실이 난다는 계산이다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="920" height="400" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">호가는 그대로인데 체결가만 튄다 — 이것을 평균회귀로 읽으면 안 된다</text>
+
+    <!-- order book -->
+    <rect x="32" y="54" width="240" height="150" rx="8" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="48" y="78" font-size="11.5" font-weight="700" fill="#0F2C59">호가창 (변하지 않음)</text>
+    <rect x="48" y="90" width="208" height="30" rx="4" fill="#FDECEC"/>
+    <text x="60" y="110" font-size="12" fill="#C0392B">매도호가 Ask</text>
+    <text x="244" y="110" font-size="12.5" font-weight="700" fill="#C0392B" text-anchor="end">100.02</text>
+    <rect x="48" y="122" width="208" height="30" rx="4" fill="#EDF1F7"/>
+    <text x="60" y="142" font-size="12" fill="#0F2C59">중간가격 Mid</text>
+    <text x="244" y="142" font-size="12.5" font-weight="700" fill="#0F2C59" text-anchor="end">100.01</text>
+    <rect x="48" y="154" width="208" height="30" rx="4" fill="#E9F4EE"/>
+    <text x="60" y="174" font-size="12" fill="#2E7D5B">매수호가 Bid</text>
+    <text x="244" y="174" font-size="12.5" font-weight="700" fill="#2E7D5B" text-anchor="end">100.00</text>
+
+    <!-- chart -->
+    <rect x="292" y="54" width="596" height="150" rx="8" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="308" y="78" font-size="11.5" font-weight="700" fill="#0F2C59">누가 급했는지에 따라 체결가만 오르내린다</text>
+
+    <line x1="316" y1="96" x2="868" y2="96" stroke="#F3D6D6"/>
+    <line x1="316" y1="130" x2="868" y2="130" stroke="#C9C7C2" stroke-dasharray="4 4"/>
+    <line x1="316" y1="164" x2="868" y2="164" stroke="#D6EADF"/>
+
+    <polyline points="352,96 448,164 544,96 640,164 736,96 832,164" fill="none" stroke="#C0392B" stroke-width="2.6"/>
+    <g fill="#C0392B">
+      <circle cx="352" cy="96" r="4"/><circle cx="544" cy="96" r="4"/><circle cx="736" cy="96" r="4"/>
+    </g>
+    <g fill="#2E7D5B">
+      <circle cx="448" cy="164" r="4"/><circle cx="640" cy="164" r="4"/><circle cx="832" cy="164" r="4"/>
+    </g>
+    <polyline points="316,130 868,130" fill="none" stroke="#0F2C59" stroke-width="2.6"/>
+
+    <text x="876" y="100" font-size="10" fill="#C0392B" text-anchor="end">100.02</text>
+    <text x="876" y="126" font-size="10" fill="#0F2C59" text-anchor="end">Mid 100.01 (평탄)</text>
+    <text x="876" y="180" font-size="10" fill="#2E7D5B" text-anchor="end">100.00</text>
+
+    <g font-size="10" fill="#6B6B72">
+      <text x="352" y="192" text-anchor="middle">급히 산다</text>
+      <text x="448" y="192" text-anchor="middle">급히 판다</text>
+      <text x="544" y="192" text-anchor="middle">급히 산다</text>
+      <text x="640" y="192" text-anchor="middle">급히 판다</text>
+    </g>
+
+    <!-- misreading -->
+    <rect x="32" y="222" width="416" height="96" rx="8" fill="#FDECEC" stroke="#C0392B"/>
+    <text x="52" y="248" font-size="12" font-weight="700" fill="#C0392B">모델이 착각하는 것</text>
+    <text x="52" y="272" font-size="12" fill="#0F0F10">“올라가면 곧 내려오네? 평균회귀가 있구나!”</text>
+    <text x="52" y="296" font-size="11.5" fill="#6B6B72">실제로는 시장 중심 가격이 전혀 움직이지 않았다.</text>
+
+    <!-- round trip cost -->
+    <rect x="472" y="222" width="416" height="96" rx="8" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="492" y="248" font-size="12" font-weight="700" fill="#0F2C59">그 신호로 거래하면</text>
+    <text x="492" y="272" font-size="12" fill="#0F0F10">즉시 매수 100.02 → 즉시 매도 100.00</text>
+    <text x="492" y="296" font-size="13" font-weight="700" fill="#C0392B">가격이 그대로여도 −0.02원 (스프레드)</text>
+
+    <line x1="32" y1="338" x2="888" y2="338" stroke="#D8D6D1"/>
+    <text x="32" y="364" font-size="12.5" fill="#0F0F10">그래서 초단기 분석에서는 체결가 대신 <tspan font-weight="700">Mid = (Bid + Ask) / 2</tspan>를 쓴다. 체결가가 가짜라는 뜻이 아니라, 그 안에 “누가 공격적이었나”가 섞여 있다는 뜻이다.</text>
+    <text x="32" y="386" font-size="12" fill="#6B6B72">일봉처럼 시간 단위가 길어지면 이 흔들림은 평균화되어 영향이 작아진다.</text>
+  </g>
+</svg>

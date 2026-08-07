@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" role="img" aria-label="ARMA(2,5) 모델로 만든 AUD.USD 거래 전략의 표본외 누적수익 개형. 곡선은 우상향하지만 AR(10)보다 완만하고 중간에 눌리는 구간이 있으며 연율화 수익률은 158퍼센트에서 60퍼센트로 떨어진다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="880" height="410" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">모델을 더 정교하게 만들었더니 성과는 오히려 내려갔다</text>
+    <text x="32" y="56" font-size="12.5" fill="#6B6B72">ARMA(2, 5) · 같은 데이터 · 같은 표본외 구간 &#160;·&#160; 158% → 60%</text>
+    <rect x="32" y="76" width="816" height="254" rx="10" fill="#FFFFFF" stroke="#0F2C59" stroke-width="1.4"/>
+    <text x="52" y="102" font-size="12" font-weight="700" fill="#0F2C59">표본외 누적수익</text>
+    <line x1="90.0" y1="122" x2="90.0" y2="272" stroke="#C9C7C2"/>
+    <line x1="90.0" y1="260" x2="824" y2="260" stroke="#C9C7C2" stroke-dasharray="3 3"/>
+    <text x="82.0" y="126" font-size="10" fill="#9A9893" text-anchor="end">높음</text>
+    <text x="82.0" y="264" font-size="10" fill="#9A9893" text-anchor="end">0</text>
+    <polyline points="90,260 146,252 203,247 259,248 316,238 372,232 429,234 485,222 542,212 598,206 655,194 711,184 768,174 824,167" fill="none" stroke="#0F2C59" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="824" y="116" font-size="15" font-weight="800" fill="#0F2C59" text-anchor="end">연율 60%</text>
+    <text x="163" y="290" font-size="10" fill="#9A9893" text-anchor="middle">구간 초</text>
+    <text x="457" y="290" font-size="10" fill="#9A9893" text-anchor="middle">중반</text>
+    <text x="751" y="290" font-size="10" fill="#9A9893" text-anchor="middle">구간 말</text>
+    <line x1="52" y1="302" x2="828" y2="302" stroke="#E4E2DE"/>
+    <text x="52" y="320" font-size="10.5" fill="#0F2C59">이동평균 항을 넣어 시차는 10 → 2로 줄었지만 곡선의 기울기는 낮아졌다</text>
+    <rect x="32" y="348" width="816" height="54" rx="8" fill="#EDF1F7"/>
+    <text x="52" y="372" font-size="12.5" fill="#0F0F10">이동평균 항 덕분에 |φ₁|이 1보다 확실히 작아졌다 — <tspan font-weight="700">통계적으로는 더 나은 모델</tspan>이다.</text>
+    <text x="52" y="394" font-size="11.5" fill="#6B6B72">그런데도 수익은 줄었다. 적합도가 좋아지는 것과 돈이 벌리는 것은 별개라는 뜻이다. 발표자 재구성 · 개형만 전달한다.</text>
+  </g>
+</svg>

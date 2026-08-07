@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Machine Trading Chapter 3 시계열 분석 상세 리포트">
-  <title>시계열 분석 · 상세 리포트</title>
+  <meta name="description" content="머신 트레이딩 Chapter 3 상세 스터디 리포트 — AR·ARMA·ARIMA·VAR·VEC와 상태공간 모델, 그리고 그 모두를 관통하는 과적합 문제">
+  <title>Chapter 3. 시계열 분석 · 상세 리포트</title>
   <link rel="stylesheet" href="assets/report.css">
   <link rel="stylesheet" href="assets/katex/katex.min.css">
 </head>
@@ -31,332 +31,1022 @@
     <section class="report-cover">
       <div class="report-cover__wordmark"><span class="report-cover__wordmark-name">AIML Quant</span><span class="report-cover__wordmark-sub">머신 트레이딩</span></div>
       <span class="report-cover__kicker">Study Report · Chapter 3</span>
-      <h1 class="report-cover__title">시계열 분석</h1>
-      <p class="report-cover__subtitle">예측 모형보다 먼저 정보 경계와 체결 가능성을 묻는다</p>
+      <h1 class="report-cover__title">Chapter 3. 시계열 분석</h1>
+      <p class="report-cover__subtitle">가격과 수익률에 남은 시간적 패턴, 자산 간 관계, 장기 균형, 숨은 추세를 찾아 매매 신호로 바꾼다</p>
       <dl class="report-cover__meta">
-        <div><dt>발표자</dt><dd>태호</dd></div><div><dt>범위</dt><dd>Chapter 3</dd></div><div><dt>발행</dt><dd>2026-08-08</dd></div>
+        <div><dt>발표자</dt><dd>태호</dd></div>
+        <div><dt>범위</dt><dd>Chapter 3 (pp. 59–82)</dd></div>
+        <div><dt>발행</dt><dd>2026-08-08</dd></div>
       </dl>
     </section>
 
+    <!-- 0 -->
     <section class="report-section s0 page-break" id="summary">
       <div class="report-section__kicker">Section 00 · Executive Summary</div>
-      <h1>0. 가격 예측은 거래 가능한 검증 계약이어야 한다</h1>
-      <div class="callout--hero"><span class="callout__kicker">한 문장 결론</span><span class="callout__body"><strong>좋은 시계열 전략은 복잡한 모델이 아니라</strong> 학습 구간, 한 단계 앞 예측, 지연 포지션, 체결비용과 표본외 평가를 한 계약으로 묶는다.</span></div>
-      <p>AR·ARMA·ARIMA는 한 가격의 기억을, VAR·VEC는 여러 자산의 상호작용을, 상태공간 모델과 칼만 필터는 직접 보이지 않는 이동평균이나 헤지비율을 다룬다. 모델의 표현력은 단계마다 커지지만 추정할 모수와 과적합 위험도 함께 커진다.</p>
-      <p>교재의 사례는 선형 모델을 실제 예측과 거래 신호로 연결하는 실무적 입문이다. 이 리포트는 그 흐름을 보존하면서, 재현 노트북이 확인한 전체표본 적합 누수와 거래비용 민감도를 별도 근거로 덧붙인다. 교재의 역사적 결과와 AIML Quant의 재현 판정을 섞어 읽지 않는 것이 핵심이다.</p>
-      <div class="section-summary"><div class="section-summary__kicker">세 가지 핵심 질문</div><div class="section-summary__body"><ul>
-        <li><strong>기억</strong> — 과거 가격·오차·다른 자산·은닉 상태 중 무엇을 모델에 넣는가?</li>
-        <li><strong>경계</strong> — 시간 t까지의 정보만으로 t+1을 예측하고 손익은 그 뒤에 실현되는가?</li>
-        <li><strong>실행</strong> — 중간가격의 통계적 우위가 스프레드와 회전율 뒤에도 남는가?</li>
-      </ul></div></div>
+      <h1>0. 핵심 요약</h1>
+      <div class="callout--hero">
+        <span class="callout__kicker">One Sentence</span>
+        <span class="callout__body">3장의 여섯 모형은 결국 <strong>“가격 수준은 못 믿으니 무엇을 대신 볼 것인가”</strong>라는 한 질문에 대한 여섯 가지 대답이다 — 편차(AR), 잡음의 기억(ARMA), 차분(ARIMA), 이웃 종목(VAR), 균형 이탈(VEC), 보이지 않는 상태(칼만).</span>
+      </div>
+      <p>3장은 여섯 개의 선형 모형을 차례로 쌓는다. AR(p) → ARMA(p, q) → ARIMA(p, d, q) → VAR(p) → VEC(q) → 상태공간 모델. 뒤로 갈수록 더 많은 것을 보지만 그만큼 <strong>추정해야 할 것도 늘어난다</strong>. 그래서 이 장의 마지막 결론은 “모형을 키우라”가 아니라 <strong>“모수를 줄이고 제약을 걸라”</strong>다.</p>
+      <p>설명은 가능한 한 숫자로 확인한다. 평균 100에 어제 110이면 φ=0.8일 때 오늘은 108, 내일은 106.4다. 100.02에 사서 100.00에 팔면 가격이 그대로여도 0.02를 잃는다. 예측수익률 2%·1%·−1%는 섹터 중립을 거치면 +40%·+10%·−50% 비중이 된다. 수식이 막히는 자리에서는 이 숫자들을 먼저 보면 된다.</p>
+
+      <div class="section-summary">
+        <div class="section-summary__kicker">이 장을 관통하는 세 질문</div>
+        <div class="section-summary__body">
+          <ul>
+            <li><strong>무엇을 모델링하는가</strong> — 가격 자체인가, 평균에서 벗어난 편차인가, 변화량인가, 보이지 않는 상태인가?</li>
+            <li><strong>그 패턴은 거래 가능한가</strong> — 통계적으로 보이는 평균회귀가 호가 스프레드를 이기는가?</li>
+            <li><strong>왜 단순한 모델을 고르는가</strong> — 가장 잘 맞는 모델이 왜 가장 좋은 모델이 아닌가?</li>
+          </ul>
+        </div>
+      </div>
+
       <table class="cmp-table" id="table-overview">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 1</span><span class="asset-caption__title">이 장의 모델을 고르는 네 질문</span></div></caption>
-        <thead><tr><th>질문</th><th>단변량</th><th>다변량</th><th>은닉 상태</th></tr></thead>
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 1</span>
+            <span class="asset-caption__title">여섯 모형 — 무엇을 보고, 무엇을 포기하는가</span>
+          </div>
+        </caption>
+        <thead>
+          <tr><th>모형</th><th>모델링 대상</th><th>해결하는 문제</th><th>새로 생기는 부담</th></tr>
+        </thead>
         <tbody>
-          <tr><th>무엇을 기억하나</th><td>과거 가격·예측오차</td><td>여러 자산의 지연값</td><td>직접 보이지 않는 상태</td></tr>
-          <tr><th>대표 모델</th><td>AR / ARMA / ARIMA</td><td>VAR / VEC</td><td>SSM / Kalman</td></tr>
-          <tr><th>주요 위험</th><td>단위근·호가 반등</td><td>차원 폭증·유니버스 편향</td><td>잡음 모수 과적합·레짐 변화</td></tr>
-          <tr><th>판정 질문</th><td colspan="3">표본외·비용 후 성과가 같은 방향으로 남는가?</td></tr>
+          <tr><td><strong>AR(p)</strong></td><td>평균으로부터의 편차</td><td>과거 가격만으로 다음 값을 예측</td><td>평균 μ가 일정해야 한다 — 실제 주가는 아니다</td></tr>
+          <tr><td><strong>ARMA(p,q)</strong></td><td>편차 + 과거 예측오차</td><td>필요한 시차 수를 줄인다</td><td>추정할 모수가 늘어 과적합 위험</td></tr>
+          <tr><td><strong>ARIMA(p,d,q)</strong></td><td>차분한 값(수익률)</td><td>비정상 가격을 정상으로 바꾼다</td><td>가격 수준 정보가 빠진다</td></tr>
+          <tr><td><strong>VAR(p)</strong></td><td>여러 종목의 가격 벡터</td><td>종목 간 상호작용을 포착</td><td>계수 해석이 직관적이지 않다</td></tr>
+          <tr><td><strong>VEC(q)</strong></td><td>변화량 + 균형 이탈</td><td>변화량을 예측하되 수준도 본다</td><td>장기 관계를 가정해야 한다</td></tr>
+          <tr><td><strong>상태공간 · 칼만</strong></td><td>관측되지 않는 상태</td><td>이동평균·헤지비율을 매일 갱신</td><td>은닉 변수의 자유도 → 과적합이 가장 심하다</td></tr>
         </tbody>
       </table>
-      <figure class="report-figure" id="fig-model-map" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">단변량에서 은닉 상태까지 이어지는 모델 지도</span></figcaption>
-        <img src="assets/figs/concept-flow.svg" alt="AR·ARMA·ARIMA에서 VAR·VEC와 상태공간·칼만 필터를 거쳐 거래 규칙으로 이어지는 모델 지도">
-        <small class="asset-note">왼쪽에서 오른쪽으로 갈수록 표현 범위와 추정 부담이 함께 커진다. 교재 Chapter 3의 모델 순서를 관계 중심으로 재구성했다.</small>
+    </section>
+
+    <!-- 1 -->
+    <section class="report-section s1 page-break" id="intro">
+      <div class="report-section__kicker">Section 01 · Introduction</div>
+      <h1>1. 들어가며 — 시계열 분석은 어디에 쓰는가</h1>
+      <div class="section-summary">
+        <div class="section-summary__kicker">섹션 요약</div>
+        <div class="section-summary__body">
+          <ul>
+            <li>교재는 시계열 기법이 <strong>펀더멘털 정보가 쓸모없는 시장</strong>에서 가장 빛난다고 본다 — 통화와 비트코인이 그 예다.</li>
+            <li>그렇다고 통화 전용은 아니다. 이 장은 <strong>주식에 적용하는 예도 함께</strong> 다룬다.</li>
+            <li>시계열 분석은 기술적 분석이 아니다. 하나는 <strong>사람이 만든 규칙</strong>, 다른 하나는 <strong>데이터에서 추정한 통계 모델</strong>이다.</li>
+            <li>펀더멘털이 넘치는 주식에서도 통한다. <strong>주가는 기업 가치만으로 움직이지 않기</strong> 때문이다 — 수급·심리·모멘텀이 남긴 패턴이 시계열 모형의 대상이다.</li>
+            <li>모든 모형이 딛고 선 전제가 <strong>정상성</strong>이고, 그 전제를 둘 사이의 관계로 확장한 것이 <strong>공적분</strong>이다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>교재가 3장을 여는 방식이 인상적이다. 시계열 기법이 가장 쓸모 있는 곳은 예측이 쉬운 시장이 아니라 <strong>다른 수단이 전부 실패한 시장</strong>이라는 것이다. Lyons 교수(2001)의 인용 — 교과서적 모델이 설명할 수 있는 월간 환율 변화의 비율이 본질적으로 0이라는 — 이 그 근거로 놓인다. 펀더멘털로 설명이 안 되니 가격 자체의 통계 구조라도 보자는 순서다.</p>
+      <p>그래서 이 장의 예제는 통화(AUD.USD)로 시작하지만 거기서 끝나지 않는다. 펀더멘털 정보가 넘치는 주식 시장에서도 기술적 분석이 나름의 자리를 갖듯, 컴퓨터 하드웨어 주식 바스켓과 EWA–EWC ETF 페어가 뒤이어 등장한다. 비트코인 예시는 7장으로 미뤄 둔다.</p>
+
+      <div class="callout--insight">
+        <span class="callout__kicker">시계열 분석은 기술적 분석인가</span>
+        <div class="callout__body">
+          <p>아니다. 다만 겹치는 부분이 있다. “20일 이동평균선을 위로 돌파하면 매수”는 사람이 만든 규칙이고 통계적으로 증명하지 않는다. 반면 시계열 분석은 <span>$P_t = 0.8 P_{t-1} + 0.1 P_{t-2} + \varepsilon$</span> 같은 모델을 데이터에서 직접 추정한다.</p>
+          <p>이동평균은 양쪽에서 모두 쓰이는데 목적이 다르다. 기술적 분석에서는 그 자체가 매매 규칙이고, 시계열 분석에서는 잡음을 걸러내는 <strong>전처리</strong>다. 교재가 이동평균을 언급하는 이유도 여기 있다 — 그것은 가장 기초적인 신호처리 필터일 뿐이고, 이 장의 끝에는 칼만 필터가 기다린다.</p>
+        </div>
+      </div>
+
+      <table class="cmp-table" id="table-ta-vs-tsa">
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 2</span>
+            <span class="asset-caption__title">기술적 분석과 시계열 분석 — 무엇이 다른가</span>
+          </div>
+        </caption>
+        <thead><tr><th>구분</th><th>기술적 분석</th><th>시계열 분석</th></tr></thead>
+        <tbody>
+          <tr><td>성격</td><td>투자 철학이자 매매 방법</td><td>데이터를 다루는 수학·통계 기법</td></tr>
+          <tr><td>목적</td><td>매매 신호 찾기</td><td>미래 데이터 예측</td></tr>
+          <tr><td>기반</td><td>차트, 패턴, 지표</td><td>통계학, 확률론</td></tr>
+          <tr><td>쓰는 데이터</td><td>가격, 거래량</td><td>가격, 거래량, 금리, 환율 등 시간에 따라 기록되는 값</td></tr>
+          <tr><td>대표 기법</td><td>이동평균, MACD, RSI, 볼린저밴드</td><td>AR, ARIMA, VAR, GARCH, 칼만 필터</td></tr>
+        </tbody>
+      </table>
+      <p><a class="asset-ref" href="#table-ta-vs-tsa">표 2</a>에서 갈리는 지점은 <strong>목적</strong>이다. 기술적 분석은 곧바로 매매 신호를 찾고, 시계열 분석은 먼저 데이터를 예측한 뒤 그 예측에서 신호를 만든다. 그래서 이동평균처럼 양쪽에 다 등장하는 도구도 쓰임이 갈린다 — 한쪽에서는 그 자체가 규칙이고, 다른 쪽에서는 잡음을 걸러내는 전처리다.</p>
+
+      <h2>1.1 펀더멘털이 넘치는 주식에 왜 시계열 분석인가</h2>
+      <p>주식에는 분석할 재료가 아주 많다. 매출·영업이익·순이익 같은 실적, PER·PBR 같은 가치평가 지표, 배당, CEO 교체, 신제품 출시, 그리고 금리와 경기 상황까지. “올해 AI 반도체 수요가 늘어나니 영업이익이 증가하겠다”처럼 <strong>기업의 가치로 판단하는 것</strong>이 펀더멘털 분석이다.</p>
+      <p>기술적 분석은 이 정보를 거의 보지 않는다. 가격, 거래량, 이동평균선, RSI, MACD, 추세선만 본다. “20일 이동평균선을 돌파했다”, “거래량이 갑자기 세 배로 늘었다” 같은 신호로 매매한다. 그러면 자연스럽게 의문이 생긴다 — <em>기업 정보가 이렇게 많은데 왜 가격만 보는가?</em></p>
+      <p>그런데 현실에서는 기술적 분석만으로 수익을 내는 사람이 있다. <strong>펀더멘털 정보가 넘치는 시장에서도 가격만 보는 접근이 여전히 유효하다</strong>는 뜻이다. 교재가 시계열 분석을 주식으로 넓히며 드는 근거가 바로 이 유비다.</p>
+
+      <div class="callout--insight">
+        <span class="callout__kicker">시장별로 정리하면</span>
+        <div class="callout__body">
+          <ul>
+            <li><strong>환율</strong> — 기업 가치 같은 펀더멘털이 거의 없다 → 시계열 분석이 특히 잘 맞는다</li>
+            <li><strong>비트코인</strong> — 같은 이유로 잘 맞는다(교재는 7장에서 다룬다)</li>
+            <li><strong>주식</strong> — 펀더멘털이 풍부하지만, 기술적 분석이 통하듯 시계열 분석도 통한다</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>주식에서도 통하는 이유는 <strong>주가가 기업 가치만으로 움직이지 않기 때문</strong>이다. 삼성전자의 실적에 아무 변화가 없어도 외국인의 대량 매수, 기관의 프로그램 매매, 옵션 만기, 투자자 심리, 단기 모멘텀 때문에 가격이 일정한 패턴을 보인다. 이런 움직임이야말로 AR·ARIMA·VAR·칼만 필터가 포착하려는 대상이다.</p>
+      <p>그래서 두 분석은 경쟁하지 않는다. <strong>펀더멘털 분석은 기업의 내재가치를 설명하려 하고, 시계열 분석은 가격이 어떻게 움직이는지를 설명하고 예측하려 한다.</strong> 서로 다른 정보를 다루는 보완 관계다.</p>
+
+      <h2>1.2 정상성과 공적분</h2>
+      <p>교재는 정상성을 주석 1에서 짧게 정의하고 넘어간다. 하지만 이 장의 모든 모형이 그 위에 서 있으므로 먼저 정리해 둔다. 정상성이란 시간이 지나도 데이터의 통계적 성질이 변하지 않는 것이다. 평균이 일정하고, 분산이 일정하고, 자기상관 구조가 일정하면 정상이다. 매일 20도 근처를 오가는 기온은 정상이고, 100 → 105 → 110 → 118 → 130 → 145 → 160으로 계속 오르는 주가는 평균 자체가 변하므로 비정상이다.</p>
+      <p>주가가 비정상인 이유는 구조 때문이다. 오늘 가격은 어제 가격에 오늘의 변동을 더한 값이라서, 한 번 올라간 가격은 되돌아오지 않는 한 평균 자체를 끌고 올라간다. 반면 같은 데이터를 수익률로 바꾸면 +1%, −0.5%, +0.8%, −0.2%, +0.3%처럼 0% 근처를 오간다. <strong>가격은 비정상이지만 수익률은 정상</strong>인 것이다.</p>
+      <p>공적분은 각각은 비정상이지만 둘의 관계는 정상인 경우다. 삼성전자가 100 → 110 → 120 → 130 → 140 → 150으로, SK하이닉스가 50 → 55 → 60 → 65 → 70 → 75로 오른다고 하자. 둘 다 비정상이다. 그런데 항상 삼성전자 = 하이닉스 × 2 라면 <span>$삼성 - 2 \times 하이닉스 = 0$</span>으로 일정하다. 현실은 정확히 2배가 아니라 하이닉스가 49, 56, 60, 64, 71, 76처럼 움직이므로 차이는 +2, −2, 0, +2, −2, −2처럼 <strong>0 근처를 오간다</strong>. 이 스프레드가 정상이라는 것이 공적분이고, 뒤에 나올 VEC와 EWA–EWC 페어가 모두 여기에 기댄다.</p>
+
+      <figure class="report-figure" id="fig-stationarity">
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 1</span>
+          <span class="asset-caption__title">정상성과 공적분 — 대상이 하나인가 둘인가</span>
+        </figcaption>
+        <img src="assets/figs/fig-stationary-vs-coint.svg" alt="왼쪽은 정상성으로, 100에서 160까지 계속 올라 평균이 변하는 비정상 가격과 그것을 수익률로 바꾸면 0퍼센트 근처를 오가는 정상 시계열이 되는 모습을 위아래로 보여준다. 오른쪽은 공적분으로, 삼성전자와 하이닉스 두 가격이 각각 계속 올라 비정상이지만 삼성에서 하이닉스의 두 배를 뺀 스프레드는 플러스마이너스 2 안에서 0 근처를 오가 정상이 되는 모습을 보여준다.">
+        <small class="asset-note">발표자 재구성. 왼쪽은 “하나를 정상으로 바꾸는 법”, 오른쪽은 “둘의 조합에서 정상을 찾는 법”이라는 서로 다른 전략을 대비한다.</small>
       </figure>
     </section>
 
-    <section class="report-section s1 page-break" id="why-time-series">
-      <div class="report-section__kicker">Chapter 3 · 들어가며</div>
-      <h1>들어가며 — 왜 시계열 분석인가</h1>
-      <div class="section-summary"><div class="section-summary__kicker">핵심</div><div class="section-summary__body"><ul><li>다음 신호 예측은 트레이더와 시계열 분석가가 공유하는 문제다.</li><li>통화·비트코인처럼 펀더멘털 직관이 약한 시장에서 출발점이 된다.</li><li>기성 패키지는 계산을 대신할 뿐, 시간 경계와 실행 가능성은 대신 정하지 않는다.</li></ul></div></div>
-      <p><strong>시계열</strong>은 일정한 순서의 시점마다 관측한 값의 열이다. 시계열 분석은 이 순서가 가진 기억을 이용해 다음 값을 추정한다. 이 장은 계량경제학과 신호 처리에서 발전한 선형 도구들을 가격 예측에 연결하며, 내부 증명보다 소프트웨어로 모형을 적합하고 예측을 얻는 흐름에 집중한다.</p>
-      <p><strong>정상성</strong>은 평균과 분산 같은 통계적 성질이 시간에 따라 바뀌지 않는다는 뜻이다. 정상성이나 공적분 검정은 중요한 출발점이지만 도구상자 전체는 아니다. 과거 가격의 기억, 여러 자산의 연결, 보이지 않는 상태의 추정까지 문제의 모양에 따라 다른 모델을 선택해야 한다.</p>
-      <div class="callout--insight"><span class="callout__kicker">경계</span><div class="callout__body"><p>“다음 값을 예측할 수 있다”와 “비용 후 거래 수익을 낼 수 있다”는 다른 주장이다. 중간가격, 실제 체결가격, 지연 포지션과 비용을 분리하지 않으면 통계적 규칙성이 거래 가능한 알파로 과장된다.</p></div></div>
-    </section>
-
+    <!-- 2 -->
     <section class="report-section s2 page-break" id="ar-models">
-      <div class="report-section__kicker">Chapter 3 · AR(p)</div>
-      <h1>AR(p) — 시계열 분석의 첫걸음</h1>
-      <div class="section-summary"><div class="section-summary__kicker">핵심</div><div class="section-summary__body"><ul><li>AR은 과거 가격이 현재 가격에 남기는 선형 기억을 계수로 표현한다.</li><li>BIC는 적합도와 복잡성 벌점을 함께 보며 시차 p를 고른다.</li><li>중간가격의 높은 수익은 실제 스프레드를 이기지 못할 수 있다.</li></ul></div></div>
-      <h2>AR(1): 어제가 오늘을 얼마나 끌고 가는가</h2>
-      <p>AR(1)은 오늘 가격의 평균 이탈을 어제의 평균 이탈과 새 충격으로 설명한다. $Y(t)-\mu=\phi(Y(t-1)-\mu)+\varepsilon(t)$에서 $\phi$는 기억의 지속성, $\varepsilon(t)$는 이전 정보로 예측할 수 없는 혁신을 뜻한다.</p>
-      <p>$|\phi|&lt;1$이면 충격이 점차 사라져 약정상·평균회귀 성질을 갖고, $\phi=1$이면 랜덤 워크가 된다. AUD.USD 중간가격의 교재 추정치 $0.99997$은 1보다 작지만 너무 가까워 경제적으로는 거의 랜덤 워크에 가깝다. 통계적 유의성과 거래 크기를 구분해야 한다.</p>
-      <figure class="report-figure" id="fig-ar-regimes" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">AR(1) 계수로 읽는 평균회귀와 랜덤워크</span></figcaption>
-        <img src="assets/figs/ar-regimes.svg" alt="phi 절대값이 1보다 작으면 평균회귀, 1이면 랜덤워크, 1보다 크면 발산하는 구간도">
-        <small class="asset-note">$\phi$의 부등식만 보지 말고 1과의 거리와 거래 빈도를 함께 읽어야 한다. 식 3.1의 해석을 재구성했다.</small>
-      </figure>
-      <h2>AR(p): 더 먼 과거와 BIC</h2>
-      <p>AR(p)는 시간 $t$의 가격을 $p$개 지연 가격의 다중회귀로 본다. 시차를 늘리면 표본 적합은 좋아지지만 모수가 늘어 과적합 위험이 커진다. BIC는 로그가능도 개선과 모수 수 벌점을 함께 비교해 가장 작은 값을 만드는 $p$를 선택한다.</p>
-      <article class="source-listing" id="code-ar-bic">
-        <h4>MATLAB · AR 시차 탐색의 핵심 구조</h4>
-        <p>후보 시차마다 학습 구간만 적합하고 로그가능도를 저장한다. 아래 발췌에서 `trainset`, `mid`, `LOGL`, `P`는 모두 같은 단위 안에서 정의된다.</p>
-        <pre data-code-language="MATLAB"><code class="language-matlab">trainset = 1:train_end;
-LOGL = zeros(60, 1);
-P = (1:60)';
+      <div class="report-section__kicker">Section 02 · AR(p)</div>
+      <h1>2. AR(p) — 과거의 자기 자신으로 예측한다</h1>
+      <div class="section-summary">
+        <div class="section-summary__kicker">섹션 요약</div>
+        <div class="section-summary__body">
+          <ul>
+            <li>가장 단순한 <strong>AR(1)</strong>은 한 시점과 다음 시점을 잇는 <strong>선형 회귀</strong>일 뿐이다 — 자기 과거로 자신을 설명하므로 <em>자기회귀</em>다.</li>
+            <li>AR은 가격이 아니라 <strong>평균에서 벗어난 편차</strong>를 예측한다. 그래서 μ를 빼고 시작한다.</li>
+            <li>교재는 AUD.USD 1분봉 <strong>중간가격</strong>에 AR(10)을 적합하고, 차수 10은 <strong>BIC</strong>가 고른다.</li>
+            <li>표 3.1의 <span>$\phi_1$</span>은 1에 매우 가깝다 — 되돌림이 있긴 하지만 아주 느리다는 뜻이다.</li>
+            <li>그림 3.1의 표본외 <strong>연율화 158%</strong>는 화려하지만, <strong>중간가격 체결</strong>이라는 전제 위에서만 성립한다.</li>
+            <li>그 158%가 성립하는지는 두 가지에 달려 있다 — <span>$\phi$</span>가 실제로 뜻하는 것, 그리고 호가 반등.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>시계열 분석에서 가장 단순한 모델은 <strong>AR(1)</strong>이다. 이것은 한 시점의 가격과 그 다음 시점의 가격을 관계짓는 <strong>선형 회귀 모델</strong>일 뿐이다.</p>
+      <div class="katex-equation">
+        $$ Y(t) - \mu = \phi\,\big(Y(t-1) - \mu\big) + \varepsilon(t) $$
+      </div>
+      <p>여기서 <span>$Y(t)$</span>는 시각 <span>$t$</span>에서의 가격이고, <span>$\phi$</span>는 <strong>(자기)회귀 계수</strong>이며, <span>$\varepsilon$</span>은 평균이 0인 <strong>가우시안 잡음</strong>으로 때때로 <strong>혁신(innovation)</strong>이라고도 불린다. 자기 자신의 과거로 자신을 설명하기 때문에 이 이름이 <strong>자기회귀 과정(auto-regressive process)</strong>이다.</p>
+      <p>용어를 한 번만 갈라 두면 이후가 편하다. <strong>회귀</strong>는 다른 변수로 목표 값을 예측하는 것이고, <strong>자기회귀</strong>는 자기 자신의 과거 값으로 현재나 미래를 예측하는 것이다. AR은 <em>Auto Regressive</em>, 곧 “자기 자신을 이용해 회귀한다”는 뜻이다.</p>
+      <p>한 문장으로 줄이면 <strong>“오늘 가격은 어제 가격의 영향을 받는다”</strong>가 된다. 어제 삼성전자가 100,000원이었다면 오늘은 99,800원, 100,100원, 100,300원처럼 어제 근처에서 움직일 가능성이 높다는 가정이다. 다만 모델이 실제로 예측하는 것은 가격 자체가 아니라 <strong>평균에서 얼마나 벗어났는지</strong>다 — 그래서 식의 양변에서 <span>$\mu$</span>를 뺀다.</p>
+      <p>같은 발상을 시차 <span>$p$</span>개로 늘린 것이 AR(<span>$p$</span>)다.</p>
+      <div class="katex-equation">
+        $$ Y(t) - \mu = \phi_1\big(Y(t-1) - \mu\big) + \cdots + \phi_p\big(Y(t-p) - \mu\big) + \varepsilon(t) $$
+      </div>
+      <p>AR(p)는 현재값을 과거 <span>$p$</span>개 값의 선형결합으로 쓴다. 교재는 이것을 AUD.USD 1분봉에 적용하는데, 두 가지 선택이 눈에 띈다. 첫째, 체결가가 아니라 <strong>중간가격</strong>을 쓴다. 둘째, 시차 <span>$p$</span>를 사람이 정하지 않고 <strong>BIC</strong>로 고르며 그 결과가 10이다. 두 선택 모두 이 절의 결론을 좌우한다.</p>
+
+      <h2>2.1 차수 <span>$p$</span>는 어떻게 정하는가</h2>
+      <p>이 식을 다시 보면 <strong>다중 회귀 모델</strong>일 뿐임이 드러난다. 시간 <span>$t$</span>의 가격이 <strong>종속변수</strong>이고, 최대 <span>$p$</span>개의 시차를 가진 과거 가격들이 <strong>독립변수</strong>다. 보통의 회귀와 달라진 점은 설명변수가 “다른 무엇”이 아니라 “자기 자신의 과거”라는 것뿐이다. 그래서 AR(1)은 어제 하나만 보고, AR(3)이면 2일 전·3일 전까지 본다 — <em>오늘을 예측하는 데 어디까지 거슬러 볼 것인가</em>를 정하는 문제다.</p>
+      <p>그러면 <span>$p$</span>를 몇으로 둘 것인가. <span>$p$</span>를 하나의 <strong>매개변수</strong>로 승격시키면 데이터에 가장 잘 맞는 값을 찾는 문제가 된다. 다만 무작정 늘리면 안 된다. AR(100)이라면 그 시기에만 있던 우연한 패턴까지 외우게 되는데, 이것이 <strong>과적합</strong>이다.</p>
+      <p>그래서 <strong>BIC</strong>를 쓴다. BIC는 모델의 <strong>음의 로그우도</strong>에 비례하되 거기에 <span>$p$</span>에 비례하는 항을 더해 <strong>복잡도에 벌점</strong>을 매긴다. 목적은 BIC를 최소화하는 것이고, 방법은 <strong>완전 탐색(brute-force exhaustive search)</strong>이다 — 가능한 <span>$p$</span>를 전부 넣어 보고 가장 작은 값을 고른다.</p>
+
+      <div class="callout--insight">
+        <span class="callout__kicker">BIC가 고르는 방식</span>
+        <div class="callout__body">
+          <p>AR(1)의 BIC가 100, AR(5)가 90, AR(20)이 95라면 <strong>AR(5)</strong>를 고른다. AR(1)은 너무 단순해 적합도가 낮고, AR(20)은 적합도가 조금 나아지더라도 벌점이 그보다 크다. <strong>가장 잘 맞는 모델이 아니라 합이 가장 작은 모델</strong>을 고르는 것이다.</p>
+        </div>
+      </div>
+
+      <p>교재의 코드는 이 탐색을 그대로 옮긴 것이다. 시차를 1부터 60까지 — 1분봉이니 과거 한 시간이다 — 바꿔 가며 로그우도를 모으고, <code>aicbic</code>로 BIC를 계산해 최소인 <span>$p$</span>를 고른다.</p>
+      <pre><code class="language-matlab">LOGL = zeros(60, 1);            % 최대 60개 시차(1시간)의 로그우도
+P    = zeros(size(LOGL));
 for p = 1:length(P)
     model = arima(p, 0, 0);
-    [~, ~, LOGL(p)] = estimate(model, mid(trainset), 'print', false);
-end</code></pre>
-      </article>
+    [~, ~, logL] = estimate(model, mid(trainset), 'print', false);
+    LOGL(p) = logL;  P(p) = p;
+end
+[~, bic]  = aicbic(LOGL, P+1, length(mid(trainset)));   % 상수 포함이라 P+1
+[~, pMin] = min(bic);
+fit = estimate(arima(pMin, 0, 0), mid);                 % 미지의 계수 추정</code></pre>
+      <p>이 절차를 2007년 7월 24일부터 2014년 8월 12일까지의 AUD.USD 1분 중간가격에 적용하면 <span>$p = 10$</span>이 나오고, 그때 추정된 <span>$\mu,\ \phi_1,\ \ldots,\ \phi_{10}$</span>이 표 3.1이다. 이어서 2014년 8월 12일부터 2015년 8월 3일까지를 표본외 구간으로 두고 한 걸음 앞을 예측한다.</p>
+      <pre><code class="language-matlab">for t = testset(1):size(mid, 1)
+    y = forecast(fit, 1, 'Y0', mid(t-pMin+1:t));   % 최근 pMin개면 충분하다
+    yF(t) = y(end);
+end
+deltaYF = yF - mid;                 % 예측가격 &minus; 현재가격
+pos = zeros(size(mid));
+pos(deltaYF &gt; 0) =  1;              % 오를 것으로 보면 매수
+pos(deltaYF &lt; 0) = -1;              % 내릴 것으로 보면 매도</code></pre>
+      <p>여기서 <code>yF(t)</code>는 시각 <span>$t$</span>까지의 데이터로 만든 예측값이므로 <strong>실제로는 <span>$t+1$</span>의 가격에 대한 예측</strong>이다. 신호 규칙은 단순하다 — 예측 가격이 현재 가격보다 높으면 매수, 낮으면 매도. 전체 흐름은 <strong>탐색 → 추정 → 예측 → 신호</strong>의 네 단계로 요약된다.</p>
+
       <table class="cmp-table" id="source-table-3-1" data-source-kind="table" data-source-ref="3.1">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">표 3.1 AUD.USD에 적용된 AR(10) 모델의 계수</span></div></caption>
-        <thead><tr><th>묶음</th><th>대표 값</th><th>읽는 법</th></tr></thead><tbody>
-          <tr><th>상수 $\mu$</th><td>1.37196e−06</td><td>한 막대의 평균 이동은 매우 작다.</td></tr>
-          <tr><th>$\phi_1$</th><td>0.993434</td><td>직전 가격의 영향이 대부분을 차지한다.</td></tr>
-          <tr><th>$\phi_2$–$\phi_{10}$</th><td>−0.00305–0.00663</td><td>작은 보정이 여러 시차에 분산된다.</td></tr>
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 3</span>
+            <span class="asset-caption__title">표 3.1 AUD.USD에 적용된 AR(10) 모델의 계수</span>
+          </div>
+        </caption>
+        <thead><tr><th>표에 실린 항목</th><th>무엇을 담고 있나</th><th>발표에서 주목할 점</th></tr></thead>
+        <tbody>
+          <tr><td>상수 오프셋</td><td>중간가격 수준에 대응하는 절편</td><td>기준점을 어디에 둘지만 정한다 — 예측력과는 무관하다</td></tr>
+          <tr><td><span>$\phi_1$</span></td><td>1에 매우 가까운 값</td><td>이 절의 핵심. 되돌림은 있지만 <strong>랜덤워크와 구분하기 어려울 만큼 느리다</strong></td></tr>
+          <tr><td><span>$\phi_2 \sim \phi_{10}$</span></td><td>0 주변에 흩어진 작은 값들</td><td>개별 시차는 약한데도 BIC가 10을 골랐다 — 약한 신호가 여럿 모인 형태다</td></tr>
+          <tr><td>잡음 분산</td><td>1분 단위 변동의 크기</td><td>신호 대비 잡음의 기준. 뒤의 스프레드 논의와 직접 비교된다</td></tr>
         </tbody>
       </table>
-      <p>교재는 $p=10$을 선택하고 예측값이 현재 중간가격보다 높으면 매수, 낮으면 매도하는 한 단계 앞 전략을 구성한다. 예측 `yF(t)`가 실제로는 $t+1$ 가격을 향한다는 시간 규약이 중요하다.</p>
+      <p><a class="asset-ref" href="#source-table-3-1">표 3</a>에서 실무적으로 가장 중요한 줄은 <span>$\phi_1$</span>이다. 1에 가깝다는 것은 “되돌아오긴 하는데 아주 천천히”라는 뜻이고, 뒤에 나올 ARMA(2, 5)에서 이 값이 <em>확실히</em> 1보다 작아지는 것과 대비된다.</p>
+
       <figure class="report-figure" id="source-fig-3-1" data-deck-use="required" data-source-kind="figure" data-source-ref="3.1">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">그림 3.1 AUD.USD에 적용한 AR(10) 거래 전략</span></figcaption>
-        <img src="assets/figs/fig-3-1-ar10.svg" alt="AUD.USD AR 10 중간가격 전략의 표본외 자산곡선과 교재 보고 연율 수익률 158퍼센트">
-        <small class="asset-note">상승 방향과 교재의 비용 전 연율 수익률을 개념적으로 재구성했으며 정확한 원본 축·경로를 복제하지 않았다. 성과의 실행 경계는 AIML Quant 보충에서 별도로 감사한다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 2</span>
+          <span class="asset-caption__title">그림 3.1 AUD.USD에 적용한 AR(10) 거래 전략</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-1-ar10-equity.svg" alt="AR(10) 모델로 AUD.USD 중간가격을 예측해 만든 거래 전략의 표본외 누적수익 개형. 곡선이 되돌림 없이 꾸준히 우상향해 연율화 158퍼센트에 도달한다. 아래에는 이 수익이 중간가격 체결을 전제로 하며 저지연 실행이 없으면 스프레드가 곡선을 대부분 먹는다는 설명이 있다.">
+        <small class="asset-note">발표자 재구성 — 교재 그림을 옮기지 않고, 교재가 본문에서 밝힌 표본외 연율화 158%와 곡선의 개형만 도식으로 옮겼다. 실제 곡선의 세부 형태는 교재를 확인한다.</small>
       </figure>
+      <p>교재는 이 성과에 곧바로 단서를 단다. 중간가격에 체결할 수 있어야 하고, 그러려면 지정가 주문을 관리하는 저지연 실행 프로그램이 반드시 필요하다는 것이다. 종이 위에서는 158%지만 체결 인프라가 없으면 손에 쥘 수 없다. 연습문제 3.2가 정확히 이 지점을 겨냥한다 — 같은 데이터셋의 매수·매도 호가를 써서 시장가 주문만으로 백테스트하면 CAGR이 얼마가 되는지 직접 확인하라는 것이다.</p>
+
+      <h2>2.2 왜 평균을 빼고, <span>$\phi$</span>는 무엇을 정하는가</h2>
+      <p>평균을 빼지 않고 <span>$Y_t = \phi Y_{t-1}$</span>만 쓰면 어떻게 되는지 보면 이유가 분명해진다. 평균이 100인 데이터에서 φ=0.8이라면 오늘 100일 때 내일 예측은 <strong>80</strong>이 된다. 100 근처를 오가던 가격이 갑자기 80으로 예측되는 것이다. 평균을 빼면 달라진다. 어제 110이면 편차는 +10이고, φ=0.8이면 오늘 편차는 +8, 따라서 오늘 가격은 108이다. <strong>AR은 “오늘 가격”이 아니라 “평균에서 얼마나 떨어져 있는가”를 예측한다.</strong></p>
+      <p>많은 책이 쓰는 <span>$Y_t = c + \phi Y_{t-1} + \varepsilon_t$</span>는 다른 모델이 아니다. 원래 식을 전개하면 <span>$Y_t = (1-\phi)\mu + \phi Y_{t-1} + \varepsilon_t$</span>이고, <span>$(1-\phi)\mu$</span>가 곧 상수항 <span>$c$</span>다. 표 3.1의 “상수 오프셋”이 바로 이것이다.</p>
+      <p>여기서 <span>$\phi$</span>가 정상성과 곧바로 연결된다. 시계열의 <strong>평균과 분산이 시간에 따라 일정하면 약정상(weakly stationary)</strong>이라 하고, AR(1)은 <span>$|\phi| < 1$</span>일 때 약정상이다. 그리고 약정상 시계열은 <strong>평균회귀(mean reverting)</strong> 특성을 갖는다(Chan, 2013). 반대로 <span>$|\phi| > 1$</span>이면 시계열은 <strong>추세(trend)</strong>를 갖게 되고, <span>$\phi = 1$</span>이면 <strong>랜덤워크(random walk)</strong>가 된다. 계수 하나가 세 갈래를 가르는 셈이다. 연습문제 3.1이 첫 번째 명제 — 약정상이면 <span>$|\phi| < 1$</span> — 를 분산으로 증명하게 한다.</p>
+
+      <figure class="report-figure" id="fig-phi" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 3</span>
+          <span class="asset-caption__title">평균 100, 어제 110에서 출발한 세 갈래</span>
+        </figcaption>
+        <img src="assets/figs/fig-phi-three.svg" alt="평균 100에 어제 가격 110인 상황에서 세 경로를 비교한 도해. 파이가 0.8이면 편차 10이 8, 6.4, 5.1로 줄며 가격이 108, 106.4, 105.1을 거쳐 100으로 되돌아간다. 파이가 1이면 편차가 10 그대로 유지되어 110 근처를 랜덤하게 움직인다. 파이가 1.2이면 편차가 12, 14.4, 17.3으로 커져 가격이 평균에서 멀어진다.">
+        <small class="asset-note">발표자 재구성. 편차 10에 φ를 거듭 곱한 값을 그대로 계산해 표시했다(0.8 → 8, 6.4, 5.12 …). 세 경로 모두 같은 식에서 φ만 바꾼 것이다.</small>
+      </figure>
+
+      <table class="cmp-table" id="table-phi">
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 4</span>
+            <span class="asset-caption__title">φ 값 하나로 읽는 시계열의 성격</span>
+          </div>
+        </caption>
+        <thead><tr><th>φ</th><th>의미</th><th>거래 관점</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>과거의 영향이 거의 없다</td><td>과거 가격으로는 예측 불가</td></tr>
+          <tr><td>0.3</td><td>과거의 영향이 약하다</td><td>약한 평균회귀</td></tr>
+          <tr><td>0.8</td><td>영향은 크지만 점차 평균으로 돌아간다</td><td>평균회귀 전략의 전형</td></tr>
+          <tr><td>0.99</td><td>거의 랜덤워크 — <strong>표 3.1의 <span>$\phi_1$</span>이 여기에 있다</strong></td><td>되돌림을 기대하기 어렵다</td></tr>
+          <tr><td>1.0</td><td>랜덤워크 — 끌어당기는 힘이 없다</td><td>방향 예측 불가, 변화량만 랜덤</td></tr>
+          <tr><td>1.1</td><td>추세가 점점 강해진다</td><td>추세추종의 영역</td></tr>
+        </tbody>
+      </table>
+      <p><a class="asset-ref" href="#table-phi">표 4</a>을 <a class="asset-ref" href="#source-table-3-1">표 3</a>와 겹쳐 보면 교재의 AR(10)이 어느 자리에 있는지 보인다. 참고로 φ는 사람이 정하지 않는다. 컴퓨터가 여러 값을 넣어 보고 실제 데이터와 오차가 가장 작은 값을 고른다 — 집값 = β × 평수에서 β를 찾는 것과 같은 과정이고, MATLAB에서 <code>arima(1,0,0)</code>에 <code>estimate</code>를 걸면 내부적으로 이 최대우도추정이 돌아간다.</p>
+      <p>한 가지 짚어 둘 것이 있다. “평균은 시간이 지나면 변하잖아”라는 반론은 정확히 맞고, 이 질문 하나가 정상성과 비정상성을 가른다. 삼성전자 평균은 2010년 2만 원, 2020년 5.5만 원, 2025년 8만 원으로 계속 올랐다. μ가 일정하다는 것은 <strong>모델의 가정</strong>일 뿐이다. 그래서 실무는 ① 차분(ARIMA의 I), ② 수익률, ③ 롤링 윈도우로 우회한다. 교재의 μ도 “영원히 변하지 않는 평균”이 아니라 <em>그 모델이 적용되는 구간의 평균</em>이다.</p>
+
+      <h2>2.3 왜 체결가가 아니라 중간가격인가</h2>
+      <p>교재가 중간가격을 쓰는 이유는 한 문장으로 지나가지만, 이 절의 158%가 성립하는지 여부가 여기에 달려 있다. 호가창에 매도호가 100.02, 매수호가 100.00이 있다고 하자. 시장이 합의한 중심 가격은 그 중간인 100.01이다. 그런데 급하게 사려는 사람은 100.02에 사고, 급하게 팔려는 사람은 100.00에 판다. 두 사람이 번갈아 나타나면 체결가는 100.02 → 100.00 → 100.02 → 100.00으로 찍힌다. <strong>호가는 한 번도 움직이지 않았는데</strong> 차트만 출렁인다.</p>
+      <p>여기서 통계 모델이 착각한다. “올라가면 곧 내려오네? 평균회귀가 있구나.” 하지만 실제로 그 신호로 거래하면 살 때 Ask, 팔 때 Bid를 써야 하므로 100.02에 사서 100.00에 팔게 되고, 가격이 전혀 변하지 않아도 −0.02다. 환전소에서 달러를 1,350원에 사서 곧바로 1,330원에 파는 것과 같다.</p>
+
+      <figure class="report-figure" id="fig-bounce">
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 4</span>
+          <span class="asset-caption__title">호가는 고정, 체결가만 튄다 — 그리고 그 신호로 거래하면</span>
+        </figcaption>
+        <img src="assets/figs/fig-bidask-bounce.svg" alt="위쪽에 매도호가 100.02, 중간가격 100.01, 매수호가 100.00이 변하지 않는 호가창이 있고, 가운데 차트에서는 급히 사는 사람과 급히 파는 사람이 번갈아 체결해 체결가가 100.02와 100.00 사이를 오르내리는 반면 중간가격 선은 100.01에서 평탄하게 유지된다. 아래에는 모델이 이를 평균회귀로 착각한다는 설명과, 즉시 매수 후 즉시 매도하면 마이너스 0.02가 된다는 계산이 나란히 배치되어 있다.">
+        <small class="asset-note">발표자 재구성. 붉은 점은 매수자가 공격적으로 체결한 시점, 초록 점은 매도자가 공격적으로 체결한 시점이다.</small>
+      </figure>
+
+      <table class="cmp-table" id="table-price-views">
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 5</span>
+            <span class="asset-caption__title">같은 순간을 보는 두 가격 — 무엇을 묻느냐에 따라 답이 다르다</span>
+          </div>
+        </caption>
+        <thead><tr><th>구분</th><th>체결가 (Trade Price)</th><th>중간가격 (Midprice)</th></tr></thead>
+        <tbody>
+          <tr><td>정의</td><td>실제로 체결된 가격</td><td>(최고 매수호가 + 최저 매도호가) / 2</td></tr>
+          <tr><td>장점</td><td>실제 거래 가능한 가격</td><td>시장 중심 가격에 가깝다 · 호가 반등 제거</td></tr>
+          <tr><td>단점</td><td>누가 공격적이었는지에 좌우된다</td><td>내가 실제로 거래할 수 있는 가격은 아니다</td></tr>
+          <tr><td>답하는 질문</td><td>“내가 얼마에 거래할 수 있었나?”</td><td>“시장이 합의한 수준이 변했나?”</td></tr>
+          <tr><td>이 장에서</td><td>연습문제 3.2가 쓰라고 요구하는 가격</td><td>본문 AR(10)·ARMA(2, 5)가 쓴 가격</td></tr>
+        </tbody>
+      </table>
+      <p><a class="asset-ref" href="#table-price-views">표 5</a>의 마지막 줄이 이 절의 요점이다. 본문의 158%와 연습문제 3.2의 답 사이의 거리가 곧 <strong>중간가격 가정의 값</strong>이다. 시간 단위에 따라 중요도도 달라진다 — 교재 예제는 1분봉이라 호가 반등의 영향이 크지만, 일봉에서는 하루 수천 번의 거래가 평균화되어 영향이 훨씬 작다.</p>
+      <div class="callout--insight">
+        <span class="callout__kicker">퀀트가 던져야 할 두 번째 질문</span>
+        <div class="callout__body">
+          <p>“통계적으로 예측 가능한 패턴인가?”만으로는 부족하다. <strong>“그 패턴이 스프레드와 수수료를 이기고 실제 돈이 되는가?”</strong>를 함께 물어야 한다.</p>
+        </div>
+      </div>
     </section>
 
+    <!-- 3 -->
     <section class="report-section s3 page-break" id="arma-arima">
-      <div class="report-section__kicker">Chapter 3 · ARMA(p,q) / ARIMA(p,d,q)</div>
-      <h1>ARMA(p, q) — 잡음의 기억까지 끌어들이기</h1>
-      <div class="section-summary"><div class="section-summary__kicker">핵심</div><div class="section-summary__body"><ul><li>ARMA는 과거 가격뿐 아니라 과거 예측오차의 여운도 설명 변수로 쓴다.</li><li>모수 수가 줄어도 거래 성과가 자동으로 좋아지지는 않는다.</li><li>ARIMA의 차분 d=1은 로그 가격을 로그 수익률로 바꾸는 연결이다.</li></ul></div></div>
-      <h2>시차 10개는 왜 이렇게 많았을까</h2>
-      <p>ARMA(p,q)는 AR의 과거 가격 항에 $q$개의 지연된 혁신을 더한다. 단순한 AR이 여러 시차로 대신하던 충격의 여운을 MA 항이 직접 표현하므로 더 짧은 p로 같은 구조를 설명할 수 있다. AUD.USD의 BIC 탐색은 $p=2$, $q=5$를 선택했다.</p>
+      <div class="report-section__kicker">Section 03 · ARMA(p, q) &amp; ARIMA(p, d, q)</div>
+      <h1>3. ARMA(p, q)와 ARIMA(p, d, q) — 잡음의 기억을 더한다</h1>
+      <div class="section-summary">
+        <div class="section-summary__kicker">섹션 요약</div>
+        <div class="section-summary__body">
+          <ul>
+            <li>ARMA는 과거 값에 <strong>과거 예측오차</strong>를 더해, 같은 설명력을 더 적은 시차로 얻는다.</li>
+            <li>AUD.USD에서 시차는 10 → 2로 줄고 <span>$|\phi_1|$</span>도 확실히 1보다 작아진다 — <strong>통계적으로는 더 나은 모델</strong>이다.</li>
+            <li>그런데 표본외 성과는 <strong>158% → 60%로 떨어진다</strong>. 적합도와 수익은 별개다.</li>
+            <li>ARIMA의 <strong>I</strong>는 차분이다. 로그가격을 ARIMA(p, 1, q)로 보는 것은 로그수익률을 ARMA(p, q)로 보는 것과 같다.</li>
+            <li>교재는 수익률 쪽 모델링이 더 간결해진 경우를 <strong>한 번도 본 적이 없다</strong>고 말한다 — AUD.USD도 p=1, q=9다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="katex-equation">
+        $$ Y(t) - \mu = \sum_{i=1}^{p}\phi_i\big(Y(t-i) - \mu\big) + \sum_{j=1}^{q}\theta_j\,\varepsilon(t-j) + \varepsilon(t) $$
+      </div>
+      <p>AUD.USD에 AR(p)를 적합한 결과를 보면 가장 잘 맞는 모델이 시차 10개를 요구했다. 이렇게 많은 시차가 필요한 것은 AR(p)에서 매우 흔한 일이다. <strong>AR은 구조가 단순해서, 항을 계속 더하는 방식으로 그 한계를 보완하려 하기 때문</strong>이다. 그런데 여기에 <strong>지연된 잡음 항 q개</strong>를 더하는 작은 확장만으로 필요한 시차 수가 크게 줄어드는 경우가 많다. 이것이 <strong>ARMA(p, q)</strong>, 정식 명칭으로는 <strong>자기회귀 이동평균 과정</strong>이고, q개의 지연 잡음 항이 <em>이동평균</em>에 해당한다.</p>
+      <p>AR과 MA는 보는 대상이 다르다. <strong>AR은 과거 가격</strong>을 보고, <strong>MA는 과거의 예측오차</strong>를 본다. ARMA는 둘을 함께 쓴다. 오차가 정보가 되는 이유는 단순하다 — 오늘 예측이 100.00이었는데 실제가 100.05였다면 <span>$\varepsilon = +0.05$</span>이고, ARMA는 <strong>방금 발생한 예측 실패도 다음 가격에 영향을 줄 수 있다</strong>고 본다. AR이 “가격 자체의 과거”만 보느라 10개 시차를 쌓아야 했던 것을, ARMA는 “가격이 설명하지 못한 부분”까지 보면서 훨씬 적은 시차로 해낸다.</p>
+
+      <h2>3.1 p와 q를 함께 탐색한다</h2>
+      <p>최적의 <span>$p$</span>와 <span>$q$</span>, 그리고 각 항의 계수를 찾는 절차는 AR(p)에서 한 것과 같다. 다만 이제 <strong>변수가 둘</strong>이므로 완전 탐색에 중첩 반복문이 필요하다. 시차 상한을 <span>$p \le 10$</span>, <span>$q \le 9$</span>로 두면 90개 조합을 전부 시험하는 셈이다.</p>
+      <pre><code class="language-matlab">LOGL = -Inf(10, 9);          % p 최대 10개, q 최대 9개
+PQ   = zeros(size(LOGL));
+for p = 1:size(PQ, 1)
+    for q = 1:size(PQ, 2)
+        [~, ~, logL] = estimate(arima(p, 0, q), mid(trainset), 'print', false);
+        LOGL(p, q) = logL;
+        PQ(p, q)   = p + q;      % BIC 벌점 항으로 쓸 모수 개수
+    end
+end</code></pre>
+      <p><code>aicbic</code>는 1차원 벡터를 받으므로, 2차원 행렬을 <code>reshape</code>로 펴서 BIC를 계산하고 최소값을 찾는다.</p>
+      <pre><code class="language-matlab">LOGL_vector = reshape(LOGL, numel(LOGL), 1);
+PQ_vector   = reshape(PQ,   numel(PQ),   1);
+[~, bic] = aicbic(LOGL_vector, PQ_vector+1, length(mid(trainset)));  % 상수 포함
+[bicMin, pMin] = min(bic);
+
+bic(:)     = NaN;            % 최소 셀만 남기고 비운다
+bic(pMin)  = bicMin;
+bic        = reshape(bic, size(LOGL));</code></pre>
+      <p>마지막 세 줄이 요령이다. BIC를 다시 2차원으로 되돌리되 <strong>최소값 셀만 남기고 나머지를 <code>NaN</code>으로 비운다</strong>. 행 번호가 <span>$p$</span>, 열 번호가 <span>$q$</span>이므로, 숫자가 하나만 찍힌 표를 보면 최적 조합을 눈으로 바로 읽을 수 있다. AUD.USD에서는 그 셀이 <strong>행 2, 열 5</strong>에 나타난다 — 곧 <strong>ARMA(2, 5)</strong>이고, AR(p)에서 쓰던 10보다 확실히 짧은 시차다.</p>
+
       <table class="cmp-table" id="source-table-3-2" data-source-kind="table" data-source-ref="3.2">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">표 3.2 AUD.USD에 적용된 ARMA(2, 5) 모델의 계수</span></div></caption>
-        <thead><tr><th>계수 묶음</th><th>대표 값</th><th>해석</th></tr></thead><tbody>
-          <tr><th>AR</th><td>$\phi_1=0.6490$, $\phi_2=0.3510$</td><td>가격의 기억을 두 시차로 압축한다.</td></tr>
-          <tr><th>MA</th><td>$\theta_1=0.3458$, 나머지는 작음</td><td>직전 예측오차의 영향이 가장 크다.</td></tr>
-          <tr><th>결과</th><td>교재 보고 연율 60%</td><td>AR(10)의 158%보다 낮다.</td></tr>
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 6</span>
+            <span class="asset-caption__title">표 3.2 AUD.USD에 적용된 ARMA(2, 5) 모델의 계수</span>
+          </div>
+        </caption>
+        <thead><tr><th>계수</th><th>추정값</th><th>읽는 법</th></tr></thead>
+        <tbody>
+          <tr><td><span>$\mu$</span></td><td>2.8038e−06</td><td>사실상 0 — 1분 중간가격이라 방향성 표류가 없다</td></tr>
+          <tr><td><span>$\phi_1$</span></td><td><strong>0.649011</strong></td><td>바로 전 값의 영향이 가장 크다. <span>$|\phi_1| &lt; 1$</span>이 확실해졌다</td></tr>
+          <tr><td><span>$\phi_2$</span></td><td>0.350986</td><td><strong><span>$\phi_1 + \phi_2 \approx 1.000$</span></strong> — 둘을 합치면 거의 랜덤워크다</td></tr>
+          <tr><td><span>$\theta_1$</span></td><td><strong>0.345806</strong></td><td>직전 예측오차가 다음 값으로 실제로 이어진다 — MA 항의 값어치가 여기 있다</td></tr>
+          <tr><td><span>$\theta_2 \sim \theta_5$</span></td><td>−0.00906, −0.01061, −0.01026, −0.00251</td><td>부호는 음수지만 크기가 0에 가깝다 — 사실상 <span>$\theta_1$</span> 하나가 일한다</td></tr>
         </tbody>
       </table>
+      <p>계수 개수만 보면 AR(10)의 10개와 ARMA(2, 5)의 7개로 후자가 간결하다. 구조를 나란히 놓으면 차이가 분명하다 — AR(10)은 가격 <span>$Y(t-1) \ldots Y(t-10)$</span> 열 개를 쓰고, ARMA(2, 5)는 <strong>가격 두 개와 과거 오차 다섯 개</strong>를 쓴다. 같은 설명력을 얻는 데 필요한 시차가 그만큼 줄어든 것이다.</p>
+      <p>다만 <a class="asset-ref" href="#source-table-3-2">표 6</a>을 그대로 믿기 전에 짚을 것이 하나 있다. 교재는 <span>$|\phi_1|$</span>이 확실히 1보다 작아진 것을 강한 평균회귀의 근거로 든다. 그런데 AR(2)에서 정상성을 판정하는 것은 <span>$\phi_1$</span> 하나가 아니라 <strong><span>$\phi_1 + \phi_2$</span></strong>이고, 그 합이 0.999997이다. 사실상 단위근 경계에 붙어 있다는 뜻이므로, “강한 평균회귀”라는 표현은 <span>$\phi_1$</span>만 떼어 본 진술로 읽는 편이 안전하다.</p>
+
       <figure class="report-figure" id="source-fig-3-2" data-deck-use="required" data-source-kind="figure" data-source-ref="3.2">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">그림 3.2 AUD.USD에 적용한 ARMA(2, 5) 거래 전략</span></figcaption>
-        <img src="assets/figs/fig-3-2-arma.svg" alt="AUD.USD ARMA 2 5 전략의 상승 자산곡선과 교재 보고 연율 수익률 60퍼센트">
-        <small class="asset-note">모형 복잡성과 거래 성과가 같은 방향으로 움직이지 않았다는 비교를 보존해 재구성했다. 정확한 원본 축·경로는 복제하지 않았다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 5</span>
+          <span class="asset-caption__title">그림 3.2 AUD.USD에 적용한 ARMA(2, 5) 거래 전략</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-2-arma-equity.svg" alt="ARMA(2,5) 모델로 만든 AUD.USD 거래 전략의 표본외 누적수익 개형. 곡선이 우상향하지만 AR(10)보다 완만하고 중간에 눌리는 구간이 있으며 연율화 수익률이 158퍼센트에서 60퍼센트로 떨어진다는 것이 표시되어 있다.">
+        <small class="asset-note">발표자 재구성 — 교재가 본문에서 밝힌 “표본외 158% → 60%”와 그림 3.1 대비 완만해진 개형만 옮겼다. 백테스트 코드는 <code>buildARMA_AUDUSD.m</code>이다.</small>
       </figure>
-      <h2>ARIMA(p, d, q) — 왜 가격을 예측하는가</h2>
-      <p>ARIMA의 I는 누적(integrated)을 뜻한다. 로그 가격 $Y$를 한 번 차분하면 $\Delta Y$는 로그 수익률이므로, 로그 가격의 ARIMA(p,1,q)는 로그 수익률의 ARMA(p,q)와 동등하다. 그러나 가격 수준의 ARMA가 언제나 수익률의 ARMA로 바뀌는 것은 아니다. 가격 수준 모델은 차분과 수준을 모두 설명 변수로 가질 수 있어 더 유연하다.</p>
-      <table class="cmp-table" id="table-model-choice">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">AR·ARMA·ARIMA의 같은 점과 다른 점</span></div></caption>
-        <thead><tr><th>모델</th><th>기억하는 것</th><th>장점</th><th>주의</th></tr></thead><tbody>
-          <tr><th>AR(p)</th><td>과거 가격 p개</td><td>해석이 단순하다.</td><td>긴 시차로 복잡성을 대신할 수 있다.</td></tr>
-          <tr><th>ARMA(p,q)</th><td>과거 가격 + 과거 오차</td><td>충격의 여운을 직접 모델링한다.</td><td>모수 감소가 성과 증가를 뜻하지 않는다.</td></tr>
-          <tr><th>ARIMA(p,1,q)</th><td>한 번 차분한 가격</td><td>가격과 수익률 표현을 잇는다.</td><td>모형 동등성의 방향을 혼동하면 안 된다.</td></tr>
+      <p>이것이 이 절에서 가장 값진 대목이다. <strong>더 정교한 모델이 더 적은 돈을 벌었다.</strong> 교재의 표현대로 “시차를 줄였다고 반드시 더 나은 트레이딩이 되는 것은 아니라는 실전의 냉정한 교훈”이다. 저자의 기대는 AR만 쓰던 것에 MA 항을 더하면 예측이 좋아지고 그만큼 수익도 오르리라는 것이었는데, 결과는 반대였다. <strong>이동평균을 끌어들인 추가 복잡성이 값을 하지 못한 것</strong>이다.</p>
+      <p>왜 이런 일이 생기는가. 네 갈래로 나눠 볼 수 있다.</p>
+      <ul>
+        <li><strong>모델 평가와 투자 평가는 다른 질문이다.</strong> 전자는 “데이터를 얼마나 잘 설명하는가”를 묻고 후자는 “돈을 벌 수 있는가”를 묻는다. 예측오차가 0.001로 아주 작아도 신호가 하루 1,000번 발생하면 수수료·스프레드·슬리피지에 먹혀 손실이 날 수 있고, 예측은 조금 나빠도 방향이 분명해 하루 한두 번만 거래하는 모델이 더 벌 수도 있다.</li>
+        <li><strong>과적합이다.</strong> ARMA는 더 많은 구조를 설명하지만, 2007–2014에서 잘 맞던 패턴이 2014–2015에도 유지된다는 보장은 없다. 학습 구간에서 얻은 적합도 개선분이 표본외에서 그대로 살아남지 않는다.</li>
+        <li><strong>작은 우위는 거래비용에 사라진다.</strong> 예측이 100.005이고 현재가 100.000이면 매수 신호지만, 실제로 사야 하는 값이 Ask 100.010이라면 기대 우위 +0.005는 비용 0.010에 지워진다. 우위가 작을수록 체결 조건이 결과를 좌우한다.</li>
+        <li><strong>평균회귀가 있다는 것과 그것으로 버는 것은 다르다.</strong> 100 → 101 → 100처럼 되돌아오는 성질이 보여도, <em>언제 101에서 팔고 언제 100에서 살지</em>를 정하는 것은 별개의 문제다.</li>
+      </ul>
+      <p>적합도 개선과 수익 개선이 같은 방향이라는 보장이 없다는 이 사실은, 뒤의 상태공간 모델에서 훨씬 더 극적인 형태로 다시 나타난다.</p>
+
+      <h2>3.2 ARIMA(p, d, q) — 차분해야 ARMA를 쓸 수 있다</h2>
+      <p>ARIMA는 <strong>자기회귀 누적 이동평균(autoregressive integrated moving average)</strong>을 뜻한다. 금융에서 가장 단순하고 가장 흔한 경우인 <span>$d = 1$</span>만 보자. <span>$Y(t)$</span>가 ARIMA(<span>$p$</span>, 1, <span>$q$</span>)라는 것은 그 차분 <span>$\Delta Y(t) = Y(t) - Y(t-1)$</span>이 ARMA(<span>$p$</span>, <span>$q$</span>)라는 뜻이다.</p>
+      <p>왜 차분하는가. ARMA는 정상 시계열에 쓰는 도구인데 <strong>가격은 계속 오르거나 내려서 평균이 변한다</strong>. 그래서 먼저 변화량을 만들고, 그 변화량에 ARMA를 적용한다. 가격이 100, 102, 101, 104라면 차분은 2, −1, 3이다. 가격 자체는 평균이 움직이지만 이 변화량은 0 근처를 오간다. 세 기호의 역할도 여기서 갈린다 — <span>$p$</span>는 <strong>과거 변화량을 몇 개 볼지</strong>, <span>$d$</span>는 <strong>몇 번 차분할지</strong>, <span>$q$</span>는 <strong>과거 예측오차를 몇 개 볼지</strong>다.</p>
+      <p><span>$Y$</span>를 로그가격으로 두면 이해가 훨씬 쉬워진다. <span>$Y_t = \log(P_t)$</span>라면 <span>$\Delta Y_t = \log(P_t) - \log(P_{t-1}) = \log(P_t / P_{t-1})$</span>이고, 이것이 곧 <strong>로그수익률</strong>이다. 100원에서 102원으로 올랐다면 <span>$\log(102) - \log(100) = \log(1.02) \approx 2\%$</span>다. 그래서 “로그가격을 ARIMA(<span>$p$</span>, 1, <span>$q$</span>)로 모델링한다”와 “로그수익률을 ARMA(<span>$p$</span>, <span>$q$</span>)로 모델링한다”는 같은 말이 된다.</p>
+
+      <div class="callout--insight">
+        <span class="callout__kicker">Integrated가 붙은 이유</span>
+        <div class="callout__body">
+          <p>모델 안에서 적분을 한다는 뜻이 아니다. <strong>차분한 값을 다시 누적하면 원래 가격이 복원되기 때문</strong>이다. 앞의 예에서 시작값 100에 2, −1, 3을 차례로 더하면 102 → 101 → 104로 원래 가격이 되돌아온다. 연속수학에서 변화율을 적분하면 원래 함수가 나오는 것과 같은 관계다.</p>
+          <p>그래서 <strong>한 번 차분해야 정상이 되는 시계열</strong>을 <span>$I(1)$</span>이라 부른다. <span>$d=0$</span>은 차분이 필요 없는 경우, <span>$d=1$</span>은 한 번, <span>$d=2$</span>는 두 번 차분해야 정상이 되는 경우다.</p>
+        </div>
+      </div>
+
+      <h2>3.3 수준을 보는 모델이 더 유연한 이유</h2>
+      <p>그렇다면 처음부터 로그수익률을 ARMA로 모델링하는 편이 낫지 않을까? 시차를 줄일 수 있다면 그렇다. 그런데 교재는 그런 경우를 한 번도 본 적이 없다고 말한다. AUD.USD의 로그를 ARIMA(<span>$p$</span>, 1, <span>$q$</span>)로 모델링하면 <span>$p = 1$</span>, <span>$q = 9$</span>가 나온다 — 딱히 더 간결하지 않다. 연습문제 3.3이 이것을 직접 확인하라고 요구한다.</p>
+      <div class="callout--insight">
+        <span class="callout__kicker">교재가 못박아 둔 혼동 지점</span>
+        <div class="callout__body">
+          <p>“로그가격에 대한 ARIMA(<span>$p$</span>, 1, <span>$q$</span>)는 로그수익률에 대한 ARIMA(<span>$p$</span>, 0, <span>$q$</span>)와 동등하다”는 <strong>참</strong>이다. 그러나 “로그가격에 대한 ARMA(<span>$p$</span>, <span>$q$</span>)가 로그수익률에 대한 어떤 ARMA(<span>$p'$</span>, <span>$q'$</span>)와 동등하다”는 <strong>거짓</strong>이다. <span>$\Delta Y$</span>의 ARMA는 언제나 <span>$Y$</span>의 ARMA로 바꿀 수 있지만, 그 반대는 성립하지 않는다.</p>
+        </div>
+      </div>
+      <p>이유는 <strong>쓸 수 있는 독립변수의 폭</strong>에 있다. <span>$\Delta Y$</span>에 대한 ARMA는 독립변수로 <span>$\Delta Y$</span>만 가질 수 있다. 반면 <span>$Y$</span>에 대한 ARMA는 <span>$Y$</span>는 물론 <span>$\Delta Y$</span>까지 표현할 수 있다 — <span>$\Delta Y$</span>는 결국 두 <span>$Y$</span>의 차이이기 때문이다. 계수를 이렇게 잡으면 바로 드러난다.</p>
+      <div class="katex-equation">
+        $$ 0.5\,Y_{t-1} - 0.5\,Y_{t-2} = 0.5\,(Y_{t-1} - Y_{t-2}) = 0.5\,\Delta Y_{t-1} $$
+      </div>
+      <p>즉 가격 수준을 쓰는 모델은 <strong>수준과 변화량을 함께 표현할 수 있고</strong>, 그래서 더 유연하며 더 나은 결과를 줄 여지가 있다. 수익률만 모델링하면 “직전에 몇 퍼센트 올랐는가”는 알지만 “지금 가격이 장기 평균보다 높은가 낮은가”는 빠진다.</p>
+      <div class="callout--insight">
+        <span class="callout__kicker">자동차로 비유하면</span>
+        <div class="callout__body">
+          <p><span>$Y_t$</span>는 자동차의 <strong>현재 위치</strong>, <span>$\Delta Y_t$</span>는 <strong>한 구간 동안 이동한 거리</strong>다. 변화량만 보는 모델은 최근 이동량이 +2, +1, −1이었다는 것은 알지만, 지금 목적지에서 1km 떨어져 있는지 100km 떨어져 있는지는 모른다. 수준을 함께 보는 모델은 “너무 멀리 왔으니 되돌아갈 수 있다”는 판단까지 할 수 있다.</p>
+        </div>
+      </div>
+      <p>그렇다면 <strong>변화량을 예측하면서 수준 정보도 함께 넣고 싶다면</strong> 어떻게 하는가. 그것이 다음 절 VAR(p)의 끝에 나오는 <strong>VEC</strong> 모델이다. 개념적으로는 <span>$\Delta Y(t) = $</span> 과거 변화량의 영향 <span>$+$</span> 과거 가격 수준의 영향 <span>$+\ \varepsilon(t)$</span>이고, 두 자산이 장기적으로 함께 움직이다 일시적으로 벌어졌다면 그 간격이 다시 줄어드는 방향을 예측하게 된다.</p>
+
+      <h2>3.4 차수는 BIC가 고른다</h2>
+      <p>AR(10)의 10도, ARMA(2, 5)의 2와 5도 사람이 고르지 않았다. BIC가 골랐다. 최근 50일치 시차를 모두 쓰면 정보가 많으니 좋을 것 같지만 그렇지 않다 — 우연한 패턴까지 외우는 <strong>과적합</strong>이 생긴다.</p>
+      <div class="katex-equation">
+        $$ \mathrm{BIC} = -2\log(L) + k\log(n) $$
+      </div>
+      <p><span>$L$</span>은 <strong>우도</strong> — 이 모델에서 실제 데이터가 나왔을 가능성이다. 주사위를 던져 1,2,3,4,5,6,3,2,5,1이 나왔다면 “공정한 주사위” 모델의 L은 크고, “항상 6만 나오는 주사위” 모델의 L은 0이다. 확률을 100개씩 곱하면 너무 작아지므로 로그를 씌워 덧셈으로 바꾸고, 음수가 되니 −2를 곱해 <strong>작을수록 좋은 점수</strong>로 만든다.</p>
+
+      <figure class="report-figure" id="fig-bic">
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 6</span>
+          <span class="asset-caption__title">가장 잘 맞는 AR(10)이 탈락하는 이유</span>
+        </figcaption>
+        <img src="assets/figs/fig-bic-tradeoff.svg" alt="왼쪽 막대 그래프에서 AR(1)은 적합도 210에 벌점 10을 더해 220, AR(2)는 200에 15를 더해 215로 가장 작고, AR(10)은 적합도가 180으로 가장 좋지만 벌점이 60이라 합이 240이 되어 탈락한다. 오른쪽에는 BIC 공식과 함께, 데이터가 1000개일 때 AIC 벌점은 파라미터당 2인 반면 BIC 벌점은 약 6.9로 훨씬 보수적이라는 비교가 있다.">
+        <small class="asset-note">발표자 재구성. 적합도·벌점 숫자는 원리를 보이기 위해 잡은 값이며 교재의 실제 BIC 값이 아니다. 막대의 남색이 적합도, 붉은색이 복잡도 벌점이다.</small>
+      </figure>
+
+      <table class="cmp-table" id="table-bic-aic">
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 7</span>
+            <span class="asset-caption__title">AIC와 BIC — 같은 목적, 다른 벌점</span>
+          </div>
+        </caption>
+        <thead><tr><th>항목</th><th>AIC (Akaike Information Criterion)</th><th>BIC (Bayesian Information Criterion)</th></tr></thead>
+        <tbody>
+          <tr><td>벌점</td><td><span>$2k$</span></td><td><span>$k\log(n)$</span></td></tr>
+          <tr><td>데이터 1,000개일 때</td><td>파라미터당 2</td><td>파라미터당 ≈ 6.9</td></tr>
+          <tr><td>이론적 배경</td><td>정보이론</td><td>베이즈 정리의 근사</td></tr>
+          <tr><td>성향</td><td>복잡한 모델에 관대 · 예측 성능 중시</td><td>보수적 · 단순하고 해석 가능한 모델 선호</td></tr>
         </tbody>
       </table>
+      <p><a class="asset-ref" href="#table-bic-aic">표 7</a>이 보여 주듯 BIC는 AIC보다 훨씬 보수적이다. 이름에 Bayesian이 붙은 이유는 이렇다. <span>$P(\text{모델} \mid \text{데이터})$</span>를 제대로 구하려면 계수마다 확률분포를 가정하고 모든 값을 적분해야 하는데 계산량이 폭발한다. 1978년 Schwarz는 데이터가 충분히 많다면 이 적분을 간단히 근사할 수 있음을 보였고, 그 결과가 BIC 공식이다. 복잡도 벌점이 생기는 것도 자연스럽다 — 파라미터가 많다는 것은 설명할 수 있는 경우의 수가 많다는 뜻이고, “그렇다면 정말 훨씬 잘 설명해야만 뽑겠다”는 판단이 <span>$k\log(n)$</span>으로 나타난다.</p>
+
+      <h2>3.5 왜 로그가격인가</h2>
+      <p>가격 수준이 다른 종목을 비교할 때 절대 차이는 오해를 부른다. 10달러 → 11달러는 10% 상승이고 100달러 → 101달러는 1% 상승인데, 차이는 둘 다 1달러다. 로그를 쓰면 비율이 자연스럽게 다뤄지고, 변동성도 가격 수준과 무관하게 비교할 수 있다. 유도는 두 줄이다. <span>$P_t = P_{t-1}(1 + R_t)$</span>에서 <span>$\log(P_t / P_{t-1}) = \log(1 + R_t)$</span>이고, <span>$\log(1+x) \approx x$</span>를 쓰면 로그수익률이 일반 수익률과 거의 같아진다.</p>
+
+      <table class="cmp-table" id="table-logret">
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 8</span>
+            <span class="asset-caption__title">근사가 언제까지 통하는가 — 일반 수익률과 로그수익률</span>
+          </div>
+        </caption>
+        <thead><tr><th>일반 수익률 <span>$R$</span></th><th>로그수익률 <span>$\log(1+R)$</span></th><th>차이</th></tr></thead>
+        <tbody>
+          <tr><td>+1%</td><td>약 +0.995%</td><td>거의 같다</td></tr>
+          <tr><td>+2%</td><td>약 +1.980%</td><td>여전히 작다</td></tr>
+          <tr><td>+10%</td><td>약 +9.531%</td><td>눈에 띄기 시작</td></tr>
+          <tr><td>+50%</td><td>약 +40.547%</td><td>크게 벌어진다</td></tr>
+          <tr><td>−1%</td><td>약 −1.005%</td><td>음수에서도 성립</td></tr>
+          <tr><td>−10%</td><td>약 −10.536%</td><td>하락 쪽이 더 빨리 벌어진다</td></tr>
+          <tr><td>−50%</td><td>약 −69.315%</td><td>근사가 무너진다</td></tr>
+        </tbody>
+      </table>
+      <p><a class="asset-ref" href="#table-logret">표 8</a>에서 놓치기 쉬운 지점이 있다. “<span>$R$</span>이 작으면”이라는 표현은 <strong>−1이 0.01보다 작다</strong>는 의미의 작음이 아니다. 근사가 성립하는 조건은 <span>$|R|$</span>이 0에 가깝다는 것이다. <span>$y = \log(1+x)$</span>는 정의역이 <span>$x > -1$</span>이고 원점에서 기울기가 정확히 1이라 그 근처에서만 <span>$y = x$</span>와 겹친다. <span>$x$</span>가 −1에 가까워지면 음의 무한대로 발산한다. 연습문제 3.7이 “가격 대신 로그가격으로 VAR·VEC를 다시 해 보라”고 요구하는 배경이 이것이다.</p>
     </section>
 
-    <section class="report-section s4 page-break" id="var-vec">
-      <div class="report-section__kicker">Chapter 3 · VAR(p) / VEC(q)</div>
-      <h1>VAR(p) — 여러 종목을 한꺼번에 모델링하기</h1>
-      <div class="section-summary"><div class="section-summary__kicker">핵심</div><div class="section-summary__body"><ul><li>VAR은 모든 자산의 지연 가격이 모든 자산의 현재 가격에 미치는 영향을 행렬로 표현한다.</li><li>섹터 평균 예측을 빼면 방향성 노출을 줄인 상대가치 포지션이 된다.</li><li>VEC의 오차수정 행렬은 수준 이탈이 변화율을 되돌리는 힘을 드러낸다.</li></ul></div></div>
-      <h2>한 종목에서 여러 종목으로</h2>
-      <p>VAR(p)는 AR(p)의 계수를 $m\times m$ 행렬로 넓힌다. 같은 시점의 종목별 충격은 상관될 수 있지만 서로 다른 시점의 혁신은 상관되지 않는다고 가정한다. 같은 산업의 주식처럼 상호작용이 예상되는 묶음에 자연스럽지만, 자산 수와 시차가 늘면 모수가 빠르게 폭증한다.</p>
+    <!-- 4 -->
+    <section class="report-section s4 page-break" id="var-models">
+      <div class="report-section__kicker">Section 04 · VAR(p)</div>
+      <h1>4. VAR(p) — 이웃 종목을 함께 본다</h1>
+      <div class="section-summary">
+        <div class="section-summary__kicker">섹션 요약</div>
+        <div class="section-summary__body">
+          <ul>
+            <li>VAR은 계수를 <span>$m \times m$</span> 행렬로 올려 여러 종목을 동시에 예측한다. 대각선은 자기 영향, 나머지는 이웃 영향이다.</li>
+            <li>잡음에 건 조건이 둘이다 — <strong>같은 시점의 종목 간 상관은 허용</strong>하고, <strong>시점을 가로지르는 상관은 금지</strong>한다.</li>
+            <li>교재는 이를 컴퓨터 하드웨어 주식 바스켓에 적용하고 <strong>섹터 중립</strong> 배분으로 전략을 만든다.</li>
+            <li>결과는 <strong>연율 48%, 샤프 0.9</strong>. 샤프 0.9는 등락이 상당하다는 뜻이기도 하다.</li>
+            <li>Chan(2013)의 식 4.1과 비슷해 보이지만 <strong>다르다</strong> — 전일 수익률이 아니라 예측 수익률을 쓰고, 부호를 뒤집지 않는다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>AR(p)는 <span>$m$</span>개의 다변량 시계열로 쉽게 일반화된다. 이것이 <strong>벡터 자기회귀 모델 VAR(p)</strong>다. 할 일은 두 가지뿐이다 — 자기회귀 계수 <span>$\phi$</span>를 <span>$m \times m$</span> 행렬로 해석하고, <span>$m$</span>차원 벡터인 잡음 <span>$\varepsilon(t)$</span>이 <strong>횡단면 상관은 가질 수 있되 시계열 상관은 갖지 않도록</strong> 두는 것이다. 계수 행렬이 각 시계열의 현재 가격을 <em>모든</em> 시계열의 과거 가격과 연결하므로, VAR는 같은 산업군의 주식 포트폴리오처럼 수익률이 서로 얽힌 상품에 특히 잘 맞는다.</p>
+      <p>교재가 고른 대상은 2007년 1월 3일 당시 S&amp;P 500의 <strong>컴퓨터 하드웨어 그룹 — AAPL, EMC, HPQ, NTAP, SNDK</strong>다. 데이터는 2007-01-03부터 2013-12-31까지 CRSP가 제공한 <strong>장 마감 시점의 중간가격</strong>이다. 마지막 체결가를 쓰지 않은 이유는 분명하다 — 어제는 매도호가 100.02에, 오늘은 매수호가 99.98에 체결되면 중간가격이 100.00에 붙박여 있어도 체결가만 보면 강한 평균회귀처럼 보인다. <strong>호가 반동이 만드는 허위 평균회귀</strong>를 걷어내려는 선택이다.</p>
+
+      <h2>4.1 행렬로 올린다는 것</h2>
+      <p>AAPL만 보는 AR(1)은 <span>$AAPL_t = c + \phi\,AAPL_{t-1} + \varepsilon_t$</span>다. VAR(1)은 여기에 이웃을 넣는다.</p>
+      <div class="katex-equation">
+        $$ AAPL_t = c_1 + 0.7\,AAPL_{t-1} + 0.2\,HPQ_{t-1} + \varepsilon_{1,t} $$
+      </div>
+      <div class="katex-equation">
+        $$ HPQ_t = c_2 + 0.1\,AAPL_{t-1} + 0.8\,HPQ_{t-1} + \varepsilon_{2,t} $$
+      </div>
+      <p>계수를 행렬로 묶으면 <span>$\begin{bmatrix} 0.7 & 0.2 \\ 0.1 & 0.8 \end{bmatrix}$</span>가 되고, <strong>대각선은 자기 자신의 영향, 대각선 밖은 다른 종목의 영향</strong>이다. 같은 산업 종목이 잘 맞는 이유는 공통 요인 때문이다. 반도체 가격, PC 수요, 환율, 공급망이 함께 작용하므로 한 종목이 먼저 움직이고 나머지가 뒤따르는 패턴이 생길 수 있다. AR은 종목을 따로 보므로 이런 관계를 놓친다.</p>
+      <p>잡음에 건 두 조건도 같은 맥락이다. 오늘 반도체 업종에 좋은 뉴스가 나오면 AAPL 오차 +2%, HPQ 오차 +1.5%처럼 <strong>같은 날 여러 종목이 함께 예상 밖으로</strong> 움직일 수 있고, 이것은 허용한다. 반면 월요일 AAPL의 예상 밖 움직임과 화요일 HPQ의 예상 밖 움직임이 체계적으로 연결되어 있다고는 보지 않는다. 이유가 중요하다 — 어제의 정보가 오늘에 미치는 영향은 <span>$\Phi Y_{t-1}$</span> 항이 이미 설명해야 하고, 오차는 <strong>남은 새로운 충격</strong>이어야 한다. 오차가 시간적으로 연결된다면 모델이 과거 정보를 덜 쓴 것이다.</p>
+
       <table class="cmp-table" id="source-table-3-3" data-source-kind="table" data-source-ref="3.3">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">표 3.3 컴퓨터 하드웨어 주식에 적용한 VAR(1) 모델의 상수 오프셋, 자기회귀 계수, 공분산</span></div></caption>
-        <thead><tr><th>블록</th><th>무엇을 담나</th><th>읽기 포인트</th></tr></thead><tbody>
-          <tr><th>상수 오프셋 $\mu$</th><td>종목별 기준 이동</td><td>가격 수준이 달라 값의 직접 비교는 제한적이다.</td></tr>
-          <tr><th>자기회귀 행렬 $\Phi$</th><td>모든 지연 가격 → 모든 현재 가격</td><td>대각은 자기 기억, 비대각은 교차 영향이다.</td></tr>
-          <tr><th>공분산</th><td>같은 시점의 혁신 동조</td><td>동시 충격의 크기와 방향을 나타낸다.</td></tr>
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 9</span>
+            <span class="asset-caption__title">표 3.3 컴퓨터 하드웨어 주식에 적용한 VAR(1) 모델의 상수 오프셋, 자기회귀 계수, 공분산</span>
+          </div>
+        </caption>
+        <thead><tr><th>종목</th><th>상수 오프셋 <span>$\mu_i$</span></th><th>자기 계수 <span>$\Phi_{ii}$</span></th><th>잡음 분산 <span>$\langle \varepsilon_i^2 \rangle$</span></th></tr></thead>
+        <tbody>
+          <tr><td>AAPL</td><td>3.88363</td><td><strong>0.991815</strong></td><td>36.2559</td></tr>
+          <tr><td>EMC</td><td>0.669367</td><td><strong>0.970934</strong></td><td>0.256786</td></tr>
+          <tr><td>HPQ</td><td>1.75474</td><td><strong>0.965626</strong></td><td>1.41323</td></tr>
+          <tr><td>NTAP</td><td>1.701</td><td><strong>1.00662</strong></td><td>1.70138</td></tr>
+          <tr><td>SNDK</td><td>1.8752</td><td><strong>0.998657</strong></td><td>2.17779</td></tr>
         </tbody>
       </table>
-      <p>교재 전략은 각 종목의 예측 수익률에서 그날의 섹터 평균을 빼고 절대 이탈의 합으로 나눈다. 결과적으로 롱과 숏이 함께 존재하고 총 절대노출이 1이 되어 시장 방향보다 섹터 내부 상대가치에 집중한다.</p>
+      <p>먼저 <span>$p$</span>부터 정해야 한다. AR(p)와 같은 방식으로 <code>vgxset</code>·<code>vgxvarx</code>·<code>vgxcount</code>를 돌려 BIC를 최소화하면 <strong><span>$p = 1$</span></strong>이 나온다. 더 단순한 모델이 좋으니 반가운 결과이고, 교재에 따르면 대부분의 산업군에서 나타나는 전형적인 결과다.</p>
+      <pre><code class="language-matlab">for p = 1:length(P)
+    model = vgxset('n', size(mid,2), 'nAR', p, 'Constant', true);
+    [model, EstStdErrors, logL, W] = vgxvarx(model, mid(trainset, :));
+    [NumParam, ~] = vgxcount(model);
+    LOGL(p) = logL;  P(p) = NumParam;
+end</code></pre>
+      <p><a class="asset-ref" href="#source-table-3-3">표 9</a>에서 아래첨자는 표 3.1·3.2와 달리 <strong>시차가 아니라 종목</strong>을 가리킨다. 그리고 눈여겨볼 것은 자기 계수 <span>$\Phi_{ii}$</span>가 <strong>다섯 종목 모두 1에 붙어 있다</strong>는 점이다 — 0.9656에서 1.0066 사이다. 가격이 랜덤워크에 가까우면 나오는 전형적인 모습이고, 그러면 “오늘이 어제와 거의 같다”는 당연한 말만 남는다. <strong>이 불편함이 다음 절 VEC를 부르는 직접적인 이유다.</strong></p>
+      <p>표에 싣지 않은 비대각 원소들은 훨씬 작다. 예컨대 AAPL 행은 EMC 0.0736, HPQ −0.1057, NTAP 0.0360, SNDK −0.0062로, 이웃 종목의 영향이 자기 자신의 0.9918에 비하면 미미하다. 잡음 공분산의 비대각도 0이 아니다 — 예컨대 AAPL–SNDK가 4.39542로, <strong>같은 날 함께 튀는 것을 허용</strong>한다는 조건이 수치로 드러난 자리다. 표본외 예측에는 <code>forecast</code>에 대응하는 <code>vgxpred</code>를 쓴다.</p>
+
+      <h2>4.2 섹터 중립이 식에서 나오는 방식</h2>
+      <div class="katex-equation">
+        $$ w_i = \frac{r_i - \langle r \rangle}{\sum_j \left| r_j - \langle r \rangle \right|} $$
+      </div>
+      <p>매일 산업군 안 모든 주식의 평균 예측 수익률 <span>$\langle r \rangle$</span>을 구한 뒤, 각 주식의 배분을 “예측 수익률이 평균에서 얼마나 벗어났는가”에 비례하도록 잡는다. 분모의 절댓값 합으로 나누므로 포트폴리오의 초기 총 시장가치가 항상 1이 된다.</p>
+
       <figure class="report-figure" id="source-fig-3-3" data-deck-use="required" data-source-kind="figure" data-source-ref="3.3">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">그림 3.3 컴퓨터 하드웨어 주식에 적용한 VAR(1) 거래 전략</span></figcaption>
-        <img src="assets/figs/fig-3-3-var.svg" alt="VAR 1 예측에서 섹터 평균을 제거해 구성한 컴퓨터 하드웨어 주식 전략 자산곡선">
-        <small class="asset-note">교재의 섹터 중립 배분과 상승 자산곡선의 의미를 재배치했다. 교재 보고 성과는 연율 48%, 샤프 0.9이며 정확한 원본 곡선을 복제하지 않았다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 7</span>
+          <span class="asset-caption__title">그림 3.3 컴퓨터 하드웨어 주식에 적용한 VAR(1) 거래 전략</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-3-var-equity.svg" alt="VAR(1) 모델을 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 누적수익 개형. 곡선이 오르내림을 반복하면서도 전체적으로 우상향해 연율 48퍼센트, 샤프 비율 0.9에 이른다. 눌리는 구간이 반복되어 앞선 두 그림의 매끄러움과 대비된다는 설명이 붙어 있다.">
+        <small class="asset-note">발표자 재구성 — 교재가 본문에서 밝힌 연율 48%·샤프 0.9와, 샤프 0.9가 함의하는 등락의 개형만 옮겼다.</small>
       </figure>
-      <h2>VEC(q) — 가격 대신 가격 변화를 예측하기</h2>
-      <p>VEC는 $\Delta Y(t)$를 종속변수로 두고, 지연 변화량과 전일 가격 수준을 함께 사용한다. VAR(1)이라면 $C=\Phi-I$가 되어 오차수정 행렬의 대각은 자기 수준 이탈을 되돌리는 힘으로 읽을 수 있다. 다만 대각이 음수라는 사실만으로 공적분 순위가 증명되지는 않는다.</p>
+      <p>샤프 0.9라는 숫자를 그림 3.1·3.2와 나란히 놓으면 성격이 드러난다. 앞의 두 곡선은 거의 되돌림 없이 매끄럽지만 — 그래서 오히려 체결 가정을 의심하게 만들지만 — 이 곡선은 눌리는 구간이 반복된다. 실전 곡선에 가깝다는 뜻이다.</p>
+
+      <h2>4.3 숫자로 따라가는 섹터 중립</h2>
+      <p>예측수익률이 AAPL +2%, HPQ +1%, NTAP −1%라면 업종 평균은 0.667%다. 평균을 빼면 +1.333, +0.333, −1.667이고 <strong>이 셋의 합은 0</strong>이다. 절댓값 합 3.333으로 나누면 +40%, +10%, −50%가 된다. 1억 원이면 AAPL 4,000만 매수, HPQ 1,000만 매수, NTAP 5,000만 공매도 — 매수와 공매도가 같아 순노출이 0이다.</p>
+
+      <figure class="report-figure" id="fig-sector" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 8</span>
+          <span class="asset-caption__title">예측수익률에서 섹터 중립 비중까지 네 단계</span>
+        </figcaption>
+        <img src="assets/figs/fig-sector-neutral.svg" alt="네 단계 도해. 1단계 예측수익률 AAPL 2퍼센트, HPQ 1퍼센트, NTAP 마이너스 1퍼센트. 2단계 업종 평균 0.667퍼센트. 3단계 평균을 빼면 플러스 1.333, 플러스 0.333, 마이너스 1.667이고 합이 0이다. 4단계 절댓값 합 3.333으로 나누면 비중이 플러스 40퍼센트 매수, 플러스 10퍼센트 매수, 마이너스 50퍼센트 공매도가 되어 매수와 공매도가 각각 5000만 원으로 순노출 0이 된다.">
+        <small class="asset-note">발표자 재구성. 3단계에서 이탈의 합이 0이 되는 것이 중립성의 출처다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-sector">그림 8</a>의 3단계가 핵심이다. 중립성은 별도로 부과한 제약이 아니라 <strong>평균을 빼는 순간 식에서 자동으로 따라 나온다</strong>. 업종이 통째로 10% 올라 AAPL +13%, HPQ +11%, NTAP +6%가 되어도, 통째로 내려 −3%, −4%, −9%가 되어도 수익은 <strong>종목 간 격차</strong>에서 나온다. 방향을 맞히는 전략이 아니라 순위를 맞히는 전략이다.</p>
+      <p>코드로 보면 세 줄이다. 예측수익률을 구하고, 날짜별 업종 평균을 빼고, 절댓값 합으로 나눈다.</p>
+      <pre><code class="language-matlab">retF       = (yF - mid) ./ mid;        % 예측수익률
+sectorRetF = mean(retF, 2);            % 날짜별 업종 평균
+positions  = (retF - sectorRetF) ./ sum(abs(retF - sectorRetF), 2);</code></pre>
+      <p>마지막 정규화 덕분에 <strong>포지션 절댓값의 합, 즉 총시장가치(gross market value)가 항상 1</strong>이 된다. 앞의 예에서 +0.40, +0.10, −0.50이면 절댓값 합이 정확히 1이고, 1억 원을 굴린다면 매수 5,000만·공매도 5,000만이 된다. 순투자금은 0이지만 실제로 움직이는 돈은 1억이라는 뜻이다.</p>
+      <p>교재가 Chan(2013)의 식 4.1과 다르다고 못박은 이유도 여기서 보인다. 이전 저서의 공식은 전일 <em>실현</em> 수익률을 썼고 평균회귀를 가정해 비례상수를 <strong>−1</strong>로 놓았다 — 전날 많이 오른 종목을 공매도하는 구조다. 여기서는 <em>예측</em> 수익률을 그대로 쓰고 부호도 뒤집지 않으니 비례상수가 <strong>+1</strong>이다. 모델이 예측을 담당하므로 방향을 미리 정해 둘 필요가 없어진 것이다.</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="report-section s5 page-break" id="vec-models">
+      <div class="report-section__kicker">Section 05 · VEC(q)</div>
+      <h1>5. VEC(q) — 변화량을 예측하되 수준도 본다</h1>
+      <div class="section-summary">
+        <div class="section-summary__kicker">섹션 요약</div>
+        <div class="section-summary__body">
+          <ul>
+            <li>거래에서 궁금한 것은 “내일 얼마인가”보다 <strong>“얼마나 변할까”</strong>다. 그래서 <span>$\Delta Y$</span>를 종속변수로 둔다.</li>
+            <li>VEC는 새 모델이 아니다. VAR 양변에서 <span>$Y(t-1)$</span>을 빼면 <span>$C = \Phi - I$</span>로 그대로 유도된다.</li>
+            <li>여기서 ‘오차’는 예측 실패가 아니라 <strong>장기 균형에서 벗어난 정도</strong>다.</li>
+            <li>표 3.4의 대각 원소가 음수면 자기 수준으로 되돌아가려는 힘이다 — 다만 <strong>그것만으로 공적분이 증명되지는 않는다</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>일반 VAR은 가격 수준을 예측한다. 그러면 매매 신호를 만들려고 다시 <span>$\Delta Y_t = Y_t - Y_{t-1}$</span>를 계산해야 하니 돌아가는 셈이다. 게다가 <span>$A_t = 0.8A_{t-1} + 0.4B_{t-1}$</span>에서 0.4가 큰 영향인지 작은 영향인지는, A가 200달러이고 B가 30달러라면 바로 판단하기 어렵다. VEC는 종속변수를 변화량으로 바꿔 이 두 불편을 한 번에 없앤다.</p>
+      <div class="katex-equation">
+        $$ \Delta Y(t) = M + C\,Y(t-1) + A_1 \Delta Y(t-1) + \cdots + \varepsilon(t) $$
+      </div>
+      <p>두 독립변수의 역할이 다르다. 과거 <strong>변화량</strong>은 최근 단기 움직임(모멘텀인가 되돌림인가)을, 과거 <strong>가격 수준</strong>은 여러 가격 사이의 장기 균형에서 얼마나 벗어났는지를 나타낸다.</p>
+
       <table class="cmp-table" id="source-table-3-4" data-source-kind="table" data-source-ref="3.4">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 6</span><span class="asset-caption__title">표 3.4 컴퓨터 하드웨어 주식에 적용한 VEC(0) 모델의 오차수정 행렬</span></div></caption>
-        <thead><tr><th>대각 원소</th><th>AAPL</th><th>EMC</th><th>HPQ</th><th>NTAP</th><th>SNDK</th></tr></thead><tbody>
-          <tr><th>$c_{ii}$</th><td>−0.0082</td><td>−0.0291</td><td>−0.0344</td><td>+0.0066</td><td>−0.0013</td></tr>
-          <tr><th>방향</th><td>복원</td><td>복원</td><td>복원</td><td>발산 가능</td><td>약한 복원</td></tr>
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 10</span>
+            <span class="asset-caption__title">표 3.4 컴퓨터 하드웨어 주식에 적용한 VEC(0) 모델의 오차수정 행렬</span>
+          </div>
+        </caption>
+        <thead><tr><th>종목</th><th>대각 원소 <span>$C_{ii}$</span></th><th>읽는 법</th></tr></thead>
+        <tbody>
+          <tr><td>AAPL</td><td>−0.0082</td><td>어제 수준이 높으면 오늘 내려가려는 힘</td></tr>
+          <tr><td>EMC</td><td>−0.0291</td><td>같은 방향, 조금 더 강하다</td></tr>
+          <tr><td>HPQ</td><td>−0.0344</td><td>다섯 중 되돌림이 가장 강하다</td></tr>
+          <tr><td>NTAP</td><td><strong>+0.0066</strong></td><td>부호가 반대 — 지속성·약한 추세로 읽힌다</td></tr>
+          <tr><td>SNDK</td><td>−0.0013</td><td>음수지만 거의 0에 가깝다</td></tr>
         </tbody>
       </table>
-      <div class="callout--insight"><span class="callout__kicker">계산 경계</span><div class="callout__body"><p>SPX 전체 유니버스로 VAR을 넓히면 행렬 차원이 급격히 커진다. 더 많은 자산이 항상 더 많은 정보가 아니라, 더 많은 모수와 더 높은 메모리·과적합 비용을 뜻할 수 있다.</p></div></div>
+      <p><a class="asset-ref" href="#source-table-3-4">표 10</a>를 정확히 읽으면 “모두 음수”가 아니라 <strong>“NTAP를 제외한 모든 대각 원소가 음수”</strong>다. 음수라는 것은 그 종목이 시계열적으로 평균회귀한다는 뜻이고, NTAP만 부호가 반대라 추세를 이어간다. 다만 SNDK의 −0.0013처럼 되돌림이 매우 약한 경우도 있다.</p>
+      <div class="callout--insight">
+        <span class="callout__kicker">두 표를 겹쳐 보면 C = Φ − I가 눈으로 확인된다</span>
+        <div class="callout__body">
+          <p>표 3.3의 자기 계수에서 1을 빼면 표 3.4의 대각 원소가 그대로 나온다. VEC가 새 모델이 아니라 VAR를 다시 쓴 것이라는 사실이 숫자로 드러나는 자리다.</p>
+          <ul>
+            <li>AAPL — 0.991815 − 1 = <strong>−0.0082</strong></li>
+            <li>EMC — 0.970934 − 1 = <strong>−0.0291</strong></li>
+            <li>HPQ — 0.965626 − 1 = <strong>−0.0344</strong></li>
+            <li>NTAP — 1.00662 − 1 = <strong>+0.0066</strong> · 1보다 컸으므로 부호가 뒤집힌다</li>
+            <li>SNDK — 0.998657 − 1 = <strong>−0.0013</strong></li>
+          </ul>
+          <p>표 3.3에서 “대각이 전부 1 근처”라 읽기 어렵던 정보가, 1을 빼는 순간 <strong>되돌아오는가 이어가는가</strong>라는 해석 가능한 값으로 바뀐다. VEC를 쓰는 이유가 바로 이것이다.</p>
+        </div>
+      </div>
+      <p>그리고 대각이 음수라는 사실만으로 공적분이 증명되지는 않는다. 요한센 검정은 결정론적 항, 시차, 표본기간 선택에 민감하며, 예측을 위해 VEC를 쓰는 데 공적분이 반드시 필요한 것도 아니다.</p>
+
+      <h2>5.1 ‘오차수정’이라는 이름</h2>
+      <p>여기서 ‘오차’는 모델이 틀렸다는 뜻이 아니다. <strong>장기 균형에서 벗어난 정도</strong>다. 장기 관계가 A ≈ 2B라고 하자. A가 110, B가 50이면 이탈은 +10이고, 계수 −0.2를 곱하면 <span>$\Delta A = -2$</span>가 되어 A가 내려간다. 반대로 A가 90, B가 50이면 이탈이 −10이라 <span>$\Delta A = +2$</span>로 A가 올라간다. 같은 식이 양방향으로 균형을 향해 밀어 준다.</p>
+
+      <figure class="report-figure" id="fig-vec">
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 9</span>
+          <span class="asset-caption__title">균형 이탈 ±10이 만드는 되돌림 ∓2</span>
+        </figcaption>
+        <img src="assets/figs/fig-vec-correction.svg" alt="장기 균형이 A는 B의 두 배인 상황에서 두 경우를 비교한 도해. A가 110, B가 50이면 A 빼기 2B가 플러스 10이고 계수 마이너스 0.2를 곱해 델타 A가 마이너스 2가 되어 A가 하락하며 균형으로 돌아간다. A가 90, B가 50이면 이탈이 마이너스 10이라 델타 A가 플러스 2가 되어 상승한다. 아래에는 VAR 양변에서 이전 가격을 빼면 C가 파이 빼기 항등행렬이 되어 VEC가 유도된다는 관계가 정리되어 있다.">
+        <small class="asset-note">발표자 재구성. 계수 −0.2는 되돌림의 세기를 보이기 위해 잡은 값이다. 두 경우 모두 같은 식에서 균형 이탈의 부호만 다르다.</small>
+      </figure>
+      <p>주의할 점이 하나 있다. <span>$Y_{t-1}$</span> 자체가 <span>$A_{t-1} - 2B_{t-1}$</span>인 것이 아니다. <span>$Y_{t-1}$</span>은 두 가격을 담은 벡터이고, <span>$C$</span>의 한 행 <span>$[-0.2,\ 0.4]$</span>를 곱하면 <span>$-0.2A_{t-1} + 0.4B_{t-1} = -0.2(A_{t-1} - 2B_{t-1})$</span>이 되는 것이다. <strong>균형 조합은 C가 만든다.</strong> 그래서 표 3.4를 볼 때 대각 원소만이 아니라 행 전체를 함께 보아야 한다. 실제 AAPL 행은 <span>$[-0.0082,\ 0.0736,\ -0.1057,\ 0.0360,\ -0.0062]$</span>이고, 이 다섯 값의 조합이 “다섯 종목의 가격이 균형에서 얼마나 벗어났는가”를 만든다.</p>
+
+      <h2>5.2 요한센 검정과의 관계, 그리고 공적분이 없어도 되는 이유</h2>
+      <p>식 3.5는 Chan(2013)의 식 2.7과 같고, 그 책에서는 공적분 검정을 위한 <strong>요한센 검정</strong>과 함께 논의되었다. <span>$C$</span>는 보통 <span>$C = \alpha\beta^{\top}$</span>로 분해해 읽는다. <span>$\beta^{\top}Y_{t-1}$</span>이 <strong>장기 균형에서 벗어난 정도</strong>이고 — 앞의 두 종목 예에서는 <span>$A_{t-1} - 2B_{t-1}$</span>이다 — <span>$\alpha$</span>가 <strong>균형으로 돌아오는 속도</strong>다. <span>$\alpha = [-0.2,\ 0.1]^{\top}$</span>이고 균형이 위로 10만큼 벗어났다면 <span>$\Delta A = -2$</span>, <span>$\Delta B = +1$</span>로 둘이 서로를 향해 움직인다.</p>
+      <p>교재는 “컴퓨터 하드웨어 포트폴리오가 공적분한다면 <span>$C$</span>가 요한센 검정에서 통계적으로 유의한 음의 고유값을 만든다”고 쓴다. 직관은 이렇다 — 어떤 조합 <span>$v$</span>에 대해 <span>$Cv = \lambda v$</span>이고 <span>$\lambda &lt; 0$</span>이면, 그 방향으로 벗어난 값에 반대 방향의 변화가 생겨 균형으로 되돌아간다. <span>$\lambda = -0.2$</span>이고 10만큼 벗어났다면 다음 변화가 −2다.</p>
+      <div class="callout--insight">
+        <span class="callout__kicker">엄밀히 말하면</span>
+        <div class="callout__body">
+          <p>표준 요한센 검정은 “음의 고유값이 하나 있는가”를 보는 검정이 아니다. VEC에서 얻은 고유값으로 <strong>trace 통계량</strong>과 <strong>최대고유값 통계량</strong>을 계산하고 임계값과 비교해 <strong>공적분 순위</strong>를 정한다. 교재의 문장은 <span>$C$</span>의 평균회귀적 성질을 직관적으로 표현한 것으로 읽는 편이 좋다.</p>
+        </div>
+      </div>
+      <p>중요한 것은 <strong>예측을 위해 VEC를 쓰는 데 공적분 포트폴리오가 반드시 필요하지는 않다</strong>는 점이다. 표 3.4에서 보았듯 어떤 종목은 되돌아오고(HPQ가 가장 강하다) 어떤 종목은 추세를 이어간다(NTAP). 다섯 종목 전체로 뚜렷한 공적분 조합이 없더라도, <span>$C$</span>는 “지금의 종목 간 가격 관계가 다음 변화량에 어떤 영향을 주는가”를 여전히 알려 준다. 공적분 검정은 <em>안정적인 장기 관계가 실제로 존재하는지</em>를 확인하는 용도이고, VEC는 <em>다음 변화를 예측하는</em> 모델이다.</p>
+      <p>마지막으로 규모에 관한 현실적인 단서 하나. 컴퓨터 하드웨어 다섯 종목이 아니라 <strong>S&amp;P 500 전 종목에 VAR를 적용하려면 메모리부터 확인</strong>해야 한다. 종목이 <span>$m$</span>개면 계수 행렬이 <span>$m^2$</span>로 불어나기 때문이다. 그리고 이 모델들은 가격보다 <strong>로그가격</strong>에서 더 잘 작동하는 경우가 많고, 로그가격으로 두면 VAR·VEC의 연속시간 버전과도 자연스럽게 이어진다. 연습문제 3.7이 바로 이것을 확인하라고 요구한다.</p>
     </section>
 
-    <section class="report-section s5 page-break" id="state-space">
-      <div class="report-section__kicker">Chapter 3 · State Space Models</div>
-      <h1>상태공간 모델 — 눈에 보이지 않는 변수를 다루기</h1>
-      <div class="section-summary"><div class="section-summary__kicker">핵심</div><div class="section-summary__body"><ul><li>상태 전이 방정식은 은닉 상태가 시간에 따라 움직이는 법을 정의한다.</li><li>측정 방정식은 은닉 상태가 관측 가격으로 드러나는 법을 정의한다.</li><li>칼만 필터는 예측과 새 관측을 순차 결합하지만 잡음 모수는 과적합될 수 있다.</li></ul></div></div>
-      <h2>은닉 변수라는 발상</h2>
-      <p>지금까지의 모델은 관측 가능한 지연 가격을 설명 변수로 썼다. 상태공간 모델은 직접 보이지 않지만 관측값을 만들어 내는 <strong>은닉 상태</strong>를 도입한다. 이동평균, 가격 추세의 기울기, 두 ETF의 동적 헤지비율처럼 정답이 하나로 고정되지 않는 값이 대표적이다.</p>
-      <p>상태 전이 방정식 $x(t)=A(t)x(t-1)+B(t)u(t)$는 상태의 진화를, 측정 방정식 $y(t)=C(t)x(t)+D(t)\varepsilon(t)$는 상태가 관측으로 나타나는 방식을 설명한다. 칼만 필터는 이전 상태 예측과 새 관측의 불확실성을 비교해 현재 상태를 갱신한다.</p>
-      <figure class="report-figure" id="fig-state-space" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">상태 전이와 측정을 분리하는 상태공간 모델</span></figcaption>
-        <img src="assets/figs/state-space.svg" alt="이전 은닉 상태가 상태 잡음을 거쳐 현재 상태가 되고 측정 잡음과 함께 관측 가격으로 나타나는 구조">
-        <small class="asset-note">식 3.6–3.7의 역할을 입력과 출력 기준으로 재구성했다. 상태와 관측의 잡음을 분리해야 필터가 무엇을 보정하는지 읽을 수 있다.</small>
-      </figure>
-      <h2>이동평균을 은닉 변수로 보기</h2>
-      <p>각 종목의 이동평균을 랜덤 워크 상태로 두고 관측 가격은 그 상태에 측정 잡음을 더한 값으로 본다. 상태 잡음 행렬 B와 측정 잡음 행렬 D를 대각으로 제한하면 교차상관을 버리는 대신 추정할 모수를 줄여 계산과 과적합을 통제한다.</p>
+    <!-- 6 -->
+    <section class="report-section s6 page-break" id="state-space">
+      <div class="report-section__kicker">Section 06 · State-Space Models</div>
+      <h1>6. 상태공간 모델 — 보이지 않는 것을 추정한다</h1>
+      <div class="section-summary">
+        <div class="section-summary__kicker">섹션 요약</div>
+        <div class="section-summary__body">
+          <ul>
+            <li>이동평균의 기간은 사람이 임의로 정한다. 그렇다면 <strong>진짜 추세를 은닉 변수로 두고 데이터가 정하게</strong> 하자는 발상이다.</li>
+            <li>식이 둘이다 — <strong>상태전이</strong>는 보이지 않는 상태가 어떻게 흘러가는지, <strong>측정</strong>은 그것이 관측값에 어떻게 드러나는지를 말한다.</li>
+            <li>잡음도 둘이다. <span>$B$</span>가 상태 잡음의 크기를, <span>$D$</span>가 측정 잡음의 크기를 정한다.</li>
+            <li>표 3.5에서 <strong>비대각 원소를 0으로 둔 것</strong>이 이 모델의 핵심 제약이다.</li>
+            <li>학습 구간(그림 3.4)과 테스트 구간(그림 3.5)의 대비가 이 장 전체의 결론이다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>6.1 은닉 변수라는 발상</h2>
+      <p>주가가 100, 102, 101, 105, 104일 때 “현재 추세”는 얼마인가? 3일 이동평균은 103.33, 5일은 102.4, 지수이동평균은 103.5다. 어느 것이 진짜인가? <strong>3일·5일·20일이라는 기간은 사람이 임의로 정한 것</strong>이므로 객관적인 정답이 없다. 이 사실 자체가 이동평균을 관측되지 않는 변수로 취급해도 좋다는 신호다.</p>
+      <div class="katex-equation">
+        $$ x(t) = A(t)\,x(t-1) + B(t)\,u(t) \qquad\qquad y(t) = C(t)\,x(t) + D(t)\,\varepsilon(t) $$
+      </div>
+      <p>앞 식은 보이지 않는 상태가 어떻게 흘러가는지를, 뒤 식은 그 상태가 우리가 보는 값에 어떻게 드러나는지를 말한다. 숫자로 보면 이렇다. <span>$x(t-1) = 100$</span>이고 <span>$x(t) = 0.9x(t-1) + 2u(t)$</span>에 <span>$u(t)=1$</span>이면 <span>$x(t) = 92$</span>다. 여기에 관측 잡음이 붙어 <span>$y(t) = 92 + 3(1) = 95$</span>가 된다. 우리가 시장에서 본 95 안에 숨은 92가 있다고 보는 것이다.</p>
+
+      <p>여기서 앞의 네 모형과 갈라진다. AR·ARMA는 자기 과거값과 과거 충격을, VAR는 다른 종목의 과거값까지, VEC는 종목 간 균형 이탈을 본다. 그러나 <strong>이들이 쓰는 변수는 모두 이미 관측된 값</strong>이다. 상태공간 모델은 한 걸음 더 간다 — <strong>관측가격 = 숨겨진 상태 + 잡음</strong>으로 나누고, 그 숨겨진 상태를 먼저 추정한다. 관측가격이 103이라면 숨은 추세가 101이고 일시적 잡음이 +2였을 수 있다는 식이다.</p>
+
+      <h2>6.2 칼만 필터 — 예측하고, 비교하고, 수정한다</h2>
+      <p>먼저 용어를 정리해 두자. <strong>칼만 필터는 상태공간 모델 자체가 아니다.</strong> 선형·가우시안 상태공간 모델에서 숨겨진 상태를 추정하는 <strong>알고리즘</strong>이다. 모델이 구조를 정의하면, 필터가 매 시점 그 구조 안에서 상태를 갱신한다. 절차는 세 단계다.</p>
+      <p><strong>① 예측한다.</strong> 어제 추정한 숨은 추세가 <span>$\hat{x}_{t-1} = 100$</span>이라면, 오늘 관측을 보기 전의 사전 예측도 우선 <span>$\hat{x}_{t|t-1} = 100$</span>이다.</p>
+      <p><strong>② 비교한다.</strong> 오늘 실제 관측가격이 <span>$y_t = 104$</span>라면 차이는 <span>$104 - 100 = 4$</span>다. 이 차이를 <strong>혁신(innovation)</strong>, 곧 새로 들어온 정보라고 부른다 — ARMA의 MA 항에서 만난 그 <span>$\varepsilon$</span>과 같은 이름이다.</p>
+      <p><strong>③ 수정한다.</strong> 혁신을 얼마나 반영할지는 <strong>칼만 이득</strong> <span>$K_t$</span>가 정한다.</p>
+      <div class="katex-equation">
+        $$ \hat{x}_t = \hat{x}_{t|t-1} + K_t\big(y_t - \hat{x}_{t|t-1}\big) $$
+      </div>
+      <p><span>$K_t = 0.25$</span>라면 <span>$\hat{x}_t = 100 + 0.25(104 - 100) = 101$</span>이다. 관측은 104였지만 필터가 추정한 숨은 추세는 101이다 — 나머지 3은 잡음으로 본 것이다.</p>
+      <div class="callout--insight">
+        <span class="callout__kicker">칼만 이득이 하는 일</span>
+        <div class="callout__body">
+          <p><span>$K_t$</span>는 “오늘 관측을 얼마나 믿을 것인가”를 정한다. 그리고 그 값을 정하는 것이 바로 다음에 나올 <span>$B$</span>와 <span>$D$</span>다.</p>
+          <ul>
+            <li><strong>관측잡음 <span>$D$</span>가 크면</strong> — 가격이 시끄럽다고 보아 <span>$K$</span>가 작아지고, 관측을 덜 반영한다</li>
+            <li><strong>상태잡음 <span>$B$</span>가 크면</strong> — 추세 자체가 잘 변한다고 보아 <span>$K$</span>가 커지고, 새 관측을 더 반영한다</li>
+          </ul>
+          <p>즉 이전 추정값과 새 관측값을 <strong>각자의 불확실성에 따라 자동으로 가중</strong>한다. 5일선·20일선처럼 사람이 기간을 정하는 이동평균과 결정적으로 다른 점이다.</p>
+        </div>
+      </div>
+      <p>교재가 다루는 이동평균 모형은 여기서 한 번 더 단순해진다. <span>$A = I$</span>, <span>$C = I$</span>로 두어 <span>$x_t = x_{t-1} + Bu_t$</span>, <span>$y_t = x_t + D\varepsilon_t$</span>가 된다. 추세는 그대로 이어지고 관측은 추세에 잡음만 얹힌 형태다. <strong>학습 구간에서 추정하는 것은 결국 <span>$B$</span>와 <span>$D$</span>뿐</strong>이고, 필터링 과정에서는 이 둘을 고정해서 쓴다.</p>
+
+      <h2>6.3 다섯 종목에 다섯 개의 숨은 추세</h2>
+      <p>VAR 절에서 쓴 컴퓨터 하드웨어 다섯 종목에 그대로 적용한다. 숨은 상태변수도 <strong>종목 수와 같은 다섯 개</strong>를 둔다 — 일반적인 이동평균에서도 각 시계열이 자기만의 이동평균을 갖는 것과 같은 가정이다.</p>
+      <p>그리고 <strong>한 이동평균의 상태잡음은 다른 이동평균의 상태잡음과 상관이 없되 각자 다른 분산은 가질 수 있다</strong>고 둔다. 그래서 <span>$B$</span>는 미지 모수를 가진 <span>$5 \times 5$</span> 대각행렬이다. 측정잡음도 같은 방식으로 <span>$D$</span> 역시 대각행렬이 된다. 이 0 상관 제약을 풀 수도 있었지만, 그러면 추정할 변수가 크게 늘어 최적화 시간이 길어지고 <strong>과적합 위험도 함께 커진다</strong>.</p>
+      <pre><code class="language-matlab">A = eye(size(y,2));              % 상태전이행렬
+B = diag(NaN(size(y,2), 1));     % 미지 모수는 NaN
+C = eye(size(y,2));              % 시간불변 측정행렬
+D = diag(NaN(size(y,2), 1));
+model = ssm(A, B, C, D);
+param0 = randn(2*size(B,1)^2, 1);
+model = estimate(model, y(trainset, :), param0);</code></pre>
+      <p>이 코드가 만들어 낸 값이 표 3.5다. 가우시안 잡음 가정을 더 그럴듯하게 하려면 가격 대신 <strong>로그가격</strong>에 상태공간 모델을 적용하는 것도 고려할 수 있다.</p>
+
+      <h2>6.4 필터링에서 매매 신호까지</h2>
+      <p>두 방정식이 정해지면 <code>filter</code> 함수로 상태와 관측 양쪽의 예측값을 얻는다. <code>x(t)</code>는 시점 <span>$t$</span>까지의 가격을 보고 추정한 <strong>필터링된 가격, 곧 이동평균</strong>이다.</p>
+      <pre><code class="language-matlab">[x, logL, output] = filter(model, y);
+for t = 1:length(output)
+    yF(t, :) = output(t).ForecastedObs';
+end
+retF = (yF - y) ./ y;            % 예측수익률</code></pre>
+      <p>여기서 눈에 띄는 결과가 하나 있다. <strong>필터링 가격이 관측가격과 거의 같다</strong> — 차이가 대개 0.1% 미만이다. 왜 그런지는 식에서 바로 나온다. <span>$x_{t+1} = x_t + Bu_{t+1}$</span>이고 <span>$\mathbb{E}[u_{t+1}] = 0$</span>이므로 <span>$\mathbb{E}[x_{t+1} \mid t] = x_t$</span>다. 따라서 <span>$\hat{y}_{t+1} \approx x_t \approx y_t$</span>, 곧 <strong>“내일 가격은 오늘의 추세가격과 비슷하다”</strong>가 이 단순 모형의 기본 예측이다.</p>
+      <p>그래도 종목마다 예측수익률은 조금씩 다르게 나오고, 그 차이가 신호가 된다. 오늘 100에 내일 예측이 100.3이면 <span>$\hat{r} = 0.3\%$</span>다. 다섯 종목의 예측수익률을 구한 뒤 <strong>VAR 절과 똑같은 방식으로 섹터 중립 배분</strong>을 만든다 — 업종 평균보다 강한 종목은 매수, 약한 종목은 공매도. <code>yF(t)</code>를 <span>$t-1$</span>에 할당하는 규약도 앞과 같아서, <code>retF(t)</code>는 <span>$t-1$</span>에서 <span>$t$</span>까지의 예측수익률이다.</p>
+
       <table class="cmp-table" id="source-table-3-5" data-source-kind="table" data-source-ref="3.5">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">표 3.5 추정된 B와 D 행렬의 값 (비대각 원소는 0)</span></div></caption>
-        <thead><tr><th>행렬</th><th>역할</th><th>제약</th><th>대가</th></tr></thead><tbody>
-          <tr><th>B</th><td>상태 자체가 움직이는 크기</td><td>대각행렬</td><td>종목 간 상태잡음 상관을 버린다.</td></tr>
-          <tr><th>D</th><td>관측 가격의 측정 잡음</td><td>대각행렬</td><td>종목 간 측정오차 상관을 버린다.</td></tr>
-          <tr><th>공통</th><td>MLE로 크기 추정</td><td>비대각 0</td><td>모수 폭증을 막지만 모델을 단순화한다.</td></tr>
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 11</span>
+            <span class="asset-caption__title">표 3.5 추정된 B와 D 행렬의 값 (비대각 원소는 0)</span>
+          </div>
+        </caption>
+        <thead><tr><th>종목 / 상태</th><th><span>$B_{ii}$</span> — 상태잡음 크기</th><th><span>$D_{ii}$</span> — 측정잡음 크기</th></tr></thead>
+        <tbody>
+          <tr><td><span>$x_1$</span> · AAPL</td><td><strong>−3.74</strong></td><td>−0.0000454</td></tr>
+          <tr><td><span>$x_2$</span> · EMC</td><td>0.34</td><td>−0.08</td></tr>
+          <tr><td><span>$x_3$</span> · HPQ</td><td>−0.73</td><td>0.22</td></tr>
+          <tr><td><span>$x_4$</span> · NTAP</td><td>−0.67</td><td>0.19</td></tr>
+          <tr><td><span>$x_5$</span> · SNDK</td><td>−1.00</td><td>−0.15</td></tr>
         </tbody>
       </table>
+      <p><strong>부호는 읽지 않아도 된다.</strong> 잡음 <span>$u(t)$</span>와 <span>$\varepsilon(t)$</span>가 평균 0을 중심으로 대칭이고 서로 교차상관도 없으므로, 대각 원소의 부호에는 의미가 없다 — 중요한 것은 <strong>크기</strong>다. 그렇게 보면 AAPL이 눈에 띈다. 상태잡음 3.74에 측정잡음이 사실상 0이니, 필터가 <strong>관측을 거의 그대로 믿는다</strong>는 뜻이다. 반대로 EMC는 상태잡음 0.34에 측정잡음 0.08로 둘 다 작다.</p>
+      <p><a class="asset-ref" href="#source-table-3-5">표 11</a>의 괄호 안 단서 “비대각 원소는 0”이 그냥 지나칠 대목이 아니다. 이것은 데이터에서 나온 결과가 아니라 <strong>추정 전에 사람이 건 제약</strong>이다. 추정할 모수를 줄이려고 건 제약이고, 연습문제 3.6은 같은 제약을 <span>$B$</span>에 걸었을 때 결과가 어떻게 달라지는지를 묻는다.</p>
+
       <figure class="report-figure" id="source-fig-3-4" data-deck-use="required" data-source-kind="figure" data-source-ref="3.4">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 7</span><span class="asset-caption__title">그림 3.4 컴퓨터 하드웨어 주식에 적용한 칼만 필터 거래 전략 (표본내)</span></figcaption>
-        <img src="assets/figs/fig-3-4-kalman-train.svg" alt="컴퓨터 하드웨어 주식 칼만 필터 전략의 변동성 있는 상승 표본내 자산곡선">
-        <small class="asset-note">표본내 적합이 강해 보이는 상태를 재구성했다. 학습 곡선은 모수 선택의 결과이므로 실전 성과의 증거가 아니다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 10</span>
+          <span class="asset-caption__title">그림 3.4 컴퓨터 하드웨어 주식에 적용한 칼만 필터 거래 전략 (표본내)</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-4-kalman-hw-train.svg" alt="칼만 필터를 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 학습 구간 누적수익 개형. 곡선이 되돌림 없이 꾸준히 크게 상승한다. 학습 구간에서 추정한 것은 상태 잡음과 측정 잡음의 분산 두 개뿐이라는 설명이 붙어 있다.">
+        <small class="asset-note">발표자 재구성 — 교재가 서술한 “학습 세트 누적 수익률”의 개형만 옮겼다. 예측 수익률로 섹터 중립 배분을 만드는 방식은 VAR 절과 동일하다.</small>
       </figure>
+
       <figure class="report-figure" id="source-fig-3-5" data-deck-use="required" data-source-kind="figure" data-source-ref="3.5">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 8</span><span class="asset-caption__title">그림 3.5 컴퓨터 하드웨어 주식에 적용한 칼만 필터 거래 전략 (표본외)</span></figcaption>
-        <img src="assets/figs/fig-3-5-kalman-test.svg" alt="컴퓨터 하드웨어 주식 칼만 필터 전략이 표본외에서 흔들리고 약해지는 자산곡선">
-        <small class="asset-note">표본내와 달리 우위가 사라지는 방향을 보존해 재구성했다. 데이터 기간·가격 종류가 달라지면 수치 비교가 성립하지 않는다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 11</span>
+          <span class="asset-caption__title">그림 3.5 컴퓨터 하드웨어 주식에 적용한 칼만 필터 거래 전략 (표본외)</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-5-kalman-hw-test.svg" alt="같은 칼만 필터 전략을 테스트 구간에서 실행한 누적수익 개형. 곡선이 올랐다 내렸다를 반복하다 0 근처에서 끝나며, 추정한 모수는 두 개뿐인데도 이만큼 무너진다는 설명이 붙어 있다.">
+        <small class="asset-note">발표자 재구성 — 교재가 “과적합의 정도가 놀라울 만큼 크다”고 표현한 대비를 개형으로 옮겼다. 두 그림의 세로축 눈금이 다르다는 점에 유의한다.</small>
       </figure>
-      <h2>헤지비율을 은닉 상태로 — EWA와 EWC</h2>
-      <p>EWC를 관측값, $[EWA,1]$을 시간가변 측정행렬로 두고 헤지 기울기와 오프셋을 은닉 상태로 추정한다. 고정된 회귀계수 대신 관계 자체가 서서히 변하도록 허용한다. 예측오차가 $\pm1\sigma$ 임계값을 넘을 때 진입하고 다시 임계값 안으로 돌아오면 청산한다.</p>
+      <p>교재의 표현이 정확하다. “학습 데이터로는 그저 상태·측정 잡음의 분산만 추정했을 뿐인데도 과적합의 정도가 놀라울 만큼 크다.” 명시적으로 추정한 모수는 둘인데 결과는 무너진다. 이유는 은닉 변수 자체에 있다 — <span>$x(t)$</span>가 매 시점 자유롭게 움직일 수 있으므로 <strong>실질 자유도는 모수 개수보다 훨씬 크다</strong>.</p>
+
+      <h2>6.5 두 잡음과 은닉 추세</h2>
+
+      <figure class="report-figure" id="fig-hidden">
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 12</span>
+          <span class="asset-caption__title">부드러운 은닉 추세와 흔들리는 관측 가격</span>
+        </figcaption>
+        <img src="assets/figs/fig-kalman-hidden.svg" alt="위쪽 점선 영역은 관측되지 않는 은닉 추세로 100.0, 100.5, 101.0, 101.3처럼 부드럽게 오르고, 아래쪽 실선 영역은 실제 관측 가격으로 102.0, 99.8, 103.2, 100.7처럼 크게 흔들린다. 두 층은 상태전이방정식과 측정방정식으로 연결되며, 오른쪽에는 같은 날 같은 데이터인데도 5일선 103, 20일선 99, 20일 지수이동평균 101로 값이 달라진다는 표가 있다.">
+        <small class="asset-note">발표자 재구성. 은닉 추세와 관측 가격은 설명을 위해 잡은 값이고, 오른쪽 세 이동평균은 같은 데이터에서 기간만 달리해 계산한 값이다.</small>
+      </figure>
+
+      <table class="cmp-table" id="table-noise">
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 12</span>
+            <span class="asset-caption__title">두 잡음 — 무엇을 흔드는가</span>
+          </div>
+        </caption>
+        <thead><tr><th>구분</th><th><span>$u(t)$</span> · 과정잡음</th><th><span>$\varepsilon(t)$</span> · 측정잡음</th></tr></thead>
+        <tbody>
+          <tr><td>흔드는 대상</td><td>진짜 상태 자체</td><td>관측하는 과정</td></tr>
+          <tr><td>예</td><td>예상 밖 실적, 기술 변화, 경영 결정</td><td>일시적 매수·매도 쏠림</td></tr>
+          <tr><td>크기를 정하는 것</td><td><span>$B$</span> — 상태가 얼마나 흔들리는지</td><td><span>$D$</span> — 관측이 얼마나 흔들리는지</td></tr>
+          <tr><td>왜 분산 1인가</td><td colspan="2">잡음을 표준화하고 실제 크기는 <span>$B$</span>·<span>$D$</span>가 결정하게 하려고. <span>$B=2$</span>면 <span>$2u(t)$</span>의 분산은 4가 된다.</td></tr>
+        </tbody>
+      </table>
+      <p><a class="asset-ref" href="#table-noise">표 12</a>의 마지막 줄이 <a class="asset-ref" href="#source-table-3-5">표 11</a>을 읽는 열쇠다. 잡음 자체는 분산 1로 표준화해 두고 실제 크기는 전부 <span>$B$</span>와 <span>$D$</span>에 몰아넣었기 때문에, 표 3.5의 값이 곧 “이 시장이 얼마나 흔들리는가”에 대한 모델의 추정치가 된다.</p>
+
+      <h2>6.6 과적합의 크기를 눈으로 재기</h2>
+      <p>학습 구간(2007–2010) 누적수익률은 약 2.3, 즉 230%다. 1억으로 시작했다면 최종 자산 약 3.3억이다. 그런데 테스트 구간(2010–2014)에서는 2011년 말 약 22%까지 올랐다가 하락해 2013년에는 −10%까지 내려가고, 마지막에는 뚜렷한 수익을 남기지 못한다.</p>
+
+      <figure class="report-figure" id="fig-overfit" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 13</span>
+          <span class="asset-caption__title">학습 +230% vs 테스트 ≈ 0% — 세로축 눈금이 10배 다르다</span>
+        </figcaption>
+        <img src="assets/figs/fig-overfit.svg" alt="왼쪽 학습 구간 그래프는 2007년부터 2010년까지 완만히 오르다 2009년부터 빠르게 상승해 누적수익률 약 2.3, 즉 230퍼센트에 이른다. 오른쪽 테스트 구간 그래프는 2010년 말부터 2014년까지로 2011년 말 약 22퍼센트까지 올랐다가 하락해 2013년에는 마이너스 10퍼센트까지 내려가고 마지막에는 0 근처에서 끝난다. 두 그래프의 세로축 눈금이 10배 이상 다르다는 점이 표시되어 있다.">
+        <small class="asset-note">발표자 재구성. 같은 축으로 그리면 오른쪽 곡선이 거의 평평해 보이므로 눈금을 달리했고, 그 사실을 그림 안에 표시했다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-overfit">그림 13</a>이 그림 3.4·3.5에 숫자를 붙인 것이다. 세로축 눈금이 10배 이상 다르다는 사실을 그림 안에 표시한 이유가 있다 — 같은 축으로 그리면 테스트 곡선이 아예 보이지 않아서, 오히려 대비가 전달되지 않는다.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="report-section s7 page-break" id="ewa-ewc">
+      <div class="report-section__kicker">Section 07 · Kalman Filter for EWA–EWC</div>
+      <h1>7. EWA–EWC — 헤지비율을 은닉 상태로 둔다</h1>
+      <div class="section-summary">
+        <div class="section-summary__kicker">섹션 요약</div>
+        <div class="section-summary__body">
+          <ul>
+            <li>두 ETF의 관계를 <span>$EWC_t = \beta_t EWA_t + \alpha_t + \text{잡음}$</span>으로 보되, <span>$\beta_t$</span>와 <span>$\alpha_t$</span>를 <strong>매일 변하는 은닉 상태</strong>로 둔다.</li>
+            <li>그림 3.6·3.7이 그 추정값의 시간 변화다 — <strong>헤지비율은 상수가 아니다</strong>.</li>
+            <li>진입·청산 신호는 예측 오차를 예측 표준편차와 비교해 만든다.</li>
+            <li>그림 3.8의 학습 곡선은 <strong>전반부부터 이미 평평해진다</strong>. 교재는 체질 변화와 과적합 두 가지 해석을 나란히 둔다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>형태는 직선식 <span>$y = mx + b$</span>와 똑같다. 핵심은 기울기와 절편을 고정 상수가 아니라 은닉 상태로 둔다는 점이다. 측정행렬에 EWA를 넣는 방식이 재미있다 — <span>$x_t = [\beta_t,\ \alpha_t]^{\top}$</span>, <span>$C_t = [EWA_t,\ 1]$</span>로 두면 <span>$C_t x_t = \beta_t EWA_t + \alpha_t$</span>가 된다. 두 번째 자리의 1은 절편을 더하기 위한 것이다.</p>
+      <p>앞 절과 무엇이 달라졌는지부터 보자. 이동평균 사례에서 은닉 상태는 <strong>가격의 숨은 추세</strong>였다. 여기서는 <span>$x_t = [\beta_t,\ \alpha_t]^{\top}$</span>, 곧 <strong>헤지비율과 절편</strong>이다. 관측값 <span>$y$</span>도 가격 벡터가 아니라 <strong>EWC 하나</strong>인 스칼라이고, EWA는 관측이 아니라 <strong>시변 측정행렬 <span>$C_t = [EWA_t,\ 1]$</span></strong>으로 들어간다. 같은 도구를 전혀 다른 문제에 쓴 것이다.</p>
+      <div class="katex-equation">
+        $$ x(t) = x(t-1) + B\,u(t) \qquad\qquad y(t) = C(t)\,x(t) + D\,\varepsilon(t) $$
+      </div>
+      <p>곱해 보면 식 하나로 정리된다 — <span>$EWC_t = \beta_t EWA_t + \alpha_t + D\varepsilon_t$</span>. 이 절의 모든 것이 여기서 나온다.</p>
+      <pre><code class="language-matlab">y = cl(:, idxC);                          % 관측은 EWC 하나
+C = [cl(:, idxA) ones(size(cl,1), 1)];    % [EWA, 1]
+A = eye(2);  B = NaN(2);                  % B는 2x2 전체가 미지
+C = mat2cell(C, ones(size(cl,1), 1));     % 시변 측정행렬
+D = NaN;
+trainset = 1:1250;                        % 2006-04-26 ~ 2012-04-09
+model = ssm(A, B, C(trainset, :), D);</code></pre>
+      <p>왜 헤지비율이라 부르는가. <span>$EWC_t \approx 0.8\,EWA_t + 2$</span>라면 <span>$EWC_t - 0.8\,EWA_t$</span>가 2 근처에 머문다. EWC 1단위에 EWA 0.8단위를 반대로 잡으면 공통 시장 움직임이 상쇄된다는 뜻이다. 절편 <span>$\alpha_t$</span>는 그렇게 하고도 남는 <strong>기본적인 수준 차이</strong>다.</p>
+
+      <h2>7.1 숫자로 따라가는 페어 트레이딩</h2>
+      <p>어느 날 필터가 <span>$\beta_t = 0.8$</span>, <span>$\alpha_t = 5$</span>로 추정했고 그날 EWA가 50이라 하자. 모델이 보는 <strong>정상적인 EWC 가격</strong>은 <span>$0.8(50) + 5 = 45$</span>다. 실제 EWC를 이 값과 비교한 <strong>잔차</strong>가 신호가 된다.</p>
+      <div class="katex-equation">
+        $$ e_t = EWC_t - \big(\beta_t EWA_t + \alpha_t\big) $$
+      </div>
+      <ul>
+        <li>실제 EWC가 <strong>45</strong> → <span>$e_t = 0$</span>, 정상 관계. 거래할 이유가 없다</li>
+        <li>실제 EWC가 <strong>42</strong> → <span>$e_t = -3$</span>, EWC가 상대적으로 싸다 → <strong>EWC 매수 · EWA 0.8단위 매도</strong></li>
+        <li>실제 EWC가 <strong>48</strong> → <span>$e_t = +3$</span>, EWC가 상대적으로 비싸다 → <strong>EWC 매도 · EWA 매수</strong></li>
+      </ul>
+      <p>여기서 <span>$\beta_t$</span>가 <em>얼마나 반대로 잡을지</em>를 알려 준다. 그리고 같은 잔차가 필터의 갱신에도 쓰인다 — 42가 관측되면 <span>$\beta_t$</span>는 0.80에서 0.79로, <span>$\alpha_t$</span>는 5에서 4.8로 조정되는 식이다. <strong>같은 차이가 한쪽에서는 매매 신호가 되고 다른 쪽에서는 상태 수정에 쓰인다.</strong></p>
+      <p>왜 굳이 칼만인가. 일반 회귀라면 <span>$\beta = 0.8$</span> 하나로 고정된다. 하지만 두 ETF의 관계가 늘 같을 리 없다 — 0.75 → 0.80 → 0.90 → 0.70처럼 움직인다. 그래서 <span>$\beta$</span>에 <span>$t$</span>를 붙이고, <strong>헤지비율 자체를 시장에 따라 변하는 은닉 상태</strong>로 본다.</p>
+
+      <h2>7.2 표 3.6 — 이번에는 교차상관을 제약하지 않았다</h2>
+      <p>학습 구간(1:1250, 2006-04-26 ~ 2012-04-09)에서 추정한 값은 이렇다.</p>
+      <div class="katex-equation">
+        $$ B = \begin{bmatrix} -0.01 & 0.02 \\ 0.41 & -0.32 \end{bmatrix}, \qquad D = -0.08 $$
+      </div>
+      <p><strong>표 3.5와 달리 상태잡음의 교차상관을 0으로 제약하지 않았다.</strong> <span>$B$</span>의 비대각이 살아 있으므로 상태 충격이 서로 섞인다.</p>
+      <div class="katex-equation">
+        $$ \omega_1(t) = -0.01\,u_1(t) + 0.02\,u_2(t), \qquad \omega_2(t) = 0.41\,u_1(t) - 0.32\,u_2(t) $$
+      </div>
+      <p><span>$\omega_1$</span>은 헤지비율 <span>$\beta$</span>를 흔드는 충격, <span>$\omega_2$</span>는 절편 <span>$\alpha$</span>를 흔드는 충격이다. <span>$u_1$</span>과 <span>$u_2$</span>가 서로 무상관이라고 두면 <span>$\omega$</span>의 공분산 행렬이 따라 나온다.</p>
+      <div class="katex-equation">
+        $$ \begin{bmatrix} 0.00055 & -0.011 \\ -0.011 & 0.27 \end{bmatrix} $$
+      </div>
+      <p>읽을 것이 셋이다. <strong>헤지비율의 변동 분산은 0.00055로 아주 작고</strong>(천천히 움직인다), <strong>절편의 분산은 0.27로 훨씬 크며</strong>(크게 움직인다), <strong>둘 사이 공분산이 −0.011로 0이 아니다</strong>. Chan(2013)의 Box 3.1에서는 두 충격이 무상관이고 각 분산이 약 0.0001이라고 <em>가정</em>했는데, 여기서는 데이터로 추정하니 전혀 다른 그림이 나온 것이다. 측정잡음도 마찬가지다 — 임의로 0.001로 두는 대신 <span>$D^2 = 0.0059$</span>로 추정했다.</p>
+
       <figure class="report-figure" id="source-fig-3-6" data-deck-use="required" data-source-kind="figure" data-source-ref="3.6">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 9</span><span class="asset-caption__title">그림 3.6 EWC와 EWA 사이 기울기에 대한 칼만 필터 추정값</span></figcaption>
-        <img src="assets/figs/fig-3-6-hedge-slope.svg" alt="시간에 따라 변하는 EWA 대비 EWC의 칼만 필터 헤지 기울기 추정 경로">
-        <small class="asset-note">기울기가 관측마다 갱신되는 상태임을 강조해 재구성했다. 정확한 원본 시계열 경로는 복제하지 않았다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 14</span>
+          <span class="asset-caption__title">그림 3.6 EWC와 EWA 사이 기울기에 대한 칼만 필터 추정값</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-6-kalman-slope.svg" alt="EWC와 EWA 사이 기울기에 대한 칼만 필터 추정값의 시간 변화 개형. 2006년 초 큰 폭으로 출렁이는 초기 과도 구간을 지나면 값이 안정되지만 이후에도 완만하게 오르내리며 한 값에 머물지 않는다.">
+        <small class="asset-note">발표자 재구성 — 교재 그림의 수치를 옮기지 않고, 초기 과도 구간과 이후의 지속적 표류라는 두 가지 특징만 도식화했다.</small>
       </figure>
+
       <figure class="report-figure" id="source-fig-3-7" data-deck-use="required" data-source-kind="figure" data-source-ref="3.7">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 10</span><span class="asset-caption__title">그림 3.7 EWC와 EWA 사이 오프셋에 대한 칼만 필터 추정값</span></figcaption>
-        <img src="assets/figs/fig-3-7-offset.svg" alt="시간에 따라 변하는 EWA EWC 회귀의 칼만 필터 오프셋 추정 경로">
-        <small class="asset-note">기울기와 별개로 관계 수준도 움직일 수 있음을 강조해 재구성했다. 정확한 원본 시계열 경로는 복제하지 않았다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 15</span>
+          <span class="asset-caption__title">그림 3.7 EWC와 EWA 사이 오프셋에 대한 칼만 필터 추정값</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-7-kalman-offset.svg" alt="EWC와 EWA 사이 오프셋에 대한 칼만 필터 추정값의 시간 변화 개형. 초기 과도 구간 이후 값이 자리를 잡지만 기울기보다 더 크게 표류하며 구간에 따라 수준 자체가 달라진다.">
+        <small class="asset-note">발표자 재구성 — 기울기와 오프셋이 함께 움직인다는 점, 즉 관계 자체가 시간에 따라 재정의된다는 점을 전달하기 위한 도식이다.</small>
       </figure>
+      <p>그림 3.6의 세로축 <code>Slope = x(t,1)</code>이 바로 <span>$\beta_t$</span>다. 그래프는 하나의 고정된 숫자와 거리가 멀다 — 2006년 초에는 1.4를 넘었다가 2007년경 0.4까지 내려가고, 2009년에 다시 1.1 부근으로 올라온 뒤 이후로는 0.7~1.0 사이를 오간다. 일반 회귀라면 <span>$\beta = 0.8$</span> 하나를 내놓았을 자리에, 칼만 필터는 <strong>구간마다 다른 값</strong>을 준다.</p>
+      <p>이 두 그림이 이 절의 존재 이유다. 회귀분석으로 한 번 구한 헤지비율은 상수 하나지만, 칼만 필터는 매일 새 값을 준다. <strong>초기값을 아무렇게나 놓아도 며칠이면 데이터가 밀어 넣은 값으로 수렴</strong>하고, 그 뒤에도 계속 움직인다. 오늘의 스프레드가 큰지 작은지를 “오늘 기준”으로 다시 재야 한다는 뜻이다.</p>
+      <p>실제 신호는 예측 오차 <span>$e = y - \hat{y}$</span>를 예측 표준편차와 비교해 만든다. 오차가 <span>$-\sqrt{\text{ymse}}$</span>보다 작으면 EWC를 사고, <span>$+\sqrt{\text{ymse}}$</span>보다 크면 판다. 임계값이 고정 상수가 아니라 <strong>그날의 예측 불확실성에 따라 함께 움직인다</strong>는 점이 핵심이다. 포지션 결정 방식은 Chan(2013)과 같고 MATLAB 코드는 <code>SSM_beta_EWA_EWC.m</code>이다.</p>
+
       <figure class="report-figure" id="source-fig-3-8" data-deck-use="required" data-source-kind="figure" data-source-ref="3.8">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 11</span><span class="asset-caption__title">그림 3.8 EWC–EWA에 적용한 칼만 필터 거래 전략 (표본내)</span></figcaption>
-        <img src="assets/figs/fig-3-8-pair-train.svg" alt="EWA EWC 동적 헤지 전략의 계단식 상승 표본내 자산곡선">
-        <small class="asset-note">예측오차 임계값 전략의 표본내 상승 형태를 재구성했다. 정확한 원본 축·경로는 복제하지 않았다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 16</span>
+          <span class="asset-caption__title">그림 3.8 EWC–EWA에 적용한 칼만 필터 거래 전략 (표본내)</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-8-kalman-pair-train.svg" alt="EWC와 EWA 페어에 칼만 필터를 적용한 거래 전략의 학습 구간 누적수익 개형. 곡선이 전반부에는 오르지만 중반부터 기울기가 눕기 시작해 뒤쪽은 거의 평평하다. 테스트 구간을 보기 전에 학습 구간 안에서 이미 문제가 드러난다는 점이 강조되어 있다.">
+        <small class="asset-note">발표자 재구성 — 교재가 지적한 “학습 세트의 전반부에서부터 이미 곡선이 평평해지기 시작했다”는 특징을 개형으로 옮겼다.</small>
       </figure>
+
       <figure class="report-figure" id="source-fig-3-9" data-deck-use="required" data-source-kind="figure" data-source-ref="3.9">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 12</span><span class="asset-caption__title">그림 3.9 EWC–EWA에 적용한 칼만 필터 거래 전략 (표본외)</span></figcaption>
-        <img src="assets/figs/fig-3-9-pair-test.svg" alt="EWA EWC 동적 헤지 전략이 표본외에서 평평해지는 자산곡선">
-        <small class="asset-note">학습 후반부터 평평해지는 실패 신호를 보존해 재구성했다. 레짐 변화와 잡음 공분산 과적합은 서로 구분해 진단해야 한다.</small>
+        <figcaption class="asset-caption asset-caption--figure">
+          <span class="asset-caption__chip">그림 17</span>
+          <span class="asset-caption__title">그림 3.9 EWC–EWA에 적용한 칼만 필터 거래 전략 (표본외)</span>
+        </figcaption>
+        <img src="assets/figs/src-fig-3-9-kalman-pair-test.svg" alt="같은 EWC와 EWA 칼만 필터 전략의 테스트 구간 누적수익 개형. 곡선이 작게 오르내릴 뿐 거의 수평으로 이어져 학습 구간 후반부의 정체가 그대로 계속된다. 연습문제 3.6은 같은 페어를 다른 가정으로 CAGR 26.2퍼센트까지 끌어올린다는 설명이 붙어 있다.">
+        <small class="asset-note">발표자 재구성 — 학습 구간 후반의 정체가 테스트 구간에서 그대로 이어진다는 관계를 보이기 위한 도식이다.</small>
       </figure>
+      <div class="callout--insight">
+        <span class="callout__kicker">교재가 나란히 둔 두 해석</span>
+        <div class="callout__body">
+          <p>숫자로 보면 격차가 분명하다. 학습 구간 누적수익률은 0에서 출발해 0.1 → 0.2 → 0.4를 거쳐 <strong>약 0.58, 곧 58%</strong>까지 오른다. 다만 <strong>2009년 이후로는 0.58 근처에서 거의 움직이지 않는다</strong> — 학습 구간 후반부터 이미 수익 창출력이 식고 있었다는 뜻이다. 테스트 구간에서는 처음 +0.01까지 올랐다가 <strong>−0.038</strong>까지 내려가고 마지막은 −0.005 언저리, 사실상 수익이 없다.</p>
+          <p>학습 구간 안에서 곡선이 눕는 이유로 교재는 두 가지를 든다. ① EWA와 EWC가 실제로 <strong>공적분에서 이탈</strong>하는 체질 변화(regime change)가 있었거나 — 그렇다면 “벌어지면 돌아온다”는 페어 트레이딩의 전제 자체가 무너진다 — ② 더 유력하게는 <strong>잡음 공분산 <span>$B$</span>를 과적합</strong>했거나. 후자라면 표 3.6의 네 값이 지속되는 시장 구조가 아니라 <strong>학습 기간의 잡음까지 맞춘 결과</strong>라는 뜻이다. 어느 쪽이든 “이 변수까지 추정해야 하는 상태공간 모델에서 과적합이 얼마나 집요한 위험인지”라는 같은 결론으로 모인다.</p>
+          <p>연습문제 3.6이 여기에 대한 처방이다. <span>$B$</span>를 대각행렬로 <em>제약</em>하면 CAGR 26.2%, 샤프 2.4가 나오는지 확인하라는 것 — 모델을 키우는 게 아니라 <strong>줄이는</strong> 방향이다.</p>
+        </div>
+      </div>
     </section>
 
-    <section class="report-section s6 page-break" id="chapter-summary">
-      <div class="report-section__kicker">Chapter 3 · Summary</div>
-      <h1>요약 — 이 장이 남긴 것</h1>
-      <p>시계열 모델은 직관이 부족한 새 시장에서 가장 먼저 시도할 수 있는 선형 도구다. 그러나 AR에서 상태공간 모델로 갈수록 모수와 자유도가 늘고, 데이터와 제약이 충분하지 않으면 표본내 적합이 표본외 붕괴로 이어진다.</p>
-      <p>현명한 제약은 모델을 약하게 만드는 것이 아니라 검증 가능하게 만든다. 짧은 시차, 대각 잡음 행렬, 고정된 학습·테스트 분할, 가격 종류와 체결 규칙의 명시는 서로 다른 형태의 제약이다. 일중 데이터의 풍부한 표본은 도움이 되지만 높은 회전율 비용도 함께 키운다.</p>
-      <div class="callout--hero"><span class="callout__kicker">판단 규칙</span><span class="callout__body">표현력이 한 단계 늘어날 때마다 <strong>새 모수, 새 누수 경로, 새 비용</strong>을 하나씩 찾아 기록한다.</span></div>
+    <!-- 8 -->
+    <section class="report-section s8 page-break" id="chapter-summary">
+      <div class="report-section__kicker">Section 08 · Summary</div>
+      <h1>8. 요약 — 이 장이 남긴 것</h1>
+      <div class="callout--hero">
+        <span class="callout__kicker">세 문장 요약</span>
+        <span class="callout__body">3장의 모든 모형은 “가격 수준을 못 믿으니 무엇을 대신 볼 것인가”를 다르게 답한 것이다. 무엇을 보든 두 관문이 남는다 — 그 패턴이 <strong>호가 스프레드를 이기는가</strong>, 그리고 <strong>학습 구간 밖에서도 재현되는가</strong>. 모형을 늘리는 것보다 이 두 질문에 답하는 절차를 갖추는 것이 먼저다.</span>
+      </div>
+      <p>교재의 요약은 시계열 분석을 <strong>“새로운 금융상품이나 시장을 만났을 때 가장 먼저 시도해 볼 만한 기법”</strong>으로 자리매김한다. 직관도 펀더멘털도 없을 때 남는 것이 가격의 통계 구조이기 때문이다. AR·ARMA·ARIMA·VAR·VEC 그리고 상태공간 모델까지, 이 장이 다룬 여섯 모형은 모두 <strong>선형</strong>이라는 공통점을 갖는다.</p>
+      <p>그리고 교재는 곧바로 단서를 단다. 선형이라고 만만한 것이 아니다. <strong>추정할 모수가 많아 과적합이 늘 따라다닌다.</strong> 특히 상태공간 모델은 자체 동역학을 가진 은닉 변수까지 품고 있어 위험이 가장 크다.</p>
+      <p>그래서 이 장의 실천적 결론은 하나로 모인다. 이 방법들로 전략을 만들려면 <strong>모수의 개수를 줄이고 될수록 강한 제약을 거는 것</strong>이 관건이다. ARMA와 VAR에서 시차를 1로 제한하는 것, 상태공간 모델에서 잡음의 교차상관을 0으로 두는 것 — 표 3.5의 “비대각 원소는 0”이 정확히 그 제약이다 — 이 모두 같은 방향의 선택이다. 그리고 제약을 거는 것 못지않게 중요한 것이 <strong>데이터를 늘리는 것</strong>이며, 그래서 교재는 데이터가 풍부한 <strong>일중(intraday) 트레이딩</strong>에서 이 방법들이 특히 유망하다고 본다.</p>
+
+      <h2>8.1 토론 질문</h2>
+      <ul>
+        <li><strong>체결 가능성</strong> — 우리 환경에서 중간가격 체결을 전제할 수 있는 시장·상품이 있는가? 없다면 그림 3.1의 158%는 우리에게 어떤 숫자로 번역되는가?</li>
+        <li><strong>제약의 선택</strong> — 시차를 1로 제한하는 것과 잡음 교차상관을 0으로 두는 것 중, 우리 데이터에서 먼저 풀어 볼 만한 것은 무엇인가?</li>
+        <li><strong>과적합 판정</strong> — 그림 3.4와 3.5 정도로 학습·테스트가 갈리면 버린다는 기준을 미리 숫자로 정해 둘 수 있는가?</li>
+        <li><strong>모델과 수익의 괴리</strong> — ARMA(2, 5)가 AR(10)보다 통계적으로 낫지만 덜 벌었다. 우리는 무엇을 기준으로 모델을 고를 것인가?</li>
+      </ul>
     </section>
 
-    <section class="report-section s7 page-break" id="exercises" data-source-kind="exercise" data-source-ref="chapter-1">
+    <!-- 9 -->
+    <section class="report-section s9 page-break" id="exercises" data-source-kind="exercise" data-source-ref="chapter-1">
       <div class="report-section__kicker">Chapter 3 · Practice</div>
       <h1>연습문제 (Exercises)</h1>
-      <p>연습문제는 공식 유도에서 실행비용·다변량·상태공간 확장까지 이어진다. 정답 숫자보다 실험 경계와 판정 근거를 기록하는 것이 중요하다.</p>
-      <table class="cmp-table" id="table-exercises">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 8</span><span class="asset-caption__title">연습문제 3.1–3.8 학습 지도</span></div></caption>
-        <thead><tr><th>범위</th><th>핵심 과제</th><th>확인할 경계</th></tr></thead><tbody>
-          <tr><th>3.1–3.3</th><td>정상성 증명, bid/ask 비용, ARIMA 동등성</td><td>수학 조건과 실제 체결가격</td></tr>
-          <tr><th>3.4·3.7</th><td>EWA/EWC VAR, 로그가격 VAR/VEC</td><td>유니버스·변환·표본외 분할</td></tr>
-          <tr><th>3.5–3.6·3.8</th><td>상태 제약, 동적 헤지, 추세 기울기</td><td>잡음 행렬·과적합·레짐 변화</td></tr>
-        </tbody>
-      </table>
-      <div class="section-summary"><div class="section-summary__kicker">토론 질문</div><div class="section-summary__body"><ul>
-        <li>AR(10)의 중간가격 우위가 시장가 체결에서 사라진다면 모델과 실행 중 무엇을 먼저 바꿀 것인가?</li>
-        <li>VAR의 자산 수를 늘릴 때 정보 증가와 모수 폭증을 어떤 기준으로 균형 잡을 것인가?</li>
-        <li>칼만 필터 표본외 붕괴가 레짐 변화인지 잡음 모수 과적합인지 어떻게 구분할 것인가?</li>
-      </ul></div></div>
-    </section>
-
-    <section class="report-section s8 page-break" id="endnotes">
-      <div class="report-section__kicker">Chapter 3 · Endnotes</div>
-      <h1>주석 — 코드와 조건의 위치</h1>
-      <p>원문은 약정상 정의와 MATLAB 프로그램 위치를 주석으로 제공한다. `buildAR1.m`, `buildARp_AUDUSD.m`, `buildVAR_findP_stocks.m`, `buildVAR1_sectorNeutral_computerHardware.m`, `SSM_MA_computerHardware_diag.m`, `SSM_beta_EWA_EWC.m`이 주요 실행 좌표다.</p>
-      <p>공개 리포트는 원본 코드를 대량 복제하지 않는다. 참가자는 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_3_time_series_analysis/03_chapter_3_time_series_analysis_ko_explained.md">Chapter 3 한국어 해설판</a>과 비공개 교재 저장소의 원본 MATLAB·Python 재현 노트북에서 전체 맥락을 확인할 수 있다.</p>
-    </section>
-
-    <section class="report-section s9 page-break" id="reproduction-audit">
-      <div class="report-section__kicker">AIML Quant 보충 A · Reproduction Audit</div>
-      <h1>보충 A. 재현 감사 — 수익률보다 먼저 경계를 재현한다</h1>
-      <div class="section-summary"><div class="section-summary__kicker">교재 밖 보강</div><div class="section-summary__body"><ul><li>원본 AR(10)은 선언한 학습 구간이 아니라 전체 `mid`로 적합해 look-ahead가 섞였다.</li><li>train-only로 고쳐도 중간가격 성과는 강하지만 관측 반스프레드를 차감하면 터미널 자산이 거의 0이 된다.</li><li>VAR·Kalman은 책의 CRSP midquote 입력이 없어 공식 close 기반 방법론적 적응으로 등급을 낮춘다.</li></ul></div></div>
-      <p>재현 노트북은 공식 Book 3 ZIP의 MATLAB 소스와 제공 데이터를 해시로 고정하고, 수치 재현·published-parameter replay·방법론적 적응을 구분한다. 같은 코드가 돈을 번다는 주장보다, 어떤 입력과 추정 창을 사용했는지 먼저 고정한다.</p>
-      <figure class="report-figure" id="fig-information-boundary" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 13</span><span class="asset-caption__title">예측을 거래 손익으로 바꾸는 정보 경계</span></figcaption>
-        <img src="assets/figs/mechanism-path.svg" alt="학습 창 고정, 한 단계 앞 예측, 지연 포지션, 체결비용, 표본외 판정이 이어지는 흐름">
-        <small class="asset-note">AIML Quant 보충. 모델 비교 전에 모든 후보에 같은 시간·비용 계약을 적용해야 한다.</small>
-      </figure>
-      <figure class="report-figure" id="fig-repro-map" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 14</span><span class="asset-caption__title">Python 재현의 모델–거래 지도</span></figcaption>
-        <img src="assets/figs/repro-model-map.png" alt="단변량, 다변량, 은닉 상태 모델에서 지연 포지션과 비용으로 이어지는 영어 모델 지도">
-        <small class="asset-note">왼쪽 모델 이름보다 하단의 공통 경로가 핵심이다. Chapter 3 재현 노트북이 생성한 도형이며 관측 이력 → 예측분포 → t 시점 결정 → t+1 손익을 명시한다.</small>
-      </figure>
-      <figure class="report-figure" id="fig-repro-ar" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 15</span><span class="asset-caption__title">AR·ARMA 수치 재현과 실행비용 진단</span></figcaption>
-        <img src="assets/figs/repro-ar-diagnostics.png" alt="AUD USD BIC, AR10 계수, 중간가격 자산곡선, 스프레드 비용 민감도를 네 패널로 보여 주는 재현 진단">
-        <small class="asset-note">BIC는 p=10을 선택하고 전체표본·train-only 계수는 비슷해 보이지만, 관측 스프레드 차감 후 자산은 거의 0으로 수렴한다. 재현 노트북 산출물.</small>
-      </figure>
-      <table class="cmp-table" id="table-reproduction-results">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 9</span><span class="asset-caption__title">재현 결과의 등급과 직접 비교 가능성</span></div></caption>
-        <thead><tr><th>실험</th><th>재현 등급</th><th>Python 연율 수익</th><th>판정</th></tr></thead><tbody>
-          <tr><th>AR(10) 전체표본</th><td>수치 재현 + 누수 진단</td><td>158.36%</td><td>교재와 일치하지만 look-ahead 포함</td></tr>
-          <tr><th>AR(10) train-only</th><td>수정 실험</td><td>140.27%</td><td>중간가격 기준, 비용 후 −99.97%</td></tr>
-          <tr><th>ARMA(2,5)</th><td>인쇄 계수 replay</td><td>60.08%</td><td>교재와 일치, 새 OOS 적합 주장은 아님</td></tr>
-          <tr><th>Hardware VAR(1)</th><td>방법론적 적응</td><td>−4.97%</td><td>입력·종목·기간이 달라 48%와 직접 비교 금지</td></tr>
-          <tr><th>EWA–EWC Kalman</th><td>인쇄 계수 replay</td><td>test −0.53%</td><td>표본외 관계 약화 확인</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="report-section s10 page-break" id="multivariate-repro">
-      <div class="report-section__kicker">AIML Quant 보충 B · Multivariate &amp; State Diagnostics</div>
-      <h1>보충 B. 입력이 다르면 “재현”의 등급도 달라진다</h1>
-      <p>교재의 hardware VAR·Kalman은 CRSP midquote와 point-in-time 산업분류를 사용하지만 공식 ZIP에는 해당 패널이 없다. 재현 노트북은 제공된 5종목 close 패널을 사용하므로 방법론적 적응이며, 교재 수치가 나오지 않는 것이 실패가 아니라 입력 경계의 결과다.</p>
-      <figure class="report-figure" id="fig-repro-multivariate" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 16</span><span class="asset-caption__title">VAR/VEC와 상태공간 적응의 표본외 진단</span></figcaption>
-        <img src="assets/figs/repro-multivariate.png" alt="VAR 표본외 자산곡선, VEC 대각 원소, 칼만 적응 자산곡선, 관측가격과 필터 상태를 보여 주는 네 패널 진단">
-        <small class="asset-note">VAR 적응은 손실, VEC 대각은 모두 음수, Kalman 후반부는 약해진다. 같은 방법이라도 다른 입력에서 책의 성과를 기대하면 안 된다.</small>
-      </figure>
-      <figure class="report-figure" id="fig-repro-pair" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 17</span><span class="asset-caption__title">EWA–EWC published-parameter Kalman replay</span></figcaption>
-        <img src="assets/figs/repro-pair-kalman.png" alt="EWA EWC 헤지 기울기, 예측오차 임계값, 학습과 테스트 자산곡선을 보여 주는 세 패널 재현">
-        <small class="asset-note">학습 구간은 상승하지만 마지막 250일 테스트는 약해진다. 빨간 분할선 뒤를 별도 기준 1로 재시작해 표본외 성과를 숨기지 않는다.</small>
-      </figure>
-      <figure class="report-figure" id="fig-validation-loop" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 18</span><span class="asset-caption__title">시계열 전략의 반복 검증 루프</span></figcaption>
-        <img src="assets/figs/operating-loop.svg" alt="차수와 제약 선택, 학습구간 적합, 예측과 지연 포지션, 비용과 체결, 표본외 관측이 순환하는 루프">
-        <small class="asset-note">AIML Quant 보충. 표본외 붕괴는 모델 교체 신호가 아니라 데이터·제약·실행 계약 전체를 재검토하는 신호다.</small>
-      </figure>
-      <table class="cmp-table" id="table-decision">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 10</span><span class="asset-caption__title">시계열 전략 도입 여부를 가르는 질문</span></div></caption>
-        <thead><tr><th>질문</th><th>진행 신호</th><th>중단·재설계 신호</th></tr></thead><tbody>
-          <tr><th>시간 경계</th><td>t까지의 정보로 t+1만 예측</td><td>전체표본 적합, 당일 신호와 당일 손익 혼용</td></tr>
-          <tr><th>가격 경계</th><td>체결 가능한 bid/ask와 비용</td><td>중간가격 수익만으로 알파 주장</td></tr>
-          <tr><th>데이터 경계</th><td>유니버스·기간·변수 출처 고정</td><td>다른 입력을 정확 재현으로 표시</td></tr>
-          <tr><th>모수 경계</th><td>BIC·대각 제약·사전 고정</td><td>성과를 본 뒤 차수·임계값 반복 선택</td></tr>
-          <tr><th>운영 경계</th><td>표본외 붕괴·레짐 변화를 감시</td><td>학습 성과를 미래 상한으로 간주</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="report-section report-appendix page-break" id="glossary">
-      <div class="report-section__kicker">Appendix · Glossary &amp; Sources</div>
-      <h1>용어와 출처</h1>
-      <table class="cmp-table" id="table-glossary">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 11</span><span class="asset-caption__title">처음 읽을 때 붙잡을 핵심 용어</span></div></caption>
-        <thead><tr><th>용어</th><th>한 문장 정의</th><th>혼동하지 않을 것</th></tr></thead><tbody>
-          <tr><th>약정상</th><td>평균·분산, 다변량이면 공분산이 시간에 따라 일정한 상태</td><td>모든 분포 성질이 일정한 강정상과 다르다.</td></tr>
-          <tr><th>혁신</th><td>과거 정보로 예측하지 못한 새 충격</td><td>이동평균의 가격 평균과 다르다.</td></tr>
-          <tr><th>BIC</th><td>적합 개선과 모수 수 벌점을 함께 비교하는 기준</td><td>가장 작은 BIC가 최고 거래성과를 보장하지 않는다.</td></tr>
-          <tr><th>VEC</th><td>변화량과 가격 수준을 함께 써 수준 이탈의 복원을 표현하는 모델</td><td>음의 대각 하나가 공적분 증명은 아니다.</td></tr>
-          <tr><th>은닉 상태</th><td>직접 관측되지 않지만 관측값을 결정하는 시간가변 변수</td><td>필터 추정값을 사실로 확정하지 않는다.</td></tr>
-          <tr><th>레짐 변화</th><td>가격 관계와 생성 과정 자체가 달라지는 국면</td><td>모든 성과 저하를 레짐 탓으로 돌리지 않는다.</td></tr>
-        </tbody>
-      </table>
-      <h2>출처와 재현 범위</h2>
-      <ol class="reference-list">
-        <li>Ernest P. Chan, <em>Machine Trading</em>, Chapter 3 “Time-Series Analysis”, 2017.</li>
-        <li><a href="../../../../materials/?p=quant/active/machine-trading/chapter_3_time_series_analysis/03_chapter_3_time_series_analysis_ko_explained.md">한국어 해설판과 원본 학습 자료</a>.</li>
-        <li>비공개 교재 저장소 <code>src/chapter3_full_report.ipynb</code>, <code>src/reports/chapter3_report.md</code>, <code>metrics.json</code> — 2026-08-04 확인.</li>
-        <li>재현 데이터 경계: AUD.USD 2,963,610분봉, hardware close 1,500×5, EWA/EWC 1,500일. 원본 CRSP midquote 패널은 공식 ZIP에 없어 VAR·Kalman 일부는 방법론적 적응이다.</li>
+      <p>교재의 연습문제 여덟 개는 본문에서 넘어간 지점을 정확히 겨냥한다. 아래는 각 문제가 본문의 어느 대목과 연결되는지를 함께 정리한 것이다.</p>
+      <ol class="exercise-list">
+        <li><strong>3.1</strong> — 식 3.1의 AR(1)에서 <span>$Y(t)$</span>가 약정상이면 <span>$|\Phi| &lt; 1$</span>임을 보이시오(힌트: <span>$Y(t)$</span>의 분산). <em>→ 표 3.1의 <span>$\phi_1$</span>이 왜 1보다 작아야 하는지에 대한 근거다.</em></li>
+        <li><strong>3.2</strong> — 같은 .mat 데이터셋의 매수·매도 호가를 써서, <strong>시장가 주문만</strong> 쓴다고 가정하고 AUD.USD 백테스트를 다시 하시오. CAGR은 얼마인가? <em>→ 그림 3.1의 158%가 중간가격 가정에 얼마나 기대고 있는지를 재는 문제다.</em></li>
+        <li><strong>3.3</strong> — 로그수익률의 ARIMA(<span>$p$</span>, 0, <span>$q$</span>)와 로그가격의 ARIMA(<span>$p$</span>, 1, <span>$q$</span>)가 같은 자기회귀 계수를 준다는 것을 확인하고, 최적 <span>$p$</span>, <span>$q$</span>가 1과 9임을 보이시오. <em>→ “수익률로 바꿔도 간결해지지 않는다”는 본문 주장의 확인이다.</em></li>
+        <li><strong>3.4</strong> — EWA와 EWC에 VAR를 적용해 예측 일간 수익률의 부호로 매수·매도 신호를 만드시오. 각 ETF를 항상 $1씩 거래할 때 CAGR과 샤프 비율은? 두 신호가 같은 부호를 갖는 때가 있는가? <em>→ 같은 페어를 VAR로 다루면 칼만 필터와 어떻게 다른지 비교하게 한다.</em></li>
+        <li><strong>3.5</strong> — 식 3.8·3.9로 생성한 이동평균에 가장 잘 맞는 <span>$N$</span>일 지수이동평균은? 더 큰 <span>$N$</span>을 강제하려면 <span>$B$</span>나 <span>$D$</span>에 어떤 제약을 걸어야 하는가? <em>→ 표 3.5의 제약이 결과를 어떻게 바꾸는지를 직접 다루게 한다.</em></li>
+        <li><strong>3.6</strong> — <span>$B$</span>를 대각행렬로 가정하면 2006-04-26 ~ 2012-04-09 구간에서 EWC 대 EWA 칼만 전략을 <strong>CAGR 26.2%, 샤프 2.4</strong>로 백테스트할 수 있는가?(Chan, 2013의 결과) <em>→ 그림 3.8·3.9의 부진이 제약 하나로 뒤집히는지 묻는다.</em></li>
+        <li><strong>3.7</strong> — 가격 대신 <strong>로그가격</strong>으로 컴퓨터 하드웨어 주식에 VAR와 VEC를 적용하시오. 표본외 수익률과 샤프 비율이 개선되는가? <em>→ <a class="asset-ref" href="#table-logret">표 8</a>의 로그 변환 논의를 표 3.3·3.4에 실제로 적용해 본다.</em></li>
+        <li><strong>3.8</strong> — 칼만 필터로 이동평균 대신 <strong>최근 추세의 기울기</strong>를 찾고, 그 기울기가 이어진다고 보고 추세추종 전략을 백테스트하시오. <em>→ 같은 도구를 평균회귀가 아니라 추세추종에 쓰면 어떻게 되는지 보는 문제다.</em></li>
       </ol>
+    </section>
+
+    <!-- Appendix A -->
+    <section class="report-appendix s-glossary page-break" id="glossary">
+      <div class="report-section__kicker">Appendix A · Glossary</div>
+      <h1>핵심 용어</h1>
+      <table class="cmp-table" id="table-glossary">
+        <caption class="cmp-table__caption asset-caption asset-caption--table">
+          <div class="asset-caption__inner">
+            <span class="asset-caption__chip">표 13</span>
+            <span class="asset-caption__title">이 장에서 쓰는 용어와 그 의미</span>
+          </div>
+        </caption>
+        <thead><tr><th>용어</th><th>의미와 이 장에서의 쓰임</th></tr></thead>
+        <tbody>
+          <tr><td><strong>정상성</strong></td><td>시간이 지나도 평균·분산·자기상관이 변하지 않는 성질. 가격은 대개 비정상, 수익률은 대개 정상이다.</td></tr>
+          <tr><td><strong>공적분</strong></td><td>각각은 비정상이지만 특정 선형결합이 정상인 관계. 페어 트레이딩과 VEC의 근거다.</td></tr>
+          <tr><td><strong>약정상 / 강정상</strong></td><td>약정상은 평균·분산·공분산만 일정하면 된다(주석 1). 강정상은 분포 전체가 같아야 한다. 실무의 stationary는 거의 약정상이다.</td></tr>
+          <tr><td><strong>φ (자기회귀 계수)</strong></td><td>어제의 편차가 오늘로 얼마나 이어지는지. 1보다 작으면 평균회귀, 1이면 랜덤워크, 크면 발산.</td></tr>
+          <tr><td><strong>랜덤워크</strong></td><td>가격 수준이 랜덤한 것이 아니라 <em>변화량</em>이 랜덤한 것. 오늘 가격이 내일의 출발점이 된다.</td></tr>
+          <tr><td><strong>호가 반등 (bid–ask bounce)</strong></td><td>주문 방향 때문에 체결가가 Bid와 Ask 사이를 튀는 현상. 가짜 평균회귀를 만든다.</td></tr>
+          <tr><td><strong>중간가격</strong></td><td>(최고 매수호가 + 최저 매도호가) / 2. 본문 AR(10)·ARMA(2, 5)가 쓴 가격이며, 연습문제 3.2가 이 가정을 검증한다.</td></tr>
+          <tr><td><strong>우도 <span>$L$</span></strong></td><td>이 모델에서 실제 관측 데이터가 나왔을 가능성. 로그를 씌우고 −2를 곱해 “작을수록 좋은” 점수로 만든다.</td></tr>
+          <tr><td><strong>BIC</strong></td><td><span>$-2\log(L) + k\log(n)$</span>. 적합도와 복잡도 벌점의 합. AR(10)의 10, ARMA(2, 5)의 2와 5를 고른 기준이다.</td></tr>
+          <tr><td><strong>섹터 중립</strong></td><td>업종 평균 대비 이탈에 비례해 배분해 매수액과 공매도액을 같게 만드는 방식. VAR 절과 상태공간 절이 같은 방식을 쓴다.</td></tr>
+          <tr><td><strong>오차수정 행렬 <span>$C$</span></strong></td><td>VEC에서 어제 가격 수준이 오늘 변화량을 끌어당기는 힘. VAR(1)에서는 <span>$\Phi - I$</span>다.</td></tr>
+          <tr><td><strong>은닉 상태</strong></td><td>직접 관측되지 않지만 관측값을 결정하는 변수. 이 장에서는 이동평균과 헤지비율이 그 예다.</td></tr>
+          <tr><td><strong>과정잡음 / 측정잡음</strong></td><td>전자는 진짜 상태를 바꾸고, 후자는 관측할 때만 섞인다. 크기는 각각 <span>$B$</span>와 <span>$D$</span>가 정한다(표 3.5).</td></tr>
+          <tr><td><strong>과적합</strong></td><td>학습 데이터의 우연한 패턴까지 맞춰 새 데이터에서 무너지는 것. 은닉 변수가 있으면 특히 심하다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Appendix B -->
+    <section class="report-appendix s-refs page-break" id="references">
+      <div class="report-section__kicker">Appendix B · References</div>
+      <h1>참고 자료와 출처</h1>
+      <p>절 구성과 표·그림 번호는 교재 3장을 따랐다. <strong>본문 서술과 도해는 발표자가 새로 작성</strong>한 것이며, 교재 본문의 번역이나 원본 그림을 옮기지 않았다. 그림 3.1–3.9는 교재가 본문에서 밝힌 수치와 곡선의 개형만 옮긴 재구성이므로 원본은 교재에서 확인한다.</p>
+      <ol class="references" style="list-style:none;padding:0;">
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);">
+          <span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span>
+          <span>Ernest P. Chan, <i>Machine Trading: Deploying Computer Algorithms to Conquer the Markets</i>, Wiley, 2017, Chapter 3 「Time-Series Analysis」 (pp. 59–82).</span>
+        </li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);">
+          <span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[2]</span>
+          <span>교재 3장 한국어 해설판 — 절 구성과 표·그림 번호의 출처: <a href="../../../../materials/?p=quant/active/machine-trading/chapter_3_time_series_analysis/03_chapter_3_time_series_analysis_ko_explained.md">03_chapter_3_time_series_analysis_ko_explained.md</a>.</span>
+        </li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);">
+          <span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[3]</span>
+          <span>스터디 노트 「시계열 예측과 퀀트 투자」 — 학습 질문 62개. 원본 대화: <a href="https://chatgpt.com/share/6a73e71b-4634-83ee-9d02-5278dc50fae9">chatgpt.com/share/6a73e71b…</a></span>
+        </li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);">
+          <span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[4]</span>
+          <span>스터디 노트 「BIC 개념과 예시」 — 학습 질문 6개. 원본 대화: <a href="https://chatgpt.com/share/6a73f0a6-0f74-83ee-88f7-11e7a110c74f">chatgpt.com/share/6a73f0a6…</a></span>
+        </li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);">
+          <span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[5]</span>
+          <span>같은 회차의 재현 감사 중심 버전: <a href="../2026-08-08-machine-trading-ch03-teo/report.html">Chapter 3 상세 리포트 (재현 감사)</a> — 책이 제시한 수치가 실제로 재현되는지를 다룬다.</span>
+        </li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);">
+          <span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[6]</span>
+          <span>Gideon E. Schwarz, “Estimating the Dimension of a Model”, <i>Annals of Statistics</i>, 1978 — BIC의 원 논문. AIC와의 비교는 <a class="asset-ref" href="#table-bic-aic">표 7</a>을 참고한다.</span>
+        </li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);">
+          <span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[7]</span>
+          <span>Richard K. Lyons, <i>The Microstructure Approach to Exchange Rates</i>, MIT Press, 2001 — 교재 서두가 인용한 환율 예측의 한계.</span>
+        </li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);">
+          <span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[8]</span>
+          <span>Ernest P. Chan, <i>Algorithmic Trading: Winning Strategies and Their Rationale</i>, Wiley, 2013 — 약정상 시계열의 평균회귀 성질, 섹터 중립 배분의 식 4.1, EWA–EWC 페어의 포지션 결정 방식이 인용된 저자의 이전 저서.</span>
+        </li>
+      </ol>
+      <div class="report-jump-links">
+        <a href="./">발표자료 (Slides)</a>
+        <a href="../../">회차 목록 (Index)</a>
+        <a href="#summary">문서 처음</a>
+      </div>
     </section>
   </article>
 
-  <button class="report-top" id="topButton" type="button" aria-label="맨 위로 이동">↑</button>
   <script src="assets/report.js"></script>
   <script defer src="assets/katex/katex.min.js"></script>
   <script defer src="assets/katex/auto-render.min.js"></script>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" width="920" height="380" role="img" aria-label="칼만 필터 매매전략의 학습 구간과 테스트 구간 누적수익률을 비교한 도해. 왼쪽 학습 구간은 2007년부터 2010년까지 완만히 오르다 2009년부터 빠르게 상승해 최종 누적수익률 약 2.3, 즉 230퍼센트에 이른다. 오른쪽 테스트 구간은 2010년 말부터 2014년까지로 2011년 말 약 0.22, 즉 22퍼센트까지 올랐다가 하락해 2013년에는 마이너스 10퍼센트까지 내려가고 마지막에는 0 근처에서 끝난다. 두 구간의 세로축 눈금이 10배 이상 다르다는 점이 강조되어 있다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="920" height="380" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">위 그래프만 보면 훌륭한 전략, 아래까지 보면 과적합</text>
+    <text x="32" y="54" font-size="12.5" fill="#6B6B72">학습 구간에서 잡음 크기 B와 D를 추정했다. 그 시기 데이터에 가장 잘 맞도록 고른 값이다.</text>
+
+    <!-- train -->
+    <rect x="32" y="74" width="416" height="230" rx="10" fill="#FFFFFF" stroke="#2E7D5B" stroke-width="1.4"/>
+    <text x="52" y="100" font-size="12" font-weight="700" fill="#2E7D5B">Trainset · 2007–2010</text>
+    <line x1="72" y1="270" x2="428" y2="270" stroke="#C9C7C2"/>
+    <line x1="72" y1="120" x2="72" y2="270" stroke="#C9C7C2"/>
+    <text x="64" y="124" font-size="10" fill="#9A9893" text-anchor="end">2.3</text>
+    <text x="64" y="274" font-size="10" fill="#9A9893" text-anchor="end">0</text>
+    <polyline points="80,262 130,252 180,246 230,232 280,196 330,166 380,140 420,126" fill="none" stroke="#2E7D5B" stroke-width="2.8"/>
+    <text x="428" y="118" font-size="16" font-weight="800" fill="#2E7D5B" text-anchor="end">+230%</text>
+    <g font-size="10" fill="#9A9893">
+      <text x="130" y="288" text-anchor="middle">2008</text><text x="230" y="288" text-anchor="middle">2009</text><text x="330" y="288" text-anchor="middle">2010</text>
+    </g>
+
+    <!-- test -->
+    <rect x="472" y="74" width="416" height="230" rx="10" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.4"/>
+    <text x="492" y="100" font-size="12" font-weight="700" fill="#C0392B">Test set · 2010–2014</text>
+    <line x1="512" y1="232" x2="868" y2="232" stroke="#C9C7C2"/>
+    <line x1="512" y1="140" x2="512" y2="290" stroke="#C9C7C2"/>
+    <text x="504" y="144" font-size="10" fill="#9A9893" text-anchor="end">+0.22</text>
+    <text x="504" y="236" font-size="10" fill="#9A9893" text-anchor="end">0</text>
+    <text x="504" y="284" font-size="10" fill="#9A9893" text-anchor="end">−0.10</text>
+    <polyline points="520,228 570,196 620,152 670,206 720,178 770,246 820,276 862,236" fill="none" stroke="#C0392B" stroke-width="2.8"/>
+    <text x="868" y="134" font-size="16" font-weight="800" fill="#C0392B" text-anchor="end">≈ 0%</text>
+    <g font-size="10" fill="#9A9893">
+      <text x="570" y="306" text-anchor="middle">2011</text><text x="670" y="306" text-anchor="middle">2012</text><text x="770" y="306" text-anchor="middle">2013</text>
+    </g>
+
+    <rect x="472" y="248" width="200" height="26" rx="4" fill="#FDECEC"/>
+    <text x="572" y="266" font-size="11" fill="#C0392B" text-anchor="middle">세로축 눈금이 10배 이상 다르다</text>
+
+    <line x1="32" y1="322" x2="888" y2="322" stroke="#D8D6D1"/>
+    <text x="32" y="348" font-size="12.5" fill="#0F0F10">학습에서 추정한 것은 <tspan font-weight="700">잡음의 크기 두 개뿐</tspan>인데도 이만큼 벌어진다. 은닉 변수 자체가 자유도를 갖기 때문이다.</text>
+    <text x="32" y="370" font-size="12" fill="#6B6B72">백테스트 성과가 좋아도 테스트 구간에서 재현되지 않으면 예측력이 있다고 말할 수 없다.</text>
+  </g>
+</svg>

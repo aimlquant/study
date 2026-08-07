@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" role="img" aria-label="정상성과 공적분을 나란히 비교한 도해. 왼쪽은 정상성으로, 가격은 100에서 160까지 계속 올라 평균이 변하는 비정상 시계열이지만 그 수익률은 0퍼센트 근처를 오가는 정상 시계열이 된다. 오른쪽은 공적분으로, 삼성전자와 SK하이닉스 두 가격이 각각은 계속 올라 비정상이지만 삼성전자에서 하이닉스의 두 배를 뺀 스프레드는 플러스마이너스 2 안에서 0 근처를 오가 정상이 된다.">
+  <style>.t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}</style>
+  <rect width="920" height="400" fill="#FAFAF9"/>
+  <g class="t" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif">
+
+    <text x="32" y="34" font-size="15" font-weight="700" fill="#0F0F10">둘 다 “비정상을 정상으로 바꾸는” 이야기지만 대상이 다르다</text>
+
+    <!-- LEFT: stationarity -->
+    <rect x="32" y="52" width="416" height="316" rx="10" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="52" y="78" font-size="12" font-weight="700" fill="#0F2C59" letter-spacing="0.5">정상성 · 시계열 하나</text>
+
+    <text x="52" y="104" font-size="11.5" fill="#6B6B72">가격 — 평균이 계속 올라간다 (비정상)</text>
+    <polyline points="60,158 116,150 172,140 228,126 284,110 340,92 396,74" fill="none" stroke="#C0392B" stroke-width="2.4"/>
+    <g font-size="10" fill="#9A9893">
+      <text x="60" y="174" text-anchor="middle">100</text><text x="116" y="174" text-anchor="middle">105</text>
+      <text x="172" y="174" text-anchor="middle">110</text><text x="228" y="174" text-anchor="middle">118</text>
+      <text x="284" y="174" text-anchor="middle">130</text><text x="340" y="174" text-anchor="middle">145</text>
+      <text x="396" y="174" text-anchor="middle">160</text>
+    </g>
+
+    <line x1="52" y1="192" x2="428" y2="192" stroke="#E4E2DE"/>
+
+    <text x="52" y="216" font-size="11.5" fill="#6B6B72">수익률 — 0% 근처를 오간다 (정상)</text>
+    <line x1="60" y1="268" x2="404" y2="268" stroke="#C9C7C2" stroke-dasharray="4 4"/>
+    <text x="412" y="272" font-size="10" fill="#9A9893">0%</text>
+    <polyline points="60,254 116,278 172,258 228,274 284,262 340,272 396,260" fill="none" stroke="#0F2C59" stroke-width="2.4"/>
+    <g font-size="10" fill="#9A9893">
+      <text x="60" y="292" text-anchor="middle">+1%</text><text x="116" y="292" text-anchor="middle">−0.5%</text>
+      <text x="172" y="292" text-anchor="middle">+0.8%</text><text x="228" y="292" text-anchor="middle">−0.2%</text>
+      <text x="284" y="292" text-anchor="middle">+0.3%</text>
+    </g>
+    <rect x="52" y="310" width="376" height="42" rx="6" fill="#EDF1F7"/>
+    <text x="68" y="336" font-size="12" fill="#0F0F10">가격은 비정상 → <tspan font-weight="700">차분·수익률로 바꾸면 정상</tspan> (ARIMA의 I)</text>
+
+    <!-- RIGHT: cointegration -->
+    <rect x="472" y="52" width="416" height="316" rx="10" fill="#FFFFFF" stroke="#B9C6DA"/>
+    <text x="492" y="78" font-size="12" font-weight="700" fill="#0F2C59" letter-spacing="0.5">공적분 · 시계열 둘</text>
+
+    <text x="492" y="104" font-size="11.5" fill="#6B6B72">각각은 계속 오른다 (둘 다 비정상)</text>
+    <polyline points="500,158 556,148 612,138 668,128 724,118 780,108 836,98" fill="none" stroke="#C0392B" stroke-width="2.4"/>
+    <polyline points="500,172 556,165 612,159 668,153 724,146 780,140 836,134" fill="none" stroke="#E08A5B" stroke-width="2.4"/>
+    <text x="844" y="102" font-size="10" fill="#C0392B">삼성전자</text>
+    <text x="844" y="138" font-size="10" fill="#E08A5B">하이닉스</text>
+
+    <line x1="492" y1="192" x2="868" y2="192" stroke="#E4E2DE"/>
+
+    <text x="492" y="216" font-size="11.5" fill="#6B6B72">스프레드 = 삼성 − 2 × 하이닉스 (정상)</text>
+    <line x1="500" y1="268" x2="836" y2="268" stroke="#C9C7C2" stroke-dasharray="4 4"/>
+    <text x="844" y="272" font-size="10" fill="#9A9893">0</text>
+    <polyline points="500,254 556,282 612,268 668,254 724,282 780,282 836,268" fill="none" stroke="#0F2C59" stroke-width="2.4"/>
+    <g font-size="10" fill="#9A9893">
+      <text x="500" y="298" text-anchor="middle">+2</text><text x="556" y="298" text-anchor="middle">−2</text>
+      <text x="612" y="298" text-anchor="middle">0</text><text x="668" y="298" text-anchor="middle">+2</text>
+      <text x="724" y="298" text-anchor="middle">−2</text><text x="780" y="298" text-anchor="middle">−2</text>
+    </g>
+    <rect x="492" y="310" width="376" height="42" rx="6" fill="#EDF1F7"/>
+    <text x="508" y="336" font-size="12" fill="#0F0F10">각자는 떠다녀도 <tspan font-weight="700">둘의 조합은 붙어 있다</tspan> → 페어 트레이딩의 근거</text>
+
+    <text x="32" y="390" font-size="11.5" fill="#6B6B72">정상성은 “하나가 같은 성질을 유지하는가”, 공적분은 “둘의 관계가 유지되는가”를 본다.</text>
+  </g>
+</svg>
