@@ -40,31 +40,18 @@
     <section class="slide" aria-label="예측 대상으로서의 가격" data-report-refs="summary table-overview">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
       <h1>가격을 직접 맞히는 대신, 시계열 속 구조를 본다</h1>
-      <p class="lead">여섯 모형 모두 미래 가격이 아니라 <strong>시계열 속 구조</strong>를 추정하기 위한 도구입니다.</p>
+      <p class="lead">이름만 나열하면 왜 필요한지 보이지 않습니다. <strong>각 모형이 답하는 질문</strong>으로 보면 한 줄로 이어집니다.</p>
       <div class="slide-body">
-        <div class="two-col">
-          <article class="panel">
-            <p class="eyebrow">모형 이름만 나열하면</p>
-            <h2>AR → ARMA → ARIMA → VAR → VEC → 칼만 필터</h2>
-            <ul>
-              <li>수식과 용어만 늘어날 뿐, 각 모형이 왜 필요한지는 보이지 않는다</li>
-              <li>자연스럽게 “어느 모형이 가장 좋은가?”를 묻게 된다</li>
-              <li>정작 각 모형이 어떤 문제를 해결하려는지는 놓치게 된다</li>
-            </ul>
-          </article>
-          <article class="panel panel--accent">
-            <p class="eyebrow">모형이 보는 대상을 따라가면</p>
-            <h2>앞선 모형이 놓친 정보를 하나씩 더한다</h2>
-            <ul>
-              <li>평균에서 벗어난 움직임 → <strong>AR</strong></li>
-              <li>과거 충격과 잡음의 기억 → <strong>ARMA</strong></li>
-              <li>추세를 제거한 변화량 → <strong>ARIMA</strong></li>
-              <li>다른 종목과의 상호작용 → <strong>VAR</strong></li>
-              <li>어제의 수준이 끌어당기는 힘 → <strong>VEC</strong></li>
-              <li>직접 관측되지 않는 추세와 관계 → <strong>칼만 필터</strong></li>
-            </ul>
-          </article>
-        </div>
+        <table class="compare-table" style="font-size:0.86rem;">
+          <thead><tr><th style="width:42%;">질문</th><th style="width:22%;">개념</th><th>연결되는 모형</th></tr></thead>
+          <tbody>
+            <tr><td>하나의 시계열이 안정적인가?</td><td><strong>정상성</strong></td><td>AR · ARMA</td></tr>
+            <tr><td>비정상이면 어떻게 하나?</td><td><strong>차분</strong></td><td>ARIMA</td></tr>
+            <tr><td>다른 종목의 과거 움직임도 같이 볼까?</td><td><strong>다변량 관계</strong></td><td>VAR</td></tr>
+            <tr><td>여러 비정상 시계열 사이에 안정적인 조합이 있는가?</td><td><strong>공적분</strong></td><td>VEC</td></tr>
+            <tr><td>관측되지 않는 상태를 추정할까?</td><td><strong>은닉 상태</strong></td><td>SSM · 칼만 필터</td></tr>
+          </tbody>
+        </table>
         <p class="takeaway"><strong>모형이 늘어나는 이유</strong> — 복잡한 수식을 쓰기 위해서가 아니라 앞선 모형이 놓친 정보를 보기 위해서입니다. 다만 새 정보를 볼 때마다 추정할 대상도 하나씩 늘어납니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 핵심 요약</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -154,10 +141,10 @@
 
     <section class="slide" aria-label="정상성과 공적분" data-report-refs="intro fig-stationarity">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">STATIONARITY</span></header>
-      <h1>모든 모형이 딛고 선 전제 — 정상성과 공적분</h1>
+      <h1>시계열 모델링의 출발점 — 정상성과 공적분</h1>
       <p class="lead">정상성은 하나를 보고, 공적분은 둘의 관계를 봅니다.</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-stationary-vs-coint.svg" alt="왼쪽은 100에서 160까지 오르는 비정상 가격과 그것을 수익률로 바꾸면 0퍼센트 근처를 오가는 정상 시계열이 되는 모습, 오른쪽은 삼성전자와 하이닉스가 각각 비정상이지만 삼성에서 하이닉스의 두 배를 뺀 스프레드가 0 근처를 오가 정상이 되는 모습을 보여주는 도해" style="width:100%;max-height:44vh;object-fit:contain;display:block;margin:0 auto">
+        <img src="assets/figs/fig-stationary-vs-coint.svg" alt="왼쪽은 100에서 160까지 오르는 비정상 가격과 그것을 수익률로 바꾸면 0퍼센트 근처를 오가는 정상 시계열이 되는 모습, 오른쪽은 삼성전자와 하이닉스가 각각 비정상이지만 삼성에서 하이닉스의 두 배를 뺀 스프레드가 0 근처를 오가 정상이 되는 모습을 보여주는 도해" style="width:100%;max-height:317px;object-fit:contain;display:block;margin:0 auto">
         <p class="takeaway"><strong>이 전제가 쓰이는 곳</strong> — VEC와 EWA–EWC 페어가 전부 “스프레드는 정상이다”라는 가정 위에 서 있습니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 정상성과 공적분</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -279,7 +266,7 @@ pos(yF - mid &lt; 0) = -1;       %    낮으면 매도</code></pre>
       <h1>표본외 연율화 158% — 그런데 조건이 붙는다</h1>
       <p class="lead">표 3.1의 φ₁은 1에 매우 가깝습니다 — 되돌림은 있지만 랜덤 워크와 구분하기 어려울 만큼 느립니다.</p>
       <div class="slide-body">
-        <img src="assets/figs/src-fig-3-1-ar10-equity.svg" alt="AR(10) 모델로 AUD.USD 중간가격을 예측해 만든 거래 전략의 표본외 누적수익 개형. 곡선이 되돌림 없이 꾸준히 우상향해 연율화 158퍼센트에 도달하며, 이 수익이 중간가격 체결을 전제로 한다는 설명이 붙어 있다." style="width:100%;max-height:40vh;object-fit:contain;display:block;margin:0 auto">
+        <img src="assets/figs/src-fig-3-1-ar10-equity.svg" alt="AR(10) 모델로 AUD.USD 중간가격을 예측해 만든 거래 전략의 표본외 누적수익 개형. 곡선이 되돌림 없이 꾸준히 우상향해 연율화 158퍼센트에 도달하며, 이 수익이 중간가격 체결을 전제로 한다는 설명이 붙어 있다." style="width:100%;max-height:288px;object-fit:contain;display:block;margin:0 auto">
         <p class="takeaway"><strong>교재의 단서</strong> — 중간가격에 체결하려면 지정가 주문을 관리하는 <strong>저지연 실행</strong>이 반드시 필요합니다. 연습문제 3.2가 이 지점을 정확히 겨냥합니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 그림 3.1</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -290,7 +277,7 @@ pos(yF - mid &lt; 0) = -1;       %    낮으면 매도</code></pre>
       <h1>φ 하나가 성격을 정한다 — 표 3.1의 φ₁은 어디에 있나</h1>
       <p class="lead">평균과 분산이 시간에 따라 일정하면 <strong>약정상</strong>입니다. AR(1)은 <strong>|φ| &lt; 1</strong>일 때 약정상이고, 약정상이면 <strong>평균회귀</strong>합니다(Chan, 2013).</p>
       <div class="slide-body">
-        <img src="assets/figs/fig-phi-three.svg" alt="평균 100에 어제 가격 110인 상황에서 세 경로를 비교한 도해. 파이가 0.8이면 편차 10이 8, 6.4, 5.1로 줄며 가격이 100으로 되돌아가고, 파이가 1이면 편차가 유지되어 랜덤 워크가 되며, 파이가 1.2이면 편차가 커져 평균에서 멀어진다." style="width:100%;max-height:38vh;object-fit:contain;display:block;margin:0 auto">
+        <img src="assets/figs/fig-phi-three.svg" alt="평균 100에 어제 가격 110인 상황에서 세 경로를 비교한 도해. 파이가 0.8이면 편차 10이 8, 6.4, 5.1로 줄며 가격이 100으로 되돌아가고, 파이가 1이면 편차가 유지되어 랜덤 워크가 되며, 파이가 1.2이면 편차가 커져 평균에서 멀어진다." style="width:100%;max-height:274px;object-fit:contain;display:block;margin:0 auto">
         <p class="takeaway"><strong>|φ| &gt; 1이면 추세, φ = 1이면 랜덤 워크</strong> — 표 3.1의 φ₁은 0.99 칸에 가깝습니다. 약정상이긴 하지만 되돌림이 랜덤 워크와 구분하기 어려울 만큼 느리다는 뜻입니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · φ의 의미</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -300,7 +287,7 @@ pos(yF - mid &lt; 0) = -1;       %    낮으면 매도</code></pre>
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">MICROSTRUCTURE</span></header>
       <h1>왜 체결가가 아니라 중간가격인가</h1>
       <div class="slide-body">
-        <img src="assets/figs/fig-bidask-bounce.svg" alt="매도호가 100.02, 중간가격 100.01, 매수호가 100.00이 변하지 않는데도 급히 사는 사람과 급히 파는 사람이 번갈아 체결해 체결가만 오르내리는 모습과, 그 신호로 즉시 매수 후 즉시 매도하면 마이너스 0.02가 된다는 계산을 보여주는 도해" style="width:100%;max-height:40vh;object-fit:contain;display:block;margin:0 auto">
+        <img src="assets/figs/fig-bidask-bounce.svg" alt="매도호가 100.02, 중간가격 100.01, 매수호가 100.00이 변하지 않는데도 급히 사는 사람과 급히 파는 사람이 번갈아 체결해 체결가만 오르내리는 모습과, 그 신호로 즉시 매수 후 즉시 매도하면 마이너스 0.02가 된다는 계산을 보여주는 도해" style="width:100%;max-height:288px;object-fit:contain;display:block;margin:0 auto">
         <p class="takeaway"><strong>본문 158%와 연습문제 3.2의 답 사이의 거리</strong>가 곧 중간가격 가정의 값입니다. 통계적 평균회귀와 거래 가능한 평균회귀는 다릅니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 체결가와 중간가격</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -532,7 +519,7 @@ bic = reshape(bic, size(LOGL));</code></pre>
         $$ \mathrm{BIC} = -2\log(L) + k\log(n) $$
       </div>
       <div class="slide-body">
-        <img src="assets/figs/fig-bic-tradeoff.svg" alt="AR(1)은 적합도 210에 벌점 10을 더해 220, AR(2)는 200에 15를 더해 215로 가장 작고, AR(10)은 적합도가 180으로 가장 좋지만 벌점 60 때문에 합이 240이 되어 탈락하는 막대 그래프와, 데이터 1000개일 때 AIC 벌점이 파라미터당 2인 반면 BIC는 약 6.9라는 비교" style="width:100%;max-height:36vh;object-fit:contain;display:block;margin:0 auto">
+        <img src="assets/figs/fig-bic-tradeoff.svg" alt="AR(1)은 적합도 210에 벌점 10을 더해 220, AR(2)는 200에 15를 더해 215로 가장 작고, AR(10)은 적합도가 180으로 가장 좋지만 벌점 60 때문에 합이 240이 되어 탈락하는 막대 그래프와, 데이터 1000개일 때 AIC 벌점이 파라미터당 2인 반면 BIC는 약 6.9라는 비교" style="width:100%;max-height:259px;object-fit:contain;display:block;margin:0 auto">
         <p class="takeaway"><strong>왜 Bayesian인가</strong> — P(모델 | 데이터)를 제대로 구하려면 모든 계수에 대해 적분해야 합니다. 데이터가 많을 때 그 적분을 근사한 것이 BIC입니다(Schwarz, 1978).</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 차수 선택</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -655,7 +642,7 @@ positions  = (retF - sectorRetF) ...
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VAR · 그림 3.3</span></header>
       <h1>연율 48%, 샤프 0.9 — 앞의 두 곡선과 성격이 다르다</h1>
       <div class="slide-body">
-        <img src="assets/figs/src-fig-3-3-var-equity.svg" alt="VAR(1) 모델을 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 누적수익 개형. 곡선이 오르내림을 반복하면서도 전체적으로 우상향해 연율 48퍼센트, 샤프 비율 0.9에 이른다." style="width:100%;max-height:40vh;object-fit:contain;display:block;margin:0 auto">
+        <img src="assets/figs/src-fig-3-3-var-equity.svg" alt="VAR(1) 모델을 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 누적수익 개형. 곡선이 오르내림을 반복하면서도 전체적으로 우상향해 연율 48퍼센트, 샤프 비율 0.9에 이른다." style="width:100%;max-height:288px;object-fit:contain;display:block;margin:0 auto">
         <p class="takeaway"><strong>눌리는 구간이 반복됩니다</strong> — 그림 3.1·3.2의 거의 매끄러운 곡선과 대비됩니다. 업종 방향이 아니라 <strong>업종 안의 순위</strong>에만 걸었기 때문에, 업종이 통째로 오르든 내리든 손익은 종목 간 격차에서 나옵니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 그림 3.3</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -704,7 +691,7 @@ positions  = (retF - sectorRetF) ...
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">VEC · 오차수정</span></header>
       <h1>‘오차’는 예측 실패가 아니라 수준에서 벗어난 정도다</h1>
       <div class="slide-body">
-        <img src="assets/figs/fig-vec-correction.svg" alt="안정적으로 묶인 관계가 A는 B의 두 배인 상황에서 A가 110, B가 50이면 이탈이 플러스 10이고 계수 마이너스 0.2를 곱해 델타 A가 마이너스 2가 되어 하락하며, A가 90이면 벗어난 정도가 마이너스 10이라 델타 A가 플러스 2가 되어 상승한다는 도해. 아래에 VAR 양변에서 이전 가격을 빼면 C가 파이 빼기 항등행렬이 되어 VEC가 유도된다는 관계가 정리되어 있다." style="width:100%;max-height:38vh;object-fit:contain;display:block;margin:0 auto">
+        <img src="assets/figs/fig-vec-correction.svg" alt="안정적으로 묶인 관계가 A는 B의 두 배인 상황에서 A가 110, B가 50이면 이탈이 플러스 10이고 계수 마이너스 0.2를 곱해 델타 A가 마이너스 2가 되어 하락하며, A가 90이면 벗어난 정도가 마이너스 10이라 델타 A가 플러스 2가 되어 상승한다는 도해. 아래에 VAR 양변에서 이전 가격을 빼면 C가 파이 빼기 항등행렬이 되어 VEC가 유도된다는 관계가 정리되어 있다." style="width:100%;max-height:274px;object-fit:contain;display:block;margin:0 auto">
         <p class="takeaway"><strong>그 조합은 C가 만듭니다</strong> — <span>$Y_{t-1}$</span> 자체가 A−2B인 것이 아니라, C의 한 행 <span>$[-0.2,\ 0.4]$</span>를 곱하면 <span>$-0.2(A_{t-1} - 2B_{t-1})$</span>이 되는 것입니다. 그래서 대각 원소만이 아니라 <strong>행 전체</strong>를 봐야 합니다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 3 · 오차수정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -777,7 +764,7 @@ positions  = (retF - sectorRetF) ...
             <p class="eyebrow">지금까지의 모형</p>
             <h2>관측된 값에서 다음 값을 예측</h2>
             <ul>
-              <li><strong>AR · ARMA</strong> — 자기 과거값과 과거 충격</li>
+              <li><strong>AR · ARMA</strong> — 자기 과거값과 과거의 예측오차</li>
               <li><strong>VAR</strong> — 다른 종목의 과거값까지</li>
               <li><strong>VEC</strong> — 어제의 가격 수준이 끌어당기는 힘</li>
               <li>공통점 — 핵심 변수가 전부 <strong>관측된 값</strong>이다</li>
@@ -929,8 +916,8 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <h1>가격을 잘 따라간다고 미래를 잘 맞히는 것은 아니다</h1>
       <div class="slide-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;">
-          <img src="assets/figs/src-fig-3-4-kalman-hw-train.svg" alt="칼만 필터를 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 학습 구간 누적수익 개형. 곡선이 되돌림 없이 꾸준히 크게 상승한다." style="width:100%;max-height:34vh;object-fit:contain;display:block">
-          <img src="assets/figs/src-fig-3-5-kalman-hw-test.svg" alt="같은 칼만 필터 전략을 테스트 구간에서 실행한 누적수익 개형. 곡선이 올랐다 내렸다를 반복하다 0 근처에서 끝난다." style="width:100%;max-height:34vh;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-4-kalman-hw-train.svg" alt="칼만 필터를 컴퓨터 하드웨어 주식에 적용한 섹터 중립 전략의 학습 구간 누적수익 개형. 곡선이 되돌림 없이 꾸준히 크게 상승한다." style="width:100%;max-height:245px;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-5-kalman-hw-test.svg" alt="같은 칼만 필터 전략을 테스트 구간에서 실행한 누적수익 개형. 곡선이 올랐다 내렸다를 반복하다 0 근처에서 끝난다." style="width:100%;max-height:245px;object-fit:contain;display:block">
         </div>
         <p class="takeaway"><strong>학습 구간</strong>에서는 필터가 가격을 매우 잘 따라가고 전략도 높은 누적수익을 냈습니다. <strong>테스트 구간</strong>에서는 정체와 손실 구간이 나타나 그 성과가 재현되지 않습니다.</p>
       </div>
@@ -1033,8 +1020,8 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <p class="lead">그림 3.6의 세로축 <code>Slope = x(t,1)</code>이 곧 <strong>β<sub>t</sub></strong>입니다.</p>
       <div class="slide-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;">
-          <img src="assets/figs/src-fig-3-6-kalman-slope.svg" alt="EWC와 EWA 사이 기울기에 대한 칼만 필터 추정값의 시간 변화 개형. 초기 과도 구간을 지나면 안정되지만 이후에도 완만하게 오르내리며 한 값에 머물지 않는다." style="width:100%;max-height:30vh;object-fit:contain;display:block">
-          <img src="assets/figs/src-fig-3-7-kalman-offset.svg" alt="EWC와 EWA 사이 오프셋에 대한 칼만 필터 추정값의 시간 변화 개형. 초기 과도 구간 이후 자리를 잡지만 기울기보다 더 크게 표류한다." style="width:100%;max-height:30vh;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-6-kalman-slope.svg" alt="EWC와 EWA 사이 기울기에 대한 칼만 필터 추정값의 시간 변화 개형. 초기 과도 구간을 지나면 안정되지만 이후에도 완만하게 오르내리며 한 값에 머물지 않는다." style="width:100%;max-height:216px;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-7-kalman-offset.svg" alt="EWC와 EWA 사이 오프셋에 대한 칼만 필터 추정값의 시간 변화 개형. 초기 과도 구간 이후 자리를 잡지만 기울기보다 더 크게 표류한다." style="width:100%;max-height:216px;object-fit:contain;display:block">
         </div>
         <p class="takeaway"><strong>2006년 초 1.4 초과 → 2007년 0.4 → 2009년 1.1 → 이후 0.7~1.0.</strong> 일반 회귀라면 <strong>0.8 하나</strong>를 내놓았을 자리에 칼만 필터는 구간마다 다른 값을 줍니다.</p>
       </div>
@@ -1079,8 +1066,8 @@ retF = (yF - y) ./ y;   % 예측수익률</code></pre>
       <h1>학습 +58% · 테스트 사실상 0</h1>
       <div class="slide-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;">
-          <img src="assets/figs/src-fig-3-8-kalman-pair-train.svg" alt="EWC와 EWA 페어에 칼만 필터를 적용한 학습 구간 누적수익 개형. 전반부에는 오르지만 중반부터 기울기가 눕기 시작해 뒤쪽은 거의 평평하다." style="width:100%;max-height:30vh;object-fit:contain;display:block">
-          <img src="assets/figs/src-fig-3-9-kalman-pair-test.svg" alt="같은 전략의 테스트 구간 누적수익 개형. 곡선이 작게 오르내릴 뿐 거의 수평으로 이어져 학습 구간 후반부의 정체가 그대로 계속된다." style="width:100%;max-height:30vh;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-8-kalman-pair-train.svg" alt="EWC와 EWA 페어에 칼만 필터를 적용한 학습 구간 누적수익 개형. 전반부에는 오르지만 중반부터 기울기가 눕기 시작해 뒤쪽은 거의 평평하다." style="width:100%;max-height:216px;object-fit:contain;display:block">
+          <img src="assets/figs/src-fig-3-9-kalman-pair-test.svg" alt="같은 전략의 테스트 구간 누적수익 개형. 곡선이 작게 오르내릴 뿐 거의 수평으로 이어져 학습 구간 후반부의 정체가 그대로 계속된다." style="width:100%;max-height:216px;object-fit:contain;display:block">
         </div>
         <p class="takeaway"><strong>학습</strong> 0 → 0.2 → 0.4 → 0.58인데 <strong>2009년 이후 0.58에서 멈춥니다</strong> — 테스트를 보기 전에 이미 신호가 있었습니다. <strong>테스트</strong>는 +0.01까지 올랐다가 −0.038까지 내려가 −0.005로 끝납니다.</p>
       </div>
