@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="32 12 700 396" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
+    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
+    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
+    <style>
+      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}
+      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
+      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
+      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
+      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
+      .labl{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:start}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
+      .key{fill:#0F2C59;stroke:#0F2C59}
+      .tk{fill:#fff;font-size:13px;font-weight:700;text-anchor:middle}
+      .sk{fill:#C7D2E6;font-size:10.5px;text-anchor:middle}
+      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
+      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
+      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
+      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
+      .muted{fill:#F3F1EC;stroke:#8A8377;stroke-width:1.3}
+      .mutedt{fill:#6B6357;font-size:10.5px;font-weight:700;text-anchor:middle}
+      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+      .ar{stroke:#A3341F;stroke-width:1.4;fill:none;marker-end:url(#ahr)}
+      .ag{stroke:#1B6B3A;stroke-width:1.4;fill:none;marker-end:url(#ahg)}
+      .plain{stroke:#0F2C59;stroke-width:1.3;fill:none}
+      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
+      .grid{stroke:#E7E5E4;stroke-width:1;fill:none}
+      .ln{stroke:#0F2C59;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lnr{stroke:#A3341F;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lng{stroke:#1B6B3A;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lnthin{stroke:#9AA9C4;stroke-width:1.1;fill:none;stroke-linejoin:round}
+      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
+      .band{fill:#0F2C59;opacity:.07}
+      .bandr{fill:#A3341F;opacity:.09}
+      .edge{fill:none;stroke:#0F2C59;stroke-width:1.3}
+      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
+      .an-s{text-anchor:start}
+      .an-m{text-anchor:middle}
+      .an-e{text-anchor:end}
+    </style>
+  </defs>
+<rect x="40" y="24" width="440" height="286" rx="12" fill="#fff" stroke="#E7E5E4" stroke-width="1.2"/>
+<path class="band" d="M146,310 L288,24 L364,24 L222,310 Z"/>
+<path class="dash" d="M146,310 L288,24"/>
+<path class="dash" d="M222,310 L364,24"/>
+<path d="M184,310 L326,24" stroke="#0F0F10" stroke-width="2.4" fill="none"/>
+<path d="M68,262 H80 M74,256 V268" stroke="#0F2C59" stroke-width="2.6"/>
+<path d="M94,192 H106 M100,186 V198" stroke="#0F2C59" stroke-width="2.6"/>
+<circle cx="144" cy="244" r="12" fill="none" stroke="#1B6B3A" stroke-width="2"/>
+<path d="M138,244 H150 M144,238 V250" stroke="#0F2C59" stroke-width="2.6"/>
+<path d="M76,128 H88 M82,122 V134" stroke="#0F2C59" stroke-width="2.6"/>
+<path d="M122,164 H134 M128,158 V170" stroke="#0F2C59" stroke-width="2.6"/>
+<circle cx="162" cy="94" r="12" fill="none" stroke="#1B6B3A" stroke-width="2"/>
+<path d="M156,94 H168 M162,88 V100" stroke="#0F2C59" stroke-width="2.6"/>
+<path d="M184,60 H196 M190,54 V66" stroke="#0F2C59" stroke-width="2.6"/>
+<path d="M110,86 H122 M116,80 V92" stroke="#0F2C59" stroke-width="2.6"/>
+<circle cx="288" cy="280" r="12" fill="none" stroke="#1B6B3A" stroke-width="2"/>
+<path d="M282,280 H294" stroke="#A3341F" stroke-width="2.6"/>
+<path d="M332,228 H344" stroke="#A3341F" stroke-width="2.6"/>
+<path d="M374,282 H386" stroke="#A3341F" stroke-width="2.6"/>
+<path d="M312,172 H324" stroke="#A3341F" stroke-width="2.6"/>
+<path d="M388,196 H400" stroke="#A3341F" stroke-width="2.6"/>
+<path d="M430,126 H442" stroke="#A3341F" stroke-width="2.6"/>
+<circle cx="382" cy="106" r="12" fill="none" stroke="#1B6B3A" stroke-width="2"/>
+<path d="M376,106 H388" stroke="#A3341F" stroke-width="2.6"/>
+<path d="M438,240 H450" stroke="#A3341F" stroke-width="2.6"/>
+<text class="lab an-s" x="56" y="46">플러스 라벨</text>
+<text class="lab an-e" x="464" y="46" fill="#A3341F">마이너스 라벨</text>
+<text class="s an-m halo" x="252" y="176" transform="rotate(-63 252 176)">분리 초평면</text>
+<path class="ag" d="M258,330 H186" />
+<path class="ag" d="M186,330 H258" />
+<path class="axis" d="M186,318 V342 M258,318 V342" stroke="#1B6B3A"/>
+<text class="goodt an-m halo" x="222" y="356">마진</text>
+<path class="a" d="M512,112 L396,100"/>
+<text class="labl" x="502" y="88">서포트 벡터</text>
+<text class="sl" x="502" y="130">초평면에 가장 가까운 점들.</text>
+<text class="sl" x="502" y="148">이들만이 경계 위치를 정한다.</text>
+<text class="labl" x="502" y="192" fill="#1B6B3A">마진을 넓게 잡는 이유</text>
+<text class="sl" x="502" y="214">한쪽에 아슬아슬하게 붙은 선은</text>
+<text class="sl" x="502" y="232">새 데이터가 조금만 달라져도</text>
+<text class="sl" x="502" y="250">반대편으로 넘어가 오분류된다.</text>
+<text class="sl" x="502" y="274">가장 멀찍이 떨어진 선을 고르면</text>
+<text class="sl" x="502" y="292">데이터가 흔들려도 올바른 쪽에</text>
+<text class="sl" x="502" y="310">남는다 — 표본 외 안전 여유다.</text>
+<text class="sl" x="40" y="380">m차원 공간의 한 점이 표본 하나다(m 은 예측변수의 수). 실제 데이터는 이렇게 순순히 갈라지지 않으므로,</text>
+<text class="sl" x="40" y="398">마진을 최대화하는 동시에 오분류된 점에 벌점을 매기는 항을 함께 최소화해 최선의 초평면을 찾는다.</text>
+</svg>

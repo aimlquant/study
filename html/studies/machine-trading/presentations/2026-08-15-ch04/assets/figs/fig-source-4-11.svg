@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 18 706 306" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
+    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
+    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
+    <style>
+      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}
+      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
+      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
+      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
+      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
+      .labl{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:start}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
+      .key{fill:#0F2C59;stroke:#0F2C59}
+      .tk{fill:#fff;font-size:13px;font-weight:700;text-anchor:middle}
+      .sk{fill:#C7D2E6;font-size:10.5px;text-anchor:middle}
+      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
+      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
+      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
+      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
+      .muted{fill:#F3F1EC;stroke:#8A8377;stroke-width:1.3}
+      .mutedt{fill:#6B6357;font-size:10.5px;font-weight:700;text-anchor:middle}
+      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+      .ar{stroke:#A3341F;stroke-width:1.4;fill:none;marker-end:url(#ahr)}
+      .ag{stroke:#1B6B3A;stroke-width:1.4;fill:none;marker-end:url(#ahg)}
+      .plain{stroke:#0F2C59;stroke-width:1.3;fill:none}
+      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
+      .grid{stroke:#E7E5E4;stroke-width:1;fill:none}
+      .ln{stroke:#0F2C59;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lnr{stroke:#A3341F;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lng{stroke:#1B6B3A;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lnthin{stroke:#9AA9C4;stroke-width:1.1;fill:none;stroke-linejoin:round}
+      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
+      .band{fill:#0F2C59;opacity:.07}
+      .bandr{fill:#A3341F;opacity:.09}
+      .edge{fill:none;stroke:#0F2C59;stroke-width:1.3}
+      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
+    </style>
+  </defs>
+<path class="edge" d="M87,84.0 L191,106.0" opacity=".5"/>
+<path class="edge" d="M87,84.0 L191,194.0" opacity=".5"/>
+<path class="edge" d="M87,128.0 L191,106.0" opacity=".5"/>
+<path class="edge" d="M87,128.0 L191,194.0" opacity=".5"/>
+<path class="edge" d="M87,172.0 L191,106.0" opacity=".5"/>
+<path class="edge" d="M87,172.0 L191,194.0" opacity=".5"/>
+<path class="edge" d="M87,216.0 L191,106.0" opacity=".5"/>
+<path class="edge" d="M87,216.0 L191,194.0" opacity=".5"/>
+<path class="edge" d="M225,106.0 L329,84.0" opacity=".5"/>
+<path class="edge" d="M225,106.0 L329,128.0" opacity=".5"/>
+<path class="edge" d="M225,106.0 L329,172.0" opacity=".5"/>
+<path class="edge" d="M225,106.0 L329,216.0" opacity=".5"/>
+<path class="edge" d="M225,194.0 L329,84.0" opacity=".5"/>
+<path class="edge" d="M225,194.0 L329,128.0" opacity=".5"/>
+<path class="edge" d="M225,194.0 L329,172.0" opacity=".5"/>
+<path class="edge" d="M225,194.0 L329,216.0" opacity=".5"/>
+<path class="edge" d="M363,84.0 L467,91.3" opacity=".5"/>
+<path class="edge" d="M363,84.0 L467,150.0" opacity=".5"/>
+<path class="edge" d="M363,84.0 L467,208.7" opacity=".5"/>
+<path class="edge" d="M363,128.0 L467,91.3" opacity=".5"/>
+<path class="edge" d="M363,128.0 L467,150.0" opacity=".5"/>
+<path class="edge" d="M363,128.0 L467,208.7" opacity=".5"/>
+<path class="edge" d="M363,172.0 L467,91.3" opacity=".5"/>
+<path class="edge" d="M363,172.0 L467,150.0" opacity=".5"/>
+<path class="edge" d="M363,172.0 L467,208.7" opacity=".5"/>
+<path class="edge" d="M363,216.0 L467,91.3" opacity=".5"/>
+<path class="edge" d="M363,216.0 L467,150.0" opacity=".5"/>
+<path class="edge" d="M363,216.0 L467,208.7" opacity=".5"/>
+<path class="edge" d="M501,91.3 L605,150.0" opacity=".5"/>
+<path class="edge" d="M501,150.0 L605,150.0" opacity=".5"/>
+<path class="edge" d="M501,208.7 L605,150.0" opacity=".5"/>
+<text class="lab" x="70" y="34">입력 x</text>
+<circle cx="70" cy="84.0" r="17" fill="#fff" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="70" y="88.0">x1</text>
+<circle cx="70" cy="128.0" r="17" fill="#fff" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="70" y="132.0">x2</text>
+<circle cx="70" cy="172.0" r="17" fill="#fff" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="70" y="176.0">x3</text>
+<circle cx="70" cy="216.0" r="17" fill="#fff" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="70" y="220.0">x4</text>
+<text class="lab" x="208" y="34">은닉층 1</text>
+<circle cx="208" cy="106.0" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="208" y="110.0">Σ → S</text>
+<circle cx="208" cy="194.0" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="208" y="198.0">Σ → S</text>
+<text class="lab" x="346" y="34">은닉층 2</text>
+<circle cx="346" cy="84.0" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="346" y="88.0">Σ → S</text>
+<circle cx="346" cy="128.0" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="346" y="132.0">Σ → S</text>
+<circle cx="346" cy="172.0" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="346" y="176.0">Σ → S</text>
+<circle cx="346" cy="216.0" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="346" y="220.0">Σ → S</text>
+<text class="lab" x="484" y="34">은닉층 3</text>
+<circle cx="484" cy="91.3" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="484" y="95.3">Σ → S</text>
+<circle cx="484" cy="150.0" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="484" y="154.0">Σ → S</text>
+<circle cx="484" cy="208.7" r="17" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.6"/>
+<text class="s" x="484" y="212.7">Σ → S</text>
+<text class="lab" x="622" y="34">출력층</text>
+<circle cx="622" cy="150.0" r="17" fill="#E8F1EA" stroke="#1B6B3A" stroke-width="1.6"/>
+<text class="s" x="622" y="154.0">선형</text>
+<text class="s" x="70" y="266">4차원 입력 + 상수 1</text>
+<text class="s" x="208" y="266">뉴런 2개</text>
+<text class="s" x="346" y="266">뉴런 4개</text>
+<text class="s" x="484" y="266">뉴런 3개</text>
+<text class="s" x="622" y="266">스칼라 y</text>
+<text class="sl" x="14" y="296">hiddenSizes = [2 4 3] · 각 뉴런은 Iⱼ = Σᵢ(wⱼ,ᵢxᵢ + wⱼ,₀) 을 받아 시그모이드 S(Iⱼ) = 1 / (1 + e^−Iⱼ) 로 변환한다.</text>
+<text class="sl" x="14" y="316">S가 항등 함수라면 이 신경망은 평범한 다중 선형 회귀와 같아진다 — 휘어짐을 만드는 것이 시그모이드다.</text>
+</svg>

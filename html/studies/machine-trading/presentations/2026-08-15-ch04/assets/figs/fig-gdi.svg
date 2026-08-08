@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="24 40 700 296" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
+    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
+    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
+    <style>
+      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}
+      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
+      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
+      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
+      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
+      .labl{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:start}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
+      .key{fill:#0F2C59;stroke:#0F2C59}
+      .tk{fill:#fff;font-size:13px;font-weight:700;text-anchor:middle}
+      .sk{fill:#C7D2E6;font-size:10.5px;text-anchor:middle}
+      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
+      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
+      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
+      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
+      .muted{fill:#F3F1EC;stroke:#8A8377;stroke-width:1.3}
+      .mutedt{fill:#6B6357;font-size:10.5px;font-weight:700;text-anchor:middle}
+      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+      .ar{stroke:#A3341F;stroke-width:1.4;fill:none;marker-end:url(#ahr)}
+      .ag{stroke:#1B6B3A;stroke-width:1.4;fill:none;marker-end:url(#ahg)}
+      .plain{stroke:#0F2C59;stroke-width:1.3;fill:none}
+      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
+      .grid{stroke:#E7E5E4;stroke-width:1;fill:none}
+      .ln{stroke:#0F2C59;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lnr{stroke:#A3341F;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lng{stroke:#1B6B3A;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lnthin{stroke:#9AA9C4;stroke-width:1.1;fill:none;stroke-linejoin:round}
+      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
+      .band{fill:#0F2C59;opacity:.07}
+      .bandr{fill:#A3341F;opacity:.09}
+      .edge{fill:none;stroke:#0F2C59;stroke-width:1.3}
+      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
+      .an-s{text-anchor:start}
+      .an-m{text-anchor:middle}
+      .an-e{text-anchor:end}
+    </style>
+  </defs>
+<path class="axis" d="M96,60 V250 H464"/>
+<path class="ln" d="M96.0,250.0 L99.7,243.0 L103.4,236.0 L107.0,229.3 L110.7,222.7 L114.4,216.2 L118.1,209.8 L121.8,203.6 L125.4,197.6 L129.1,191.7 L132.8,185.9 L136.5,180.3 L140.2,174.8 L143.8,169.5 L147.5,164.3 L151.2,159.2 L154.9,154.3 L158.6,149.5 L162.2,144.9 L165.9,140.4 L169.6,136.1 L173.3,131.9 L177.0,127.8 L180.6,123.9 L184.3,120.1 L188.0,116.5 L191.7,113.0 L195.4,109.7 L199.0,106.5 L202.7,103.4 L206.4,100.5 L210.1,97.7 L213.8,95.1 L217.4,92.6 L221.1,90.2 L224.8,88.0 L228.5,86.0 L232.2,84.0 L235.8,82.3 L239.5,80.6 L243.2,79.1 L246.9,77.8 L250.6,76.6 L254.2,75.5 L257.9,74.6 L261.6,73.8 L265.3,73.1 L269.0,72.6 L272.6,72.3 L276.3,72.1 L280.0,72.0 L283.7,72.1 L287.4,72.3 L291.0,72.6 L294.7,73.1 L298.4,73.8 L302.1,74.6 L305.8,75.5 L309.4,76.6 L313.1,77.8 L316.8,79.1 L320.5,80.6 L324.2,82.3 L327.8,84.0 L331.5,86.0 L335.2,88.0 L338.9,90.2 L342.6,92.6 L346.2,95.1 L349.9,97.7 L353.6,100.5 L357.3,103.4 L361.0,106.5 L364.6,109.7 L368.3,113.0 L372.0,116.5 L375.7,120.1 L379.4,123.9 L383.0,127.8 L386.7,131.9 L390.4,136.1 L394.1,140.4 L397.8,144.9 L401.4,149.5 L405.1,154.3 L408.8,159.2 L412.5,164.3 L416.2,169.5 L419.8,174.8 L423.5,180.3 L427.2,185.9 L430.9,191.7 L434.6,197.6 L438.2,203.6 L441.9,209.8 L445.6,216.2 L449.3,222.7 L453.0,229.3 L456.6,236.0 L460.3,243.0 L464.0,250.0"/>
+<path class="dash" d="M280.0,72 V250"/>
+<text class="sr an-e" x="88" y="254">0</text>
+<text class="sr an-e" x="88" y="76">0.5</text>
+<text class="sl" x="30" y="46">GDI = 1 − p₊² − p₋²</text>
+<text class="s an-m" x="96" y="270">0</text>
+<text class="s an-m" x="280.0" y="270">0.5</text>
+<text class="s an-m" x="464" y="270">1</text>
+<text class="s an-m" x="280.0" y="290">p₊ — 그 노드에서 양의 수익률 관측치의 비율</text>
+<circle cx="96" cy="250" r="5" fill="#1B6B3A"/><circle cx="464" cy="250" r="5" fill="#1B6B3A"/>
+<circle cx="280.0" cy="72" r="5" fill="#A3341F"/>
+<text class="goodt an-s halo" x="108" y="236">순수 · GDI 0</text>
+<text class="goodt an-e halo" x="452" y="236">순수 · GDI 0</text>
+<text class="warnt an-m halo" x="280.0" y="56">가장 뒤섞임 · GDI 0.5</text>
+<rect class="box" x="500" y="72" width="212" height="76" rx="11"/>
+<text class="lab an-m" x="606" y="94">회귀 트리</text>
+<text class="s an-m" x="606" y="114">자식 노드의 분산을 최소화</text>
+<text class="s an-m" x="606" y="134">예측 = 그 노드 반응의 평균</text>
+<rect class="good" x="500" y="162" width="212" height="76" rx="11"/>
+<text class="goodt an-m" x="606" y="184">분류 트리</text>
+<text class="s an-m" x="606" y="204">두 자식의 GDI 합을 최소화</text>
+<text class="s an-m" x="606" y="224">예측 = 그 노드의 다수 클래스</text>
+<text class="sl" x="30" y="316">나머지 뼈대는 똑같다 — 바뀌는 것은 "무엇을 줄이도록 나눌 것인가"라는 분할 기준 하나뿐이다.</text>
+</svg>

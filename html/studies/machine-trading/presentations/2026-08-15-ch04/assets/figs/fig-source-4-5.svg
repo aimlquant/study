@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 12 706 302" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
+    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
+    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
+    <style>
+      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}
+      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
+      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
+      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
+      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
+      .labl{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:start}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
+      .key{fill:#0F2C59;stroke:#0F2C59}
+      .tk{fill:#fff;font-size:13px;font-weight:700;text-anchor:middle}
+      .sk{fill:#C7D2E6;font-size:10.5px;text-anchor:middle}
+      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
+      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
+      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
+      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
+      .muted{fill:#F3F1EC;stroke:#8A8377;stroke-width:1.3}
+      .mutedt{fill:#6B6357;font-size:10.5px;font-weight:700;text-anchor:middle}
+      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+      .ar{stroke:#A3341F;stroke-width:1.4;fill:none;marker-end:url(#ahr)}
+      .ag{stroke:#1B6B3A;stroke-width:1.4;fill:none;marker-end:url(#ahg)}
+      .plain{stroke:#0F2C59;stroke-width:1.3;fill:none}
+      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
+      .grid{stroke:#E7E5E4;stroke-width:1;fill:none}
+      .ln{stroke:#0F2C59;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lnr{stroke:#A3341F;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lng{stroke:#1B6B3A;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .lnthin{stroke:#9AA9C4;stroke-width:1.1;fill:none;stroke-linejoin:round}
+      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
+      .band{fill:#0F2C59;opacity:.07}
+      .bandr{fill:#A3341F;opacity:.09}
+      .edge{fill:none;stroke:#0F2C59;stroke-width:1.3}
+      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
+      .an-s{text-anchor:start}
+      .an-m{text-anchor:middle}
+      .an-e{text-anchor:end}
+    </style>
+  </defs>
+<rect class="box key" x="16" y="72" width="152" height="88" rx="10"/>
+<text class="tk an-m" x="92" y="94">원 학습셋 (크기 N)</text>
+<rect x="30" y="104" width="28" height="26" rx="5" fill="#fff" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="44" y="121">1</text>
+<rect x="64" y="104" width="28" height="26" rx="5" fill="#fff" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="78" y="121">2</text>
+<rect x="98" y="104" width="28" height="26" rx="5" fill="#fff" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="112" y="121">3</text>
+<rect x="132" y="104" width="28" height="26" rx="5" fill="#fff" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="146" y="121">4</text>
+<text class="sk an-m" x="92" y="150">복원추출로 N개를 다시 뽑는다</text>
+<path class="a" d="M168,98 L210,72"/>
+<path class="a" d="M168,134 L210,196"/>
+<text class="s an-m" x="190" y="140">⋮</text>
+<rect class="box" x="214" y="34" width="172" height="78" rx="10"/>
+<text class="lab an-m" x="300" y="54">백 1 · 복제본</text>
+<rect x="228" y="64" width="30" height="26" rx="5" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="243" y="81">1</text>
+<rect x="267" y="64" width="30" height="26" rx="5" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="282" y="81">1</text>
+<rect x="306" y="64" width="30" height="26" rx="5" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="321" y="81">3</text>
+<rect x="345" y="64" width="30" height="26" rx="5" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="360" y="81">3</text>
+<text class="s an-m" x="300" y="104">중복 포함 · 크기 N 유지</text>
+<path class="a" d="M386,73 L406,73"/>
+<rect class="warn" x="408" y="42" width="190" height="62" rx="10"/>
+<text class="warnt an-m" x="503" y="62">배깅 외 관측치 · 표본 2, 4</text>
+<text class="s an-m" x="503" y="79">복제본에 뽑히지 않았다</text>
+<text class="s an-m" x="503" y="95">이 백의 표본 외 검사에 쓴다</text>
+<rect class="box" x="214" y="170" width="172" height="78" rx="10"/>
+<text class="lab an-m" x="300" y="190">백 K · 복제본</text>
+<rect x="228" y="200" width="30" height="26" rx="5" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="243" y="217">2</text>
+<rect x="267" y="200" width="30" height="26" rx="5" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="282" y="217">2</text>
+<rect x="306" y="200" width="30" height="26" rx="5" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="321" y="217">4</text>
+<rect x="345" y="200" width="30" height="26" rx="5" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.2"/>
+<text class="s an-m" x="360" y="217">4</text>
+<text class="s an-m" x="300" y="240">중복 포함 · 크기 N 유지</text>
+<path class="a" d="M386,209 L406,209"/>
+<rect class="warn" x="408" y="178" width="190" height="62" rx="10"/>
+<text class="warnt an-m" x="503" y="198">배깅 외 관측치 · 표본 1, 3</text>
+<text class="s an-m" x="503" y="215">복제본에 뽑히지 않았다</text>
+<text class="s an-m" x="503" y="231">이 백의 표본 외 검사에 쓴다</text>
+<text class="s an-m" x="300" y="140">⋮</text>
+<rect class="good" x="616" y="92" width="96" height="118" rx="10"/>
+<text class="goodt an-m" x="664" y="118">K개 트리의</text>
+<text class="goodt an-m" x="664" y="136">예측을 평균</text>
+<text class="s an-m" x="664" y="160">최선 하나를 고르는</text>
+<text class="s an-m" x="664" y="176">교차 검증과 다른 점</text>
+<text class="s an-m" x="664" y="198">분산이 낮아진다</text>
+<path class="ag" d="M598,66 L608,66 L608,126 L614,126"/>
+<path class="ag" d="M598,202 L608,202 L608,166 L614,166"/>
+<text class="sl" x="16" y="284">복원추출이므로 어떤 관측치는 복제본에 여러 번 들어가고 어떤 관측치는 아예 빠진다.</text>
+<text class="sl" x="16" y="302">빠진 것이 배깅 외 관측치이며, 그 백의 표본 외 정확도를 재는 데 쓰인다.</text>
+<text class="tl" x="16" y="34">교차 검증처럼 나누는 대신, 원 학습셋을 복제해 K개의 백을 만든다</text>
+</svg>
