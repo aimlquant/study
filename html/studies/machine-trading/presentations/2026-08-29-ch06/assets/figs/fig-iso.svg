@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">ISO의 두 얼굴 — 방패와 창</title>
+  <desc id="desc">같은 시장 간 스윕 주문이 목적에 따라 달라진다. 유동성을 공급할 때는 지정가를 최선 호가에 맞춰 큐 맨 앞을 선점하는 방패가 되고, 유동성을 제거할 때는 지정가를 최선 호가보다 높여 여러 층을 병렬로 소진하며 강제 재라우팅을 회피하는 창이 된다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .panel{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .head{font-size:17px;font-weight:800;text-anchor:middle}
+      .sub{font-size:13px;font-weight:700;fill:#0F2C59;text-anchor:middle}
+      .meta{font-size:12.5px;fill:#3a3a3f}
+      .level{fill:#0F2C59;opacity:0.12}
+    </style>
+  </defs>
+  <rect width="900" height="300" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="panel" x="30" y="40" width="400" height="230" rx="10"/>
+    <text class="head" x="230" y="72">방패 · 유동성 공급</text>
+    <text class="sub" x="230" y="94">지정가 = 최선 호가, SIP를 기다린다</text>
+    <rect x="70" y="120" width="320" height="26" class="level"/>
+    <text class="meta" x="82" y="138">최선 매수호가에 정적으로 대기</text>
+    <path class="line" d="M230 156V196"/>
+    <text class="meta" x="82" y="216">타임스탬프 우선 → 큐 맨 앞 선점</text>
+    <text class="meta" x="82" y="240">리베이트 수취 · 역선택 희석</text>
+
+    <rect class="panel" x="470" y="40" width="400" height="230" rx="10"/>
+    <text class="head" x="670" y="72">창 · 유동성 제거</text>
+    <text class="sub" x="670" y="94">지정가 &gt; 최선 호가, 즉시 소진한다</text>
+    <rect x="510" y="116" width="320" height="20" class="level"/>
+    <rect x="510" y="140" width="320" height="20" class="level"/>
+    <rect x="510" y="164" width="320" height="20" class="level"/>
+    <path class="line" d="M540 116V186"/>
+    <text class="meta" x="560" y="210">여러 층을 병렬로 걸어 올라감</text>
+    <text class="meta" x="560" y="234">강제 재라우팅 회피 → 프론트런 방지</text>
+  </g>
+</svg>

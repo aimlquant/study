@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">지연시간 세 유형과 왕복 사슬</title>
+  <desc id="desc">내 프로그램과 거래 장소 사이에서 주문 제출, 주문 상태, 시장 데이터의 세 지연이 하나의 왕복 사슬을 이루고, 가장 느린 구간이 전체 반응 속도를 결정한다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .col{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .colhead{font-size:16px;font-weight:800;text-anchor:middle}
+      .label{font-size:15px;font-weight:700;text-anchor:middle}
+      .meta{font-size:12px;fill:#6B6B72;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="900" height="300" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="col" x="40" y="70" width="150" height="185" rx="8"/>
+    <rect class="col" x="710" y="70" width="150" height="185" rx="8"/>
+    <text class="colhead" x="115" y="100">내 프로그램</text>
+    <text class="meta" x="115" y="122">코로케이션 ≤5ms</text>
+    <text class="meta" x="115" y="140">컴파일 언어</text>
+    <text class="colhead" x="785" y="100">거래 장소</text>
+    <text class="meta" x="785" y="122">거래소 · LP</text>
+
+    <path class="line" d="M195 160H705"/>
+    <text class="label" x="450" y="152">① 주문 제출</text>
+    <text class="meta" x="450" y="176">≤5ms (코로케이션·후원접속)</text>
+
+    <path class="line" d="M705 205H195"/>
+    <text class="label" x="450" y="200">② 주문 상태 확인</text>
+    <text class="meta" x="450" y="224">제출과 대체로 함께 움직임</text>
+
+    <path class="line" d="M705 248H195"/>
+    <text class="label" x="450" y="243">③ 시장 데이터</text>
+    <text class="meta" x="450" y="267">IB 250ms · 직접 피드 ≤10ms(별도 비용)</text>
+
+    <text class="meta" x="450" y="292">세 구간의 사슬 — 가장 느린 구간이 전체 반응 속도를 결정한다</text>
+  </g>
+</svg>

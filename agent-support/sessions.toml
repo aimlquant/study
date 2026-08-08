@@ -136,11 +136,15 @@ meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da3
 id = "2026-08-29-machine-trading-ch06"
 study_id = "machine-trading-2026"
 date = "2026-08-29"
-title = "Chapter 6. 장중 거래와 시장 미시구조"
+title = "Chapter 6. 일중 거래와 시장 미시구조"
 presenters = ["원미"]
 chapters = ["Chapter 6"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-29-ch06/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-08-29-ch06/" },
+]
 
 [[sessions]]
 id = "2026-08-29-kg-llm-ch07"
