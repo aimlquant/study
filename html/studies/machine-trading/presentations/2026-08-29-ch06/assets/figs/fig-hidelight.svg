@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" role="img" aria-labelledby="title desc">
+  <title id="title">하이드앤라이트가 이용하는 0.5ms 정보 격차</title>
+  <desc id="desc">거래소 직접 피드는 N의 매도 호가 상승을 즉시 보여 주지만 통합 SIP 피드는 약 0.5ms 늦어, 그 창 안에서 하이드앤라이트 주문이 원래 타임스탬프를 유지한 채 로컬 거래소 큐 맨 앞을 선점한다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .track{fill:none;stroke:#C9CDD6;stroke-width:2}
+      .fast{fill:none;stroke:#0F2C59;stroke-width:3;marker-end:url(#arrow)}
+      .slow{fill:none;stroke:#8793A3;stroke-width:3;stroke-dasharray:8 6;marker-end:url(#arrow)}
+      .box{fill:#0F2C59}
+      .label{font-size:15px;font-weight:800}
+      .meta{font-size:12px;fill:#6B6B72}
+      .tick{font-size:12px;fill:#6B6B72;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="900" height="320" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <text class="label" x="40" y="46">두 개의 시계 — 같은 사실을 다른 속도로 본다</text>
+
+    <text class="label" x="40" y="96">직접 피드(빠름)</text>
+    <path class="track" d="M230 100H840"/>
+    <path class="fast" d="M300 100H470"/>
+    <circle class="box" cx="300" cy="100" r="6"/>
+    <text class="meta" x="286" y="84">N 매도호가 $10.02 관측</text>
+
+    <text class="label" x="40" y="176">SIP 통합 피드(느림)</text>
+    <path class="track" d="M230 180H840"/>
+    <path class="slow" d="M470 180H640"/>
+    <circle cx="470" cy="180" r="6" fill="#8793A3"/>
+    <text class="meta" x="470" y="164">같은 사실이 +0.5ms 뒤 방송</text>
+
+    <rect x="300" y="70" width="170" height="140" fill="#0F2C59" opacity="0.07"/>
+    <text class="tick" x="385" y="234">0.5ms 창</text>
+
+    <path class="fast" d="M385 250V286"/>
+    <text class="label" x="120" y="292">로컬 거래소 L 큐</text>
+    <rect x="470" y="270" width="360" height="34" rx="6" fill="#fff" stroke="#0F2C59" stroke-width="2"/>
+    <text class="meta" x="490" y="292">하이드앤라이트: 표시가 자동 조정 · 원래 타임스탬프 유지 → 맨 앞 선점</text>
+  </g>
+</svg>

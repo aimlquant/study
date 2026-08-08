@@ -146,7 +146,18 @@
       "title": "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/machine-trading/presentations/2026-08-29-ch06/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/machine-trading/presentations/2026-08-29-ch06/"
+        }
+      ],
       "chapters": [
         "Chapter 6"
       ],
@@ -158,9 +169,9 @@
       "presenters": [
         "원미"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-trading-2026",
-      "title": "Chapter 6. 장중 거래와 시장 미시구조"
+      "title": "Chapter 6. 일중 거래와 시장 미시구조"
     },
     {
       "artifacts": [],
