@@ -137,7 +137,7 @@ id = "2026-08-29-machine-trading-ch06"
 study_id = "machine-trading-2026"
 date = "2026-08-29"
 title = "Chapter 6. 장중 거래와 시장 미시구조"
-presenters = []
+presenters = ["원미"]
 chapters = ["Chapter 6"]
 status = "scheduled"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf"

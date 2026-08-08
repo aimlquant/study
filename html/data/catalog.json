@@ -155,7 +155,9 @@
       "meeting_status": "available",
       "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-08-29-machine-trading-ch06/",
-      "presenters": [],
+      "presenters": [
+        "원미"
+      ],
       "status": "scheduled",
       "study_id": "machine-trading-2026",
       "title": "Chapter 6. 장중 거래와 시장 미시구조"
