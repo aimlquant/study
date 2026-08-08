@@ -64,13 +64,15 @@ while (($#)); do
   esac
 done
 
-for command_name in chmod cp date dirname install mktemp realpath rm sha256sum stat; do
+for command_name in basename chmod cp date dirname install mktemp rm sha256sum stat; do
   command -v "$command_name" >/dev/null 2>&1 ||
     die "required command not found: $command_name"
 done
 
-script_path="$(realpath -e -- "$0")"
-source_dir="$(dirname -- "$script_path")"
+script_dir="$(cd -P "$(dirname "$0")" && pwd)"
+script_path="$script_dir/$(basename "$0")"
+[[ -f "$script_path" ]] || die "script path does not resolve to a file: $script_path"
+source_dir="$(dirname "$script_path")"
 source_wrapper="$source_dir/$WRAPPER_NAME"
 source_guard="$source_dir/$GUARD_NAME"
 [[ -f "$source_wrapper" ]] || die "missing source file: $source_wrapper"
@@ -89,7 +91,7 @@ installed_guard="$target/$GUARD_NAME"
 manifest="$target/$MANIFEST_NAME"
 
 hash_of() {
-  sha256sum -- "$1" | awk '{ print $1 }'
+  sha256sum "$1" | awk '{ print $1 }'
 }
 
 manifest_hash_of() {
@@ -144,26 +146,26 @@ if [[ "$mode" == "verify" ]]; then
 fi
 
 if ((using_default_prefix)); then
-  install -d -m 700 -- "$HOME/.local"
-  chmod 700 -- "$HOME/.local"
+  install -d -m 700 "$HOME/.local"
+  chmod 700 "$HOME/.local"
 fi
-install -d -m 700 -- "$prefix"
-chmod 700 -- "$prefix"
-install -d -m 700 -- "$target"
-chmod 700 -- "$target"
+install -d -m 700 "$prefix"
+chmod 700 "$prefix"
+install -d -m 700 "$target"
+chmod 700 "$target"
 
 backup=""
 if [[ -f "$installed_wrapper" || -f "$installed_guard" ]]; then
   backup="$(mktemp -d "$target/rollback-$(date +%Y%m%dT%H%M%S)-XXXXXX")"
-  chmod 700 -- "$backup"
+  chmod 700 "$backup"
   for name in "$WRAPPER_NAME" "$GUARD_NAME" "$MANIFEST_NAME"; do
     [[ -f "$target/$name" ]] || continue
-    cp -p -- "$target/$name" "$backup/$name"
+    cp -p "$target/$name" "$backup/$name"
   done
 fi
 
-install -m "$WRAPPER_MODE" -- "$source_wrapper" "$installed_wrapper"
-install -m "$GUARD_MODE" -- "$source_guard" "$installed_guard"
+install -m "$WRAPPER_MODE" "$source_wrapper" "$installed_wrapper"
+install -m "$GUARD_MODE" "$source_guard" "$installed_guard"
 
 wrapper_hash="$(hash_of "$installed_wrapper")"
 guard_hash="$(hash_of "$installed_guard")"
@@ -176,8 +178,8 @@ manifest_tmp="$(mktemp "$target/.manifest.XXXXXX")"
 printf '%s  %s\n%s  %s\n' \
   "$wrapper_hash" "$WRAPPER_NAME" \
   "$guard_hash" "$GUARD_NAME" >"$manifest_tmp"
-chmod 600 -- "$manifest_tmp"
-mv -fT -- "$manifest_tmp" "$manifest"
+chmod 600 "$manifest_tmp"
+mv -f "$manifest_tmp" "$manifest"
 
 printf 'status=installed\ntarget=%s\nwrapper=%s\nguard=%s\n' \
   "$target" "${wrapper_hash:0:16}" "${guard_hash:0:16}"

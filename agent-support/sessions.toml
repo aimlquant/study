@@ -83,8 +83,12 @@ date = "2026-08-08"
 title = "Chapter 4. 단순 네트워크에서 멀티소스 통합으로"
 presenters = ["종훈(S)"]
 chapters = ["Chapter 4"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-08-ch04/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-08-ch04/" },
+]
 
 [[sessions]]
 id = "2026-08-15-machine-trading-ch04"
