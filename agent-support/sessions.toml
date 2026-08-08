@@ -97,8 +97,12 @@ date = "2026-08-15"
 title = "Chapter 4. 인공지능 기법"
 presenters = ["태영"]
 chapters = ["Chapter 4"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-15-ch04/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-08-15-ch04/" },
+]
 
 [[sessions]]
 id = "2026-08-15-kg-llm-ch05"
