@@ -246,7 +246,18 @@
       "title": "Chapter 6. LLM으로 지식 그래프 구축하기"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/machine-trading/presentations/2026-08-15-ch04/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/machine-trading/presentations/2026-08-15-ch04/"
+        }
+      ],
       "chapters": [
         "Chapter 4"
       ],
@@ -258,7 +269,7 @@
       "presenters": [
         "태영"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-trading-2026",
       "title": "Chapter 4. 인공지능 기법"
     },
