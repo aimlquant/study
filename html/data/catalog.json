@@ -308,15 +308,16 @@
       ],
       "date": "2026-08-08",
       "id": "2026-08-08-machine-trading-ch03",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-08-08-machine-trading-ch03/",
       "presenters": [
         "태호"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-trading-2026",
-      "title": "Chapter 3. 시계열 분석"
+      "title": "Chapter 3. 시계열 분석",
+      "youtube_url": "https://www.youtube.com/watch?v=muOBSN30a8I",
+      "youtube_video_id": "muOBSN30a8I"
     },
     {
       "artifacts": [
@@ -336,15 +337,16 @@
       ],
       "date": "2026-08-08",
       "id": "2026-08-08-kg-llm-ch04",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-08-08-kg-llm-ch04/",
       "presenters": [
         "종훈(S)"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 4. 단순 네트워크에서 멀티소스 통합으로"
+      "title": "Chapter 4. 단순 네트워크에서 멀티소스 통합으로",
+      "youtube_url": "https://www.youtube.com/watch?v=M2dMQBvuYzY",
+      "youtube_video_id": "M2dMQBvuYzY"
     },
     {
       "artifacts": [
