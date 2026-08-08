@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>단순한 네트워크에서 다중 소스 통합으로</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+
+    <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">지식 그래프와 LLM 실전 · Chapter 4</p>
+        <h1>단순한 네트워크에서 다중 소스 통합으로</h1>
+        <p class="cover-subtitle">다중 소스 생명의학 KG를 구축하고, 그래프 지표와 LLM 해석으로 검증 가능한 의사결정 후보를 만든다</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>종훈(S)</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 4</dd></div>
+        <div><dt>일시</dt><dd>2026-08-08</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide" aria-label="발표의 핵심 질문" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
+      <h1>여러 출처를 합친 그래프는 언제 의사결정 근거가 되는가?</h1>
+      <p class="lead">Chapter 4는 “그래프를 크게 만든다”가 아니라, 통합·분석·해석의 각 단계에서 무엇을 검증해야 하는지 묻는다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">SOURCE PROBLEM</p><h2>출처가 다르면 의미도 흔들린다</h2><ul><li>질병·유전자·단백질 식별자가 다르다</li><li>관계 타입과 증거 수준이 다르다</li><li>누락과 편향이 결과에 섞인다</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">KG CONTRACT</p><h2>검증 가능한 관계로 바꾼다</h2><ul><li>노드 키와 스키마를 먼저 고정한다</li><li>지표로 구조와 경계를 점검한다</li><li>LLM 해석은 사람 검토로 닫는다</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>오늘의 결론</strong> — KG는 데이터 통합 저장소가 아니라 검증 가능한 분석 계약이다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 핵심 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="오늘의 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>오늘의 흐름은 네 번의 전환이다</h1>
+      <p class="lead">단순 PPI 네트워크에서 출발해 이질적 Hetionet과 임상 CKG까지 확장한다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>01</span><h2>응용 지도</h2><p>생명의학 KG가 어떤 의사결정 문제를 겨냥하는지 본다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>02</span><h2>PPI 분석</h2><p>구축, WCC/Louvain, 질병 경로 지표를 연결한다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>03</span><h2>Hetionet</h2><p>메타경로와 DWPC로 흔한 허브 편향을 줄인다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>04</span><h2>CKG + LLM</h2><p>임상 질문으로 번역하되 사람 검토를 통과시킨다.</p></article>
+        </div>
+        <p class="takeaway"><strong>발표의 약속</strong> — 모든 예제는 도메인이 달라도 쓸 수 있는 통합·분석·해석 패턴으로 읽는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.1 생명의학 응용 섹션" data-report-refs="source-4-1 source-figure-4-1" data-source-refs="section:4.1" data-source-title="section:4.1">
+      <p class="eyebrow">SECTION 4.1</p><h1 class="source-title">4.1 생명의학 지식 그래프와 그 활용 — 어떤 문제를 풀 수 있나</h1><p>문제 목표가 노드와 관계의 선택을 결정한다</p><span class="section-number">4.1</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="생명의학 KG 응용 지도" data-report-refs="source-4-1 source-figure-4-1" data-source-refs="figure:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>응용은 달라도 공통 엔티티가 반복된다</h1>
+      <p class="lead">약물 재활용, 진단, 기능 규명, 안전 추천은 서로 다른 목표지만 질병·유전자·단백질·약물 지식을 공유한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-1-biomedical-app-map.svg" alt="생명의학 지식 그래프 응용 지도">
+          <figcaption><b>그림 1</b><span>원본 그림 4.1</span><span>목표별 공통 데이터 소스</span><a class="report-ref" href="report.html#source-figure-4-1">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 생명의학 KG 응용 지도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.2 다중 오믹스 섹션" data-report-refs="source-4-2 source-figure-4-2" data-source-refs="section:4.2" data-source-title="section:4.2">
+      <p class="eyebrow">SECTION 4.2</p><h1 class="source-title">4.2 지식 그래프의 다중 오믹스 응용 — 유전체에서 단백질까지</h1><p>층위가 다르면 식별자와 스키마도 달라진다</p><span class="section-number">4.2</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="오믹스 세 층위" data-report-refs="source-4-2 source-figure-4-2" data-source-refs="figure:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>DNA에서 단백질까지는 생물학적 흐름이자 데이터 통합 과제다</h1>
+      <p class="lead">genome, transcriptome, proteome은 연결되어 있지만 분석 파일과 식별자는 따로 움직인다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-2-omics-flow.svg" alt="유전체 전사체 단백질체 흐름">
+          <figcaption><b>그림 2</b><span>원본 그림 4.2</span><span>오믹스 층위의 경계</span><a class="report-ref" href="report.html#source-figure-4-2">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 오믹스 세 층위</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="식별자 조정" data-report-refs="source-4-2 source-figure-4-3" data-source-refs="figure:4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>통합은 같은 질병을 같은 노드로 보는 일부터 시작한다</h1>
+      <p class="lead">UMLS 같은 공통 코드는 여러 데이터베이스의 질병 식별자를 연결하는 기준점이 된다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-3-identifier-reconciliation.svg" alt="여러 출처의 식별자를 UMLS로 조정하는 흐름">
+          <figcaption><b>그림 3</b><span>원본 그림 4.3</span><span>스키마 정렬과 reconciliation</span><a class="report-ref" href="report.html#source-figure-4-3">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 식별자 조정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.2.1 PPI 구축 섹션" data-report-refs="source-4-2-1 source-figure-4-4" data-source-refs="section:4.2.1" data-source-title="section:4.2.1">
+      <p class="eyebrow">SECTION 4.2.1</p><h1 class="source-title">4.2.1 PPI와 단백질–질병 네트워크로 지식 그래프 만들기</h1><p>질병 경로는 PPI 부분 그래프와 질병-단백질 연결의 결합이다</p><span class="section-number">4.2.1</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="질병 경로 정의" data-report-refs="source-4-2-1 source-figure-4-4" data-source-refs="figure:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>질병 경로는 질병 단백질 집합이 만드는 PPI 부분 그래프다</h1>
+      <p class="lead">질병-단백질 관계는 출발 집합을 정하고, PPI 엣지는 그 집합 내부의 구조를 만든다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-4-pathway-subgraph.svg" alt="질병 경로 부분 그래프">
+          <figcaption><b>그림 4</b><span>원본 그림 4.4</span><span>H_d의 의미</span><a class="report-ref" href="report.html#source-figure-4-4">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 질병 경로 정의</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="셀리악병 주변 그래프" data-report-refs="source-4-2-1 source-figure-4-5" data-source-refs="figure:4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>한 질병에서 시작하면 주변 단백질 네트워크가 열린다</h1>
+      <p class="lead">셀리악병 예시는 질병 노드 하나가 관련 유전자와 PPI 이웃으로 확장되는 방식을 보여 준다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-5-celiac-neighborhood.svg" alt="셀리악병 주변 연결">
+          <figcaption><b>그림 5</b><span>원본 그림 4.5</span><span>작은 탐색 예</span><a class="report-ref" href="report.html#source-figure-4-5">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 셀리악병 주변 그래프</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="후보 발견 과정" data-report-refs="source-4-2-1 source-figure-4-6" data-source-refs="figure:4.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>후보 단백질은 발견 결과가 아니라 검증 대기 상태다</h1>
+      <p class="lead">IAS는 관련 가능성이 있는 단백질과 경로를 보고하지만, 그 결과는 도메인 검증을 통과해야 한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-6-discovery-process.svg" alt="후보 단백질 발견 과정">
+          <figcaption><b>그림 6</b><span>원본 그림 4.6</span><span>후보와 사실의 분리</span><a class="report-ref" href="report.html#source-figure-4-6">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 후보 발견 과정</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="PPI 적재 코드의 계약" data-report-refs="source-4-2-1 source-listing-4-1 source-listing-4-2 source-listing-4-3 source-listing-4-4 source-listing-4-5" data-source-refs="listing:4.1 listing:4.2 listing:4.3 listing:4.4 listing:4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE CONTRACT</span></header>
+      <h1>Listing 4.1, 4.2, 4.3, 4.4, 4.5는 적재보다 검증 순서를 보여 준다</h1>
+      <p class="lead">제약조건 → PPI 적재 → 질병 연관 → 질병 분류 → 유전자 이름 보강 순서가 그래프 품질을 만든다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>4.1</span><h2>노드 키</h2><p>중복 단백질과 질병을 막는다.</p></article>
+          <article class="card"><span>4.2</span><h2>PPI</h2><p>단백질 사이 상호작용을 만든다.</p></article>
+          <article class="card"><span>4.3 · 4.4</span><h2>질병 맥락</h2><p>연관과 분류를 붙인다.</p></article>
+          <article class="card"><span>4.5</span><h2>가독성</h2><p>GeneID를 심볼과 설명으로 바꾼다.</p></article>
+        </div>
+        <p class="takeaway"><strong>핵심</strong> — 그래프 분석은 식별자 품질과 적재 제약 위에서만 믿을 수 있다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · Listing 4.1-4.5</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.2.2 고수준 분석 섹션" data-report-refs="source-4-2-2 source-table-4-1 source-table-4-2" data-source-refs="section:4.2.2" data-source-title="section:4.2.2">
+      <p class="eyebrow">SECTION 4.2.2</p><h1 class="source-title">4.2.2 만들어진 지식 그래프의 고수준 분석 — 전체 구조 살펴보기</h1><p>WCC와 Louvain은 그래프의 전체 구조를 점검한다</p><span class="section-number">4.2.2</span>
+    </section>
+    <section class="slide" aria-label="WCC와 Louvain 비교" data-report-refs="source-4-2-2 source-table-4-1 source-table-4-2 source-listing-4-9 source-listing-4-10" data-source-refs="listing:4.9 table:4.1 listing:4.10 table:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">STRUCTURE CHECK</span></header>
+      <h1>Listing 4.9와 표 4.1, Listing 4.10과 표 4.2는 다른 질문에 답한다</h1>
+      <p class="lead">WCC는 “끊겼는가”를 보고, Louvain은 “내부 연결이 강한 커뮤니티인가”를 본다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">WCC</p><h2>27개 컴포넌트</h2><ul><li>최대 컴포넌트 21,521개</li><li>대부분 단백질이 하나의 거대 덩어리</li><li>연결성 품질 검사에 적합</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">Louvain</p><h2>48개 커뮤니티</h2><ul><li>최대 커뮤니티 3,533개</li><li>모듈성 약 0.546</li><li>구조적 하위 집단 탐색에 적합</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>주의</strong> — 둘 다 도메인 의미를 모른다. 질병 경로 분석은 별도의 질문이다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · WCC/Louvain</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.2.3 질병 경로 지표 섹션" data-report-refs="source-4-2-3 source-figure-4-7" data-source-refs="section:4.2.3" data-source-title="section:4.2.3">
+      <p class="eyebrow">SECTION 4.2.3</p><h1 class="source-title">4.2.3 PPI와 질병 지식 그래프의 도메인 특화 분석 — 질병 경로를 자로 재다</h1><p>부분 그래프의 안쪽과 바깥쪽을 나누어 측정한다</p><span class="section-number">4.2.3</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="질병 경로 지표 분포" data-report-refs="source-4-2-3 source-figure-4-7" data-source-refs="figure:4.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>질병 경로는 내부보다 바깥과 더 많이 연결된다</h1>
+      <p class="lead">그림 4.7은 largest CC, density, conductance가 질병 경로의 분산된 성격을 보여 준다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-7-pathway-metrics.svg" alt="질병 경로 지표 분포">
+          <figcaption><b>그림 7</b><span>원본 그림 4.7</span><span>질병 경로의 분산성</span><a class="report-ref" href="report.html#source-figure-4-7">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 질병 경로 지표 분포</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="Louvain 지표 분포" data-report-refs="source-4-2-3 source-figure-4-8" data-source-refs="figure:4.8">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>Louvain 클러스터는 질병 경로와 같은 물체가 아니다</h1>
+      <p class="lead">그림 4.8의 클러스터는 내부 연결이 더 강하고 외부 연결이 상대적으로 낮아 질병 경로와 대비된다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-8-louvain-metrics.svg" alt="Louvain 클러스터 지표 분포">
+          <figcaption><b>그림 8</b><span>원본 그림 4.8</span><span>대상 정의의 차이</span><a class="report-ref" href="report.html#source-figure-4-8">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · Louvain 지표 분포</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="질병 경로 지표의 의미" data-report-refs="source-4-2-3 source-listing-4-12 source-listing-4-13 source-listing-4-14 source-listing-4-15" data-source-refs="listing:4.12 listing:4.13 listing:4.14 listing:4.15">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METRICS</span></header>
+      <h1>Listing 4.12, 4.13, 4.14, 4.15는 H_d와 B_d를 분리해 읽게 한다</h1>
+      <p class="lead">부분 그래프 안쪽 엣지와 바깥 경계 엣지를 구분해야 질병 경로의 성격을 해석할 수 있다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>Largest CC</strong><h2>한 덩어리 비율</h2><p>가장 큰 연결 컴포넌트가 질병 단백질 중 얼마나 차지하는가.</p></article>
+          <article class="kpi"><strong>Density</strong><h2>안쪽 촘촘함</h2><p>가능한 내부 엣지 대비 실제 내부 엣지 비율.</p></article>
+          <article class="kpi"><strong>Conductance</strong><h2>바깥 연결</h2><p>경계 엣지가 많을수록 값이 커지고 독립성은 낮아진다.</p></article>
+        </div>
+        <p class="takeaway"><strong>해석</strong> — 질병 단백질은 커뮤니티처럼 뭉치기보다 네트워크 곳곳에 퍼질 수 있다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 질병 경로 지표</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.3 약물 재활용 섹션" data-report-refs="source-4-3 source-figure-4-9" data-source-refs="section:4.3" data-source-title="section:4.3">
+      <p class="eyebrow">SECTION 4.3</p><h1 class="source-title">4.3 지식 그래프의 제약 응용 — 약물 재활용의 지름길</h1><p>이질적 KG에서는 경로 유형과 허브 편향을 함께 다룬다</p><span class="section-number">4.3</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="Hetionet 스키마" data-report-refs="source-4-3 source-figure-4-9" data-source-refs="figure:4.9">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>Hetionet은 약물 재활용 질문을 위한 이질적 연결 지도다</h1>
+      <p class="lead">화합물, 질병, 유전자, 해부 구조, GO 과정 같은 노드 유형이 메타경로 분석의 재료가 된다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-9-hetionet-schema.svg" alt="Hetionet 스키마 요약">
+          <figcaption><b>그림 9</b><span>원본 그림 4.9</span><span>이질적 노드와 관계</span><a class="report-ref" href="report.html#source-figure-4-9">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · Hetionet 스키마</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="메타경로와 DWPC" data-report-refs="source-4-3 source-figure-4-10" data-source-refs="figure:4.10">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>DWPC는 아무하고나 연결된 허브를 낮게 본다</h1>
+      <p class="lead">그림 4.10은 메타경로에 속한 실제 경로를 세고, 각 경로의 차수 곱으로 가중하는 과정을 보여 준다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-10-metapath-dwpc.svg" alt="메타경로와 DWPC 계산">
+          <figcaption><b>그림 10</b><span>원본 그림 4.10</span><span>허브 편향 보정</span><a class="report-ref" href="report.html#source-figure-4-10">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 메타경로와 DWPC</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.3.1 셀리악병 분석 섹션" data-report-refs="source-4-3-1 source-table-4-3 source-table-4-4" data-source-refs="section:4.3.1" data-source-title="section:4.3.1">
+      <p class="eyebrow">SECTION 4.3.1</p><h1 class="source-title">4.3.1 Hetionet 지식 그래프의 심층 분석 — 셀리악병을 파고들다</h1><p>DWPC는 셀리악병 관련 GO 과정을 질병 특이성 관점으로 재정렬한다</p><span class="section-number">4.3.1</span>
+    </section>
+    <section class="slide" aria-label="셀리악병 DWPC 결과" data-report-refs="source-4-3-1 source-table-4-3 source-table-4-4 source-listing-4-17 source-listing-4-18" data-source-refs="listing:4.17 table:4.3 listing:4.18 table:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">DWPC RESULTS</span></header>
+      <h1>Listing 4.17과 표 4.3, Listing 4.18과 표 4.4는 필터가 해석을 바꾸는 장면이다</h1>
+      <p class="lead">기본 GO 강화 결과는 T cell costimulation을 올리고, GWAS·조직 조건을 추가하면 glycoprotein 관련 과정이 드러난다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">BASIC METAPATH</p><h2>T 세포 공동자극</h2><ul><li>GO:0031295</li><li>PC 10, DWPC 0.03347</li><li>자가면역 맥락과 맞는 상위 결과</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">TISSUE FILTERED</p><h2>당단백질 생합성 조절</h2><ul><li>GO:0010560</li><li>PC 6, DWPC 0.00342</li><li>추가 연구 질문을 만드는 구체화</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>핵심</strong> — 순위표는 끝이 아니라 “왜 이 경로인가”를 묻는 시작점이다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 셀리악병 DWPC</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="실제 DWPC 경로" data-report-refs="source-4-3-1 source-figure-4-11 source-listing-4-19" data-source-refs="listing:4.19 figure:4.11">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>집계 점수 뒤의 실제 경로를 열어야 해석이 가능하다</h1>
+      <p class="lead">Listing 4.19는 특정 GO 과정으로 가는 실제 path를 반환하고, 그림 4.11은 그 검증 재료를 보여 준다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-11-celiac-go-paths.svg" alt="셀리악병에서 GO 과정까지의 실제 경로">
+          <figcaption><b>그림 11</b><span>원본 그림 4.11</span><span>집계에서 근거 경로로</span><a class="report-ref" href="report.html#source-figure-4-11">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 실제 DWPC 경로</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.3.2 LLM 해석 섹션" data-report-refs="source-4-3-2 source-listing-4-20" data-source-refs="section:4.3.2" data-source-title="section:4.3.2">
+      <p class="eyebrow">SECTION 4.3.2</p><h1 class="source-title">4.3.2 LLM으로 경로 분석 결과 해석하기 — 숫자를 이야기로</h1><p>LLM은 결과를 설명하지만 사실 확정권을 갖지 않는다</p><span class="section-number">4.3.2</span>
+    </section>
+    <section class="slide" aria-label="LLM 해석의 운영 경계" data-report-refs="source-4-3-2 source-listing-4-20">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">LLM INTERPRETER</span></header>
+      <h1>Listing 4.20의 LLM 프롬프트는 해석 후보를 만드는 장치다</h1>
+      <p class="lead">프롬프트는 DWPC 점수, PC, 유전자 수, 분석 조건을 제공하고 생물학적 의미와 후속 질문을 요청한다.</p>
+      <div class="slide-body">
+        <div class="balance-grid">
+          <article><span>ASK</span><h2>LLM에게 맡길 일</h2><ul><li>상위 경로의 생물학적 의미 정리</li><li>잠재 치료 함의와 후속 질문 제안</li><li>예상 밖 결과를 설명 가능한 가설로 정리</li></ul></article>
+          <article><span>GATE</span><h2>사람이 닫을 일</h2><ul><li>근거 경로와 원 질의 확인</li><li>도메인 전문가 검토</li><li>임상 실행 전 안전성 판단</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>경계</strong> — LLM 설명은 연구 가설을 풍부하게 하지만, 검증된 의학 결론을 대신하지 않는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · LLM 해석</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.4 임상 응용 섹션" data-report-refs="source-4-4 source-figure-4-12" data-source-refs="section:4.4" data-source-title="section:4.4">
+      <p class="eyebrow">SECTION 4.4</p><h1 class="source-title">4.4 지식 그래프의 임상 응용 — 정밀 의료를 향하여</h1><p>환자 맥락을 다루려면 프라이버시와 의사결정 책임이 먼저 보인다</p><span class="section-number">4.4</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="환자 여정 지도" data-report-refs="source-4-4 source-figure-4-12" data-source-refs="figure:4.12">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>임상 KG는 환자의 시간 맥락을 함께 보아야 한다</h1>
+      <p class="lead">환자 여정은 증상, 진단, 치료, 모니터링, 결과가 시간 속에서 어떻게 이어지는지 보여 준다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-12-patient-journey.svg" alt="환자 여정 지도">
+          <figcaption><b>그림 12</b><span>원본 그림 4.12</span><span>임상 경로와 환자 경험</span><a class="report-ref" href="report.html#source-figure-4-12">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 환자 여정 지도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="CKG 스키마" data-report-refs="source-4-4 source-figure-4-13" data-source-refs="figure:4.13">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>CKG는 임상·오믹스·문헌 지식을 같은 질의 공간에 둔다</h1>
+      <p class="lead">33개 노드 레이블과 51개 관계 유형은 임상 질문을 단백질, 질병, 약물, 환자 맥락으로 연결한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-4-13-ckg-schema.svg" alt="임상 지식 그래프 스키마">
+          <figcaption><b>그림 13</b><span>원본 그림 4.13</span><span>임상 KG 통합 범위</span><a class="report-ref" href="report.html#source-figure-4-13">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · CKG 스키마</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="CKG 질의 결과" data-report-refs="source-4-4 source-table-4-5 source-listing-4-21 source-listing-4-22" data-source-refs="listing:4.21 listing:4.22 table:4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CLINICAL QUERY</span></header>
+      <h1>Listing 4.21, Listing 4.22와 표 4.5는 임상 질문을 구체화한다</h1>
+      <p class="lead">ACTC1은 여러 심근병증 관련 질병과 강하게 연결되어 환자 층화와 안전성 검토의 출발점이 된다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>ACTC1</strong><h2>표적 단백질</h2><p>연구 대상 단백질 목록 중 질병 연관성이 강하게 포착된다.</p></article>
+          <article class="kpi"><strong>score 5</strong><h2>강한 연관</h2><p>내인성·비후성·확장성 심근병증 계열 질병과 연결된다.</p></article>
+          <article class="kpi"><strong>DOID</strong><h2>계층 질의</h2><p>상위 질병을 기준으로 하위 질병까지 검색한다.</p></article>
+        </div>
+        <p class="takeaway"><strong>해석</strong> — 결과는 임상시험 설계 질문을 만든다. 곧바로 치료 권고가 되지는 않는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · CKG 질의</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="4.4.1 임상 LLM 지원 섹션" data-report-refs="source-4-4-1 source-listing-4-23 table-decision" data-source-refs="section:4.4.1" data-source-title="section:4.4.1">
+      <p class="eyebrow">SECTION 4.4.1</p><h1 class="source-title">4.4.1 LLM 기반 임상 의사결정 지원 분석 — 발견을 진료로 잇다</h1><p>발견을 실행 질문으로 바꾸되 안전 게이트를 유지한다</p><span class="section-number">4.4.1</span>
+    </section>
+    <section class="slide" aria-label="도입 판단 기준" data-report-refs="source-4-4-1 table-decision source-listing-4-23">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">DECISION GUIDE</span></header>
+      <h1>다중 소스 KG + LLM은 세 조건이 맞을 때만 운영 가능하다</h1>
+      <p class="lead">Chapter 4의 예제를 실무로 옮길 때는 데이터 연결성, 지표 적합성, LLM 통제성을 따로 검증한다.</p>
+      <div class="slide-body">
+        <div class="decision-grid">
+          <article><p class="eyebrow">GOOD SIGNAL</p><h2>적합 신호</h2><ul><li>공통 식별자와 온톨로지가 있다</li><li>질문에 맞는 부분 그래프와 경계가 정의된다</li><li>LLM 해석에 원 질의와 경로 링크가 붙는다</li><li>전문가 승인과 보류 선택지가 있다</li></ul></article>
+          <article><p class="eyebrow">WARNING SIGNAL</p><h2>위험 신호</h2><ul><li>코드와 이름이 섞여 중복 노드가 생긴다</li><li>범용 클러스터를 도메인 사실로 읽는다</li><li>LLM 설명만 남고 근거 경로가 사라진다</li><li>임상 안전성 검토 없이 권고로 노출한다</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>작은 실험</strong> — 대표 소스 2개, 질병 3개, LLM 답변 10개로 식별자·지표·해석 게이트를 먼저 검증한다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 판단 기준</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="발표 확인 질문" data-report-refs="summary glossary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>확인 질문</h1>
+      <p class="lead">다음 질문에 답할 수 있으면 Chapter 4의 핵심 구조를 잡은 것이다.</p>
+      <div class="slide-body">
+        <ol class="question-list">
+          <li>WCC와 Louvain 결과가 좋아 보여도 왜 질병 경로 분석을 별도로 해야 하는가?</li>
+          <li>DWPC는 단순 경로 수와 비교해 어떤 편향을 줄이는가?</li>
+          <li>LLM 해석을 임상 의사결정 지원에 넣을 때 반드시 함께 저장해야 하는 근거는 무엇인가?</li>
+        </ol>
+        <p class="takeaway"><strong>토론</strong> — 우리 도메인에서 “질병 경로”에 해당하는 부분 그래프와 “임상 안전 게이트”에 해당하는 승인 절차는 무엇인가?</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 확인 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--closing" aria-label="세 문장 요약과 Q&A" data-report-refs="summary table-overview references">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">Q&amp;A</span></header>
+      <h1>세 문장 요약</h1>
+      <div class="slide-body">
+        <ol class="question-list">
+          <li>다중 소스 KG는 공통 식별자, 스키마, 제약조건이 맞아야 분석 가능한 지식 저장소가 된다.</li>
+          <li>WCC, Louvain, 질병 경로 지표, DWPC는 같은 그래프를 서로 다른 질문으로 읽게 한다.</li>
+          <li>LLM은 그래프 분석 결과를 이야기와 후속 질문으로 바꾸지만, 최종 판단은 근거 경로와 사람의 검토로 닫아야 한다.</li>
+        </ol>
+        <div class="report-jump-links"><a href="report.html">상세 리포트</a><a href="../../">회차 목록</a></div>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · Q&A</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+  </main>
+  <script src="assets/deck-lightbox.js"></script>
+  <script src="assets/deck.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

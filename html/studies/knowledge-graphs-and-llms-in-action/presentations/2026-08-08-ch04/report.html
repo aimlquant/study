@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-report-template="study-report-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="지식 그래프와 LLM 실전 Chapter 4 상세 스터디 리포트">
+  <title>단순한 네트워크에서 다중 소스 통합으로 · 상세 리포트</title>
+  <link rel="stylesheet" href="assets/report.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#summary">리포트 본문으로 건너뛰기</a>
+  <button id="tocToggle" class="report-nav-toggle" type="button" aria-label="목차 열기" aria-controls="tocDrawer" aria-expanded="false" title="목차"><span aria-hidden="true">☰</span></button>
+  <div class="report-settings" aria-label="설정">
+    <button id="settingsToggle" class="report-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="report-settings-panel" aria-hidden="true">
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">화면</span><button id="themeToggle" type="button" onclick="cycleTheme()" aria-label="나이트 모드 전환">☀</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">출력</span><button class="report-settings-action" type="button" onclick="window.print()">Print / PDF</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">이동</span><nav class="report-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="report.html">Report</a><a href="./">Slides</a></nav></div>
+    </div>
+  </div>
+  <div id="tocBackdrop" class="report-toc-backdrop" hidden></div>
+  <nav id="tocDrawer" class="report-toc-drawer" aria-label="문서 목차" aria-hidden="true">
+    <div class="report-toc-drawer__head"><span>목차</span><button id="tocClose" type="button" aria-label="목차 닫기">×</button></div>
+    <ol id="tocDrawerList" class="report-toc-drawer__list"></ol>
+  </nav>
+
+  <article class="report continuous-mode">
+    <section class="report-cover">
+      <div class="report-cover__wordmark"><span class="report-cover__wordmark-name">AIML Quant</span><span class="report-cover__wordmark-sub">지식 그래프와 LLM 실전</span></div>
+      <span class="report-cover__kicker">Study Report · Chapter 4</span>
+      <h1 class="report-cover__title">단순한 네트워크에서 다중 소스 통합으로</h1>
+      <p class="report-cover__subtitle">구조화된 생명의학 데이터를 통합하고, 그래프 분석과 LLM 해석으로 의사결정 후보를 만드는 법</p>
+      <dl class="report-cover__meta">
+        <div><dt>발표자</dt><dd>종훈(S)</dd></div>
+        <div><dt>범위</dt><dd>Chapter 4</dd></div>
+        <div><dt>발행</dt><dd>2026-08-08</dd></div>
+      </dl>
+    </section>
+
+    <section class="report-section s0 page-break" id="summary">
+      <div class="report-section__kicker">Section 00 · Executive Summary</div>
+      <h1>0. 핵심 요약</h1>
+      <div class="callout--hero"><span class="callout__kicker">One Sentence</span><span class="callout__body">다중 소스 지식 그래프의 가치는 데이터를 한곳에 모으는 데서 끝나지 않고, <strong>식별자·스키마·분석 지표·사람의 해석 게이트</strong>를 함께 묶어 검증 가능한 의사결정 후보를 만드는 데 있다.</span></div>
+      <p>Chapter 4는 3장의 단일 온톨로지 예제를 넘어, 이미 구조가 있는 생명의학 데이터셋을 그래프로 통합하고 분석하는 방법을 다룬다. 핵심 무대는 세 가지다. PPI와 질병 연관 네트워크는 통합과 기본 그래프 분석을 보여 주고, Hetionet은 이질적 스키마 위에서 메타경로와 DWPC를 계산하는 법을 보여 주며, CKG는 임상 맥락에서 KG 결과를 LLM 해석으로 연결하는 방식을 보여 준다.</p>
+      <p>이 장에서 LLM은 데이터 구축의 주인공이 아니다. CSV, 백업 DB, 온톨로지처럼 이미 구조화된 출처가 있을 때는 전통적인 적재·정렬·제약·질의가 더 중요한 기반이다. LLM은 그 기반에서 나온 수치와 경로를 사람이 읽을 수 있는 설명과 후속 질문으로 바꾸는 보조 역할에 머문다.</p>
+      <div class="section-summary"><div class="section-summary__kicker">핵심 질문</div><div class="section-summary__body"><ul><li><strong>문제</strong> — 생명의학 지식은 질병, 유전자, 단백질, 약물, 환자 기록에 흩어져 있으며 식별자와 스키마가 맞지 않으면 함께 질의할 수 없다.</li><li><strong>메커니즘</strong> — 제약조건과 `MERGE`로 안정적으로 적재하고, WCC/Louvain/부분 그래프 지표/DWPC로 구조와 후보 경로를 점검한다.</li><li><strong>판단</strong> — 높은 점수와 LLM 설명은 가설 생성의 출발점이지 임상 결론이 아니며, 도메인 검증·프라이버시·환자 안전 게이트가 필요하다.</li></ul></div></div>
+      <table class="cmp-table" id="table-overview">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 1</span><span class="asset-caption__title">장의 전체 논리</span></div></caption>
+        <thead><tr><th>흐름</th><th>핵심 질문</th><th>사용한 KG</th><th>발표에서 가져갈 판단</th></tr></thead>
+        <tbody>
+          <tr><td>통합</td><td>여러 생명의학 출처를 같은 그래프 언어로 묶을 수 있는가?</td><td>PPI, DisGeNET, Disease Ontology, NIH gene_info</td><td>노드 키, 식별자 조정, 분류 보강이 분석보다 먼저 온다.</td></tr>
+          <tr><td>구조 분석</td><td>그래프가 한 덩어리인지, 의미 있는 군집이 있는지 어떻게 볼까?</td><td>PPI projection</td><td>WCC와 Louvain은 전체 구조를 보지만 질병 경로의 의미를 직접 대체하지 않는다.</td></tr>
+          <tr><td>도메인 분석</td><td>특정 질병의 단백질 집합은 어떤 내부·외부 연결을 갖는가?</td><td>질병 경로 부분 그래프</td><td>largest CC, density, conductance는 경로 품질과 분산 정도를 수치화한다.</td></tr>
+          <tr><td>경로 순위화</td><td>이질적 KG에서 흔한 허브를 누르고 특이한 경로를 찾을 수 있는가?</td><td>Hetionet</td><td>DWPC는 단순 경로 수보다 인기 노드 편향을 줄인다.</td></tr>
+          <tr><td>해석</td><td>수치와 경로를 사람이 실행할 수 있는 질문으로 바꿀 수 있는가?</td><td>Hetionet, CKG + LLM</td><td>LLM은 해석 보조자이며 최종 판단과 안전성 검토는 사람의 책임이다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s1 page-break" id="source-4-1" data-source-kind="section" data-source-ref="4.1">
+      <div class="report-section__kicker">교재 §4.1 · Biomedical KG Uses</div>
+      <h1>4.1 생명의학 지식 그래프와 그 활용 — 어떤 문제를 풀 수 있나</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>생명의학 KG는 약물 재활용, 진단, 단백질 기능 규명, 안전한 약물 추천처럼 서로 다른 목표를 같은 그래프 표현으로 다룬다.</li><li>응용마다 CRISP-DM 단계와 데이터 소스가 다르므로, 목표가 바뀌면 필요한 노드·관계·품질 기준도 바뀐다.</li><li>그래프의 장점은 숨은 연결을 찾는 데 있지만, 그 연결이 실제 의학적 결론이 되려면 추가 근거와 전문가 검토가 필요하다.</li></ul></div></div>
+      <p>출발점은 “그래프를 만들면 무엇을 할 수 있는가”이다. 질병과 단백질 사이의 알려진 관계에서 새 후보를 찾거나, 기존 약물의 다른 용도를 탐색하거나, 환자에게 더 안전한 약물 선택을 돕는 식의 과제는 모두 여러 종류의 사실을 관계로 연결해야 한다.</p>
+      <p>이 장의 중요한 관찰은 생명의학 응용이 서로 다른 비즈니스 목표를 갖지만, 상당수 데이터 소스를 공유한다는 점이다. 같은 질병·유전자·단백질 노드라도 한 응용에서는 발견 후보가 되고, 다른 응용에서는 안전성 검토의 근거가 된다.</p>
+      
+      <figure class="report-figure" id="source-figure-4-1" data-deck-use="required" data-source-kind="figure" data-source-ref="4.1">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">그림 4.1 · 비즈니스 목표별로 묶은 지식 그래프의 주요 생명의학 응용 유형.</span></figcaption>
+        <img src="assets/figs/fig-4-1-biomedical-app-map.svg" alt="생명의학 지식 그래프 응용을 약물 재활용, 진단, 단백질 기능, 안전한 추천으로 묶은 지도">
+        <small class="asset-note">비즈니스 목표가 달라도 질병, 유전자, 단백질, 약물 같은 공통 엔티티를 공유한다는 점을 재구성했다. 출처: 원자료 그림 4.1.</small>
+      </figure>
+    
+      <div class="callout--insight"><span class="callout__kicker">읽기 포인트</span><div class="callout__body"><p>KG의 성공 여부는 “큰 그래프를 만들었는가”보다 “목표 질문에 필요한 관계와 품질 정보가 들어 있는가”로 판단해야 한다.</p></div></div>
+    </section>
+
+    <section class="report-section s2 page-break" id="source-4-2" data-source-kind="section" data-source-ref="4.2">
+      <div class="report-section__kicker">교재 §4.2 · Multi-omics</div>
+      <h1>4.2 지식 그래프의 다중 오믹스 응용 — 유전체에서 단백질까지</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>다중 오믹스는 genome, transcriptome, proteome 같은 서로 다른 생물학적 층위를 함께 분석한다.</li><li>층위가 다르면 파일 형식과 식별자도 달라지므로, 통합은 단순한 append가 아니라 식별자 reconciliation과 스키마 alignment 문제다.</li><li>LLM이 아니라 구조화된 통합 절차가 주역이며, LLM은 뒤쪽 해석 단계에서 더 유용하다.</li></ul></div></div>
+      <p>유전체는 유전 정보 전체, 전사체는 발현된 RNA 집합, 단백질체는 세포가 실제 기능 단위로 사용하는 단백질 집합이다. 이 셋은 생물학적으로 DNA → RNA → protein 흐름으로 연결되지만, 데이터셋에서는 서로 다른 식별자와 측정 단위로 분리되어 나타난다.</p>
+      <p>Yang 등 사례의 핵심은 여러 데이터베이스의 질병 이름을 하나의 통합 코드로 맞추는 것이다. UMLS 같은 공통 식별자는 그래프에서 같은 질병을 같은 노드로 보게 하는 접착제 역할을 한다.</p>
+      
+      <figure class="report-figure" id="source-figure-4-2" data-deck-use="required" data-source-kind="figure" data-source-ref="4.2">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">그림 4.2 · 생명의학 지식 그래프에서 쓰이는 세 가지 주요 &#x27;오믹스&#x27; 데이터 유형.</span></figcaption>
+        <img src="assets/figs/fig-4-2-omics-flow.svg" alt="DNA 유전체에서 RNA 전사체와 단백질체로 이어지는 오믹스 흐름">
+        <small class="asset-note">유전체·전사체·단백질체가 분리된 파일이 아니라 생물학적 생성 흐름으로 연결된다는 점을 보여 준다. 출처: 원자료 그림 4.2.</small>
+      </figure>
+    
+      
+      <figure class="report-figure" id="source-figure-4-3" data-deck-use="required" data-source-kind="figure" data-source-ref="4.3">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">그림 4.3 · Yang 등 [9]의 그림에서 발췌한 것으로, 연구진이 여러 데이터 소스를 결합해 하나의 통합적(holistic) 지식 그래프를 만든 방식을 보여 줍니다.</span></figcaption>
+        <img src="assets/figs/fig-4-3-identifier-reconciliation.svg" alt="여러 생명의학 데이터 소스의 질병 식별자가 UMLS 코드로 조정되어 하나의 그래프로 통합되는 흐름">
+        <small class="asset-note">핵심은 새 모델이 아니라 식별자 조정과 스키마 정렬이다. 원자료 그림 4.3의 다중 소스 통합 관계를 공개용 도식으로 다시 그렸다.</small>
+      </figure>
+    
+    </section>
+
+    <section class="report-section s3 page-break" id="source-4-2-1" data-source-kind="section" data-source-ref="4.2.1">
+      <div class="report-section__kicker">교재 §4.2.1 · PPI + Disease</div>
+      <h1>4.2.1 PPI와 단백질–질병 네트워크로 지식 그래프 만들기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>질병 경로는 특정 질병과 연관된 단백질 집합이 PPI 네트워크 안에서 이루는 부분 그래프다.</li><li>구축 파이프라인은 노드 키 제약조건, PPI 엣지 적재, 질병-단백질 연관 적재, 질병 분류와 유전자 이름 보강으로 이어진다.</li><li>여기서 얻는 결과는 후보 발견을 위한 그래프이며, 새 단백질을 임상적 사실로 확정하지 않는다.</li></ul></div></div>
+      <p>PPI 네트워크는 단백질끼리의 상호작용만 담는 단일 분할 그래프이고, 질병-단백질 연관은 질병과 단백질이라는 두 노드 유형 사이를 잇는 이분 그래프다. 이 둘을 함께 두면 “이 질병과 관련된 단백질들이 서로 어떻게 연결되는가”라는 질문을 할 수 있다.</p>
+      
+      <figure class="report-figure" id="source-figure-4-4" data-deck-use="required" data-source-kind="figure" data-source-ref="4.4">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">그림 4.4 · 질병 경로는 그 질병과 연관된 단백질 집합으로 정의되는, PPI 네트워크의 부분 그래프(subgraph)입니다.</span></figcaption>
+        <img src="assets/figs/fig-4-4-pathway-subgraph.svg" alt="질병 노드와 연관 단백질 집합이 PPI 네트워크 안에서 부분 그래프를 이루는 모습">
+        <small class="asset-note">질병 경로를 질병-단백질 엣지와 PPI 부분 그래프의 결합으로 설명한다. 출처: 원자료 그림 4.4.</small>
+      </figure>
+    
+      
+      <figure class="report-figure" id="source-figure-4-5" data-deck-use="required" data-source-kind="figure" data-source-ref="4.5">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">그림 4.5 · Agrawal [12]이 구축한 지식 그래프의 작은 일부.</span></figcaption>
+        <img src="assets/figs/fig-4-5-celiac-neighborhood.svg" alt="셀리악병에서 출발해 관련 유전자와 주변 단백질 연결을 확장해 보는 작은 그래프">
+        <small class="asset-note">원자료 그림 4.5의 예시는 한 질병이 단백질 집합을 통해 주변 PPI 네트워크로 확장되는 탐색 장면이다.</small>
+      </figure>
+    
+      
+      <figure class="report-figure" id="source-figure-4-6" data-deck-use="required" data-source-kind="figure" data-source-ref="4.6">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">그림 4.6 · 질병과 관련된 단백질을 찾아내는 발견 과정</span></figcaption>
+        <img src="assets/figs/fig-4-6-discovery-process.svg" alt="알려진 질병 경로에서 후보 단백질과 새 경로를 예측해 보고하는 발견 과정">
+        <small class="asset-note">발견 과정은 예측 후보를 곧바로 사실로 확정하지 않고, 후보 단백질·관련 경로·검증 필요 상태로 나누어 읽어야 한다. 출처: 원자료 그림 4.6.</small>
+      </figure>
+    
+      
+      <article class="source-listing" id="source-listing-4-1" data-source-kind="listing" data-source-ref="4.1">
+        <h4>Listing 4.1 제약조건 만들기</h4>
+        <p>단백질과 질병 노드의 식별자를 노드 키로 묶어 중복 적재를 막는다. 통합 KG의 첫 검증 게이트다.</p>
+        <pre data-code-language="Cypher"><code>CREATE CONSTRAINT protein_key IF NOT EXISTS
+FOR (n:Protein) REQUIRE (n.id) IS NODE KEY;
+CREATE CONSTRAINT disease_key IF NOT EXISTS
+FOR (n:Disease) REQUIRE (n.id) IS NODE KEY;</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-2" data-source-kind="listing" data-source-ref="4.2">
+        <h4>Listing 4.2 PPI 네트워크 가져오기</h4>
+        <p>CSV의 두 단백질 ID를 노드로 만들고 `INTERACTS_WITH` 관계를 추가한다. 원자료 수치는 단백질 21,559개와 상호작용 342,354개다.</p>
+        <pre data-code-language="Cypher"><code>:auto LOAD CSV FROM &#x27;file:///PPI/bio-pathways-network.csv&#x27; AS line
+CALL {
+  WITH line
+  MERGE (f:Protein {id: trim(line[0])})
+  MERGE (s:Protein {id: trim(line[1])})
+  MERGE (f)-[:INTERACTS_WITH]-&gt;(s)
+} IN TRANSACTIONS OF 100 ROWS</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-3" data-source-kind="listing" data-source-ref="4.3">
+        <h4>Listing 4.3 질병 경로 데이터 가져오기</h4>
+        <p>DisGeNET 기반 질병-단백질 연관성을 넣는다. 쉼표로 묶인 유전자 ID를 `UNWIND`로 펼치는 부분이 핵심이다.</p>
+        <pre data-code-language="Cypher"><code>:auto LOAD CSV WITH HEADERS FROM &#x27;file:///PPI/bio-pathways-associations.csv&#x27; AS line
+CALL {
+  WITH line
+  MERGE (d:Disease {id: trim(line[&#x27;Disease ID&#x27;])})
+  UNWIND split(trim(line[&#x27;Associated Gene IDs&#x27;]), &#x27;,&#x27;) AS protein
+  MERGE (p:Protein {id: trim(protein)})
+  MERGE (d)-[:ASSOCIATED_WITH]-&gt;(p)
+} IN TRANSACTIONS OF 100 ROWS</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-4" data-source-kind="listing" data-source-ref="4.4">
+        <h4>Listing 4.4 질병 분류 가져오기</h4>
+        <p>이미 생성한 질병 노드에 Disease Ontology 기반 분류를 보강한다. 모든 질병이 분류를 갖지 않으므로 누락 목록도 확인해야 한다.</p>
+        <pre data-code-language="Cypher"><code>:auto LOAD CSV WITH HEADERS FROM &#x27;file:///PPI/bio-pathways-diseaseclasses.csv&#x27; AS line
+CALL {
+  WITH line
+  MATCH (d:Disease {id: line[&#x27;Disease ID&#x27;]})
+  SET d.class = line[&#x27;Disease Class&#x27;]
+} IN TRANSACTIONS OF 100 ROWS</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-5" data-source-kind="listing" data-source-ref="4.5">
+        <h4>Listing 4.5 유전자 정보 가져오기</h4>
+        <p>NIH gene_info를 붙여 숫자 ID 중심 그래프를 사람이 읽을 수 있는 심볼과 설명으로 바꾼다.</p>
+        <pre data-code-language="Cypher"><code>:auto LOAD CSV WITH HEADERS FROM &#x27;file:///PPI/gene_info&#x27; AS line
+FIELDTERMINATOR &#x27;\t&#x27;
+CALL {
+  WITH line
+  MATCH (p:Protein {id: trim(line[&#x27;GeneID&#x27;])})
+  SET p.name = trim(line[&#x27;Symbol&#x27;]),
+      p.description = trim(line[&#x27;description&#x27;])
+} IN TRANSACTIONS OF 100 ROWS</code></pre>
+      </article>
+    
+    </section>
+
+    <section class="report-section s4 page-break" id="source-4-2-2" data-source-kind="section" data-source-ref="4.2.2">
+      <div class="report-section__kicker">교재 §4.2.2 · High-level Analysis</div>
+      <h1>4.2.2 만들어진 지식 그래프의 고수준 분석 — 전체 구조 살펴보기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>PPI 데이터베이스는 백업에서 바로 가져올 수 있고, GDS 분석 전에는 `PPIProtein` 레이블과 메모리 projection을 만든다.</li><li>WCC는 거의 모든 단백질이 거대한 연결 컴포넌트에 속한다는 사실을 보여 준다.</li><li>Louvain은 연결 여부보다 커뮤니티 구조를 보며, 평균 약 450개 단백질 규모의 커뮤니티와 모듈성 값을 제공한다.</li></ul></div></div>
+      <p>고수준 분석은 구축한 그래프가 분석 가능한 형태인지 확인하는 첫 품질 검사다. WCC는 끊긴 부분 그래프의 분포를 보고, Louvain은 내부 연결이 비교적 강한 커뮤니티를 찾는다. 둘 다 유용하지만, 모든 노드와 관계를 같은 의미로 취급하므로 도메인 질문을 직접 답하지는 않는다.</p>
+      
+      <article class="source-listing" id="source-listing-4-6" data-source-kind="listing" data-source-ref="4.6">
+        <h4>Listing 4.6 Neo4j 백업으로 PPI 데이터베이스 만들기</h4>
+        <p>직접 적재하지 않은 학습자는 백업으로 같은 분석 출발점을 만들 수 있다. `seedUri`는 Neo4j 5.x의 원격 시드 기능에 의존한다.</p>
+        <pre data-code-language="Cypher"><code>CREATE DATABASE ppi OPTIONS {
+  existingData: &#x27;use&#x27;,
+  seedUri: &#x27;https://mng.bz/5v7O&#x27;
+}</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-7" data-source-kind="listing" data-source-ref="4.7">
+        <h4>Listing 4.7 PPI 네트워크의 단백질 표시하기</h4>
+        <p>상호작용을 가진 단백질만 분석 대상 레이블로 표시한다. 전체 Protein과 분석용 PPIProtein을 구분하는 장치다.</p>
+        <pre data-code-language="Cypher"><code>MATCH (p:Protein)-[:INTERACTS_WITH]-()
+SET p:PPIProtein</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-8" data-source-kind="listing" data-source-ref="4.8">
+        <h4>Listing 4.8 메모리에 그래프 프로젝션 만들기</h4>
+        <p>GDS 알고리즘은 데이터베이스 그래프를 바로 쓰지 않고 메모리 프로젝션을 대상으로 실행된다.</p>
+        <pre data-code-language="Cypher"><code>CALL gds.graph.project(
+  &#x27;ppi-graph&#x27;,
+  &#x27;PPIProtein&#x27;,
+  { INTERACTS_WITH: { orientation: &#x27;UNDIRECTED&#x27; } }
+)</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-9" data-source-kind="listing" data-source-ref="4.9">
+        <h4>Listing 4.9 PPI 네트워크에서 WCC 실행하기</h4>
+        <p>WCC는 연결 여부만으로 끊긴 부분 그래프를 찾고, 결과 componentId를 노드 속성으로 쓴다.</p>
+        <pre data-code-language="Cypher"><code>CALL gds.wcc.write(&#x27;ppi-graph&#x27;, { writeProperty: &#x27;componentId&#x27; })
+YIELD nodePropertiesWritten, componentCount, componentDistribution</code></pre>
+      </article>
+    
+      
+      <table class="cmp-table" id="source-table-4-1" data-source-kind="table" data-source-ref="4.1">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">표 4.1 · Listing 4.9 질의의 요약 결과</span></div></caption>
+        <thead><tr><th>nodePropertiesWritten</th><th>componentCount</th><th>핵심 분포</th></tr></thead>
+        <tbody><tr><td>21559</td><td>27</td><td><code>max=21521</code>, <code>p50=1</code>, <code>p90=3</code></td></tr></tbody>
+      </table>
+    
+      <p>WCC 결과는 PPI 네트워크가 하나의 거대한 덩어리와 몇 개의 작은 섬으로 구성되어 있음을 보여 준다. 이는 네트워크 연결성의 품질 확인에는 좋지만, 질병별 기능 경로가 내부적으로 밀집되어 있다는 의미는 아니다.</p>
+      
+      <article class="source-listing" id="source-listing-4-10" data-source-kind="listing" data-source-ref="4.10">
+        <h4>Listing 4.10 PPI 네트워크에서 Louvain 실행하기</h4>
+        <p>Louvain은 내부 연결이 무작위 기대보다 얼마나 강한지 보는 모듈성 기반 커뮤니티 탐지다.</p>
+        <pre data-code-language="Cypher"><code>CALL gds.louvain.write(
+  &#x27;ppi-graph&#x27;,
+  { writeProperty: &#x27;componentLouvainId&#x27; }
+)
+YIELD communityCount, modularity, modularities, communityDistribution</code></pre>
+      </article>
+    
+      
+      <table class="cmp-table" id="source-table-4-2" data-source-kind="table" data-source-ref="4.2">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">표 4.2 · Listing 4.10 질의의 요약 결과</span></div></caption>
+        <thead><tr><th>communityCount</th><th>modularity</th><th>핵심 분포</th></tr></thead>
+        <tbody><tr><td>48</td><td>0.5464241018027929</td><td><code>max=3533</code>, <code>mean≈449.15</code>, <code>p75=311</code></td></tr></tbody>
+      </table>
+    
+      
+      <article class="source-listing" id="source-listing-4-11" data-source-kind="listing" data-source-ref="4.11">
+        <h4>Listing 4.11 상위 10개 커뮤니티 살펴보기</h4>
+        <p>커뮤니티 크기만 보지 않고 연결 많은 대표 단백질을 같이 뽑아 도메인 의미를 확인한다.</p>
+        <pre data-code-language="Cypher"><code>MATCH (p:PPIProtein)
+WITH p.componentLouvainId AS communityId, count(p) AS members
+ORDER BY members DESC LIMIT 10
+MATCH (p:PPIProtein)-[:INTERACTS_WITH]-(o)
+WHERE p.componentLouvainId = communityId
+RETURN communityId, members, collect(p.name)[..20] AS keyMembers</code></pre>
+      </article>
+    
+      <div class="callout--insight"><span class="callout__kicker">한계</span><div class="callout__body"><p>WCC와 Louvain은 범용 구조 분석이다. 질병이라는 의미를 아는 분석은 다음 절의 부분 그래프 지표에서 시작된다.</p></div></div>
+    </section>
+
+    <section class="report-section s5 page-break" id="source-4-2-3" data-source-kind="section" data-source-ref="4.2.3">
+      <div class="report-section__kicker">교재 §4.2.3 · Domain-specific Pathway Metrics</div>
+      <h1>4.2.3 PPI와 질병 지식 그래프의 도메인 특화 분석 — 질병 경로를 자로 재다</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>질병 경로 H_d는 질병 관련 단백질 V_d와 그들 사이의 PPI 엣지 E_d로 정의한다.</li><li>largest pathway component, density, conductance는 각각 내부 연결 덩어리, 촘촘함, 외부와의 분리를 측정한다.</li><li>질병 경로는 Louvain 커뮤니티와 달리 내부가 흩어지고 외부와 많이 연결되는 경향을 보인다.</li></ul></div></div>
+      <p>도메인 특화 분석은 “그래프 전체가 연결됐는가”에서 “특정 질병의 단백질 집합은 어떤 구조를 갖는가”로 질문을 바꾼다. 같은 PPI 네트워크라도 질병별 부분 그래프를 잘라 보면 내부 엣지와 외부 경계 엣지의 의미가 달라진다.</p>
+      <div class="callout--hero"><span class="callout__kicker">Metric Contract</span><span class="callout__body">H_d는 질병 안쪽, B_d는 질병 바깥과의 경계다. 두 집합을 구분해야 밀도와 전도도를 바르게 읽을 수 있다.</span></div>
+      
+      <article class="source-listing" id="source-listing-4-12" data-source-kind="listing" data-source-ref="4.12">
+        <h4>Listing 4.12 지식 그래프에서 질병 경로 추출하기</h4>
+        <p>질병과 연관된 단백질 집합 안에서만 PPI 엣지를 남겨 질병 경로 부분 그래프를 만든다.</p>
+        <pre data-code-language="Cypher"><code>MATCH (d:Disease {id: $id})-[:ASSOCIATED_WITH]-&gt;(p)
+WITH collect(p) AS proteins
+UNWIND proteins AS m0
+UNWIND proteins AS m1
+OPTIONAL MATCH (m0)-[r:INTERACTS_WITH]-&gt;(m1)
+RETURN DISTINCT m0, r, m1</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-13" data-source-kind="listing" data-source-ref="4.13">
+        <h4>Listing 4.13 가장 큰 경로 컴포넌트의 크기 구하기</h4>
+        <p>질병 단백질 중 가장 큰 연결 컴포넌트에 속한 비율을 계산해 경로가 한 덩어리인지 확인한다.</p>
+        <pre data-code-language="Python"><code>networkx_graph = analysis.load_hd(&#x27;celiac disease&#x27;)
+nodes_count = len(networkx_graph.nodes)
+largest_cc = max(nx.connected_components(networkx_graph), key=len)
+relative_size_of_largest_cc = len(largest_cc) / nodes_count</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-14" data-source-kind="listing" data-source-ref="4.14">
+        <h4>Listing 4.14 밀도 계산하기</h4>
+        <p>가능한 단백질-단백질 엣지 대비 실제 엣지 비율이다. 값은 0과 1 사이에 놓인다.</p>
+        <pre data-code-language="Python"><code>def compute_density(networkx_graph):
+    nodes_count = len(networkx_graph.nodes)
+    edges_count = len(networkx_graph.edges)
+    return 2.0 * edges_count / (nodes_count * (nodes_count - 1))</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-15" data-source-kind="listing" data-source-ref="4.15">
+        <h4>Listing 4.15 전도도 계산하기</h4>
+        <p>경로 안팎을 잇는 엣지 수를 내부 엣지와 함께 정규화한다. 낮을수록 독립적인 커뮤니티에 가깝다.</p>
+        <pre data-code-language="Python"><code>bd = analysis.compute_bd(&#x27;celiac disease&#x27;)
+edges_count = len(networkx_graph.edges)
+conductance = bd / (bd + 2 * edges_count)</code></pre>
+      </article>
+    
+      
+      <figure class="report-figure" id="source-figure-4-7" data-deck-use="required" data-source-kind="figure" data-source-ref="4.7">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 7</span><span class="asset-caption__title">그림 4.7 · 질병 경로에 대한 세 가지 핵심 측정값의 분포</span></figcaption>
+        <img src="assets/figs/fig-4-7-pathway-metrics.svg" alt="질병 경로의 최대 컴포넌트 비율, 밀도, 전도도 분포를 요약한 세 패널">
+        <small class="asset-note">질병 경로는 내부 연결이 낮고 바깥 연결이 높아 일반 커뮤니티와 다르게 보인다. 원자료 그림 4.7의 세 분포를 핵심 판독값 중심으로 재구성했다.</small>
+      </figure>
+    
+      <p>원자료의 질병 경로 분포는 중앙값 기준 가장 큰 컴포넌트가 전체 질병 단백질의 약 21%에 불과하고, 밀도 중앙값은 0.07, 전도도 중앙값은 0.96이라고 설명한다. 이는 질병 관련 단백질들이 한 덩어리로 뭉치기보다 PPI 네트워크 곳곳에 퍼져 있음을 시사한다.</p>
+      
+      <figure class="report-figure" id="source-figure-4-8" data-deck-use="required" data-source-kind="figure" data-source-ref="4.8">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 8</span><span class="asset-caption__title">그림 4.8 · Louvain 알고리즘으로 얻은 클러스터에 대한 세 가지 핵심 측정값의 분포</span></figcaption>
+        <img src="assets/figs/fig-4-8-louvain-metrics.svg" alt="Louvain 클러스터가 질병 경로보다 더 큰 내부 연결과 낮은 전도도를 보이는 대비">
+        <small class="asset-note">같은 지표라도 대상이 질병 경로인지 그래프 군집인지에 따라 의미가 달라진다. 출처: 원자료 그림 4.8.</small>
+      </figure>
+    
+      <p>Louvain 클러스터에 같은 지표를 적용하면 다른 그림이 나온다. Louvain 클러스터는 대체로 내부가 더 잘 연결되고 외부와는 상대적으로 덜 연결된다. 이 대비 때문에 질병 경로를 일반 커뮤니티 탐지 결과와 같은 것으로 해석하면 안 된다.</p>
+    </section>
+
+    <section class="report-section s6 page-break" id="source-4-3" data-source-kind="section" data-source-ref="4.3">
+      <div class="report-section__kicker">교재 §4.3 · Drug Repurposing</div>
+      <h1>4.3 지식 그래프의 제약 응용 — 약물 재활용의 지름길</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>약물 재활용은 이미 승인된 약물의 지식과 안전성 정보를 활용해 시간·비용·실패 위험을 낮추려는 접근이다.</li><li>Hetionet은 29개 공개 자원을 통합해 11개 노드 유형과 24개 관계 유형을 가진 이질적 KG를 제공한다.</li><li>메타경로와 DWPC는 단순 연결 수가 아니라 경로의 유형과 허브 편향을 함께 고려한다.</li></ul></div></div>
+      <p>신약 개발은 긴 기간과 높은 실패율을 갖기 때문에, 이미 알려진 화합물·질병·유전자·부작용·경로 지식을 재조합하는 약물 재활용 분석이 중요해진다. Hetionet은 여러 공개 자원의 지식을 미리 통합한 예시로, 이 장에서는 새 적재보다 분석과 평가에 초점을 둔다.</p>
+      
+      <article class="source-listing" id="source-listing-4-16" data-source-kind="listing" data-source-ref="4.16">
+        <h4>Listing 4.16 Het.io 데이터베이스 만들기</h4>
+        <p>Hetionet은 29개 공개 자원을 통합한 Neo4j 그래프로, 이 장에서는 잘 설계된 이질적 KG 분석 대상으로 사용한다.</p>
+        <pre data-code-language="Cypher"><code>CREATE DATABASE hetionet OPTIONS {
+  existingData: &#x27;use&#x27;,
+  seedUri: &#x27;https://mng.bz/648e&#x27;
+}</code></pre>
+      </article>
+    
+      
+      <figure class="report-figure" id="source-figure-4-9" data-deck-use="required" data-source-kind="figure" data-source-ref="4.9">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 9</span><span class="asset-caption__title">그림 4.9 · Het.io 지식 그래프 스키마.</span></figcaption>
+        <img src="assets/figs/fig-4-9-hetionet-schema.svg" alt="Hetionet의 화합물, 질병, 유전자, 해부 구조, GO 과정, 부작용 노드 유형과 관계 유형을 요약한 스키마">
+        <small class="asset-note">원자료 그림 4.9의 전체 스키마를 발표용으로 단순화해, 이질적 노드 유형이 경로 질의의 재료가 된다는 점을 강조했다.</small>
+      </figure>
+    
+      <h2 id="source-4-3-metapaths">메타경로와 차수 가중 경로 수</h2>
+      <p>메타경로는 실제 노드 하나하나의 경로가 아니라, “Gene — 관계 — Disease” 같은 유형 수준의 경로 패턴이다. 같은 패턴에 해당하는 실제 경로 수를 세면 PC가 되고, 경로를 지나는 노드의 차수로 감쇠를 적용해 합치면 DWPC가 된다.</p>
+      
+      <figure class="report-figure" id="source-figure-4-10" data-deck-use="required" data-source-kind="figure" data-source-ref="4.10">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 10</span><span class="asset-caption__title">그림 4.10 · (a) 정의된 메타경로에 기반해 경로를 추출하는 모습, 그리고 (b) 경로-차수 곱(PDP)과 DWPC를 계산하는 모습</span></figcaption>
+        <img src="assets/figs/fig-4-10-metapath-dwpc.svg" alt="메타경로, 실제 경로, 경로 수, 차수 기반 감쇠와 DWPC 집계를 단계별로 보여 주는 도식">
+        <small class="asset-note">DWPC는 경로 수를 세되 차수가 높은 흔한 노드를 지나는 경로를 낮게 평가한다. 출처: 원자료 그림 4.10.</small>
+      </figure>
+    
+      <p>DWPC가 중요한 이유는 유명하고 연결이 많은 허브 노드를 자동으로 낮게 평가하기 때문이다. 생명의학 KG에서는 너무 많은 관계를 가진 일반 과정이나 유명 유전자가 결과를 지배하기 쉬우므로, 경로의 특이성을 보정하는 지표가 필요하다.</p>
+    </section>
+
+    <section class="report-section s7 page-break" id="source-4-3-1" data-source-kind="section" data-source-ref="4.3.1">
+      <div class="report-section__kicker">교재 §4.3.1 · Celiac Disease in Hetionet</div>
+      <h1>4.3.1 Hetionet 지식 그래프의 심층 분석 — 셀리악병을 파고들다</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>셀리악병 관련 유전자에서 GO biological process로 가는 메타경로를 질의하고 DWPC로 순위를 매긴다.</li><li>단순 PC는 넓고 흔한 과정을 과대평가할 수 있지만, DWPC는 더 특이적인 면역 관련 과정을 위로 올린다.</li><li>GWAS, 단백질 상호작용, 조직 특이적 상향 조절 조건을 추가하면 다른 질병 특이 패턴이 드러난다.</li></ul></div></div>
+      <p>첫 번째 질의는 질병-유전자-생물학적 과정 경로를 통해 셀리악병과 관련된 GO 과정을 찾는다. 결과에서 T cell costimulation과 lymphocyte costimulation은 높은 DWPC로 상단에 위치하고, 많은 유전자와 연결되는 넓은 과정은 단순 PC 대비 낮아진다.</p>
+      
+      <article class="source-listing" id="source-listing-4-17" data-source-kind="listing" data-source-ref="4.17">
+        <h4>Listing 4.17 셀리악병의 GO 과정 강화 분석</h4>
+        <p>실제 원자료 질의는 각 엣지 차수의 감쇠 곱을 더해 DWPC를 계산한다. 여기서는 구조를 보이기 위해 집계 뼈대만 줄였다.</p>
+        <pre data-code-language="Cypher"><code>MATCH path = (d:Disease)-[:ASSOCIATES_DaG]-(g)
+             -[:PARTICIPATES_GpBP]-(bp:BiologicalProcess)
+WHERE d.name = &#x27;celiac disease&#x27;
+WITH bp, count(path) AS PC, sum(0.0 + 1.0) AS DWPC
+WHERE PC &gt;= 2
+RETURN bp.identifier AS go_id, bp.name AS go_name, PC, DWPC
+ORDER BY DWPC DESC LIMIT 10</code></pre>
+      </article>
+    
+      
+      <table class="cmp-table" id="source-table-4-3" data-source-kind="table" data-source-ref="4.3">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">표 4.3 · Listing 4.17 질의의 결과</span></div></caption>
+        <thead><tr><th>GO ID</th><th>GO name</th><th>PC</th><th>DWPC</th><th># genes</th></tr></thead>
+        <tbody><tr><td>GO:0031295</td><td>T cell costimulation</td><td>10</td><td>0.03347</td><td>75</td></tr><tr><td>GO:0031294</td><td>lymphocyte costimulation</td><td>10</td><td>0.03329</td><td>76</td></tr><tr><td>GO:0002507</td><td>tolerance induction</td><td>3</td><td>0.03276</td><td>12</td></tr><tr><td>GO:0050870</td><td>positive regulation of T cell activation</td><td>14</td><td>0.02925</td><td>201</td></tr><tr><td>GO:0002684</td><td>positive regulation of the immune system process</td><td>21</td><td>0.02718</td><td>880</td></tr></tbody>
+      </table>
+    
+      
+      <article class="source-listing" id="source-listing-4-18" data-source-kind="listing" data-source-ref="4.18">
+        <h4>Listing 4.18 조직 특이적 인터랙토믹스</h4>
+        <p>GWAS 출처, 단백질 상호작용, 질병 조직에서의 상향 조절이라는 조건을 추가해 더 구체적인 경로만 남긴다.</p>
+        <pre data-code-language="Cypher"><code>MATCH path = (d:Disease)-[a:ASSOCIATES_DaG]-(g1)
+             -[:INTERACTS_GiG]-(g2)
+             -[:PARTICIPATES_GpBP]-(bp:BiologicalProcess)
+WHERE d.name = &#x27;celiac disease&#x27;
+  AND &#x27;GWAS Catalog&#x27; IN a.sources
+  AND exists((d)-[:LOCALIZES_DlA]-()-[:UPREGULATES_AuG]-(g2))
+RETURN bp.identifier, bp.name, count(path) AS PC
+ORDER BY PC DESC LIMIT 10</code></pre>
+      </article>
+    
+      
+      <table class="cmp-table" id="source-table-4-4" data-source-kind="table" data-source-ref="4.4">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">표 4.4 · Listing 4.18 질의의 결과</span></div></caption>
+        <thead><tr><th>GO ID</th><th>GO name</th><th>PC</th><th>DWPC</th><th># genes</th></tr></thead>
+        <tbody><tr><td>GO:0031295</td><td>T cell costimulation</td><td>10</td><td>0.00665</td><td>75</td></tr><tr><td>GO:0031294</td><td>lymphocyte costimulation</td><td>10</td><td>0.00662</td><td>76</td></tr><tr><td>GO:0010560</td><td>positive regulation of glycoprotein biosynthetic process</td><td>6</td><td>0.00342</td><td>17</td></tr><tr><td>GO:0033689</td><td>negative regulation of osteoblast proliferation</td><td>4</td><td>0.00341</td><td>9</td></tr><tr><td>GO:0070098</td><td>chemokine-mediated signaling pathway</td><td>9</td><td>0.00256</td><td>72</td></tr></tbody>
+      </table>
+    
+      <p>두 번째 질의는 GWAS 출처와 조직 특이성을 추가한다. 상위 두 면역 경로는 유지되지만, 당단백질 생합성과 관련된 과정이 올라오면서 더 구체적인 해석 질문을 만든다.</p>
+      
+      <article class="source-listing" id="source-listing-4-19" data-source-kind="listing" data-source-ref="4.19">
+        <h4>Listing 4.19 DWPC의 실제 경로 찾기</h4>
+        <p>집계 점수 뒤에 놓인 실제 경로를 반환해 해석과 검증의 재료를 제공한다.</p>
+        <pre data-code-language="Cypher"><code>MATCH path = (d:Disease)-[a:ASSOCIATES_DaG]-(g1)
+             -[:INTERACTS_GiG]-(g2)
+             -[:PARTICIPATES_GpBP]-(bp:BiologicalProcess)
+WHERE d.name = &#x27;celiac disease&#x27;
+  AND bp.name = &#x27;positive regulation of glycoprotein biosynthetic process&#x27;
+  AND &#x27;GWAS Catalog&#x27; IN a.sources
+RETURN path</code></pre>
+      </article>
+    
+      
+      <figure class="report-figure" id="source-figure-4-11" data-deck-use="required" data-source-kind="figure" data-source-ref="4.11">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 11</span><span class="asset-caption__title">그림 4.11 · Listing 4.19 질의의 결과로, 셀리악병과 &quot;당단백질 생합성 과정의 양성 조절&quot; 사이의 경로들을 보여 줍니다.</span></figcaption>
+        <img src="assets/figs/fig-4-11-celiac-go-paths.svg" alt="셀리악병에서 GWAS 유전자, 상호작용 유전자, GO 과정으로 이어지는 실제 경로들을 표시한 그래프">
+        <small class="asset-note">집계 점수 뒤의 실제 경로를 열어 보아야 생물학적 해석과 검증 질문을 만들 수 있다. 출처: 원자료 그림 4.11.</small>
+      </figure>
+    
+    </section>
+
+    <section class="report-section s8 page-break" id="source-4-3-2" data-source-kind="section" data-source-ref="4.3.2">
+      <div class="report-section__kicker">교재 §4.3.2 · LLM Interpretation</div>
+      <h1>4.3.2 LLM으로 경로 분석 결과 해석하기 — 숫자를 이야기로</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>LLM은 DWPC 결과를 생물학적 맥락, 잠재 치료 함의, 후속 연구 질문으로 설명하도록 도울 수 있다.</li><li>프롬프트에는 결과 수치와 분석 조건을 함께 넣어야 하며, LLM이 임의로 근거를 보충하지 않도록 역할을 제한해야 한다.</li><li>LLM 설명은 실행 가능한 가설 후보이지 임상 권고의 최종 승인물이 아니다.</li></ul></div></div>
+      <p>DWPC 상위 결과는 연구자에게 “무엇을 더 조사할지”를 알려 주지만, 표만으로는 왜 의미 있는지 알기 어렵다. LLM은 T 세포 공동자극, 관용 유도, 당단백질 생합성 과정 같은 결과를 셀리악병의 면역학적 맥락으로 풀어 주는 보조 도구로 쓰인다.</p>
+      
+      <article class="source-listing" id="source-listing-4-20" data-source-kind="listing" data-source-ref="4.20">
+        <h4>Listing 4.20 LLM 분석 프롬프트 예시</h4>
+        <p>LLM은 계산 결과를 해석 가능한 연구 질문으로 바꾸는 보조자다. 결과 자체를 임상 사실로 확정하는 역할은 아니다.</p>
+        <pre data-code-language="Text"><code>Role: biomedical research assistant
+Input: GO pathway enrichment results for celiac disease
+Ask: interpret biological significance, therapeutic implications,
+     unexpected findings, and follow-up research questions</code></pre>
+      </article>
+    
+      <div class="callout--insight"><span class="callout__kicker">운영 경계</span><div class="callout__body"><p>LLM 출력은 “해석 후보”로 저장하고, 질의 결과·근거 경로·도메인 전문가 검토 상태와 분리해 관리해야 한다.</p></div></div>
+    </section>
+
+    <section class="report-section s9 page-break" id="source-4-4" data-source-kind="section" data-source-ref="4.4">
+      <div class="report-section__kicker">교재 §4.4 · Clinical KG</div>
+      <h1>4.4 지식 그래프의 임상 응용 — 정밀 의료를 향하여</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>정밀 의료는 오믹스 데이터와 EHR 같은 환자 데이터를 함께 보아야 하지만, 프라이버시와 정보 결손이 큰 제약이다.</li><li>환자 여정 지도는 임상 사건을 시간과 맥락으로 읽게 하며, CKG는 33개 노드 레이블과 51개 관계 유형을 통합한다.</li><li>임상 질의 결과는 환자 층화, 안전성 모니터링, 추가 검사 기준 같은 의사결정 질문으로 이어진다.</li></ul></div></div>
+      <p>임상 응용에서는 단순히 더 많은 데이터를 넣는 것보다, 어떤 데이터가 환자 개인의 진료 맥락에 연결되는지와 어떤 데이터는 프라이버시 때문에 직접 저장하면 안 되는지를 구분하는 일이 중요하다. 어떤 접근은 환자 원자료를 저장하지 않고 통계적 관계만 KG에 담아 위험을 줄인다.</p>
+      
+      <figure class="report-figure" id="source-figure-4-12" data-deck-use="required" data-source-kind="figure" data-source-ref="4.12">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 12</span><span class="asset-caption__title">그림 4.12 · 한 환자의 임상 종양학 여정(David Hughes 제공; https://www.graphable.ai/blog/patient-journey-mapping)</span></figcaption>
+        <img src="assets/figs/fig-4-12-patient-journey.svg" alt="환자 여정의 증상, 진단, 치료, 모니터링, 결과 이벤트가 시간축과 지식 그래프 상태로 연결되는 모습">
+        <small class="asset-note">원자료 그림 4.12의 환자 여정 개념을 공개용 시간축으로 재구성했다. 출처 URL은 원자료 캡션에 명시된 David Hughes 제공 자료다.</small>
+      </figure>
+    
+      
+      <figure class="report-figure" id="source-figure-4-13" data-deck-use="required" data-source-kind="figure" data-source-ref="4.13">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 13</span><span class="asset-caption__title">그림 4.13 · 임상 지식 그래프의 스키마(https://www.nature.com/articles/s41587-021-01145-6)</span></figcaption>
+        <img src="assets/figs/fig-4-13-ckg-schema.svg" alt="임상 지식 그래프에서 환자, 단백질, 질병, 약물, 오믹스 데이터와 문헌 지식이 통합되는 스키마">
+        <small class="asset-note">CKG는 임상 의사결정 지원을 위해 환자 맥락과 생명의학 지식을 함께 질의 가능한 구조로 둔다. 출처: 원자료 그림 4.13.</small>
+      </figure>
+    
+      
+      <article class="source-listing" id="source-listing-4-21" data-source-kind="listing" data-source-ref="4.21">
+        <h4>Listing 4.21 CKG 데이터베이스 가져오기</h4>
+        <p>Clinical Knowledge Graph 백업을 가져와 임상 질의 예제를 실행할 기반을 만든다.</p>
+        <pre data-code-language="Cypher"><code>CREATE DATABASE ckg OPTIONS {
+  existingData: &#x27;use&#x27;,
+  seedUri: &#x27;https://mng.bz/oZQZ&#x27;
+}</code></pre>
+      </article>
+    
+      
+      <article class="source-listing" id="source-listing-4-22" data-source-kind="listing" data-source-ref="4.22">
+        <h4>Listing 4.22 알려진 단백질–질병 연관성 찾기</h4>
+        <p>관심 단백질이 심근병증 하위 질병들과 이미 강하게 연결되는지 확인한다. DOID 계층 경로가 질병 범위를 넓혀 준다.</p>
+        <pre data-code-language="Cypher"><code>WITH [&#x27;ACTC1~P68032&#x27;] AS proteins,
+     3 AS minScore,
+     &#x27;DOID:0050700&#x27; AS parentDisease
+MATCH (protein:Protein)-[r]-(disease:Disease)
+WHERE (protein.name + &#x27;~&#x27; + protein.id) IN proteins
+  AND toFloat(r.score) &gt; minScore
+  AND (disease)-[:HAS_PARENT*0..]-&gt;(:Disease {id: parentDisease})
+RETURN protein.name, disease.name, r.score, type(r), r.source</code></pre>
+      </article>
+    
+      
+      <table class="cmp-table" id="source-table-4-5" data-source-kind="table" data-source-ref="4.5">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 6</span><span class="asset-caption__title">표 4.5 · Listing 4.22 질의에서 나온 단백질–질병 연관성</span></div></caption>
+        <thead><tr><th>node1</th><th>node2</th><th>weight</th><th>type</th><th>source</th></tr></thead>
+        <tbody><tr><td>ACTC1~P68032</td><td>intrinsic cardiomyopathy &lt;DOID:0060036&gt;</td><td>5</td><td>ASSOCIATED_WITH</td><td>DISEASES</td></tr><tr><td>ACTC1~P68032</td><td>left ventricular noncompaction &lt;DOID:0060480&gt;</td><td>5</td><td>ASSOCIATED_WITH</td><td>DISEASES</td></tr><tr><td>ACTC1~P68032</td><td>familial hypertrophic cardiomyopathy &lt;DOID:0080326&gt;</td><td>5</td><td>ASSOCIATED_WITH</td><td>DISEASES</td></tr><tr><td>ACTC1~P68032</td><td>hypertrophic cardiomyopathy &lt;DOID:11984&gt;</td><td>5</td><td>ASSOCIATED_WITH</td><td>DISEASES</td></tr><tr><td>ACTC1~P68032</td><td>dilated cardiomyopathy &lt;DOID:12930&gt;</td><td>5</td><td>ASSOCIATED_WITH</td><td>DISEASES</td></tr><tr><td>ACTC1~P68032</td><td>restrictive cardiomyopathy &lt;DOID:397&gt;</td><td>5</td><td>ASSOCIATED_WITH</td><td>DISEASES</td></tr></tbody>
+      </table>
+    
+    </section>
+
+    <section class="report-section s10 page-break" id="source-4-4-1" data-source-kind="section" data-source-ref="4.4.1">
+      <div class="report-section__kicker">교재 §4.4.1 · Clinical Decision Support with LLM</div>
+      <h1>4.4.1 LLM 기반 임상 의사결정 지원 분석 — 발견을 진료로 잇다</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>ACTC1과 심근병증 관련 질병의 강한 연결은 임상시험 환자 층화와 안전성 모니터링 질문으로 이어진다.</li><li>LLM 프롬프트는 KG 발견, 단백질 목록, 임상 시나리오를 함께 제공해 구체적인 검토 항목을 만들게 한다.</li><li>최종 결론은 LLM이 아니라 임상의·연구자 검토, 프로토콜 변경 승인, 환자 안전 기준을 거친다.</li></ul></div></div>
+      <p>CKG 질의는 강한 단백질-질병 연관성이라는 계산 결과를 제공한다. LLM은 이 결과를 환자 층화, 포함·제외 기준, companion biomarker, 모니터링 프로토콜 같은 실제 임상 운영 질문으로 번역할 수 있다. 그러나 원자료도 명시하듯 LLM 결과를 그대로 쓰는 것은 권하지 않는다.</p>
+      
+      <article class="source-listing" id="source-listing-4-23" data-source-kind="listing" data-source-ref="4.23">
+        <h4>Listing 4.23 LLM 임상 분석 프롬프트 예시</h4>
+        <p>KG 질의 결과를 임상시험 설계 질문으로 번역하되, 최종 판단은 임상의와 연구자의 검토를 거쳐야 한다.</p>
+        <pre data-code-language="Text"><code>Role: clinical informatics specialist
+Input: ACTC1 associations with cardiomyopathy-related diseases
+Ask: patient stratification, safety monitoring,
+     biomarkers, and inclusion/exclusion criteria</code></pre>
+      </article>
+    
+      <table class="cmp-table" id="table-decision">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">Chapter 4 도입 판단 기준</span></div></caption>
+        <thead><tr><th>질문</th><th>적합 신호</th><th>위험 신호</th><th>실험 단위</th></tr></thead>
+        <tbody>
+          <tr><td>식별자를 맞출 수 있는가?</td><td>공통 ID, 온톨로지, 소유자가 있다.</td><td>동명이의어·코드 누락을 검증할 방법이 없다.</td><td>대표 소스 2개를 연결하고 중복률을 측정한다.</td></tr>
+          <tr><td>그래프 지표가 질문과 맞는가?</td><td>부분 그래프, 경계, 경로 패턴이 의사결정과 연결된다.</td><td>범용 군집 결과를 도메인 사실처럼 해석한다.</td><td>질병 3개에 대해 지표와 전문가 해석을 대조한다.</td></tr>
+          <tr><td>LLM 해석을 통제할 수 있는가?</td><td>입력 결과, 출처, 한계, 승인 상태를 함께 저장한다.</td><td>LLM 설명만 남고 원 질의·경로·조건이 사라진다.</td><td>LLM 답변에 근거 경로 링크와 보류 옵션을 강제한다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-appendix s-glossary page-break" id="glossary">
+      <div class="report-section__kicker">Appendix A · Glossary</div>
+      <h1>핵심 용어</h1>
+      <table class="cmp-table" id="table-glossary">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 8</span><span class="asset-caption__title">핵심 용어 사전</span></div></caption>
+        <thead><tr><th>용어</th><th>이 장에서의 의미</th></tr></thead>
+        <tbody>
+          <tr><td>다중 오믹스</td><td>유전체·전사체·단백질체처럼 서로 다른 생물학적 층위를 함께 다루는 분석 접근.</td></tr>
+          <tr><td>PPI</td><td>단백질끼리의 상호작용 네트워크. 질병 경로 부분 그래프의 배경 그래프가 된다.</td></tr>
+          <tr><td>WCC</td><td>연결 여부만으로 끊긴 컴포넌트를 찾는 알고리즘.</td></tr>
+          <tr><td>Louvain</td><td>모듈성을 기준으로 내부 연결이 강한 커뮤니티를 찾는 알고리즘.</td></tr>
+          <tr><td>전도도</td><td>부분 그래프가 나머지 그래프와 얼마나 연결되는지 보는 지표. 낮을수록 내부 커뮤니티에 가깝다.</td></tr>
+          <tr><td>DWPC</td><td>차수가 높은 노드를 지나는 경로를 감쇠해 메타경로의 관련성을 계산하는 지표.</td></tr>
+          <tr><td>CKG</td><td>임상·오믹스·문헌 지식을 통합한 Clinical Knowledge Graph.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-appendix s-refs page-break" id="references">
+      <div class="report-section__kicker">Appendix B · References</div>
+      <h1>참고 자료와 도형 출처</h1>
+      <ol class="references" style="list-style:none;padding:0;">
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>Alessandro Negro, <em>Knowledge Graphs and LLMs in Action</em>, Chapter 4 해설판. 참가자 자료 링크: <a href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_04_from_simple_networks_to_multisource_integration/04_from_simple_networks_to_multisource_integration_ko_explained.md">Chapter 4 source explainer</a>.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[2]</span><span>SNAP Disease Pathways in the Human Interactome, DisGeNET, Disease Ontology, NIH gene_info, Hetionet, CKG는 원자료가 설명한 공개 데이터 소스다.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[3]</span><span>모든 SVG는 원자료 캡션의 구조와 관계를 바탕으로 AIML Quant 발표용으로 새로 작도했다. 원본 스캔이나 사설 교재 이미지는 복사하지 않았다.</span></li>
+      </ol>
+      <div class="report-jump-links"><a href="./">발표자료</a><a href="../../">회차 목록</a><a href="#summary">문서 처음</a></div>
+    </section>
+
+  </article>
+  <script src="assets/report.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+study_id = "kg-llm-in-action-2026"
+session_id = "2026-08-08-ch04"
+title = "단순한 네트워크에서 다중 소스 통합으로"
+date = "2026-08-08"
+presenters = ["종훈(S)"]
+chapters = ["Chapter 4"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+revision_date = "2026-08-08"
+source_fidelity = "source-structure-v1"
+source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_04_from_simple_networks_to_multisource_integration/04_from_simple_networks_to_multisource_integration_ko_explained.md"

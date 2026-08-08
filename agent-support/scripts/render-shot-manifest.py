@@ -125,16 +125,16 @@ def load_manifest(path: Path, output_root: Path) -> list[Capture]:
         output = Path(output_value)
         if not output.is_absolute():
             raise ValueError(f"capture {index} output must be absolute")
-        output = output.resolve(strict=False)
+        output_resolved = output.resolve(strict=False)
         try:
-            output.relative_to(root)
+            output_resolved.relative_to(root)
         except ValueError as exc:
             raise ValueError(
                 f"capture {index} output must stay under {root}: {output}"
             ) from exc
-        if output in seen_outputs:
+        if output_resolved in seen_outputs:
             raise ValueError(f"duplicate capture output: {output}")
-        seen_outputs.add(output)
+        seen_outputs.add(output_resolved)
         if not output.parent.is_dir():
             raise ValueError(f"capture {index} output directory does not exist: {output.parent}")
 

@@ -297,7 +297,18 @@
       "title": "Chapter 3. 시계열 분석"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-08-ch04/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-08-ch04/"
+        }
+      ],
       "chapters": [
         "Chapter 4"
       ],
@@ -309,7 +320,7 @@
       "presenters": [
         "종훈(S)"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 4. 단순 네트워크에서 멀티소스 통합으로"
     },
