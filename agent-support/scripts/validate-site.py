@@ -416,6 +416,15 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Also require every registry materials_path to exist locally.",
     )
+    parser.add_argument(
+        "--print-source-outline",
+        type=Path,
+        metavar="PRESENTATION_TOML",
+        help=(
+            "Print the source coordinates (kind, ref, exact title) this validator "
+            "expects for a session, in source order, then exit."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -617,6 +626,57 @@ def parse_source_chapter_title(path: Path) -> str:
         if match:
             return normalize_source_title(suffix_re.sub("", match.group(1)))
     return ""
+
+
+def print_source_outline(metadata_path: Path, stream=None) -> int:
+    """Print the coordinates this validator expects, in source order.
+
+    Authors run this before writing a source-fidelity report so the section,
+    figure, table and exercise coordinates come from the same parser the gate
+    uses instead of from a guess. Output is one ``kind\tref\ttitle`` row per
+    coordinate followed by a ``total\tN`` row.
+    """
+    stream = sys.stdout if stream is None else stream
+    errors: list[str] = []
+    metadata = load_toml(metadata_path, errors)
+    for error in errors:
+        print(f"ERROR: {error}", file=sys.stderr)
+    if errors:
+        return 1
+
+    source_material = metadata.get("source_material")
+    if not isinstance(source_material, str) or not source_material:
+        print(f"ERROR: source_material is required in {metadata_path}", file=sys.stderr)
+        return 1
+
+    outline_style = metadata.get("source_outline_style")
+    if outline_style not in (None, "ordered-headings-v1"):
+        print(
+            f"ERROR: unknown source_outline_style in {metadata_path}: {outline_style!r}",
+            file=sys.stderr,
+        )
+        return 1
+    exercise_style = metadata.get("source_exercise_style")
+    if exercise_style not in (None, "bold-numbered-v1"):
+        print(
+            f"ERROR: unknown source_exercise_style in {metadata_path}: {exercise_style!r}",
+            file=sys.stderr,
+        )
+        return 1
+
+    source_path = (REPO_ROOT / source_material).resolve()
+    if not source_path.is_file():
+        print(
+            f"ERROR: source_material does not exist for {metadata_path}: {source_material}",
+            file=sys.stderr,
+        )
+        return 1
+
+    outline = parse_source_outline(source_path, outline_style, exercise_style)
+    for (kind, source_ref), title in outline.items():
+        print(f"{kind}\t{source_ref}\t{title}", file=stream)
+    print(f"total\t{len(outline)}", file=stream)
+    return 0
 
 
 def validate_source_fidelity(
@@ -1923,6 +1983,8 @@ def validate_files(site: Path, errors: list[str]) -> None:
 
 def main() -> int:
     args = parse_args()
+    if args.print_source_outline:
+        return print_source_outline(args.print_source_outline.resolve())
     registry = args.registry.resolve()
     site = args.site.resolve()
     errors: list[str] = []

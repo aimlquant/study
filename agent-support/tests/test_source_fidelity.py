@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import importlib.util
+import io
 import re
+import subprocess
 import sys
 import tempfile
+import tomllib
 import unittest
 from html import unescape
 from pathlib import Path
@@ -122,6 +125,33 @@ ORDERED_SOURCE_WITH_NUMBERED_EXERCISES = """\
 ## 핵심 용어 정리
 """
 
+
+OUTLINE_CLI_SOURCE = """\
+# 인공지능 기법 — 해설판
+
+## 들어가며 — 도입
+
+### 첫 소절
+
+## 첫 번째 주제
+
+그림 4.1 첫 그림. 공개 제목 뒤의 원문 설명입니다.
+
+## 연습문제
+
+**4.1.** 첫 문제.
+"""
+
+
+def _fidelity_metadata_with_local_source():
+    """교재를 함께 체크아웃한 환경에서 실제로 좌표를 뽑을 수 있는 회차 하나."""
+    for metadata_path in sorted((REPO_ROOT / "html/studies").rglob("presentation.toml")):
+        with metadata_path.open("rb") as stream:
+            metadata = tomllib.load(stream)
+        source_material = metadata.get("source_material")
+        if source_material and (REPO_ROOT / source_material).is_file():
+            return metadata_path
+    return None
 
 class SourceFidelityTest(unittest.TestCase):
     def test_chapter_title_strips_plain_or_easy_explainer_suffix(self) -> None:
@@ -658,6 +688,88 @@ class SourceFidelityTest(unittest.TestCase):
                     KG_PRESENTATIONS / session_name, errors
                 )
                 self.assertEqual([], errors)
+
+
+class PrintSourceOutlineTest(unittest.TestCase):
+    """`--print-source-outline` 은 작성 전에 기대 좌표를 뽑는 공개 계약이다."""
+
+    def _fixture(self, directory: str, *, omit_source: bool = False) -> Path:
+        root = Path(directory)
+        source = root / "materials/quant/active/book/chapter_4_x/ch.md"
+        source.parent.mkdir(parents=True)
+        source.write_text(OUTLINE_CLI_SOURCE, encoding="utf-8")
+        metadata_path = root / "presentation.toml"
+        lines = ['source_fidelity = "source-structure-v1"']
+        if not omit_source:
+            lines += [
+                'source_outline_style = "ordered-headings-v1"',
+                'source_exercise_style = "bold-numbered-v1"',
+                'source_material = "materials/quant/active/book/chapter_4_x/ch.md"',
+            ]
+        metadata_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        return metadata_path
+
+    def test_prints_every_coordinate_in_source_order_with_a_total(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metadata_path = self._fixture(directory)
+            stream = io.StringIO()
+            with mock.patch.object(validate_site, "REPO_ROOT", Path(directory)):
+                exit_code = validate_site.print_source_outline(metadata_path, stream)
+
+        self.assertEqual(0, exit_code)
+        rows = [line.split("\t") for line in stream.getvalue().splitlines()]
+        self.assertEqual(
+            [
+                ["section", "4.0", "들어가며 — 도입"],
+                ["section", "4.0.1", "첫 소절"],
+                ["section", "4.1", "첫 번째 주제"],
+                ["figure", "4.1", "첫 그림."],
+                ["exercise", "4.1", "연습문제 4.1"],
+                ["total", "5"],
+            ],
+            rows,
+        )
+
+    def test_rejects_metadata_without_source_material(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metadata_path = self._fixture(directory, omit_source=True)
+            stream = io.StringIO()
+            with mock.patch.object(validate_site, "REPO_ROOT", Path(directory)):
+                exit_code = validate_site.print_source_outline(metadata_path, stream)
+
+        self.assertEqual(1, exit_code)
+        self.assertEqual("", stream.getvalue())
+
+    def test_rejects_source_material_that_does_not_exist(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            metadata_path = self._fixture(directory)
+            (Path(directory) / "materials/quant/active/book/chapter_4_x/ch.md").unlink()
+            stream = io.StringIO()
+            with mock.patch.object(validate_site, "REPO_ROOT", Path(directory)):
+                exit_code = validate_site.print_source_outline(metadata_path, stream)
+
+        self.assertEqual(1, exit_code)
+
+    @unittest.skipUnless(
+        _fidelity_metadata_with_local_source() is not None,
+        "교재를 함께 체크아웃한 환경에서만 CLI 를 실제 회차로 실행한다.",
+    )
+    def test_cli_prints_the_outline_for_a_real_session(self) -> None:
+        metadata_path = _fidelity_metadata_with_local_source()
+        completed = subprocess.run(
+            [sys.executable, str(VALIDATOR_PATH), "--print-source-outline", str(metadata_path)],
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(0, completed.returncode, completed.stderr)
+        lines = completed.stdout.splitlines()
+        self.assertTrue(lines, "좌표가 하나도 출력되지 않았다")
+        kind, count = lines[-1].split("\t")
+        self.assertEqual("total", kind)
+        self.assertEqual(len(lines) - 1, int(count))
+        for line in lines[:-1]:
+            self.assertEqual(3, len(line.split("\t")), line)
 
 
 if __name__ == "__main__":
