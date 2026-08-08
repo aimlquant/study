@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">주문 흐름과 주문장 불균형 — 바라보는 곳이 다르다</title>
+  <desc id="desc">주문 흐름은 이미 체결된 부호 붙은 거래량으로 실제로 일어난 공격을 세고, 주문장 불균형은 아직 체결되지 않은 대기 호가의 두께를 잰다. 두 지표 모두 중간가격 움직임을 예측한다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .panel{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .head{font-size:16px;font-weight:800;text-anchor:middle}
+      .sub{font-size:12.5px;fill:#0F2C59;text-anchor:middle;font-weight:700}
+      .meta{font-size:12.5px;fill:#3a3a3f;text-anchor:middle}
+      .goal{fill:#0F2C59}
+      .bar{fill:#0F2C59;opacity:0.75}
+      .barl{fill:#0F2C59;opacity:0.30}
+    </style>
+  </defs>
+  <rect width="900" height="300" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="panel" x="30" y="34" width="380" height="186" rx="10"/>
+    <text class="head" x="220" y="64">주문 흐름</text>
+    <text class="sub" x="220" y="84">체결된 거래 = 실제로 일어난 공격</text>
+    <rect class="bar" x="90" y="110" width="90" height="24"/>
+    <rect class="barl" x="90" y="142" width="50" height="24"/>
+    <text class="meta" x="270" y="128">매수 시장가 +s</text>
+    <text class="meta" x="255" y="160">매도 시장가 −s</text>
+    <text class="meta" x="220" y="200">부호 붙은 거래량의 합</text>
+
+    <rect class="panel" x="490" y="34" width="380" height="186" rx="10"/>
+    <text class="head" x="680" y="64">주문장 불균형</text>
+    <text class="sub" x="680" y="84">대기 호가 = 양쪽 병력의 두께</text>
+    <rect class="bar" x="560" y="104" width="120" height="20"/>
+    <text class="meta" x="760" y="119">총 매수 V_B</text>
+    <rect class="barl" x="560" y="150" width="60" height="20"/>
+    <text class="meta" x="740" y="165">총 매도 V_S</text>
+    <text class="meta" x="680" y="200">ρ = (V_B − V_S) / (V_B + V_S)</text>
+
+    <path class="line" d="M220 220V252"/>
+    <path class="line" d="M680 220V252"/>
+    <rect class="goal" x="330" y="256" width="240" height="34" rx="8"/>
+    <text class="head" x="450" y="279" fill="#fff">중간가격 움직임 예측</text>
+  </g>
+</svg>

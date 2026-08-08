@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">다크 풀의 맞교환 — 은닉의 이득과 위임의 대가</title>
+  <desc id="desc">다크 풀은 주문 의도를 감춰 스프레드 절반과 주문 흐름 은닉이라는 이득을 주지만, 체결 가격을 느린 SIP 중간가격에 위임하므로 지연시간 차익거래·중간가 조작·풀 공모라는 위험을 함께 진다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .core{fill:#0F2C59}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .head{font-size:15px;font-weight:800;text-anchor:middle}
+      .meta{font-size:12.5px;fill:#3a3a3f}
+      .pos{font-size:13px;font-weight:700;fill:#0F2C59}
+      .neg{font-size:13px;font-weight:700;fill:#8a2f2f}
+    </style>
+  </defs>
+  <rect width="900" height="300" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="core" x="360" y="110" width="180" height="80" rx="10"/>
+    <text class="head" x="450" y="146" fill="#fff">다크 풀</text>
+    <text class="head" x="450" y="168" fill="#D9E2EF" font-size="12">NBBO 중간가격 체결</text>
+
+    <path class="line" d="M355 150H250"/>
+    <text class="pos" x="40" y="96">이득 · 은닉</text>
+    <text class="meta" x="40" y="124">· 스프레드 절반 절약</text>
+    <text class="meta" x="40" y="148">· 시장 충격 감소</text>
+    <text class="meta" x="40" y="172">· 주문 흐름 은닉(공격자 없음)</text>
+
+    <path class="line" d="M545 150H650"/>
+    <text class="neg" x="660" y="96">위험 · 위임</text>
+    <text class="meta" x="660" y="124">· 지연차익 앞질러가기</text>
+    <text class="meta" x="660" y="148">· 중간가 조작(스푸핑)</text>
+    <text class="meta" x="660" y="172">· 풀 공모 · 정보 누출</text>
+
+    <text class="meta" x="450" y="232" text-anchor="middle">체결 가격을 느린 SIP 중간가격에 위임한다 — 상대의 속도와 정직성을 믿어야 하는 곳</text>
+    <text class="meta" x="450" y="258" text-anchor="middle">방어 설계: IEX의 350μs 지연이 속도 우위 자체를 무력화</text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+study_id = "machine-trading-2026"
+session_id = "2026-08-29-ch06"
+title = "Chapter 6. 일중 거래와 시장 미시구조"
+date = "2026-08-29"
+presenters = ["원미"]
+chapters = ["Chapter 6"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+source_fidelity = "source-structure-v1"
+source_outline_style = "ordered-headings-v1"
+source_material = "materials/quant/active/machine-trading/chapter_6_intraday_trading_and_market_microstructure/06_chapter_6_intraday_trading_and_market_microstructure_ko_explained.md"

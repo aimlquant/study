@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" role="img" aria-labelledby="title desc">
+  <title id="title">BVC의 부드러운 스위치 — 표준정규 CDF Z</title>
+  <desc id="desc">표준정규 누적분포함수 Z는 한 봉의 거래량을 매수와 매도로 배분하는 부드러운 스위치다. 정규화한 가격 변화가 크게 양수이면 매수 비율이 1에 가깝고, 크게 음수이면 0에 가까우며, 0 근처이면 절반으로 나뉜다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .axis{stroke:#6B6B72;stroke-width:2}
+      .grid{stroke:#D9DCE3;stroke-width:1;stroke-dasharray:4 5}
+      .curve{fill:none;stroke:#0F2C59;stroke-width:3.5}
+      .lab{font-size:13px;fill:#3a3a3f}
+      .ax{font-size:12px;fill:#6B6B72}
+      .pt{fill:#0F2C59}
+    </style>
+  </defs>
+  <rect width="900" height="320" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <line class="axis" x1="120" y1="250" x2="820" y2="250"/>
+    <line class="axis" x1="470" y1="60" x2="470" y2="262"/>
+    <line class="grid" x1="120" y1="90" x2="820" y2="90"/>
+    <line class="grid" x1="120" y1="170" x2="820" y2="170"/>
+    <text class="ax" x="96" y="94">1.0</text>
+    <text class="ax" x="96" y="174">0.5</text>
+    <text class="ax" x="96" y="254">0.0</text>
+    <text class="ax" x="828" y="268">ΔP / σ(ΔP)</text>
+    <text class="ax" x="452" y="52" text-anchor="end">Z(·) = 매수 비율</text>
+
+    <path class="curve" d="M120 248 C300 246 380 240 440 200 C468 182 472 158 500 140 C560 100 640 94 820 92"/>
+    <circle class="pt" cx="470" cy="170" r="5"/>
+
+    <text class="lab" x="150" y="235">크게 음수 → 매수 ≈ 0 (거의 매도)</text>
+    <text class="lab" x="486" y="152">ΔP ≈ 0 → 반반(0.5)</text>
+    <text class="lab" x="600" y="120">크게 양수 → 매수 ≈ V</text>
+    <text class="lab" x="120" y="298">순주문 흐름 = V·[2Z(ΔP/σ) − 1] · 개별 거래 방향을 몰라도 봉 단위로 추정(대응: 교재 그림 6.1)</text>
+  </g>
+</svg>

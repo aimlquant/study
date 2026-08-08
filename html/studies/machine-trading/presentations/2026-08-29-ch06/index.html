@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 6. 일중 거래와 시장 미시구조</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+    <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">머신 트레이딩</p>
+        <h1>Chapter 6. 일중 거래와 시장 미시구조</h1>
+        <p class="cover-subtitle">지연 · 규칙 · 정보 — 밀리초 단위로 다투는 미시구조</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>원미</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 6</dd></div>
+        <div><dt>일시</dt><dd>2026-08-29</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide" aria-label="핵심 질문 — 어떻게 사고파느냐" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
+      <h1>“얼마에”만큼 “어떻게” 사고파느냐가 손익을 가른다</h1>
+      <p class="lead">이익이 밀(mil) 단위로 얇아질 때, 지연 몇 밀리초·큐에서의 한 자리·스프레드 절반·역선택 하나가 전략의 생사를 좌우합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">왜 매력적인가</p><h2>높은 샤프 비율</h2><ul><li>하루에 더 많은 독립적 베팅(대수의 법칙)</li><li>높은 샤프 → 켈리 레버리지↑</li><li>짧은 드로다운 · 짧은 검증 시간 틀</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">왜 어려운가</p><h2>용량과 거래비용</h2><ul><li>AAPL 최우선 호가 평균 189주</li><li>스프레드·슬리피지·충격·역선택</li><li>미시구조를 알아야 비용을 줄인다</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>오늘의 질문</strong> — 지금 이 이야기는 유동성을 <em>공급</em>하는 쪽인가, <em>수취</em>하는 쪽인가?</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 문제 제기</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="세 개의 층 — 물리 규칙 정보" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>이 장은 서로 얽힌 세 개의 층이다</h1>
+      <p class="lead">세부 목차 대신 청중이 따라갈 논리의 방향을 세 층으로 압축합니다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>물리</span><h2>지연을 줄인다</h2><p>코로케이션·컴파일 언어로 반응 속도를 확보(§6.1)</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>규칙</span><h2>주문을 고른다</h2><p>Reg NMS 위에서 하이드앤라이트·ISO·다크풀·IOC(§6.2–6.4)</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>정보</span><h2>미래를 읽는다</h2><p>주문 흐름·주문장 불균형으로 중간가 예측(§6.5–6.6)</p></article>
+        </div>
+        <p class="takeaway"><strong>발표의 약속</strong> — 기법 목록이 아니라 재사용할 수 있는 판단 기준을 가져갑니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.0 들어가며" data-report-refs="summary sec-intro s-intro" data-source-refs="section:6.0" data-source-title="section:6.0">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.0</span></header>
+      <h1>들어가며 — 왜 일중 거래이고, 왜 그렇게 어려운가</h1>
+      <p class="lead">같은 평균 수익률이면 일중 전략이 대체로 샤프 비율이 높지만, 용량과 거래비용이 발목을 잡습니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">매력</p><h2>대수의 법칙</h2><ul><li>하루에 더 많은 독립 베팅 → 기댓값 주위에 촘촘</li><li>블랙 스완 노출 시간이 짧다</li></ul></article>
+          <article class="panel"><p class="eyebrow">대가</p><h2>용량 · 비용</h2><ul><li>주문이 최우선 호가보다 크면 큰 시장 충격</li><li>비용을 줄이려면 시장 미시구조를 알아야</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>관통하는 질문</strong> — 나는 유동성을 공급하는 쪽인가, 수취하는 쪽인가?</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 도입</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.1 지연시간 단축" data-report-refs="sec-latency s-latency" data-source-refs="section:6.1" data-source-title="section:6.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.1</span></header>
+      <h1>지연시간 단축 — 밀리초를 줄이는 세 가지 싸움</h1>
+      <p class="lead">지연은 언제나 손해 쪽입니다. 세 유형은 하나의 왕복 사슬을 이룹니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>①</span><h2>주문 제출</h2><p>코로케이션으로 ≤5ms</p></article>
+          <article class="card"><span>②</span><h2>주문 상태</h2><p>제출과 대체로 함께 움직임</p></article>
+          <article class="card"><span>③</span><h2>시장 데이터</h2><p>IB 250ms vs 직접 ≤10ms(별도 비용)</p></article>
+        </div>
+        <p class="takeaway"><strong>사슬의 원리</strong> — 물리·연산 지연 중 가장 느린 고리가 전체 속도를 결정. 일중 거래엔 컴파일 언어.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 지연 단축</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="지연 세 유형 왕복 사슬" data-report-refs="sec-latency fig-latency" data-source-refs="section:6.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.1 · MECHANISM</span></header>
+      <h1>세 지연은 한 왕복의 세 구간이다</h1>
+      <p class="lead">방향과 실측 지연을 함께 보면, 왜 “가장 느린 구간”이 전부인지 드러납니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-latency.svg" alt="내 프로그램과 거래 장소 사이의 주문 제출·주문 상태·시장 데이터 세 지연이 왕복 사슬을 이루고 가장 느린 구간이 전체 반응 속도를 결정한다">
+          <figcaption><b>그림 1</b><span>내 프로그램 ↔ 거래 장소의 세 구간</span><span>가장 느린 구간이 반응 속도를 결정</span><a class="report-ref" href="report.html#fig-latency">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 왕복 사슬</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.2 주문 유형과 라우팅" data-report-refs="sec-orders s-orders" data-source-refs="section:6.2" data-source-title="section:6.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2</span></header>
+      <h1>■ 주문 유형과 라우팅 최적화 — 어떤 주문으로 목표를 이룰 것인가</h1>
+      <p class="lead">물리적 지연이 하드웨어 경주였다면, 이제부터는 규칙의 경주입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">배경</p><h2>50+ 시장의 군도</h2><ul><li>거래소 11개쯤 + 다크 풀 40+</li><li>Reg NMS 주문 보호 규칙이 하나로 묶음</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">틈새</p><h2>규칙의 이음매</h2><ul><li>NBBO는 느린 SIP 기반</li><li>강제 라우팅·시간 틈을 특수 주문이 파고듦</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>이분법</strong> — 공급(평균회귀·시장조성)인가, 수취(모멘텀)인가가 주문 유형을 정합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 주문 유형</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="주문 유형 한눈에" data-report-refs="sec-orders table-order-types" data-source-refs="section:6.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2 · MAP</span></header>
+      <h1>주문 유형·수식어 한눈에</h1>
+      <p class="lead">각 주문이 내 편인지 아닌지는 “공급이냐 수취냐”가 정합니다.</p>
+      <div class="slide-body">
+        <table class="compare-table">
+          <caption class="asset-caption asset-caption--table"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">주문 유형·수식어 요약</span></caption>
+          <thead><tr><th>주문/수식어</th><th>편</th><th>핵심 작동</th></tr></thead>
+          <tbody>
+            <tr><th>하이드앤라이트</th><td>공급</td><td>표시가 자동 조정 + 원래 타임스탬프 → 큐 선점</td></tr>
+            <tr><th>ISO</th><td>공급·수취</td><td>보호 호가를 걷어내고 재라우팅 없이 체결</td></tr>
+            <tr><th>IOC</th><td>수취</td><td>미체결분 취소 → 대기 주문 안 남김</td></tr>
+            <tr><th>다크 풀</th><td>수취</td><td>호가 미표시 · NBBO 중간가 체결</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>상세</strong> — 리포트 <a class="report-ref" href="report.html#table-order-types">표 2</a>에 노림수와 한계까지.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 주문 유형 지도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.2.1 유동성 공급하기" data-report-refs="sec-orders s-orders-make" data-source-refs="section:6.2.1" data-source-title="section:6.2.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2.1</span></header>
+      <h1>유동성 공급하기 — 큐의 맨 앞에 서는 특수 주문들</h1>
+      <p class="lead">평범한 지정가는 특수 수식어가 붙은 지정가와의 우선순위 경쟁에서 밀립니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">하이드앤라이트</p><h2>표시가 자동 조정</h2><ul><li>원래 타임스탬프 유지 → 큐 맨 앞</li><li>SIP 0.5ms 격차를 이용(교재 표 6.1)</li></ul></article>
+          <article class="panel"><p class="eyebrow">ISO · BZX</p><h2>선점의 다른 길</h2><ul><li>짝꿍 ISO로 보호 호가를 걷어냄(교재 표 6.2)</li><li>BZX는 공급에 수수료 → 큐 우선순위 매수(교재 Box 6.1)</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>목적</strong> — 리베이트 수취와 역선택 희석을 위해 큐 맨 앞을 선점합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 유동성 공급</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="하이드앤라이트 0.5ms 창" data-report-refs="sec-orders fig-hidelight" data-source-refs="section:6.2.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2.1 · MECHANISM</span></header>
+      <h1>“미래를 본다”의 정체는 정보 속도의 격차</h1>
+      <p class="lead">직접 피드와 SIP의 반 밀리초 간극 안에서, 이미 벌어진 미래를 먼저 알고 줄을 섭니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-hidelight.svg" alt="직접 피드가 즉시 본 호가 상승을 SIP가 0.5ms 늦게 방송하는 사이 하이드앤라이트가 원래 타임스탬프를 유지한 채 큐 맨 앞을 선점한다">
+          <figcaption><b>그림 2</b><span>빠른 직접 피드 vs 0.5ms 늦는 SIP</span><span>개인 브로커는 이 창을 확보 못 함</span><a class="report-ref" href="report.html#fig-hidelight">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 0.5ms 창</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.2.2 유동성 제거하기" data-report-refs="sec-orders s-orders-take" data-source-refs="section:6.2.2" data-source-title="section:6.2.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2.2</span></header>
+      <h1>유동성 제거하기 — 정보를 가진 자의 주문</h1>
+      <p class="lead">정보가 상하기 전에 빨리 체결되기를 바라는 쪽입니다. 시장가는 NBBO로 강제 라우팅됩니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">해법</p><h2>ISO로 걸어 올라감</h2><ul><li>지정가를 최선 호가 위로 → 즉시 소진</li><li>재라우팅 회피 · 여러 거래소 병렬(교재 예제 6.1)</li></ul></article>
+          <article class="panel"><p class="eyebrow">부작용</p><h2>플래시 크래시</h2><ul><li>보호 안 된 좋은 호가를 무시하고 관통</li><li>미니 붕괴의 71.49%가 ISO(Golub 외, 2012)</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>두 얼굴</strong> — 같은 ISO가 목적에 따라 방패도 되고 창도 됩니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 유동성 제거</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="ISO 방패와 창" data-report-refs="sec-orders fig-iso" data-source-refs="section:6.2.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2.2 · MECHANISM</span></header>
+      <h1>ISO의 두 얼굴 — 방패와 창</h1>
+      <p class="lead">공급 때는 큐를 선점하는 방패, 제거 때는 여러 층을 병렬 소진하는 창입니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-iso.svg" alt="같은 ISO가 유동성 공급 때는 큐 맨 앞을 선점하는 방패, 유동성 제거 때는 여러 층을 병렬 소진하며 재라우팅을 회피하는 창이 된다">
+          <figcaption><b>그림 3</b><span>방패=정적 선점 / 창=동적 소진</span><span>병렬 소진으로 프론트런 방지</span><a class="report-ref" href="report.html#fig-iso">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 방패와 창</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.2.3 다크 풀 라우팅" data-report-refs="sec-orders s-orders-dark" data-source-refs="section:6.2.3" data-source-title="section:6.2.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2.3</span></header>
+      <h1>다크 풀로 라우팅하기 — 호가를 감추는 시장</h1>
+      <p class="lead">호가를 표시하지 않고 보통 NBBO 중간가에 체결합니다. 이점과 위험이 맞교환됩니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">이득 · 은닉</p><h2>스프레드 절반</h2><ul><li>시장 충격 감소</li><li>주문 흐름 은닉(공격자 없음)</li></ul></article>
+          <article class="panel"><p class="eyebrow">위험 · 위임</p><h2>중간가에 위임</h2><ul><li>지연차익·중간가 조작(스푸핑)</li><li>일부 풀의 공모 · 정보 누출</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>판단</strong> — 역선택이 가장 낮은 풀부터. IEX의 350μs 지연은 속도 우위를 무력화한 공정성 설계.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 다크 풀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="다크 풀 맞교환" data-report-refs="sec-orders fig-darkpool" data-source-refs="section:6.2.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2.3 · TRADE-OFF</span></header>
+      <h1>은닉의 이득과 위임의 대가</h1>
+      <p class="lead">다크 풀은 “빛이 없어 안전한 곳”이 아니라 상대의 속도·정직성을 믿어야 하는 곳입니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-darkpool.svg" alt="다크 풀은 스프레드 절반과 주문 흐름 은닉을 주지만 체결 가격을 느린 SIP 중간가격에 위임하므로 지연차익·조작·공모 위험을 함께 진다">
+          <figcaption><b>그림 4</b><span>왼쪽=은닉의 이득 / 오른쪽=위임의 위험</span><span>IEX 350μs가 방어막</span><a class="report-ref" href="report.html#fig-darkpool">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 맞교환</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.3 역선택 축소" data-report-refs="sec-adverse s-adverse" data-source-refs="section:6.3" data-source-title="section:6.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.3</span></header>
+      <h1>역선택 축소 — 왜 내 지정가 주문은 손해 볼 때만 체결되는가</h1>
+      <p class="lead">지정가는 “이 가격이면 반대편이 되겠다”는 약속인데, 그 약속을 걷어 가는 사람은 대개 나보다 잘 압니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">정의</p><h2>선택적 체결의 편향</h2><ul><li>사면 내려가고 팔면 올라간다</li><li>“포커판 호구가 누군지 모르면 그게 나”</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">경계 · 처방</p><h2>대기 주문만 피해</h2><ul><li>손익 차이로 정량 측정(1초~30분)</li><li>큐 선점으로 희석 or IOC로 대기 회피</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>핵심</strong> — 역선택은 유동성을 <em>공급</em>하는 수동 주문에만 붙는 비용입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 역선택</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.3.1 라스트 룩" data-report-refs="sec-adverse s-adverse-fx" data-source-refs="section:6.3.1" data-source-title="section:6.3.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.3.1</span></header>
+      <h1>통화시장과 "라스트 룩" — 채워지는 주문만 손해 보는 함정</h1>
+      <p class="lead">FX는 통합 주문장도 라우팅도 Reg NMS도 없는 장외(OTC) 시장입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">라스트 룩</p><h2>사후 이행 거부</h2><ul><li>LP가 시장가를 받고도 이행 여부를 나중에 선택</li><li>자기 역선택을 피하려는 방어</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">방향이 뒤집힌다</p><h2>모멘텀이 희생자</h2><ul><li>주식·선물과 정반대(공격적 트레이더가 당함)</li><li>UAT에선 성공, 실계좌에선 붕괴</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>교훈</strong> — 어느 주문이 체결될지 알 수 없어 FX 모멘텀 백테스트 신뢰도가 근본적으로 낮습니다(대안: LMAX).</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 라스트 룩</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.4 일중 백테스팅" data-report-refs="sec-backtest s-backtest" data-source-refs="section:6.4" data-source-title="section:6.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.4</span></header>
+      <h1>■ 일중 전략 백테스팅 — 왜 일별 데이터로는 부족한가</h1>
+      <p class="lead">“스프레드 절반”이라는 뭉뚱그린 비용 가정은, 정작 유동성이 말라 비용이 폭증하는 순간을 놓칩니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>필요1</span><h2>Level 2</h2><p>최우선 호가 아래 여러 층 — 걸어 오르기 재현</p></article>
+          <article class="card"><span>필요2</span><h2>ITCH</h2><p>주문 추가·체결·취소로 주문장 재구성(교재 예제 6.2)</p></article>
+          <article class="card"><span>함정</span><h2>데이터 품질</h2><p>타임스탬프·누락·호가 규모·공격자 태그(Box 6.2·6.3)</p></article>
+        </div>
+        <p class="takeaway"><strong>급소</strong> — 데이터 품질을 먼저 검증하지 않은 백테스트는 화려하게 틀린 결론을 낳습니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 백테스팅</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.5 주문 흐름" data-report-refs="sec-orderflow s-orderflow" data-source-refs="section:6.5" data-source-title="section:6.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.5</span></header>
+      <h1>주문 흐름 — 부호 붙은 거래량으로 가격을 예측하다</h1>
+      <p class="lead">시장가로 서두르는 사람은 대개 무언가를 압니다. 그 쏠림을 합산하면 다음 가격 방향이 보입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">정의</p><h2>signed volume</h2><ul><li>매수 시장가 +s, 매도 시장가 −s</li><li>미래 가격과 양의 상관(Lyons, 2001)</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">현실의 벽</p><h2>방향을 모른다</h2><ul><li>대부분 피드는 매수·매도 미표시</li><li>비표시·다크 풀 체결이 1/3 초과 → 추정 부정확</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>이상 vs 현실</strong> — 공격자 태그가 가장 정확, 추정법은 데이터 부담↓·정확도↓의 맞교환.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 주문 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="주문 흐름 추정법" data-report-refs="sec-orderflow table-flow-methods" data-source-refs="section:6.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.5 · MAP</span></header>
+      <h1>주문 흐름 판정·추정법</h1>
+      <p class="lead">직접 피드가 없으면 가격 흔적으로 방향을 역추적합니다.</p>
+      <div class="slide-body">
+        <table class="compare-table">
+          <caption class="asset-caption asset-caption--table"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">추정법 요약</span></caption>
+          <thead><tr><th>방법</th><th>발상</th><th>정확도 ↔ 부담</th></tr></thead>
+          <tbody>
+            <tr><th>공격자 태그·ITCH</th><td>거래소가 방향을 직접 표시</td><td>가장 정확 / 가장 비쌈</td></tr>
+            <tr><th>틱 규칙</th><td>직전보다 오르면 매수</td><td>중간 / 가벼움</td></tr>
+            <tr><th>리-레디</th><td>호가+틱 규칙의 절충</td><td>중간+ / 가벼움</td></tr>
+            <tr><th>BVC</th><td>봉의 ΔP·V로 배분</td><td>거칠 수 있음 / 가장 가벼움</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>상세</strong> — 리포트 <a class="report-ref" href="report.html#table-flow-methods">표 3</a>에 입력과 발상까지.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 추정법</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="BVC 부드러운 스위치" data-report-refs="sec-orderflow fig-bvc-z" data-source-refs="section:6.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.5 · FORMULA</span></header>
+      <h1>BVC — 봉의 가격 변화로 거래량을 배분한다</h1>
+      <p class="lead">개별 거래 방향을 몰라도 봉 단위 ΔP·V만으로 주문 흐름을 추정합니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-bvc-z.svg" alt="표준정규 CDF Z가 정규화한 가격 변화가 크게 양수면 매수 1, 0 근처면 0.5, 크게 음수면 0으로 이어지는 S자 곡선">
+          <figcaption><b>그림 5</b><span>매수 주문 흐름 = V·Z(ΔP/σ) &nbsp;[식 6.1]</span><span>대응: 교재 그림 6.1</span><a class="report-ref" href="report.html#fig-bvc-z">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · BVC</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="예제 6.3 주문 흐름 전략" data-report-refs="sec-orderflow ex-6-3" data-source-refs="section:6.5 example:6.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.5 · 예제 6.3</span></header>
+      <h1>예제 6.3 — 신호가 맞는 것과 돈을 버는 것은 별개다</h1>
+      <p class="lead">ES 하루치(2012-10-01)로 공격자 태그와 BVC를 비교합니다. 체결 가정 하나가 결론을 뒤집습니다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>+$300</strong><h2>공격자 태그 · bid-ask</h2><p>거래당 $4 (교재 보고값)</p></article>
+          <article class="kpi"><strong>+$762.50</strong><h2>공격자 태그 · 중간가</h2><p>비현실적 상한</p></article>
+          <article class="kpi"><strong>−$3,975</strong><h2>BVC · bid-ask</h2><p>공짜 편의의 대가</p></article>
+        </div>
+        <p class="source-note">교재 예제 6.3의 저자 보고값입니다. AIML Quant 재현 스냅숏(공격자 입력 부재 → 틱 규칙 대체)과는 직접 비교하지 않습니다.</p>
+        <p class="takeaway"><strong>냉정한 교훈</strong> — 예측력이 스프레드를 치르고도 남을 만큼 크지 않으면 실전에서 돈이 되지 않습니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 예제 6.3</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.6 주문장 불균형" data-report-refs="sec-imbalance s-imbalance" data-source-refs="section:6.6" data-source-title="section:6.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.6</span></header>
+      <h1>주문장 불균형 — 호가만으로 가격을 예측하다</h1>
+      <p class="lead">주문 흐름이 체결(사후)이라면, 불균형은 대기 호가(사전)의 두께입니다.</p>
+      <div class="slide-body">
+        <p>$$\rho = \frac{V_B - V_S}{V_B + V_S} \tag{6.2}$$</p>
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">증거</p><h2>지속되는 상관</h2><ul><li>ORCL에서 최대 200초 지속(1초 상관 0.5)</li><li>흔히 BBO 규모만으로 충분</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">자기 강화</p><h2>매수를 끌어들임</h2><ul><li>매수 불균형이 매수 시장가를 유인</li><li>상관은 시간·종목에 따라 변함 → 적응형 필수</li></ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 주문장 불균형</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="주문 흐름과 주문장 불균형 비교" data-report-refs="sec-imbalance fig-of-imbalance" data-source-refs="section:6.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.6 · CONTRAST</span></header>
+      <h1>바라보는 곳이 다르다 — 체결 vs 대기 호가</h1>
+      <p class="lead">두 지표 모두 중간가격 움직임으로 수렴하지만, 세는 대상이 다릅니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-of-imbalance.svg" alt="주문 흐름은 체결된 부호 붙은 거래량을 세고 주문장 불균형은 대기 호가의 두께를 재며 둘 다 중간가격 움직임을 예측한다">
+          <figcaption><b>그림 6</b><span>왼쪽=체결(사후) / 오른쪽=대기(사전)</span><span>둘 다 중간가 예측으로 수렴</span><a class="report-ref" href="report.html#fig-of-imbalance">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 두 지표</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="재현 감사 귀속 분리" data-report-refs="supp-repro table-repro">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">보충 A · REPRODUCTION</span></header>
+      <h1>재현 감사 — 교재 보고값과 재현 스냅숏을 분리한다</h1>
+      <p class="lead">공식 ZIP 7개 멤버를 SHA-256으로 고정하고 21/21 자동 검증을 통과했습니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">귀속 주의</p><h2>공격자 입력 부재</h2><ul><li>교재 예제 6.3은 <em>공격자 태그</em> 값</li><li>번들에 태그 입력이 없어 <em>틱 규칙으로 대체</em></li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">체결 가정이 뒤집는다</p><h2>같은 신호, 반대 손익</h2><ul><li>재현 틱규칙 bid-ask −$6,687.5 (net −$6,800.55)</li><li>중간가 가정이면 +$887.5 — 부호가 뒤집힘</li></ul></article>
+        </div>
+        <p class="source-note">재현 수치는 원본 MATLAB 출력과 오차 0~1e-7로 일치. 상세는 리포트 <a class="report-ref" href="report.html#table-repro">표 4</a>.</p>
+        <p class="takeaway"><strong>Evidence Rule</strong> — alpha보다 clock·trade sign·quote side·fee·order-state를 먼저 검증합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 6.7 요약" data-report-refs="summary sec-summary-src s-summary-src" data-source-refs="section:6.7" data-source-title="section:6.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.7</span></header>
+      <h1>요약 — 일중 거래의 매력과 대가</h1>
+      <p class="lead">이익이 작아 거래비용의 영향이 크고, 이 장은 물리·규칙·정보의 세 층으로 읽힙니다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>물리</span><h2>지연 감소</h2><p>코로케이션 · 컴파일 언어</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>규칙</span><h2>큐·역선택</h2><p>특수 주문 · 다크 풀 · IOC</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>정보</span><h2>중간가 예측</h2><p>주문 흐름 · 주문장 불균형</p></article>
+        </div>
+        <p class="takeaway"><strong>알파는 덧없다</strong> — 미시구조의 우위는 규제·기술·거래소 변화에 순식간에 사라집니다. 진짜 경쟁력은 다시 읽고 적응하는 태도.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 요약</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="확인 질문 세 가지" data-report-refs="summary sec-summary-src">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>세 질문으로 이해를 확인한다</h1>
+      <p class="lead">정답 암기가 아니라 판단 근거를 말할 수 있는지 확인합니다.</p>
+      <div class="slide-body">
+        <div class="question-list">
+          <article><span>Q1</span><p>같은 지연이 평균회귀와 모멘텀에 각각 어떤 비용으로 나타나는가?</p></article>
+          <article><span>Q2</span><p>역선택은 왜 대기 주문에만 붙고, 처방(큐 선점 vs IOC)은 왜 그렇게 갈리는가?</p></article>
+          <article><span>Q3</span><p>같은 신호인데 중간가·bid-ask 가정이 손익 부호를 뒤집는 이유는?</p></article>
+        </div>
+        <p class="takeaway"><strong>토론</strong> — FX 라스트 룩처럼 “방향이 뒤집히는” 사례를 우리 전략에서 찾아봅니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · Checkpoint</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary sec-summary-src">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">WRAP UP</span></header>
+      <div class="closing-body">
+        <p class="eyebrow">KEY TAKEAWAYS</p>
+        <h1>어떻게 사고파느냐가 손익을 가른다</h1>
+        <div class="card-grid">
+          <article class="card"><span>물리</span><h2>지연</h2><p>가장 느린 고리가 반응 속도를 결정.</p></article>
+          <article class="card"><span>규칙</span><h2>주문·역선택</h2><p>공급이냐 수취냐가 모든 선택을 정함.</p></article>
+          <article class="card"><span>정보</span><h2>흐름·불균형</h2><p>중간가를 예측하되 적응형으로 재추정.</p></article>
+        </div>
+        <p class="closing-question">Q&amp;A</p>
+      </div>
+      <div class="closing-links"><a class="back-link" href="report.html">상세 리포트 읽기</a><a class="back-link" href="../../">회차 목록으로 돌아가기</a></div>
+    </section>
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어">
+    <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
+  </nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck-lightbox.js"></script>
+  <script src="assets/deck.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>
