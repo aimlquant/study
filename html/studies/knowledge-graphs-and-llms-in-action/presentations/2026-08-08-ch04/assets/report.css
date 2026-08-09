@@ -1639,6 +1639,45 @@ body.chrome-hidden .report-settings {
 .callout--insight .callout__body ol { margin: 0; padding-left: 18px; }
 .callout--insight .callout__body li { font-size: 10pt; line-height: 1.6; }
 
+.term-note {
+  margin: 8px 0 14px;
+  padding: 8px 12px 8px 13px;
+  border-left: 3px solid var(--brand-primary);
+  background: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  border-radius: 0 4px 4px 0;
+  color: var(--text-secondary);
+  break-inside: avoid;
+}
+.term-note__kicker {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--brand-primary);
+  font-size: 8pt;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+.term-note ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.term-note li {
+  display: grid;
+  grid-template-columns: minmax(84px, max-content) 1fr;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 9.2pt;
+  line-height: 1.55;
+}
+.term-note strong {
+  color: var(--text-primary);
+  font-weight: 800;
+}
+.term-note code {
+  font-size: 0.95em;
+}
+
 /* ===== Section Summary — 섹션 진입부 핵심 요약 블릿 박스 =====
  * 각 섹션 서두에 배치하는 bullet 요약. hero(강조) 보다 가볍고
  * insight(인사이트) 와 구분되는 중립적 정보 카드 스타일.
