@@ -9,6 +9,6 @@ report_template = "study-report-v1"
 workflow = "raw-report-deck-v1"
 report_source = "report.html"
 artifacts = ["report", "slides"]
-revision_date = "2026-08-08"
+revision_date = "2026-08-09"
 source_fidelity = "source-structure-v1"
 source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_04_from_simple_networks_to_multisource_integration/04_from_simple_networks_to_multisource_integration_ko_explained.md"
