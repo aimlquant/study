@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .h{font-size:19px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12px;font-weight:700}
+    .xs{font-size:10.5px;font-weight:700}
+    .mono{font-family:'SFMono-Regular',Menlo,Consolas,monospace;font-size:10.5px;font-weight:700}
+    .plain{fill:#fff;stroke:#cbd5e1}
+    .warnbox{fill:#fff7ed;stroke:#fdba74}
+    .midbox{fill:#fefce8;stroke:#fde047}
+    .goodbox{fill:#e7f7ef;stroke:#99d8b6}
+    .line{stroke:#0f2c59;stroke-width:3;fill:none;stroke-linecap:round}
+  </style>
+  <title id="title">프롬프트를 세 번 반복하며 출력이 정규화되는 과정</title>
+  <desc id="desc">버전1의 불안정하고 과잉 세분화된 출력이 버전2의 부류 명시와 버전3의 대표 예시를 거쳐 일관된 관계로 수렴하는 과정</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f2c59"/></marker></defs>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <text class="t h" x="40" y="46" text-anchor="start" fill="#0f172a">프롬프트를 진화시키면 출력이 수렴한다</text>
+  <text class="t s" x="40" y="70" text-anchor="start" fill="#64748b">AIML Quant 보충 · 리스팅 5.1–5.7의 진화를 한눈에</text>
+
+  <!-- V1 -->
+  <rect class="warnbox" x="40" y="96" width="272" height="380" rx="14"/>
+  <text class="t m" x="60" y="128" text-anchor="start" fill="#7c2d12">버전 1 · 두루뭉술</text>
+  <text class="t xs" x="60" y="150" text-anchor="start" fill="#9a3412">리스팅 5.1–5.3</text>
+  <text class="t s" x="60" y="180" text-anchor="start" fill="#334155">&quot;모든 개체와 관계를 찾아라&quot;</text>
+  <line x1="60" y1="196" x2="292" y2="196" stroke="#fdba74" stroke-width="1.5"/>
+  <text class="t xs" x="60" y="222" text-anchor="start" fill="#7c2d12">관계가 과잉 세분화</text>
+  <text class="t mono" x="60" y="244" text-anchor="start" fill="#475569">specializes in</text>
+  <text class="t mono" x="60" y="262" text-anchor="start" fill="#475569">is measuring</text>
+  <text class="t mono" x="60" y="280" text-anchor="start" fill="#475569">is interested in</text>
+  <text class="t mono" x="60" y="298" text-anchor="start" fill="#475569">demonstrates</text>
+  <text class="t xs" x="60" y="330" text-anchor="start" fill="#7c2d12">라벨도 제각각</text>
+  <text class="t mono" x="60" y="352" text-anchor="start" fill="#475569">field / research / theory</text>
+  <text class="t xs" x="60" y="392" text-anchor="start" fill="#b91c1c">예측 불안정: 재실행하면</text>
+  <text class="t xs" x="60" y="410" text-anchor="start" fill="#b91c1c">라만 스펙트럼이 사라짐</text>
+  <text class="t xs" x="60" y="446" text-anchor="start" fill="#9a3412">스키마가 뒤죽박죽</text>
+
+  <!-- V2 -->
+  <rect class="midbox" x="344" y="96" width="272" height="380" rx="14"/>
+  <text class="t m" x="364" y="128" text-anchor="start" fill="#854d0e">버전 2 · 부류 명시</text>
+  <text class="t xs" x="364" y="150" text-anchor="start" fill="#a16207">리스팅 5.4–5.5</text>
+  <text class="t s" x="364" y="180" text-anchor="start" fill="#334155">개체·관계 부류 목록 추가</text>
+  <line x1="364" y1="196" x2="596" y2="196" stroke="#fde047" stroke-width="1.5"/>
+  <text class="t xs" x="364" y="222" text-anchor="start" fill="#854d0e">+ 관심 개체·관계 목록</text>
+  <text class="t xs" x="364" y="244" text-anchor="start" fill="#854d0e">+ 약어·별칭 습관 설명</text>
+  <text class="t xs" x="364" y="278" text-anchor="start" fill="#166534">라벨 통일 → occupation</text>
+  <text class="t mono" x="364" y="300" text-anchor="start" fill="#475569">works on 등장</text>
+  <text class="t xs" x="364" y="336" text-anchor="start" fill="#a16207">아직 남은 문제</text>
+  <text class="t mono" x="364" y="358" text-anchor="start" fill="#475569">measures / specializes in</text>
+  <text class="t xs" x="364" y="392" text-anchor="start" fill="#a16207">calorimetric method</text>
+  <text class="t xs" x="364" y="410" text-anchor="start" fill="#a16207">관계는 아직 누락</text>
+
+  <!-- V3 -->
+  <rect class="goodbox" x="648" y="96" width="272" height="380" rx="14"/>
+  <text class="t m" x="668" y="128" text-anchor="start" fill="#166534">버전 3 · 대표 예시</text>
+  <text class="t xs" x="668" y="150" text-anchor="start" fill="#15803d">리스팅 5.6–5.7</text>
+  <text class="t s" x="668" y="180" text-anchor="start" fill="#334155">복잡한 예시로 확장</text>
+  <line x1="668" y1="196" x2="900" y2="196" stroke="#99d8b6" stroke-width="1.5"/>
+  <text class="t xs" x="668" y="222" text-anchor="start" fill="#166534">+ student of 예시 추가</text>
+  <text class="t xs" x="668" y="244" text-anchor="start" fill="#166534">+ occupation 재강조</text>
+  <text class="t xs" x="668" y="278" text-anchor="start" fill="#166534">works on 하나로 통일</text>
+  <text class="t mono" x="668" y="300" text-anchor="start" fill="#475569">calorimetric method 포착</text>
+  <text class="t xs" x="668" y="334" text-anchor="start" fill="#166534">조직·소속까지 연결</text>
+  <text class="t m" x="668" y="378" text-anchor="start" fill="#15803d">유레카 — 높은 안정성</text>
+  <text class="t xs" x="668" y="408" text-anchor="start" fill="#15803d">정규화·정확성 모두 달성</text>
+
+  <path class="line" d="M316 286 L340 286" marker-end="url(#arrow)"/>
+  <path class="line" d="M620 286 L644 286" marker-end="url(#arrow)"/>
+
+  <text class="t s" x="480" y="508" text-anchor="middle" fill="#64748b">과제 설명 · 부류 이름 짓기 · 대표 예시 — 이 세 지렛대가 정규화와 예측 안정성을 만든다</text>
+</svg>
