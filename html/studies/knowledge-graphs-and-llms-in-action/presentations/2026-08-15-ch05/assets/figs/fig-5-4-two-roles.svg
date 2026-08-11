@@ -44,15 +44,15 @@
   <text class="t xs" x="486" y="216" text-anchor="start" fill="#166534">예</text>
 
   <!-- bottom branch: fine-tuning -->
-  <text class="t xs" x="400" y="372" text-anchor="start" fill="#b45309">아래쪽 갈래 · 파인튜닝 접근 (과제가 너무 복잡할 때)</text>
+  <text class="t xs" x="40" y="360" text-anchor="start" fill="#b45309">아래쪽 갈래 · 파인튜닝 접근 (과제가 너무 복잡할 때)</text>
   <rect class="warm" x="400" y="386" width="160" height="66" rx="12"/>
   <text class="t s" x="480" y="414" text-anchor="middle" fill="#7c2d12">작은 학습</text>
   <text class="t s" x="480" y="434" text-anchor="middle" fill="#7c2d12">데이터셋 준비</text>
   <rect class="warm" x="592" y="386" width="140" height="66" rx="12"/>
   <text class="t s" x="662" y="414" text-anchor="middle" fill="#7c2d12">파인튜닝</text>
   <text class="t xs" x="662" y="434" text-anchor="middle" fill="#9a3412">OpenAI API</text>
-  <path class="line" d="M470 320 L470 419 L396 419" marker-end="url(#arrow)"/>
-  <text class="t xs" x="486" y="344" text-anchor="start" fill="#b45309">아니오</text>
+  <path class="line" d="M470 320 L470 386" marker-end="url(#arrow)"/>
+  <text class="t xs" x="486" y="352" text-anchor="start" fill="#b45309">아니오</text>
   <path class="line" d="M560 419 L588 419" marker-end="url(#arrow)"/>
 
   <!-- KG output -->
