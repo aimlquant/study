@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .h{font-size:19px;font-weight:900}
+    .m{font-size:15px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .soft{fill:#e8eef8;stroke:#b7c7e3}
+    .plain{fill:#fff;stroke:#cbd5e1}
+    .dark{fill:#0f2c59;stroke:#0f2c59}
+    .line{stroke:#0f2c59;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .dash{stroke:#64748b;stroke-width:2.5;fill:none;stroke-dasharray:7 7;stroke-linecap:round}
+  </style>
+  <title id="title">비정형 텍스트에서 구조화된 지식으로 가는 경로</title>
+  <desc id="desc">비정형 문서가 OCR, 개체명 인식, 관계 추출을 거쳐 지식 그래프로 변환되는 단계별 흐름</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f2c59"/></marker></defs>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <text class="t h" x="480" y="52" text-anchor="middle" fill="#0f172a">비정형 텍스트 → 구조화된 지식</text>
+  <text class="t s" x="480" y="76" text-anchor="middle" fill="#64748b">각 단계는 최신 머신러닝 모델에 의존한다</text>
+
+  <!-- input -->
+  <rect class="soft" x="40" y="150" width="150" height="120" rx="14"/>
+  <text class="t m" x="115" y="196" text-anchor="middle" fill="#0f172a">비정형 문서</text>
+  <text class="t xs" x="115" y="222" text-anchor="middle" fill="#475569">일지·보고서·회의록</text>
+  <text class="t xs" x="115" y="242" text-anchor="middle" fill="#475569">타자·약어·손글씨</text>
+
+  <!-- stage OCR -->
+  <rect class="plain" x="240" y="150" width="150" height="120" rx="14"/>
+  <text class="t s" x="315" y="180" text-anchor="middle" fill="#7c3aed">STEP 1</text>
+  <text class="t m" x="315" y="206" text-anchor="middle" fill="#0f172a">OCR</text>
+  <text class="t xs" x="315" y="230" text-anchor="middle" fill="#475569">문서 디지털화</text>
+  <text class="t xs" x="315" y="250" text-anchor="middle" fill="#475569">스캔 → 텍스트</text>
+
+  <!-- stage NER -->
+  <rect class="plain" x="440" y="150" width="150" height="120" rx="14"/>
+  <text class="t s" x="515" y="180" text-anchor="middle" fill="#7c3aed">STEP 2</text>
+  <text class="t m" x="515" y="206" text-anchor="middle" fill="#0f172a">개체명 인식</text>
+  <text class="t xs" x="515" y="230" text-anchor="middle" fill="#475569">사람·조직·주제</text>
+  <text class="t xs" x="515" y="250" text-anchor="middle" fill="#475569">범주로 분류</text>
+
+  <!-- stage RE -->
+  <rect class="plain" x="640" y="150" width="150" height="120" rx="14"/>
+  <text class="t s" x="715" y="180" text-anchor="middle" fill="#7c3aed">STEP 3</text>
+  <text class="t m" x="715" y="206" text-anchor="middle" fill="#0f172a">관계 추출</text>
+  <text class="t xs" x="715" y="230" text-anchor="middle" fill="#475569">개체 쌍을 잇는</text>
+  <text class="t xs" x="715" y="250" text-anchor="middle" fill="#475569">의미적 관계</text>
+
+  <!-- output -->
+  <rect class="dark" x="820" y="150" width="110" height="120" rx="14"/>
+  <text class="t m" x="875" y="200" text-anchor="middle" fill="#fff">지식</text>
+  <text class="t m" x="875" y="224" text-anchor="middle" fill="#fff">그래프</text>
+
+  <path class="line" d="M190 210 L236 210" marker-end="url(#arrow)"/>
+  <path class="line" d="M390 210 L436 210" marker-end="url(#arrow)"/>
+  <path class="line" d="M590 210 L636 210" marker-end="url(#arrow)"/>
+  <path class="line" d="M790 210 L816 210" marker-end="url(#arrow)"/>
+
+  <!-- graph illustration -->
+  <g>
+    <circle cx="865" cy="360" r="9" fill="#0f2c59"/>
+    <circle cx="905" cy="410" r="9" fill="#89a7d8"/>
+    <circle cx="835" cy="415" r="9" fill="#89a7d8"/>
+    <path class="dash" d="M865 360 L905 410"/>
+    <path class="dash" d="M865 360 L835 415"/>
+  </g>
+
+  <!-- annotation band -->
+  <rect x="40" y="330" width="760" height="150" rx="14" fill="#eef2fb" stroke="#c7d3ea"/>
+  <text class="t m" x="60" y="364" text-anchor="start" fill="#0f172a">두 개의 큰 도전 과제</text>
+  <text class="t s" x="60" y="396" text-anchor="start" fill="#334155">· 지식 표현 — 흩어진 정보를 어떻게 질서 있게 담을 것인가</text>
+  <text class="t s" x="60" y="424" text-anchor="start" fill="#334155">· 지식 학습 — NLP·LLM으로 문서에서 어떻게 캐낼 것인가</text>
+  <text class="t xs" x="60" y="456" text-anchor="start" fill="#64748b">개체(점)와 관계(선)가 어떤 지식 그래프든 그 뼈대를 이룬다</text>
+</svg>

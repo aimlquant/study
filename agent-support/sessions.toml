@@ -113,8 +113,12 @@ date = "2026-08-15"
 title = "Chapter 5. 비정형 데이터에서 도메인 특화 지식 추출"
 presenters = ["두균"]
 chapters = ["Chapter 5"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-15-ch05/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-15-ch05/" },
+]
 
 [[sessions]]
 id = "2026-08-22-machine-trading-ch05"
