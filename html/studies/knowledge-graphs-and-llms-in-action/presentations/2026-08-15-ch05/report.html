@@ -91,6 +91,11 @@
       </figure>
       <p>이 정보를 제대로 캐내 모델링하면 다음 같은 질문에 답할 수 있다. 어떤 아이디어에 연구비가 지원되기 전에 앞서 나타나는 패턴이 있는가? 지원받은 프로젝트는 영향력 있는 과학자나 이전 수혜자의 추천을 따르는가? 한 연구비가 확정되기까지 내부 논의가 몇 번 오가는가? 하위 분야별 지원 흐름은 시간이 지나며 어떻게 바뀌는가?</p>
       <div class="callout--insight"><span class="callout__kicker">읽기 포인트</span><div class="callout__body"><p>이 장은 최신 머신러닝을 특정 도메인에 맞게 조정하는 방법을 보여 준다. 다음 6장에서는 여기서 뽑아낸 정보로 실제 그래프를 만들어 관계 질문에 답한다. 즉 5장은 &#39;추출&#39;, 6장은 &#39;구축과 질의&#39;다.</p></div></div>
+      <aside class="term-note" role="note"><span class="term-note__kicker">데이터 출처와 접근성 · 각주</span><ul>
+        <li><strong>쓰는 자료</strong><span>RAC가 소장한 &#39;현대 과학 분야의 기원에 관한 역사 데이터의 일부&#39;이며, 구체적으로는 록펠러 재단 프로그램 담당관(예: 워런 위버)의 일지다. (교재 §5.1)</span></li>
+        <li><strong>접근 방법</strong><span>교재는 RAC가 40여 기관의 기록을 &#8220;전 세계 연구자에게 공개한다&#8221;고만 서술하며, 구체적인 접속 URL·다운로드 링크·신청 절차는 밝히지 않는다.</span></li>
+        <li><strong>배포 범위</strong><span>책이 재현용으로 제공하는 것은 원본 일지 데이터가 아니라 KG 생성에 쓴 최종 프롬프트(책 코드 저장소)다. 예제에 등장하는 일지 텍스트도 별도 데이터셋 파일이 아니라 코드 안에 문자열로 포함되어 있어, 원본 일지 전체를 쓰려면 RAC를 통해 직접 자료에 접근해야 한다.</span></li>
+      </ul></aside>
     </section>
 
     <section class="report-section s2 page-break" id="source-5-2" data-source-kind="section" data-source-ref="5.2">
@@ -195,15 +200,25 @@
       <p>프롬프트가 어떻게 진화하는지 실제 예로 따라가 보자. 이 장의 프롬프트들은 ChatGPT 계열을 위해 설계됐고 GPT-4o mini에서 시험됐다. 저자들은 특정 모델의 세부보다 근본 원리에 초점을 두라고 권한다. 먼저 버전 1은 GPT에게 “가능한 한 많은 개체와 관계를 찾아 <code>[개체1, 유형, 관계, 개체2, 유형]</code> 형식으로 출력하라”고 요청한다(리스팅 5.1). 관계에는 방향이 있으므로 순서가 중요하다는 지침과, 관계 추출처럼 복잡한 과제에 특히 유용한 예시 하나를 함께 준다.</p>
       <article class="source-listing" id="listing-5-1-intro">
         <h4>리스팅 5.1 · 프롬프트 버전 1: 개체와 관계 찾아내기 <span style="font-weight:600;color:var(--muted,#64748b);">(원자료 bold-numbered 리스팅)</span></h4>
-        <p>과제 설명(<code>task</code>), 예시 입력(<code>example</code>), 기대 출력(<code>example_output</code>)의 세 조각으로 프롬프트를 구성한다. 예시를 곁들이는 것이 관계 추출에서 특히 도움이 된다.</p>
+        <p>과제 설명(<code>task</code>), 예시 입력(<code>example</code>), 기대 출력(<code>example_output</code>)의 세 조각으로 프롬프트를 구성한다. 예시를 곁들이는 것이 관계 추출에서 특히 도움이 된다. 아래 코드의 영문 프롬프트에는 이해를 돕기 위해 각 부분의 뜻을 한글 주석(<code>#</code>)으로 달았다 — 실제 GPT에 보내는 프롬프트는 영문 그대로다.</p>
         <pre data-code-language="Python"><code>prompt_segments = dict()
+
+# task = 과제 설명 —
+#   "너는 개체명 인식(NER)과 관계 추출(RE)로 텍스트에서 지식 그래프를 만드는
+#    전문가다. 글이 주어지면 가능한 한 많은 개체와 그 사이의 관계를 찾아,
+#    [개체1, 개체1 유형, 관계, 개체2, 개체2 유형] 형식의 목록으로 출력하라.
+#    관계에는 방향이 있으니 순서가 중요하다."
 prompt_segments['task'] = """You are an expert on constructing Knowledge
 Graphs from texts using named entity recognition and relation extraction.
 Given a prompt, identify as many entities and relations among them as
 possible and output a list of relations in the format [ENTITY 1, ENTITY 1
 TYPE, RELATION, ENTITY 2, ENTITY 2 TYPE].
 The relations are directed, so the order matters."""
+
+# example = 예시 입력
 prompt_segments['example'] = "J.R.Smith (Prof. Phys.) is employed by MIT ..."
+
+# example_output = 기대 출력 — [개체, 유형, 관계, 개체, 유형] 형식의 정답 견본
 prompt_segments['example_output'] = """["J. R. Smith", "person", "works for", "MIT", "organization"] ..."""</code></pre>
       </article>
       <article class="source-listing" id="source-listing-5-2" data-source-kind="listing" data-source-ref="5.2">
@@ -221,7 +236,10 @@ def openai_query(client, prompt_segments: dict, query: str):
     response = client.chat.completions.create(
         model=OPENAI_MODEL, messages=messages,
         temperature=0., max_tokens=2000)
-    return response.choices[0].message.content</code></pre>
+    return response.choices[0].message.content
+    # API 응답(response)은 포장이 여러 겹입니다. 모델이 여러 후보 답을 줄 수 있어
+    # choices[0] = 첫 번째 후보를 고르고, 그 안의 message.content = 실제 답변
+    # 텍스트만 꺼내 돌려줍니다.</code></pre>
       </article>
       <article class="source-listing" id="source-listing-5-3" data-source-kind="listing" data-source-ref="5.3">
         <h4>Listing 5.3 · 리스팅 5.2 프롬프트의 GPT 출력</h4>
