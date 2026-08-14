@@ -3680,6 +3680,31 @@ html, body, button, input { font-family: var(--font-sans-ko); }
 }
 .source-listing h4, .source-exercise h4 { margin: 0 0 10px; color: var(--brand-deep); font-size: 11pt; line-height: 1.45; }
 .source-listing p:last-child, .source-exercise p:last-child { margin-bottom: 0; }
+/* 구문 강조 토큰 — report.js 의 토크나이저가 붙이는 클래스. 어두운 코드 창
+   배경(#0F1419) 기준으로 모두 대비 6:1 이상이 되게 골랐다. */
+pre code .tok-com { color: #8195A8; font-style: italic; }
+pre code .tok-str { color: #9ECE6A; }
+pre code .tok-num { color: #FF9E64; }
+pre code .tok-kw  { color: #BB9AF7; }
+pre code .tok-lit { color: #FF757F; }
+pre code .tok-fn  { color: #7AA2F7; }
+
+/* 교재 원본 리스팅을 종속 자료로 낮춘 변형. 각 절의 주 리스팅은 Python 이고
+   MATLAB 은 대조용으로 뒤에 따라오므로, 파란 강조 대신 회색으로 물러나게 한다. */
+.source-listing--secondary {
+  border-color: #e2e5ea;
+  border-left-color: #b3bac4;
+  background: #f6f7f9;
+}
+.report-section .source-listing--secondary h4,
+.continuous-mode .report-section .source-listing--secondary h4 {
+  color: #5f6874;
+  font-size: 10.5pt;
+  /* 제목에 fitctree 같은 함수명이 들어가므로 대문자 변환을 걸지 않는다. */
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 /* AIML Quant 재현 코드 — 교재 리스팅(파란 띠)과 시각적으로 구분되는 초록 띠 */
 .aimlquant-listing {
   margin: 24px 0;
