@@ -507,17 +507,18 @@ for t in range(len(obs) - 1):
       <footer class="slide-footer"><span>Chapter 4 · HMM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="비터비로 얻는 상태 시퀀스" data-report-refs="source-section-4-9-3 hmm" data-source-refs="section:4.9.3" data-source-title="section:4.9.3">
+    <section class="slide slide--compact-code" aria-label="비터비로 얻는 상태 시퀀스" data-report-refs="source-section-4-9-3 hmm" data-source-refs="section:4.9.3" data-source-title="section:4.9.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.9.3</span></header>
       <h1 class="source-title">덤 — 가장 그럴듯한 상태 시퀀스 (Viterbi)</h1>
       <p class="lead">관측된 방출이 주어지면 HMM 은 가장 그럴듯한 은닉 상태 시퀀스를 알려 준다.</p>
       <div class="slide-body">
-        <pre class="code-block" data-code-language="MATLAB"><code class="language-matlab">states = hmmviterbi(data, T, E);</code></pre>
+        <pre class="code-block code-block--compact" data-code-language="Python"><code class="language-python"># 계열 전체를 본 뒤 최적 경로를 되짚는다
+states = viterbi_path(obs, prior, T, E)</code></pre>
         <div class="two-col">
           <article class="panel"><p class="eyebrow">쓸모</p><h2>명확히 정의된 답</h2><p>누군가 지금이 강세장인지 약세장인지 묻거든 HMM 에 물어 정의된 답을 줄 수 있다. 케이블 TV 해설자 둘도 합의하지 못하는 그 질문이다.</p></article>
-          <article class="panel"><p class="eyebrow">저자의 단서</p><h2>국면은 이론적 구성물이다</h2><p>궁극적으로 우리는 기대수익률에만 관심이 있다. 국면도, 국면 전환도 이론적 구성물일 뿐이라는 것이 주석 7 의 경고다.</p></article>
+          <article class="panel"><p class="eyebrow">저자의 단서</p><h2>국면은 이론적 구성물이다</h2><p>궁극적으로 우리는 기대수익률에만 관심이 있다. 국면도, 국면 전환도 이론적 구성물일 뿐이라는 것이 주석 7 의 경고다.</p><p><code>viterbi_path</code> 전체 구현은 리포트에 있다. 재현 감사가 검증한 코드는 아니다.</p></article>
         </div>
-        <p class="takeaway"><strong>이름 붙이기의 자유</strong> — 강세·약세 대신 위험선호·위험회피, 탐욕·공포라 불러도 알고리즘은 알아차리지 못한다. 이 장에서 유일하게 <strong>재현한 Python 이 없는 코드</strong> 다. 백테스트는 전방 확률로 돌렸고 비터비 경로는 다시 구현하지 않았다.</p>
+        <p class="takeaway"><strong>이름 붙이기의 자유</strong> — 강세·약세 대신 위험선호·위험회피라 불러도 알고리즘은 알아차리지 못한다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · HMM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>

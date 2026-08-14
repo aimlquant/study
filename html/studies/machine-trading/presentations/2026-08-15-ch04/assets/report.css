@@ -3689,22 +3689,6 @@ pre code .tok-kw  { color: #BB9AF7; }
 pre code .tok-lit { color: #FF757F; }
 pre code .tok-fn  { color: #7AA2F7; }
 
-/* 교재 원본 리스팅을 종속 자료로 낮춘 변형. 각 절의 주 리스팅은 Python 이고
-   MATLAB 은 대조용으로 뒤에 따라오므로, 파란 강조 대신 회색으로 물러나게 한다. */
-.source-listing--secondary {
-  border-color: #e2e5ea;
-  border-left-color: #b3bac4;
-  background: #f6f7f9;
-}
-.report-section .source-listing--secondary h4,
-.continuous-mode .report-section .source-listing--secondary h4 {
-  color: #5f6874;
-  font-size: 10.5pt;
-  /* 제목에 fitctree 같은 함수명이 들어가므로 대문자 변환을 걸지 않는다. */
-  text-transform: none;
-  letter-spacing: 0;
-}
-
 /* AIML Quant 재현 코드 — 교재 리스팅(파란 띠)과 시각적으로 구분되는 초록 띠 */
 .aimlquant-listing {
   margin: 24px 0;
@@ -3727,12 +3711,6 @@ pre code .tok-fn  { color: #7AA2F7; }
   line-height: 1.45;
   font-weight: 700;
   letter-spacing: 0;
-  text-transform: none;
-}
-/* 같은 이유로 교재 리스팅 제목의 코드도 원래 대소문자를 유지한다. 나란히 놓인
-   두 상자에서 한쪽만 대문자로 변환되면 짝이 어긋나 보인다. */
-.report-section .source-listing h4 code,
-.continuous-mode .report-section .source-listing h4 code {
   text-transform: none;
 }
 .aimlquant-listing p { margin-bottom: 10px; }
