@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 10 700 280" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
+    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
+    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
+    <style>
+      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
+      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
+      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
+      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
+      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
+      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
+      .key{fill:#0F2C59;stroke:#0F2C59}
+      .tk{fill:#fff;font-size:11.5px;font-weight:700;text-anchor:middle}
+      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+      .ar{stroke:#A3341F;stroke-width:1.5;fill:none;marker-end:url(#ahr)}
+      .ag{stroke:#1B6B3A;stroke-width:1.5;fill:none;marker-end:url(#ahg)}
+      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
+      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
+    </style>
+  </defs>
+
+<text class="tl" x="16" y="30">배깅 · 나란히 세워 평균</text>
+<rect class="box" x="16" y="46" width="112" height="30" rx="8"/>
+<text class="lab" x="72" y="66">트리 1</text>
+<rect class="box" x="16" y="90" width="112" height="30" rx="8"/>
+<text class="lab" x="72" y="110">트리 2</text>
+<rect class="box" x="16" y="134" width="112" height="30" rx="8"/>
+<text class="lab" x="72" y="154">트리 3</text>
+<path class="ag" d="M132,61 L184,98"/>
+<path class="ag" d="M132,105 L184,105"/>
+<path class="ag" d="M132,149 L184,112"/>
+<rect class="good" x="192" y="84" width="104" height="42" rx="10"/>
+<text class="goodt" x="244" y="102">평균</text>
+<text class="s" x="244" y="118">분산만 낮춘다</text>
+
+<path class="dash" d="M330,26 V282"/>
+
+<text class="tl" x="360" y="30">부스팅 · 이어 붙여 누적</text>
+
+<rect class="box" x="360" y="46" width="112" height="30" rx="8"/>
+<text class="lab" x="416" y="66">트리 1</text>
+<path class="ar" d="M478,61 L534,61"/>
+<rect class="warn" x="542" y="46" width="158" height="30" rx="8"/>
+<text class="warnt" x="621" y="66">남은 오차</text>
+<path class="ar" d="M621,78 V96 H416 V112"/>
+<text class="s halo" x="520" y="92">이것에 적합</text>
+
+<rect class="box" x="360" y="118" width="112" height="30" rx="8"/>
+<text class="lab" x="416" y="138">트리 2</text>
+<path class="ar" d="M478,133 L534,133"/>
+<rect class="warn" x="542" y="118" width="158" height="30" rx="8"/>
+<text class="warnt" x="621" y="138">남은 오차</text>
+<path class="ar" d="M621,150 V168 H416 V184"/>
+<text class="s halo" x="520" y="164">이것에 적합</text>
+
+<rect class="box" x="360" y="190" width="112" height="30" rx="8"/>
+<text class="lab" x="416" y="210">트리 M</text>
+
+<path class="a" d="M416,222 V244"/>
+<rect class="key" x="360" y="246" width="340" height="34" rx="9"/>
+<text class="tk" x="530" y="267">누적 합 · 편향을 줄인다</text>
+</svg>

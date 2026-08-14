@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 20 690 176" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+  <defs>
+    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
+    <style>
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
+      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
+      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
+      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.6}
+      .goodt{fill:#1B6B3A;font-size:11.5px;font-weight:700;text-anchor:middle}
+      .warnt{fill:#A3341F;font-size:10.5px;font-weight:700;text-anchor:middle}
+      .ag{stroke:#1B6B3A;stroke-width:1.6;fill:none;marker-end:url(#ahg)}
+      .bar{fill:#9AA9C4}
+      .barsel{fill:#1B6B3A}
+      .barweak{fill:#E0B4A6}
+      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
+      .dash{stroke:#A3341F;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
+      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
+    </style>
+  </defs>
+
+<path class="axis" d="M170,42 V158"/>
+
+<text class="sr" x="164" y="60">ret1</text>
+<rect class="bar" x="170" y="50" width="120" height="14"/>
+<text class="sl" x="398" y="60">1.6e−05</text>
+
+<text class="sr" x="164" y="88">ret2</text>
+<rect class="barsel" x="170" y="78" width="210" height="14"/>
+<text class="sl" x="398" y="88">4.3e−09</text>
+
+<text class="sr" x="164" y="116">ret5</text>
+<rect class="bar" x="170" y="106" width="61" height="14"/>
+<text class="sl" x="398" y="116">3.8e−03</text>
+
+<text class="sr" x="164" y="144">ret20</text>
+<rect class="barweak" x="170" y="134" width="18" height="14"/>
+<text class="sl" x="398" y="144">0.20</text>
+
+<path class="dash" d="M203,42 V158"/>
+<text class="warnt halo" x="203" y="36">p = 0.05</text>
+
+<text class="s" x="284" y="180">막대가 길수록 유의하다</text>
+<text class="sl" x="398" y="36">단변량 p값</text>
+
+<path class="ag" d="M472,85 L520,85"/>
+
+<rect class="good" x="528" y="62" width="164" height="46" rx="10"/>
+<text class="goodt" x="610" y="82">ret2 채택</text>
+<text class="s" x="610" y="98">예측변수 1개로 확정</text>
+</svg>
