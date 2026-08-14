@@ -53,37 +53,30 @@
     <section class="slide slide--visual" aria-label="오늘의 흐름" data-report-refs="summary fig-chapter-map table-overview">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
       <h1>모델을 고르는 일에서 끝나지 않고, 학습과 검증을 설계하는 이야기</h1>
-      <p class="lead">왼쪽 여섯 학습기는 도구 상자일 뿐이다. 오른쪽 숫자를 만드는 것은 가운데 칸이다.</p>
+      <p class="lead">기본 발표 모드는 38장만 보여 준다. 50분 동안 문제 설정 → 핵심 알고리즘 → 횡단면 확장 → 판단 기준으로 진행하고, 나머지 17장은 질문이 나올 때만 연다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-chapter-map.svg" alt="왼쪽은 예측 문제에 맞는 모델을 고르는 단계, 가운데는 테스트셋을 사용하지 않고 시간순 검증과 앙상블을 설계하는 단계, 오른쪽은 근거를 구분해 SPY 테스트 CAGR을 확인하는 단계다. Python SVM 11.2퍼센트, 단계적 회귀 재계산 10.6퍼센트, Python 순수 배깅 10.5퍼센트, Python 분류 트리 4.0퍼센트, HMM 재계산 마이너스 1.0퍼센트가 표시되며, 아래에는 같은 구간 SPY 매수·보유 13.4퍼센트가 비교 기준선으로 적혀 있다.">
-          <figcaption><b>상세 리포트 그림 1</b><span><strong>읽는 법</strong> — 왼쪽에서 오른쪽으로 책임이 옮겨간다</span><span><strong>왜 중요한가</strong> — 가운데를 어떻게 채우느냐가 오른쪽 숫자를 만든다</span><span><strong>경계</strong> — 모두 SPY 예제 결과이며, 초록 상자만 SPX 집계 예제다</span></figcaption>
+          <figcaption><b>38장 · 50분</b><span><strong>0–8분</strong> — 문제와 공통 실험</span><span><strong>8–38분</strong> — 모델별 개념과 결과</span><span><strong>38–50분</strong> — 데이터 확장·판단·정리</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 전체 지도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="도입 섹션" data-report-refs="intro source-section-4-0" data-source-refs="section:4.0" data-source-title="section:4.0">
-      <p class="eyebrow">교재 §4.0</p>
-      <h1 class="source-title">들어가며 — 이론물리학자에서 실험물리학자로</h1>
-      <p>가설을 세우고 검증하는 대신, 선입견 없이 되도록 많이 훑어 규칙을 발견한다. 그 매력과 위험을 함께 짚는다.</p>
-    </section>
-
-    <section class="slide" aria-label="데이터 마이닝을 향한 경계심" data-report-refs="intro source-section-4-0" data-source-refs="section:4.0">
+    <section class="slide slide--visual" aria-label="도입 섹션" data-report-refs="intro source-section-4-0 fig-experiment-loop" data-source-refs="section:4.0" data-source-title="section:4.0">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.0</span></header>
-      <h1>사람이 만든 모델은 왜 망가졌는지 알 수 있다</h1>
-      <p class="lead">금융 데이터는 양이 제한적이고 <strong>정상성(stationarity)</strong> 이 부족하다 — 수익률의 확률분포가 영원히 일정하지 않다는 뜻이다.</p>
-      <div class="slide-body">
-        <div class="balance-grid">
-          <article><p class="eyebrow">위험</p><h2>과거에만 맞는 규칙</h2><ul><li>틱 데이터를 쓰지 않는 한 표본이 작다</li><li>알고리즘을 그냥 풀어놓으면 잡음을 규칙으로 외운다</li><li>망가진 이유조차 알기 어렵다</li></ul></article>
-          <article><p class="eyebrow">그래도 쓰는 이유</p><h2>설명 불가능해서 살아남는 규칙</h2><ul><li>사람이 떠올리지 못한 패턴을 찾아 준다</li><li>정당성이 없어 차익거래로 갉아먹히지 않는다</li><li>지표 뭉치를 어떻게 쓸지 모를 때 가장 손쉬운 길이다</li></ul></article>
-        </div>
-        <p class="takeaway"><strong>이 장의 초점</strong> — 화려한 알고리즘보다 <em>표본 외를 지키는 장치</em>를 어디에 끼워 넣느냐다.</p>
+      <h1 class="source-title">들어가며 — 이론물리학자에서 실험물리학자로</h1>
+      <p class="lead">금융 데이터는 작고 분포가 변한다. 그래서 규칙을 많이 찾는 능력보다 <strong>발견과 검증을 분리하는 실험 절차</strong>가 먼저다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-experiment-loop.svg" alt="질문 정의, 학습 데이터로 모델 만들기, 시간순 검증, 테스트 구간 확인, 실패 원인 진단의 다섯 단계가 순환하는 흐름도. 테스트 결과는 앞 단계의 모델 선택에 다시 사용하지 않는다는 경계가 표시되어 있다.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>읽는 법</strong> — 질문에서 테스트까지 한 방향으로 간다</span><span><strong>금지선</strong> — 테스트 결과로 앞 단계 선택을 고치지 않는다</span><span><strong>핵심</strong> — 모델보다 정보 경계를 먼저 설계한다</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 도입</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="AI를 버리지 않는 이유" data-report-refs="source-section-4-0-1 intro" data-source-refs="section:4.0.1" data-source-title="section:4.0.1">
+    <section class="slide" aria-label="AI를 버리지 않는 이유" data-deck-appendix="true" data-report-refs="source-section-4-0-1 intro" data-source-refs="section:4.0.1" data-source-title="section:4.0.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.0.1</span></header>
       <h1 class="source-title">그럼에도 AI를 버리지 않는 이유</h1>
       <p class="lead">과적합 편향을 피하도록 설계된 기법이 계속 나오고 있고, 설명되지 않는 규칙이 오히려 오래 산다.</p>
@@ -111,27 +104,7 @@
       <footer class="slide-footer"><span>Chapter 4 · 모델 분류</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="과적합을 줄이는 다섯 기법" data-report-refs="table-five-techniques source-section-4-0-2" data-source-refs="section:4.0.2">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.0.2</span></header>
-      <h1>넷은 과적합을 줄이고, 하나는 결이 다르다</h1>
-      <p class="lead">앞의 네 기법은 무작위성을 심어 분산을 낮춘다. 다섯 번째 부스팅만 오차를 파고들어 예측력을 짜낸다.</p>
-      <div class="slide-body">
-        <table class="compare-table compare-table--dense">
-          <thead><tr><th>기법</th><th>학습 과정에서 무엇을 바꾸는가</th><th>여러 모델을 어떻게 쓰는가</th><th>목표</th></tr></thead>
-          <tbody>
-            <tr><td>교차 검증</td><td>학습셋을 K개로 분할</td><td>표본 외 성능 최선 하나를 고른다</td><td>과적합 감소</td></tr>
-            <tr><td>배깅</td><td>데이터를 복원추출</td><td>예측을 평균한다</td><td>과적합 감소</td></tr>
-            <tr><td>무작위 부분공간</td><td>예측변수를 표본추출</td><td>예측을 평균한다</td><td>과적합 감소</td></tr>
-            <tr><td>랜덤 포레스트</td><td>데이터와 예측변수를 함께</td><td>예측을 평균한다</td><td>과적합 감소</td></tr>
-            <tr><td>부스팅</td><td>다음 모델의 목표를 앞 모델의 잔차로 바꾼다</td><td>순차적으로 이어 붙인다</td><td>예측력 강화</td></tr>
-          </tbody>
-        </table>
-        <p class="takeaway"><strong>미리 익힐 이름</strong> — 이 다섯이 이 장의 뼈대다. 뒤의 모든 절이 이 중 하나를 적용한다.</p>
-      </div>
-      <footer class="slide-footer"><span>Chapter 4 · 공통 기법</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="하나의 예제로 겨루기" data-report-refs="source-section-4-0-3 intro" data-source-refs="section:4.0.3" data-source-title="section:4.0.3">
+    <section class="slide" aria-label="하나의 예제로 겨루기" data-deck-appendix="true" data-report-refs="source-section-4-0-3 intro" data-source-refs="section:4.0.3" data-source-title="section:4.0.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.0.3</span></header>
       <h1 class="source-title">하나의 예제로 모든 기법을 겨루게 하다</h1>
       <p class="lead">SPY 의 다음 날 수익률을 1일·2일·5일·20일 과거 수익률로 예측한다 — 이 하나의 문제에 여섯 기법을 반복 적용한다.</p>
@@ -152,51 +125,28 @@
       <p>특성 선택과 선형 회귀를 결혼시킨 결과물. 모델이 꼭 복잡할 필요는 없다.</p>
     </section>
 
-    <section class="slide" aria-label="다중 회귀 벤치마크" data-report-refs="source-section-4-1-1 stepwise" data-source-refs="section:4.1.1" data-source-title="section:4.1.1">
+    <section class="slide slide--visual" aria-label="다중 회귀 벤치마크" data-deck-appendix="true" data-report-refs="source-section-4-1-1 stepwise fig-linear-baseline" data-source-refs="section:4.1.1" data-source-title="section:4.1.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1.1</span></header>
       <h1 class="source-title">먼저 평범한 다중 회귀부터 — 벤치마크 만들기</h1>
-      <p class="lead">네 예측변수를 모두 한꺼번에 적합한다. Python에서는 상수항 열을 붙인 뒤 최소제곱으로 계수를 구한다.</p>
-      <div class="slide-body">
-        
-        <div class="code-layout">
-          <pre class="code-block" data-code-language="Python"><code class="language-python">design = np.column_stack([np.ones(len(x)), x])
-beta, *_ = np.linalg.lstsq(design, y, rcond=None)
-
-prediction = design_test @ beta
-positions = np.r_[0.0, np.sign(prediction)[:-1]]</code></pre>
-          <article class="panel">
-            <p class="eyebrow">같은 규칙, 두 구간</p>
-            <h2>34.3% · 샤프 1.4</h2>
-            <p>학습셋(2004-12-22 ~ 2009-09-15) — 꽤 잘 맞는다.</p>
-            <h2>0.4% · 샤프 0.1</h2>
-            <p>테스트셋(2009-09-16 ~ 2014-06-02) — 무작위와 다를 바 없다.</p>
-          </article>
-        </div>
-        <p class="takeaway"><strong>이것이 벤치마크</strong> — 더 복잡한 방법이 적어도 넘어야 할 단순한 기준선이다.</p>
+      <p class="lead"><code>ret1</code>·<code>ret2</code>·<code>ret5</code>·<code>ret20</code>을 모두 쓰면 학습 구간에서는 좋아 보이지만, 처음 보는 기간에서는 두 지표가 거의 사라진다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-linear-baseline.svg" alt="다중 회귀의 학습 구간과 테스트 구간 성과를 비교한 두 개의 막대그래프. 왼쪽 CAGR은 학습 34.3퍼센트, 테스트 0.4퍼센트이고, 오른쪽 샤프 비율은 학습 1.4, 테스트 0.1이다. 두 지표 모두 테스트 구간에서 크게 낮아진다.">
+          <figcaption><b>리포트 실행 결과</b><span><strong>입력</strong> — 과거 수익률 4개를 모두 사용</span><span><strong>결과</strong> — CAGR 34.3% → 0.4%</span><span><strong>역할</strong> — 이후 모델이 넘어야 할 기준선</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 단계적 회귀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="단계적 회귀의 작동 방식" data-report-refs="source-section-4-1-2 stepwise" data-source-refs="section:4.1.2" data-source-title="section:4.1.2">
+    <section class="slide slide--visual" aria-label="단계적 회귀의 작동 방식" data-report-refs="source-section-4-1-2 stepwise fig-stepwise-selection" data-source-refs="section:4.1.2" data-source-title="section:4.1.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1.2</span></header>
       <h1 class="source-title">단계적 회귀는 무엇이 다른가</h1>
-      <p class="lead">하나의 최선 변수에서 출발해 좋아지는 한 <strong>추가</strong> 하고, 멈추면 방향을 뒤집어 <strong>제거</strong> 한다.</p>
-      <div class="slide-body">
-        <div class="two-col">
-          <article class="panel">
-            <p class="eyebrow">왜 AIC · BIC 인가</p>
-            <h2>변수를 늘리면 표본 내 오차는 무조건 준다</h2>
-            <ul><li>늘어난 변수 상당수는 학습셋의 잡음을 외운 것이다</li><li>AIC·BIC 는 오차 감소의 보상과 복잡함의 벌점을 저울질한다</li><li>이득이 대가를 넘어설 때만 변수를 받아들인다</li></ul>
-          </article>
-          <article class="panel panel--accent">
-            <p class="eyebrow">구현</p>
-            <h2>p값이 가장 작은 하나를 고른다</h2>
-            <pre class="code-block" data-code-language="Python"><code class="language-python"># 후보별 p값 중 최소
-best = min(pvals, key=pvals.get)</code></pre>
-            <p>Python 구현은 네 후보의 p값을 직접 계산해 가장 작은 후보를 고른다. 어떤 변수가 왜 남았는지 선택 과정을 확인할 수 있다.</p>
-          </article>
-        </div>
-        <p class="takeaway"><strong>절제의 원천</strong> — 벌점 항이 있기 때문에 변수를 무작정 늘리지 않는다.</p>
+      <p class="lead">각 후보를 단독으로 시험한 뒤, 하나를 넣고 나면 <strong>남은 후보가 이미 선택된 변수 위에서 추가로 설명하는 것</strong>이 있는지 다시 묻는다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-stepwise-selection.svg" alt="단계적 회귀의 네 단계를 왼쪽에서 오른쪽으로 보여 주는 흐름도. 상수항만 있는 빈 모형에서 시작해 ret1, ret2, ret5, ret20을 하나씩 시험한다. 첫 검사에서 p값이 가장 작은 ret2를 추가한 뒤, ret2가 포함된 상태에서 나머지 변수의 추가 기여와 ret2의 제거 여부를 다시 검사한다. 나머지 변수의 조건부 p값이 모두 0.05보다 크고 ret2는 유지 기준을 만족하므로 선택을 멈추고 ret2 하나인 최종 모형을 얻는다. 조건을 통과하는 변수가 있으면 검사 단계로 돌아가는 반복 화살표가 있다.">
+          <figcaption><b>상세 리포트 그림 3</b><span><strong>1</strong> — 빈 모형에서 후보를 하나씩 시험</span><span><strong>2</strong> — 가장 유의한 <code>ret2</code>를 추가</span><span><strong>3</strong> — 추가 이득이 없으면 멈춤</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 단계적 회귀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -210,10 +160,10 @@ best = min(pvals, key=pvals.get)</code></pre>
           <thead><tr><th>모델</th><th>쓴 예측변수</th><th>표본 내 CAGR · 샤프</th><th>표본 외 CAGR · 샤프</th></tr></thead>
           <tbody>
             <tr><td>다중 회귀</td><td>ret1 · ret2 · ret5 · ret20</td><td>34.3% · 1.4</td><td>0.4% · 0.1</td></tr>
-            <tr><td>단계적 회귀 <code>select_stepwise_predictor</code></td><td>ret2 하나</td><td>43.6% · 1.6</td><td>10.6% · 0.7</td></tr>
+            <tr><td>단계적 회귀 <code>select_stepwise_predictor</code></td><td>ret2 하나</td><td>43.6% · 1.6 <small>(공식 입력 재계산)</small></td><td>10.6% · 0.7</td></tr>
           </tbody>
         </table>
-        <p class="takeaway"><strong>두 가지를 함께 본다</strong> — 단순한 모델이 표본 내에서 이긴 것은 이례적이고, 표본 외를 0.4%에서 10.6%로 올린 것이 더 중요하다. 통계적 유의성 기준은 샤프 1 이다.</p>
+        <p class="takeaway"><strong>두 가지를 함께 본다</strong> — 단순한 모델이 표본 내에서 이긴 것은 이례적이고, 표본 외를 0.4%에서 10.6%로 올린 것이 더 중요하다. 다만 샤프 0.7만으로 통계적 유의성을 단정하지 않는다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 단계적 회귀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -231,10 +181,17 @@ best = min(pvals, key=pvals.get)</code></pre>
       <footer class="slide-footer"><span>Chapter 4 · 단계적 회귀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="회귀 트리 섹션" data-report-refs="regression-tree source-section-4-2" data-source-refs="section:4.2" data-source-title="section:4.2">
-      <p class="eyebrow">교재 §4.2</p>
+    <section class="slide slide--visual" aria-label="회귀 트리 섹션" data-report-refs="regression-tree source-section-4-2 fig-regression-tree-concept" data-source-refs="section:4.2" data-source-title="section:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2</span></header>
       <h1 class="source-title">회귀 트리 (Regression Tree) — 데이터를 스무고개처럼 쪼개다</h1>
-      <p>단계적 회귀는 하나의 규칙이 전체를 지배한다. 회귀 트리는 구역마다 다른 규칙을 세운다.</p>
+      <p class="lead">여러 질문 가운데 <strong>두 집단의 예측 오차를 가장 많이 줄이는 질문</strong>을 고르고, 새 관측값이 도착하면 잎까지 따라간다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-regression-tree-concept.svg" alt="회귀 트리의 학습과 예측을 네 단계로 보여 주는 흐름도. 전체 학습 데이터에서 시작해 여러 변수와 기준값을 질문 후보로 시험하고, 두 자식 집단의 평균제곱오차가 가장 작아지는 질문을 고른다. 각 자식 집단에서 같은 분할을 반복해 트리를 만든 뒤, 새 관측값이 도착하면 질문을 따라 한 잎에 도달하고 그 잎에 든 학습값의 평균을 수치 예측으로 내놓는다.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>학습</strong> — 오차를 가장 줄이는 질문 선택</span><span><strong>예측</strong> — 질문을 따라 한 잎에 도착</span><span><strong>출력</strong> — 그 잎의 학습값 평균</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 회귀 트리</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--visual" aria-label="SPY 회귀 트리의 두 극단 잎" data-report-refs="source-section-4-2-1 source-figure-4-2" data-source-refs="section:4.2.1 figure:4.2" data-source-title="section:4.2.1">
@@ -293,27 +250,15 @@ best = min(pvals, key=pvals.get)</code></pre>
       <footer class="slide-footer"><span>Chapter 4 · 교차 검증</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="K를 5로 고른 이유" data-report-refs="source-section-4-3-1 cross-validation" data-source-refs="section:4.3.1" data-source-title="section:4.3.1">
+    <section class="slide slide--visual" aria-label="K를 5로 고른 이유" data-deck-appendix="true" data-report-refs="source-section-4-3-1 cross-validation fig-cv-results" data-source-refs="section:4.3.1" data-source-title="section:4.3.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.3.1</span></header>
       <h1 class="source-title">왜 K = 10이 아니라 K = 5인가</h1>
-      <p class="lead">여기서는 관측치가 약 1,157개뿐이어서 다섯 폴드를 쓴다. 폴드 수보다 더 중요한 것은 <strong>과거로 학습하고 바로 다음 구간에서 검증하는 시간 순서</strong>다.</p>
-      <div class="slide-body">
-        
-        <div class="code-layout">
-          <pre class="code-block" data-code-language="Python"><code class="language-python"># 교재는 무작위 5-겹, 재현은 시간순 5-겹
-splitter = TimeSeriesSplit(n_splits=5)
-
-for train, validation in splitter.split(x):
-    fitted = clone(tree).fit(x[train], y[train])
-    prediction = fitted.predict(x[validation])</code></pre>
-          <article class="panel">
-            <p class="eyebrow">K 가 너무 크면</p>
-            <p>남겨 두는 조각이 작아져 점수가 통계적 오차에 휘둘린다. 뽑힌 최선 트리가 테스트셋에서 좋으리란 보장이 없다.</p>
-            <p class="eyebrow">K 가 너무 작으면</p>
-            <p>비교할 학습된 모델이 충분치 않다. 5 는 두 오차 사이의 타협점이다.</p>
-          </article>
-        </div>
-        <p class="takeaway"><strong>실행 결과</strong> — 폴드별 RMSE는 0.0059~0.0271, 평균은 0.0142였다. 같은 설정도 시장 구간에 따라 오차가 크게 달라졌다.</p>
+      <p class="lead">관측치가 약 1,157개뿐이어서 다섯 구간을 쓴다. 숫자 5보다 중요한 것은 <strong>과거로 학습하고 바로 다음 기간으로 검증하는 순서</strong>다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-cv-results.svg" alt="다섯 폴드의 회귀 트리 검증 RMSE 막대그래프. 값은 차례로 0.0067, 0.0059, 0.0119, 0.0271, 0.0194이며 평균은 0.0142다. 뒤쪽 폴드의 오차가 커 시장 구간에 따라 성능이 달라짐을 보여 준다.">
+          <figcaption><b>리포트 실행 결과</b><span><strong>K=5</strong> — 검증 구간을 너무 작게 만들지 않는 타협</span><span><strong>관찰</strong> — RMSE 0.0059~0.0271</span><span><strong>해석</strong> — 설정 하나도 시장 구간에 따라 흔들린다</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 교차 검증</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -331,7 +276,7 @@ for train, validation in splitter.split(x):
       <footer class="slide-footer"><span>Chapter 4 · 배깅</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--visual" aria-label="배깅 적용 거래 모델의 자산 곡선" data-report-refs="source-figure-4-6 bagging" data-source-refs="figure:4.6">
+    <section class="slide slide--visual" aria-label="배깅 적용 예측 평균" data-deck-appendix="true" data-report-refs="source-figure-4-6 bagging" data-source-refs="figure:4.6">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 4.6</span></header>
       <h1>배깅은 예측값의 표본 의존성을 줄인다</h1>
       <p class="lead">같은 관측값을 다섯 트리가 다르게 예측할 때, 그 다섯 값을 평균해 최종 예측으로 쓴다.</p>
@@ -367,6 +312,7 @@ for train, validation in splitter.split(x):
           <tbody>
             <tr><td>교재 보고 · 모든 잎 단일 트리</td><td>없음</td><td>−7.2%</td><td>—</td></tr>
             <tr><td>교재 보고 · 교차 검증 (K = 5)</td><td>다섯 중 손실 최소 하나를 고른다</td><td>0.6%</td><td>0.11</td></tr>
+            <tr><td>교재 보고 · 배깅 (K = 5)</td><td>다섯 트리의 예측을 평균한다</td><td>7.2%</td><td>0.50</td></tr>
             <tr><td>Python · 순수 배깅</td><td>행만 바꾼 다섯 트리의 예측을 평균한다</td><td>10.5%</td><td>0.69</td></tr>
             <tr><td>Python · 랜덤 포레스트</td><td>행과 노드별 변수 후보를 바꾼다</td><td>8.7%</td><td>0.59</td></tr>
             <tr><td>재계산 · 극단 잎 2개 규칙</td><td>없음 · 조건 밖에서는 포지션 없음</td><td>3.9%</td><td>0.51</td></tr>
@@ -377,27 +323,57 @@ for train, validation in splitter.split(x):
       <footer class="slide-footer"><span>Chapter 4 · 앙상블</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--visual" aria-label="부스팅 섹션" data-report-refs="boosting source-section-4-6 source-figure-4-7" data-source-refs="section:4.6 figure:4.7" data-source-title="section:4.6">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.6 · 그림 4.7</span></header>
+    <section class="slide slide--visual" aria-label="부스팅 섹션" data-report-refs="boosting source-section-4-6 fig-boosting-sequence" data-source-refs="section:4.6" data-source-title="section:4.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.6</span></header>
       <h1 class="source-title">부스팅 (Boosting) — 과거의 실수에 집중해 배우다</h1>
-      <p class="lead">배깅은 독립적인 트리를 나란히 평균해 분산을 낮춘다. 부스팅은 잔차를 이어받아 순차적으로 편향을 줄인다.</p>
+      <p class="lead">배깅은 독립적인 트리를 나란히 평균한다. 부스팅은 앞 트리가 틀린 부분을 다음 트리의 학습 목표로 넘긴다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/fig-source-4-7.svg" alt="가로축은 부스팅 반복 횟수 M이 0부터 200까지, 세로축은 샤프 비율. 학습셋 곡선은 초반에 가파르게 올라 2.5 가까이 수렴하고 테스트셋 곡선은 완만하게 올라 0.6 부근에 머문다. 샤프 1 위치의 붉은 점선을 테스트셋 곡선은 넘지 못한다.">
-          <figcaption><b>상세 리포트 그림 12</b><span><strong>읽는 법</strong> — 두 곡선이 벌어지는 폭을 본다</span><span><strong>왜 중요한가</strong> — 교차 검증·배깅과 달리 과적합을 완화하지 못한다</span><span><strong>경계</strong> — 각 반복의 최선 트리에 교차 검증을 더하면 오히려 나빠진다</span></figcaption>
+          <img src="assets/figs/fig-boosting-sequence.svg" alt="점선으로 좌우를 나눈 두 흐름도다. 왼쪽 배깅에서는 트리 1·2·3이 나란히 놓여 모두 평균 상자로 모인다. 오른쪽 부스팅에서는 트리 1의 남은 오차가 트리 2의 입력이 되고 같은 구조가 트리 M까지 이어진 뒤 예측을 누적한다.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>배깅</strong> — 독립적으로 학습해 평균</span><span><strong>부스팅</strong> — 남은 오차를 다음 트리에 전달</span><span><strong>차이</strong> — 분산 감소와 편향 감소</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 부스팅</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--visual" aria-label="분류 트리 섹션" data-report-refs="classification-tree source-section-4-7 fig-gdi" data-source-refs="section:4.7" data-source-title="section:4.7">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.7</span></header>
-      <h1 class="source-title">분류 트리 (Classification Tree) — 상승/하락이라는 범주를 예측하다</h1>
-      <p class="lead">회귀 트리와 뼈대는 똑같다. 분할 기준이 분산에서 <strong>지니 다양성 지수(GDI)</strong> 로 바뀔 뿐이다.</p>
+    <section class="slide slide--visual" aria-label="부스팅 반복 횟수 실험" data-report-refs="boosting source-figure-4-7" data-source-refs="figure:4.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 4.7</span></header>
+      <h1>학습 오차를 계속 줄여도 테스트 성과는 따라오지 않는다</h1>
+      <p class="lead">반복 횟수 후보를 학습 구간의 시간순 검증으로 비교해 160회를 고른 뒤, 테스트 구간은 마지막에 한 번만 확인한다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
+          <img src="assets/figs/fig-source-4-7.svg" alt="왼쪽은 부스팅 반복 횟수 5, 20, 80, 160의 시간순 교차 검증 평균 RMSE가 조금씩 낮아져 160에서 0.014137로 가장 낮음을 보여 준다. 오른쪽은 선택한 160회 모델의 실제 테스트 결과로 CAGR 마이너스 2.2퍼센트, 샤프 비율 마이너스 0.05다.">
+          <figcaption><b>상세 리포트 그림 12</b><span><strong>선택</strong> — 검증 RMSE가 가장 낮은 160회</span><span><strong>테스트</strong> — CAGR −2.2% · 샤프 −0.05</span><span><strong>경계</strong> — 잔차 보정은 과적합 방지 보장이 아니다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 부스팅</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual slide--concept-pair" aria-label="분류 트리 섹션" data-report-refs="classification-tree source-section-4-7 fig-classification-tree-concept fig-gdi" data-source-refs="section:4.7" data-source-title="section:4.7" data-report-visual-adaptation="intentional" data-figure-comparison="intentional">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.7</span></header>
+      <h1 class="source-title">분류 트리 (Classification Tree) — 상승/하락이라는 범주를 예측하다</h1>
+      <p class="lead">회귀 트리와 뼈대는 같다. 숫자의 분산 대신 <strong>상승·하락이 덜 섞이게 만드는 질문</strong>을 고른다.</p>
+      <div class="slide-body report-visual-body concept-pair">
+        <figure class="concept-pair__item">
+          <img src="assets/figs/fig-classification-tree-concept.svg" alt="상승 9개와 하락 9개가 섞인 부모 노드가 ret2가 1.5퍼센트보다 작은지 묻는 분할을 거쳐 상승 8개 하락 2개의 왼쪽 잎과 상승 1개 하락 7개의 오른쪽 잎으로 나뉜다. 왼쪽 잎은 상승, 오른쪽 잎은 하락을 예측한다.">
+          <figcaption><strong>질문으로 나누기</strong><span>자식 노드가 한 클래스에 가까워지게 한다</span></figcaption>
+        </figure>
+        <figure class="concept-pair__item">
           <img src="assets/figs/fig-gdi.svg" alt="왼쪽 그래프는 가로축이 양의 수익률 관측치 비율, 세로축이 GDI이며 가운데가 가장 높은 종 모양 곡선이다. 양 끝 0과 1에서 0, 가운데 0.5에서 최대 0.5다. 오른쪽 두 상자는 회귀 트리가 자식 노드의 분산을 최소화하고 예측이 평균인 반면 분류 트리는 두 자식의 GDI 합을 최소화하고 예측이 다수 클래스임을 대조한다.">
-          <figcaption><b>상세 리포트 그림 13</b><span><strong>읽는 법</strong> — 곡선의 양 끝은 순수, 꼭대기는 가장 뒤섞인 상태다</span><span><strong>왜 중요한가</strong> — 나눈 결과 양쪽이 한 클래스로 쏠리게 만드는 변수를 고른다</span><span><strong>Python 결과</strong> — 총수익 CAGR 4.0% · 샤프 0.32, 비용 후 CAGR 0.05%</span></figcaption>
+          <figcaption><strong>GDI로 채점하기</strong><span>0이면 순수, 0.5이면 가장 뒤섞였다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 분류 트리</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="분류 트리 실행 결과" data-report-refs="classification-tree fig-classification-results" data-source-refs="section:4.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.7 · Python 실험</span></header>
+      <h1>정확도 52.7%는 비용을 이기지 못했다</h1>
+      <p class="lead">방향을 절반보다 조금 더 맞혀도 매매가 잦으면 작은 우위가 거래비용으로 사라진다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-classification-results.svg" alt="왼쪽은 다섯 폴드의 검증 정확도가 51.0, 55.7, 54.7, 51.0, 51.0퍼센트이며 평균 52.7퍼센트임을 보여 준다. 오른쪽은 테스트 CAGR이 비용 전 4.0퍼센트에서 편도 2bp 비용 후 0.05퍼센트로 낮아지는 막대그래프다.">
+          <figcaption><b>리포트 실행 결과</b><span><strong>검증</strong> — 평균 정확도 52.7%</span><span><strong>총수익</strong> — CAGR 4.0%</span><span><strong>비용 후</strong> — CAGR 0.05%</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 분류 트리</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -416,19 +392,15 @@ for train, validation in splitter.split(x):
       <footer class="slide-footer"><span>Chapter 4 · SVM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="분류 트리와 SVM 비교" data-report-refs="table-discrete-compare svm" data-source-refs="section:4.8">
+    <section class="slide slide--visual" aria-label="커널이 곡선 경계를 만드는 방법" data-report-refs="svm fig-kernel-lift" data-source-refs="section:4.8">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.8</span></header>
-      <h1>높은 CAGR만 보고 분류가 뛰어났다고 말할 수 없다</h1>
-      <p class="lead">시간순 교차 검증은 다항식 커널을 골랐지만, 테스트 포지션까지 보면 성과의 성격이 달리 보인다.</p>
-      <div class="slide-body">
-        <table class="compare-table">
-          <thead><tr><th>기법</th><th>모델의 모양</th><th>분할·최적화 기준</th><th>표본 외 CAGR · 샤프</th></tr></thead>
-          <tbody>
-            <tr><td>분류 트리 <code>DecisionTreeClassifier</code></td><td>축에 평행한 구간별 경계</td><td>두 자식 노드의 GDI 합 최소화</td><td>4.0% · 0.32</td></tr>
-            <tr><td>서포트 벡터 머신 <code>SVC</code></td><td>선택된 다항식 커널의 비선형 경계</td><td>마진 최대화 + 오분류 벌점 최소화</td><td>11.2% · 0.73</td></tr>
-          </tbody>
-        </table>
-        <p class="takeaway"><strong>중요한 기준선</strong> — SVM은 테스트일의 99.7%에서 매수였다. CAGR 11.2%는 같은 구간의 SPY 매수·보유 13.4%보다 낮다.</p>
+      <h1>커널은 직선을 그을 수 있는 공간으로 데이터를 옮긴다</h1>
+      <p class="lead">원래 공간에서 곡선인 경계가 변환된 공간에서는 하나의 초평면이 될 수 있다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-kernel-lift.svg" alt="세 패널이 왼쪽에서 오른쪽으로 이어진다. 첫 패널은 원 공간으로, 남색 점 네 개가 가운데 모여 있고 붉은 점 여덟 개가 그 주위를 둘러싸 어떤 직선으로도 두 무리를 가를 수 없다. 변환 뒤 두 번째 패널에서는 남색이 아래쪽, 붉은색이 위쪽에 놓이고 굵은 직선 하나가 둘을 가른다. 되돌리면 그 직선이 원 공간에서 가운데 무리를 감싸는 닫힌 곡선으로 나타난다.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>원 공간</strong> — 직선으로 분리 불가</span><span><strong>변환 공간</strong> — 초평면 하나로 분리</span><span><strong>경계</strong> — 유연성이 커질수록 과적합 여지도 커짐</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · SVM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -436,7 +408,7 @@ for train, validation in splitter.split(x):
     <section class="slide slide--visual" aria-label="커널과 SVM 표본 외 성과" data-report-refs="source-section-4-8-1 source-figure-4-9" data-source-refs="section:4.8.1 figure:4.9" data-source-title="section:4.8.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.8.1 · 그림 4.9</span></header>
       <h1 class="source-title">커널 — 곡면으로 데이터를 가르기</h1>
-      <p class="lead">커널은 데이터를 더 높은 차원으로 옮겨 그곳의 초평면으로 가른다. 유연성이 커지는 만큼 과적합 여지도 커진다.</p>
+      <p class="lead">시간순 교차 검증은 다항식 커널을 골랐지만, 테스트 포지션과 단순 기준선을 함께 보면 성과의 성격이 달라진다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-9.png" alt="2009년 9월부터 2014년 6월까지 같은 테스트 구간에서 다항식 커널 SVM과 SPY 매수·보유의 누적 수익을 비교한다. 회색 매수·보유 곡선이 초록 SVM 곡선보다 높게 끝난다. SVM은 CAGR 11.2퍼센트, 샤프 0.73, 테스트일 매수 비중 99.7퍼센트이고, 매수·보유는 CAGR 13.4퍼센트, 샤프 0.85다.">
@@ -459,76 +431,56 @@ for train, validation in splitter.split(x):
       <footer class="slide-footer"><span>Chapter 4 · HMM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="EM 알고리즘으로 매개변수 학습" data-report-refs="source-section-4-9-1 hmm" data-source-refs="section:4.9.1" data-source-title="section:4.9.1">
+    <section class="slide slide--visual" aria-label="EM 알고리즘으로 매개변수 학습" data-report-refs="source-section-4-9-1 hmm fig-em-loop" data-source-refs="section:4.9.1" data-source-title="section:4.9.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.9.1</span></header>
       <h1 class="source-title">매개변수 학습 — EM 알고리즘</h1>
-      <p class="lead">전이 행렬 T, 방출 행렬 E, 그리고 사전 확률분포를 학습셋으로 추정한다. 목표는 방출의 로그 가능도를 최대로 만드는 것이다.</p>
-      <div class="slide-body">
-        <div class="two-col">
-          <article class="panel">
-            <p class="eyebrow">두 행렬</p>
-            <h2>SPY 일별 수익률로 얻은 값</h2>
-            <p style="text-align:center">$$T=\begin{bmatrix}0.60&0.40\\0.75&0.25\end{bmatrix}\quad E=\begin{bmatrix}0.19&0.81\\0.97&0.03\end{bmatrix}$$</p>
-            <p>강세 상태는 상승일을 81%로, 약세 상태는 하락일을 97%로 쏟아낸다 — 두 상태의 성격이 뚜렷이 다르다.</p>
-          </article>
-          <article class="panel panel--accent">
-            <p class="eyebrow">여러 초기값이 필요한 이유</p>
-            <h2>EM은 시작점에 따라 답이 달라진다</h2>
-            <ul><li>E 단계에서 현재 매개변수로 각 날짜의 상태 확률을 추정한다</li><li>M 단계에서 그 확률을 이용해 전이·방출 확률을 다시 계산한다</li><li>국소 최댓값이 여럿이므로 초기값을 바꿔 10번 학습한 뒤 로그가능도가 가장 높은 결과를 고른다</li></ul>
-          </article>
-        </div>
-        <p class="takeaway"><strong>비용</strong> — 추정할 매개변수가 늘어난 만큼 데이터 스누핑 편향의 여지도 함께 커진다.</p>
+      <p class="lead">숨은 상태를 모르니 매개변수를 바로 셀 수 없다. EM은 <strong>상태 확률 추정(E)</strong>과 <strong>확률표 갱신(M)</strong>을 번갈아 반복한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-em-loop.svg" alt="초기 전이와 방출 확률에서 시작해 E 단계에서 각 날짜의 강세와 약세 확률을 계산하고, M 단계에서 그 확률을 가중치로 전이와 방출 확률을 갱신한 뒤 로그가능도의 개선이 작아질 때까지 반복하는 순환도. 여러 초기값으로 반복해 가장 높은 로그가능도의 결과를 선택한다.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>E 단계</strong> — 각 날짜의 상태 확률 추정</span><span><strong>M 단계</strong> — 전이·방출 확률표 갱신</span><span><strong>경계</strong> — 초기값 10개 중 로그가능도 최고 선택</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · HMM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="다음 날 방출 확률 예측" data-report-refs="source-section-4-9-2 hmm" data-source-refs="section:4.9.2" data-source-title="section:4.9.2">
+    <section class="slide slide--visual" aria-label="다음 날 방출 확률 예측" data-report-refs="source-section-4-9-2 hmm fig-hmm-forecast" data-source-refs="section:4.9.2" data-source-title="section:4.9.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.9.2</span></header>
       <h1 class="source-title">예측 — 다음 날의 방출 확률 구하기</h1>
-      <p class="lead">오늘의 상태 확률을 <span>$p_t$</span>라 하면 <span>$p_{t+1}=p_tT$</span>로 내일 상태를, <span>$q_{t+1}=p_{t+1}E$</span>로 내일 하락·상승 확률을 구한다.</p>
-      <div class="slide-body">
-        
-        <div class="code-layout">
-          <pre class="code-block" data-code-language="Python"><code class="language-python">alpha = prior.copy()
-for t, observation in enumerate(obs):
-    if t > 0:
-        alpha = alpha @ T
-    alpha = alpha * E[:, observation]
-    alpha = alpha / alpha.sum()
-    next_state = alpha @ T
-    next_observation = next_state @ E</code></pre>
-          <article class="panel">
-            <p class="eyebrow">코드를 읽는 순서</p>
-            <p><code>alpha</code>는 오늘까지 관측한 상승·하락 이력을 현재 두 상태의 확률로 압축한 값이다.</p>
-            <p class="eyebrow">새 관측이 들어오면</p>
-            <p>직전 <code>alpha</code>에 전이 확률과 오늘의 방출 확률을 차례로 반영한다. 이력 전체를 매번 다시 넣을 필요는 없다.</p>
-          </article>
-        </div>
-        <p class="takeaway"><strong>성적</strong> — 학습셋 CAGR은 8.7%다. 테스트셋은 교재 본문에 1%로 적혀 있지만 공식 실행 기록을 다시 계산하면 −1.0%다.</p>
+      <p class="lead">오늘의 강세·약세 확률에 전이행렬을 곱해 내일 상태를 구하고, 방출행렬을 곱해 내일 상승·하락 확률로 바꾼다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-hmm-forecast.svg" alt="오늘 상태 확률 강세 70퍼센트 약세 30퍼센트에 전이행렬을 적용해 내일 상태 확률 강세 64.5퍼센트 약세 35.5퍼센트를 구하고, 방출행렬을 적용해 내일 상승 53.3퍼센트 하락 46.7퍼센트를 얻어 매수 신호를 내는 두 단계 계산.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>1</strong> — 오늘 상태 × 전이행렬</span><span><strong>2</strong> — 내일 상태 × 방출행렬</span><span><strong>실험</strong> — 학습 8.7%, 테스트 재계산 −1.0%</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · HMM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--compact-code" aria-label="비터비로 얻는 상태 시퀀스" data-report-refs="source-section-4-9-3 hmm" data-source-refs="section:4.9.3" data-source-title="section:4.9.3">
+    <section class="slide slide--visual" aria-label="비터비로 얻는 상태 시퀀스" data-deck-appendix="true" data-report-refs="source-section-4-9-3 hmm fig-viterbi-path" data-source-refs="section:4.9.3" data-source-title="section:4.9.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.9.3</span></header>
       <h1 class="source-title">덤 — 가장 그럴듯한 상태 시퀀스 (Viterbi)</h1>
-      <p class="lead">관측된 방출이 주어지면 HMM 은 가장 그럴듯한 은닉 상태 시퀀스를 알려 준다.</p>
-      <div class="slide-body">
-        <pre class="code-block code-block--compact" data-code-language="Python"><code class="language-python"># 계열 전체를 본 뒤 최적 경로를 되짚는다
-states = viterbi_path(obs, prior, T, E)</code></pre>
-        <div class="two-col">
-          <article class="panel"><p class="eyebrow">쓸모</p><h2>명확히 정의된 답</h2><p>누군가 지금이 강세장인지 약세장인지 묻거든 HMM 에 물어 정의된 답을 줄 수 있다. 케이블 TV 해설자 둘도 합의하지 못하는 그 질문이다.</p></article>
-          <article class="panel"><p class="eyebrow">저자의 단서</p><h2>국면은 이론적 구성물이다</h2><p>궁극적으로 우리는 기대수익률에만 관심이 있다. 국면도, 국면 전환도 이론적 구성물일 뿐이라는 것이 주석 7 의 경고다.</p><p><code>viterbi_path</code> 전체 구현은 리포트에 있다. 재현 감사가 검증한 코드는 아니다.</p></article>
-        </div>
-        <p class="takeaway"><strong>이름 붙이기의 자유</strong> — 강세·약세 대신 위험선호·위험회피라 불러도 알고리즘은 알아차리지 못한다.</p>
+      <p class="lead">각 날짜의 상태를 따로 고르는 대신, <strong>전체 기간을 통틀어 확률이 가장 큰 경로 하나</strong>를 찾는다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-viterbi-path.svg" alt="5일 × 2상태 격자다. 위 줄은 강세, 아래 줄은 약세이며 각 날짜의 두 상태가 다음 날의 두 상태로 모두 연결되어 가는 회색 선이 격자를 채운다. 그중 한 경로만 굵은 남색으로 강조되어 1일 약세에서 2일과 3일 강세로 올라갔다가 4일과 5일 약세로 내려온다.">
+          <figcaption><b>상세 리포트 그림 18</b><span><strong>회색선</strong> — 가능한 모든 상태 경로</span><span><strong>굵은선</strong> — 전체 확률이 가장 큰 한 경로</span><span><strong>경계</strong> — 강세·약세라는 이름은 사람이 붙인다</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · HMM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="신경망 섹션" data-report-refs="neural-network source-section-4-10" data-source-refs="section:4.10" data-source-title="section:4.10">
-      <p class="eyebrow">교재 §4.10</p>
+    <section class="slide slide--visual" aria-label="신경망 섹션" data-report-refs="neural-network source-section-4-10 fig-sigmoid" data-source-refs="section:4.10" data-source-title="section:4.10">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.10</span></header>
       <h1 class="source-title">신경망 (Neural Network) — 시그모이드를 겹쳐 임의의 함수를 근사하다</h1>
-      <p>직선만 더하면 여전히 직선이다. 사이사이에 시그모이드라는 휘어짐을 끼워 넣으면 어떤 곡선이든 흉내 낼 수 있다.</p>
+      <p class="lead">뉴런 하나는 입력의 가중합을 만든 뒤 시그모이드로 눌러 비선형성을 더한다. 이 휘어짐을 층마다 반복하는 것이 핵심이다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-sigmoid.svg" alt="왼쪽에서 ret1, ret2, ret5 입력에 가중치를 곱하고 편향을 더해 z를 만든 뒤 시그모이드에 넣는 뉴런 계산 흐름. 오른쪽에는 z가 마이너스 2일 때 0.12, 0일 때 0.5, 2일 때 0.88을 지나는 S자 곡선이 있다.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>입력</strong> — 수익률 × 가중치 + 편향</span><span><strong>변환</strong> — 큰 음수는 0, 큰 양수는 1에 가까워짐</span><span><strong>효과</strong> — 직선 조합을 곡선 함수로 바꿈</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 신경망</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--visual" aria-label="순방향 네트워크의 구조" data-report-refs="source-section-4-10-1 source-figure-4-11" data-source-refs="section:4.10.1 figure:4.11" data-source-title="section:4.10.1">
@@ -544,38 +496,28 @@ states = viterbi_path(obs, prior, T, E)</code></pre>
       <footer class="slide-footer"><span>Chapter 4 · 신경망</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="가장 단순한 네트워크와 과적합" data-report-refs="source-section-4-10-2 neural-network" data-source-refs="section:4.10.2" data-source-title="section:4.10.2">
+    <section class="slide slide--visual" aria-label="가장 단순한 네트워크와 과적합" data-deck-appendix="true" data-report-refs="source-section-4-10-2 neural-network fig-neural-seeds" data-source-refs="section:4.10.2" data-source-title="section:4.10.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.10.2</span></header>
       <h1 class="source-title">가장 단순한 네트워크부터 — 그리고 과적합과의 싸움</h1>
-      <p class="lead">은닉층 하나, 뉴런 하나로 시작한다. 가중치 초기값이 무작위라 교재는 조기 종료를, 재현은 시드 열 개 평균을 쓴다.</p>
-      <div class="slide-body">
-        
-        <div class="code-layout">
-          <pre class="code-block" data-code-language="Python"><code class="language-python"># 조기 종료 대신 시드 열 개를 평균한다
-MLPRegressor(hidden_layer_sizes=(8, 4),
-             activation="tanh", alpha=0.01,
-             max_iter=500, early_stopping=False,
-             random_state=seed)</code></pre>
-          <article class="panel">
-            <p class="eyebrow">아키텍처를 키워 본 결과 · 표본 내 → 표본 외</p>
-            <h2>19% → −4%</h2>
-            <p><code>hiddenSizes = 1</code> — 은닉층 하나, 뉴런 하나.</p>
-            <h2>변화 없음</h2>
-            <p><code>hiddenSizes = [1, 1]</code> — 층을 늘려도 양쪽 모두 나아지지 않는다.</p>
-            <h2>20% → 5%</h2>
-            <p><code>hiddenSizes = [2, 2]</code> — 개선처럼 보이나 난수 시드에 매우 민감하다.</p>
-          </article>
-        </div>
-        <p class="takeaway"><strong>조기 종료(early stopping)</strong> — 검증셋 오차가 늘기 시작하면 학습을 즉시 멈춘다. 그래도 과적합 문제는 아직 풀리지 않았다.</p>
+      <p class="lead">가중치의 출발점이 무작위라 같은 구조를 한 번만 학습한 수치는 믿기 어렵다. 실제로 시드만 바꾸자 테스트 CAGR의 부호가 오갔다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-neural-seeds.svg" alt="시드 1부터 10까지 개별 신경망의 테스트 CAGR 막대가 마이너스 6.0퍼센트에서 플러스 13.8퍼센트까지 분포하고, 열 모델의 예측을 평균한 앙상블 CAGR 마이너스 3.0퍼센트가 별도 막대로 표시되어 있다.">
+          <figcaption><b>리포트 실행 결과</b><span><strong>고정</strong> — 데이터·구조·하이퍼파라미터</span><span><strong>변경</strong> — 초기 가중치 시드 1~10</span><span><strong>결론</strong> — 한 번의 성공값은 근거가 아니다</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 신경망</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="재학습을 적용한 아키텍처 비교" data-report-refs="source-section-4-10-3 source-table-4-1" data-source-refs="section:4.10.3 table:4.1" data-source-title="section:4.10.3">
+    <section class="slide slide--figure-table" aria-label="재학습을 적용한 아키텍처 비교" data-report-refs="source-section-4-10-3 source-table-4-1 fig-neural-select" data-source-refs="section:4.10.3 table:4.1" data-source-title="section:4.10.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.10.3 · 표 4.1</span></header>
       <h1 class="source-title">강건성을 높이는 두 가지 길 — 재학습과 평균화</h1>
       <p class="lead">첫째 길 — 초기값과 분할을 달리한 네트워크 100개를 학습시켜 검증 오차가 가장 낮은 하나를 고른다.</p>
-      <div class="slide-body">
+      <div class="slide-body figure-table-body">
+        <figure class="deck-concept-strip">
+          <img src="assets/figs/fig-neural-select.svg" alt="같은 학습 구간에서 초기값이 다른 모델 1, 2, 3을 학습하고 바로 뒤 검증 구간의 오차 0.14, 0.09, 0.17을 비교해 모델 2 하나를 고른 뒤 테스트셋에 한 번 적용하는 흐름.">
+          <figcaption><strong>재학습</strong> — 검증 오차가 가장 낮은 모델 하나만 테스트에 가져간다.</figcaption>
+        </figure>
         <table class="compare-table compare-table--dense">
           <thead>
             <tr><th rowspan="2">CAGR (네트워크 100개)</th><th colspan="2">은닉층 1개</th><th colspan="2">은닉층 2개</th><th colspan="2">은닉층 3개</th></tr>
@@ -592,11 +534,15 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <footer class="slide-footer"><span>Chapter 4 · 신경망</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="평균화를 적용한 아키텍처 비교" data-report-refs="source-table-4-2 source-section-4-10-3" data-source-refs="table:4.2">
+    <section class="slide slide--figure-table" aria-label="평균화를 적용한 아키텍처 비교" data-report-refs="source-table-4-2 source-section-4-10-3 fig-neural-average" data-source-refs="table:4.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 표 4.2</span></header>
       <h1>둘째 길은 배깅을 닮았고, 결론은 같다</h1>
       <p class="lead">교재 표 4.2 · 평균화를 적용한 다양한 네트워크 아키텍처의 성능 비교 — 100개 모두의 예측 수익률을 평균한다.</p>
-      <div class="slide-body">
+      <div class="slide-body figure-table-body">
+        <figure class="deck-concept-strip">
+          <img src="assets/figs/fig-neural-average.svg" alt="같은 학습 데이터에서 초기값이 다른 세 모델이 다음 날 수익률을 플러스 0.8, 마이너스 0.2, 플러스 0.5퍼센트로 예측하고, 이를 평균한 플러스 0.37퍼센트를 최종 매수 신호로 사용하는 흐름.">
+          <figcaption><strong>평균화</strong> — 모든 모델의 예측을 평균해 하나의 신호를 만든다.</figcaption>
+        </figure>
         <table class="compare-table compare-table--dense">
           <thead>
             <tr><th rowspan="2">CAGR (네트워크 100개)</th><th colspan="2">은닉층 1개</th><th colspan="2">은닉층 2개</th><th colspan="2">은닉층 3개</th></tr>
@@ -613,7 +559,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <footer class="slide-footer"><span>Chapter 4 · 신경망</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="딥러닝과의 인지 부조화" data-report-refs="source-section-4-10-4 neural-network" data-source-refs="section:4.10.4" data-source-title="section:4.10.4">
+    <section class="slide" aria-label="딥러닝과의 인지 부조화" data-deck-appendix="true" data-report-refs="source-section-4-10-4 neural-network" data-source-refs="section:4.10.4" data-source-title="section:4.10.4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.10.4</span></header>
       <h1 class="source-title">딥러닝과의 인지 부조화</h1>
       <p class="lead">딥러닝은 층이 많고 층당 노드가 적은 신경망이다. 그런데 이 장의 결론은 정반대 방향을 가리킨다.</p>
@@ -627,10 +573,17 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <footer class="slide-footer"><span>Chapter 4 · 신경망</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--section" aria-label="데이터 집계와 정규화 섹션" data-report-refs="normalization source-section-4-11" data-source-refs="section:4.11" data-source-title="section:4.11">
-      <p class="eyebrow">교재 §4.11</p>
+    <section class="slide slide--visual" aria-label="데이터 집계와 정규화 섹션" data-deck-appendix="true" data-report-refs="normalization source-section-4-11 fig-reshape" data-source-refs="section:4.11" data-source-title="section:4.11">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.11</span></header>
       <h1 class="source-title">데이터 집계 및 정규화 — 500종목의 데이터를 하나로 합치기</h1>
-      <p>종목마다 별도 모델을 만들면 데이터가 늘어난 이점이 없다. 하나의 벡터로 집계해 단 하나의 모델만 학습시켜야 한다.</p>
+      <p class="lead">날짜×종목 표의 유효한 칸을 세로로 이어 붙이면, 종목마다 모델을 따로 만들지 않고 모든 관측을 한 모델의 학습 사례로 쓸 수 있다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-reshape.svg" alt="날짜 세 행과 종목 A, B, C 세 열의 행렬이 왼쪽에 있고, 종목 A의 날짜별 값, 종목 B의 날짜별 값, 종목 C의 날짜별 값을 차례로 세로로 이어 붙인 긴 벡터가 오른쪽에 있다. 결측이거나 당시 지수 구성 종목이 아닌 칸은 공통 마스크로 제외된다.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>입력</strong> — 날짜 T × 종목 S 행렬</span><span><strong>변환</strong> — 유효한 칸을 관측값 벡터로 연결</span><span><strong>효과</strong> — 한 모델이 여러 종목에서 학습</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 4 · 정규화</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--visual" aria-label="정규화가 필요한 이유" data-report-refs="source-section-4-11-1 fig-normalization" data-source-refs="section:4.11.1" data-source-title="section:4.11.1">
@@ -646,39 +599,28 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <footer class="slide-footer"><span>Chapter 4 · 정규화</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--visual" aria-label="reshape로 집계한 SPX 결과" data-report-refs="source-section-4-11-2 source-figure-4-12" data-source-refs="section:4.11.2 figure:4.12" data-source-title="section:4.11.2">
+    <section class="slide slide--visual" aria-label="reshape로 집계한 SPX 결과" data-deck-appendix="true" data-report-refs="source-section-4-11-2 source-figure-4-12" data-source-refs="section:4.11.2 figure:4.12" data-source-title="section:4.11.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.11.2 · 그림 4.12</span></header>
       <h1 class="source-title">reshape로 행렬을 하나의 벡터로 펴기</h1>
       <p class="lead">T × S 행렬을 (T × S) × 1 벡터로 펴서 한 모델에 넣는다. 예측 뒤에는 다시 T × S 로 풀어야 성능 지표를 계산할 수 있다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/fig-source-4-12.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 곡선. 초반에는 완만하다가 2011년 8월 붉은 점선 직후 음영 구간에서 가파르게 상승하고 그 뒤 높은 수준에서 오르내린다. 표본 외 CAGR 2.3퍼센트 샤프 0.9, 정규화 없이는 마이너스 0.7퍼센트 마이너스 0.4가 표시된다.">
-          <figcaption><b>상세 리포트 그림 21</b><span><strong>읽는 법</strong> — 전체 기울기보다 성과가 몰린 구간을 본다</span><span><strong>왜 중요한가</strong> — 2011-08 채무등급 강등 혼란기에 가장 좋았다</span><span><strong>경계</strong> — 한 사건 구간에 몰린 성과는 표본 외 신뢰도를 낮춘다</span></figcaption>
+          <img src="assets/figs/fig-source-4-12.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 흐름을 설명하는 모식도다. 초반에는 완만하다가 2011년 8월 채무등급 강등 직후 음영 구간에서 가파르게 상승하고 그 뒤 높은 수준에서 오르내린다. 실제 재실행 곡선이 아니라 교재가 보고한 성과 집중 구간을 보여 준다.">
+          <figcaption><b>상세 리포트 그림 21</b><span><strong>성격</strong> — 재실행 곡선이 아닌 교재 보고 모식도</span><span><strong>관찰</strong> — 2011-08 혼란기에 성과가 집중</span><span><strong>경계</strong> — 교재 보고값 2.3% · 0.9를 인과로 읽지 않는다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 정규화</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="주식 선택에의 적용 섹션" data-report-refs="stock-selection source-section-4-12 source-table-4-3" data-source-refs="section:4.12 table:4.3" data-source-title="section:4.12">
+    <section class="slide slide--visual" aria-label="주식 선택에의 적용 섹션" data-deck-appendix="true" data-report-refs="stock-selection source-section-4-12 source-table-4-3 fig-fundamental-events" data-source-refs="section:4.12 table:4.3" data-source-title="section:4.12">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.12 · 표 4.3</span></header>
       <h1 class="source-title">주식 선택에의 적용 — 예측력 있는 펀더멘털 요인 찾기</h1>
-      <p class="lead">2장에서는 모든 요인이 유용하다고 전제했다. 여기서는 <em>어떤 요인이 정말 중요한지</em>를 단계적 회귀로 알아낸다.</p>
-      <div class="slide-body">
-        <div class="two-col">
-          <article class="panel">
-            <p class="eyebrow">교재 표 4.3 · 규모와 무관한 입력 요인 27개</p>
-            <h2>분기별 5개</h2>
-            <p><code>CURRENTRATIO</code> · <code>DE</code> · <code>DILUTIONRATIO</code> · <code>PB</code> · <code>TBVPS</code></p>
-            <h2>최근 1년 22개</h2>
-            <p><code>ASSETTURNOVER</code> · <code>EBITDAMARGIN</code> · <code>EPSGROWTH1YR</code> · <code>EQUITYAVG</code> · <code>EVEBIT</code> · <code>EVEBITDA</code> · <code>GROSSMARGIN</code> · <code>INTERESTBURDEN</code> · <code>LEVERAGERATIO</code> · <code>NCFOGROWTH1YR</code> · <code>NETINCGROWTH1YR</code> · <code>NETMARGIN</code> · <code>PAYOUTRATIO</code> · <code>PE</code> · <code>PE1</code> · <code>PS</code> · <code>PS1</code> · <code>REVENUEGROWTH1YR</code> · <code>ROA</code> · <code>ROE</code> · <code>ROS</code> · <code>TAXEFFICIENCY</code></p>
-          </article>
-          <article class="panel panel--accent">
-            <p class="eyebrow">왜 이 27개인가</p>
-            <h2>규모 정규화를 피하려고</h2>
-            <ul><li>주당순이익 같은 변수는 총매출이나 시가총액으로 정규화해야 종목 간 비교가 된다</li><li>저자는 그 복잡함을 피하려고 <strong>기업 규모와 무관한 비율·주당 값</strong> 만 골랐다</li><li>데이터 출처는 Quandl 을 통한 Sharadar Core US Fundamentals</li><li>기간은 2007-01-03 ~ 2013-12-31</li></ul>
-          </article>
-        </div>
-        <p class="takeaway"><strong>NaN 이 대부분</strong> — 실적 발표가 없는 종목·날짜 조합은 학습 대상이 아니다. Python 코드가 유효한 발표 행만 골라 회귀에 넣는다.</p>
+      <p class="lead">분기 실적은 매일 나오지 않는다. 따라서 달력의 대부분은 결측값이고, <strong>실적 발표가 있었던 종목·날짜만</strong> 하나의 학습 사례가 된다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-fundamental-events.svg" alt="날짜와 종목으로 된 달력 표에서 종목 A의 1월 3일, 종목 C의 1월 4일, 종목 B의 1월 5일 실적 발표 칸만 색칠되어 있고, 이 세 칸이 펀더멘털 요인과 이후 63거래일 수익률을 가진 사건 목록으로 옮겨진다.">
+          <figcaption><b>리포트 개념 도해</b><span><strong>입력</strong> — 규모와 무관한 펀더멘털 27개</span><span><strong>한 행</strong> — 발표일 요인 + 이후 63일 수익률</span><span><strong>제외</strong> — 발표가 없는 종목·날짜의 NaN</span></figcaption>
+        </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 주식 선택</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -711,14 +653,14 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <p class="lead">63일 연속으로 매일 자본 한 단위씩 쌓일 수 있으므로, 총 손익을 63 으로 나눠야 레버리지되지 않은 일별 수익이 된다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
-          <img src="assets/figs/fig-source-4-13.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 곡선이 초록색으로 거의 일정한 기울기로 꾸준히 상승한다. 그래프 아래 보유라고 표시된 띠 안에 63거래일 보유 구간을 나타내는 아홉 개 막대가 겹쳐 쌓이듯 배열된다. 표본 외 CAGR 4퍼센트 샤프 1.1, 샤프 1 초과로 통계적으로 유의하다는 표시가 있다.">
-          <figcaption><b>상세 리포트 그림 22</b><span><strong>읽는 법</strong> — 기울기가 얼마나 고른지 앞선 SPY 그림들과 대조한다</span><span><strong>왜 중요한가</strong> — 이 장에서 샤프가 1을 넘은 유일한 예다</span><span><strong>왜 넘었나</strong> — 여러 종목 집계로 데이터를 크게 늘린 효과</span></figcaption>
+          <img src="assets/figs/fig-source-4-13.svg" alt="왼쪽에는 서로 다른 날짜에 시작한 종목 A 매수, 종목 B 공매도, 종목 C 매수 포지션이 각각 63거래일 동안 겹쳐 있는 시간축이 있다. 오늘을 나타내는 세로선에서 세 포지션이 동시에 활성화된다. 오른쪽에는 활성 포지션 손익 합계를 총 절대 노출로 나누어 일별 포트폴리오 수익률을 구하는 식과 교재 보고값 CAGR 4퍼센트, 샤프 1.1이 있다.">
+          <figcaption><b>상세 리포트 그림 22</b><span><strong>읽는 법</strong> — 신호 → 63일 포지션 → 하루 포트폴리오 순서로 본다</span><span><strong>핵심</strong> — 겹친 포지션 손익을 총 절대 노출로 나눈다</span><span><strong>경계</strong> — 중첩이 만드는 자기상관은 연율 샤프를 부풀릴 수 있다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 주식 선택</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide" aria-label="장 전체 결과 종합" data-report-refs="chapter-summary source-section-4-13 table-results-summary" data-source-refs="section:4.13" data-source-title="section:4.13">
+    <section class="slide" aria-label="장 전체 결과 종합" data-deck-appendix="true" data-report-refs="chapter-summary source-section-4-13 table-results-summary" data-source-refs="section:4.13" data-source-title="section:4.13">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.13</span></header>
       <h1 class="source-title">요약 — 약한 학습기를 다듬는 법이 곧 실력이다</h1>
       <p class="lead">같은 SPY, 같은 네 예측변수. 학습기와 다루는 방식만 바꾼 열일곱 번의 실험이다.</p>
@@ -726,15 +668,15 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
         <table class="compare-table compare-table--dense compare-table--tall">
           <thead><tr><th>절</th><th>기법</th><th>표본 내</th><th>표본 외</th></tr></thead>
           <tbody>
-            <tr><td>§4.1</td><td>다중 회귀 · 예측변수 4개</td><td>34.3% · 1.4</td><td>0.4% · 0.1</td></tr>
-            <tr><td>§4.1</td><td>단계적 회귀 · ret2 하나</td><td>43.6% · 1.6</td><td>10.6% · 0.7</td></tr>
-            <tr><td>§4.2</td><td>회귀 트리 · 극단 잎 2개 / 모든 잎</td><td>28.8% · 1.5 / 73%</td><td>3.9% · 0.51 / −7.2%</td></tr>
-            <tr><td>§4.3 · §4.4 · §4.5</td><td>단일 트리 / 순수 배깅 / 랜덤 포레스트</td><td>—</td><td>−10.8% / 10.5% / 8.7%</td></tr>
-            <tr><td>§4.6</td><td>부스팅 <code>GradientBoostingRegressor</code></td><td>반복에 따라 빠르게 상승</td><td>유의하지 않은 채로 남는다</td></tr>
-            <tr><td>§4.7 · §4.8</td><td>분류 트리 / 다항식 커널 SVM</td><td>학습 구간의 시간순 검증으로 설정 선택</td><td>4.0% · 0.32 / 11.2% · 0.73</td></tr>
-            <tr><td>§4.9</td><td>은닉 마르코프 모델</td><td>8.7%</td><td>−1.0% · 0.02 (재계산)</td></tr>
-            <tr><td>§4.10</td><td>신경망 · 뉴런 1개 / 재학습 / 평균화</td><td>19% / 29% / 26%</td><td>−4% / 3.2% / 1.9%</td></tr>
-            <tr><td>§4.11 · §4.12</td><td>SPX 정규화 집계 / 펀더멘털 63일 보유</td><td>—</td><td>2.3% · 0.9 / 4% · 1.1</td></tr>
+            <tr><td>§4.1</td><td>재계산 · 다중 회귀 · 예측변수 4개</td><td>34.3% · 1.4</td><td>0.4% · 0.1</td></tr>
+            <tr><td>§4.1</td><td>재계산 · 단계적 회귀 · ret2 하나</td><td>43.6% · 1.6</td><td>10.6% · 0.7</td></tr>
+            <tr><td>§4.2</td><td>재계산/교재 · 회귀 트리 · 극단 잎 2개 / 모든 잎</td><td>28.8% · 1.5 / 73%</td><td>3.9% · 0.51 / −7.2%</td></tr>
+            <tr><td>§4.3 · §4.4 · §4.5</td><td>Python · 단일 트리 / 순수 배깅 / 랜덤 포레스트</td><td>—</td><td>−10.8% / 10.5% / 8.7%</td></tr>
+            <tr><td>§4.6</td><td>Python · 부스팅</td><td>검증 RMSE로 160회 선택</td><td>−2.2% · −0.05</td></tr>
+            <tr><td>§4.7 · §4.8</td><td>Python · 분류 트리 / 다항식 커널 SVM</td><td>시간순 검증으로 설정 선택</td><td>4.0% · 0.32 / 11.2% · 0.73</td></tr>
+            <tr><td>§4.9</td><td>재계산 · 은닉 마르코프 모델</td><td>8.7%</td><td>−1.0% · 0.02</td></tr>
+            <tr><td>§4.10</td><td>교재 · 신경망 · 뉴런 1개 / 재학습 / 평균화</td><td>19% / 29% / 26%</td><td>−4% / 3.2% / 1.9%</td></tr>
+            <tr><td>§4.11 · §4.12</td><td>교재 · SPX 정규화 집계 / 펀더멘털 63일 보유</td><td>—</td><td>2.3% · 0.9 / 4% · 1.1</td></tr>
           </tbody>
         </table>
         <p class="takeaway"><strong>기준선도 함께 본다</strong> — SVM 11.2%는 테스트일의 99.7%가 매수였고, 같은 구간의 SPY 매수·보유 13.4%보다 낮았다.</p>
@@ -753,77 +695,6 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 요약</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" aria-label="실행 결과 감사" data-report-refs="reproduction-audit table-reproduction-status table-exact-replay">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
-      <h1>공식 배포본으로 다시 돌려 보았다</h1>
-      <p class="lead">여기부터는 교재의 서술이 아니라 <strong>AIML Quant 가 저자 공식 ZIP 으로 직접 재실행한 결과</strong> 다.</p>
-      <div class="slide-body">
-        <table class="compare-table compare-table--dense">
-          <thead><tr><th>실험 · 구간</th><th>재계산 CAGR</th><th>원본 CAGR</th><th>재계산 샤프</th><th>원본 샤프</th></tr></thead>
-          <tbody>
-            <tr><td>다중 회귀 · 학습</td><td>0.343339</td><td>0.343339</td><td>1.365304</td><td>1.365304</td></tr>
-            <tr><td>단계적 회귀 · 테스트</td><td>0.105685</td><td>0.105685</td><td>0.695228</td><td>0.695228</td></tr>
-            <tr><td>극단 잎 규칙 · 테스트</td><td>0.038665</td><td>0.038665</td><td>0.505706</td><td>0.505706</td></tr>
-            <tr><td>HMM · 테스트</td><td>−0.010173</td><td>−0.010173</td><td>0.019724</td><td>0.019724</td></tr>
-          </tbody>
-        </table>
-        <p class="takeaway"><strong>확인된 불일치 하나</strong> — 마지막 행을 보자. 본문은 HMM 테스트셋을 "CAGR 1퍼센트"로 적지만, 공식 실행 기록의 값은 <code>CAGR=-0.010173</code>, 즉 <em>음의 1.0%</em> 다. 인용할 때 어느 출처인지 밝히기를 권한다.</p>
-      </div>
-      <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="원본 충실 재현 네 실험의 자산곡선" data-report-refs="fig-book-replays reproduction-audit table-exact-replay">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
-      <h1>학습에서 벌어진 격차가 표본 외에서 주저앉는다</h1>
-      <p class="lead">앞 표의 여덟 숫자를 곡선으로 본 것이다. 네 실험 모두 저자 공식 입력으로 재계산했다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/fig-book-replays.png" alt="왼쪽 패널은 2005년부터 2009년까지의 학습 구간으로 Stepwise 가 약 6.5배, Linear 가 약 5배, Tree rule 이 약 3.7배, HMM 이 약 1.8배까지 오른다. 오른쪽 패널은 2010년부터 2014년까지의 표본 외 구간으로 세로축이 0.8에서 1.6으로 좁아지며 Stepwise 만 1.6배 부근을 유지하고 Tree rule 은 1.2배, Linear 는 1.0 근처로 되돌아오며 HMM 은 대부분 1.0 아래에 머문다.">
-          <figcaption><b>상세 리포트 그림 24</b><span><strong>읽는 법</strong> — 세로축 눈금이 왼쪽 6.5배에서 오른쪽 1.6배로 바뀐다</span><span><strong>왜 중요한가</strong> — 학습에서 벌어진 순위가 표본 외에서는 거의 사라진다</span><span><strong>결론</strong> — HMM 곡선이 1.0 아래에서 끝나는 것이 앞 표의 음수 CAGR 이다</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="목표값 경계 누수와 수정본" data-report-refs="fig-boundary-leakage reproduction-audit">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
-      <h1>목표값 한 행이 경계를 넘는다 — 고쳐도 결론은 그대로다</h1>
-      <p class="lead"><code>retFut1 = fwdshift(1, ret1)</code> 때문에 마지막 학습 행의 목표값이 곧 첫 테스트일 수익이다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/fig-boundary-leakage.svg" alt="위쪽 원본 분할은 학습셋 예측변수 행 1158개가 2009년 9월 15일까지이고 붉은 곡선 화살표가 학습셋 끝에서 테스트셋 첫날로 넘어간다. 아래쪽 경계 수정본은 학습셋을 2009년 9월 14일까지 1157개 행으로 줄여 테스트셋을 완전히 격리한다. 맨 아래 표는 다중 회귀가 0.4퍼센트에서 1.2퍼센트로, 단계적 회귀가 10.6퍼센트에서 10.7퍼센트로 바뀐다고 적고 있다.">
-          <figcaption><b>상세 리포트 그림 25</b><span><strong>읽는 법</strong> — 두 분할의 학습 종료일이 하루 다르다</span><span><strong>왜 중요한가</strong> — 누수를 없애도 두 모델의 대비는 유지된다</span><span><strong>결론</strong> — 교재의 핵심 논지는 이 결함에 의존하지 않는다</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="Python 적응 여섯 모델의 표본 외 성과" data-report-refs="fig-python-models reproduction-audit">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
-      <h1>비용을 붙이면 순위가 바뀐다</h1>
-      <p class="lead">검증 설계와 라이브러리를 바꾼 Python 별도 실험이다. 공식 입력을 같은 식으로 재계산한 표와 근거를 구분한다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/fig-python-models.png" alt="왼쪽 막대그래프는 여섯 모델의 표본 외 CAGR 을 총수익과 편도 2bps 비용 후로 나란히 그린다. svm 은 0.112에서 0.112로 두 막대 높이가 거의 같고, random_forest 는 0.087에서 0.048로 절반 가까이 깎이며, classification_tree 는 0.040에서 거의 0으로 줄고, tree 와 boosting 과 mlp_ensemble 은 모두 음수다. 오른쪽 선그래프는 같은 여섯 모델의 표본 외 누적 자산곡선으로 random_forest 와 svm 만 1을 크게 웃돌고 나머지는 1 부근이나 그 아래에서 끝난다.">
-          <figcaption><b>상세 리포트 그림 26</b><span><strong>읽는 법</strong> — 왼쪽 두 막대의 높이 차이가 곧 회전율 비용이다</span><span><strong>왜 중요한가</strong> — 분류 트리는 4.0%를 거의 전부 비용으로 내지만 SVM 은 거의 무감하다</span><span><strong>결론</strong> — 총수익 순위와 비용 후 순위는 다른 표다</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--visual" aria-label="난수 시드에 따른 신경망 결과의 변동" data-report-refs="fig-seed-stability reproduction-audit">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
-      <h1>시드 하나로 신경망의 부호가 바뀐다</h1>
-      <p class="lead">같은 데이터·같은 구조·같은 하이퍼파라미터인데 난수 시드만 다르게 열 번 돌린 결과다.</p>
-      <div class="slide-body report-visual-body">
-        <figure class="deck-report-figure">
-          <img src="assets/figs/fig-seed-stability.png" alt="왼쪽 막대그래프는 난수 시드 1부터 10까지의 표본 외 CAGR 로, 시드 8이 약 0.138로 가장 높고 시드 10이 약 마이너스 0.060으로 가장 낮으며 열 개 중 여섯 개가 양수, 네 개가 음수다. 오른쪽 막대그래프는 학습셋만으로 고른 SVM 커널 세 종류의 평균 시계열 교차검증 정확도로 linear 0.532, polynomial 0.541, rbf 0.535 로 세 막대 높이가 거의 같다.">
-          <figcaption><b>상세 리포트 그림 27</b><span><strong>읽는 법</strong> — 막대 높이가 아니라 0선을 넘나든다는 사실을 본다</span><span><strong>왜 중요한가</strong> — 신경망을 한 번 돌려 얻은 수치는 그 자체로 근거가 되지 못한다</span><span><strong>결론</strong> — 오른쪽처럼 커널 선택이 성과를 가르지 않는 경우도 함께 봐야 한다</span></figcaption>
-        </figure>
-      </div>
-      <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide" aria-label="우리 문제로 옮길 때의 판단 기준" data-report-refs="decision table-decision">
@@ -853,7 +724,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body">
         <ol class="question-list">
           <li>단계적 회귀가 고른 <code>ret2</code> 의 계수가 <strong>음수</strong> 라는 사실은 이 모델에 대해 무엇을 말해 주는가?</li>
-          <li>교차 검증은 K개 모델 중 하나를 고르고 배깅은 전부 평균한다. 배깅에서 K 를 키우면 왜 오히려 나빠지는가?</li>
+          <li>교차 검증은 K개 모델 중 하나를 고르고 배깅은 전부 평균한다. 트리 수를 늘리면 평균 예측이 안정되는데도, 작은 앙상블이 우연히 더 높은 수익을 낼 수 있는 이유는 무엇인가?</li>
           <li>랜덤 포레스트에서 <code>max_features</code>를 전체 변수 수로 두면 트리들이 왜 서로 비슷해질 수 있는가?</li>
           <li>부스팅은 왜 다른 네 기법과 달리 과적합을 완화하지 못하는가? 배깅과 무엇이 구조적으로 다른가?</li>
           <li>신경망 평균화 표에서 표본 외 최고값은 5.5%였다. 그런데 왜 그 설정을 고르면 안 되는가?</li>
@@ -871,11 +742,82 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
         <div class="card-grid">
           <article class="card"><span>01</span><h2>모델보다 정보 경계</h2><p>여섯 모델을 같은 문제에 적용해도 테스트셋을 모델 선택에서 격리하고 시간 순서를 지키는 절차가 먼저였다.</p></article>
           <article class="card"><span>02</span><h2>단순한 기준선부터</h2><p>단계적 회귀는 10.6%였고, SVM 11.2%는 SPY 매수·보유 13.4%보다 낮았다. 복잡한 모델의 수치에는 반드시 단순 기준선을 붙인다.</p></article>
-          <article class="card"><span>03</span><h2>행과 열이 근본</h2><p>샤프 1을 넘은 유일한 예는 500여 종목을 정규화해 집계한 펀더멘털 예제였다. 근본 해법은 더 복잡한 모델이 아니라 더 많은 데이터다.</p></article>
+          <article class="card"><span>03</span><h2>데이터를 늘려도 경계는 남는다</h2><p>여러 종목을 모으면 정보량을 늘릴 수 있다. 다만 63일 포지션 중첩은 자기상관을 만들어 연율 샤프를 높여 보일 수 있으므로 독립적인 정보량과 비용을 다시 확인한다.</p></article>
         </div>
-        <p class="closing-question">Q&amp;A</p>
+        <p class="closing-question">Q&amp;A <small>38장 본편 종료 · 선택형 보충자료 17장</small></p>
       </div>
-      <div class="closing-links"><a class="back-link" href="report.html">상세 리포트 읽기</a><a class="back-link" href="../../">회차 목록으로 돌아가기</a></div>
+      <div class="closing-links"><a class="back-link" href="?appendix=1#/1">보충자료 포함 전체 덱</a><a class="back-link" href="report.html">상세 리포트 읽기</a><a class="back-link" href="../../">회차 목록으로 돌아가기</a></div>
+    </section>
+
+    <section class="slide slide--appendix" aria-label="실행 결과 감사" data-deck-appendix="true" data-report-refs="reproduction-audit table-reproduction-status table-exact-replay">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">선택형 부록 1 / 5</span></header>
+      <h1>공식 배포본으로 다시 돌려 보았다</h1>
+      <p class="lead">여기부터는 교재의 서술이 아니라 <strong>AIML Quant 가 저자 공식 ZIP 으로 직접 재실행한 결과</strong> 다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>실험 · 구간</th><th>재계산 CAGR</th><th>원본 CAGR</th><th>재계산 샤프</th><th>원본 샤프</th></tr></thead>
+          <tbody>
+            <tr><td>다중 회귀 · 학습</td><td>0.343339</td><td>0.343339</td><td>1.365304</td><td>1.365304</td></tr>
+            <tr><td>단계적 회귀 · 테스트</td><td>0.105685</td><td>0.105685</td><td>0.695228</td><td>0.695228</td></tr>
+            <tr><td>극단 잎 규칙 · 테스트</td><td>0.038665</td><td>0.038665</td><td>0.505706</td><td>0.505706</td></tr>
+            <tr><td>HMM · 테스트</td><td>−0.010173</td><td>−0.010173</td><td>0.019724</td><td>0.019724</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>확인된 불일치 하나</strong> — 마지막 행을 보자. 본문은 HMM 테스트셋을 "CAGR 1퍼센트"로 적지만, 공식 실행 기록의 값은 <code>CAGR=-0.010173</code>, 즉 <em>음의 1.0%</em> 다. 인용할 때 어느 출처인지 밝히기를 권한다.</p>
+      </div>
+      <footer class="slide-footer"><span>선택형 부록 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual slide--appendix" aria-label="원본 충실 재현 네 실험의 자산곡선" data-deck-appendix="true" data-report-refs="fig-book-replays reproduction-audit table-exact-replay">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">선택형 부록 2 / 5</span></header>
+      <h1>학습에서 벌어진 격차가 표본 외에서 주저앉는다</h1>
+      <p class="lead">앞 표의 여덟 숫자를 곡선으로 본 것이다. 네 실험 모두 저자 공식 입력으로 재계산했다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-book-replays.png" alt="왼쪽 패널은 2005년부터 2009년까지의 학습 구간으로 Stepwise 가 약 6.5배, Linear 가 약 5배, Tree rule 이 약 3.7배, HMM 이 약 1.8배까지 오른다. 오른쪽 패널은 2010년부터 2014년까지의 표본 외 구간으로 세로축이 0.8에서 1.6으로 좁아지며 Stepwise 만 1.6배 부근을 유지하고 Tree rule 은 1.2배, Linear 는 1.0 근처로 되돌아오며 HMM 은 대부분 1.0 아래에 머문다.">
+          <figcaption><b>상세 리포트 그림 24</b><span><strong>읽는 법</strong> — 세로축 눈금이 왼쪽 6.5배에서 오른쪽 1.6배로 바뀐다</span><span><strong>왜 중요한가</strong> — 학습에서 벌어진 순위가 표본 외에서는 거의 사라진다</span><span><strong>결론</strong> — HMM 곡선이 1.0 아래에서 끝나는 것이 앞 표의 음수 CAGR 이다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>선택형 부록 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual slide--appendix" aria-label="목표값 경계 누수와 수정본" data-deck-appendix="true" data-report-refs="fig-boundary-leakage reproduction-audit">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">선택형 부록 3 / 5</span></header>
+      <h1>목표값 한 행이 경계를 넘는다 — 고쳐도 결론은 그대로다</h1>
+      <p class="lead"><code>retFut1 = fwdshift(1, ret1)</code> 때문에 마지막 학습 행의 목표값이 곧 첫 테스트일 수익이다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-boundary-leakage.svg" alt="위쪽 원본 분할은 학습셋 예측변수 행 1158개가 2009년 9월 15일까지이고 붉은 곡선 화살표가 학습셋 끝에서 테스트셋 첫날로 넘어간다. 아래쪽 경계 수정본은 학습셋을 2009년 9월 14일까지 1157개 행으로 줄여 테스트셋을 완전히 격리한다. 맨 아래 표는 다중 회귀가 0.4퍼센트에서 1.2퍼센트로, 단계적 회귀가 10.6퍼센트에서 10.7퍼센트로 바뀐다고 적고 있다.">
+          <figcaption><b>상세 리포트 그림 25</b><span><strong>읽는 법</strong> — 두 분할의 학습 종료일이 하루 다르다</span><span><strong>왜 중요한가</strong> — 누수를 없애도 두 모델의 대비는 유지된다</span><span><strong>결론</strong> — 교재의 핵심 논지는 이 결함에 의존하지 않는다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>선택형 부록 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual slide--appendix" aria-label="Python 적응 일곱 모델의 표본 외 성과" data-deck-appendix="true" data-report-refs="fig-python-models reproduction-audit">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">선택형 부록 4 / 5</span></header>
+      <h1>비용을 붙이면 순위가 바뀐다</h1>
+      <p class="lead">검증 설계와 라이브러리를 바꾼 Python 별도 실험이다. 공식 입력을 같은 식으로 재계산한 표와 근거를 구분한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-python-models.png" alt="왼쪽은 단일 트리, 분류 트리, 순수 배깅, 랜덤 포레스트, 부스팅, SVM, 신경망 앙상블의 테스트 CAGR을 비용 전후로 비교한 막대그래프다. 오른쪽은 같은 일곱 모델의 실제 테스트 총수익 자산곡선이며 순수 배깅과 SVM, 랜덤 포레스트가 1을 웃돈다.">
+          <figcaption><b>상세 리포트 그림 26</b><span><strong>읽는 법</strong> — 왼쪽 두 막대의 높이 차이가 곧 회전율 비용이다</span><span><strong>왜 중요한가</strong> — 분류 트리는 4.0%를 거의 전부 비용으로 내지만 SVM 은 거의 무감하다</span><span><strong>결론</strong> — 총수익 순위와 비용 후 순위는 다른 표다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>선택형 부록 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual slide--appendix" aria-label="난수 시드에 따른 신경망 결과의 변동" data-deck-appendix="true" data-report-refs="fig-seed-stability reproduction-audit">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">선택형 부록 5 / 5</span></header>
+      <h1>시드 하나로 신경망의 부호가 바뀐다</h1>
+      <p class="lead">같은 데이터·같은 구조·같은 하이퍼파라미터인데 난수 시드만 다르게 열 번 돌린 결과다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-seed-stability.png" alt="왼쪽 막대그래프는 난수 시드 1부터 10까지의 표본 외 CAGR 로, 시드 8이 약 0.138로 가장 높고 시드 10이 약 마이너스 0.060으로 가장 낮으며 열 개 중 여섯 개가 양수, 네 개가 음수다. 오른쪽 막대그래프는 학습셋만으로 고른 SVM 커널 세 종류의 평균 시계열 교차검증 정확도로 linear 0.532, polynomial 0.541, rbf 0.535 로 세 막대 높이가 거의 같다.">
+          <figcaption><b>상세 리포트 그림 27</b><span><strong>읽는 법</strong> — 막대 높이가 아니라 0선을 넘나든다는 사실을 본다</span><span><strong>왜 중요한가</strong> — 신경망을 한 번 돌려 얻은 수치는 그 자체로 근거가 되지 못한다</span><span><strong>결론</strong> — 오른쪽처럼 커널 선택이 성과를 가르지 않는 경우도 함께 봐야 한다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>선택형 부록 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
   </main>
 

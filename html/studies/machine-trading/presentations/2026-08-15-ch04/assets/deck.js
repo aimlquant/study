@@ -1,7 +1,11 @@
 (function () {
   "use strict";
 
-  const slides = Array.from(document.querySelectorAll(".slide"));
+  const allSlides = Array.from(document.querySelectorAll(".slide"));
+  const includeAppendix = new URLSearchParams(window.location.search).get("appendix") === "1";
+  const slides = includeAppendix
+    ? allSlides
+    : allSlides.filter((slide) => slide.dataset.deckAppendix !== "true");
   const counter = document.getElementById("deckCounter");
   const progress = document.getElementById("progress");
   const toc = document.getElementById("toc");
@@ -38,18 +42,21 @@
 
   function showSlide(index, options = {}) {
     current = clamp(index, 0, slides.length - 1);
-    slides.forEach((slide, slideIndex) => {
+    allSlides.forEach((slide) => {
+      const slideIndex = slides.indexOf(slide);
       const active = slideIndex === current;
+      slide.classList.toggle("is-deck-omitted", slideIndex < 0);
       slide.classList.toggle("is-active", active);
       slide.setAttribute("aria-hidden", String(!active));
     });
 
-    document.querySelectorAll("[data-slide-total]").forEach((node) => {
-      node.textContent = String(slides.length);
-    });
-    document.querySelectorAll("[data-slide-number]").forEach((node) => {
-      const owner = node.closest(".slide");
-      node.textContent = String(slides.indexOf(owner) + 1).padStart(2, "0");
+    slides.forEach((slide, slideIndex) => {
+      slide.querySelectorAll("[data-slide-total]").forEach((node) => {
+        node.textContent = String(slides.length);
+      });
+      slide.querySelectorAll("[data-slide-number]").forEach((node) => {
+        node.textContent = String(slideIndex + 1).padStart(2, "0");
+      });
     });
 
     counter.textContent = `${current + 1} / ${slides.length}`;
