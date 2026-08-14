@@ -223,7 +223,7 @@ prompt_segments['example_output'] = """["J. R. Smith", "person", "works for", "M
       </article>
       <article class="source-listing" id="source-listing-5-2" data-source-kind="listing" data-source-ref="5.2">
         <h4>Listing 5.2 · OpenAI API 호출</h4>
-        <p>과제 설명은 <code>system</code>, 예시 입력은 <code>user</code>, 예시 출력은 <code>assistant</code> 역할로 넣어 한 차례 시범을 보인 뒤, 진짜 텍스트를 마지막 <code>user</code> 메시지로 던진다. 사실 추출 과제라 <code>temperature=0.</code>으로 출력을 결정적으로 만든다.</p>
+        <p>과제 설명은 <code>system</code>, 예시 입력은 <code>user</code>, 예시 출력은 <code>assistant</code> 역할로 넣어 한 차례 시범을 보인 뒤, 진짜 텍스트를 마지막 <code>user</code> 메시지로 던진다. 사실 추출 과제라 <code>temperature=0.</code>으로 출력이 매번 같게 나오도록 한다.</p>
         <pre data-code-language="Python"><code>OPENAI_MODEL = "gpt-4o-mini"
 
 def openai_query(client, prompt_segments: dict, query: str):
@@ -289,6 +289,7 @@ prompt_segments['example_output'] = """
 ["John Smith", "person", "student of", "Mary Hodge", "person"]
 ["Mary Hodge", "person", "works on", "radioisotopes", "occupation"]
 ["Mary Hodge", "person", "works on", "cyclotron", "occupation"]"""</code></pre>
+        <p style="margin-top:8px;font-size:0.92em;color:var(--muted,#64748b);"><strong>용어</strong> — <em>radioisotopes</em> 방사성 동위원소(핵이 불안정해 방사선을 내며 붕괴하는 원소) · <em>cyclotron</em> 사이클로트론(하전 입자를 나선형으로 가속하는 입자 가속기)</p>
       </article>
       <article class="source-listing" id="source-listing-5-7" data-source-kind="listing" data-source-ref="5.7">
         <h4>Listing 5.7 · 리스팅 5.6 프롬프트의 GPT 출력</h4>
@@ -331,7 +332,7 @@ prompt_segments['example_output'] = """
         <li><strong>과제 설명과 도메인 특화 지침</strong> — 잘 설명된 과제가 품질·안정성의 핵심이다. 데이터셋 특성(예: 이니셜 지칭 습관)을 덧붙인다.</li>
         <li><strong>개체·관계 부류의 이름 짓기</strong> — 관심 부류 목록을 넣고, 성능이 나쁘면 이름을 바꾼다. 두루뭉술한 “Topic”을 “Occupation”으로 바꾸자 결과가 훨씬 안정됐다.</li>
         <li><strong>복잡하고 대표적인 예시</strong> — 실제 텍스트를 압축하되 핵심 관계 유형을 모두 담은 예시를 준다.</li>
-        <li><strong>LLM 설정</strong> — 여러 모델과 파라미터를 시험한다. 온도가 높으면 다채롭고(환각도 늘고), 낮으면 결정적이다. 사실 추출은 온도 0을 쓴다.</li>
+        <li><strong>LLM 설정</strong> — 여러 모델과 파라미터를 시험한다. 온도가 높으면 다채롭고(환각도 늘고), 낮으면 출력이 매번 같아진다. 사실 추출은 온도 0을 쓴다.</li>
         <li><strong>예측 안정성 시험</strong> — 생성 모델은 “기분”을 타므로 같은 프롬프트도 결과가 달라질 수 있다. 명확한 과제 설명과 낮은 온도로 억제하고, 겹침 정도로 안정성을 평가한다.</li>
         <li><strong>프롬프트 단위 테스트</strong> — 텍스트 토막과 기대 출력을 테스트 목록에 쌓아 성공률을 계산하면, 이전 반복의 성과를 잃지 않는다.</li>
         <li><strong>미니 KG 눈으로 확인</strong> — 이정표마다 수십 쪽 표본으로 작은 그래프를 만들어 직접 들여다보면 개선 실마리가 보인다.</li>
@@ -341,7 +342,7 @@ prompt_segments['example_output'] = """
         <li><strong>지나치게 생각하지 마라</strong> — 제로샷·원샷은 단순 기법이다. 빠른 반복으로 안 되면 남은 시간을 파인튜닝에 투자한다.</li>
       </ul></div></div>
       <aside class="term-note" role="note"><span class="term-note__kicker">용어 주석</span><ul>
-        <li><strong>temperature</strong><span>출력의 다양성·창의성을 조절하는 파라미터. 높으면 다채롭고 환각 성향이 커지며, 낮으면 결정적이다.</span></li>
+        <li><strong>temperature</strong><span>출력의 다양성·창의성을 조절하는 파라미터. 높으면 다채롭고 환각 성향이 커지며, 낮으면 출력이 매번 같아진다.</span></li>
         <li><strong>zero-shot / one-shot</strong><span>예시 없이(제로샷) 또는 예시 하나만(원샷) 주고 과제를 시키는 방식이다.</span></li>
         <li><strong>precision · recall · F1</strong><span>정밀도는 찾아낸 것 중 맞은 비율, 재현율은 찾아냈어야 할 것 중 찾은 비율, F1은 둘의 종합이다.</span></li>
       </ul></aside>
