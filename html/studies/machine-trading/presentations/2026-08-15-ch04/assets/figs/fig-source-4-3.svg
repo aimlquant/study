@@ -62,10 +62,10 @@
 <text class="s an-m" x="700.0" y="270">2014-06</text>
 <rect class="band" x="74" y="50" width="313.0" height="200.0"/>
 <path class="dash" d="M387.0,50 V250"/>
-<text class="lab an-m halo" x="230.5" y="72">학습셋</text>
-<text class="warnt an-m halo" x="562.3" y="72">테스트셋</text>
+<text class="lab an-m halo" x="230.5" y="98">학습셋</text>
+<text class="warnt an-m halo" x="455.9" y="98">테스트셋</text>
 <path class="ln" d="M74.0,246.2 L124.1,211.6 L174.2,184.7 L224.2,157.8 L274.3,134.8 L324.4,107.9 L387.0,84.9"/>
 <path class="lnr" d="M387.0,84.9 L430.8,73.4 L468.4,63.8 L499.7,69.5 L524.7,59.9 L562.3,67.6 L599.8,65.7 L637.4,71.4 L675.0,67.6 L700.0,69.5"/>
 <path class="dash" d="M524.7,59.9 V250"/>
-<text class="warnt an-m halo" x="624.9" y="77.9">여기서부터 정체</text>
+<text class="warnt an-m halo" x="570.5" y="130">여기서부터 정체</text>
 </svg>
