@@ -10,7 +10,7 @@
   <rect x="46" y="287" width="200" height="58" rx="10" class="buy"/><text x="64" y="310" class="buytext">종목 C · 2월 2일</text><text x="64" y="331" class="body">예상 +5% → 매수 +1</text>
   <text x="146" y="360" text-anchor="middle" class="body">다음 거래 시점에 진입</text>
 
-  <path d="M268 219H308" class="arrow"/>
+  <path d="M268 219H314" class="arrow"/>
   <rect x="316" y="64" width="350" height="310" rx="14" class="box"/>
   <text x="336" y="92" class="step">2 · 각 포지션을 63일 유지</text>
   <line x1="370" y1="326" x2="636" y2="326" class="axis"/><text x="370" y="346" class="body">진입일</text><text x="636" y="346" text-anchor="end" class="body">63일 뒤</text>
@@ -20,7 +20,7 @@
   <line x1="548" y1="111" x2="548" y2="315" class="today"/><rect x="516" y="105" width="64" height="22" rx="6" fill="#fff7ed"/><text x="548" y="120" text-anchor="middle" class="shorttext">오늘 t</text>
   <text x="491" y="360" text-anchor="middle" class="body">오늘 세 포지션이 동시에 활성</text>
 
-  <path d="M666 219H706" class="arrow"/>
+  <path d="M666 219H712" class="arrow"/>
   <rect x="714" y="64" width="222" height="310" rx="14" class="box"/>
   <text x="734" y="92" class="step">3 · 오늘 수익률 계산</text>
   <rect x="734" y="119" width="182" height="83" rx="10" class="formula"/>
