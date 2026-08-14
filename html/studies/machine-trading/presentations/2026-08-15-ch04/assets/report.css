@@ -3680,6 +3680,54 @@ html, body, button, input { font-family: var(--font-sans-ko); }
 }
 .source-listing h4, .source-exercise h4 { margin: 0 0 10px; color: var(--brand-deep); font-size: 11pt; line-height: 1.45; }
 .source-listing p:last-child, .source-exercise p:last-child { margin-bottom: 0; }
+/* AIML Quant 재현 코드 — 교재 리스팅(파란 띠)과 시각적으로 구분되는 초록 띠 */
+.aimlquant-listing {
+  margin: 24px 0;
+  padding: 18px 20px;
+  border: 1px solid #cfe3d6;
+  border-left: 4px solid #4f9d6b;
+  border-radius: 8px;
+  background: #f5faf7;
+  break-inside: avoid;
+  scroll-margin-top: 84px;
+}
+/* `.continuous-mode .report-section h4` 가 uppercase 를 걸기 때문에 같은 명시도로
+   되돌린다. 이 제목에는 DecisionTreeRegressor 처럼 대소문자가 의미를 갖는
+   식별자가 들어가므로 대문자 변환을 그대로 두면 코드가 잘못 읽힌다. */
+.report-section .aimlquant-listing h4,
+.continuous-mode .report-section .aimlquant-listing h4 {
+  margin: 0 0 10px;
+  color: #2f6b48;
+  font-size: 11pt;
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+/* 같은 이유로 교재 리스팅 제목의 코드도 원래 대소문자를 유지한다. 나란히 놓인
+   두 상자에서 한쪽만 대문자로 변환되면 짝이 어긋나 보인다. */
+.report-section .source-listing h4 code,
+.continuous-mode .report-section .source-listing h4 code {
+  text-transform: none;
+}
+.aimlquant-listing p { margin-bottom: 10px; }
+.aimlquant-listing p:last-child { margin-bottom: 0; }
+.aimlquant-listing .asset-note { display: block; margin-top: 10px; }
+/* 인쇄·PDF 에는 가로 스크롤이 없다. A4 코드 칼럼은 약 68자에서 끊기므로 그보다
+   긴 줄은 화면에서는 스크롤로 읽히지만 종이에서는 조용히 잘려 사라진다. 화면
+   동작은 그대로 두고 종이에서만 줄을 접어 모든 문자를 남긴다. */
+@media print {
+  .report-section pre,
+  .continuous-mode .report-section pre { overflow-x: visible !important; }
+  .report-section pre code,
+  .continuous-mode .report-section pre code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    /* 화면용 `min-width: max-content` 는 가장 긴 줄만큼 code 를 넓혀 두므로
+       pre-wrap 만으로는 접히지 않고 상자 밖으로 넘친다. 종이에서만 푼다. */
+    min-width: 0;
+  }
+}
 .report-appendix ol.references li::before,
 .s-refs ol.references li::before { content: none !important; }
 @media print { .skip-link, .report-jump-links { display:none !important; } }
