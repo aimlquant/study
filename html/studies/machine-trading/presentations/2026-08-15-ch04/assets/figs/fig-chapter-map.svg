@@ -9,7 +9,7 @@
   <text x="147" y="247" text-anchor="middle" class="body">같은 SPY 예측 문제에 적용해</text><text x="147" y="266" text-anchor="middle" class="body">표현 방식의 차이를 비교</text>
   <rect x="61" y="282" width="172" height="24" rx="6" fill="#fff7ed" stroke="#c85b2a"/><text x="147" y="299" text-anchor="middle" fill="#9b3f1d" font-size="10.5" font-weight="700">복잡함 자체는 목표가 아니다</text>
 
-  <path d="M270 194H312" class="arrow"/>
+  <path d="M270 194H318" class="arrow"/>
   <rect x="320" y="61" width="260" height="265" rx="14" class="design"/>
   <text x="340" y="90" class="green">2 · 학습 구간 안에서 설계</text>
   <rect x="340" y="111" width="220" height="34" rx="7" class="method"/><text x="450" y="133" text-anchor="middle" class="body">시간순 교차 검증 · 설정 선택</text>
@@ -18,7 +18,7 @@
   <rect x="340" y="237" width="220" height="34" rx="7" class="method"/><text x="450" y="259" text-anchor="middle" class="body">반복 학습 · 검증 선택 또는 평균</text>
   <text x="450" y="298" text-anchor="middle" class="green">테스트셋은 여기서 사용하지 않는다</text>
 
-  <path d="M580 194H622" class="arrow"/>
+  <path d="M580 194H628" class="arrow"/>
   <rect x="630" y="61" width="266" height="265" rx="14" class="result"/>
   <text x="650" y="90" class="white">3 · 고정된 테스트 구간에서 확인</text>
   <text x="650" y="112" class="pale">총수익 CAGR · 서로 다른 근거는 태그로 구분</text>

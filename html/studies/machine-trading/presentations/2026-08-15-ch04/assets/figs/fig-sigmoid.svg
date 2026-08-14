@@ -5,11 +5,11 @@
   <rect x="32" y="75" width="112" height="40" rx="9" class="input"/><text x="88" y="100" text-anchor="middle" class="title">ret1 × w₁</text>
   <rect x="32" y="137" width="112" height="40" rx="9" class="input"/><text x="88" y="162" text-anchor="middle" class="title">ret2 × w₂</text>
   <rect x="32" y="199" width="112" height="40" rx="9" class="input"/><text x="88" y="224" text-anchor="middle" class="title">ret5 × w₃</text>
-  <path d="M144 95H190V133H218" class="arrow"/><path d="M144 157H218" class="arrow"/><path d="M144 219H190V181H218" class="arrow"/>
+  <path d="M144 95H190V133H220" class="arrow"/><path d="M144 157H216" class="arrow"/><path d="M144 219H190V181H220" class="arrow"/>
   <circle cx="278" cy="157" r="60" class="sum"/><text x="278" y="145" text-anchor="middle" class="title">가중합</text><text x="278" y="168" text-anchor="middle" class="body">z = Σwᵢxᵢ + b</text><text x="278" y="188" text-anchor="middle" class="small">편향 b는 한 번만 더한다</text>
-  <path d="M338 157H383" class="arrow"/>
+  <path d="M338 157H389" class="arrow"/>
   <rect x="391" y="112" width="130" height="90" rx="13" class="activation"/><text x="456" y="143" text-anchor="middle" class="green">시그모이드</text><text x="456" y="166" text-anchor="middle" class="body">σ(z)=1/(1+e⁻ᶻ)</text><text x="456" y="187" text-anchor="middle" class="small">출력 범위 0~1</text>
-  <path d="M521 157H562" class="arrow"/>
+  <path d="M521 157H604" class="arrow"/>
   <line x1="606" y1="265" x2="860" y2="265" class="axis"/><line x1="733" y1="63" x2="733" y2="290" class="axis"/>
   <line x1="606" y1="164" x2="860" y2="164" class="grid"/><text x="596" y="168" text-anchor="end" class="small">0.5</text><text x="596" y="73" text-anchor="end" class="small">1.0</text><text x="596" y="269" text-anchor="end" class="small">0</text>
   <path d="M606 256C650 251 681 226 704 192C719 171 730 164 733 164C752 164 767 119 790 94C811 71 835 68 860 67" class="curve"/>

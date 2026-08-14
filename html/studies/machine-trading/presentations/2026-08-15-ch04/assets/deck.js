@@ -91,6 +91,27 @@
     });
   }
 
+  function numberFigures() {
+    let figureNumber = 0;
+    slides.forEach((slide) => {
+      slide.querySelectorAll("figure").forEach((figure) => {
+        const caption = figure.querySelector(":scope > figcaption");
+        if (!caption) return;
+        figureNumber += 1;
+        figure.dataset.deckFigureNumber = String(figureNumber);
+        const bandLabel = caption.querySelector(":scope > b");
+        if (bandLabel) {
+          bandLabel.textContent = `그림 ${figureNumber} · 확대`;
+          return;
+        }
+        const title = caption.querySelector(":scope > strong");
+        if (!title) return;
+        title.dataset.deckFigureTitle ||= title.textContent.trim();
+        title.textContent = `그림 ${figureNumber} · ${title.dataset.deckFigureTitle}`;
+      });
+    });
+  }
+
   function setToc(open) {
     if (open) setSettings(false);
     toc.classList.toggle("open", open);
@@ -329,6 +350,7 @@
   // stage 크기를 재기 전에 칠해 둔다.
   highlightCodeBlocks();
 
+  numberFigures();
   buildToc();
   fitStage();
   applyTheme(savedTheme() === "dark" ? "dark" : "light");
