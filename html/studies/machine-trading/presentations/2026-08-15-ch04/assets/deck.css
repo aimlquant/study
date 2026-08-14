@@ -501,6 +501,18 @@ a {
    280px 를 갖고 있어 두 값이 겹치면 stage 세로가 넘쳐 takeaway 가 footer 를
    침범한다(편집 규칙 13항과 같은 부모-자식 계약). */
 .panel .code-block { min-height: 0; padding: 30px 26px; }
+/* .two-col 과 나란히 놓인 코드 창도 280px 를 그대로 쓰면 stage 세로가 넘쳐
+   제목이 가려지고 takeaway 가 footer 를 침범한다. 짧은 코드에는 이 변형을 쓴다.
+   `.code-block` 규칙이 아래에 있으므로 요소 선택자로 명시도를 올려 둔다. */
+pre.code-block--compact {
+  min-height: 0;
+  /* .slide-body 가 세로 flex 라 min-height 만 풀면 내용보다 더 줄어 코드가
+     잘린다. 줄어들지 않게 고정하고 남는 공간은 아래 패널이 갖게 한다. */
+  flex: none;
+}
+/* 코드 창과 패널 행을 한 슬라이드에 함께 두면 280 + 280 만으로 stage 세로를
+   다 써 버려 lead 가 코드 창 뒤로 숨는다. 이 슬라이드에서는 패널 바닥을 낮춘다. */
+.slide--compact-code .panel { min-height: 200px; }
 
 .code-block {
   min-height: 280px;
