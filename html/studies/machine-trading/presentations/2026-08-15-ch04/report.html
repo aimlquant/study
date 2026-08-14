@@ -454,10 +454,11 @@ accuracy, _ = chronological_cv_classification(tree, x_train, labels)</code></pre
       </article>
       <figure class="report-figure" id="fig-classification-results">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__label">실행 결과</span><span class="asset-caption__title">분류 트리 — 검증 정확도와 거래비용 적용 전후 성과</span></figcaption>
-        <img src="assets/figs/fig-classification-results.svg" alt="왼쪽은 다섯 폴드의 검증 정확도가 51.0, 55.7, 54.7, 51.0, 51.0퍼센트이며 평균 52.7퍼센트임을 보여 준다. 오른쪽은 테스트 CAGR이 비용 전 4.0퍼센트에서 편도 2bp 비용 후 0.05퍼센트로 낮아지는 막대그래프다.">
+        <img src="assets/figs/fig-classification-results.svg" alt="왼쪽은 과거로 학습하고 바로 다음 구간의 상승·하락을 맞힌 시간순 검증 정확도가 폴드별 51.0, 55.7, 54.7, 51.0, 51.0퍼센트이며 평균 52.7퍼센트임을 보여 준다. 오른쪽은 선택을 끝낸 뒤 고정 테스트 구간에서 매매전략 CAGR이 비용 전 4.0퍼센트에서 편도 2bp, 즉 거래마다 0.02퍼센트 비용 후 0.05퍼센트로 낮아지는 막대그래프다.">
         <small class="asset-note asset-note--metadata">자세한 설명과 수치 근거는 이 그림의 앞뒤 본문에 있다.</small>
       </figure>
-      <p>예측이 상승이면 매수하고 하락이면 공매도한다. Python 실행 결과의 평균 검증 정확도는 52.7%였다. 테스트 구간의 총수익 CAGR은 4.0%, 샤프 비율은 0.32지만 편도 2bp 비용을 적용하면 CAGR은 0.05%로 거의 사라진다. 정확도가 50%를 조금 넘는 것만으로는 거래 가능한 전략이라고 결론 내릴 수 없는 이유다.</p>
+      <p><strong>시간순 검증 정확도 52.7%</strong>는 학습 구간을 다섯 번 과거와 미래로 나누어, 매번 과거 블록으로 학습한 트리가 바로 다음 검증 블록의 상승·하락을 맞힌 비율을 평균한 값이다. 수익률이 52.7%라는 뜻도, 거래 한 번당 2.7%를 번다는 뜻도 아니다.</p>
+      <p>설정을 고른 뒤에야 고정된 테스트 구간에서 예측이 상승이면 매수하고 하락이면 공매도했다. 총수익 CAGR은 4.0%, 샤프 비율은 0.32였지만 거래비용을 적용하면 CAGR은 0.05%로 거의 사라진다. 여기서 <strong>bp는 basis point(베이시스 포인트)</strong>의 약자로 1bp는 0.01%다. 편도 2bp는 한 번 사거나 팔 때 거래금액의 0.02%를 차감한다는 뜻이므로, 같은 금액을 진입하고 청산하면 단순 왕복 비용은 4bp다. 정확도가 50%를 조금 넘는 것만으로는 거래 가능한 전략이라고 결론 내릴 수 없는 이유다.</p>
       <p>반응을 꼭 양/음 수익률로만 나눌 필요는 없다. 높은 양의 수익률을 한 클래스로, 그 여집합을 다른 클래스로 만든 뒤 이 고수익 클래스가 예측될 때만 매수 신호를 낼 수도 있다. 마찬가지로 낮은 음의 수익률을 한 클래스로 만들어 그 클래스가 예측될 때 공매도 신호를 낼 수도 있다. 다만 이렇게 해도 전략 성과가 나아지지는 않는 것으로 보고된다.</p>
     </section>
 
@@ -811,6 +812,7 @@ valid = np.isfinite(normalized).all(axis=2) & np.isfinite(target_normalized)</co
         </tbody>
       </table>
       <p>이 입력 변수들을 앞 절과 같은 방식으로 집계하고 단계적 회귀 절에서 쓴 함수를 그대로 써서, 알고리즘은 다음 분기 — 더 정확히는 63거래일 — 의 수익률에 대한 유의한 예측변수로 다음 일곱 개를 골랐다. 이 선택은 2007년 1월 3일부터 2013년 12월 31일까지의 데이터에 기반한다(주석 12).</p>
+      <p><strong>일곱 개를 미리 정한 것이 아니다.</strong> 상수항만 있는 모형에서 시작해, 아직 쓰지 않은 27개 후보 가운데 기존 변수로 설명하고도 남는 63일 수익률을 가장 잘 설명하는 변수 하나를 차례로 추가했다. 일곱 번째 변수까지 기본 진입 기준인 p값 0.05를 통과했고(마지막 변수의 p값 0.0499), 그다음에는 기준을 통과하는 후보가 없어 멈췄다. 따라서 탈락한 20개가 경제적으로 무의미하다는 뜻이 아니라, <em>이미 고른 일곱 변수에 더해 이 학습 구간에서 확인할 만한 추가 설명력이 없었다</em>는 뜻이다.</p>
       <table class="cmp-table" id="source-table-4-4" data-source-kind="table" data-source-ref="4.4">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 11</span><span class="asset-caption__title">단계적 회귀로 선택된 요인</span></div></caption>
         <thead><tr><th>변수명</th><th>기간</th></tr></thead>
@@ -850,7 +852,7 @@ model.fit(events[selected_factors], events["future_return_63d"])</code></pre>
       </article>
       <article class="aimlquant-listing">
         <h4>Python · 63일 보유가 겹치는 구간을 다루는 법</h4>
-        <p>실적 발표 날짜가 서로 다르므로 여러 종목의 63일 포지션이 겹친다. 각 신호를 다음 날부터 63일 동안 유지하고, 그날 열려 있는 포지션의 절대 규모로 손익을 나눠 총노출을 일정하게 맞춘다.</p>
+      <p>실적 발표 날짜가 서로 다르므로 여러 종목의 63일 포지션이 겹친다. 각 신호를 다음 날부터 63일 동안 유지하고, 그날 열려 있는 포지션의 절대 규모로 손익을 나눠 총노출을 일정하게 맞춘다. 매일 한 단위의 새 포지션이 생겨 63개가 모두 열려 있다면 분모가 63이 되지만, 신호가 없거나 매수·공매도 포지션이 상쇄되는 날에는 실제 총 절대 노출을 사용한다.</p>
         <pre data-code-language="Python"><code class="language-python"># 오늘 신호를 내일부터 63일 동안 겹쳐 쌓는다
 signals = np.nan_to_num(np.sign(prediction), nan=0.0)
 positions = np.zeros_like(signals)
@@ -1051,6 +1053,7 @@ uv run python $CH4/run_chapter4_analysis.py --offline</code></pre>
           <tr><td>회귀 트리 (regression tree)</td><td>부등식으로 데이터를 계층적으로 쪼개 연속 반응을 예측하는 모델. 분할 기준은 자식 노드 분산.</td></tr>
           <tr><td>분류 트리 (classification tree)</td><td>상승·하락 같은 이산 클래스를 예측하는 트리. 분할 기준은 GDI.</td></tr>
           <tr><td>지니 다양성 지수 (GDI)</td><td>한 노드의 불순도. 한 클래스만 있으면 0, 반반이면 최대 0.5.</td></tr>
+          <tr><td>베이시스 포인트 (bp)</td><td>퍼센트의 100분의 1. 1bp는 0.01%이며, 편도 2bp는 한 번 매수하거나 매도할 때 거래금액의 0.02%를 비용으로 잡는다는 뜻이다.</td></tr>
           <tr><td>교차 검증 (cross validation)</td><td>학습 구간 안에서 모델 설정을 비교하는 절차. 시계열에서는 과거로 학습하고 뒤 구간에서 검증한다.</td></tr>
           <tr><td>배깅 (bagging)</td><td>복원추출로 데이터를 복제해 여러 모델을 학습시키고 예측을 평균한다. 편향은 두고 분산을 낮춘다.</td></tr>
           <tr><td>배깅 외 관측치 (out-of-bag)</td><td>어떤 백에 뽑히지 않은 관측치. 그 백의 표본 외 검사 자료가 된다.</td></tr>

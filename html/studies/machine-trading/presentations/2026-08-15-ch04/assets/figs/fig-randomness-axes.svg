@@ -1,41 +1,53 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 390" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
   <title id="title">배깅과 랜덤 포레스트의 차이</title>
   <desc id="desc">두 방법 모두 행을 복원추출해 여러 트리를 학습한다. 배깅은 각 분할에서 모든 변수를 살피고, 랜덤 포레스트는 각 분할마다 무작위로 고른 일부 변수만 후보로 살핀다.</desc>
-  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><style>
-    .head{fill:#101828;font-size:16px;font-weight:700}.lane{fill:#173b67;font-size:14px;font-weight:700}.box{fill:#fff;stroke:#173b67;stroke-width:1.6}.rf{fill:#e8f4ec;stroke:#1f7042;stroke-width:1.8}.small{fill:#606978;font-size:11px}.body{fill:#394150;font-size:12px}.green{fill:#1f7042;font-size:12px;font-weight:700}.arrow{fill:none;stroke:#173b67;stroke-width:2;marker-end:url(#arrow)}.feature{fill:#dce8f5;stroke:#173b67;stroke-width:1}.off{fill:#f0f1f3;stroke:#c7ccd3;stroke-width:1}.sample{fill:#fff7ed;stroke:#c85b2a;stroke-width:1.2}.tree{fill:none;stroke:#173b67;stroke-width:1.8}.avg{fill:#173b67}.white{fill:#fff;font-size:12px;font-weight:700}
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><style>
+    .head{fill:#101828;font-size:16px;font-weight:700}.lane{fill:#173b67;font-size:14px;font-weight:700}.box{fill:#fff;stroke:#173b67;stroke-width:1.6}.rf{fill:#e8f4ec;stroke:#1f7042;stroke-width:1.8}.small{fill:#606978;font-size:11px}.body{fill:#394150;font-size:12px}.green{fill:#1f7042;font-size:12px;font-weight:700}.arrow{fill:none;stroke:#173b67;stroke-width:2;marker-end:url(#arrow)}.feature{fill:#dce8f5;stroke:#173b67;stroke-width:1}.off{fill:#f0f1f3;stroke:#c7ccd3;stroke-width:1}.sample{fill:#fff7ed;stroke:#c85b2a;stroke-width:1.2}.tree-edge{fill:none;stroke:#173b67;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}.tree-node{fill:#173b67}.avg{fill:#173b67}.white{fill:#fff;font-size:12px;font-weight:700}
   </style></defs>
 
   <text x="28" y="98" class="lane">배깅</text>
   <rect x="112" y="58" width="152" height="76" rx="11" class="box"/><text x="188" y="80" text-anchor="middle" class="body">부트스트랩 표본</text>
   <rect x="132" y="91" width="24" height="25" rx="4" class="sample"/><rect x="160" y="91" width="24" height="25" rx="4" class="sample"/><rect x="188" y="91" width="24" height="25" rx="4" class="sample"/><rect x="216" y="91" width="24" height="25" rx="4" class="sample"/>
-  <path d="M264 96H304" class="arrow"/>
+  <path d="M264 96H312" class="arrow"/>
   <rect x="312" y="58" width="234" height="76" rx="11" class="box"/>
   <text x="429" y="80" text-anchor="middle" class="body">각 노드에서 모든 변수 검사</text>
   <rect x="336" y="92" width="38" height="24" rx="5" class="feature"/><text x="355" y="108" text-anchor="middle" class="small">ret1</text>
   <rect x="382" y="92" width="38" height="24" rx="5" class="feature"/><text x="401" y="108" text-anchor="middle" class="small">ret2</text>
   <rect x="428" y="92" width="38" height="24" rx="5" class="feature"/><text x="447" y="108" text-anchor="middle" class="small">ret5</text>
   <rect x="474" y="92" width="48" height="24" rx="5" class="feature"/><text x="498" y="108" text-anchor="middle" class="small">ret20</text>
-  <path d="M546 96H586" class="arrow"/>
-  <rect x="594" y="58" width="126" height="76" rx="11" class="box"/><text x="657" y="80" text-anchor="middle" class="body">트리 5개</text>
-  <path d="M620 117V92H647M647 92V78M647 92L634 106M647 92L660 106M678 117V92H691M691 92V78M691 92L678 106M691 92L704 106" class="tree"/>
-  <path d="M720 96H760" class="arrow"/>
+  <path d="M546 96H594" class="arrow"/>
+  <rect x="594" y="58" width="126" height="76" rx="11" class="box"/><text x="657" y="78" text-anchor="middle" class="body">서로 다른 트리 5개</text>
+  <g aria-label="가지와 잎이 있는 작은 의사결정나무 다섯 개">
+    <g transform="translate(607 90)"><path d="M0 0V7M0 7L-6 15M0 7L6 15" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="-6" cy="15" r="1.8" class="tree-node"/><circle cx="6" cy="15" r="1.8" class="tree-node"/></g>
+    <g transform="translate(632 88)"><path d="M0 0V7M0 7L-6 14M0 7L6 14M6 14V19M6 19L2 24M6 19L10 24" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="-6" cy="14" r="1.8" class="tree-node"/><circle cx="2" cy="24" r="1.8" class="tree-node"/><circle cx="10" cy="24" r="1.8" class="tree-node"/></g>
+    <g transform="translate(657 90)"><path d="M0 0V7M0 7L-7 15M0 7L7 15M-7 15V20M-7 20L-11 24M-7 20L-3 24" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="7" cy="15" r="1.8" class="tree-node"/><circle cx="-11" cy="24" r="1.8" class="tree-node"/><circle cx="-3" cy="24" r="1.8" class="tree-node"/></g>
+    <g transform="translate(682 88)"><path d="M0 0V7M0 7L-6 14M0 7L6 14" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="-6" cy="14" r="1.8" class="tree-node"/><circle cx="6" cy="14" r="1.8" class="tree-node"/></g>
+    <g transform="translate(707 90)"><path d="M0 0V7M0 7L-6 15M0 7L6 15M6 15V20M6 20L2 24M6 20L10 24" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="-6" cy="15" r="1.8" class="tree-node"/><circle cx="2" cy="24" r="1.8" class="tree-node"/><circle cx="10" cy="24" r="1.8" class="tree-node"/></g>
+  </g>
+  <path d="M720 96H768" class="arrow"/>
   <rect x="768" y="67" width="122" height="58" rx="11" class="avg"/><text x="829" y="91" text-anchor="middle" class="white">예측 평균</text><text x="829" y="110" text-anchor="middle" fill="#d8e4f2" font-size="11">행 무작위화</text>
 
   <line x1="28" y1="174" x2="890" y2="174" stroke="#dfe3e8"/>
   <text x="28" y="230" class="lane">랜덤 포레스트</text>
   <rect x="112" y="190" width="152" height="76" rx="11" class="rf"/><text x="188" y="212" text-anchor="middle" class="body">부트스트랩 표본</text>
   <rect x="132" y="223" width="24" height="25" rx="4" class="sample"/><rect x="160" y="223" width="24" height="25" rx="4" class="sample"/><rect x="188" y="223" width="24" height="25" rx="4" class="sample"/><rect x="216" y="223" width="24" height="25" rx="4" class="sample"/>
-  <path d="M264 228H304" class="arrow"/>
+  <path d="M264 228H312" class="arrow"/>
   <rect x="312" y="190" width="234" height="76" rx="11" class="rf"/>
   <text x="429" y="212" text-anchor="middle" class="green">노드마다 변수 일부만 무작위 선택</text>
   <rect x="336" y="224" width="38" height="24" rx="5" class="feature"/><text x="355" y="240" text-anchor="middle" class="small">ret1</text>
   <rect x="382" y="224" width="38" height="24" rx="5" class="off"/><text x="401" y="240" text-anchor="middle" class="small">ret2</text>
   <rect x="428" y="224" width="38" height="24" rx="5" class="feature"/><text x="447" y="240" text-anchor="middle" class="small">ret5</text>
   <rect x="474" y="224" width="48" height="24" rx="5" class="off"/><text x="498" y="240" text-anchor="middle" class="small">ret20</text>
-  <path d="M546 228H586" class="arrow"/>
-  <rect x="594" y="190" width="126" height="76" rx="11" class="rf"/><text x="657" y="212" text-anchor="middle" class="body">트리 5개</text>
-  <path d="M620 249V224H647M647 224V210M647 224L634 238M647 224L660 238M678 249V224H691M691 224V210M691 224L678 238M691 224L704 238" class="tree"/>
-  <path d="M720 228H760" class="arrow"/>
+  <path d="M546 228H594" class="arrow"/>
+  <rect x="594" y="190" width="126" height="76" rx="11" class="rf"/><text x="657" y="210" text-anchor="middle" class="body">더 다양한 트리 5개</text>
+  <g aria-label="가지와 잎이 있는 형태가 서로 다른 작은 의사결정나무 다섯 개">
+    <g transform="translate(607 222)"><path d="M0 0V7M0 7L-7 15M0 7L7 15M-7 15V20M-7 20L-11 24M-7 20L-3 24" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="7" cy="15" r="1.8" class="tree-node"/><circle cx="-11" cy="24" r="1.8" class="tree-node"/><circle cx="-3" cy="24" r="1.8" class="tree-node"/></g>
+    <g transform="translate(632 224)"><path d="M0 0V7M0 7L-6 15M0 7L6 15" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="-6" cy="15" r="1.8" class="tree-node"/><circle cx="6" cy="15" r="1.8" class="tree-node"/></g>
+    <g transform="translate(657 220)"><path d="M0 0V7M0 7L-6 14M0 7L6 14M6 14V19M6 19L2 24M6 19L10 24" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="-6" cy="14" r="1.8" class="tree-node"/><circle cx="2" cy="24" r="1.8" class="tree-node"/><circle cx="10" cy="24" r="1.8" class="tree-node"/></g>
+    <g transform="translate(682 222)"><path d="M0 0V7M0 7L-7 15M0 7L7 15M7 15V20M7 20L3 24M7 20L11 24" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="-7" cy="15" r="1.8" class="tree-node"/><circle cx="3" cy="24" r="1.8" class="tree-node"/><circle cx="11" cy="24" r="1.8" class="tree-node"/></g>
+    <g transform="translate(707 224)"><path d="M0 0V7M0 7L-6 15M0 7L6 15" class="tree-edge"/><circle cx="0" cy="0" r="1.8" class="tree-node"/><circle cx="-6" cy="15" r="1.8" class="tree-node"/><circle cx="6" cy="15" r="1.8" class="tree-node"/></g>
+  </g>
+  <path d="M720 228H768" class="arrow"/>
   <rect x="768" y="199" width="122" height="58" rx="11" class="avg"/><text x="829" y="223" text-anchor="middle" class="white">예측 평균</text><text x="829" y="242" text-anchor="middle" fill="#d8e4f2" font-size="11">행 + 변수 무작위화</text>
 
   <rect x="112" y="302" width="778" height="60" rx="12" fill="#f7f8fa" stroke="#d3d7de" stroke-width="1.3"/>

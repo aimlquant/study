@@ -3714,7 +3714,7 @@ pre code .tok-kw  { color: #BB9AF7; }
 pre code .tok-lit { color: #FF757F; }
 pre code .tok-fn  { color: #7AA2F7; }
 
-/* AIML Quant 재현 코드 — 교재 리스팅(파란 띠)과 시각적으로 구분되는 초록 띠 */
+/* Python 적응 코드 — 교재 리스팅(파란 띠)과 시각적으로 구분되는 초록 띠 */
 .aimlquant-listing {
   margin: 24px 0;
   padding: 18px 20px;

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
   <title id="title">시간 순서를 지키는 다섯 겹 교차 검증</title>
   <desc id="desc">각 폴드에서 과거만 학습하고 바로 다음 구간을 검증한다. 다섯 검증 오차를 평균해 설정을 고르고 전체 학습 기간으로 최종 모델을 다시 적합한다.</desc>
-  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><style>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><style>
     .head{fill:#101828;font-size:15px;font-weight:700}.label{fill:#394150;font-size:12px;font-weight:700}.small{fill:#606978;font-size:11px}.train{fill:#dce8f5;stroke:#173b67;stroke-width:1.4}.valid{fill:#fde8df;stroke:#b54724;stroke-width:1.5}.future{fill:#f2f3f5;stroke:#c6cbd2;stroke-width:1}.avg{fill:#173b67}.avgtext{fill:#fff;font-size:13px;font-weight:700}.final{fill:#e8f4ec;stroke:#1f7042;stroke-width:1.8}.finaltext{fill:#1f7042;font-size:13px;font-weight:700}.arrow{fill:none;stroke:#173b67;stroke-width:2;marker-end:url(#arrow)}.merge{fill:none;stroke:#8b93a0;stroke-width:1.4}
   </style></defs>
   <rect x="610" y="18" width="20" height="14" rx="3" class="train"/><text x="638" y="30" class="small">학습</text>
@@ -40,8 +40,8 @@
     <text x="750" y="278" class="small">RMSE 0.0194</text>
   </g>
 
-  <path d="M826 81H852V273H826" class="merge"/>
-  <path d="M852 177V330H662" class="arrow"/>
+  <path d="M826 81H842V273M826 129H842M826 177H842M826 225H842M826 273H842" class="merge"/>
+  <path d="M842 177V334H662" class="arrow"/>
   <rect x="432" y="310" width="230" height="48" rx="11" class="avg"/>
   <text x="547" y="331" text-anchor="middle" class="avgtext">검증 오차 평균 = 0.0142</text>
   <text x="547" y="349" text-anchor="middle" fill="#d8e4f2" font-size="11">테스트셋은 아직 열지 않는다</text>
