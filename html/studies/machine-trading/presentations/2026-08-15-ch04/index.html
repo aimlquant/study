@@ -770,6 +770,19 @@ net.divideParam.testRatio  = 0;    % 백테스트용 테스트셋은 따로 있�
       <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
+    <section class="slide slide--visual" aria-label="원본 충실 재현 네 실험의 자산곡선" data-report-refs="fig-book-replays reproduction-audit table-exact-replay">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
+      <h1>학습에서 벌어진 격차가 표본 외에서 주저앉는다</h1>
+      <p class="lead">앞 표의 여덟 숫자를 곡선으로 본 것이다. 네 실험 모두 저자 공식 입력으로 재계산했다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-book-replays.png" alt="왼쪽 패널은 2005년부터 2009년까지의 학습 구간으로 Stepwise 가 약 6.5배, Linear 가 약 5배, Tree rule 이 약 3.7배, HMM 이 약 1.8배까지 오른다. 오른쪽 패널은 2010년부터 2014년까지의 표본 외 구간으로 세로축이 0.8에서 1.6으로 좁아지며 Stepwise 만 1.6배 부근을 유지하고 Tree rule 은 1.2배, Linear 는 1.0 근처로 되돌아오며 HMM 은 대부분 1.0 아래에 머문다.">
+          <figcaption><b>상세 리포트 그림 20</b><span><strong>읽는 법</strong> — 세로축 눈금이 왼쪽 6.5배에서 오른쪽 1.6배로 바뀐다</span><span><strong>왜 중요한가</strong> — 학습에서 벌어진 순위가 표본 외에서는 거의 사라진다</span><span><strong>결론</strong> — HMM 곡선이 1.0 아래에서 끝나는 것이 앞 표의 음수 CAGR 이다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
     <section class="slide slide--visual" aria-label="목표값 경계 누수와 수정본" data-report-refs="fig-boundary-leakage reproduction-audit">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
       <h1>목표값 한 행이 경계를 넘는다 — 고쳐도 결론은 그대로다</h1>
@@ -777,7 +790,33 @@ net.divideParam.testRatio  = 0;    % 백테스트용 테스트셋은 따로 있�
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-boundary-leakage.svg" alt="위쪽 원본 분할은 학습셋 예측변수 행 1158개가 2009년 9월 15일까지이고 붉은 곡선 화살표가 학습셋 끝에서 테스트셋 첫날로 넘어간다. 아래쪽 경계 수정본은 학습셋을 2009년 9월 14일까지 1157개 행으로 줄여 테스트셋을 완전히 격리한다. 맨 아래 표는 다중 회귀가 0.4퍼센트에서 1.2퍼센트로, 단계적 회귀가 10.6퍼센트에서 10.7퍼센트로 바뀐다고 적고 있다.">
-          <figcaption><b>상세 리포트 그림 20</b><span><strong>읽는 법</strong> — 두 분할의 학습 종료일이 하루 다르다</span><span><strong>왜 중요한가</strong> — 누수를 없애도 두 모델의 대비는 유지된다</span><span><strong>결론</strong> — 교재의 핵심 논지는 이 결함에 의존하지 않는다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 21</b><span><strong>읽는 법</strong> — 두 분할의 학습 종료일이 하루 다르다</span><span><strong>왜 중요한가</strong> — 누수를 없애도 두 모델의 대비는 유지된다</span><span><strong>결론</strong> — 교재의 핵심 논지는 이 결함에 의존하지 않는다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="Python 적응 여섯 모델의 표본 외 성과" data-report-refs="fig-python-models reproduction-audit">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
+      <h1>비용을 붙이면 순위가 바뀐다</h1>
+      <p class="lead">현대적 라이브러리로 다시 구현한 별도 실험이다. 위 MATLAB 수치와 직접 비교하지 않는다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-python-models.png" alt="왼쪽 막대그래프는 여섯 모델의 표본 외 CAGR 을 총수익과 편도 2bps 비용 후로 나란히 그린다. svm 은 0.112에서 0.112로 두 막대 높이가 거의 같고, random_forest 는 0.087에서 0.048로 절반 가까이 깎이며, classification_tree 는 0.040에서 거의 0으로 줄고, tree 와 boosting 과 mlp_ensemble 은 모두 음수다. 오른쪽 선그래프는 같은 여섯 모델의 표본 외 누적 자산곡선으로 random_forest 와 svm 만 1을 크게 웃돌고 나머지는 1 부근이나 그 아래에서 끝난다.">
+          <figcaption><b>상세 리포트 그림 22</b><span><strong>읽는 법</strong> — 왼쪽 두 막대의 높이 차이가 곧 회전율 비용이다</span><span><strong>왜 중요한가</strong> — 분류 트리는 4.0%를 거의 전부 비용으로 내지만 SVM 은 거의 무감하다</span><span><strong>결론</strong> — 총수익 순위와 비용 후 순위는 다른 표다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="난수 시드에 따른 신경망 결과의 흔들림" data-report-refs="fig-seed-stability reproduction-audit">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충 A</span></header>
+      <h1>시드 하나로 신경망의 부호가 바뀐다</h1>
+      <p class="lead">같은 데이터·같은 구조·같은 하이퍼파라미터인데 난수 시드만 다르게 열 번 돌린 결과다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-seed-stability.png" alt="왼쪽 막대그래프는 난수 시드 1부터 10까지의 표본 외 CAGR 로, 시드 8이 약 0.138로 가장 높고 시드 10이 약 마이너스 0.060으로 가장 낮으며 열 개 중 여섯 개가 양수, 네 개가 음수다. 오른쪽 막대그래프는 학습셋만으로 고른 SVM 커널 세 종류의 평균 시계열 교차검증 정확도로 linear 0.532, polynomial 0.541, rbf 0.535 로 세 막대 높이가 거의 같다.">
+          <figcaption><b>상세 리포트 그림 23</b><span><strong>읽는 법</strong> — 막대 높이가 아니라 0선을 넘나든다는 사실을 본다</span><span><strong>왜 중요한가</strong> — 신경망을 한 번 돌려 얻은 수치는 그 자체로 근거가 되지 못한다</span><span><strong>결론</strong> — 오른쪽처럼 커널 선택이 성과를 가르지 않는 경우도 함께 봐야 한다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
