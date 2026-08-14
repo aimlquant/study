@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 350" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">HMM으로 다음 날 상승 확률을 계산하는 두 단계</title>
+  <desc id="desc">오늘 강세 70퍼센트 약세 30퍼센트에 전이행렬을 적용해 내일 강세 64.5퍼센트 약세 35.5퍼센트를 얻고, 방출행렬을 적용해 내일 상승 53.3퍼센트 하락 46.7퍼센트를 얻는다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><style>.head{fill:#101828;font-size:16px;font-weight:700}.box{fill:#fff;stroke:#173b67;stroke-width:1.8}.state{fill:#eaf1f9;stroke:#173b67;stroke-width:1.8}.emit{fill:#e8f4ec;stroke:#1f7042;stroke-width:1.8}.signal{fill:#173b67}.title{fill:#173b67;font-size:14px;font-weight:700}.green{fill:#1f7042;font-size:14px;font-weight:700}.body{fill:#4f5866;font-size:12px}.small{fill:#606978;font-size:11px}.white{fill:#fff;font-size:15px;font-weight:700}.arrow{fill:none;stroke:#173b67;stroke-width:2.2;marker-end:url(#arrow)}.bar1{fill:#1f7042}.bar2{fill:#b54724}.track{fill:#e5e8ec}</style></defs>
+  <rect x="28" y="70" width="210" height="176" rx="13" class="box"/>
+  <text x="133" y="99" text-anchor="middle" class="title">오늘 · 관측을 반영한 상태</text>
+  <text x="50" y="133" class="body">강세</text><rect x="92" y="120" width="120" height="18" rx="5" class="track"/><rect x="92" y="120" width="84" height="18" rx="5" class="bar1"/><text x="222" y="134" text-anchor="end" class="small">70%</text>
+  <text x="50" y="174" class="body">약세</text><rect x="92" y="161" width="120" height="18" rx="5" class="track"/><rect x="92" y="161" width="36" height="18" rx="5" class="bar2"/><text x="222" y="175" text-anchor="end" class="small">30%</text>
+  <text x="133" y="218" text-anchor="middle" class="small">오늘까지의 상승·하락 이력을 반영</text>
+  <path d="M238 158H278" class="arrow"/><text x="258" y="141" text-anchor="middle" class="small">전이 T</text>
+  <rect x="286" y="70" width="210" height="176" rx="13" class="state"/>
+  <text x="391" y="99" text-anchor="middle" class="title">내일 · 상태 확률</text>
+  <text x="308" y="133" class="body">강세</text><rect x="350" y="120" width="120" height="18" rx="5" class="track"/><rect x="350" y="120" width="77.4" height="18" rx="5" class="bar1"/><text x="480" y="134" text-anchor="end" class="small">64.5%</text>
+  <text x="308" y="174" class="body">약세</text><rect x="350" y="161" width="120" height="18" rx="5" class="track"/><rect x="350" y="161" width="42.6" height="18" rx="5" class="bar2"/><text x="480" y="175" text-anchor="end" class="small">35.5%</text>
+  <text x="391" y="211" text-anchor="middle" class="small">0.70×0.60 + 0.30×0.75</text><text x="391" y="228" text-anchor="middle" class="small">= 0.645</text>
+  <path d="M496 158H536" class="arrow"/><text x="516" y="141" text-anchor="middle" class="small">방출 E</text>
+  <rect x="544" y="70" width="210" height="176" rx="13" class="emit"/>
+  <text x="649" y="99" text-anchor="middle" class="green">내일 · 관측 확률</text>
+  <text x="566" y="133" class="body">상승</text><rect x="608" y="120" width="120" height="18" rx="5" class="track"/><rect x="608" y="120" width="64" height="18" rx="5" class="bar1"/><text x="738" y="134" text-anchor="end" class="small">53.3%</text>
+  <text x="566" y="174" class="body">하락</text><rect x="608" y="161" width="120" height="18" rx="5" class="track"/><rect x="608" y="161" width="56" height="18" rx="5" class="bar2"/><text x="738" y="175" text-anchor="end" class="small">46.7%</text>
+  <text x="649" y="211" text-anchor="middle" class="small">상태별 상승 확률을</text><text x="649" y="228" text-anchor="middle" class="small">내일 상태 확률로 가중평균</text>
+  <path d="M754 158H786" class="arrow"/>
+  <rect x="794" y="96" width="100" height="124" rx="13" class="signal"/>
+  <text x="844" y="129" text-anchor="middle" fill="#d8e4f2" font-size="11">상승 &gt; 하락</text><text x="844" y="164" text-anchor="middle" class="white">매수</text><text x="844" y="192" text-anchor="middle" fill="#d8e4f2" font-size="11">다음 거래일</text>
+  <rect x="130" y="286" width="660" height="42" rx="10" fill="#fff7ed" stroke="#c85b2a" stroke-width="1.4"/>
+  <text x="460" y="312" text-anchor="middle" fill="#9b3f1d" font-size="12" font-weight="700">상태 이름을 맞히는 것이 목적이 아니라, 내일 상승 확률을 계산해 거래 신호로 바꾸는 것이 목적이다.</text>
+</svg>

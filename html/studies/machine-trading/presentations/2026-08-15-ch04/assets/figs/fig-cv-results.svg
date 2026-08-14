@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" role="img" aria-labelledby="title desc">
+  <title id="title">회귀 트리의 폴드별 검증 RMSE</title><desc id="desc">다섯 폴드의 RMSE와 평균 0.0142</desc>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","NanumGothic",Inter,system-ui,sans-serif;fill:#172033}.axis{stroke:#7d8795}.grid{stroke:#e4e7eb}.bar{fill:#8da9c7}.late{fill:#a3341f}.mean{stroke:#1b6b3a;stroke-width:2.5;stroke-dasharray:7 5}.tick{font-size:11px;fill:#667085;text-anchor:end}.lab{font-size:12px;text-anchor:middle}.val{font-size:11px;font-weight:700;text-anchor:middle}.note{font-size:12px;fill:#1b6b3a;font-weight:700}</style>
+  <rect width="760" height="300" rx="14" fill="#fafaf9"/><path class="axis" d="M70 245H720M70 35V245"/>
+  <path class="grid" d="M70 175H720M70 105H720M70 35H720"/><text class="tick" x="62" y="249">0.00</text><text class="tick" x="62" y="179">0.01</text><text class="tick" x="62" y="109">0.02</text><text class="tick" x="62" y="39">0.03</text>
+  <rect class="bar" x="112" y="198" width="74" height="47" rx="4"/><rect class="bar" x="227" y="203.5" width="74" height="41.5" rx="4"/><rect class="bar" x="342" y="161.6" width="74" height="83.4" rx="4"/><rect class="late" x="457" y="55.3" width="74" height="189.7" rx="4"/><rect class="late" x="572" y="108.9" width="74" height="136.1" rx="4"/>
+  <text class="val" x="149" y="190">0.0067</text><text class="val" x="264" y="195">0.0059</text><text class="val" x="379" y="153">0.0119</text><text class="val" x="494" y="47">0.0271</text><text class="val" x="609" y="101">0.0194</text>
+  <text class="lab" x="149" y="268">폴드 1</text><text class="lab" x="264" y="268">폴드 2</text><text class="lab" x="379" y="268">폴드 3</text><text class="lab" x="494" y="268">폴드 4</text><text class="lab" x="609" y="268">폴드 5</text>
+  <path class="mean" d="M70 145.5H720"/><text class="note" x="570" y="139">평균 RMSE 0.0142</text>
+</svg>
