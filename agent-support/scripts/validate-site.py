@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import re
 import sys
 import tomllib
@@ -1349,6 +1350,160 @@ def validate_svg_connector_fill_contract(
                 )
 
 
+SVG_PROSE_MAX_CHARS = 28
+SVG_PROSE_RUN_GAP = 24.0
+SVG_PROSE_BASELINE_PATH = (
+    REPO_ROOT / "agent-support" / "reviews" / "svg-prose-baseline.json"
+)
+TRANSLATE_RE = re.compile(r"translate\(\s*(-?[\d.]+)[\s,]+(-?[\d.]+)\s*\)")
+
+
+def svg_prose_digest(text: str) -> str:
+    """Baseline key for one offending string, so a rewrite is a new violation."""
+    return hashlib.sha256(" ".join(text.split()).encode("utf-8")).hexdigest()[:16]
+
+
+def load_svg_prose_baseline() -> dict[str, list[str]]:
+    if not SVG_PROSE_BASELINE_PATH.is_file():
+        return {}
+    raw = json.loads(SVG_PROSE_BASELINE_PATH.read_text(encoding="utf-8"))
+    return {key: list(value) for key, value in raw.get("allowed", raw).items()}
+
+
+def _svg_geometry(
+    root: ET.Element,
+) -> tuple[list[tuple[float, float, float, float]], list[tuple[float, float, str]], bool]:
+    """Shape boxes, text anchors, and whether a foreignObject carries text.
+
+    Group `transform="translate(...)"` is composed so text hidden in a shifted
+    `<g>` is judged at its rendered position. A `rotate` on text moves no anchor.
+    """
+    shapes: list[tuple[float, float, float, float]] = []
+    texts: list[tuple[float, float, str]] = []
+    foreign_text = False
+
+    def number(element: ET.Element, name: str) -> float | None:
+        try:
+            return float(element.attrib[name])
+        except (KeyError, ValueError):
+            return None
+
+    def walk(element: ET.Element, dx: float, dy: float) -> None:
+        nonlocal foreign_text
+        tag = element.tag.rsplit("}", 1)[-1]
+        if tag == "g":
+            match = TRANSLATE_RE.search(element.attrib.get("transform", ""))
+            if match:
+                dx += float(match.group(1))
+                dy += float(match.group(2))
+        elif tag == "rect":
+            x, y = number(element, "x"), number(element, "y")
+            w, h = number(element, "width"), number(element, "height")
+            if None not in (x, y, w, h):
+                shapes.append((x + dx, y + dy, x + dx + w, y + dy + h))
+        elif tag in {"circle", "ellipse"}:
+            cx, cy = number(element, "cx"), number(element, "cy")
+            rx = number(element, "r") or number(element, "rx")
+            ry = number(element, "r") or number(element, "ry")
+            if None not in (cx, cy, rx, ry):
+                shapes.append((cx + dx - rx, cy + dy - ry, cx + dx + rx, cy + dy + ry))
+        elif tag == "foreignObject":
+            if "".join(element.itertext()).strip():
+                foreign_text = True
+            return
+        elif tag == "text":
+            x, y = number(element, "x"), number(element, "y")
+            body = " ".join("".join(element.itertext()).split())
+            if body and None not in (x, y):
+                texts.append((x + dx, y + dy, body))
+            return
+        for child in element:
+            walk(child, dx, dy)
+
+    walk(root, 0.0, 0.0)
+    return shapes, texts, foreign_text
+
+
+def validate_svg_prose_contract(
+    session_dir: Path,
+    errors: list[str],
+    baseline: dict[str, list[str]] | None = None,
+) -> None:
+    """A diagram carries decode labels; explanatory prose belongs in the report.
+
+    Axis, tick, legend, node-identity and data-point labels stay inside the SVG
+    because a reader cannot decode the figure without them. Titles, footer
+    commentary, summary or result panels laid over the diagram, and conclusions
+    belong in the adjacent caption or prose. Length is the proxy for that split:
+    once ch04 was cleaned, its longest text outside any shape was 27 characters.
+    """
+    figures_dir = session_dir / "assets" / "figs"
+    if not figures_dir.is_dir():
+        return
+    allowed = load_svg_prose_baseline() if baseline is None else baseline
+
+    for svg_path in sorted(figures_dir.glob("*.svg")):
+        svg_text = svg_path.read_text(encoding="utf-8", errors="replace")
+        try:
+            root = ET.fromstring(svg_text)
+        except ET.ParseError:
+            continue  # the connector check already reports unparsable SVG
+        shapes, texts, foreign_text = _svg_geometry(root)
+        key = f"{session_dir.name}/{svg_path.name}"
+        excused = set(allowed.get(key, ()))
+
+        if foreign_text:
+            errors.append(
+                f"SVG must not carry text in a foreignObject in {svg_path}; "
+                f"move the prose into the report caption"
+            )
+
+        outside = [
+            (x, y, body)
+            for x, y, body in texts
+            if not any(
+                left <= x <= right and top - 4 <= y <= bottom + 4
+                for left, top, right, bottom in shapes
+            )
+        ]
+
+        reported: set[str] = set()
+        for _, _, body in outside:
+            if len(body) < SVG_PROSE_MAX_CHARS or svg_prose_digest(body) in excused:
+                continue
+            reported.add(body)
+            errors.append(
+                f"SVG text outside any shape is explanatory prose in {svg_path} "
+                f"({len(body)} chars): {body[:60]!r}; keep decode labels only and "
+                f"move this into the report caption or prose"
+            )
+
+        columns: dict[int, list[tuple[float, str]]] = {}
+        for x, y, body in outside:
+            columns.setdefault(round(x), []).append((y, body))
+        for _, column in sorted(columns.items()):
+            column.sort()
+            run: list[tuple[float, str]] = []
+            for entry in column + [(float("inf"), "")]:
+                if run and entry[0] - run[-1][0] > SVG_PROSE_RUN_GAP:
+                    total = sum(len(body) for _, body in run)
+                    bodies = [body for _, body in run]
+                    if (
+                        len(run) > 1
+                        and total >= SVG_PROSE_MAX_CHARS
+                        and not any(body in reported for body in bodies)
+                        and not all(svg_prose_digest(b) in excused for b in bodies)
+                    ):
+                        errors.append(
+                            f"SVG 텍스트 묶음이 설명 패널이다 in {svg_path} "
+                            f"({len(run)}줄 {total}자): {' / '.join(bodies)[:80]!r}; "
+                            f"move it into the report caption or prose"
+                        )
+                    run = []
+                if entry[1]:
+                    run.append(entry)
+
+
 def css_rule_has_contract(
     css_text: str,
     selectors: set[str],
@@ -1657,6 +1812,7 @@ def validate_metadata(
                     )
 
         validate_cjk_wrap_contract(metadata_path.parent, errors)
+        validate_svg_prose_contract(metadata_path.parent, errors)
 
         if (
             {"report", "slides"}.issubset(artifacts)
