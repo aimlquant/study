@@ -143,6 +143,28 @@
         <pre data-code-language="MATLAB"><code class="language-matlab">model_train = fitlm([ret1(trainset) ret2(trainset) ret5(trainset) ...
                      ret20(trainset)], retFut1(trainset), 'linear')</code></pre>
       </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · 여기서는 MATLAB 이 더 짧다</h4>
+        <p>솔직하게 적어 둘 부분이다. 계수만 필요하면 <code>np.linalg.lstsq</code> 한 줄로 끝나지만, 교재가 보여 주는 <strong>계수와 p-값 표</strong> 를 그대로 재현하려면 표준오차·t통계량·p값을 손으로 계산해야 한다. <code>fitlm</code> 한 줄이 파이썬에서는 열한 줄이 되는 구간이며, 이 장에서 MATLAB 쪽이 분명히 간결한 몇 안 되는 자리다.</p>
+        <pre data-code-language="Python"><code class="language-python">import numpy as np
+from scipy import stats
+
+def ols_fit(x, y):
+    # 절편 열을 붙인 뒤 최소제곱 — fitlm 의 핵심은 아래 두 줄이다
+    design = np.column_stack([np.ones(len(x)), x])
+    coefficients, *_ = np.linalg.lstsq(design, y, rcond=None)
+    residuals = y - design @ coefficients
+    degrees_of_freedom = len(y) - design.shape[1]
+    variance = float(residuals @ residuals / degrees_of_freedom)
+    covariance = variance * np.linalg.inv(design.T @ design)
+    standard_errors = np.sqrt(np.diag(covariance))
+    t_statistics = coefficients / standard_errors
+    p_values = 2.0 * stats.t.sf(
+        np.abs(t_statistics), degrees_of_freedom
+    )
+    return coefficients, p_values</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. 이 재현은 <code>numpy</code> 와 <code>scipy</code> 만으로 계산했다. <code>statsmodels</code> 의 <code>OLS</code> 를 쓰면 요약표까지 한 번에 나오므로 훨씬 짧아지지만, 그러면 어떤 값이 어떻게 계산되는지가 라이브러리 안으로 숨는다. 이 함수가 뱉는 수치는 <a class="asset-ref" href="#table-exact-replay">표 14</a> 에서 인쇄된 값과 소수점 여섯 자리까지 일치했다.</small>
+      </article>
       <p>이 회귀 모델을 적합하는 데 전체 데이터를 다 써서는 안 된다. 데이터의 후반부는 <strong>테스트셋(test set)</strong> 으로 남겨 둔다. 여기서 <code>trainset</code> 은 데이터 전반부의 인덱스를 담은 배열이다. <strong>학습셋(training set)</strong> 과 테스트셋을 나누는 것은 어떤 거래 모델을 만들 때든 늘 지키는 절차이지만, 머신러닝 모델은 과적합 성향이 유독 강하기 때문에 특히 중요하다.</p>
       <article class="source-listing">
         <h4>MATLAB · 예측과 단순 거래 규칙</h4>
@@ -151,6 +173,25 @@
                            ret5(trainset) ret20(trainset)]);
 positions(retPred1 &gt; 0) = 1;
 positions(retPred1 &lt; 0) = -1;</code></pre>
+      </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · 하루 지연을 포지션 정의 안에 못박는다</h4>
+        <p>위 MATLAB 은 예측이 난 그 날 곧바로 포지션을 잡은 것처럼 보인다. 하루 뒤에 실제로 체결된다는 사실은 뒤에서 <code>backshift(1, positions)</code> 로 따로 처리되는데, 그 한 줄을 빠뜨리면 미래를 미리 아는 백테스트가 된다. 아래 재현은 그 지연을 포지션을 만드는 자리에 붙여 두어 빠뜨릴 수 없게 했고, 거래비용도 같은 함수 안에서 뺀다.</p>
+        <pre data-code-language="Python"><code class="language-python">def backtest_signals(
+    name, signals, returns, *, one_way_cost_bps=ONE_WAY_COST_BPS
+):
+    raw_signals = np.nan_to_num(
+        np.asarray(signals, dtype=float), nan=0.0
+    )
+    # 오늘 신호가 내일 포지션이 된다
+    positions = np.r_[0.0, raw_signals[:-1]]
+    gross_returns = positions * np.nan_to_num(returns, nan=0.0)
+    turnover = np.abs(np.diff(np.r_[0.0, positions]))
+    net_returns = (
+        gross_returns - turnover * one_way_cost_bps / 10_000.0
+    )
+    ...                              # 이하 성과지표 계산</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. 성과지표를 담아 돌려주는 부분은 <code>...</code> 로 줄였다. 매수·매도 신호를 부호로만 표현하므로 <code>np.sign(prediction)</code> 을 그대로 넣을 수 있고, 이 장의 모든 Python 적응 실험이 같은 함수를 통과한다 — 그래서 <a class="asset-ref" href="#fig-python-models">그림 22</a> 의 총수익과 비용 후 수익이 모델 간에 같은 기준으로 비교된다.</small>
       </article>
       <p>이렇게 하면 <strong>연평균 성장률(CAGR, compound annual growth rate)</strong> 34.3퍼센트, <strong>샤프 비율(Sharpe ratio)</strong> 1.4 가 나온다. 2004년 12월 22일부터 2009년 9월 15일까지의 학습 데이터에 꽤 잘 맞는다는 뜻이다. 그런데 2009년 9월 16일부터 2014년 6월 2일까지의 테스트 데이터에 같은 절차를 반복하면 CAGR 은 0.4퍼센트, 샤프 비율은 0.1 로 곤두박질친다. 테스트셋에서 이 모델(주석 2, 전체 코드 <code>lr.m</code>)은 무작위와 다를 바 없다. 바로 이 초라한 성적이 단계적 회귀가 넘어서야 할 손쉬운 벤치마크가 된다.</p>
 
@@ -162,6 +203,33 @@ positions(retPred1 &lt; 0) = -1;</code></pre>
         <p>입력 이름/값 쌍인 <code>'Upper'</code> 와 그 값 <code>'linear'</code> 는 예측변수로 독립변수들의 곱이 아니라 그 선형 함수만 쓰겠다는 뜻이다.</p>
         <pre data-code-language="MATLAB"><code class="language-matlab">model = stepwiselm([ret1(trainset) ret2(trainset) ret5(trainset) ...
                     ret20(trainset)], retFut1(trainset), 'Upper', 'linear')</code></pre>
+      </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · <code>stepwiselm</code> 이 감춘 절차를 펼쳐 쓴다</h4>
+        <p>MATLAB 은 함수 이름 하나로 끝나지만 그 안에서 무슨 일이 일어나는지는 보이지 않는다. 이 장의 결론이 "단 하나의 변수가 반전을 만들었다"인 만큼, 재현에서는 그 선택 과정을 그대로 펼쳐 썼다. 네 후보를 각각 단변량으로 적합해 p값을 재고, 가장 작은 것을 고르되 5퍼센트 문턱을 넘지 못하면 아예 멈춘다.</p>
+        <pre data-code-language="Python"><code class="language-python">def select_stepwise_predictor(x, y):
+    candidate_p_values = {}
+    # ret1 ret2 ret5 ret20 을 하나씩 단변량으로 적합한다
+    for feature_index, feature_name in enumerate(FEATURE_NAMES):
+        _, p_values = ols_fit(x[:, [feature_index]], y)
+        candidate_p_values[feature_name] = float(p_values[-1])
+
+    # p값이 가장 작은 후보를 채택한다
+    selected_index = min(
+        range(len(FEATURE_NAMES)),
+        key=lambda i: candidate_p_values[FEATURE_NAMES[i]],
+    )
+    # 문턱을 못 넘으면 아무것도 고르지 않고 멈춘다
+    if candidate_p_values[FEATURE_NAMES[selected_index]] &gt;= 0.05:
+        raise AssertionError(
+            "No stepwise predictor passes the 5% entry threshold"
+        )
+
+    coefficients, p_values = ols_fit(x[:, [selected_index]], y)
+    return (
+        selected_index, coefficients, p_values, candidate_p_values
+    )</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. 앞 절의 <code>ols_fit</code> 을 그대로 재사용한다. 이 구현은 전진 선택 한 단계만 수행하며, <code>stepwiselm</code> 이 지원하는 후진 제거나 반복 단계는 포함하지 않는다 — 이 예제에서 실제로 채택되는 변수가 하나뿐이기 때문이다. 네 후보의 p값을 정렬해 실제로 확인하려면 노트북의 단계적 회귀 절을 본다.</small>
       </article>
 
       <h2 id="source-section-4-1-3" data-source-kind="section" data-source-ref="4.1.3">단 하나의 변수가 만든 반전</h2>
@@ -211,6 +279,21 @@ positions(retPred1 &lt; 0) = -1;</code></pre>
         <pre data-code-language="MATLAB"><code class="language-matlab">model = fitrtree([ret1(trainset) ret2(trainset) ret5(trainset) ...
                   ret20(trainset)], retFut1(trainset), 'MinLeafSize', 100);
 view(model, 'mode', 'graph');   % 트리를 시각적으로 보기</code></pre>
+      </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · <code>fitrtree</code> → <code>DecisionTreeRegressor</code></h4>
+        <p><code>'MinLeafSize'</code> 가 <code>min_samples_leaf</code> 로 이름만 바뀌었을 뿐 역할은 같다. 다른 점은 두 가지다. scikit-learn 은 난수 시드를 인자로 받아 결과를 고정할 수 있고, 학습 배열을 만드는 <code>valid_training_arrays</code> 가 목표값이 테스트 구간을 넘보는 마지막 한 행을 빼고 <code>split - 1</code> 까지만 쓴다.</p>
+        <pre data-code-language="Python"><code class="language-python">from sklearn.tree import DecisionTreeRegressor
+
+# 목표값이 테스트 구간을 넘보는 마지막 1행을 뺀 학습 배열
+x_train, y_train, training_index = valid_training_arrays(data)
+tree = DecisionTreeRegressor(
+    min_samples_leaf=100, random_state=RANDOM_SEED
+)
+tree_rmse, cv_boundaries = chronological_cv_regression(
+    tree, x_train, y_train
+)</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드이며 교재에 실린 코드가 아니다. <code>run_chapter4_analysis.py</code> 의 <code>run_python_models()</code> 에서 가져왔고, 발췌 안에서 변수가 모두 묶이도록 <code>import</code> 와 학습 배열 준비 줄을 함께 실었다. 경계 처리가 다르므로 이 트리의 수치를 위 MATLAB 결과와 직접 비교하지 않는다.</small>
       </article>
       <p>리프 노드 아래의 숫자들은 그 잎에 이르는 일련의 부등식 아래에서 반응변수의 <strong>기댓값(expected value)</strong> 을 나타낸다.</p>
       <figure class="report-figure" id="source-figure-4-2" data-deck-use="required" data-source-kind="figure" data-source-ref="4.2">
@@ -264,6 +347,24 @@ L = kfoldLoss(model_cv, 'mode', 'individual');  % 폴드 밖 데이터에 대한
 [~, minLidx] = min(L);                          % 과적합 오차가 가장 작은 트리
 bestTree = model_cv.Trained{minLidx};</code></pre>
       </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · 무작위 K-겹을 <code>TimeSeriesSplit</code> 으로 바꾼다</h4>
+        <p>여기서 교재와 갈라진다. MATLAB 의 <code>'CrossVal','On'</code> 은 학습셋을 <strong>무작위로</strong> 다섯 조각 낸다 — 바로 위 문단이 "다른 난수 시드로 돌리면 다른 CAGR 이 나온다"고 적은 이유다. 시계열에서 무작위 분할은 미래 구간으로 학습해 과거를 맞히는 폴드를 만든다. 아래 재현은 <code>TimeSeriesSplit</code> 으로 언제나 과거로 학습하고 그 뒤 구간만 검증한다.</p>
+        <pre data-code-language="Python"><code class="language-python">from sklearn.model_selection import TimeSeriesSplit
+
+def chronological_cv_regression(estimator, x, y, splits=5):
+    errors = []
+    splitter = TimeSeriesSplit(n_splits=splits)
+    for train, validation in splitter.split(x):
+        # 항상 과거로 학습하고 그 뒤 구간만 검증한다
+        fitted = clone(estimator).fit(x[train], y[train])
+        prediction = fitted.predict(x[validation])
+        errors.append(float(np.sqrt(
+            mean_squared_error(y[validation], prediction)
+        )))
+    return float(np.mean(errors))</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. 원본 <code>chronological_cv_regression()</code> 은 각 폴드의 경계 인덱스도 함께 돌려주지만, 여기서는 분할 방식이 드러나도록 오차 평균만 남기고 경계 기록부를 생략했으며 <code>splitter</code> 를 변수로 빼 한 줄을 줄였다. 이 교체가 이 장 전체에서 가장 중요한 방법론 차이이며, 아래 모든 Python 적응 실험이 이 함수를 쓴다.</small>
+      </article>
       <p>각 트리의 교차 검증 정확도, 또는 그 반대 척도인 <strong>손실(loss)</strong> — 예측 반응과 실제 반응 사이의 평균제곱오차 — 을 구하려면 <code>kfoldLoss</code> 를 적용해 손실이 가장 작은 트리를 고른다. <code>bestTree</code> 를 모델 삼아 테스트셋에서 <code>predict</code> 를 실행하면 CAGR 0.6퍼센트, 샤프 비율 0.11 이 나온다. 교차 검증을 쓰지 않았던 −7.2퍼센트보다는 분명히 낫지만, 극단의 잎 두 개만 골랐을 때만큼은 아니다. 이 프로그램을 다른 난수 시드로 돌리면 다른 트리와 다른 CAGR 이 나오는데, 교차 검증이 각 트리에 쓸 학습 데이터 부분집합을 무작위로 고르기 때문이다.</p>
 
       <h2 id="source-section-4-3-1" data-source-kind="section" data-source-ref="4.3.1">왜 K = 10이 아니라 K = 5인가</h2>
@@ -293,6 +394,24 @@ bestTree = model_cv.Trained{minLidx};</code></pre>
         <pre data-code-language="MATLAB"><code class="language-matlab">model = TreeBagger(5, [ret1(trainset) ret2(trainset) ret5(trainset) ...
                        ret20(trainset)], retFut1(trainset), 'Method', 'regression', ...
                        'MinLeaf', 100);</code></pre>
+      </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · <code>TreeBagger</code> → <code>RandomForestRegressor</code></h4>
+        <p>백의 개수 5 는 <code>n_estimators</code>, <code>'MinLeaf'</code> 는 <code>min_samples_leaf</code> 로 옮겨진다. 여기에 한 줄이 더 붙는데 <code>max_features="sqrt"</code> 다. 이것이 다음 절에서 다룰 <strong>무작위 부분공간</strong> 이며, scikit-learn 에서는 배깅과 랜덤 포레스트가 같은 클래스의 인자 하나로 이어진다.</p>
+        <pre data-code-language="Python"><code class="language-python">from sklearn.ensemble import RandomForestRegressor
+
+forest = RandomForestRegressor(
+    n_estimators=5,              # 백 K개
+    min_samples_leaf=100,
+    # 분할마다 변수를 일부만 후보로 — 이것이 무작위 부분공간이다
+    max_features="sqrt",
+    random_state=RANDOM_SEED,
+    n_jobs=1,
+)
+forest_rmse, _ = chronological_cv_regression(
+    forest, x_train, y_train
+)</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. <code>n_jobs=1</code> 과 <code>random_state</code> 를 함께 고정한 것은 병렬 실행 순서에 따라 결과가 흔들리지 않게 하기 위한 것으로, 재현 감사에서 같은 수치가 다시 나오는지 확인하려면 둘 다 필요하다.</small>
       </article>
       <p>이것은 교차 검증 모델보다 훨씬 나은 예측 성능을 냈다 — CAGR 7.2퍼센트, 샤프 비율 0.5 다.</p>
       <figure class="report-figure" id="source-figure-4-6" data-deck-use="required" data-source-kind="figure" data-source-ref="4.6">
@@ -352,6 +471,28 @@ bestTree = model_cv.Trained{minLidx};</code></pre>
         <pre data-code-language="MATLAB"><code class="language-matlab">model = fitensemble([ret1(trainset) ret2(trainset) ret5(trainset) ...
                      ret20(trainset)], retFut1(trainset), 'LSBoost', M, 'Tree');</code></pre>
       </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · <code>fitensemble</code> → <code>GradientBoostingRegressor</code></h4>
+        <p><code>'LSBoost'</code> 는 최소제곱 부스팅이고 <code>GradientBoostingRegressor</code> 의 기본 손실이 같은 최소제곱이므로 클래스 이름만 바뀐다. 다른 점은 <code>M</code> 을 사람이 정하지 않는다는 것이다. 후보 네 개를 시계열 교차 검증으로 재어 오차가 가장 작은 값을 고른다.</p>
+        <pre data-code-language="Python"><code class="language-python">from sklearn.ensemble import GradientBoostingRegressor
+
+boosting_scores = {}
+# M 후보 — 교재는 이 값을 손으로 바꿔 가며 시험한다
+for estimators in (5, 20, 80, 160):
+    candidate = GradientBoostingRegressor(
+        n_estimators=estimators,
+        min_samples_leaf=100,
+        learning_rate=0.05,
+        random_state=RANDOM_SEED,
+    )
+    boosting_scores[estimators], _ = chronological_cv_regression(
+        candidate, x_train, y_train
+    )
+
+# 오차가 가장 작은 M 을 고른다
+selected_boosters = min(boosting_scores, key=boosting_scores.get)</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. 선택 기준이 학습셋 안의 시계열 교차 검증 오차이므로 테스트셋은 이 선택에 관여하지 않는다. 교재가 부스팅에서 관찰한 "M 을 키우면 학습 샤프는 오르고 테스트 샤프는 내려간다"는 현상을 이 방식으로는 미리 걸러 낼 수 있다.</small>
+      </article>
       <p>교차 검증이나 배깅과 달리 부스팅은 과적합을 완화해 주지 못하는 것으로 보인다. 왜 과적합되지 않는지에 대한 이론적 논거가 있기는 하다(Kun, 2015).</p>
       <figure class="report-figure" id="source-figure-4-7" data-deck-use="required" data-source-kind="figure" data-source-ref="4.7">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 10</span><span class="asset-caption__title">학습셋 대 테스트셋 샤프 비율에 대한 회귀 트리 부스팅의 효과</span></figcaption>
@@ -384,6 +525,20 @@ bestTree = model_cv.Trained{minLidx};</code></pre>
                   ret20(trainset)], retFut1(trainset) &gt;= 0, 'MinLeafSize', 100, ...
                   'CrossVal', 'On', 'KFold', 5);   % 반응: &gt;=0 이면 참, &lt;0 이면 거짓</code></pre>
       </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · <code>fitctree</code> → <code>DecisionTreeClassifier</code></h4>
+        <p>회귀에서 분류로 넘어갈 때 바뀌는 것은 세 군데뿐이다. 추정기가 <code>Regressor</code> 에서 <code>Classifier</code> 로, 반응이 실수에서 참·거짓으로, 평가 척도가 오차에서 정확도로 바뀐다. 나머지 인자는 그대로다.</p>
+        <pre data-code-language="Python"><code class="language-python">from sklearn.tree import DecisionTreeClassifier
+
+labels = y_train &gt;= 0        # 반응을 상승/하락으로 이산화
+classification_tree = DecisionTreeClassifier(
+    min_samples_leaf=100, random_state=RANDOM_SEED
+)
+tree_accuracy, _ = chronological_cv_classification(
+    classification_tree, x_train, labels
+)</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. <code>chronological_cv_classification</code> 은 앞서 실은 회귀용 함수와 같은 <code>TimeSeriesSplit</code> 을 쓰되 평균제곱근오차 대신 정확도를 모은다. 이 정확도의 기준선은 0.5 이며, <a class="asset-ref" href="#fig-seed-stability">그림 23</a> 오른쪽에서 실제 값이 0.53 부근임을 볼 수 있다.</small>
+      </article>
       <p>이 모델로는 명백한 방식으로 신호를 낸다. 예측 반응이 양이면 매수, 음이면 공매도한다. 테스트셋에서 CAGR 은 4.8퍼센트, 샤프 비율은 0.4 로, 교차 검증한 회귀 트리보다는 낫지만 랜덤 포레스트를 적용한 회귀 트리만큼은 아니다. 물론 랜덤 포레스트를 분류 트리에도 적용할 수 있으며 이는 연습문제 4.10 으로 남는다.</p>
       <p>반응을 꼭 양/음 수익률로만 나눌 필요는 없다. 높은 양의 수익률을 한 클래스로, 그 여집합을 다른 클래스로 만든 뒤 이 고수익 클래스가 예측될 때만 매수 신호를 낼 수도 있다. 마찬가지로 낮은 음의 수익률을 한 클래스로 만들어 그 클래스가 예측될 때 공매도 신호를 낼 수도 있다. 다만 이렇게 해도 전략 성과가 나아지지는 않는 듯하다는 것이 저자의 관찰이다.</p>
     </section>
@@ -410,6 +565,35 @@ bestTree = model_cv.Trained{minLidx};</code></pre>
         <pre data-code-language="MATLAB"><code class="language-matlab">model = fitcsvm([ret1(trainset) ret2(trainset) ret5(trainset) ...
                  ret20(trainset)], retFut1(trainset) &gt;= 0, 'CrossVal', 'On', ...
                  'KFold', 5);   % 반응: &gt;=0 이면 참, &lt;0 이면 거짓</code></pre>
+      </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · <code>fitcsvm</code> → <code>SVC</code>, 다만 표준화가 먼저다</h4>
+        <p>SVM 은 두 무리 사이의 간격을 재는 모델이라 변수마다 크기가 다르면 간격 자체가 왜곡된다. 그래서 <code>SVC</code> 를 단독으로 쓰지 않고 <code>StandardScaler</code> 와 묶어 파이프라인으로 만든다. 이렇게 해야 교차 검증의 각 폴드에서 <strong>학습 조각의 평균·표준편차만으로</strong> 표준화가 이루어지고 검증 조각의 정보가 새지 않는다.</p>
+        <pre data-code-language="Python"><code class="language-python">from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
+svm_candidates = {
+    "linear": make_pipeline(
+        StandardScaler(), SVC(kernel="linear", C=1.0)
+    ),
+    "polynomial": make_pipeline(
+        StandardScaler(),
+        SVC(kernel="poly", degree=3, C=1.0, gamma="scale"),
+    ),
+    "rbf": make_pipeline(
+        StandardScaler(), SVC(kernel="rbf", C=1.0, gamma="scale")
+    ),
+}
+svm_scores = {}
+for name, candidate in svm_candidates.items():
+    svm_scores[name], _ = chronological_cv_classification(
+        candidate, x_train, labels
+    )
+
+# 학습셋만 보고 커널을 고른다
+selected_svm = max(svm_scores, key=svm_scores.get)</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. 커널 세 개를 학습셋 안에서만 비교했고 테스트셋은 선택에 쓰지 않았다. 결과는 <a class="asset-ref" href="#fig-seed-stability">그림 23</a> 오른쪽에 있으며, 세 커널의 차이가 1퍼센트포인트 미만이라 이 문제에서는 커널 선택이 성과를 가르지 않는다.</small>
       </article>
       <table class="cmp-table" id="table-discrete-compare">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">이산 반응을 다루는 두 기법 — 분류 트리와 서포트 벡터 머신</span></div></caption>
@@ -470,6 +654,33 @@ for t = 1:size(data, 1)-1
     pemis(:, t+1) = E'*T'*pstates(:, end);
 end</code></pre>
       </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · 매 시점 전체 이력을 다시 넣지 않는다</h4>
+        <p>위 MATLAB 은 시점마다 <code>hmmdecode(data(1:t)', T, E)</code> 로 <strong>처음부터 t까지의 이력 전체</strong> 를 다시 훑는다. 길이 N 의 계열에서 N번 반복하므로 계산량이 길이의 제곱으로 늘어난다. 재현에서는 전방 확률 <code>alpha</code> 하나만 들고 다니며 한 걸음씩 갱신했다 — 결과는 같고 한 번만 훑는다.</p>
+        <pre data-code-language="Python"><code class="language-python">def hmm_signals(returns):
+    # 관측은 수익률의 부호뿐이다
+    observations = (np.asarray(returns) &gt;= 0).astype(int)
+    emission_forecast = np.full((2, len(observations)), np.nan)
+
+    alpha = HMM_PRIOR * HMM_EMISSION[:, observations[0]]
+    alpha = alpha / alpha.sum()
+    for index in range(len(observations) - 1):
+        if index &gt; 0:
+            alpha = (
+                (alpha @ HMM_TRANSITION)
+                * HMM_EMISSION[:, observations[index]]
+            )
+            alpha = alpha / alpha.sum()      # 매 걸음 정규화
+        emission_forecast[:, index + 1] = (
+            HMM_EMISSION.T @ HMM_TRANSITION.T @ alpha
+        )
+
+    signals = np.where(
+        emission_forecast[0] &lt;= emission_forecast[1], 1.0, -1.0
+    )
+    return signals, emission_forecast</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. 이 절의 HMM 은 <strong>매개변수를 다시 추정하지 않는다</strong> — 교재가 인쇄한 전이·방출 확률을 <code>HMM_TRANSITION</code>, <code>HMM_EMISSION</code> 으로 고정해 두고 그 아래에서 신호만 다시 계산하는 재생(replay)이다. 그래서 <a class="asset-ref" href="#table-exact-replay">표 14</a> 의 HMM 행이 소수점 여섯 자리까지 일치할 수 있었다.</small>
+      </article>
       <p>즉 시점 <span>$t$</span> 에서 최신 데이터 하나만 추가하면 <code>pstates(t)</code> 가 갱신되는 온라인 알고리즘이 아니다. 대조적으로 HMM 의 연속형 사촌인 <strong>칼만 필터(Kalman filter)</strong> 는 온라인 알고리즘으로, Chan(2013)의 논의와 이 책 3장에서 다뤘듯이 은닉 상태 변수와 여타 매개변수의 추정치를 그때그때 갱신할 수 있었다. HMM 용 온라인 디코딩 함수를 찾거나 직접 구현하는 일은 연습문제 4.6 으로 남는다.</p>
       <p>다음 날 방출 확률이 있으면 상승 확률이 하락 확률보다 높으면 SPY 를 사고 그 반대면 파는 단순 전략을 만들 수 있다. 저자는 이를 위해 <code>hmm_test.m</code> 프로그램을 만들었다. 학습셋에서는 CAGR 8.7퍼센트로 제법 괜찮았지만 테스트셋에서는 CAGR 이 1퍼센트에 그쳤다.</p>
       <div class="callout--insight"><span class="callout__kicker">본문 수치와 코드 출력이 어긋나는 지점</span><div class="callout__body"><p>이 테스트셋 수치는 이 리포트가 재현 감사에서 확인한 유일한 불일치다. 저자가 배포한 <code>hmm_test.m</code> 자체에 기록된 출력 주석은 표본 외 CAGR 을 <strong>−0.010173</strong>, 즉 음의 1.0퍼센트로 적고 있다. 자세한 내용은 <a href="#reproduction-audit">보충 A</a> 에서 다룬다.</p></div></div>
@@ -480,6 +691,11 @@ end</code></pre>
       <article class="source-listing">
         <h4>MATLAB · 한 줄로 국면 시퀀스를 얻는다</h4>
         <pre data-code-language="MATLAB"><code class="language-matlab">states = hmmviterbi(data, T, E);</code></pre>
+      </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · 비터비 경로는 재현하지 않았다</h4>
+        <p><code>hmmviterbi</code> 는 전체 관측을 가장 잘 설명하는 <strong>하나의 상태 경로</strong> 를 되짚어 찾는다. 재현에서 계산한 것은 그것이 아니라 앞의 리스팅에 나온 시점별 전방 확률이다. 둘은 목적이 다르다. 비터비 경로는 계열 전체를 본 뒤에 확정되므로 국면을 사후에 설명하는 데 쓰이고, 전방 확률은 그 시점까지의 정보만 쓰므로 거래 신호로 쓸 수 있다.</p>
+        <small class="asset-note">AIML Quant 재현 감사의 기록이며 교재의 서술이 아니다. 이 장의 백테스트 수치는 전방 확률에서 나온 것이므로 비터비 경로를 다시 구현할 필요가 없었다. 다만 발표에서 국면 그림을 보여 줄 때는, 그 그림이 <strong>사후에 그린 경로</strong> 인지 <strong>당시에 알 수 있었던 확률</strong> 인지를 구분해 말해야 한다.</small>
       </article>
       <p>가장 그럴듯한 상태 시퀀스를 아는 것이 무슨 이득일까. 저자의 답은 실용적이다 — 다음번에 누군가 지금이 강세장인지 약세장인지 묻거든 HMM 에 물어보고 명확히 정의된 답을 줄 수 있다(연습문제 4.8). 다만 주석 7 에서 저자는 여기에 단서를 단다. 국면을 알아내는 일이 방송의 질문에 답하는 것 이상의 쓸모가 있어야 한다고 여길 수 있지만, 궁극적으로 우리는 기대수익률에만 관심이 있으며 국면은 이론적 구성물일 뿐이고 국면 전환도 마찬가지라는 것이다.</p>
     </section>
@@ -516,6 +732,39 @@ end</code></pre>
         <pre data-code-language="MATLAB"><code class="language-matlab">net.divideParam.trainRatio = 0.6;   % 기본값 0.7 → 예측 오차 최소화에 쓸 비율
 net.divideParam.valRatio   = 0.4;   % 기본값 0.15 → 조기 종료용 검증 데이터
 net.divideParam.testRatio  = 0;     % 백테스트용 테스트셋은 따로 있다</code></pre>
+      </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · 조기 종료 대신 시드 열 개를 평균한다</h4>
+        <p>MATLAB 은 <code>divideParam</code> 으로 검증셋을 떼어 조기 종료를 건다. 이 재현은 다른 길을 골랐다. <code>early_stopping=False</code> 로 두고 <strong>난수 시드만 바꾼 신경망 열 개의 예측을 평균</strong> 한다. 신경망 하나의 결과가 시드에 크게 흔들리기 때문인데, 그 흔들림 자체를 <a class="asset-ref" href="#fig-seed-stability">그림 23</a> 왼쪽에 그려 두었다.</p>
+        <pre data-code-language="Python"><code class="language-python">from sklearn.neural_network import MLPRegressor
+
+target_mean = float(np.mean(y_train))
+target_scale = float(np.std(y_train, ddof=1))
+mlp_test_predictions = []
+for seed in range(1, 11):
+    mlp = make_pipeline(
+        StandardScaler(),
+        MLPRegressor(
+            hidden_layer_sizes=(8, 4),
+            activation="tanh",
+            solver="adam",
+            alpha=0.01,
+            max_iter=500,
+            early_stopping=False,
+            random_state=seed,
+        ),
+    )
+    # 반응도 표준화해 넣고 예측을 원래 단위로 되돌린다
+    mlp.fit(x_train, (y_train - target_mean) / target_scale)
+    prediction = (
+        mlp.predict(data.features[test_index]) * target_scale
+        + target_mean
+    )
+    mlp_test_predictions.append(prediction)
+
+# 시드 열 개의 평균이 최종 예측이다
+mlp_prediction = np.mean(np.vstack(mlp_test_predictions), axis=0)</code></pre>
+        <small class="asset-note">AIML Quant 재현 코드다. 원본에는 수렴 경고를 잠재우는 <code>warnings</code> 블록과 시드별 CAGR 을 모으는 줄이 더 있는데, 구조가 드러나도록 생략했다. 예측변수뿐 아니라 반응까지 표준화한 뒤 원래 단위로 되돌리는 이 처리가 바로 다음 절에서 다룰 정규화의 실제 구현이다.</small>
       </article>
       <p>같은 난수 시드를 쓰면 표본 내 CAGR 은 19퍼센트지만 표본 외 CAGR 은 −4퍼센트다. 아직 과적합 문제를 풀지 못한 것이다. <code>hiddenSizes = [1, 1]</code> 로 은닉층을 늘려 봐도 표본 내도 표본 외도 나아지지 않는다. 반대로 <code>hiddenSizes = [2, 2]</code> 로 층당 노드를 늘리면 표본 내 CAGR 20퍼센트, 표본 외 CAGR 5퍼센트를 얻는다. 큰 개선처럼 보이지만 결과가 난수 시드에 무척 민감하다. 이 민감한 의존성을 줄이고 네트워크를 더 강건하게 만들 방법이 필요하다.</p>
 
@@ -582,6 +831,11 @@ ret5N  = ret5./vol1;
 ret20N = ret20./vol1;
 
 retFut1N = retFut1./vol1;   % 반응변수에도 같은 처리</code></pre>
+      </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · 같은 목적, 다른 척도</h4>
+        <p>교재는 최근 변동성 <code>vol1</code> 로 나눈다. 재현 실험은 같은 목적을 <code>StandardScaler</code> 로 달성했다 — 변수마다 다른 크기를 고르게 만들어 모델이 큰 숫자를 가진 변수에 끌려가지 않게 한다는 목적은 같지만, 나누는 기준이 <strong>시점마다 달라지는 변동성</strong> 이냐 <strong>학습 구간 전체의 표준편차</strong> 냐가 다르다. 앞의 신경망 리스팅에서 예측변수와 반응을 함께 표준화한 두 줄이 그 구현이다.</p>
+        <small class="asset-note">AIML Quant 재현 감사의 기록이며 교재의 서술이 아니다. 두 방식은 서로 대체재가 아니다. 변동성 정규화는 국면에 따라 변하는 위험을 흡수하고 표준화는 변수 간 척도만 맞추므로, 교재의 수치와 Python 적응 수치를 이 지점에서 직접 견주지 않는다.</small>
       </article>
       <p>수익률을 2일 변동성이나 3일 변동성 등으로 나눠도 무방하다. 정확한 정규화 계수는 중요하지 않고, 중요한 것은 정규화된 수익률 변수들이 모두 비슷한 크기를 갖도록 하는 것이다. 2007년 1월 3일부터 2013년 12월 31일까지의 이 데이터는 CRSP 에서 얻었으며 <strong>생존편향(survivorship bias)</strong> 이 없다(주석 11). 또한 통합 종가와 관련된 문제를 피하려고 가격으로는 장 마감 시점의 <strong>중간가격(midprice)</strong> 을 쓴다.</p>
 
@@ -690,6 +944,11 @@ end
 dailyRet = smartsum(backshift(1, positions).*ret1(testset, :), 2)./ ...
            smartsum(abs(backshift(1, positions)), 2);</code></pre>
       </article>
+      <article class="aimlquant-listing">
+        <h4>Python 대응 · 여기에는 없다, 그리고 그 이유가 중요하다</h4>
+        <p>앞의 모든 절과 달리 이 횡단면 주식 선택 예제에는 대응하는 Python 코드가 없다. 우리가 게을러서가 아니라 <strong>돌릴 입력이 없기 때문</strong> 이다. <code>rTree_SPX.m</code> 과 <code>stepwiseLR_SPX.m</code> 은 저자의 로컬 <code>fundamentalData</code> 파일을 읽는데, 이 파일은 저자가 공개한 공식 ZIP 에 들어 있지 않다.</p>
+        <small class="asset-note">그래서 재현 감사는 이 두 예제를 <strong>출력 전용 참조</strong> 로 분류하고 전략 지표를 <code>null</code> 로 남겼다(<a class="asset-ref" href="#table-reproduction-status">표 13</a> 셋째 행). 책에 인쇄된 수치는 보존했지만 우리가 검증한 값이 아니다. 발표에서 이 절의 성과를 인용한다면 "저자 보고값이며 재현되지 않았다"를 함께 말하는 편이 정확하다.</small>
+      </article>
       <figure class="report-figure" id="source-figure-4-13" data-deck-use="required" data-source-kind="figure" data-source-ref="4.13">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 18</span><span class="asset-caption__title">펀더멘털 요인을 사용한 SPX 구성 종목에 대한 단계적 회귀</span></figcaption>
         <img src="assets/figs/fig-source-4-13.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 곡선이 초록색으로 거의 일정한 기울기로 꾸준히 상승한다. 그래프 아래에는 보유라고 표시된 띠가 있고 그 안에 63거래일 보유 구간을 나타내는 아홉 개의 막대가 겹쳐 쌓이듯 배열되어 있다. 오른쪽 위에 표본 외 CAGR 4퍼센트 샤프 1.1, 샤프 1 초과로 통계적으로 유의하다는 표시가 있다.">
@@ -746,8 +1005,22 @@ dailyRet = smartsum(backshift(1, positions).*ret1(testset, :), 2)./ ...
         <li>이 절은 교재의 서술이 아니라 <strong>AIML Quant 가 저자 공식 배포본으로 직접 재실행한 결과</strong> 다. 교재의 주장과 구분해 읽는다.</li>
         <li>선형 회귀·단계적 회귀·극단 잎 규칙·HMM 의 인쇄된 수치는 소수점 여섯 자리까지 정확히 재현되었다.</li>
         <li>다만 원본 분할에는 목표값이 경계를 넘는 1행 누수가 있고, HMM 표본 외 수치는 본문과 저자 코드 주석이 서로 어긋난다.</li>
+        <li>Python 적응 실험에서는 <strong>난수 시드만 바꿔도 신경망의 표본 외 부호가 뒤집힌다</strong> — 한 번 돌린 수치를 근거로 쓰면 안 되는 이유다.</li>
       </ul></div></div>
       <p>이 장의 수치를 그대로 인용하기 전에, 저자가 공개한 코드와 데이터로 같은 계산을 다시 돌려 보았다. 재현에 쓴 입력은 저자 페이지(<code>epchan.com/book3</code>)에서 내려받은 공식 ZIP 이며, 그 SHA-256 은 <code>a556978e…0358</code>, 입력 MAT 파일의 SHA-256 은 <code>b94aa1b8…7fc4</code> 다. MATLAB 스크립트 22개와 데이터 2개의 개별 체크섬을 <code>SOURCE_MANIFEST.json</code> 에 고정해 두었으므로 네트워크 없이도 전 구성원을 재검증할 수 있다. 자동 검증 23개가 모두 통과했다.</p>
+      <article class="aimlquant-listing">
+        <h4>Python · 이 감사를 그대로 다시 돌리는 방법</h4>
+        <p>아래 명령이 이 절의 모든 수치와 그림을 처음부터 다시 만든다. 앞 명령은 저자 공식 ZIP 을 내려받아 검증하고, <code>--offline</code> 을 붙인 뒤 명령은 네트워크 없이 고정된 SHA-256 을 재검증한 뒤 지표·차트 다섯 장·한국어 리포트·실행 노트북을 다시 생성한다.</p>
+        <pre data-code-language="Bash"><code class="language-bash"># Machine Trading 프로젝트 디렉터리에서 실행한다
+CH4=chapter_4_artificial_intelligence_techniques/src
+
+# 저자 공식 ZIP 을 내려받아 검증한 뒤 전체 분석을 실행한다
+uv run python $CH4/run_chapter4_analysis.py
+
+# 네트워크 없이 고정된 SHA-256 만 재검증하고 산출물을 다시 만든다
+uv run python $CH4/run_chapter4_analysis.py --offline</code></pre>
+        <small class="asset-note">셀 단위로 따라 읽으려면 실행이 끝난 노트북 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/src/chapter4_full_report.ipynb"><code>chapter4_full_report.ipynb</code></a> 를 연다. 18개 절이 이 리포트의 논의 순서와 짝을 이루고, 출력에 23개의 결과 표와 다섯 장의 차트가 이미 담겨 있어 다시 실행하지 않아도 결과를 확인할 수 있다. 계산 본체는 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/src/run_chapter4_analysis.py"><code>run_chapter4_analysis.py</code></a> 이며, 아래 각 절에 실은 Python 코드는 모두 이 파일에서 가져왔다. 다만 인쇄 지면 폭에 맞추려고 <strong>줄바꿈 위치만 다시 잡았고</strong>, 절마다 주변 코드 일부를 생략했다. 실행되는 정본은 언제나 이 파일이다. 두 파일 모두 스터디 참가자에게 공개된다.</small>
+      </article>
       <p>재현 결과를 한 덩어리로 묶어 "재현했다"고 말하면 오해를 부른다. 세 가지 성격이 서로 다르기 때문에 분리해 기록한다.</p>
       <table class="cmp-table" id="table-reproduction-status">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 13</span><span class="asset-caption__title">재현 상태를 세 등급으로 나눈 결과</span></div></caption>
@@ -773,10 +1046,15 @@ dailyRet = smartsum(backshift(1, positions).*ret1(testset, :), 2)./ ...
           <tr><td>HMM</td><td>테스트</td><td>−0.010173</td><td>−0.010173</td><td>0.019724</td><td>0.019724</td></tr>
         </tbody>
       </table>
+      <figure class="report-figure" id="fig-book-replays" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 20</span><span class="asset-caption__title">원본 충실 재현 네 실험의 자산곡선 — 학습에서 벌어진 격차가 표본 외에서 주저앉는다</span></figcaption>
+        <img src="assets/figs/fig-book-replays.png" alt="두 개의 패널로 나뉜 선 그래프다. 왼쪽 패널 제목은 Book-faithful train replay 이며 2005년부터 2009년까지 1달러의 성장을 그린다. 네 곡선 Linear, Stepwise, Tree rule, HMM 이 2008년 말까지 완만하다가 2008년 하반기부터 급격히 치솟아 학습 구간 끝에서 Stepwise 가 약 6.5배로 가장 높고 Linear 가 약 5배, Tree rule 이 약 3.7배, HMM 이 약 1.8배에 도달한다. 오른쪽 패널 제목은 Book-faithful out-of-sample replay 이며 2010년부터 2014년까지 같은 네 곡선을 그린다. 세로축 범위가 0.8에서 1.6으로 훨씬 좁아졌고, Stepwise 만 1.6배 부근까지 올라가 유지되며 Tree rule 은 1.2배 부근에서 평평해지고 Linear 는 한때 1.3배까지 올랐다가 1.0 근처로 되돌아오며 HMM 은 대부분의 구간에서 1.0 아래에 머물다 0.85까지 내려간다.">
+        <small class="asset-note">같은 네 색을 <strong>왼쪽에서 오른쪽으로 따라가며 순위가 어떻게 바뀌는지</strong> 보는 그림이다. 학습 구간에서는 네 곡선이 모두 크게 벌어지지만, 세로축 눈금이 6.5배에서 1.6배로 바뀐 오른쪽에서는 Stepwise 를 뺀 나머지가 사실상 제자리다. HMM 곡선이 1.0 아래에서 끝나는 것이 <a class="asset-ref" href="#table-exact-replay">표 14</a> 마지막 행의 음수 CAGR 이며, 바로 아래에서 다루는 본문·코드 불일치의 시각적 근거다. AIML Quant 가 <code>run_chapter4_analysis.py</code> 로 재현한 결과이며 교재에 실린 그림이 아니다.</small>
+      </figure>
       <div class="callout--insight"><span class="callout__kicker">확인된 불일치 하나</span><div class="callout__body"><p>마지막 행을 눈여겨볼 필요가 있다. 교재 본문은 HMM 의 테스트셋 성과를 "CAGR 이 1퍼센트에 그쳤다"고 서술하지만, 저자가 배포한 <code>hmm_test.m</code> 102번째 줄의 출력 주석은 <code>Out-of-sample: CAGR=-0.010173</code>, 즉 <strong>음의 1.0퍼센트</strong> 를 기록하고 있다. 재현 결과도 이 코드 주석과 일치한다. 부호가 다르므로 "표본 외에서 소폭 플러스"와 "표본 외에서 소폭 마이너스"라는 서로 다른 결론이 되며, HMM 이 이 장에서 가장 약한 결과 중 하나라는 점은 어느 쪽으로 읽어도 달라지지 않는다. 발표에서 이 수치를 인용할 때는 어느 출처의 값인지 밝히기를 권한다.</p></div></div>
       <p>두 번째로 확인한 것은 학습·테스트 경계다. <code>retFut1 = fwdshift(1, ret1)</code> 로 목표를 만든 뒤 <code>trainset = 1:floor(N/2)</code> 를 그대로 쓰면, 마지막 학습 예측변수 행(2009-09-15)의 목표값이 첫 테스트일(2009-09-16)의 수익이 된다. 따라서 <a class="asset-ref" href="#table-exact-replay">표 14</a> 의 테스트 수치는 엄밀한 완전 격리 표본 외가 아니라 <strong>원본이 정의한 테스트 구간의 재현</strong> 이다.</p>
       <figure class="report-figure" id="fig-boundary-leakage" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 20</span><span class="asset-caption__title">목표값 한 행이 경계를 넘는다 — 그리고 고쳐도 결론은 그대로다</span></figcaption>
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 21</span><span class="asset-caption__title">목표값 한 행이 경계를 넘는다 — 그리고 고쳐도 결론은 그대로다</span></figcaption>
         <img src="assets/figs/fig-boundary-leakage.svg" alt="위쪽에 원본 분할이 그려져 있다. 학습셋 예측변수 행 1158개가 2004년 12월 22일부터 2009년 9월 15일까지이고 테스트셋은 2009년 9월 16일부터 2014년 6월 2일까지인데, 붉은 곡선 화살표가 학습셋 끝에서 테스트셋 시작으로 넘어가며 마지막 학습 행의 목표값이 곧 첫 테스트일 수익이라고 표시한다. 아래쪽 경계 수정본은 학습셋을 2009년 9월 14일까지 1157개 행으로 줄여 테스트셋을 완전히 격리한다. 맨 아래 표는 다중 회귀가 0.4퍼센트에서 1.2퍼센트로, 단계적 회귀가 10.6퍼센트에서 10.7퍼센트로 바뀐다고 적고 있다.">
         <small class="asset-note">위아래 두 분할에서 <strong>학습 종료일이 하루 다르다</strong> 는 점만 보면 된다. 아래 표가 보여 주듯 이 누수를 제거해도 두 모델의 대비 — 전체 회귀는 무작위 수준, 단계적 회귀는 두 자릿수 — 는 그대로 유지된다. 즉 교재의 핵심 논지는 이 결함에 의존하지 않는다. 다만 이 리포트의 모든 Python 적응 실험은 수정된 1,157행만 사용한다. AIML Quant 재현 감사 결과이며 교재의 서술이 아니다.</small>
       </figure>
@@ -789,6 +1067,17 @@ dailyRet = smartsum(backshift(1, positions).*ret1(testset, :), 2)./ ...
         <li>부스팅 — 총 −2.20% → 비용 후 −6.12%</li>
         <li>신경망 앙상블 — 총 −3.04% → 비용 후 −5.97%</li>
       </ul>
+      <figure class="report-figure" id="fig-python-models" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 22</span><span class="asset-caption__title">Python 적응 여섯 모델의 표본 외 성과 — 비용을 붙이면 순위가 바뀐다</span></figcaption>
+        <img src="assets/figs/fig-python-models.png" alt="두 개의 패널이다. 왼쪽 막대그래프 제목은 Python adaptations: OOS CAGR 이고 여섯 모델 tree, classification_tree, random_forest, boosting, svm, mlp_ensemble 마다 gross 와 net at 2 bps 두 막대를 나란히 그린다. tree 는 마이너스 0.108에서 마이너스 0.145로 가장 낮고, classification_tree 는 0.040에서 거의 0으로 줄며, random_forest 는 0.087에서 0.048로 절반 가까이 깎이고, boosting 은 마이너스 0.021에서 마이너스 0.061로 내려가며, svm 은 0.112에서 0.112로 두 막대의 높이가 거의 같고, mlp_ensemble 은 마이너스 0.030에서 마이너스 0.059로 내려간다. 오른쪽 선그래프 제목은 Python adaptations: OOS gross wealth 이고 가로축은 0에서 1200까지의 거래일, 세로축은 1달러의 성장이다. random_forest 가 중반에 1.75까지 올랐다가 1.5 부근에서 끝나고 svm 이 꾸준히 올라 1.65 부근에서 끝나며, classification_tree 는 1.2 부근, boosting 과 mlp_ensemble 은 0.9 아래, tree 는 0.6 부근까지 내려간다.">
+        <small class="asset-note">왼쪽에서 <strong>두 막대의 높이 차이</strong> 가 곧 회전율 비용이다. svm 은 두 막대가 붙어 있어 비용에 거의 무감하고, random_forest 는 8.7%에서 4.8%로 절반 가까이 깎이며, classification_tree 는 4.0%에서 0에 붙어 사실상 전부를 비용으로 낸다. 위 목록에 없는 <code>tree</code> 막대는 잎 크기 하한만 둔 단일 회귀 트리로, 앙상블을 씌우기 전의 출발점이 얼마나 나쁜지를 보여 준다. 오른쪽 곡선의 가로축은 날짜가 아니라 표본 외 거래일 번호다. AIML Quant 가 현대적 라이브러리로 다시 구현한 별도 실험이며, <a class="asset-ref" href="#table-exact-replay">표 14</a> 의 MATLAB 수치와 직접 비교하지 않는다.</small>
+      </figure>
+      <p>이 여섯 숫자를 그대로 믿기 전에 마지막으로 확인한 것이 있다. 위 신경망 값은 시드 하나의 결과가 아니라 열 개를 평균한 것인데, 그 열 개가 서로 얼마나 다른지를 따로 그려 보았다.</p>
+      <figure class="report-figure" id="fig-seed-stability" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 23</span><span class="asset-caption__title">난수 시드 하나로 신경망의 부호가 바뀐다 — 그리고 커널 선택은 거의 무의미하다</span></figcaption>
+        <img src="assets/figs/fig-seed-stability.png" alt="두 개의 패널이다. 왼쪽 막대그래프 제목은 MLP seed sensitivity 이고 가로축은 1부터 10까지의 난수 시드, 세로축은 표본 외 CAGR 이다. 시드 8이 약 0.138로 가장 높고 시드 9가 0.050, 시드 6이 0.035, 시드 5와 7이 0.019, 시드 3이 0.017로 양수인 반면, 시드 10이 약 마이너스 0.060, 시드 1이 마이너스 0.056, 시드 2가 마이너스 0.044, 시드 4가 마이너스 0.012로 음수다. 열 개 중 여섯 개가 양수, 네 개가 음수로 부호가 갈린다. 오른쪽 막대그래프 제목은 SVM kernel selection on train only 이고 세로축은 평균 시계열 교차검증 정확도로 0.450에서 0.650까지다. linear 가 0.532, polynomial 이 0.541, rbf 가 0.535로 세 막대의 높이가 거의 같다.">
+        <small class="asset-note">왼쪽에서 볼 것은 개별 막대의 높이가 아니라 <strong>0선을 넘나든다는 사실</strong> 이다. 같은 데이터·같은 구조·같은 하이퍼파라미터인데 난수 시드만 바꾸면 표본 외 CAGR 이 −6.0%에서 +13.8%까지 움직이고 부호까지 바뀐다. 신경망을 한 번 돌려 얻은 수치는 그 자체로는 근거가 되지 못하며, 위 목록의 −3.04%도 이 열 개를 평균해 얻은 값이라는 뜻이다. 오른쪽은 세 커널의 교차검증 정확도가 모두 0.53 부근에 몰려 있음을 보여 준다 — 커널을 고르는 일이 이 문제에서는 성과를 가르지 않는다. 정확도 기준선이 0.5라는 점도 함께 읽어야 한다. AIML Quant 재현 감사 결과이며 교재의 서술이 아니다.</small>
+      </figure>
       <div class="callout--hero"><span class="callout__kicker">이 감사에서 남길 한 문장</span><span class="callout__body">Chapter 4 의 가장 재사용 가능한 결론은 <strong>"더 복잡한 AI"가 아니라 "더 엄격한 정보 경계"</strong> 다. 같은 수치라도 원본 재현과 방법론 적응은 한 표의 서로 다른 행으로 분리해야 한다.</span></div>
     </section>
 
