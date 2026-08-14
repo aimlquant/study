@@ -497,6 +497,11 @@ a {
   align-items: stretch;
 }
 
+/* 패널 안에 중첩된 코드 창은 자체 최소 높이를 다시 쌓지 않는다. .panel 이 이미
+   280px 를 갖고 있어 두 값이 겹치면 stage 세로가 넘쳐 takeaway 가 footer 를
+   침범한다(편집 규칙 13항과 같은 부모-자식 계약). */
+.panel .code-block { min-height: 0; padding: 30px 26px; }
+
 .code-block {
   min-height: 280px;
   margin: 0;
@@ -1510,6 +1515,15 @@ html.theme-dark .deck-report-figure figcaption b { color: #fff; background: #0f2
   }
 }
 
+
+/* 구문 강조 토큰 — deck.js 의 토크나이저가 붙이는 클래스. 코드 창 배경
+   (#090e17~#141c29) 기준으로 최종 투사 크기에서도 구분되게 골랐다. */
+pre code .tok-com { color: #8195A8; font-style: italic; }
+pre code .tok-str { color: #9ECE6A; }
+pre code .tok-num { color: #FF9E64; }
+pre code .tok-kw  { color: #BB9AF7; }
+pre code .tok-lit { color: #FF757F; }
+pre code .tok-fn  { color: #7AA2F7; }
 
 /* ===== Visible code-window chrome ===== */
 pre[data-code-language] {

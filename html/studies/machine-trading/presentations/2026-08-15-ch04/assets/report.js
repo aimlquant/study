@@ -876,8 +876,145 @@
     setTimeout(window.buildCharts, 100);
   });
 
+  // ===== Syntax highlighting =====
+  // 이 템플릿은 외부 의존성을 싣지 않으므로 CDN 하이라이터를 쓸 수 없다. 최소
+  // 토크나이저를 직접 둔다. A4 PDF 도 헤드리스 크롬이 이 스크립트를 실행하므로
+  // 인쇄본에 같은 색이 들어간다.
+  var SYNTAX_GRAMMARS = {
+    python: {
+      comment: '#',
+      quotes: '\'"',
+      transposeQuote: false,
+      keywords: ' and as assert async await break class continue def del elif else' +
+        ' except finally for from global if import in is lambda nonlocal not or' +
+        ' pass raise return try while with yield ',
+      literals: ' True False None '
+    },
+    matlab: {
+      comment: '%',
+      quotes: '\'"',
+      transposeQuote: true,
+      keywords: ' break case catch continue else elseif end for function global' +
+        ' if otherwise persistent return switch try while ',
+      literals: ' true false NaN Inf '
+    },
+    bash: {
+      comment: '#',
+      quotes: '\'"',
+      transposeQuote: false,
+      keywords: ' case cd do done elif else esac export fi for function if in' +
+        ' local return then while ',
+      literals: ''
+    }
+  };
+
+  function escapeCode(text) {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function tokenizeCode(source, grammar) {
+    var out = '';
+    var index = 0;
+    var length = source.length;
+    // MATLAB 은 작은따옴표를 문자열과 전치 연산자에 함께 쓴다. 바로 앞 글자가
+    // 식별자·닫는 괄호·점이면 전치로 보고 문자열을 열지 않는다.
+    var previous = '';
+
+    function emit(cls, text) {
+      out += '<span class="tok-' + cls + '">' + escapeCode(text) + '</span>';
+    }
+
+    while (index < length) {
+      var ch = source.charAt(index);
+
+      if (ch === '\n') {
+        out += '\n';
+        previous = '';
+        index += 1;
+        continue;
+      }
+
+      if (ch === grammar.comment) {
+        var lineEnd = source.indexOf('\n', index);
+        if (lineEnd < 0) lineEnd = length;
+        emit('com', source.slice(index, lineEnd));
+        index = lineEnd;
+        continue;
+      }
+
+      if (grammar.quotes.indexOf(ch) >= 0) {
+        var isTranspose = grammar.transposeQuote && ch === '\'' &&
+          /[A-Za-z0-9_)\]}.]/.test(previous);
+        if (!isTranspose) {
+          var cursor = index + 1;
+          while (cursor < length && source.charAt(cursor) !== ch &&
+                 source.charAt(cursor) !== '\n') {
+            if (!grammar.transposeQuote && source.charAt(cursor) === '\\') cursor += 1;
+            cursor += 1;
+          }
+          if (cursor < length && source.charAt(cursor) === ch) cursor += 1;
+          emit('str', source.slice(index, cursor));
+          index = cursor;
+          previous = '\'';
+          continue;
+        }
+      }
+
+      if (ch >= '0' && ch <= '9' && !/[A-Za-z0-9_.]/.test(previous)) {
+        var number = /^[0-9][0-9_]*(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?/
+          .exec(source.slice(index))[0];
+        emit('num', number);
+        index += number.length;
+        previous = '0';
+        continue;
+      }
+
+      if (/[A-Za-z_]/.test(ch)) {
+        var word = /^[A-Za-z_][A-Za-z0-9_]*/.exec(source.slice(index))[0];
+        var cls = '';
+        if (grammar.keywords.indexOf(' ' + word + ' ') >= 0) cls = 'kw';
+        else if (grammar.literals.indexOf(' ' + word + ' ') >= 0) cls = 'lit';
+        else if (source.charAt(index + word.length) === '(') cls = 'fn';
+        if (cls) emit(cls, word);
+        else out += escapeCode(word);
+        index += word.length;
+        previous = 'a';
+        continue;
+      }
+
+      out += escapeCode(ch);
+      if (!/\s/.test(ch)) previous = ch;
+      index += 1;
+    }
+
+    return out;
+  }
+
+  function highlightCodeBlocks() {
+    var blocks = document.querySelectorAll('pre > code[class*="language-"]');
+    Array.prototype.forEach.call(blocks, function (code) {
+      if (code.getAttribute('data-highlighted') === 'true') return;
+      var match = /language-([a-z0-9]+)/.exec(code.className);
+      var grammar = match && SYNTAX_GRAMMARS[match[1]];
+      if (!grammar) return;
+      code.innerHTML = tokenizeCode(code.textContent, grammar);
+      code.setAttribute('data-highlighted', 'true');
+    });
+  }
+
+  // 목차·앵커 복원보다 먼저 칠해 두어야 레이아웃 높이가 흔들리지 않는다.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', highlightCodeBlocks);
+  } else {
+    highlightCodeBlocks();
+  }
+
   // ===== Init =====
   window.addEventListener('load', function () {
+    highlightCodeBlocks();
     window.buildTOC();
     window.buildDrawerTOC();
     window.numberFootnotes();
