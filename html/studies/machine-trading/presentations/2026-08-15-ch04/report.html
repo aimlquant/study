@@ -197,13 +197,13 @@ selected = min(candidate_p_values, key=candidate_p_values.get)</code></pre>
         <p>후보 모형은 원래 네 변수에 각각 계수를 곱해 더하는 형태까지만 허용한다. 예를 들면 <span>$\hat{y}=\beta_0+\beta_1\,ret1+\beta_2\,ret2$</span> 같은 모형이다. <code>ret1 × ret2</code>처럼 두 변수를 곱한 항이나 <code>ret1²</code>처럼 한 변수를 제곱한 항은 후보에 넣지 않는다.</p>
       </article>
       <h2 id="source-section-4-1-3" data-source-kind="section" data-source-ref="4.1.3">단 하나의 변수가 만든 반전</h2>
-      <p>이 예제에서 선택된 변수는 직전 2일 수익률인 <code>ret2</code> 하나다. 네 변수를 모두 쓴 모델과 비교하면 학습 구간 CAGR은 34.3%에서 43.6%로, 테스트 구간 CAGR은 0.4%에서 10.6%로 높아졌다. 표본 외 성과가 개선되었다는 점은 주목할 만하지만, 샤프 비율 0.7만으로 통계적 유의성을 단정할 수는 없다. 이 결과는 단순한 후보를 먼저 검증할 이유를 보여 주는 한 사례로 읽어야 한다.</p>
+      <p>이 예제에서 선택된 변수는 직전 2일 수익률인 <code>ret2</code> 하나다. 네 변수를 모두 쓴 모델과 비교하면 학습 구간 CAGR은 34.3%에서 43.6%로, 테스트 구간 CAGR은 0.4%에서 10.6%로 높아졌다. 43.6%는 공식 실행 기록의 0.436383을 반올림한 재계산값이며, 교재 본문의 인쇄값은 43.5%다. 표본 외 성과가 개선되었다는 점은 주목할 만하지만, 샤프 비율 0.7만으로 통계적 유의성을 단정할 수는 없다. 이 결과는 단순한 후보를 먼저 검증할 이유를 보여 주는 한 사례로 읽어야 한다.</p>
       <table class="cmp-table" id="table-stepwise-vs-multiple">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">다중 회귀와 단계적 회귀 — 변수를 줄여 표본 외를 얻는다</span></div></caption>
         <thead><tr><th>모델</th><th>쓴 예측변수</th><th>표본 내 CAGR · 샤프</th><th>표본 외 CAGR · 샤프</th></tr></thead>
         <tbody>
           <tr><td>다중 회귀 <code>np.linalg.lstsq</code></td><td>ret1 · ret2 · ret5 · ret20 (4개)</td><td>34.3% · 1.4</td><td>0.4% · 0.1</td></tr>
-          <tr><td>단계적 회귀 <code>select_stepwise_predictor</code></td><td>ret2 (1개)</td><td>43.6% · 1.6</td><td>10.6% · 0.7</td></tr>
+          <tr><td>단계적 회귀 <code>select_stepwise_predictor</code></td><td>ret2 (1개)</td><td>43.6% · 1.6 <small>(공식 입력 재계산; 교재 인쇄값 43.5%)</small></td><td>10.6% · 0.7</td></tr>
         </tbody>
       </table>
       <figure class="report-figure" id="source-figure-4-1" data-deck-use="required" data-source-kind="figure" data-source-ref="4.1">
@@ -318,7 +318,7 @@ tree_rmse, _ = chronological_cv_regression(tree, x_train, y_train)</code></pre>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
         <li>학습셋을 나누는 대신 <strong>복원추출(sampling with replacement)</strong> 로 크기 N 의 복제본을 K개 만든다.</li>
         <li>교차 검증과 결정적으로 다른 점은 최선 하나를 고르지 않고 <strong>모든 트리의 예측을 평균</strong> 한다는 것이다.</li>
-        <li>Python 실험에서 트리 다섯 개를 평균한 순수 배깅은 테스트 CAGR 10.5%·샤프 0.69를 기록했다.</li>
+        <li>교재의 배깅 보고값은 테스트 CAGR 7.2%·샤프 0.5이며, Python 별도 실험은 10.5%·0.69다. 구현과 검증 설정이 다르므로 두 수치를 같은 실험으로 보지 않는다.</li>
       </ul></div></div>
       <p>교차 검증에서 우리는 하나의 학습셋에만 있는 통계적 요동 — 테스트셋에서는 되풀이되지 않을 우연한 잡음 — 에 알고리즘이 과적합하지 않도록 조금씩 다른 학습셋을 제시하는 것이 유익하다는 아이디어를 얻었다. <strong>배깅(bagging)</strong> 은 이 주제의 또 다른 변주다.</p>
       <p>크기 N 의 원래 학습셋을 부분집합으로 나누는 대신, 배깅은 원래 학습셋에서 N개의 관측치를 복원추출로 뽑아 복제본 하나(<strong>백(bag)</strong>)를 만든다. 복원추출이므로 어떤 관측치는 복제본에 여러 번 들어가고 어떤 관측치는 아예 빠진다. 빠진 것들을 <strong>배깅 외 관측치(out-of-bag observations)</strong> 라 부른다. 이 과정을 K번 반복해 각각 원래 크기 N 을 갖는 복제본 K개의 <strong>앙상블(ensemble)</strong> 을 만든다. 사실상 학습 표본을 불려 주므로 <strong>부트스트래핑(bootstrapping)</strong> 이라고도 부른다.</p>
@@ -339,7 +339,7 @@ bagging = BaggingRegressor(estimator=base_tree,
                            random_state=RANDOM_SEED)</code></pre>
         <p><code>n_estimators</code>는 트리 수, <code>bootstrap=True</code>는 행을 복원추출한다는 뜻이다. 모든 예측변수를 사용할 수 있게 두었으므로 이 코드는 랜덤 포레스트가 아니라 순수 배깅이다.</p>
       </article>
-      <p>Python 노트북에서 순수 배깅의 테스트 구간 총수익 CAGR은 10.5%, 샤프 비율은 0.69다. 편도 2bp의 거래비용을 적용하면 CAGR은 7.1%, 샤프 비율은 0.50으로 낮아진다.</p>
+      <p>교재는 K=5 배깅의 테스트 CAGR을 7.2%, 샤프 비율을 0.5로 보고한다. Python 노트북의 별도 실험에서 순수 배깅의 테스트 구간 총수익 CAGR은 10.5%, 샤프 비율은 0.69다. 편도 2bp의 거래비용을 적용하면 CAGR은 7.1%, 샤프 비율은 0.50으로 낮아진다. 이 값들은 구현과 검증 설정이 다르므로 직접 재현 관계가 아니라 별도 근거로 구분한다.</p>
       <figure class="report-figure" id="source-figure-4-6" data-deck-use="required" data-source-kind="figure" data-source-ref="4.6">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 9</span><span class="asset-caption__title">배깅이 줄이는 것은 누적 수익의 출렁임이 아니라 예측의 분산이다</span><span class="source-fidelity-title">배깅을 적용한 회귀 트리 기반 거래 모델(K = 5)</span></figcaption>
         <img src="assets/figs/fig-source-4-6.svg" alt="같은 세 관측값에 대해 다섯 트리가 서로 다른 수익률을 예측하는 점들이 표시되고, 각 관측의 평균 예측이 굵은 초록 점으로 표시된다. 개별 예측의 세로 범위와 평균이 함께 보여 배깅이 학습 표본에 따른 예측 분산을 줄이는 원리를 설명한다.">
@@ -372,6 +372,8 @@ bagging = BaggingRegressor(estimator=base_tree,
         <thead><tr><th>근거</th><th>다루는 방식</th><th>여러 모델을 쓰는 법</th><th>표본 외 CAGR</th><th>표본 외 샤프</th></tr></thead>
         <tbody>
           <tr><td>교재 보고값</td><td>모든 잎 · 단일 트리</td><td>없음</td><td>−7.2%</td><td>—</td></tr>
+          <tr><td>교재 보고값</td><td>교차 검증 · K=5</td><td>다섯 모델 중 검증 손실이 가장 작은 하나를 선택</td><td>0.6%</td><td>0.11</td></tr>
+          <tr><td>교재 보고값</td><td>배깅 · K=5</td><td>다섯 트리의 예측을 평균</td><td>7.2%</td><td>0.50</td></tr>
           <tr><td>Python 별도 실험</td><td>단일 회귀 트리</td><td>시간순 교차 검증으로 설정을 점검한 뒤 전체 학습 구간에 재적합</td><td>−10.8%</td><td>−0.62</td></tr>
           <tr><td>Python 별도 실험</td><td>순수 배깅 · 변수 전체 사용</td><td>다섯 트리의 수치 예측을 평균</td><td>10.5%</td><td>0.69</td></tr>
           <tr><td>Python 별도 실험</td><td>랜덤 포레스트 · <code>max_features="sqrt"</code></td><td>행과 각 노드의 변수 후보를 바꾼 다섯 트리의 예측을 평균</td><td>8.7%</td><td>0.59</td></tr>
@@ -759,7 +761,7 @@ valid = np.isfinite(normalized).all(axis=2) & np.isfinite(target_normalized)</co
       <p>전체 기간에 등장한 종목 수가 500보다 큰 이유는 지수 구성 종목이 계속 바뀌기 때문이다. 현재 구성 종목만 과거에도 존재했던 것처럼 사용하면 생존편향이 생긴다. 각 날짜에는 그날 실제 지수에 포함되어 있던 종목만 사용한다.</p>
       <figure class="report-figure" id="source-figure-4-12" data-deck-use="required" data-source-kind="figure" data-source-ref="4.12">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 21</span><span class="asset-caption__title">SPX 구성 종목에 대한 교차 검증된 회귀 트리(K = 5)</span></figcaption>
-        <img src="assets/figs/fig-source-4-12.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 곡선. 초반에는 완만하게 오르다가 2011년 8월 지점의 붉은 점선 직후 음영 구간에서 가파르게 상승하고 그 뒤로는 높은 수준에서 오르내린다. 점선에는 2011-08 채무등급 강등, 금융 혼란기에 가장 좋은 성과라는 표시가 있고 오른쪽 위에 표본 외 CAGR 2.3퍼센트 샤프 0.9, 정규화 없이는 마이너스 0.7퍼센트 마이너스 0.4라는 표시가 있다.">
+        <img src="assets/figs/fig-source-4-12.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 흐름을 설명하는 모식도다. 초반에는 완만하게 오르다가 2011년 8월 채무등급 강등 직후 음영 구간에서 가파르게 상승하고 그 뒤로는 높은 수준에서 오르내린다. 실제 재실행 곡선이 아니라 교재가 보고한 성과 집중 구간을 보여 준다.">
         <small class="asset-note asset-note--metadata">자세한 설명과 수치 근거는 이 그림의 앞뒤 본문에 있다.</small>
       </figure>
       <p>교재에 보고된 표본 외 CAGR은 2.3%, 샤프 비율은 0.9다. 정규화하지 않은 비교값은 CAGR −0.7%, 샤프 비율 −0.4다. 다만 이 횡단면 입력 데이터는 공개 배포본에 없어 Python 노트북에서 누적 수익 곡선을 다시 계산하지 못했으므로, <a class="asset-ref" href="#source-figure-4-12">그림 21</a>은 실제 재실행 결과가 아니라 교재의 보고값과 성과 집중 구간을 설명하는 도식이다.</p>
