@@ -225,7 +225,7 @@ best = min(pvals, key=pvals.get)</code></pre>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-1.svg" alt="2009년 9월부터 2014년 6월까지의 표본 외 누적 수익 곡선. 2009년부터 2011년 초까지의 음영 구간에서 가파르게 올라 전체 상승의 대부분을 만들고 그 뒤로는 완만하게 오르내리며 거의 정체한다. 오른쪽 위에 표본 외 CAGR 10.6퍼센트 샤프 0.7이 표시된다.">
-          <figcaption><b>상세 리포트 그림 3</b><span><strong>읽는 법</strong> — 기울기가 아니라 상승이 몰린 시점을 본다</span><span><strong>왜 중요한가</strong> — ret2 계수가 음수라 평균회귀를 예측한다</span><span><strong>경계</strong> — 재학습을 하지 않아 생긴 정체다(연습문제 4.1)</span></figcaption>
+          <figcaption><b>상세 리포트 그림 4</b><span><strong>읽는 법</strong> — 기울기가 아니라 상승이 몰린 시점을 본다</span><span><strong>왜 중요한가</strong> — ret2 계수가 음수라 평균회귀를 예측한다</span><span><strong>경계</strong> — 재학습을 하지 않아 생긴 정체다(연습문제 4.1)</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 단계적 회귀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -244,7 +244,7 @@ best = min(pvals, key=pvals.get)</code></pre>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-2.svg" alt="루트 노드에서 x2가 0.015314보다 작은가를 묻고 아니오 쪽 잎은 기대 반응 마이너스 0.004527로 공매도 규칙이 된다. 예 쪽으로 두 번 더 내려가 도달하는 잎이 기대 반응 0.0047136으로 매수 규칙이 된다. 중간 기댓값의 잎들은 회색으로 사용하지 않음이 표시된다.">
-          <figcaption><b>상세 리포트 그림 4</b><span><strong>읽는 법</strong> — 잎까지 이르는 부등식을 위에서부터 이어 읽는다</span><span><strong>왜 중요한가</strong> — 그 부등식 묶음이 곧 기성품 거래 규칙이다</span><span><strong>경계</strong> — 두 규칙 모두 평균회귀적이다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 5</b><span><strong>읽는 법</strong> — 잎까지 이르는 부등식을 위에서부터 이어 읽는다</span><span><strong>왜 중요한가</strong> — 그 부등식 묶음이 곧 기성품 거래 규칙이다</span><span><strong>경계</strong> — 두 규칙 모두 평균회귀적이다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 회귀 트리</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -274,7 +274,7 @@ best = min(pvals, key=pvals.get)</code></pre>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-3.svg" alt="2004년 12월부터 2014년 6월까지의 누적 수익 곡선. 왼쪽 음영 구간의 학습셋은 꾸준히 상승하고 2009년 9월 점선 이후 붉은 선의 테스트셋은 2012년 초까지만 오르고 그 뒤로는 정체한다. 학습셋 CAGR 28.8퍼센트 샤프 1.5, 테스트셋 CAGR 3.9퍼센트 샤프 0.5가 표시된다.">
-          <figcaption><b>상세 리포트 그림 5</b><span><strong>읽는 법</strong> — 점선 좌우의 기울기 차이를 본다</span><span><strong>왜 중요한가</strong> — 같은 규칙이 구간에 따라 살고 죽는다</span><span><strong>경계</strong> — 조건 밖의 날은 포지션이 없어 평탄 구간이 생긴다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 6</b><span><strong>읽는 법</strong> — 점선 좌우의 기울기 차이를 본다</span><span><strong>왜 중요한가</strong> — 같은 규칙이 구간에 따라 살고 죽는다</span><span><strong>경계</strong> — 조건 밖의 날은 포지션이 없어 평탄 구간이 생긴다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 회귀 트리</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -287,7 +287,7 @@ best = min(pvals, key=pvals.get)</code></pre>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure deck-report-figure--tall">
           <img src="assets/figs/fig-source-4-4.svg" alt="다섯 행의 격자. 각 행이 하나의 모델이고 대각선을 따라 검증용 조각이 붉게 표시되며 나머지 네 조각이 학습용이다. 오른쪽 화살표가 다섯 행을 모아 kfoldLoss 최소 트리 하나를 선택하는 상자로 이어진다.">
-          <figcaption><b>상세 리포트 그림 6</b><span><strong>읽는 법</strong> — 대각선을 따라 이동하는 붉은 조각을 본다</span><span><strong>왜 중요한가</strong> — 그 조각은 해당 모델 학습에 쓰이지 않았다</span><span><strong>경계</strong> — 시드가 바뀌면 다른 트리, 다른 CAGR 이 나온다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 7</b><span><strong>읽는 법</strong> — 대각선을 따라 이동하는 붉은 조각을 본다</span><span><strong>왜 중요한가</strong> — 그 조각은 해당 모델 학습에 쓰이지 않았다</span><span><strong>경계</strong> — 시드가 바뀌면 다른 트리, 다른 CAGR 이 나온다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 교차 검증</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -325,7 +325,7 @@ for train, validation in splitter.split(x):
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-5.svg" alt="왼쪽 원 학습셋에서 화살표가 두 복제본으로 갈라진다. 백 1은 표본 1과 3이 중복 포함되고 배깅 외 관측치는 표본 2와 4, 백 K는 표본 2와 4로 채워지고 배깅 외 관측치는 표본 1과 3이다. 오른쪽 끝에서 두 경로가 K개 트리의 예측을 평균하는 상자로 모인다.">
-          <figcaption><b>상세 리포트 그림 7</b><span><strong>읽는 법</strong> — 들어간 표본과 빠진 표본을 짝지어 본다</span><span><strong>왜 중요한가</strong> — 빠진 관측치가 그 백의 표본 외 검사 자료가 된다</span><span><strong>경계</strong> — 편향은 그대로 두고 분산만 낮춘다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 8</b><span><strong>읽는 법</strong> — 들어간 표본과 빠진 표본을 짝지어 본다</span><span><strong>왜 중요한가</strong> — 빠진 관측치가 그 백의 표본 외 검사 자료가 된다</span><span><strong>경계</strong> — 편향은 그대로 두고 분산만 낮춘다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 배깅</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -338,7 +338,7 @@ for train, validation in splitter.split(x):
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-6.svg" alt="2009년 9월부터 2014년 6월까지의 누적 수익 그래프. 다섯 개의 가는 선이 개별 트리 예측으로 서로 다르게 출렁이고 그 가운데를 굵은 선 하나가 매끄럽게 상승하며 지난다. 표본 외 CAGR 7.2퍼센트 샤프 0.5가 표시된다.">
-          <figcaption><b>상세 리포트 그림 8</b><span><strong>읽는 법</strong> — 가는 선의 흩어짐과 굵은 평균선의 매끄러움을 대조한다</span><span><strong>왜 중요한가</strong> — 교차 검증본 0.6%·0.11 을 크게 앞선다</span><span><strong>반직관</strong> — K 를 키우면 오히려 나빠진다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 9</b><span><strong>읽는 법</strong> — 가는 선의 흩어짐과 굵은 평균선의 매끄러움을 대조한다</span><span><strong>왜 중요한가</strong> — 교차 검증본 0.6%·0.11 을 크게 앞선다</span><span><strong>반직관</strong> — K 를 키우면 오히려 나빠진다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 배깅</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -351,7 +351,7 @@ for train, validation in splitter.split(x):
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-randomness-axes.svg" alt="가로축은 예측변수를 표본추출하는가, 세로축은 데이터를 표본추출하는가로 나뉜 2x2 격자. 둘 다 아니오면 단일 회귀 트리, 예측변수만 뽑으면 무작위 부분공간, 데이터만 뽑으면 배깅으로 표본 외 CAGR 1.5퍼센트 샤프 0.2, 둘 다 뽑으면 랜덤 포레스트로 표본 외 CAGR 7.2퍼센트 샤프 0.5다.">
-          <figcaption><b>상세 리포트 그림 9</b><span><strong>읽는 법</strong> — 두 축이 독립이므로 네 칸이 모두 실재한다</span><span><strong>왜 중요한가</strong> — 변수까지 흔들면 7.2%, 안 흔들면 1.5%</span><span><strong>경계</strong> — 무작위 부분공간은 분류 문제에서만 동작한다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 10</b><span><strong>읽는 법</strong> — 두 축이 독립이므로 네 칸이 모두 실재한다</span><span><strong>왜 중요한가</strong> — 변수까지 흔들면 7.2%, 안 흔들면 1.5%</span><span><strong>경계</strong> — 무작위 부분공간은 분류 문제에서만 동작한다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 앙상블</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -384,7 +384,7 @@ for train, validation in splitter.split(x):
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-7.svg" alt="가로축은 부스팅 반복 횟수 M이 0부터 200까지, 세로축은 샤프 비율. 학습셋 곡선은 초반에 가파르게 올라 2.5 가까이 수렴하고 테스트셋 곡선은 완만하게 올라 0.6 부근에 머문다. 샤프 1 위치의 붉은 점선을 테스트셋 곡선은 넘지 못한다.">
-          <figcaption><b>상세 리포트 그림 10</b><span><strong>읽는 법</strong> — 두 곡선이 벌어지는 폭을 본다</span><span><strong>왜 중요한가</strong> — 교차 검증·배깅과 달리 과적합을 완화하지 못한다</span><span><strong>경계</strong> — 각 반복의 최선 트리에 교차 검증을 더하면 오히려 나빠진다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 12</b><span><strong>읽는 법</strong> — 두 곡선이 벌어지는 폭을 본다</span><span><strong>왜 중요한가</strong> — 교차 검증·배깅과 달리 과적합을 완화하지 못한다</span><span><strong>경계</strong> — 각 반복의 최선 트리에 교차 검증을 더하면 오히려 나빠진다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 부스팅</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -397,7 +397,7 @@ for train, validation in splitter.split(x):
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-gdi.svg" alt="왼쪽 그래프는 가로축이 양의 수익률 관측치 비율, 세로축이 GDI인 아래로 볼록한 종 모양 곡선으로 양 끝 0과 1에서 0, 가운데 0.5에서 최대 0.5다. 오른쪽 두 상자는 회귀 트리가 자식 노드의 분산을 최소화하고 예측이 평균인 반면 분류 트리는 두 자식의 GDI 합을 최소화하고 예측이 다수 클래스임을 대조한다.">
-          <figcaption><b>상세 리포트 그림 11</b><span><strong>읽는 법</strong> — 곡선의 양 끝은 순수, 꼭대기는 가장 뒤섞인 상태다</span><span><strong>왜 중요한가</strong> — 나눈 결과 양쪽이 한 클래스로 쏠리게 만드는 변수를 고른다</span><span><strong>결과</strong> — 표본 외 CAGR 4.8% · 샤프 0.4</span></figcaption>
+          <figcaption><b>상세 리포트 그림 13</b><span><strong>읽는 법</strong> — 곡선의 양 끝은 순수, 꼭대기는 가장 뒤섞인 상태다</span><span><strong>왜 중요한가</strong> — 나눈 결과 양쪽이 한 클래스로 쏠리게 만드는 변수를 고른다</span><span><strong>결과</strong> — 표본 외 CAGR 4.8% · 샤프 0.4</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 분류 트리</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -410,7 +410,7 @@ for train, validation in splitter.split(x):
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-8.svg" alt="2차원 평면 왼쪽에 플러스 기호들, 오른쪽에 마이너스 기호들이 흩어져 있고 가운데를 굵은 검은 사선이 가른다. 양옆 점선 두 개가 회색 마진 띠를 만들고 점선에 가장 가까운 플러스 둘과 마이너스 둘이 초록 원으로 강조되어 서포트 벡터임을 나타낸다. 아래에 마진 폭 표시가 있다.">
-          <figcaption><b>상세 리포트 그림 12</b><span><strong>읽는 법</strong> — 선의 위치가 아니라 회색 띠의 폭을 본다</span><span><strong>왜 중요한가</strong> — 넓은 마진이 표본 외 안전 여유다</span><span><strong>경계</strong> — 초록 원의 점들만 경계 위치를 정한다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 14</b><span><strong>읽는 법</strong> — 선의 위치가 아니라 회색 띠의 폭을 본다</span><span><strong>왜 중요한가</strong> — 넓은 마진이 표본 외 안전 여유다</span><span><strong>경계</strong> — 초록 원의 점들만 경계 위치를 정한다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · SVM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -440,7 +440,7 @@ for train, validation in splitter.split(x):
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-9.svg" alt="2009년 9월부터 2014년 6월까지의 표본 외 누적 수익 곡선이 면적으로 채워진 채 거의 일정한 기울기로 꾸준히 상승한다. 오른쪽 끝 음영 구간에 최근 구간에도 꺾이지 않는다는 표시가 있고 표본 외 CAGR 13.3퍼센트 샤프 0.8이 표시된다.">
-          <figcaption><b>상세 리포트 그림 13</b><span><strong>읽는 법</strong> — 구간마다 기울기가 얼마나 고른지 본다</span><span><strong>왜 중요한가</strong> — 앞선 평균회귀 모델들과 달리 최근 구간에도 꺾이지 않는다</span><span><strong>커널 결과</strong> — 다항 커널은 개선 없음, 방사 기저는 약간 개선</span></figcaption>
+          <figcaption><b>상세 리포트 그림 16</b><span><strong>읽는 법</strong> — 구간마다 기울기가 얼마나 고른지 본다</span><span><strong>왜 중요한가</strong> — 앞선 평균회귀 모델들과 달리 최근 구간에도 꺾이지 않는다</span><span><strong>커널 결과</strong> — 다항 커널은 개선 없음, 방사 기저는 약간 개선</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · SVM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -453,7 +453,7 @@ for train, validation in splitter.split(x):
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-10.svg" alt="초록 원의 상태 1 강세와 붉은 원의 상태 2 약세가 나란히 있다. 강세 자기 순환에 0.60, 강세에서 약세로 0.40, 약세에서 강세로 0.75, 약세 자기 순환에 0.25가 붙어 있다.">
-          <figcaption><b>상세 리포트 그림 14</b><span><strong>읽는 법</strong> — 각 원에서 나가는 두 확률의 합이 1인지 확인한다</span><span><strong>왜 중요한가</strong> — 자기 순환 확률이 곧 그 상태의 끈질김이다</span><span><strong>경계</strong> — 상태 이름은 우리가 붙인 것일 뿐이다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 17</b><span><strong>읽는 법</strong> — 각 원에서 나가는 두 확률의 합이 1인지 확인한다</span><span><strong>왜 중요한가</strong> — 자기 순환 확률이 곧 그 상태의 끈질김이다</span><span><strong>경계</strong> — 상태 이름은 우리가 붙인 것일 뿐이다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · HMM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -536,7 +536,7 @@ states = viterbi_path(obs, prior, T, E)</code></pre>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-11.svg" alt="왼쪽에 x1부터 x4까지 네 입력 노드, 이어서 뉴런 2개의 은닉층 1, 뉴런 4개의 은닉층 2, 뉴런 3개의 은닉층 3이 차례로 놓이고 모든 노드가 다음 층의 모든 노드와 연결된다. 은닉층 노드에는 시그마와 S가, 마지막 출력층에는 선형이라고 적힌 노드 하나가 있다.">
-          <figcaption><b>상세 리포트 그림 15</b><span><strong>읽는 법</strong> — 층을 지날 때마다 연결선이 몇 개로 불어나는지 센다</span><span><strong>왜 중요한가</strong> — 그 선의 개수가 곧 추정할 가중치의 수다</span><span><strong>경계</strong> — S 가 항등 함수라면 평범한 다중 선형 회귀와 같아진다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 19</b><span><strong>읽는 법</strong> — 층을 지날 때마다 연결선이 몇 개로 불어나는지 센다</span><span><strong>왜 중요한가</strong> — 그 선의 개수가 곧 추정할 가중치의 수다</span><span><strong>경계</strong> — S 가 항등 함수라면 평범한 다중 선형 회귀와 같아진다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 신경망</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -638,7 +638,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-normalization.svg" alt="왼쪽 붉은 상자는 정규화 없이 합치면 WTW 플러스 100퍼센트와 WMT 플러스 1퍼센트가 뒤섞여 표본 외 CAGR 마이너스 0.7퍼센트 샤프 마이너스 0.4가 된다고 보여 준다. 오른쪽 초록 상자는 각 종목의 변동성으로 나누면 모든 값이 몇 표준편차만큼 움직였는가라는 공통 언어로 번역되어 표본 외 CAGR 2.3퍼센트 샤프 0.9가 된다고 보여 준다.">
-          <figcaption><b>상세 리포트 그림 16</b><span><strong>읽는 법</strong> — 두 상자의 아래쪽 성적 칸을 먼저 대조한다</span><span><strong>왜 중요한가</strong> — 같은 −5%가 종목마다 전혀 다른 사건이다</span><span><strong>예외</strong> — 상대강도지수처럼 이미 정규화된 지표는 그대로 쓴다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 20</b><span><strong>읽는 법</strong> — 두 상자의 아래쪽 성적 칸을 먼저 대조한다</span><span><strong>왜 중요한가</strong> — 같은 −5%가 종목마다 전혀 다른 사건이다</span><span><strong>예외</strong> — 상대강도지수처럼 이미 정규화된 지표는 그대로 쓴다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 정규화</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -651,7 +651,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-12.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 곡선. 초반에는 완만하다가 2011년 8월 붉은 점선 직후 음영 구간에서 가파르게 상승하고 그 뒤 높은 수준에서 오르내린다. 표본 외 CAGR 2.3퍼센트 샤프 0.9, 정규화 없이는 마이너스 0.7퍼센트 마이너스 0.4가 표시된다.">
-          <figcaption><b>상세 리포트 그림 17</b><span><strong>읽는 법</strong> — 전체 기울기보다 성과가 몰린 구간을 본다</span><span><strong>왜 중요한가</strong> — 2011-08 채무등급 강등 혼란기에 가장 좋았다</span><span><strong>경계</strong> — 한 사건 구간에 몰린 성과는 표본 외 신뢰도를 낮춘다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 21</b><span><strong>읽는 법</strong> — 전체 기울기보다 성과가 몰린 구간을 본다</span><span><strong>왜 중요한가</strong> — 2011-08 채무등급 강등 혼란기에 가장 좋았다</span><span><strong>경계</strong> — 한 사건 구간에 몰린 성과는 표본 외 신뢰도를 낮춘다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 정규화</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -710,7 +710,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-source-4-13.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 곡선이 초록색으로 거의 일정한 기울기로 꾸준히 상승한다. 그래프 아래 보유라고 표시된 띠 안에 63거래일 보유 구간을 나타내는 아홉 개 막대가 겹쳐 쌓이듯 배열된다. 표본 외 CAGR 4퍼센트 샤프 1.1, 샤프 1 초과로 통계적으로 유의하다는 표시가 있다.">
-          <figcaption><b>상세 리포트 그림 18</b><span><strong>읽는 법</strong> — 기울기가 얼마나 고른지 앞선 SPY 그림들과 대조한다</span><span><strong>왜 중요한가</strong> — 이 장에서 샤프가 1을 넘은 유일한 예다</span><span><strong>왜 넘었나</strong> — 여러 종목 집계로 데이터를 크게 늘린 효과</span></figcaption>
+          <figcaption><b>상세 리포트 그림 22</b><span><strong>읽는 법</strong> — 기울기가 얼마나 고른지 앞선 SPY 그림들과 대조한다</span><span><strong>왜 중요한가</strong> — 이 장에서 샤프가 1을 넘은 유일한 예다</span><span><strong>왜 넘었나</strong> — 여러 종목 집계로 데이터를 크게 늘린 효과</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 주식 선택</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -747,7 +747,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-generalization-gap.svg" alt="다섯 쌍의 가로 막대 그래프. 각 쌍은 위가 연한 파란색 표본 내, 아래가 초록 또는 붉은 표본 외다. 다중 회귀는 34.3퍼센트와 0.4퍼센트, 단계적 회귀는 43.5퍼센트와 10.6퍼센트, 회귀 트리 극단 잎 2개는 28.8퍼센트와 3.9퍼센트, 회귀 트리 모든 잎은 73퍼센트와 마이너스 7.2퍼센트, 신경망은 19퍼센트와 마이너스 4퍼센트다.">
-          <figcaption><b>상세 리포트 그림 19</b><span><strong>읽는 법</strong> — 막대 길이가 아니라 쌍 안의 간격을 본다</span><span><strong>왜 중요한가</strong> — 표본 내 1위가 표본 외 꼴찌다</span><span><strong>경계</strong> — 표본 내 수치가 인쇄된 실험만 담았다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 23</b><span><strong>읽는 법</strong> — 막대 길이가 아니라 쌍 안의 간격을 본다</span><span><strong>왜 중요한가</strong> — 표본 내 1위가 표본 외 꼴찌다</span><span><strong>경계</strong> — 표본 내 수치가 인쇄된 실험만 담았다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 요약</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -779,7 +779,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-book-replays.png" alt="왼쪽 패널은 2005년부터 2009년까지의 학습 구간으로 Stepwise 가 약 6.5배, Linear 가 약 5배, Tree rule 이 약 3.7배, HMM 이 약 1.8배까지 오른다. 오른쪽 패널은 2010년부터 2014년까지의 표본 외 구간으로 세로축이 0.8에서 1.6으로 좁아지며 Stepwise 만 1.6배 부근을 유지하고 Tree rule 은 1.2배, Linear 는 1.0 근처로 되돌아오며 HMM 은 대부분 1.0 아래에 머문다.">
-          <figcaption><b>상세 리포트 그림 20</b><span><strong>읽는 법</strong> — 세로축 눈금이 왼쪽 6.5배에서 오른쪽 1.6배로 바뀐다</span><span><strong>왜 중요한가</strong> — 학습에서 벌어진 순위가 표본 외에서는 거의 사라진다</span><span><strong>결론</strong> — HMM 곡선이 1.0 아래에서 끝나는 것이 앞 표의 음수 CAGR 이다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 24</b><span><strong>읽는 법</strong> — 세로축 눈금이 왼쪽 6.5배에서 오른쪽 1.6배로 바뀐다</span><span><strong>왜 중요한가</strong> — 학습에서 벌어진 순위가 표본 외에서는 거의 사라진다</span><span><strong>결론</strong> — HMM 곡선이 1.0 아래에서 끝나는 것이 앞 표의 음수 CAGR 이다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -792,7 +792,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-boundary-leakage.svg" alt="위쪽 원본 분할은 학습셋 예측변수 행 1158개가 2009년 9월 15일까지이고 붉은 곡선 화살표가 학습셋 끝에서 테스트셋 첫날로 넘어간다. 아래쪽 경계 수정본은 학습셋을 2009년 9월 14일까지 1157개 행으로 줄여 테스트셋을 완전히 격리한다. 맨 아래 표는 다중 회귀가 0.4퍼센트에서 1.2퍼센트로, 단계적 회귀가 10.6퍼센트에서 10.7퍼센트로 바뀐다고 적고 있다.">
-          <figcaption><b>상세 리포트 그림 21</b><span><strong>읽는 법</strong> — 두 분할의 학습 종료일이 하루 다르다</span><span><strong>왜 중요한가</strong> — 누수를 없애도 두 모델의 대비는 유지된다</span><span><strong>결론</strong> — 교재의 핵심 논지는 이 결함에 의존하지 않는다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 25</b><span><strong>읽는 법</strong> — 두 분할의 학습 종료일이 하루 다르다</span><span><strong>왜 중요한가</strong> — 누수를 없애도 두 모델의 대비는 유지된다</span><span><strong>결론</strong> — 교재의 핵심 논지는 이 결함에 의존하지 않는다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -805,7 +805,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-python-models.png" alt="왼쪽 막대그래프는 여섯 모델의 표본 외 CAGR 을 총수익과 편도 2bps 비용 후로 나란히 그린다. svm 은 0.112에서 0.112로 두 막대 높이가 거의 같고, random_forest 는 0.087에서 0.048로 절반 가까이 깎이며, classification_tree 는 0.040에서 거의 0으로 줄고, tree 와 boosting 과 mlp_ensemble 은 모두 음수다. 오른쪽 선그래프는 같은 여섯 모델의 표본 외 누적 자산곡선으로 random_forest 와 svm 만 1을 크게 웃돌고 나머지는 1 부근이나 그 아래에서 끝난다.">
-          <figcaption><b>상세 리포트 그림 22</b><span><strong>읽는 법</strong> — 왼쪽 두 막대의 높이 차이가 곧 회전율 비용이다</span><span><strong>왜 중요한가</strong> — 분류 트리는 4.0%를 거의 전부 비용으로 내지만 SVM 은 거의 무감하다</span><span><strong>결론</strong> — 총수익 순위와 비용 후 순위는 다른 표다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 26</b><span><strong>읽는 법</strong> — 왼쪽 두 막대의 높이 차이가 곧 회전율 비용이다</span><span><strong>왜 중요한가</strong> — 분류 트리는 4.0%를 거의 전부 비용으로 내지만 SVM 은 거의 무감하다</span><span><strong>결론</strong> — 총수익 순위와 비용 후 순위는 다른 표다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -818,7 +818,7 @@ MLPRegressor(hidden_layer_sizes=(8, 4),
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-seed-stability.png" alt="왼쪽 막대그래프는 난수 시드 1부터 10까지의 표본 외 CAGR 로, 시드 8이 약 0.138로 가장 높고 시드 10이 약 마이너스 0.060으로 가장 낮으며 열 개 중 여섯 개가 양수, 네 개가 음수다. 오른쪽 막대그래프는 학습셋만으로 고른 SVM 커널 세 종류의 평균 시계열 교차검증 정확도로 linear 0.532, polynomial 0.541, rbf 0.535 로 세 막대 높이가 거의 같다.">
-          <figcaption><b>상세 리포트 그림 23</b><span><strong>읽는 법</strong> — 막대 높이가 아니라 0선을 넘나든다는 사실을 본다</span><span><strong>왜 중요한가</strong> — 신경망을 한 번 돌려 얻은 수치는 그 자체로 근거가 되지 못한다</span><span><strong>결론</strong> — 오른쪽처럼 커널 선택이 성과를 가르지 않는 경우도 함께 봐야 한다</span></figcaption>
+          <figcaption><b>상세 리포트 그림 27</b><span><strong>읽는 법</strong> — 막대 높이가 아니라 0선을 넘나든다는 사실을 본다</span><span><strong>왜 중요한가</strong> — 신경망을 한 번 돌려 얻은 수치는 그 자체로 근거가 되지 못한다</span><span><strong>결론</strong> — 오른쪽처럼 커널 선택이 성과를 가르지 않는 경우도 함께 봐야 한다</span></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>AIML Quant 보충 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>

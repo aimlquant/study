@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 20 700 200" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
+    <style>
+      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
+      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
+      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
+      .thin{stroke:#C7D2E6;stroke-width:1.1;fill:none}
+      .best{stroke:#0F2C59;stroke-width:3;fill:none;stroke-linejoin:round;stroke-linecap:round}
+      .nodeb{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.6}
+      .noder{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
+      .onpath{fill:#0F2C59;stroke:#0F2C59;stroke-width:1.6}
+      .tk{fill:#fff;font-size:10.5px;font-weight:700;text-anchor:middle}
+      .nb{fill:#1B6B3A;font-size:10.5px;font-weight:700;text-anchor:middle}
+      .nr{fill:#A3341F;font-size:10.5px;font-weight:700;text-anchor:middle}
+      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
+      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
+    </style>
+  </defs>
+
+<text class="sr" x="92" y="66">강세</text>
+<text class="sr" x="92" y="158">약세</text>
+
+<path class="thin" d="M126,62 L246,62 M126,62 L246,154 M126,154 L246,62 M126,154 L246,154"/>
+<path class="thin" d="M266,62 L386,62 M266,62 L386,154 M266,154 L386,62 M266,154 L386,154"/>
+<path class="thin" d="M406,62 L526,62 M406,62 L526,154 M406,154 L526,62 M406,154 L526,154"/>
+<path class="thin" d="M546,62 L666,62 M546,62 L666,154 M546,154 L666,62 M546,154 L666,154"/>
+
+<path class="best" d="M126,154 L246,62 L386,62 L526,154 L666,154"/>
+
+<circle class="onpath" cx="126" cy="154" r="15"/><text class="tk" x="126" y="158">약</text>
+<circle class="nodeb" cx="126" cy="62" r="15"/><text class="nb" x="126" y="66">강</text>
+<circle class="onpath" cx="246" cy="62" r="15"/><text class="tk" x="246" y="66">강</text>
+<circle class="noder" cx="246" cy="154" r="15"/><text class="nr" x="246" y="158">약</text>
+<circle class="onpath" cx="386" cy="62" r="15"/><text class="tk" x="386" y="66">강</text>
+<circle class="noder" cx="386" cy="154" r="15"/><text class="nr" x="386" y="158">약</text>
+<circle class="nodeb" cx="526" cy="62" r="15"/><text class="nb" x="526" y="66">강</text>
+<circle class="onpath" cx="526" cy="154" r="15"/><text class="tk" x="526" y="158">약</text>
+<circle class="nodeb" cx="666" cy="62" r="15"/><text class="nb" x="666" y="66">강</text>
+<circle class="onpath" cx="666" cy="154" r="15"/><text class="tk" x="666" y="158">약</text>
+
+<path class="axis" d="M110,186 H682"/>
+<text class="s" x="126" y="204">1일</text>
+<text class="s" x="246" y="204">2일</text>
+<text class="s" x="386" y="204">3일</text>
+<text class="s" x="526" y="204">4일</text>
+<text class="s" x="666" y="204">5일</text>
+
+<text class="tl" x="110" y="40">가는 선 = 가능한 전이</text>
+<text class="tl" x="330" y="40">굵은 선 = 최적 경로</text>
+
+</svg>
