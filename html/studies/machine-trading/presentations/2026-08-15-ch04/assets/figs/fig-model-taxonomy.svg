@@ -75,8 +75,8 @@
 <text class="s an-m" x="665" y="169" style="font-size:9.8px">HMM</text>
 <path class="axis" d="M40,274 H700"/>
 <path class="dash" d="M470,236 V310"/>
-<text class="lab an-s" x="40" y="230">지도 학습 — 클래스가 관측된다</text>
-<text class="lab an-e" x="700" y="230" fill="#A3341F">비지도 학습 — 관측되지 않는다</text>
+<text class="lab an-s" x="40" y="230">지도 학습</text>
+<text class="lab an-e" x="700" y="230" fill="#A3341F">비지도 학습</text>
 <rect x="42" y="246" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
 <text class="s an-m" x="80" y="261" style="font-size:9.8px">단계적 회귀</text>
 <rect x="123" y="246" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
