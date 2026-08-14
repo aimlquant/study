@@ -94,7 +94,6 @@
 <text class="mutedt" x="496.0" y="253">학습 4</text>
 <rect class="warn" x="550" y="232" width="92" height="34" rx="7"/>
 <text class="warnt" x="596.0" y="253">검증용 5</text>
-<text class="sl" x="150" y="298">각 행에서 붉은 조각은 그 모델의 학습에 한 번도 쓰이지 않는다 — 그래서 그 조각의 점수가 표본 외 성적에 가깝다.</text>
 <path class="a" d="M636,60 L700,60 L700,255 L636,255"/>
 <rect class="box key" x="238" y="316" width="330" height="42" rx="10"/>
 <text class="tk" x="403" y="335">kfoldLoss 최소 → 트리 하나 선택</text>

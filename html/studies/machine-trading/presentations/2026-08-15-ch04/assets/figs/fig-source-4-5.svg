@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 12 706 302" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 12 706 246" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
   <defs>
     <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
     <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
@@ -96,7 +96,5 @@
 <text class="s an-m" x="664" y="198">분산이 낮아진다</text>
 <path class="ag" d="M598,66 L608,66 L608,126 L614,126"/>
 <path class="ag" d="M598,202 L608,202 L608,166 L614,166"/>
-<text class="sl" x="16" y="284">복원추출이므로 어떤 관측치는 복제본에 여러 번 들어가고 어떤 관측치는 아예 빠진다.</text>
-<text class="sl" x="16" y="302">빠진 것이 배깅 외 관측치이며, 그 백의 표본 외 정확도를 재는 데 쓰인다.</text>
 <text class="tl" x="16" y="34">교차 검증처럼 나누는 대신, 원 학습셋을 복제해 K개의 백을 만든다</text>
 </svg>
