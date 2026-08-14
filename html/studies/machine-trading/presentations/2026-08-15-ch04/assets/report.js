@@ -884,24 +884,14 @@
     python: {
       comment: '#',
       quotes: '\'"',
-      transposeQuote: false,
       keywords: ' and as assert async await break class continue def del elif else' +
         ' except finally for from global if import in is lambda nonlocal not or' +
         ' pass raise return try while with yield ',
       literals: ' True False None '
     },
-    matlab: {
-      comment: '%',
-      quotes: '\'"',
-      transposeQuote: true,
-      keywords: ' break case catch continue else elseif end for function global' +
-        ' if otherwise persistent return switch try while ',
-      literals: ' true false NaN Inf '
-    },
     bash: {
       comment: '#',
       quotes: '\'"',
-      transposeQuote: false,
       keywords: ' case cd do done elif else esac export fi for function if in' +
         ' local return then while ',
       literals: ''
@@ -919,8 +909,6 @@
     var out = '';
     var index = 0;
     var length = source.length;
-    // MATLAB 은 작은따옴표를 문자열과 전치 연산자에 함께 쓴다. 바로 앞 글자가
-    // 식별자·닫는 괄호·점이면 전치로 보고 문자열을 열지 않는다.
     var previous = '';
 
     function emit(cls, text) {
@@ -946,21 +934,17 @@
       }
 
       if (grammar.quotes.indexOf(ch) >= 0) {
-        var isTranspose = grammar.transposeQuote && ch === '\'' &&
-          /[A-Za-z0-9_)\]}.]/.test(previous);
-        if (!isTranspose) {
-          var cursor = index + 1;
-          while (cursor < length && source.charAt(cursor) !== ch &&
-                 source.charAt(cursor) !== '\n') {
-            if (!grammar.transposeQuote && source.charAt(cursor) === '\\') cursor += 1;
-            cursor += 1;
-          }
-          if (cursor < length && source.charAt(cursor) === ch) cursor += 1;
-          emit('str', source.slice(index, cursor));
-          index = cursor;
-          previous = '\'';
-          continue;
+        var cursor = index + 1;
+        while (cursor < length && source.charAt(cursor) !== ch &&
+               source.charAt(cursor) !== '\n') {
+          if (source.charAt(cursor) === '\\') cursor += 1;
+          cursor += 1;
         }
+        if (cursor < length && source.charAt(cursor) === ch) cursor += 1;
+        emit('str', source.slice(index, cursor));
+        index = cursor;
+        previous = '\'';
+        continue;
       }
 
       if (ch >= '0' && ch <= '9' && !/[A-Za-z0-9_.]/.test(previous)) {

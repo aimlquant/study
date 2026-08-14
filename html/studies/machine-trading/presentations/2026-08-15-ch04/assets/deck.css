@@ -1472,6 +1472,12 @@ body.chrome-hidden .deck-settings {
 .compare-table--dense th,
 .compare-table--dense td { padding: 13px 16px; font-size: 15px; line-height: 1.35; }
 
+/* 행이 8개 이상인 표 — 기본 행 높이로는 캡션 띠가 푸터를 침범한다.
+   figure-only·tall-chart 처럼 이 계열에도 별도 크기 계약을 둔다. */
+.compare-table--tall th,
+.compare-table--tall td { padding: 8px 16px; font-size: 13.5px; line-height: 1.3; }
+.compare-table--tall thead th { font-size: 12.5px; }
+
 html.theme-dark .deck-report-figure img { background: #fafaf9; border-color: #6f7886; }
 html.theme-dark .deck-report-figure figcaption b { color: #fff; background: #0f2c59; }
 

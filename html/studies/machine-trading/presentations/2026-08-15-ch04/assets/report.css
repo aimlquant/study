@@ -1891,6 +1891,31 @@ aside.reading-more p { margin: 2px 0; font-size: 9.5pt; }
   border-radius: 3px;
   white-space: nowrap;
 }
+.report-section .asset-caption__label,
+.report-appendix .asset-caption__label {
+  display: inline-block;
+  font-size: 8pt;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--brand-deep);
+  background: #e8eef7;
+  border: 1px solid rgba(15, 44, 89, 0.18);
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.source-fidelity-title,
+.report-figure > .asset-note--metadata {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
 .report-section .asset-caption__title,
 .report-appendix .asset-caption__title {
   font-size: 10pt;

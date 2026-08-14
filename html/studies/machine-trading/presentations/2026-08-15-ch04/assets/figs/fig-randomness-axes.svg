@@ -1,65 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 12 706 262" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
-  <defs>
-    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
-    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
-    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
-    <style>
-      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}
-      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
-      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
-      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
-      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
-      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
-      .labl{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:start}
-      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
-      .key{fill:#0F2C59;stroke:#0F2C59}
-      .tk{fill:#fff;font-size:13px;font-weight:700;text-anchor:middle}
-      .sk{fill:#C7D2E6;font-size:10.5px;text-anchor:middle}
-      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
-      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
-      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
-      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
-      .muted{fill:#F3F1EC;stroke:#8A8377;stroke-width:1.3}
-      .mutedt{fill:#6B6357;font-size:10.5px;font-weight:700;text-anchor:middle}
-      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
-      .ar{stroke:#A3341F;stroke-width:1.4;fill:none;marker-end:url(#ahr)}
-      .ag{stroke:#1B6B3A;stroke-width:1.4;fill:none;marker-end:url(#ahg)}
-      .plain{stroke:#0F2C59;stroke-width:1.3;fill:none}
-      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
-      .grid{stroke:#E7E5E4;stroke-width:1;fill:none}
-      .ln{stroke:#0F2C59;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lnr{stroke:#A3341F;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lng{stroke:#1B6B3A;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lnthin{stroke:#9AA9C4;stroke-width:1.1;fill:none;stroke-linejoin:round}
-      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
-      .band{fill:#0F2C59;opacity:.07}
-      .bandr{fill:#A3341F;opacity:.09}
-      .edge{fill:none;stroke:#0F2C59;stroke-width:1.3}
-      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
-    </style>
-  </defs>
-<text class="lab" x="404" y="24">예측변수를 표본추출하는가</text>
-<text class="lab" x="30" y="150" transform="rotate(-90 30 150)">데이터를 표본추출하는가</text>
-<text class="s" x="290" y="46">아니오</text><text class="s" x="546" y="46">예</text>
-<text class="s" x="60" y="112">아니오</text><text class="s" x="60" y="222">예</text>
-<rect class="muted" x="168" y="56" width="252" height="98" rx="11"/>
-<text class="mutedt" x="294" y="80" style="font-size:13px">단일 회귀 트리</text>
-<text class="s" x="294" y="102">무작위성 없음</text>
-<text class="s" x="294" y="120">학습 데이터의 우연한 요동을</text>
-<text class="s" x="294" y="138">그대로 외운다</text>
-<rect class="box" x="424" y="56" width="252" height="98" rx="11"/>
-<text class="lab" x="550" y="80" style="font-size:13px">무작위 부분공간</text>
-<text class="s" x="550" y="102">fitensemble 'Subspace'</text>
-<text class="s" x="550" y="120">분류 문제에서만 동작한다</text>
-<text class="s" x="550" y="138">예측변수가 아주 많을 때 진가</text>
-<rect class="box" x="168" y="166" width="252" height="98" rx="11"/>
-<text class="lab" x="294" y="190" style="font-size:13px">배깅</text>
-<text class="s" x="294" y="212">TreeBagger + 'NumPredictorsToSample','all'</text>
-<text class="s" x="294" y="230">복원추출로 데이터만 흔든다</text>
-<text class="s" x="294" y="248">표본 외 CAGR 1.5% · 샤프 0.2</text>
-<rect class="good" x="424" y="166" width="252" height="98" rx="11"/>
-<text class="goodt" x="550" y="190" style="font-size:13px">랜덤 포레스트</text>
-<text class="s" x="550" y="212">TreeBagger 기본값 = 예측변수의 1/3</text>
-<text class="s" x="550" y="230">데이터와 변수를 함께 흔든다</text>
-<text class="s" x="550" y="248">표본 외 CAGR 7.2% · 샤프 0.5</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 390" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">배깅과 랜덤 포레스트의 차이</title>
+  <desc id="desc">두 방법 모두 행을 복원추출해 여러 트리를 학습한다. 배깅은 각 분할에서 모든 변수를 살피고, 랜덤 포레스트는 각 분할마다 무작위로 고른 일부 변수만 후보로 살핀다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><style>
+    .head{fill:#101828;font-size:16px;font-weight:700}.lane{fill:#173b67;font-size:14px;font-weight:700}.box{fill:#fff;stroke:#173b67;stroke-width:1.6}.rf{fill:#e8f4ec;stroke:#1f7042;stroke-width:1.8}.small{fill:#606978;font-size:11px}.body{fill:#394150;font-size:12px}.green{fill:#1f7042;font-size:12px;font-weight:700}.arrow{fill:none;stroke:#173b67;stroke-width:2;marker-end:url(#arrow)}.feature{fill:#dce8f5;stroke:#173b67;stroke-width:1}.off{fill:#f0f1f3;stroke:#c7ccd3;stroke-width:1}.sample{fill:#fff7ed;stroke:#c85b2a;stroke-width:1.2}.tree{fill:none;stroke:#173b67;stroke-width:1.8}.avg{fill:#173b67}.white{fill:#fff;font-size:12px;font-weight:700}
+  </style></defs>
+
+  <text x="28" y="98" class="lane">배깅</text>
+  <rect x="112" y="58" width="152" height="76" rx="11" class="box"/><text x="188" y="80" text-anchor="middle" class="body">부트스트랩 표본</text>
+  <rect x="132" y="91" width="24" height="25" rx="4" class="sample"/><rect x="160" y="91" width="24" height="25" rx="4" class="sample"/><rect x="188" y="91" width="24" height="25" rx="4" class="sample"/><rect x="216" y="91" width="24" height="25" rx="4" class="sample"/>
+  <path d="M264 96H304" class="arrow"/>
+  <rect x="312" y="58" width="234" height="76" rx="11" class="box"/>
+  <text x="429" y="80" text-anchor="middle" class="body">각 노드에서 모든 변수 검사</text>
+  <rect x="336" y="92" width="38" height="24" rx="5" class="feature"/><text x="355" y="108" text-anchor="middle" class="small">ret1</text>
+  <rect x="382" y="92" width="38" height="24" rx="5" class="feature"/><text x="401" y="108" text-anchor="middle" class="small">ret2</text>
+  <rect x="428" y="92" width="38" height="24" rx="5" class="feature"/><text x="447" y="108" text-anchor="middle" class="small">ret5</text>
+  <rect x="474" y="92" width="48" height="24" rx="5" class="feature"/><text x="498" y="108" text-anchor="middle" class="small">ret20</text>
+  <path d="M546 96H586" class="arrow"/>
+  <rect x="594" y="58" width="126" height="76" rx="11" class="box"/><text x="657" y="80" text-anchor="middle" class="body">트리 5개</text>
+  <path d="M620 117V92H647M647 92V78M647 92L634 106M647 92L660 106M678 117V92H691M691 92V78M691 92L678 106M691 92L704 106" class="tree"/>
+  <path d="M720 96H760" class="arrow"/>
+  <rect x="768" y="67" width="122" height="58" rx="11" class="avg"/><text x="829" y="91" text-anchor="middle" class="white">예측 평균</text><text x="829" y="110" text-anchor="middle" fill="#d8e4f2" font-size="11">행 무작위화</text>
+
+  <line x1="28" y1="174" x2="890" y2="174" stroke="#dfe3e8"/>
+  <text x="28" y="230" class="lane">랜덤 포레스트</text>
+  <rect x="112" y="190" width="152" height="76" rx="11" class="rf"/><text x="188" y="212" text-anchor="middle" class="body">부트스트랩 표본</text>
+  <rect x="132" y="223" width="24" height="25" rx="4" class="sample"/><rect x="160" y="223" width="24" height="25" rx="4" class="sample"/><rect x="188" y="223" width="24" height="25" rx="4" class="sample"/><rect x="216" y="223" width="24" height="25" rx="4" class="sample"/>
+  <path d="M264 228H304" class="arrow"/>
+  <rect x="312" y="190" width="234" height="76" rx="11" class="rf"/>
+  <text x="429" y="212" text-anchor="middle" class="green">노드마다 변수 일부만 무작위 선택</text>
+  <rect x="336" y="224" width="38" height="24" rx="5" class="feature"/><text x="355" y="240" text-anchor="middle" class="small">ret1</text>
+  <rect x="382" y="224" width="38" height="24" rx="5" class="off"/><text x="401" y="240" text-anchor="middle" class="small">ret2</text>
+  <rect x="428" y="224" width="38" height="24" rx="5" class="feature"/><text x="447" y="240" text-anchor="middle" class="small">ret5</text>
+  <rect x="474" y="224" width="48" height="24" rx="5" class="off"/><text x="498" y="240" text-anchor="middle" class="small">ret20</text>
+  <path d="M546 228H586" class="arrow"/>
+  <rect x="594" y="190" width="126" height="76" rx="11" class="rf"/><text x="657" y="212" text-anchor="middle" class="body">트리 5개</text>
+  <path d="M620 249V224H647M647 224V210M647 224L634 238M647 224L660 238M678 249V224H691M691 224V210M691 224L678 238M691 224L704 238" class="tree"/>
+  <path d="M720 228H760" class="arrow"/>
+  <rect x="768" y="199" width="122" height="58" rx="11" class="avg"/><text x="829" y="223" text-anchor="middle" class="white">예측 평균</text><text x="829" y="242" text-anchor="middle" fill="#d8e4f2" font-size="11">행 + 변수 무작위화</text>
+
+  <rect x="112" y="302" width="778" height="60" rx="12" fill="#f7f8fa" stroke="#d3d7de" stroke-width="1.3"/>
+  <text x="501" y="326" text-anchor="middle" class="green">차이는 두 번째 상자 하나다</text>
+  <text x="501" y="347" text-anchor="middle" class="small">랜덤 포레스트는 강한 변수 하나가 모든 트리를 비슷하게 만드는 것을 막아 트리 사이의 상관을 낮추려 한다.</text>
 </svg>

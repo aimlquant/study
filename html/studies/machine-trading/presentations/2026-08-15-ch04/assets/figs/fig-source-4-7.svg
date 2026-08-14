@@ -1,70 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 7 706 294" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
-  <defs>
-    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
-    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
-    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
-    <style>
-      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}
-      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
-      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
-      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
-      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
-      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
-      .labl{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:start}
-      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
-      .key{fill:#0F2C59;stroke:#0F2C59}
-      .tk{fill:#fff;font-size:13px;font-weight:700;text-anchor:middle}
-      .sk{fill:#C7D2E6;font-size:10.5px;text-anchor:middle}
-      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
-      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
-      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
-      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
-      .muted{fill:#F3F1EC;stroke:#8A8377;stroke-width:1.3}
-      .mutedt{fill:#6B6357;font-size:10.5px;font-weight:700;text-anchor:middle}
-      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
-      .ar{stroke:#A3341F;stroke-width:1.4;fill:none;marker-end:url(#ahr)}
-      .ag{stroke:#1B6B3A;stroke-width:1.4;fill:none;marker-end:url(#ahg)}
-      .plain{stroke:#0F2C59;stroke-width:1.3;fill:none}
-      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
-      .grid{stroke:#E7E5E4;stroke-width:1;fill:none}
-      .ln{stroke:#0F2C59;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lnr{stroke:#A3341F;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lng{stroke:#1B6B3A;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lnthin{stroke:#9AA9C4;stroke-width:1.1;fill:none;stroke-linejoin:round}
-      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
-      .band{fill:#0F2C59;opacity:.07}
-      .bandr{fill:#A3341F;opacity:.09}
-      .edge{fill:none;stroke:#0F2C59;stroke-width:1.3}
-      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
-      .an-s{text-anchor:start}
-      .an-m{text-anchor:middle}
-      .an-e{text-anchor:end}
-    </style>
-  </defs>
-<text class="sl" x="20" y="26">샤프 비율</text>
-<path class="axis" d="M74,50 V250 H700"/>
-<path class="grid" d="M74,202.0 H700"/>
-<path class="grid" d="M74,154.0 H700"/>
-<path class="grid" d="M74,106.0 H700"/>
-<path class="grid" d="M74,58.0 H700"/>
-<text class="sr an-e" x="66" y="254">0</text>
-<text class="sr an-e" x="66" y="177.2">1.0</text>
-<text class="sr an-e" x="66" y="62.0">2.5</text>
-<path class="axis" d="M74.0,250 v5"/>
-<text class="s an-m" x="74.0" y="270">0</text>
-<path class="axis" d="M230.5,250 v5"/>
-<text class="s an-m" x="230.5" y="270">50</text>
-<path class="axis" d="M387.0,250 v5"/>
-<text class="s an-m" x="387.0" y="270">100</text>
-<path class="axis" d="M543.5,250 v5"/>
-<text class="s an-m" x="543.5" y="270">150</text>
-<path class="axis" d="M700.0,250 v5"/>
-<text class="s an-m" x="700.0" y="270">200</text>
-<text class="s an-m" x="387.0" y="288">부스팅 반복 횟수 M</text>
-<path class="dash" d="M74,173.2 H700" stroke="#A3341F"/>
-<path class="ln" d="M74.0,230.8 L111.6,169.4 L155.4,131.0 L211.7,104.1 L286.8,84.9 L387.0,73.4 L499.7,65.7 L606.1,61.8 L700.0,58.0"/>
-<path class="lnr" d="M74.0,238.5 L136.6,228.9 L230.5,221.2 L336.9,215.4 L449.6,209.7 L562.3,205.8 L700.0,202.0"/>
-<text class="lab an-e halo" x="675.0" y="81.0">학습셋</text>
-<text class="warnt an-e halo" x="675.0" y="165.5">통계적 유의성 기준 · 샤프 1</text>
-<text class="warnt an-s halo" x="261.8" y="192.4">테스트셋</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">부스팅 반복 횟수의 시간순 교차 검증과 테스트 결과</title>
+  <desc id="desc">반복 횟수 5, 20, 80, 160의 평균 검증 RMSE를 비교해 160을 선택하지만, 테스트 구간 총수익은 마이너스 2.2퍼센트이고 샤프 비율은 마이너스 0.05다.</desc>
+  <defs><style>.head{fill:#101828;font-size:15px;font-weight:700}.small{fill:#606978;font-size:11px}.axis{stroke:#818895;stroke-width:1.5}.grid{stroke:#e5e8ec;stroke-width:1}.line{fill:none;stroke:#173b67;stroke-width:3}.dot{fill:#173b67;stroke:#fff;stroke-width:1.5}.chosen{fill:#1f7042;stroke:#fff;stroke-width:2}.label{fill:#173b67;font-size:12px;font-weight:700}.green{fill:#1f7042;font-size:12px;font-weight:700}.bad{fill:#b54724}.card{fill:#fff7ed;stroke:#c85b2a;stroke-width:1.5}.rule{fill:#e8f4ec;stroke:#1f7042;stroke-width:1.5}</style></defs>
+  <text x="42" y="32" class="head">1 · 학습 구간 안에서 반복 횟수를 고른다</text>
+  <line x1="84" y1="70" x2="84" y2="256" class="axis"/><line x1="84" y1="256" x2="550" y2="256" class="axis"/>
+  <line x1="84" y1="106" x2="550" y2="106" class="grid"/><line x1="84" y1="175" x2="550" y2="175" class="grid"/><line x1="84" y1="225" x2="550" y2="225" class="grid"/>
+  <text x="72" y="110" text-anchor="end" class="small">0.01416</text><text x="72" y="179" text-anchor="end" class="small">0.01415</text><text x="72" y="229" text-anchor="end" class="small">0.01414</text>
+  <polyline points="130,135 250,151 370,184 500,240" class="line"/>
+  <circle cx="130" cy="135" r="7" class="dot"/><circle cx="250" cy="151" r="7" class="dot"/><circle cx="370" cy="184" r="7" class="dot"/><circle cx="500" cy="240" r="9" class="chosen"/>
+  <text x="130" y="279" text-anchor="middle" class="small">5</text><text x="250" y="279" text-anchor="middle" class="small">20</text><text x="370" y="279" text-anchor="middle" class="small">80</text><text x="500" y="279" text-anchor="middle" class="small">160</text>
+  <text x="317" y="307" text-anchor="middle" class="small">부스팅 반복 횟수</text><text x="500" y="222" text-anchor="middle" class="green">최저 RMSE</text>
+  <rect x="600" y="64" width="262" height="78" rx="12" class="rule"/>
+  <text x="731" y="91" text-anchor="middle" class="green">선택: 160회</text><text x="731" y="115" text-anchor="middle" class="small">검증 RMSE 0.014137</text><text x="731" y="132" text-anchor="middle" class="small">테스트 결과를 보고 고른 값이 아님</text>
+  <text x="600" y="183" class="head">2 · 선택을 고정하고 테스트한다</text>
+  <rect x="600" y="204" width="262" height="103" rx="12" class="card"/>
+  <text x="731" y="234" text-anchor="middle" fill="#9b3f1d" font-size="13" font-weight="700">테스트 총수익 성과</text>
+  <text x="731" y="264" text-anchor="middle" fill="#b54724" font-size="21" font-weight="700">CAGR −2.2%</text>
+  <text x="731" y="291" text-anchor="middle" class="small">샤프 비율 −0.05</text>
 </svg>
