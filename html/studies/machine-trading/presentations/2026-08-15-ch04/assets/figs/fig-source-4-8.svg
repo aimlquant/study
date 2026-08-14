@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="32 12 700 396" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="32 12 552 359" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
   <defs>
     <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
     <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
@@ -75,15 +75,4 @@
 <text class="goodt an-m halo" x="222" y="356">마진</text>
 <path class="a" d="M512,112 L396,100"/>
 <text class="labl" x="502" y="88">서포트 벡터</text>
-<text class="sl" x="502" y="130">초평면에 가장 가까운 점들.</text>
-<text class="sl" x="502" y="148">이들만이 경계 위치를 정한다.</text>
-<text class="labl" x="502" y="192" fill="#1B6B3A">마진을 넓게 잡는 이유</text>
-<text class="sl" x="502" y="214">한쪽에 아슬아슬하게 붙은 선은</text>
-<text class="sl" x="502" y="232">새 데이터가 조금만 달라져도</text>
-<text class="sl" x="502" y="250">반대편으로 넘어가 오분류된다.</text>
-<text class="sl" x="502" y="274">가장 멀찍이 떨어진 선을 고르면</text>
-<text class="sl" x="502" y="292">데이터가 흔들려도 올바른 쪽에</text>
-<text class="sl" x="502" y="310">남는다 — 표본 외 안전 여유다.</text>
-<text class="sl" x="40" y="380">m차원 공간의 한 점이 표본 하나다(m 은 예측변수의 수). 실제 데이터는 이렇게 순순히 갈라지지 않으므로,</text>
-<text class="sl" x="40" y="398">마진을 최대화하는 동시에 오분류된 점에 벌점을 매기는 항을 함께 최소화해 최선의 초평면을 찾는다.</text>
 </svg>
