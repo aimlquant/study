@@ -458,7 +458,7 @@ accuracy, _ = chronological_cv_classification(svm, x_train, labels)</code></pre>
       <figure class="report-figure" id="source-figure-4-9" data-deck-use="required" data-source-kind="figure" data-source-ref="4.9">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 13</span><span class="asset-caption__title">교차 검증을 사용한 서포트 벡터 머신(SPY 테스트셋)</span></figcaption>
         <img src="assets/figs/fig-source-4-9.svg" alt="2009년 9월부터 2014년 6월까지의 표본 외 누적 수익 곡선이 면적으로 채워진 채 거의 일정한 기울기로 꾸준히 상승한다. 오른쪽 끝 음영 구간에 최근 구간에도 꺾이지 않는다는 표시가 있고, 오른쪽 위에 표본 외 CAGR 13.3퍼센트 샤프 0.8, 이 장 SPY 실험 중 가장 좋다는 표시가 있다.">
-        <small class="asset-note">기울기가 구간마다 어떻게 달라지는지를 보는 그림이다. 앞선 평균회귀 모델들과 달리 최근 기간에도 성과가 꺾이지 않는다. 저자는 이 초과 성과가 기본 버전의 SVM 이 만드는 모델이 진짜로 선형이기 때문일 것이라고 본다 — 결국 그것은 하나의 초평면일 뿐이고, 분류 트리는 기껏해야 구간별 선형으로만 볼 수 있다. 선형 모델은 과적합을 피하고 표본 외 데이터에서 더 나은 결과를 낸다. 흥미롭게도 이 선형 모델은 학습셋에서는 오히려 더 나쁜 성적을 내는데 아마 같은 이유 때문일 것이다. 교재가 서술한 구간별 지속성과 보고된 지표를 담은 AIML Quant 모식도다.</small>
+        <small class="asset-note">기울기가 구간마다 어떻게 달라지는지를 보는 그림이다. 표본 외 CAGR 은 13.3%, 샤프 비율은 0.8 이다. 앞선 평균회귀 모델들과 달리 최근 기간에도 성과가 꺾이지 않는다. 저자는 이 초과 성과가 기본 버전의 SVM 이 만드는 모델이 진짜로 선형이기 때문일 것이라고 본다 — 결국 그것은 하나의 초평면일 뿐이고, 분류 트리는 기껏해야 구간별 선형으로만 볼 수 있다. 선형 모델은 과적합을 피하고 표본 외 데이터에서 더 나은 결과를 낸다. 흥미롭게도 이 선형 모델은 학습셋에서는 오히려 더 나쁜 성적을 내는데 아마 같은 이유 때문일 것이다. 교재가 서술한 구간별 지속성과 보고된 지표를 담은 AIML Quant 모식도다.</small>
       </figure>
     </section>
 
@@ -735,7 +735,7 @@ daily = gross / np.nansum(np.abs(positions), axis=1)</code></pre>
       <figure class="report-figure" id="source-figure-4-13" data-deck-use="required" data-source-kind="figure" data-source-ref="4.13">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 18</span><span class="asset-caption__title">펀더멘털 요인을 사용한 SPX 구성 종목에 대한 단계적 회귀</span></figcaption>
         <img src="assets/figs/fig-source-4-13.svg" alt="2007년 1월부터 2013년 12월까지의 누적 수익 곡선이 초록색으로 거의 일정한 기울기로 꾸준히 상승한다. 그래프 아래에는 보유라고 표시된 띠가 있고 그 안에 63거래일 보유 구간을 나타내는 아홉 개의 막대가 겹쳐 쌓이듯 배열되어 있다. 오른쪽 위에 표본 외 CAGR 4퍼센트 샤프 1.1, 샤프 1 초과로 통계적으로 유의하다는 표시가 있다.">
-        <small class="asset-note">곡선의 <strong>기울기가 얼마나 고른가</strong> 를 앞선 SPY 그림들과 대조해 읽는다. 아래 띠는 63거래일 보유 구간이 겹쳐 쌓이는 모습이며, 그래서 총 손익을 63 으로 나눠야 레버리지되지 않은 일별 수익이 된다. 앞선 SPY 기반 실험들과 달리 샤프 비율이 1 을 넘어 통계적으로 유의한데, 저자는 이를 여러 종목을 집계해 데이터를 크게 늘린 효과로 본다. 교재가 서술한 지속적 상승과 보고된 지표를 담은 AIML Quant 모식도다.</small>
+        <small class="asset-note">곡선의 <strong>기울기가 얼마나 고른가</strong> 를 앞선 SPY 그림들과 대조해 읽는다. 아래 띠는 63거래일 보유 구간이 겹쳐 쌓이는 모습이며, 그래서 총 손익을 63 으로 나눠야 레버리지되지 않은 일별 수익이 된다. 표본 외 CAGR 은 4%, 샤프 비율은 1.1 이다. 앞선 SPY 기반 실험들과 달리 샤프 비율이 1 을 넘어 통계적으로 유의한데, 저자는 이를 여러 종목을 집계해 데이터를 크게 늘린 효과로 본다. 교재가 서술한 지속적 상승과 보고된 지표를 담은 AIML Quant 모식도다.</small>
       </figure>
     </section>
 
