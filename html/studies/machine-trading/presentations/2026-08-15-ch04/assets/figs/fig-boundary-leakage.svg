@@ -41,7 +41,7 @@
       .an-e{text-anchor:end}
     </style>
   </defs>
-<text class="tl" x="16" y="26">원본 분할 — lr.m · stepwiseLR.m</text>
+<text class="tl" x="16" y="26">보고값을 계산한 학습·테스트 분할</text>
 <rect class="muted" x="16" y="38" width="404" height="42" rx="9"/>
 <text class="mutedt an-m" x="218" y="56">학습셋 예측변수 행 1,158개</text>
 <text class="s an-m" x="218" y="72">2004-12-22 → 2009-09-15</text>
@@ -49,7 +49,7 @@
 <text class="lab an-m" x="567" y="56">테스트셋</text>
 <text class="s an-m" x="567" y="72">2009-09-16 → 2014-06-02</text>
 <path class="ar" d="M400,84 C400,116 470,116 470,84"/>
-<text class="tl" x="16" y="180">경계 수정본 — 이 리포트의 재현 감사</text>
+<text class="tl" x="16" y="180">미래 목표값을 제외한 Python 분할</text>
 <rect class="good" x="16" y="192" width="392" height="42" rx="9"/>
 <text class="goodt an-m" x="212" y="210">학습셋 예측변수 행 1,157개</text>
 <text class="s an-m" x="212" y="226">2004-12-22 → 2009-09-14</text>
@@ -59,8 +59,8 @@
 <rect class="box" x="16" y="252" width="690" height="82" rx="10"/>
 <path class="grid" d="M16,274 H706"/>
 <text class="tl" x="30" y="268">표본 외 CAGR</text>
-<text class="s an-e" x="330" y="268">원본 분할</text>
-<text class="s an-e" x="450" y="268">경계 수정본</text>
+<text class="s an-e" x="330" y="268">보고값 분할</text>
+<text class="s an-e" x="450" y="268">경계 수정</text>
 <text class="sl" x="474" y="268">해석</text>
 <text class="sl" x="30" y="296">다중 회귀 · 예측변수 4개</text>
 <text class="s an-e" x="330" y="296">0.4%</text>
@@ -69,5 +69,5 @@
 <text class="sl" x="30" y="322">단계적 회귀 · ret2 하나</text>
 <text class="s an-e" x="330" y="322">10.6%</text>
 <text class="goodt an-e" x="450" y="322">10.7%</text>
-<text class="sl" x="474" y="322" style="font-size:10px">교재의 핵심 대비는 유지된다</text>
+<text class="sl" x="474" y="322" style="font-size:10px">두 모델의 핵심 대비는 유지된다</text>
 </svg>

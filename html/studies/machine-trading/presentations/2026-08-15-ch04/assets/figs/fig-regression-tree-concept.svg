@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" role="img" aria-labelledby="title desc">
+  <title id="title">회귀 트리가 학습하고 예측하는 과정</title><desc id="desc">질문 후보를 비교해 MSE가 가장 작아지는 분할을 고르고 잎의 평균값을 예측한다</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#0f2c59"/></marker><style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","NanumGothic",Inter,system-ui,sans-serif;fill:#172033}.box{fill:#fff;stroke:#0f2c59;stroke-width:2}.good{fill:#e8f3ec;stroke:#1b6b3a}.line{fill:none;stroke:#0f2c59;stroke-width:2;marker-end:url(#a)}.h{font-size:14px;font-weight:700;text-anchor:middle}.s{font-size:11px;fill:#5c6677;text-anchor:middle}.yes{font-size:11px;fill:#1b6b3a;font-weight:700}</style></defs>
+  <rect width="760" height="330" rx="14" fill="#fafaf9"/>
+  <rect class="box" x="24" y="100" width="130" height="88" rx="10"/><text class="h" x="89" y="128">전체 학습 데이터</text><text class="s" x="89" y="151">수익률 관측값</text><text class="s" x="89" y="169">평균 0.02% · MSE 큼</text>
+  <path class="line" d="M154 144H184"/>
+  <rect class="box" x="185" y="64" width="166" height="160" rx="10"/><text class="h" x="268" y="91">질문 후보를 모두 시험</text><text class="s" x="268" y="119">ret1 &lt; −1.0% ?</text><text class="s" x="268" y="142">ret2 &lt; 1.5% ?</text><text class="s" x="268" y="165">ret5 &lt; 0.4% ?</text><rect class="good" x="211" y="181" width="114" height="25" rx="6"/><text class="yes" x="226" y="198">MSE 감소 최대</text>
+  <path class="line" d="M351 144H381"/>
+  <rect class="box good" x="382" y="100" width="140" height="88" rx="10"/><text class="h" x="452" y="128">ret2 &lt; 1.5% ?</text><text class="s" x="452" y="151">선택된 첫 질문</text><text class="s" x="452" y="169">두 집단이 더 고르게 됨</text>
+  <path class="line" d="M452 188V235H346V250"/><path class="line" d="M452 188V235H558V250"/>
+  <text class="s" x="377" y="229">예</text><text class="s" x="527" y="229">아니오</text>
+  <rect class="box" x="280" y="250" width="132" height="56" rx="9"/><text class="h" x="346" y="274">왼쪽 잎</text><text class="s" x="346" y="294">평균 +0.12% 예측</text>
+  <rect class="box" x="492" y="250" width="132" height="56" rx="9"/><text class="h" x="558" y="274">오른쪽 잎</text><text class="s" x="558" y="294">평균 −0.08% 예측</text>
+  <path class="line" d="M624 278H662"/><rect class="box good" x="663" y="242" width="74" height="72" rx="9"/><text class="h" x="700" y="270">새 관측</text><text class="s" x="700" y="290">질문을 따라</text><text class="s" x="700" y="304">잎 평균 출력</text>
+</svg>
