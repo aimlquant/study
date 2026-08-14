@@ -210,6 +210,133 @@
   window.addEventListener("resize", fitStage);
   window.addEventListener("beforeprint", () => document.body.classList.remove("chrome-hidden"));
 
+  // ===== Syntax highlighting =====
+  // report.js 와 같은 토크나이저다. 외부 의존성을 싣지 않는 템플릿이라 CDN
+  // 하이라이터를 쓸 수 없다. MATLAB 은 작은따옴표를 문자열과 전치에 함께 쓰므로
+  // 바로 앞 글자가 식별자·닫는 괄호·점이면 전치로 본다.
+  const SYNTAX_GRAMMARS = {
+    python: {
+      comment: "#",
+      quotes: "'\"",
+      transposeQuote: false,
+      keywords: " and as assert async await break class continue def del elif else" +
+        " except finally for from global if import in is lambda nonlocal not or" +
+        " pass raise return try while with yield ",
+      literals: " True False None ",
+    },
+    matlab: {
+      comment: "%",
+      quotes: "'\"",
+      transposeQuote: true,
+      keywords: " break case catch continue else elseif end for function global" +
+        " if otherwise persistent return switch try while ",
+      literals: " true false NaN Inf ",
+    },
+    bash: {
+      comment: "#",
+      quotes: "'\"",
+      transposeQuote: false,
+      keywords: " case cd do done elif else esac export fi for function if in" +
+        " local return then while ",
+      literals: "",
+    },
+  };
+
+  const escapeCode = (text) => text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  function tokenizeCode(source, grammar) {
+    let out = "";
+    let index = 0;
+    const length = source.length;
+    let previous = "";
+
+    const emit = (cls, text) => {
+      out += `<span class="tok-${cls}">${escapeCode(text)}</span>`;
+    };
+
+    while (index < length) {
+      const ch = source.charAt(index);
+
+      if (ch === "\n") {
+        out += "\n";
+        previous = "";
+        index += 1;
+        continue;
+      }
+
+      if (ch === grammar.comment) {
+        let lineEnd = source.indexOf("\n", index);
+        if (lineEnd < 0) lineEnd = length;
+        emit("com", source.slice(index, lineEnd));
+        index = lineEnd;
+        continue;
+      }
+
+      if (grammar.quotes.indexOf(ch) >= 0) {
+        const isTranspose = grammar.transposeQuote && ch === "'" &&
+          /[A-Za-z0-9_)\]}.]/.test(previous);
+        if (!isTranspose) {
+          let cursor = index + 1;
+          while (cursor < length && source.charAt(cursor) !== ch &&
+                 source.charAt(cursor) !== "\n") {
+            if (!grammar.transposeQuote && source.charAt(cursor) === "\\") cursor += 1;
+            cursor += 1;
+          }
+          if (cursor < length && source.charAt(cursor) === ch) cursor += 1;
+          emit("str", source.slice(index, cursor));
+          index = cursor;
+          previous = "'";
+          continue;
+        }
+      }
+
+      if (ch >= "0" && ch <= "9" && !/[A-Za-z0-9_.]/.test(previous)) {
+        const number = /^[0-9][0-9_]*(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?/
+          .exec(source.slice(index))[0];
+        emit("num", number);
+        index += number.length;
+        previous = "0";
+        continue;
+      }
+
+      if (/[A-Za-z_]/.test(ch)) {
+        const word = /^[A-Za-z_][A-Za-z0-9_]*/.exec(source.slice(index))[0];
+        let cls = "";
+        if (grammar.keywords.indexOf(` ${word} `) >= 0) cls = "kw";
+        else if (grammar.literals.indexOf(` ${word} `) >= 0) cls = "lit";
+        else if (source.charAt(index + word.length) === "(") cls = "fn";
+        if (cls) emit(cls, word);
+        else out += escapeCode(word);
+        index += word.length;
+        previous = "a";
+        continue;
+      }
+
+      out += escapeCode(ch);
+      if (!/\s/.test(ch)) previous = ch;
+      index += 1;
+    }
+
+    return out;
+  }
+
+  function highlightCodeBlocks() {
+    document.querySelectorAll('pre > code[class*="language-"]').forEach((code) => {
+      if (code.dataset.highlighted === "true") return;
+      const match = /language-([a-z0-9]+)/.exec(code.className);
+      const grammar = match && SYNTAX_GRAMMARS[match[1]];
+      if (!grammar) return;
+      code.innerHTML = tokenizeCode(code.textContent, grammar);
+      code.dataset.highlighted = "true";
+    });
+  }
+
+  // stage 크기를 재기 전에 칠해 둔다.
+  highlightCodeBlocks();
+
   buildToc();
   fitStage();
   applyTheme(savedTheme() === "dark" ? "dark" : "light");

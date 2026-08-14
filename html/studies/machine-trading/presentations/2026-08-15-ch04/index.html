@@ -155,17 +155,15 @@
     <section class="slide" aria-label="다중 회귀 벤치마크" data-report-refs="source-section-4-1-1 stepwise" data-source-refs="section:4.1.1" data-source-title="section:4.1.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1.1</span></header>
       <h1 class="source-title">먼저 평범한 다중 회귀부터 — 벤치마크 만들기</h1>
-      <p class="lead">네 예측변수를 모두 한꺼번에 적합한다. <code>fitlm</code> 은 상수항을 자동으로 넣으므로 1로 채운 열이 필요 없다.</p>
+      <p class="lead">네 예측변수를 모두 한꺼번에 적합한다. 교재 원본은 <code>fitlm</code> 한 줄이고, Python 은 상수항 열을 직접 붙인 뒤 최소제곱을 푼다.</p>
       <div class="slide-body">
         
         <div class="code-layout">
-          <pre class="code-block" data-code-language="MATLAB"><code class="language-matlab">model_train = fitlm([ret1(trainset) ret2(trainset) ...
-                     ret5(trainset) ret20(trainset)], ...
-                    retFut1(trainset), 'linear')
+          <pre class="code-block" data-code-language="Python"><code class="language-python">design = np.column_stack([np.ones(len(x)), x])
+beta, *_ = np.linalg.lstsq(design, y, rcond=None)
 
-retPred1 = predict(model, [...]);
-positions(retPred1 &gt; 0) =  1;   % 1달러 매수, 하루 보유
-positions(retPred1 &lt; 0) = -1;   % 1달러 공매도, 하루 보유</code></pre>
+prediction = design_test @ beta
+positions = np.r_[0.0, np.sign(prediction)[:-1]]</code></pre>
           <article class="panel">
             <p class="eyebrow">같은 규칙, 두 구간</p>
             <h2>34.3% · 샤프 1.4</h2>
@@ -174,7 +172,7 @@ positions(retPred1 &lt; 0) = -1;   % 1달러 공매도, 하루 보유</code></pr
             <p>테스트셋(2009-09-16 ~ 2014-06-02) — 무작위와 다를 바 없다.</p>
           </article>
         </div>
-        <p class="takeaway"><strong>이것이 벤치마크</strong> — 단계적 회귀가 넘어서야 할 손쉬운 기준선이다. 전체 코드는 <code>lr.m</code>.</p>
+        <p class="takeaway"><strong>이것이 벤치마크</strong> — 단계적 회귀가 넘어서야 할 손쉬운 기준선이다. 교재 원본 <code>lr.m</code>, 재현 <code>run_chapter4_analysis.py</code>.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 단계적 회귀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -192,10 +190,10 @@ positions(retPred1 &lt; 0) = -1;   % 1달러 공매도, 하루 보유</code></pr
           </article>
           <article class="panel panel--accent">
             <p class="eyebrow">구현</p>
-            <h2>함수 이름 하나만 바꾼다</h2>
-            <pre class="code-block" data-code-language="MATLAB"><code class="language-matlab">model = stepwiselm([...], ...
-    retFut1(trainset), 'Upper', 'linear')</code></pre>
-            <p><code>'Upper','linear'</code> 는 독립변수들의 곱이 아니라 선형 함수만 쓰겠다는 뜻이다.</p>
+            <h2>p값이 가장 작은 하나를 고른다</h2>
+            <pre class="code-block" data-code-language="Python"><code class="language-python"># 후보별 p값 중 최소
+best = min(pvals, key=pvals.get)</code></pre>
+            <p>교재는 <code>stepwiselm</code> 한 줄로 끝낸다. 재현은 네 후보의 p값을 직접 재고 그중 최소를 고른다 — 이 장의 반전이 어디서 오는지 보이게 하려는 것이다.</p>
           </article>
         </div>
         <p class="takeaway"><strong>절제의 원천</strong> — 벌점 항이 있기 때문에 변수를 무작정 늘리지 않는다.</p>
@@ -298,16 +296,16 @@ positions(retPred1 &lt; 0) = -1;   % 1달러 공매도, 하루 보유</code></pr
     <section class="slide" aria-label="K를 5로 고른 이유" data-report-refs="source-section-4-3-1 cross-validation" data-source-refs="section:4.3.1" data-source-title="section:4.3.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.3.1</span></header>
       <h1 class="source-title">왜 K = 10이 아니라 K = 5인가</h1>
-      <p class="lead">MATLAB 기본값은 10 이다. 5 를 고른 이유는 알고리즘이 아니라 데이터 크기에 있다.</p>
+      <p class="lead">MATLAB 기본값은 10 이고 저자는 5 를 골랐다 — 알고리즘이 아니라 데이터 크기 때문이다. 재현은 조각 수보다 <strong>조각을 나누는 방식</strong> 을 바꿨다.</p>
       <div class="slide-body">
         
         <div class="code-layout">
-          <pre class="code-block" data-code-language="MATLAB"><code class="language-matlab">model_cv = fitrtree([...], retFut1(trainset), ...
-    'MinLeafSize', 100, 'CrossVal', 'On', 'KFold', 5);
+          <pre class="code-block" data-code-language="Python"><code class="language-python"># 교재는 무작위 5-겹, 재현은 시간순 5-겹
+splitter = TimeSeriesSplit(n_splits=5)
 
-L = kfoldLoss(model_cv, 'mode', 'individual');
-[~, minLidx] = min(L);
-bestTree = model_cv.Trained{minLidx};</code></pre>
+for train, validation in splitter.split(x):
+    fitted = clone(tree).fit(x[train], y[train])
+    prediction = fitted.predict(x[validation])</code></pre>
           <article class="panel">
             <p class="eyebrow">K 가 너무 크면</p>
             <p>남겨 두는 조각이 작아져 점수가 통계적 오차에 휘둘린다. 뽑힌 최선 트리가 테스트셋에서 좋으리란 보장이 없다.</p>
@@ -491,16 +489,17 @@ bestTree = model_cv.Trained{minLidx};</code></pre>
       <div class="slide-body">
         
         <div class="code-layout">
-          <pre class="code-block" data-code-language="MATLAB"><code class="language-matlab">pemis = NaN(2, size(data, 1));
-for t = 1:size(data, 1)-1
-    [pstates] = hmmdecode(data(1:t)', T, E);
-    pemis(:, t+1) = E'*T'*pstates(:, end);
-end</code></pre>
+          <pre class="code-block" data-code-language="Python"><code class="language-python"># 교재는 매 시점 이력 전체를 다시 훑는다
+alpha = prior * E[:, obs[0]]
+for t in range(len(obs) - 1):
+    alpha = (alpha @ T) * E[:, obs[t]]
+    alpha = alpha / alpha.sum()
+    forecast[:, t + 1] = E.T @ T.T @ alpha</code></pre>
           <article class="panel">
-            <p class="eyebrow">구조적 제약</p>
-            <p>매 시점 <strong>이전에 관측한 모든 데이터</strong> 를 다시 넣어야 한다 — 온라인 알고리즘이 아니다.</p>
-            <p class="eyebrow">대조</p>
-            <p>연속형 사촌인 칼만 필터는 온라인이라 추정치를 그때그때 갱신할 수 있었다(3장).</p>
+            <p class="eyebrow">교재의 구조적 제약</p>
+            <p>교재 코드는 매 시점 <code>hmmdecode(data(1:t))</code> 로 <strong>이전에 관측한 모든 데이터</strong> 를 다시 넣는다 — 계산량이 길이의 제곱으로 는다.</p>
+            <p class="eyebrow">재현이 바꾼 것</p>
+            <p>전방 확률 <code>alpha</code> 하나만 들고 한 걸음씩 갱신하면 결과는 같고 한 번만 훑는다. 연속형 사촌인 칼만 필터가 쓰던 바로 그 온라인 갱신이다(3장).</p>
           </article>
         </div>
         <p class="takeaway"><strong>성적</strong> — 학습셋 CAGR 8.7%. 테스트셋은 교재 본문이 1%로 적지만, 저자 코드 <code>hmm_test.m</code> 의 출력 주석은 −1.0%를 기록한다.</p>
@@ -518,7 +517,7 @@ end</code></pre>
           <article class="panel"><p class="eyebrow">쓸모</p><h2>명확히 정의된 답</h2><p>누군가 지금이 강세장인지 약세장인지 묻거든 HMM 에 물어 정의된 답을 줄 수 있다. 케이블 TV 해설자 둘도 합의하지 못하는 그 질문이다.</p></article>
           <article class="panel"><p class="eyebrow">저자의 단서</p><h2>국면은 이론적 구성물이다</h2><p>궁극적으로 우리는 기대수익률에만 관심이 있다. 국면도, 국면 전환도 이론적 구성물일 뿐이라는 것이 주석 7 의 경고다.</p></article>
         </div>
-        <p class="takeaway"><strong>이름 붙이기의 자유</strong> — 강세·약세 대신 위험선호·위험회피, 탐욕·공포라 불러도 알고리즘은 알아차리지 못한다.</p>
+        <p class="takeaway"><strong>이름 붙이기의 자유</strong> — 강세·약세 대신 위험선호·위험회피, 탐욕·공포라 불러도 알고리즘은 알아차리지 못한다. 이 장에서 유일하게 <strong>재현한 Python 이 없는 코드</strong> 다. 백테스트는 전방 확률로 돌렸고 비터비 경로는 다시 구현하지 않았다.</p>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · HMM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -545,13 +544,15 @@ end</code></pre>
     <section class="slide" aria-label="가장 단순한 네트워크와 과적합" data-report-refs="source-section-4-10-2 neural-network" data-source-refs="section:4.10.2" data-source-title="section:4.10.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.10.2</span></header>
       <h1 class="source-title">가장 단순한 네트워크부터 — 그리고 과적합과의 싸움</h1>
-      <p class="lead">은닉층 하나, 뉴런 하나로 시작한다. 가중치 초기값에 무작위성이 있어 매번 다른 국소 최솟값에 수렴한다.</p>
+      <p class="lead">은닉층 하나, 뉴런 하나로 시작한다. 가중치 초기값이 무작위라 교재는 조기 종료를, 재현은 시드 열 개 평균을 쓴다.</p>
       <div class="slide-body">
         
         <div class="code-layout">
-          <pre class="code-block" data-code-language="MATLAB"><code class="language-matlab">net.divideParam.trainRatio = 0.6;  % 예측 오차 최소화에 쓸 비율
-net.divideParam.valRatio   = 0.4;  % 조기 종료용 검증 데이터
-net.divideParam.testRatio  = 0;    % 백테스트용 테스트셋은 따로 있다</code></pre>
+          <pre class="code-block" data-code-language="Python"><code class="language-python"># 조기 종료 대신 시드 열 개를 평균한다
+MLPRegressor(hidden_layer_sizes=(8, 4),
+             activation="tanh", alpha=0.01,
+             max_iter=500, early_stopping=False,
+             random_state=seed)</code></pre>
           <article class="panel">
             <p class="eyebrow">아키텍처를 키워 본 결과 · 표본 내 → 표본 외</p>
             <h2>19% → −4%</h2>
