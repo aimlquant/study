@@ -49,8 +49,12 @@
   function getLabel(target) {
     const item = target.closest(".deck-figure-pair__item");
     const figure = target.closest("figure");
-    const caption = item?.querySelector("strong") || figure?.querySelector("figcaption b, figcaption strong, figcaption");
-    return caption?.textContent.trim() || target.getAttribute("alt") || "확대 이미지";
+    const itemTitle = item?.querySelector("strong")?.textContent.trim();
+    const figureTitle = figure?.dataset.deckFigureTitle;
+    const figureNumber = figure?.dataset.deckFigureNumber;
+    if (itemTitle) return itemTitle;
+    if (figureTitle && figureNumber) return `그림 ${figureNumber} · ${figureTitle}`;
+    return figureTitle || target.getAttribute("alt") || "확대 이미지";
   }
 
   function constrainPan() {

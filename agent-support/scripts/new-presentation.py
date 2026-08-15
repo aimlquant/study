@@ -24,6 +24,13 @@ TOKEN_RE = re.compile(r"{{[A-Z0-9_]+}}")
 CAPTION_NUMBER_RE = re.compile(r'asset-caption__chip">(?:\s*)(그림|표)\s+([1-9][0-9]*)')
 MERGE_MARKER_RE = re.compile(r"(?m)^(?:<<<<<<<(?: .*)?|=======|>>>>>>>(?: .*)?)$")
 STANDALONE_CSS_PLUS_RE = re.compile(r"(?m)^\s*\+\s*$")
+AUDIENCE_TEMPLATE_BANNED = (
+    "AIML Quant 재구성",
+    "AIML Quant 재현 코드다",
+    "교재 그림 [원본 번호]",
+    "책임의 이동",
+    "핵심 긴장",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -110,7 +117,28 @@ def validate_template_sources(template: Path, report_template: Path) -> None:
             if path.suffix.lower() == ".css" and STANDALONE_CSS_PLUS_RE.search(text):
                 raise ValueError(f"standalone '+' diff artifact in template CSS: {path}")
 
+    deck_html = (template / "index.html").read_text(encoding="utf-8")
     report_html = (report_template / "index.html").read_text(encoding="utf-8")
+    for phrase in AUDIENCE_TEMPLATE_BANNED:
+        for label, content in (("deck", deck_html), ("report", report_html)):
+            if phrase in content:
+                raise ValueError(
+                    f"audience-facing {label} template contains authoring boilerplate: "
+                    f"{phrase!r}"
+                )
+
+    deck_runtime = (template / "assets" / "deck.js").read_text(encoding="utf-8")
+    for contract in ("deckAppendix", "numberFigures", "deckFigureNumber"):
+        if contract not in deck_runtime:
+            raise ValueError(f"deck runtime is missing publication contract: {contract}")
+    deck_script = deck_html.find('src="assets/deck.js"')
+    lightbox_script = deck_html.find('src="assets/deck-lightbox.js"')
+    if deck_script < 0 or lightbox_script < 0 or deck_script > lightbox_script:
+        raise ValueError(
+            "deck.js must run before deck-lightbox.js so active-mode figure numbers "
+            "become accessible lightbox labels"
+        )
+
     numbers: dict[str, list[int]] = {"그림": [], "표": []}
     for kind, number in CAPTION_NUMBER_RE.findall(report_html):
         numbers[kind].append(int(number))
