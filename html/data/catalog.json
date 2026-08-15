@@ -263,15 +263,16 @@
       ],
       "date": "2026-08-15",
       "id": "2026-08-15-machine-trading-ch04",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-08-15-machine-trading-ch04/",
       "presenters": [
         "태영"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-trading-2026",
-      "title": "Chapter 4. 인공지능 기법"
+      "title": "Chapter 4. 인공지능 기법",
+      "youtube_url": "https://www.youtube.com/watch?v=DDzVHsUsaJY",
+      "youtube_video_id": "DDzVHsUsaJY"
     },
     {
       "artifacts": [
@@ -291,15 +292,16 @@
       ],
       "date": "2026-08-15",
       "id": "2026-08-15-kg-llm-ch05",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-08-15-kg-llm-ch05/",
       "presenters": [
         "두균"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 5. 비정형 데이터에서 도메인 특화 지식 추출"
+      "title": "Chapter 5. 비정형 데이터에서 도메인 특화 지식 추출",
+      "youtube_url": "https://www.youtube.com/watch?v=SBPWeDYj2Mg",
+      "youtube_video_id": "SBPWeDYj2Mg"
     },
     {
       "artifacts": [
