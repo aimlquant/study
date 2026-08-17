@@ -160,7 +160,7 @@
     <section class="slide" aria-label="정규화 질의 읽기" data-report-refs="source-6-1-3 source-listing-6-1" data-source-refs="listing:6.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE · Listing 6.1</span></header>
       <h1>Listing 6.1은 결과를 원래 이름이 아니라 새 속성에 적는다</h1>
-      <p class="lead">전제: Entity 노드가 이미 적재되어 있고, Person·Occupation은 label 속성 값이며, apoc.text.join은 APOC 플러그인을 필요로 한다.</p>
+      <p class="lead">전제: Entity 노드가 적재돼 있고, apoc.text.join은 APOC 플러그인을 필요로 한다.</p>
       <div class="slide-body">
         <div class="code-layout">
           <pre data-code-language="Cypher"><code>MATCH (e:Entity {label: &quot;Person&quot;})
@@ -256,8 +256,8 @@ SET e.name_normalized = name</code></pre>
 
     <section class="slide slide--visual" aria-label="매개 중심성 네트워크" data-report-refs="source-6-2 source-figure-6-4" data-source-refs="figure:6.4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
-      <h1>큰 원은 인기 있는 사람이 아니라 빼면 끊기는 사람이다</h1>
-      <p class="lead">매개 중심성은 그 노드를 지나는 최단 경로 수를 센다. 유명 과학자와 함께 덜 알려진 인물이 부각되는 것이 조사할 신호다.</p>
+      <h1>큰 원은 인기가 아니라 교량 역할을 뜻한다</h1>
+      <p class="lead">매개 중심성은 그 노드를 지나는 최단 경로 수를 센다. 덜 알려진 인물이 함께 부각되는 것이 조사할 신호다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-6-4-influence-network-betweenness.svg" alt="여러 연구자 집단을 소수의 큰 노드가 잇는 지적 영향력 네트워크">
@@ -270,7 +270,7 @@ SET e.name_normalized = name</code></pre>
     <section class="slide" aria-label="사이클로트론 질의 읽기" data-report-refs="source-6-2 source-listing-6-2" data-source-refs="listing:6.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE · Listing 6.2</span></header>
       <h1>Listing 6.2는 두 홉을 허용해 “추천의 추천”까지 본다</h1>
-      <p class="lead">오른쪽 끝의 Occupation에서 시작해 왼쪽으로 읽는다. 전제: 최종 KG 층이 만들어져 있고 직업 이름은 소문자로 저장돼 있다.</p>
+      <p class="lead">오른쪽 끝 Occupation에서 시작해 왼쪽으로 읽는다. 직업 이름은 정규화 단계에서 소문자로 저장돼 있다.</p>
       <div class="slide-body">
         <div class="code-layout">
           <pre data-code-language="Cypher"><code>MATCH path = ()&lt;-[:WORKS_ON|WORKS_FOR]-(p2:Person)
@@ -294,7 +294,7 @@ RETURN path</code></pre>
     <section class="slide slide--visual" aria-label="사이클로트론 부분그래프" data-report-refs="source-6-2 source-figure-6-5" data-source-refs="figure:6.5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
       <h1>노드 크기는 전역 페이지랭크이지 이 부분그래프의 중요도가 아니다</h1>
-      <p class="lead">어니스트 로런스와 닐스 보어 외에 할로 섀플리, 제임스 B. 코넌트가 가까이 나타난다. 하버드는 사이클로트론을 만들었다.</p>
+      <p class="lead">로런스와 보어 외에 할로 섀플리, 제임스 B. 코넌트가 가까이 나타난다. 하버드는 사이클로트론을 만들었다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-6-5-cyclotron-influence-pagerank.svg" alt="사이클로트론 직업을 중심으로 두 홉 이내에 놓인 인물, 기관, 직업 노드와 잘못 포함된 인물">
@@ -321,7 +321,7 @@ RETURN path</code></pre>
     <section class="slide slide--visual" aria-label="두 대학을 잇는 인물" data-report-refs="source-6-2 source-figure-6-6" data-source-refs="figure:6.6">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
       <h1>그래프는 “누구에게 묻고 누구 말만 들으면 기우는지”를 함께 알려 준다</h1>
-      <p class="lead">어빙 랭뮤어는 두 대학 모두와 한 홉으로 이어진다. 다만 그는 버널에게, 버널은 도러시 링치에게 부정적 태도를 보인다.</p>
+      <p class="lead">어빙 랭뮤어는 두 대학 모두와 한 홉으로 이어지지만, 그는 버널에게 부정적 태도를 보인다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/fig-6-6-jhu-harvard-physics-bridge.svg" alt="존스홉킨스와 하버드 소속 인물을 잇는 중간 인물들, 감정이 붙은 관계, 해소되지 않은 중복 노드">
@@ -335,10 +335,10 @@ RETURN path</code></pre>
       <p class="eyebrow">SECTION 6.3</p><h1 class="source-title">6.3 록펠러 아카이브 센터 프로젝트의 다음 단계 — 프로덕션급 프로젝트로 나아가기 위해</h1><p>남은 과제는 더 좋은 모델이 아니라 더 나은 구조와 해소다</p><span class="section-number">6.3</span>
     </section>
 
-    <section class="slide" aria-label="프로덕션으로 가는 과제" data-report-refs="source-6-3 table-next-steps" data-source-refs="section:6.3">
+    <section class="slide" aria-label="추출과 해소를 다듬는 과제" data-report-refs="source-6-3 table-next-steps" data-source-refs="section:6.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.3</span></header>
       <h1>앞의 결과는 150페이지 표본 위에 서 있다</h1>
-      <p class="lead">그럼에도 지식 그래프의 복잡성은 충분히 드러났다. 프로덕션 품질로 가려면 여섯 가지가 남는다.</p>
+      <p class="lead">그럼에도 지식 그래프의 복잡성은 충분히 드러났다. 먼저 추출과 해소의 품질을 올리는 세 과제가 남는다.</p>
       <div class="slide-body">
         <table class="compare-table compare-table--dense">
           <thead><tr><th>과제</th><th>무엇을 하는가</th><th>무엇이 열리는가</th></tr></thead>
@@ -346,6 +346,21 @@ RETURN path</code></pre>
             <tr><td>지식 추출 개선</td><td>프롬프트 반복 또는 LLM 파인튜닝</td><td>그래프 정확도 향상</td></tr>
             <tr><td>여러 페이지 문서</td><td>ChatGPT-3.5-Turbo로 일지 항목 경계를 식별해 동시 처리</td><td>토큰 한도 안에서 의미 단위 유지</td></tr>
             <tr><td>개체 해소 확장</td><td>다른 개체로 확장하고 WikiData 등으로 중의성 해소 보완</td><td>외부 지식과 연결된 식별자</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>공통점</strong> — 세 과제 모두 모델 성능이 아니라 처리 단위와 식별자 품질을 다룬다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 다음 단계 (1/2)</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="그래프를 넓히는 과제" data-report-refs="source-6-3 table-next-steps" data-source-refs="section:6.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.3</span></header>
+      <h1>나머지 셋은 그래프가 답할 수 있는 질문을 넓힌다</h1>
+      <p class="lead">보조금과 대화를 노드로 들이면 “추천이 자금 지원으로 이어졌는가”를 물을 수 있게 된다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>과제</th><th>무엇을 하는가</th><th>무엇이 열리는가</th></tr></thead>
+          <tbody>
             <tr><td>보조금 추가</td><td>이사회 회의록의 보조금을 일지 대화에 연결</td><td>“추천이 자금 지원으로 이어졌는가”에 답</td></tr>
             <tr><td>직업 해소</td><td>임베딩 후 병합 계층적 군집화</td><td>핵물리학·동위원소·중질소의 포함 관계 연결</td></tr>
             <tr><td>대화 노드</td><td>날짜·인터뷰어·인터뷰이·주제로 Conversation 생성</td><td>후속 연쇄 식별과 보조금 연결</td></tr>
@@ -353,7 +368,7 @@ RETURN path</code></pre>
         </table>
         <p class="takeaway"><strong>관찰</strong> — 여섯 중 넷이 해소와 구조에 관한 항목이다. 모델 교체만으로는 닫히지 않는다.</p>
       </div>
-      <footer class="slide-footer"><span>Chapter 6 · 다음 단계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><span>Chapter 6 · 다음 단계 (2/2)</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--section" aria-label="6.4 지식 그래프의 가치 섹션" data-report-refs="source-6-4 table-value" data-source-refs="section:6.4" data-source-title="section:6.4">
