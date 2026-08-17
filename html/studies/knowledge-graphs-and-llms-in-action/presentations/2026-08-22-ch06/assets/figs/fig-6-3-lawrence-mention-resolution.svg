@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="f63title f63desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;fill:#0f172a}
+    .name{font-size:14px;font-weight:900}
+    .name2{font-size:13.5px;font-weight:800;fill:#334155}
+    .rel{font-size:13px;font-weight:800;fill:#475569}
+    .hop{font-size:14px;font-weight:900;fill:#0f2c59}
+    .line{stroke:#94a3b8;stroke-width:2.5;fill:none}
+    .sim{stroke:#0f2c59;stroke-width:3;fill:none;stroke-dasharray:8 5}
+  </style>
+  <title id="f63title">어니스트 로런스의 세 언급과 이를 잇는 그래프 경로</title>
+  <desc id="f63desc">페이지 26, 126, 99에서 각각 Ernest Orlando Lawrence, Ernest O. Lawrence, Lawrence로 언급된 동일 인물이 소속 기관과 직업 노드를 거쳐 세 홉과 여섯 홉 경로로 연결되는 모습</desc>
+  <rect width="960" height="540" rx="18" fill="#fafaf9"/>
+
+  <circle cx="150" cy="90" r="24" fill="#64748b"/>
+  <text class="t name" x="150" y="136" text-anchor="middle">페이지 26</text>
+  <circle cx="480" cy="90" r="24" fill="#64748b"/>
+  <text class="t name" x="480" y="136" text-anchor="middle">페이지 126</text>
+  <circle cx="810" cy="90" r="24" fill="#64748b"/>
+  <text class="t name" x="810" y="136" text-anchor="middle">페이지 99</text>
+
+  <circle cx="150" cy="250" r="28" fill="#0f2c59"/>
+  <text class="t name" x="150" y="300" text-anchor="middle">Ernest Orlando</text>
+  <text class="t name" x="150" y="318" text-anchor="middle">Lawrence</text>
+
+  <circle cx="480" cy="250" r="28" fill="#0f2c59"/>
+  <text class="t name" x="480" y="300" text-anchor="middle">Ernest O.</text>
+  <text class="t name" x="480" y="318" text-anchor="middle">Lawrence</text>
+
+  <circle cx="810" cy="250" r="28" fill="#0f2c59"/>
+  <text class="t name" x="810" y="300" text-anchor="middle">Lawrence</text>
+
+  <circle cx="250" cy="396" r="24" fill="#0e7490"/>
+  <text class="t name2" x="250" y="440" text-anchor="middle">University of</text>
+  <text class="t name2" x="250" y="457" text-anchor="middle">California</text>
+
+  <circle cx="392" cy="396" r="24" fill="#0e7490"/>
+  <text class="t name2" x="392" y="440" text-anchor="middle">University of</text>
+  <text class="t name2" x="392" y="457" text-anchor="middle">California</text>
+
+  <circle cx="644" cy="396" r="24" fill="#9d174d"/>
+  <text class="t name2" x="644" y="440" text-anchor="middle">100,000,000 to</text>
+  <text class="t name2" x="644" y="457" text-anchor="middle">200,000,000 volt cyclotron</text>
+
+  <circle cx="846" cy="396" r="24" fill="#9d174d"/>
+  <text class="t name2" x="846" y="440" text-anchor="middle">cyclotron</text>
+
+  <path class="line" d="M150 114 V 210"/>
+  <polygon points="143,210 150,222 157,210" fill="#94a3b8"/>
+  <text class="t rel" x="158" y="168">MENTIONS_ENTITY</text>
+
+  <path class="line" d="M480 114 V 210"/>
+  <polygon points="473,210 480,222 487,210" fill="#94a3b8"/>
+  <text class="t rel" x="488" y="168">MENTIONS_ENTITY</text>
+
+  <path class="line" d="M810 114 V 210"/>
+  <polygon points="803,210 810,222 817,210" fill="#94a3b8"/>
+  <text class="t rel" x="700" y="168">MENTIONS_ENTITY</text>
+
+  <path class="line" d="M128 106 C 60 190, 74 330, 224 386"/>
+  <polygon points="222,378 236,391 218,392" fill="#94a3b8"/>
+
+  <path class="line" d="M458 106 C 356 168, 340 306, 372 380"/>
+  <polygon points="366,374 380,390 362,388" fill="#94a3b8"/>
+
+  <path class="line" d="M502 106 C 578 170, 598 306, 630 376"/>
+  <polygon points="622,374 640,388 622,390" fill="#94a3b8"/>
+
+  <path class="line" d="M830 108 C 878 190, 872 314, 852 372"/>
+  <polygon points="844,370 850,386 858,370" fill="#94a3b8"/>
+
+  <path class="line" d="M166 274 L 232 376"/>
+  <polygon points="226,372 240,388 222,386" fill="#94a3b8"/>
+  <text class="t rel" x="120" y="352">WORKS_FOR</text>
+
+  <path class="line" d="M462 272 L 406 376"/>
+  <polygon points="412,374 398,388 400,370" fill="#94a3b8"/>
+  <text class="t rel" x="424" y="352" text-anchor="end">WORKS_FOR</text>
+
+  <path class="line" d="M500 272 L 626 378"/>
+  <polygon points="618,376 636,388 620,390" fill="#94a3b8"/>
+  <text class="t rel" x="560" y="336">WORKS_ON</text>
+
+  <path class="line" d="M820 276 L 842 372"/>
+  <polygon points="834,370 846,384 848,368" fill="#94a3b8"/>
+  <text class="t rel" x="852" y="330">WORKS_ON</text>
+
+  <path class="sim" d="M274 396 H 368"/>
+  <text class="t rel" x="321" y="384" text-anchor="middle" fill="#0f2c59">META_SIMILAR</text>
+
+  <path class="sim" d="M668 396 H 822"/>
+  <text class="t rel" x="745" y="384" text-anchor="middle" fill="#0f2c59">META_SIMILAR</text>
+
+  <rect x="40" y="480" width="452" height="36" rx="10" fill="#e8eef8"/>
+  <text class="t hop" x="60" y="504">Ernest Orlando Lawrence ↔ Ernest O. Lawrence · 세 홉</text>
+
+  <rect x="512" y="480" width="408" height="36" rx="10" fill="#fdf0d5"/>
+  <text class="t hop" x="532" y="504">Ernest Orlando Lawrence ↔ Lawrence · 여섯 홉</text>
+</svg>

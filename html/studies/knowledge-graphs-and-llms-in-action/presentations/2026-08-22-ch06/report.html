@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-report-template="study-report-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="지식 그래프와 LLM 실전 Chapter 6 상세 스터디 리포트">
+  <title>대규모 언어 모델로 지식 그래프 구축하기 · 상세 리포트</title>
+  <link rel="stylesheet" href="assets/report.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#summary">리포트 본문으로 건너뛰기</a>
+  <button id="tocToggle" class="report-nav-toggle" type="button" aria-label="목차 열기" aria-controls="tocDrawer" aria-expanded="false" title="목차"><span aria-hidden="true">☰</span></button>
+  <div class="report-settings" aria-label="설정">
+    <button id="settingsToggle" class="report-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="report-settings-panel" aria-hidden="true">
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">화면</span><button id="themeToggle" type="button" onclick="cycleTheme()" aria-label="나이트 모드 전환">☀</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">출력</span><button class="report-settings-action" type="button" onclick="window.print()">Print / PDF</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">이동</span><nav class="report-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="report.html">Report</a><a href="./">Slides</a></nav></div>
+    </div>
+  </div>
+  <div id="tocBackdrop" class="report-toc-backdrop" hidden></div>
+  <nav id="tocDrawer" class="report-toc-drawer" aria-label="문서 목차" aria-hidden="true">
+    <div class="report-toc-drawer__head"><span>목차</span><button id="tocClose" type="button" aria-label="목차 닫기">×</button></div>
+    <ol id="tocDrawerList" class="report-toc-drawer__list"></ol>
+  </nav>
+
+  <article class="report continuous-mode">
+    <section class="report-cover">
+      <div class="report-cover__wordmark"><span class="report-cover__wordmark-name">AIML Quant</span><span class="report-cover__wordmark-sub">지식 그래프와 LLM 실전</span></div>
+      <span class="report-cover__kicker">Study Report · Chapter 6</span>
+      <h1 class="report-cover__title">대규모 언어 모델로 지식 그래프 구축하기</h1>
+      <p class="report-cover__subtitle">추출된 지식을 검증 가능한 지식 그래프로 조립하고, 지적 네트워크를 분석하기까지</p>
+      <dl class="report-cover__meta">
+        <div><dt>발표자</dt><dd>종훈(L)</dd></div>
+        <div><dt>범위</dt><dd>Chapter 6</dd></div>
+        <div><dt>발행</dt><dd>2026-08-22</dd></div>
+      </dl>
+    </section>
+
+    <section class="report-section s0 page-break" id="summary">
+      <div class="report-section__kicker">Section 00 · Executive Summary</div>
+      <h1>0. 핵심 요약</h1>
+      <div class="callout--hero"><span class="callout__kicker">One Sentence</span><span class="callout__body">LLM이 뽑아낸 개체와 관계는 그 자체로 지식 그래프가 아니며, <strong>세 층 스키마 · 정규화 · 개체 해소</strong>라는 조립 공정을 거쳐야 비로소 그래프 분석으로 답할 수 있는 검증 가능한 지식이 된다.</span></div>
+      <p>5장에서 록펠러 아카이브 센터(RAC)의 타자기 문서로부터 개체와 관계를 뽑아내는 일까지 마쳤다. 이번 장은 그 출력물을 실제 지식 그래프로 조립하고, 완성된 그래프로 사람들 사이의 지적 네트워크를 분석하는 데까지 이어진다. 핵심 논점은 “LLM이 얼마나 잘 뽑는가”가 아니라 “뽑힌 결과를 어떤 구조에 담아야 나중에 고칠 수 있고, 출처를 되짚을 수 있으며, 분석에 쓸 수 있는가”이다.</p>
+      <p>같은 사람이 문서마다 Ernest Orlando Lawrence, Ernest O. Lawrence, Lawrence처럼 다르게 불린다는 사실이 이 장의 모든 설계를 밀어붙인다. 이 문제는 더 좋은 프롬프트로 사라지지 않는다. 언급(mention)을 병합하지 않은 채 그대로 보관하는 중간 층을 두고, 문자열 유사도와 그래프 관계를 함께 신호로 써서 나중에 합치는 편이, 추출 시점에 성급히 합쳐 버리는 것보다 안전하다. 원자료의 저자들은 이 접근을 완결된 해법이 아니라 “표면만 긁은” 베이스라인이라고 명시한다.</p>
+      <p>마지막 두 절은 관점을 바꾼다. 완성된 그래프에 페이지랭크·매개 중심성 같은 그래프 알고리즘을 적용하면 영향력 발신자, 수신자, 교량을 식별할 수 있고, 같은 그래프가 “사이클로트론 연구에 중요한 사람은 누구인가”, “새 담당자는 누구에게 먼저 물어야 하는가” 같은 실제 업무 질문에 답한다. 동시에 이 절은 관계 추출이 실패해 엉뚱한 인물이 부분그래프에 들어온 사례를 그대로 보여 주며, 검증·반증을 위한 피드백 루프가 왜 애플리케이션의 필수 부품인지 설명한다.</p>
+      <div class="section-summary"><div class="section-summary__kicker">핵심 질문</div><div class="section-summary__body"><ul>
+        <li><strong>문제</strong> — 같은 사람·조직·연구 주제가 문서마다 다른 표기로 나타나고 참조할 정답 사전이 없는데, 이 언급들을 어떻게 하나의 개체로 모을 것인가?</li>
+        <li><strong>메커니즘</strong> — 문서 수준 층, 메타그래프 층, 지식 그래프 층으로 나눈 스키마가 정규화와 개체 해소를 가능하게 하고, 최종 그래프를 언제든 다시 만들 수 있게 한다.</li>
+        <li><strong>판단</strong> — 그래프 알고리즘이 뽑아낸 인물과 경로는 조사할 가치가 있는 후보이지 확정된 사실이 아니며, 분석가가 검증·반증할 수 있는 피드백 루프가 함께 있어야 한다.</li>
+      </ul></div></div>
+      <table class="cmp-table" id="table-overview">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 1</span><span class="asset-caption__title">장의 전체 논리</span></div></caption>
+        <thead><tr><th>흐름</th><th>핵심 질문</th><th>이 장의 답</th><th>발표에서 가져갈 판단</th></tr></thead>
+        <tbody>
+          <tr><td>난제 정리</td><td>추출을 끝낸 뒤에도 왜 그래프가 저절로 생기지 않는가?</td><td>OCR 품질, 사라진 연구 분야, 개인별 약어 습관, 도메인 개체명, 조밀한 관계가 모두 남아 있다.</td><td>남은 난제를 먼저 목록화해야 스키마와 검증 지점을 정할 수 있다.</td></tr>
+          <tr><td>그래프 모델링</td><td>추출 결과를 어떤 구조에 담아야 하는가?</td><td>문서 수준 · 메타그래프 · 지식 그래프의 세 층으로 나눈다.</td><td>중간 층이 있어야 정규화와 해소를 되돌리고 다시 실행할 수 있다.</td></tr>
+          <tr><td>정규화와 정제</td><td>같은 대상을 다르게 쓴 표기를 어떻게 줄이는가?</td><td>직업명 소문자화와 사람 이름의 직함 제거를 새 속성에 기록한다.</td><td>원래 값을 덮어쓰지 않고 별도 속성에 남겨야 되돌릴 수 있다.</td></tr>
+          <tr><td>개체 해소</td><td>흩어진 언급이 같은 사람임을 무엇으로 판단하는가?</td><td>문자열 유사도에 소속·연구 주제·커뮤니티·의미 유사도 신호를 더한다.</td><td>신호가 하나뿐이면 오탐이 늘고, 신호가 겹칠수록 확신이 커진다.</td></tr>
+          <tr><td>네트워크 분석</td><td>완성된 그래프로 무엇을 알 수 있는가?</td><td>중심성 알고리즘과 몇 홉짜리 질의로 영향력 발신자·수신자·교량을 찾는다.</td><td>상위 인물은 조사 출발점이며, 오류 사례를 걸러낼 피드백 루프가 필요하다.</td></tr>
+          <tr><td>가치 판단</td><td>LLM에 직접 물으면 되는데 왜 그래프를 만드는가?</td><td>설명 가능성, 탈신비화, 민주화, 탐색 가능성, 고급 분석을 얻는다.</td><td>비싼 모델은 한 번만 쓰고, 만들어진 그래프를 오래 재사용한다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s1 page-break" id="chapter-map">
+      <div class="report-section__kicker">Chapter Map · 이 장에서 다루는 내용</div>
+      <h1>학습 지도 — 아카이브에서 통찰까지</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>이 장은 아카이브 변환, 그래프 모델링, 정규화와 정제, 개체 해소, 지적 네트워크 분석의 다섯 주제를 순서대로 다룬다.</li>
+        <li>5장이 “문서 → 관계 지식”을 맡았다면, 6장은 “관계 지식 → 지식 그래프 → 통찰”을 맡는다.</li>
+        <li>각 단계는 서로 다른 ML 모델에 의존하므로, 한 모델의 품질이 아니라 단계 사이의 인계 지점이 전체 품질을 좌우한다.</li>
+      </ul></div></div>
+      <p>록펠러 재단(RF)의 프로그램 담당자들은 여러 대학·기관의 연구자를 면담하고 그 내용을 일지에 상세히 기록했다. 재단은 이 기록을 근거로 어떤 연구에 자금을 댈지 결정했다. 따라서 이 문서 더미는 단순한 기록물이 아니라 “누가 누구를 어떻게 평가했고, 그 평가가 어떤 결정으로 이어졌는가”를 담은 관계 데이터다. 5장은 이 문서에서 개체와 관계를 뽑아내는 데까지 왔고, 이번 장은 그 다음부터 시작한다.</p>
+      <p>전체 경로를 미리 한 번 훑어 두면 각 절이 어디에 놓이는지 잡기 쉽다. 비정형 소스를 OCR로 디지털화하고, 개체명 인식(NER)과 관계 추출(RE)로 구조를 뽑고, 그 출력을 지식 그래프로 조립한 뒤, 그래프 데이터 과학으로 질의응답·패턴 발견·시각화에 쓴다. 이 경로에서 한 단계의 실패는 다음 단계에서 조용히 증폭된다. 예를 들어 OCR이 인명을 잘못 읽으면 개체 해소가 그 오류를 “다른 사람”으로 굳혀 버린다.</p>
+
+      <figure class="report-figure" id="source-figure-6-1" data-deck-use="required" data-source-kind="figure" data-source-ref="6.1">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">그림 6.1 · 도메인 특화 비정형 텍스트 데이터에서 지식 그래프의 통찰(insight)로 나아가는 경로.</span></figcaption>
+        <img src="assets/figs/fig-6-1-text-to-insight-path.svg" alt="비정형 소스에서 OCR 디지털화, 개체명 인식과 관계 추출, 지식 그래프 생성, 그래프 데이터 과학을 거쳐 질의응답과 패턴 발견, 시각화로 이어지는 여섯 단계 경로">
+        <small class="asset-note">왼쪽 위에서 오른쪽으로 읽은 뒤 아래 줄로 내려와 다시 왼쪽으로 읽는다. 점선 상자는 LLM 프롬프트나 파인튜닝으로 대체할 수 있는 구간이고, 그 바깥의 OCR과 그래프 단계는 여전히 별도 도구가 담당한다. 단계마다 의존하는 모델이 다르므로 정확도 문제도 단계별로 따로 진단해야 한다. 원자료 그림 6.1의 경로를 AIML Quant가 다시 작도했으며, ‘5장에서 마친 단계 / 6장이 다루는 단계’ 구분은 본문 설명을 반영한 읽기 보조 표시다.</small>
+      </figure>
+    </section>
+
+    <section class="report-section s2 page-break" id="source-6-1" data-source-kind="section" data-source-ref="6.1">
+      <div class="report-section__kicker">교재 §6.1 · Archive to Knowledge Graph</div>
+      <h1>6.1 아카이브를 지식 그래프로 바꾸기 — 아직 남은 난제들과 LLM 시대의 행운</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>남은 난제는 데이터 품질(OCR), 참조 지식의 부재, 사람마다 다른 표기 습관, 도메인 개체명, 관계 밀도, 그리고 개체 해소로 나뉜다.</li>
+        <li>역사 문서에는 대조할 지식 베이스가 없기 때문에, “정답과 맞춰 보는” 중의성 해소 전략을 쓸 수 없다.</li>
+        <li>저자들의 경험상 GPT는 프롬프트 응답 과정에서 NER·개체 해소·관계 추출을 은연중에 수행했고, 이 덕분에 전통적 모델로는 벅찼던 문제의 상당수를 풀 수 있었다.</li>
+      </ul></div></div>
+      <p>난제 목록을 먼저 읽어야 하는 이유는 단순하다. 뒤에 나오는 세 층 스키마와 해소 규칙은 모두 이 목록의 특정 항목에 대한 대답이기 때문이다. 예를 들어 “참조할 사전이 없다”는 제약이 없었다면 개체 중의성 해소를 WikiData 같은 외부 지식 베이스에 맡기면 그만이고, 메타그래프 층도 필요 없었을 것이다.</p>
+      <p>여기서 용어 하나를 구분해 두면 이후 설명이 쉬워진다. <strong>개체 해소(entity resolution)</strong>는 흩어진 언급들이 같은 대상임을 알아내 하나로 합치는 일이고, <strong>개체 중의성 해소(entity disambiguation)</strong>는 그 대상이 지식 베이스 안의 어떤 구체적 개념인지 확정하는 일이다. 앞의 것은 데이터 안에서 닫히지만, 뒤의 것은 바깥의 참조 목록을 필요로 한다. 이 장에서 뒤의 것을 본격적으로 다루지 못하는 이유가 바로 그 참조 목록의 부재다.</p>
+      <table class="cmp-table" id="table-challenges">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">RAC 프로젝트에 남은 난제와 이 장의 대응 범위</span></div></caption>
+        <thead><tr><th>난제</th><th>왜 어려운가</th><th>이 장의 대응</th></tr></thead>
+        <tbody>
+          <tr><td>아날로그 타자기 문서</td><td>종이 문서를 스캔해 OCR로 읽어야 디지털 말뭉치가 된다. 클라우드 OCR과 오픈소스 Tesseract 등 선택지가 있다.</td><td>5장의 전제로 두고, 인식 오류가 뒤 단계로 전파된다는 점만 짚는다.</td></tr>
+          <tr><td>역사적 문서</td><td>여기 등장하는 연구 분야 상당수는 더 이상 연구되지 않아, 중의성 해소 기준으로 삼을 사전이나 지식 베이스를 만들 가망이 없다.</td><td>외부 정답지에 기대지 않는 비지도 해소로 방향을 잡는다.</td></tr>
+          <tr><td>낯선 언어 관습</td><td>담당자마다 “J. R. Smith”를 “S.”로, “University of California”를 “U.Cal.”로 줄여 쓰는 등 개인 습관이 다르다. 저자들이 시험한 기성 상호참조 모델은 이를 되돌리지 못했다.</td><td>GPT가 응답 과정에서 이 축약을 은연중에 풀어낸 점을 활용한다.</td></tr>
+          <tr><td>도메인 특화 개체명</td><td>가장 중요한 맞춤형 개체명은 연구 분야·기술·치료법·질병을 아우르는 직업(Occupation)이며 세분화 정도가 제각각이다. 질병을 빼면 곧바로 쓸 전통적 NER 모델이 없다.</td><td>맞춤형 NER과 비지도 군집화로 후속 분석의 발판을 만든다.</td></tr>
+          <tr><td>높은 관계 복잡도</td><td>한 페이지에 유의미한 관계가 수십 개 들어 있을 수 있어, RE 스키마를 잘못 정의하면 쓸모없는 지식만 쌓인다.</td><td>RE 스키마 정의를 학습·프롬프트 양쪽의 공통 전제로 강조한다.</td></tr>
+          <tr><td>정규화·정제·개체 해소·중의성 해소</td><td>표기가 문서마다 다르고, 한 대화에 여러 참가자가 비슷하지만 다른 표현으로 자기 연구를 말하며, 대화가 몇 달·몇 년의 연쇄로 이어진다.</td><td>정규화와 해소의 베이스라인까지 다루고, 연쇄 분석은 범위 밖으로 둔다.</td></tr>
+          <tr><td>비정형 소스 연결</td><td>일지에서 뽑은 지식을 이사회 회의록과 대조·화해시키면 “어떤 대화가 어떤 보조금으로 이어졌는가”에 답할 수 있다.</td><td>이 책의 범위를 벗어나며, 가능성을 보여 주는 예시로만 남긴다.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout--insight"><span class="callout__kicker">주장의 강도</span><div class="callout__body"><p>원자료는 LLM이 이 난제들을 없앤다고 말하지 않는다. “지식 표현 시스템과 LLM 모델을 알맞게 고르고 프롬프트 엔지니어링을 곁들이면 이 문제들의 <em>상당수</em>를 풀 수 있다”는 조건부 진술이다. 남는 부분이 6.1.3과 6.1.4의 정규화·해소 작업이며, 이 장이 대부분의 지면을 그곳에 쓰는 이유이기도 하다.</p></div></div>
+    </section>
+
+    <section class="report-section s3 page-break" id="source-6-1-1" data-source-kind="section" data-source-ref="6.1.1">
+      <div class="report-section__kicker">교재 §6.1.1 · Graph Modeling</div>
+      <h1>6.1.1 그래프 모델링 — 세 개의 층으로 그래프를 설계하기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>스키마는 문서 수준 층, 메타그래프 층, 지식 그래프 층의 세 층으로 설계한다.</li>
+        <li>이 장이 집중하는 대상은 그래프 전체가 아니라 그 한 측면인 영향력 네트워크, 곧 누가 누구와 또 다른 누구에 대해 이야기했는지를 담은 관계다.</li>
+        <li>층을 나누는 이유는 저장 공간이 아니라 순서다. 정규화와 해소가 끝나기 전의 상태를 그대로 남겨 두어야 그 작업을 다시 할 수 있다.</li>
+      </ul></div></div>
+      <p><strong>그래프 모델링</strong>은 어떤 노드 클래스와 어떤 관계 유형을 둘지, 그리고 어떤 속성을 어디에 붙일지 정하는 설계 작업이다. 관계형 데이터베이스의 테이블 설계와 같은 자리를 차지하지만, 판단 기준이 다르다. 테이블 설계가 중복 제거와 정합성을 우선한다면, 그래프 모델링은 “우리가 던질 질문이 몇 홉의 순회로 표현되는가”를 우선한다.</p>
+      <p><strong>문서 수준 층</strong>은 초기 데이터 수집의 결과물이다. 각 일지 파일은 파일명·위치·저자 같은 속성을 가진 File 노드가 되고, OCR이 파일에서 뽑아낸 각 페이지는 그 페이지의 최종 정제 텍스트를 속성으로 가진 Page 노드가 된다. 이 층은 “원본이 어디에 있었는가”를 답한다.</p>
+      <p><strong>메타그래프 층</strong>은 아직 병합되지 않은 GPT 개체들(Entity 노드)과 그들 사이의 관계, 그리고 각 개체가 추출된 원래 페이지와의 연결을 담는다. 이 층은 “이 주장이 어느 페이지에서 나왔는가”를 답한다.</p>
+      <p><strong>지식 그래프 층</strong>은 정규화·정제·해소가 끝난 최종 개체(Person, Title, Organization, Occupation)와 그들 사이의 의미 관계(WORKS_ON, WORKS_FOR 등)를 담는다. 이 층은 “결국 누가 누구와 어떤 관계인가”를 답한다.</p>
+
+      <figure class="report-figure" id="source-figure-6-2" data-deck-use="required" data-source-kind="figure" data-source-ref="6.2">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">그림 6.2 · 록펠러 아카이브 센터 프로젝트의 단순화된 지식 그래프 스키마</span></figcaption>
+        <img src="assets/figs/fig-6-2-three-layer-schema.svg" alt="문서 수준 층의 File과 Page, 메타그래프 층의 병합되지 않은 Entity와 유사도 관계, 지식 그래프 층의 Person, Organization, Title, Occupation과 그 사이의 관계, 그리고 두 층을 잇는 MAPPED_TO 관계를 담은 세 층 스키마">
+        <small class="asset-note">왼쪽 위에서 아래로 층을 따라 읽고, 점선 화살표를 따라 오른쪽 최종 층으로 건너간다. 점선 MAPPED_TO_* 관계는 “같은 대상을 가리키는 언급”과 “확정된 개체”를 잇는 유일한 다리이며, 이 다리를 지우면 최종 그래프의 출처 추적이 끊긴다. 실선 자기 순환 관계(TALKED_ABOUT·TALKED_WITH·WORKS_WITH·STUDENT_OF)는 사람과 사람 사이에만 생기므로 영향력 네트워크 분석의 재료가 된다. 원자료 그림 6.2가 제시한 노드 클래스와 관계 이름을 보존하고 배치만 AIML Quant가 다시 구성했다.</small>
+      </figure>
+
+      <p>세 층을 쓰는 이유는 러닝 비유로 설명할 수 있다. LLM은 아는 것이 많고 말도 유창하지만 가끔 사실을 지어내는 달변가에 가깝고, 지식 그래프는 검증된 사실을 차곡차곡 정리한 대장에 가깝다. 달변가의 말을 곧바로 대장에 옮겨 적으면 잘못된 항목을 나중에 골라낼 수 없다. 말한 내용을 발언 기록 그대로 먼저 남기고, 대장에는 검토를 마친 항목만 옮기는 편이 안전하다. 다만 이 비유는 한 가지 지점에서 어긋난다. 사람의 발언 기록과 달리 메타그래프의 언급들은 서로 연결되어 있어서, 기록 자체가 검증의 재료가 된다는 점이다.</p>
+      <div class="callout--insight"><span class="callout__kicker">설계 계약</span><div class="callout__body"><p>“LLM이 그래프를 만들어 준다”가 아니라 “LLM은 후보를 만들고, 스키마가 확정 절차를 강제한다”가 이 절의 계약이다. 메타그래프 층이 없으면 정규화 규칙을 바꿀 때마다 원문을 다시 LLM에 태워야 한다.</p></div></div>
+    </section>
+
+    <section class="report-section s4 page-break" id="source-6-1-2" data-source-kind="section" data-source-ref="6.1.2">
+      <div class="report-section__kicker">교재 §6.1.2 · Building the Metagraph</div>
+      <h1>6.1.2 메타그래프 만들기 — 병합하지 말고 일단 다 기록하라</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>긴 텍스트를 다룰 때 첫 결정은 청킹 전략이며, 여기서는 가장 단순한 페이지 단위 분할을 쓴다.</li>
+        <li>식별된 모든 개체 언급을 병합하지 않은 Entity 노드로 만들고, 각 언급을 자신이 나온 페이지와 잇는다.</li>
+        <li>이렇게 두면 최종 그래프를 언제든 메타그래프에서 다시 만들 수 있고, 각 노드와 관계의 출처를 추적할 수 있다.</li>
+      </ul></div></div>
+      <p><strong>청킹 전략(chunking strategy)</strong>은 긴 텍스트를 어떤 단위로 잘라 모델에 넣을지 정하는 방식이다. 필요한 이유는 두 가지다. 모델마다 한 번에 처리할 수 있는 최대 토큰 한도가 있고, 한도 안이라도 텍스트가 너무 길면 처리 품질이 떨어진다. 여기서 고른 단위는 페이지다. 페이지 단위는 구현이 단순하고 출처 추적이 명확하다는 장점이 있는 반면, 한 문장이 페이지 경계에서 잘리면 그 관계를 놓칠 수 있다는 대가를 치른다.</p>
+      <div class="callout--insight"><span class="callout__kicker">참고 · 데이터 범위</span><div class="callout__body"><p>이 프로젝트에는 1만 페이지가 넘는 문서가 있었지만, 예제에서는 워런 위버(Warren Weaver)의 일지 중 150페이지 정도를 골랐다. 문서들은 타자기로 작성되었고 1939년까지 거슬러 올라가므로, 디지털화 과정에서 일부 개체명의 철자가 잘못 인식되었을 수 있다. 뒤에 나오는 분석 결과를 읽을 때 이 표본 크기와 인식 오류 가능성을 함께 기억해야 한다.</p></div></div>
+      <p>각 페이지를 처리한 뒤에는 식별된 모든 개체 언급을 만든다. 여기서 중요한 것은 “병합하지 않고 만든다”는 점이다. 이 노드들은 스키마에서 Entity라고 부르며 name 속성을 가진다. 그다음 각 개체를 자신이 속한 페이지에 연결하고, 그 페이지에서 추출된 관계도 만든다. 이 관계는 RELATED_TO_ENTITY라고 부르며, 관계의 종류를 나타내는 type 속성을 가진다. 관계 이름을 하나로 두고 종류를 속성에 담는 이 선택은, 아직 확정되지 않은 관계 유형을 나중에 바꾸기 쉽게 해 준다.</p>
+      <p>병합을 미루는 대가는 노드 수가 늘어난다는 것이고, 얻는 것은 네 가지다. 첫째, 여러 페이지에 흩어진 언급의 지식을 한데 모으면서도 그것이 어디서 왔는지 보존한다. 둘째, 선택한 개체와 관계가 어느 원본 텍스트 조각에서 나왔는지 곧바로 보여 주는 “설명 가능한” 시각화 플랫폼을 설계할 수 있다. 셋째, 그래프를 유지·관리하는 데이터 과학자가 노드와 관계의 출처를 추적하고 개체 해소를 미세 조정할 수 있다. 넷째, 최종 지식 그래프는 언제든 메타그래프로부터 다시 만들어 낼 수 있다.</p>
+      <div class="callout--hero"><span class="callout__kicker">Rebuild Contract</span><span class="callout__body">메타그래프가 남아 있는 한 최종 그래프는 <strong>파생물</strong>이다. 해소 규칙이 틀렸다고 판명되면 규칙만 고쳐 다시 만들면 되고, 원문을 다시 LLM에 태울 필요가 없다.</span></div>
+    </section>
+
+    <section class="report-section s5 page-break" id="source-6-1-3" data-source-kind="section" data-source-ref="6.1.3">
+      <div class="report-section__kicker">교재 §6.1.3 · Normalization and Cleansing</div>
+      <h1>6.1.3 정규화와 정제 — 이름을 다듬어 그래프의 연결성을 높이기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>메타그래프가 만들어지면 클래스별 상위 개체와 상위 관계 클래스 같은 통계로 지식의 구조를 빠르게 조망할 수 있다.</li>
+        <li>대소문자 구분이 무의미한 직업 이름은 소문자로 통일하고, 사람 이름에서는 직함과 학위 토큰을 걷어낸다.</li>
+        <li>정규화 결과는 원래 name을 덮어쓰지 않고 name_normalized라는 새 속성에 저장한다.</li>
+      </ul></div></div>
+      <p><strong>정규화(normalization)</strong>는 표기를 일관되게 다듬는 일이고, <strong>정제(cleansing)</strong>는 불필요한 토큰을 걷어내 데이터를 깔끔하게 만드는 일이다. 둘 다 목적은 같다. 사실은 하나인데 표기가 갈라져 노드가 둘로 나뉘는 상황을 줄이는 것이다. 이 작업이 늦어질수록 이후 모든 분석이 “같은 사람인데 다른 노드”를 서로 다른 개체로 세게 된다.</p>
+      <p>정규화 대상은 통계에서 드러난다. 클래스별로 가장 많이 등장한 개체와 관계를 보면, 예를 들어 같은 직업이 대문자와 소문자로 나뉘어 있는 것이 눈에 띈다. 직업 이름에서 대소문자는 의미를 구분하지 않으므로 소문자로 통일하는 편이 안전하다. 반대로 사람 이름은 대소문자가 의미를 가질 수 있어 같은 규칙을 그대로 적용하지 않는다.</p>
+      <p>사람 이름에는 다른 문제가 있다. GPT는 직함을 이름과 별개로 다루라는 지시를 받았음에도 가끔 직함을 이름의 일부로 끼워 넣었다. 이 상태를 그대로 두면 같은 사람이 “직함이 붙은 노드”와 “직함이 없는 노드”로 두 번 나타난다. 아래 코드는 이 경우를 바로잡는다.</p>
+
+      <article class="source-listing" id="source-listing-6-1" data-source-kind="listing" data-source-ref="6.1">
+        <h4>Listing 6.1 사람과 직업 정규화하기</h4>
+        <p>읽기 전 전제: Neo4j가 bolt 프로토콜로 접속 가능해야 하고, 메타그래프 층의 Entity 노드가 이미 적재되어 있어야 하며, Person·Occupation은 Entity의 label 속성 값이다. <code>apoc.text.join</code>은 APOC 플러그인이 설치되어 있어야 동작한다.</p>
+        <pre data-code-language="Python"><code>from neo4j import GraphDatabase
+
+URI = &quot;bolt://localhost:7687&quot;
+AUTH = (&quot;neo4j&quot;, &quot;password&quot;)
+NEO4J_DB = &quot;neo4j&quot;
+
+REMOVE_TITLES = [&quot;dr.&quot;, &quot;prof.&quot;, &quot;dean&quot;, &quot;president&quot;, &quot;pres.&quot;, &quot;sir&quot;, &quot;mr.&quot;, &quot;mrs.&quot;]
+
+# 사람 이름에서 직함과 학위를 제거한다.
+QUERY_NORM_PERSONS = &quot;&quot;&quot;
+  MATCH (e:Entity {label: &quot;Person&quot;})
+  WITH e, CASE WHEN ANY(title IN $remove_titles WHERE toLower(e.name)
+  STARTS WITH title) THEN apoc.text.join(split(e.name, &quot; &quot;)[1..], &quot; &quot;)
+  ELSE e.name END AS name
+  SET e.name_normalized = name
+&quot;&quot;&quot;
+
+# 직업 이름을 소문자로 정규화한다.
+QUERY_NORM_OCCUPATIONS = &quot;&quot;&quot;
+  MATCH (e:Entity {label: &quot;Occupation&quot;})
+  SET e.name_normalized = toLower(e.name)
+&quot;&quot;&quot;
+
+if __name__ == &quot;__main__&quot;:
+    with GraphDatabase.driver(URI, auth=AUTH) as driver:
+        with driver.session(database=NEO4J_DB) as session:
+            print(&quot;Normalizing Person names&quot;)
+            session.run(QUERY_NORM_PERSONS, remove_titles=REMOVE_TITLES)
+            print(&quot;Normalizing Occupations&quot;)
+            session.run(QUERY_NORM_OCCUPATIONS)</code></pre>
+        <p>줄별로 읽으면 이렇다. <code>REMOVE_TITLES</code>는 걷어낼 직함·학위 토큰 목록이다. <code>QUERY_NORM_PERSONS</code>는 label이 Person인 Entity를 훑으면서, 이름을 소문자로 바꾼 값이 목록의 어느 토큰으로 시작하면 <code>split(e.name, &quot; &quot;)[1..]</code>로 첫 토큰을 잘라낸 나머지를 이름으로 삼고, 그렇지 않으면 원래 이름을 그대로 쓴다. <code>QUERY_NORM_OCCUPATIONS</code>는 Occupation의 이름을 <code>toLower</code>로 소문자화한다. 두 질의 모두 결과를 <code>name</code>이 아니라 <code>name_normalized</code>에 <code>SET</code>한다.</p>
+      </article>
+
+      <p>새 속성에 저장하는 선택이 이 코드의 핵심이다. 나중에 지식 그래프 층의 최종 노드를 만들 때는 정규화되지 않은 원래 name 대신 <code>name_normalized</code>를 사용하지만, 원래 표기는 메타그래프에 그대로 남아 있다. 덕분에 “dean”을 직함으로 걷어낸 판단이 잘못이었다고 밝혀져도 원본을 잃지 않는다.</p>
+      <div class="callout--insight"><span class="callout__kicker">실패 경계</span><div class="callout__body"><p>이 규칙은 첫 토큰만 검사한다. 이름 중간이나 끝에 직함이 오는 표기, 목록에 없는 직함, 그리고 이름 자체가 목록의 단어와 겹치는 경우는 걸러지지 않는다. 규칙 기반 정제는 “대부분의 흔한 오염을 싸게 제거하는 장치”이지 완전한 해법이 아니다.</p></div></div>
+    </section>
+
+    <section class="report-section s6 page-break" id="source-6-1-4" data-source-kind="section" data-source-ref="6.1.4">
+      <div class="report-section__kicker">교재 §6.1.4 · Graph-based Entity Resolution</div>
+      <h1>6.1.4 그래프 기반 개체 해소 — 흩어진 이름들을 한 사람으로 모으기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>LLM은 프롬프트나 파인튜닝으로 안내하면 온전하고 깨끗한 개체명을 돌려주므로 상호참조 해소가 은연중에 수행되고, 그만큼 개체 해소의 부담이 줄어든다. 다만 줄어들 뿐 사라지지는 않는다.</li>
+        <li>문자열 유사도만으로는 부족하며, 소속 기관·연구 주제 같은 그래프 관계가 같은 인물이라는 확신을 더한다.</li>
+        <li>베이스라인은 META_PERSONS_SIMILAR 관계 생성, 약결합 요소(WCC) 실행, 대표 이름 선택, 최종 KG 층 생성의 네 단계다.</li>
+      </ul></div></div>
+      <p>먼저 왜 부담이 줄었는지부터 보자. <strong>상호참조 해소(coreference resolution)</strong>는 같은 대상을 가리키는 서로 다른 표현을 하나로 묶는 작업으로, 표준 NLP 파이프라인의 핵심 단계다. 전통적인 NER·RE 모델은 텍스트에 나타난 표면형을 그대로 돌려주기 때문에 이 단계를 따로 돌려야 했다. 반면 LLM은 프롬프트에 응답하면서 문맥을 참고해 온전한 이름을 채워 넣는 경향이 있어, 이 작업이 은연중에 처리된다.</p>
+      <p>그럼에도 문서를 가로지르는 해소는 남는다. 한 문서의 “Eleanor Smith”가 다른 문서의 “E. Smith”와 같은 사람인지 판단하려면 문서 안의 문맥만으로는 부족하다. 여기서 그래프 구조가 쓸모를 발휘한다. 메타그래프 층의 언급 대부분은 다른 언급과 하나 이상의 관계를 맺고 있고, 그중 상당수가 해소에 유용하다. 두 이름의 문자열 유사도가 높은 데다 둘 다 같은 대학에 WORKS_FOR로 연결돼 있다면 강력한 신호다. 반대로 이름이 같거나 매우 비슷한 사람들이 같은 연구 주제를 다루고 있을 가능성은 낮으므로, 그 조합 역시 정보가 된다.</p>
+      <p>임계값을 정할 때는 도메인 지식을 쓴다. 사람 이름은 이름(first name), 중간 이름(middle name), 성(surname)으로 이루어지고, 중간 이름과 이름은 종종 약자로 쓰이거나 생략된다. 성에만 의존하면 잘못된 일치가 대량으로 생기므로, 성에 더해 최소한 이름(또는 그 약자)까지 맞아떨어질 때 같은 사람일 확신이 커진다. 이런 고려사항으로 사람 이름 언급 사이에 META_SIMILAR 간선을 만드는 규칙 집합을 정의하고, 조직 같은 다른 개체에도 비슷한 논리를 적용한다.</p>
+      <div class="callout--insight"><span class="callout__kicker">팁 · 불용어</span><div class="callout__body"><p>이름에 일반적인 단어가 포함되는 경우가 있다. 많은 재단의 조직명에 Foundation이라는 단어가 들어가므로, 그 단어를 근거로 유사도 링크를 만들면 오히려 역효과가 난다. SIMILAR 관계를 만들기 전에 상황을 분석해 불용어 목록을 정의해야 하며, 데이터셋과 도메인이 다르면 접근법도 그에 맞게 조정해야 한다.</p></div></div>
+      <p>구체적인 사례를 보면 이 신호들이 어떻게 겹치는지 분명해진다. 핵물리학자 어니스트 로런스(Ernest Lawrence)는 사이클로트론을 발명해 노벨상을 받은 인물이며, 26페이지·99페이지·126페이지에서 각각 Ernest Orlando Lawrence, Lawrence, Ernest O. Lawrence로 언급된다.</p>
+
+      <figure class="report-figure" id="source-figure-6-3" data-deck-use="required" data-source-kind="figure" data-source-ref="6.3">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">그림 6.3 · 서로 다른 페이지에서 세 가지 형태로 언급된 어니스트 로런스, 그리고 이들을 잇는 그래프 경로</span></figcaption>
+        <img src="assets/figs/fig-6-3-lawrence-mention-resolution.svg" alt="페이지 26, 126, 99가 각각 Ernest Orlando Lawrence, Ernest O. Lawrence, Lawrence를 언급하고, 두 개의 University of California 노드와 두 개의 사이클로트론 직업 노드가 META_SIMILAR로 이어져 세 홉과 여섯 홉 경로를 만드는 그래프">
+        <small class="asset-note">위에서 아래로 읽는다. 위 줄은 언급이 나온 페이지, 가운데 줄은 병합되지 않은 사람 언급, 아래 줄은 그 언급이 연결된 기관과 직업이다. 점선 META_SIMILAR가 아래 줄에서 이어지기 때문에 가운데 줄의 서로 다른 이름들이 하나의 경로로 묶인다. 주의할 점은 경로 길이다. 세 홉이면 사람이 보기에도 명백하지만 여섯 홉짜리 연결은 관계형 질의로는 표현하기 어렵고, 그만큼 근거가 간접적이므로 다른 신호와 함께 판단해야 한다. 원자료 그림 6.3의 노드 이름과 관계를 보존하고 배치를 정리했다.</small>
+      </figure>
+
+      <p>Ernest Orlando Lawrence와 Ernest O. Lawrence는 세 홉 떨어져 있다. 두 언급 모두 캘리포니아 대학교(University of California)의 직원으로 식별되기 때문이다. 마지막 언급인 Lawrence까지도 WORKS_ON 관계와 직업 사이의 유사성(cyclotron과 “100,000,000 to 200,000,000 volt cyclotron”)을 통해 이어진다. 다만 Ernest Orlando Lawrence와 Lawrence는 여섯 홉이나 떨어져 있다. 이런 순회는 관계형 데이터베이스에서 훨씬 어렵고, 그래프가 빛을 발하는 지점이 바로 여기다.</p>
+      <p>더 “그래프다운” 접근도 있다. 지적 네트워크 관계인 TALKED_ABOUT와 TALKED_WITH를 활용해 루뱅(Louvain) 같은 커뮤니티 탐지 알고리즘을 돌리면 서로 상호작용하는 사람들의 군집이 드러난다. 남극에서 해양 연구를 하는 존 도(John Doe)는 우주론을 전공하는 존 도와 아마도 다른 상호작용 네트워크에 속해 있을 것이다. 어떤 커뮤니티에 속했는지는 두 사람이 동일 인물인지 판단하는 또 하나의 신호가 된다.</p>
+      <p>여기에 ML을 더할 수도 있다. 의미적 유사도 방식을 설계하면 문자열 유사도가 전혀 없어도 주제가 매우 밀접한 직업들을 이을 수 있다. fertility(가임력)와 human ovulation(사람의 배란)이 그런 예다. 흔한 방법은 GPT가 제공하는 임베딩으로 유사도에 따라 군집화하는 것이며, 저자들은 병합 군집화(agglomerative clustering)로 아주 좋은 결과를 얻었다고 보고한다.</p>
+      <table class="cmp-table" id="table-signals">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">개체 해소에 쓰이는 네 가지 신호와 그 경계</span></div></caption>
+        <thead><tr><th>신호</th><th>무엇을 보는가</th><th>강한 경우</th><th>실패 위험</th></tr></thead>
+        <tbody>
+          <tr><td>문자열 유사도</td><td>이름 표기의 일치와 약자 패턴</td><td>성과 이름(또는 약자)이 함께 맞아떨어질 때</td><td>성만 같은 동명이인이 대량의 오탐을 만든다.</td></tr>
+          <tr><td>그래프 관계</td><td>WORKS_FOR·WORKS_ON 같은 공통 이웃</td><td>두 언급이 같은 기관·같은 연구 주제로 이어질 때</td><td>홉 수가 길어질수록 근거가 간접적이 된다.</td></tr>
+          <tr><td>커뮤니티</td><td>TALKED_ABOUT·TALKED_WITH로 형성된 군집</td><td>상호작용 네트워크가 뚜렷이 갈릴 때</td><td>표본이 적으면 군집 자체가 불안정하다.</td></tr>
+          <tr><td>의미 유사도</td><td>임베딩 공간에서의 주제 근접성</td><td>표기가 달라도 같은 연구 주제를 가리킬 때</td><td>상위·하위 개념을 같은 것으로 뭉갤 수 있다.</td></tr>
+        </tbody>
+      </table>
+      <p>사람 해소의 베이스라인은 다음 네 단계로 마무리된다. 첫째, 정의한 기준(문자열 유사도와 RE 출력을 통한 관련성)을 충족하는 사람 언급들 사이에 META_PERSONS_SIMILAR 관계를 만든다. 둘째, 이 메타그래프에 <strong>약결합 요소(WCC, weakly connected components)</strong> 알고리즘을 돌려 같은 지식 그래프 개체로 해소되어야 할 언급 그룹을 식별한다. WCC는 관계의 방향을 무시하고 서로 이어진 덩어리를 찾는 알고리즘이므로, “A는 B와 비슷하고 B는 C와 비슷하다”는 연쇄를 하나의 그룹으로 묶어 준다. 셋째, 각 그룹마다 대표할 공통 이름을 고르며, 여기서는 가장 긴 이름을 고른다(앞선 예시에서는 Ernest Orlando Lawrence). 넷째, 완전히 해소된 개체들로 최종 지식 그래프 층을 만든다.</p>
+      <div class="callout--insight"><span class="callout__kicker">주장의 범위</span><div class="callout__body"><p>저자들은 이 네 단계를 완성된 해법이 아니라 베이스라인으로 제시하며, 그래프 기반 개체 해소에는 수많은 선택지가 있고 “이제 겨우 표면만 긁었을 뿐”이라고 적는다. WCC의 전이적 병합은 편리하지만 위험도 있다. 잘못된 유사도 간선 하나가 서로 무관한 두 그룹을 하나로 이어 붙일 수 있으므로, 임계값과 불용어 목록이 곧 품질의 상한이 된다.</p></div></div>
+    </section>
+
+    <section class="report-section s7 page-break" id="source-6-2" data-source-kind="section" data-source-ref="6.2">
+      <div class="report-section__kicker">교재 §6.2 · Analyzing the Intellectual Network</div>
+      <h1>6.2 지적 네트워크 분석: 그래프의 가치 — 지식 그래프로 인물 네트워크를 파헤치기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>TALKED_ABOUT, TALKED_WITH, WORKS_WITH, STUDENT_OF로 형성된 과학자들의 지적 네트워크가 그래프 분석에 잘 맞는다.</li>
+        <li>페이지랭크·고유벡터 중심성·노드 차수·매개 중심성으로 영향력 발신자, 영향력 수신자, 교량을 식별한다.</li>
+        <li>같은 그래프가 “사이클로트론 연구에 중요한 사람은 누구인가”, “새 담당자는 누구에게 먼저 접근해야 하는가” 같은 구체적 질문에도 답한다.</li>
+      </ul></div></div>
+      <p>여기까지 오면 지식 그래프가 완성된 상태다. 이 절은 그 그래프로 무엇을 하는지, 특히 <strong>그래프 데이터 과학(graph data science)</strong>이라는 분석적 측면 하나를 탐구한다. 분석 대상은 그래프 전체가 아니라 사람과 사람을 잇는 관계로 만들어진 부분, 곧 지적 네트워크다.</p>
+      <p>Neo4j의 그래프 데이터 과학 라이브러리로 이 네트워크에 알고리즘을 적용해 세 종류의 역할을 식별했다. <strong>영향력 발신자(Influencers)</strong>는 다른 사람의 연구를 추천하는 면에서 두드러지는 사람들이고, <strong>영향력 수신자(Influencees)</strong>는 다른 사람들의 추천(또는 업계 뒷담화)의 인기 있는 대상이 되는 사람들이며, <strong>교량(Bridges)</strong>은 서로 다른 사람 커뮤니티 사이를 잇는 연결자 역할을 하는 사람들이다. 어떤 알고리즘을 쓰느냐에 따라 부각되는 역할이 달라지므로, 알고리즘 선택은 곧 질문 선택이다.</p>
+
+      <figure class="report-figure" id="source-figure-6-4" data-deck-use="required" data-source-kind="figure" data-source-ref="6.4">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">그림 6.4 · TALKED_ABOUT, TALKED_WITH, WORKS_WITH, STUDENT_OF 관계로 이루어진 지적 영향력 네트워크.</span></figcaption>
+        <img src="assets/figs/fig-6-4-influence-network-betweenness.svg" alt="여러 연구자 집단이 소수의 큰 노드를 통해 이어진 지적 영향력 네트워크의 가장 큰 연결 요소, 최단 경로가 많이 지나는 인물일수록 큰 원으로 표시됨">
+        <small class="asset-note">원의 크기는 매개 중심성 점수를 나타낸다. 어떤 노드를 지나는 최단 경로가 많을수록 크게 그려지므로, 큰 원은 “가장 많이 언급된 사람”이 아니라 “빼면 집단이 끊기는 사람”을 뜻한다. 이 구분을 놓치면 인기와 매개를 혼동하게 된다. 닐스 보어나 어니스트 로런스처럼 유명한 과학자도 부각되지만, 덜 유명한 인물이 함께 부각되는 것이 오히려 조사해 볼 가치가 있는 신호다. 원자료 그림 6.4가 보여 준 스타일링 규칙과 대표 인물을 보존해 AIML Quant가 다시 작도한 도식이며, 노드 배치와 개수는 실제 실행 결과가 아니라 구조를 설명하기 위한 재구성이다.</small>
+      </figure>
+
+      <p>더 구체적인 질문으로 내려가 보자. “사이클로트론 연구와 그 자금 지원에 중요한 역할을 한 사람은 누구인가?” 이 질문은 몇 홉짜리 질의 하나로 답할 수 있다.</p>
+
+      <article class="source-listing" id="source-listing-6-2" data-source-kind="listing" data-source-ref="6.2">
+        <h4>Listing 6.2 사이클로트론 연구와 관련된 영향력 네트워크 보여주기</h4>
+        <p>읽기 전 전제: 최종 지식 그래프 층이 만들어져 있어야 하고, <code>$occupation</code>은 질의 실행 시 넘기는 파라미터이며, Occupation의 name은 정규화 단계에서 소문자로 저장되어 있다.</p>
+        <pre data-code-language="Cypher"><code>MATCH path = ()&lt;-[:WORKS_ON|WORKS_FOR]-(p2:Person)
+  -[:TALKED_ABOUT|TALKED_WITH|WORKS_WITH|STUDENT_OF*1..2]-&gt;
+(p:Person)-[:WORKS_ON]-&gt;()-[:SIMILAR_OCCUPATION*0..1]-(o:Occupation)
+WHERE o.name = toLower($occupation)
+  AND NOT ANY(x IN nodes(path) WHERE x.name = &quot;WW&quot;)
+RETURN path</code></pre>
+        <p>오른쪽 끝에서부터 읽으면 흐름이 보인다. 먼저 이름이 <code>$occupation</code>과 같은 Occupation 노드 <code>o</code>를 잡고, <code>SIMILAR_OCCUPATION*0..1</code>로 그와 같은 뜻으로 해소된 직업까지 한 홉 넓힌다. 그 직업을 WORKS_ON으로 연구하는 사람이 <code>p</code>다. 그다음 <code>*1..2</code>가 핵심이다. 사이클로트론 연구를 하는 사람과 또 다른 사람 사이에 최대 두 홉까지 허용해, 직접 언급뿐 아니라 “추천한 사람을 추천한 사람” 같은 더 복잡한 패턴까지 탐색한다. 마지막 <code>x.name = &quot;WW&quot;</code> 조건은 워런 위버(WW) 본인을 결과에서 제외하는 필터다. 그는 모든 면담의 기록자이므로 빼지 않으면 거의 모든 경로에 등장해 그림을 지배한다.</p>
+      </article>
+
+      <figure class="report-figure" id="source-figure-6-5" data-deck-use="required" data-source-kind="figure" data-source-ref="6.5">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">그림 6.5 · 사이클로트론 연구의 두 홉 이내 영향력 네트워크.</span></figcaption>
+        <img src="assets/figs/fig-6-5-cyclotron-influence-pagerank.svg" alt="사이클로트론 직업 노드를 중심으로 두 홉 이내에 놓인 인물, 기관, 직업 노드와 관계 추출 실패로 잘못 포함된 인물이 표시된 부분그래프">
+        <small class="asset-note">Person 노드의 크기는 전체 영향력 네트워크에서 계산한 페이지랭크 중심성을 따르며, 이 부분그래프 안에서의 중요도가 아니다. 즉 크기는 “전역적으로 인기 있는 노드”를 뜻하므로, 부분그래프의 지역적 역할과 혼동하면 안 된다. 붉은 점선으로 표시한 인물은 원자료가 직접 지목한 관계 추출 실패 사례이며, 이 부분그래프에 나타나서는 안 되는 노드다. 원자료 그림 6.5의 인물·기관·직업 구성과 오류 사례를 보존해 AIML Quant가 다시 작도했다.</small>
+      </figure>
+
+      <p>결과를 보면 어니스트 로런스와 닐스 보어 외에도 중요한 인물이 가까이 나타난다. 천문학자이자 하버드 대학 천문대장인 할로 섀플리(Harlow Shapley), 그리고 유기화학자이자 하버드 대학교의 23대 총장인 제임스 B. 코넌트(James B. Conant)가 그렇다. 하버드는 사이클로트론을 만들었는데, 레슬리 그로브스 장군과의 비밀 협상을 거쳐 코넌트 총장이 훗날 이를 미국 정부에 단돈 1달러에 팔아 최초의 원자폭탄 개발을 도왔다.</p>
+      <p>여기에 뜻밖의 요소가 하나 있다. 로런스 어빙(Laurence Irving)이 등장한다. GPT가 그의 이름 첫 부분을 Lawrence로 잘못 표기했는데, 같은 페이지에 어니스트 로런스가 있었던 탓에 생긴 혼동으로 보인다. 그는 비교생리학의 선구자이며, 자세히 들여다보면 이것은 RE 작업이 실패한 사례다. 그는 이 부분그래프에 나타나서는 안 된다. 이 사례가 중요한 이유는 실패의 크기가 아니라 성격에 있다. 결과가 그럴듯해 보였고, 이름 하나가 겹쳤을 뿐이며, 그래프 어디에도 “이 노드는 의심스럽다”는 표시가 없었다. 그래서 분석가가 그래프의 내용을 검증하거나 반증할 수 있도록 애플리케이션에 피드백 루프를 설계해 두는 것이 중요하다.</p>
+      <div class="callout--hero"><span class="callout__kicker">Human Gate</span><span class="callout__body">LLM은 마법이 아니며 때로는 어이없는 실수도 한다. 분석 화면은 결과를 보여 주는 데서 멈추지 말고, <strong>이 노드가 어느 페이지에서 왔는지 열어 보고 틀렸다고 표시할 수 있는 경로</strong>까지 제공해야 한다.</span></div>
+      <p>마지막 예시는 조직 운영의 질문이다. 특정 도메인에 경험이 있는 담당자 워런 위버가 자리를 떠나고 새 사람이 채용되었다고 하자. 그 신입은 존스홉킨스 대학교와 하버드 대학교에 걸쳐 있는 물리학 연구 프로젝트를 맡아 달라는 요청을 받는다. 이 사람은 누구에게 먼저 접근해야 할까? 이상적으로는 두 대학 모두에서 물리학 분야에 노출된 적이 있는 사람에게 비공식적으로 물어보고 싶을 것이다. 답을 찾는 방법은 두 대학의 모든 직원을 WORKS_FOR로 가져온 뒤, 그들 사이의 연결을 최대 세 홉까지, 그리고 적어도 한 사람이 물리학 연구를 하는 경우로 한정해 찾는 것이다.</p>
+
+      <figure class="report-figure" id="source-figure-6-6" data-deck-use="required" data-source-kind="figure" data-source-ref="6.6">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">그림 6.6 · 존스홉킨스 대학교와 하버드 대학교를 잇는 물리학 연구 영향력 네트워크.</span></figcaption>
+        <img src="assets/figs/fig-6-6-jhu-harvard-physics-bridge.svg" alt="존스홉킨스 대학교와 하버드 대학교 소속 인물들이 중간의 여러 인물을 통해 세 홉 이내로 이어지고, 긍정과 부정 감정이 붙은 TALKED_ABOUT 관계와 해소되지 않은 중복 인물 노드가 표시된 네트워크">
+        <small class="asset-note">두 원은 각 대학의 고용 관계를 묶은 것이고, 원 밖의 인물들이 두 집단을 잇는 후보다. 색이 붙은 점선은 TALKED_ABOUT 관계의 감정 속성을 나타낸다. 감정은 “사실 판정”이 아니라 발언자의 태도이므로, 부정 평가가 곧 그 사람에 대한 평가 결론이 되지 않도록 읽어야 한다. 같은 과학자를 가리키는 노드가 두 개(Irving Langmuir와 Langmuir) 남아 있는 것도 그대로 보이는데, 어느 페이지에서는 성만 언급되었고 그때는 해소에 쓸 추가 관계가 없었기 때문이다. 원자료 그림 6.6의 인물 구성과 관계를 보존해 AIML Quant가 다시 작도했다.</small>
+      </figure>
+
+      <p>이 정도 크기의 부분그래프라면 알고리즘을 돌릴 필요도 없다. 더 큰 네트워크였다면 매개 중심성으로 중요한 연결자를 찾았겠지만, 여기서는 눈으로 몇 명만 추리면 된다. 좋은 출발점은 어빙 랭뮤어(Irving Langmuir, 1932년 노벨 화학상을 받은 화학자·물리학자·공학자)일 수 있다. 그는 X선을 이용해 인슐린과 단백질 구조를 연구한 도러시 M. 링치(Dorothy M. Wrinch)에 대해 긍정적으로 이야기했고, 두 대학 모두와 직접적인 한 홉 링크를 가지고 있다.</p>
+      <p>감정 속성을 더 들여다보면 다른 그림이 나온다. 버널(Bernal)은 도러시 링치에게 부정적 태도를 보이고, 어빙 랭뮤어는 버널에게 부정적 태도를 보인다. 균형 잡힌 통찰을 얻으려면 두 사람 모두를 인터뷰하는 편이 좋다. 이 대목은 그래프의 실무적 가치를 잘 보여 준다. 그래프는 “누구에게 물어야 하는가”뿐 아니라 “누구의 말만 들으면 한쪽으로 기울 수 있는가”까지 알려 준다.</p>
+    </section>
+
+    <section class="report-section s8 page-break" id="source-6-3" data-source-kind="section" data-source-ref="6.3">
+      <div class="report-section__kicker">교재 §6.3 · Next Steps</div>
+      <h1>6.3 록펠러 아카이브 센터 프로젝트의 다음 단계 — 프로덕션급 프로젝트로 나아가기 위해</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>앞 절의 결과는 훨씬 방대한 데이터 소스 중 150페이지에 기반한 것이며, 그럼에도 지식 그래프의 복잡성을 잘 보여 준다.</li>
+        <li>프로덕션 품질로 가려면 추출 품질, 문서 길이 처리, 개체 해소, 보조금 연결, 직업 해소, 대화 노드 생성이 남는다.</li>
+        <li>남은 과제 대부분이 “더 좋은 모델”이 아니라 “더 나은 구조와 해소”에 관한 것이라는 점이 이 목록의 성격이다.</li>
+      </ul></div></div>
+      <p>이 절은 결과 보고가 아니라 로드맵이다. 각 항목은 앞 절에서 의도적으로 좁혀 둔 범위를 다시 여는 방향을 가리키며, 어떤 항목이 어떤 질문을 열어 주는지를 함께 읽어야 한다.</p>
+      <table class="cmp-table" id="table-next-steps">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">프로덕션 품질 프로젝트에 남은 여섯 과제</span></div></caption>
+        <thead><tr><th>과제</th><th>무엇을 하는가</th><th>무엇이 열리는가</th></tr></thead>
+        <tbody>
+          <tr><td>지식 추출 개선하기</td><td>프롬프트 엔지니어링을 더 여러 번 반복하거나 LLM을 파인튜닝한다.</td><td>지식 그래프의 정확도가 높아진다.</td></tr>
+          <tr><td>여러 페이지 문서 다루기</td><td>RAC 프로젝트에서는 ChatGPT-3.5-Turbo로 개별 일지 항목의 경계를 식별했다. 이런 항목은 보통 세 페이지 미만이었고 동시에 처리했다.</td><td>토큰 한도 안에서 의미 단위를 유지한 채 처리량을 올린다.</td></tr>
+          <tr><td>개체 해소 수행하기</td><td>이 장의 베이스라인을 개선하고 다른 개체로 확장하며, WikiData 같은 지식 베이스에 대한 중의성 해소로 보완한다.</td><td>외부 지식과 연결된 식별자를 얻는다.</td></tr>
+          <tr><td>보조금 추가하기</td><td>이사회 회의록에서 보조금 세부사항을 캐내어 일지 속 대화에 연결한다.</td><td>“지원을 받은 프로젝트는 영향력 있는 과학자나 이전 수혜자의 추천을 거치는 경향이 있는가?”에 답할 수 있다.</td></tr>
+          <tr><td>직업의 개체 해소 수행하기</td><td>세분화 정도가 제각각인 직업을 임베딩(SentenceBERT나 GPT)으로 만들고 병합 계층적 군집화로 묶는다.</td><td>핵물리학·동위원소·중질소처럼 포함 관계에 있는 주제를 연결해 특정 주제의 전체 역사에 접근한다.</td></tr>
+          <tr><td>대화(Conversation) 만들기</td><td>날짜, 인터뷰어, 인터뷰이, 주제를 갖춘 Conversation 노드를 만든다.</td><td>후속 연쇄를 식별하고 보조금에 연결한다. 두 작업 모두 직업의 비지도 해소 덕분에 가능해진다.</td></tr>
+        </tbody>
+      </table>
+      <p>이 목록을 한 문장으로 줄이면 이렇게 된다. 역사적 타자기 문서로부터의 지식 채굴, 비정형 데이터 소스의 화해, 개체 해소 시스템, 그래프 모델링, 그래프 데이터 과학, 복잡한 시각화와 스타일링이 하나의 프로젝트 안에서 맞물린다. 도전적이고 고되지만, 저자들의 표현을 빌리면 무엇보다도 재미있는 일이다.</p>
+    </section>
+
+    <section class="report-section s9 page-break" id="source-6-4" data-source-kind="section" data-source-ref="6.4">
+      <div class="report-section__kicker">교재 §6.4 · Why Knowledge Graphs in the LLM Era</div>
+      <h1>6.4 LLM 시대에 지식 그래프가 갖는 가치 — 왜 굳이 지식 그래프를 만드는가</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>“그냥 LLM에 데이터를 먹이고 물어보면 되지 않는가”라는 질문에 대한 이 장의 짧은 답변이다.</li>
+        <li>설명 가능성, 탈신비화, 민주화, 탐색 가능성, 고급 분석의 다섯 가지로 정리된다.</li>
+        <li>다섯 가지 모두 “답을 얻는 능력”이 아니라 “답을 신뢰하고 통제하는 능력”에 관한 것이다.</li>
+      </ul></div></div>
+      <p>이 절의 질문은 실무에서 가장 자주 나오는 반론이기도 하다. 파인튜닝만으로 충분하다면 이 장의 조립 공정 전체가 낭비이기 때문이다. 원자료는 완전한 답이 책 전체라고 전제한 뒤, 이 장에 한정한 짧은 답변을 다섯 항목으로 제시한다.</p>
+      <table class="cmp-table" id="table-value">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">LLM 시대에 지식 그래프가 제공하는 다섯 가지 가치</span></div></caption>
+        <thead><tr><th>가치</th><th>내용</th><th>이 장에서 확인한 근거</th></tr></thead>
+        <tbody>
+          <tr><td>설명 가능성</td><td>사용자에게 밑바탕 데이터와 추론 과정을 들여다보고 검증할 도구를 주며, 상충하는 정보 소스도 다루도록 구성할 수 있고, 필요하면 “사고”의 전 과정을 제시할 수 있다.</td><td>메타그래프가 각 개체·관계를 원본 페이지에 묶어 둔다.</td></tr>
+          <tr><td>탈신비화</td><td>LLM을 파인튜닝하고 질문만 던지면 응답의 신뢰도를 평가할 방법이 없다. 대신 언어 이해력으로 사실을 추출해 그래프를 만들면 생성된 통찰에 확신을 가질 수 있다.</td><td>RE 실패로 들어온 인물을 그래프 위에서 지목할 수 있었다.</td></tr>
+          <tr><td>민주화</td><td>값비싼 모델은 그래프를 만드는 데 한 번만 쓰고, 이후에는 그 그래프를 오랫동안 후속 작업에 활용한다.</td><td>최종 그래프는 메타그래프에서 재생성되므로 재추출 비용이 들지 않는다.</td></tr>
+          <tr><td>탐색 가능성</td><td>전역 조망과 파고드는 조사를 모두 제공하고, 시각화가 가설을 세우고 검증·반증하도록 영감을 준다.</td><td>두 대학을 잇는 인물 탐색이 곧바로 인터뷰 대상 후보가 되었다.</td></tr>
+          <tr><td>고급 분석</td><td>그래프 기반 후속 분석과 ML을 수행하면서도 답변의 생성 과정을 온전히 통제할 수 있다.</td><td>중심성과 몇 홉 질의가 서로 다른 업무 질문에 답했다.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout--insight"><span class="callout__kicker">요약 정리</span><div class="callout__body"><p>이 장의 결론은 세 문장이다. 지식 그래프 스키마 설계, 곧 그래프 모델링은 정보가 사용 사례에 맞게 최적으로 저장되도록 보장하며, 잘 설계된 스키마는 그래프 생성과 정제·정규화·해소를 단순하게 만든다. 텍스트에서 고품질의 개체 관계를 추출하면 비지도 그래프 기반 개체 해소를 설계하는 데 도움이 된다. 그리고 다양한 그래프 데이터 과학·그래프 ML 기법은 LLM 같은 블랙박스 도구에 지나치게 의존하지 않고도 패턴을 분석하고 통찰을 이끌어 내게 해 준다.</p></div></div>
+    </section>
+
+    <section class="report-section s10 page-break" id="supplement-operations">
+      <div class="report-section__kicker">AIML Quant 보충 · 운영 판단</div>
+      <h1>보충: 우리 조직에 옮길 때의 판단 기준</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>아래 내용은 원자료의 주장이 아니라, 같은 패턴을 다른 도메인에 옮길 때 AIML Quant가 제안하는 점검 항목이다.</li>
+        <li>세 층 구조와 해소 신호는 도메인이 달라도 그대로 옮겨지지만, 임계값과 불용어 목록은 반드시 다시 정해야 한다.</li>
+        <li>가장 먼저 확인할 것은 모델 성능이 아니라 “틀렸을 때 되돌릴 수 있는가”이다.</li>
+      </ul></div></div>
+      <p>이 장의 사례는 1939년 타자기 문서라는 특수한 조건 위에 서 있다. 그러나 “참조할 정답 사전이 없고, 표기가 제각각이며, 관계가 조밀한 문서 더미”라는 조건은 사내 회의록, 고객 상담 기록, 연구 노트에서도 흔하다. 다음 표는 그 조건에서 이 장의 설계를 채택할지 판단할 때 쓰는 질문 목록이다.</p>
+      <table class="cmp-table" id="table-decision">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 6</span><span class="asset-caption__title">도입 판단 기준과 작은 실험 단위</span></div></caption>
+        <thead><tr><th>판단 질문</th><th>적합 신호</th><th>위험 신호</th><th>작은 실험</th></tr></thead>
+        <tbody>
+          <tr><td>되돌릴 수 있는가?</td><td>추출 결과를 병합하지 않은 중간 층에 보관하고, 최종 그래프를 규칙만 바꿔 재생성한다.</td><td>추출 시점에 곧바로 병합해 원래 표기가 사라진다.</td><td>해소 임계값을 두 가지로 두고 같은 원자료에서 두 그래프를 만들어 본다.</td></tr>
+          <tr><td>출처를 되짚을 수 있는가?</td><td>모든 노드와 관계가 최소 하나의 원본 조각에 연결된다.</td><td>화면에는 결론만 있고 근거 문서로 가는 경로가 없다.</td><td>무작위 노드 20개를 골라 원문 위치까지 두 번의 클릭으로 도달하는지 센다.</td></tr>
+          <tr><td>해소 신호가 겹치는가?</td><td>문자열 유사도 외에 소속·주제·커뮤니티 신호를 함께 쓴다.</td><td>이름 유사도 하나로 병합하고, 성만 같은 사람도 합쳐진다.</td><td>정답을 아는 인물 30명으로 신호별 정밀도를 따로 측정한다.</td></tr>
+          <tr><td>오류를 신고할 수 있는가?</td><td>분석가가 노드·관계를 “의심”으로 표시하고 그 표시가 다음 재생성에 반영된다.</td><td>오류를 발견해도 기록할 자리가 없어 같은 실수가 반복된다.</td><td>RE 실패로 의심되는 사례 10건을 등록하고 재생성 후 사라지는지 확인한다.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout--insight"><span class="callout__kicker">토론 질문</span><div class="callout__body"><p>우리 도메인에서 “메타그래프 층”에 해당하는 것은 무엇이고, 지금 그 자리는 무엇으로 채워져 있는가? 그리고 해소 규칙이 틀렸다고 밝혀졌을 때, 원자료를 다시 처리하지 않고 결과만 다시 만들 수 있는가?</p></div></div>
+    </section>
+
+    <section class="report-appendix s-glossary page-break" id="glossary">
+      <div class="report-section__kicker">Appendix A · Glossary</div>
+      <h1>핵심 용어</h1>
+      <table class="cmp-table" id="table-glossary">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">핵심 용어 사전</span></div></caption>
+        <thead><tr><th>용어</th><th>이 장에서의 의미</th></tr></thead>
+        <tbody>
+          <tr><td>메타그래프</td><td>아직 병합되지 않은 개체·관계와 그 출처 페이지를 담은 중간 층. 최종 그래프를 언제든 재생성할 수 있게 한다.</td></tr>
+          <tr><td>청킹 전략</td><td>긴 텍스트를 토큰 한도에 맞게 조각내는 방식. 여기서는 페이지 단위를 쓴다.</td></tr>
+          <tr><td>정규화 · 정제</td><td>표기를 일관되게 다듬는 일과 직함 같은 불필요한 토큰을 걷어내는 일.</td></tr>
+          <tr><td>상호참조 해소</td><td>같은 대상을 가리키는 서로 다른 표현을 하나로 묶는 작업. LLM 응답 과정에서 은연중에 수행된다.</td></tr>
+          <tr><td>개체 해소</td><td>문서 곳곳에 흩어진 언급이 사실 같은 개체임을 식별해 합치는 일.</td></tr>
+          <tr><td>개체 중의성 해소</td><td>각 언급을 지식 베이스 속 구체적 개념에 연결해 뜻을 확정하는 일. 참조할 지식 베이스가 필요하다.</td></tr>
+          <tr><td>약결합 요소(WCC)</td><td>방향을 무시하고 서로 이어진 노드 덩어리를 찾는 알고리즘. 해소 그룹 식별에 쓴다.</td></tr>
+          <tr><td>매개 중심성</td><td>어떤 노드를 지나는 최단 경로가 많을수록 높은 값. 교량 역할의 인물을 부각한다.</td></tr>
+          <tr><td>페이지랭크</td><td>링크 구조로 노드의 중요도·인기를 매기는 알고리즘.</td></tr>
+          <tr><td>커뮤니티 탐지</td><td>서로 밀접히 연결된 노드 군집을 찾는 알고리즘. 루뱅이 대표적이다.</td></tr>
+          <tr><td>병합 군집화</td><td>가까운 것끼리 차례로 묶어 올라가는 계층적 군집화 방법. 직업 해소에서 좋은 결과를 얻었다.</td></tr>
+          <tr><td>영향력 네트워크</td><td>누가 누구와 무엇에 대해 이야기했는지로 형성되는 인물 간 관계망.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-appendix s-refs page-break" id="references">
+      <div class="report-section__kicker">Appendix B · References</div>
+      <h1>참고 자료와 도형 출처</h1>
+      <ol class="references" style="list-style:none;padding:0;">
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>Alessandro Negro, <em>Knowledge Graphs and LLMs in Action</em>, Chapter 6 해설판. 참가자 자료 링크: <a href="../../../../materials/?p=aiml/active/knowledge-graphs-and-llms-in-action/chapter_06_building_knowledge_graphs_with_large_language_models/06_building_knowledge_graphs_with_large_language_models_ko_explained.md">Chapter 6 source explainer</a>.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[2]</span><span>록펠러 아카이브 센터(RAC) 프로젝트, 워런 위버 일지 약 150페이지 표본, Neo4j Graph Data Science 라이브러리, APOC은 모두 원자료가 설명한 사례와 도구다.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[3]</span><span>모든 SVG는 원자료 캡션이 밝힌 구조와 관계를 근거로 AIML Quant 발표용으로 새로 작도했다. 원본 스캔이나 사설 교재 이미지는 복사하지 않았으며, 네트워크 도식의 노드 배치와 개수는 실제 실행 결과가 아니라 구조 설명을 위한 재구성이다.</span></li>
+      </ol>
+      <div class="report-jump-links"><a href="./">발표자료</a><a href="../../">회차 목록</a><a href="#summary">문서 처음</a></div>
+    </section>
+
+  </article>
+  <script src="assets/report.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>
