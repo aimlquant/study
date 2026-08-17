@@ -54,7 +54,7 @@
   <path class="line" d="M160 294 H 276"/>
   <text class="t rel" x="218" y="286" text-anchor="middle">META_SIMILAR</text>
   <path class="line" d="M160 314 H 276"/>
-  <text class="t rel" x="218" y="332" text-anchor="middle">META_PERSONS_SIMILAR</text>
+  <text class="t rel" x="218" y="326" text-anchor="middle">META_PERSONS_SIMILAR</text>
 
   <circle cx="218" cy="440" r="26" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
   <text class="t node" x="218" y="484" text-anchor="middle">Entity</text>
@@ -104,17 +104,17 @@
 
   <path class="lineMap" d="M158 284 C 300 180, 500 128, 668 140"/>
   <polygon points="664,133 678,141 664,148" fill="#0f2c59"/>
-  <text class="t rel" x="418" y="164" text-anchor="middle" fill="#0f2c59">MAPPED_TO_PERSON</text>
+  <text class="t rel" x="418" y="164" text-anchor="middle" style="fill:#0f2c59">MAPPED_TO_PERSON</text>
 
   <path class="lineMap" d="M332 298 H 526"/>
   <polygon points="522,291 536,299 522,306" fill="#0f2c59"/>
-  <text class="t rel" x="430" y="290" text-anchor="middle" fill="#0f2c59">MAPPED_TO_ORGANIZATION</text>
+  <text class="t rel" x="430" y="290" text-anchor="middle" style="fill:#0f2c59">MAPPED_TO_ORGANIZATION</text>
 
   <path class="lineMap" d="M330 320 C 520 372, 700 350, 840 306"/>
   <polygon points="836,300 850,302 838,314" fill="#0f2c59"/>
-  <text class="t rel" x="612" y="366" text-anchor="middle" fill="#0f2c59">MAPPED_TO_TITLE</text>
+  <text class="t rel" x="612" y="366" text-anchor="middle" style="fill:#0f2c59">MAPPED_TO_TITLE</text>
 
   <path class="lineMap" d="M244 442 H 678"/>
   <polygon points="674,435 688,443 674,450" fill="#0f2c59"/>
-  <text class="t rel" x="450" y="434" text-anchor="middle" fill="#0f2c59">MAPPED_TO_OCCUPATION</text>
+  <text class="t rel" x="450" y="434" text-anchor="middle" style="fill:#0f2c59">MAPPED_TO_OCCUPATION</text>
 </svg>

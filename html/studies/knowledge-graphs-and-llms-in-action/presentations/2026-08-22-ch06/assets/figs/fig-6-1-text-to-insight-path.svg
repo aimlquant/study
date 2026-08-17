@@ -52,10 +52,10 @@
   <text class="t band" x="44" y="300">6장이 다루는 단계</text>
 
   <rect class="boxSolid" x="698" y="318" width="176" height="112" rx="12"/>
-  <text class="t stage" x="718" y="356" fill="#ffffff">지식 그래프 생성</text>
-  <text class="t sub" x="718" y="382" fill="#dbe6f6">그래프 모델링</text>
-  <text class="t sub" x="718" y="402" fill="#dbe6f6">정규화·정제</text>
-  <text class="t sub" x="718" y="422" fill="#dbe6f6">개체 해소</text>
+  <text class="t stage" x="718" y="356" style="fill:#ffffff">지식 그래프 생성</text>
+  <text class="t sub" x="718" y="382" style="fill:#dbe6f6">그래프 모델링</text>
+  <text class="t sub" x="718" y="402" style="fill:#dbe6f6">정규화·정제</text>
+  <text class="t sub" x="718" y="422" style="fill:#dbe6f6">개체 해소</text>
 
   <rect class="boxAccent" x="392" y="318" width="176" height="112" rx="12"/>
   <text class="t stage" x="412" y="356">그래프 데이터 과학</text>

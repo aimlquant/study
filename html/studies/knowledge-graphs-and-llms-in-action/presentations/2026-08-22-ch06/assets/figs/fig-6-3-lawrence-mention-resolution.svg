@@ -39,11 +39,11 @@
   <text class="t name2" x="392" y="457" text-anchor="middle">California</text>
 
   <rect x="540" y="374" width="214" height="54" rx="12" fill="#9d174d"/>
-  <text class="t name2" x="647" y="397" text-anchor="middle" fill="#ffffff">100,000,000 to</text>
-  <text class="t name2" x="647" y="415" text-anchor="middle" fill="#ffffff">200,000,000 volt cyclotron</text>
+  <text class="t name2" x="647" y="397" text-anchor="middle" style="fill:#ffffff">100,000,000 to</text>
+  <text class="t name2" x="647" y="415" text-anchor="middle" style="fill:#ffffff">200,000,000 volt cyclotron</text>
 
   <rect x="796" y="374" width="120" height="54" rx="12" fill="#9d174d"/>
-  <text class="t name2" x="856" y="406" text-anchor="middle" fill="#ffffff">cyclotron</text>
+  <text class="t name2" x="856" y="406" text-anchor="middle" style="fill:#ffffff">cyclotron</text>
 
   <path class="line" d="M150 114 V 210"/>
   <polygon points="143,210 150,222 157,210" fill="#94a3b8"/>
@@ -86,10 +86,10 @@
   <text class="t rel" x="852" y="330">WORKS_ON</text>
 
   <path class="sim" d="M274 396 H 368"/>
-  <text class="t rel" x="321" y="384" text-anchor="middle" fill="#0f2c59">META_SIMILAR</text>
+  <text class="t rel" x="321" y="384" text-anchor="middle" style="fill:#0f2c59">META_SIMILAR</text>
 
   <path class="sim" d="M754 401 H 796"/>
-  <text class="t rel" x="775" y="450" text-anchor="middle" fill="#0f2c59">META_SIMILAR</text>
+  <text class="t rel" x="775" y="450" text-anchor="middle" style="fill:#0f2c59">META_SIMILAR</text>
 
   <rect x="40" y="480" width="452" height="36" rx="10" fill="#e8eef8"/>
   <text class="t hop" x="60" y="504">Ernest Orlando Lawrence ↔ Ernest O. Lawrence · 세 홉</text>
