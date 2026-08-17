@@ -60,8 +60,8 @@ html/             # GitHub Pages 배포 산출물
 |---|---|---|---|---|---|
 | 2026-07-25 | 08:00–10:00 | Chapter 1 | 정훈 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-07-25-machine-trading-ch01/) |
 | 2026-08-01 | 08:00–10:00 | Chapter 2 | 종훈 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-01-machine-trading-ch02/) |
-| 2026-08-08 | 08:00–10:00 | Chapter 3 | 태호 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6) | [회차](https://aimlquant.github.io/study/sessions/2026-08-08-machine-trading-ch03/) |
-| 2026-08-15 | 08:00–10:00 | Chapter 4 | 태영 | [접속](https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79) | [회차](https://aimlquant.github.io/study/sessions/2026-08-15-machine-trading-ch04/) |
+| 2026-08-08 | 08:00–10:00 | Chapter 3 | 태호 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-08-08-machine-trading-ch03/) |
+| 2026-08-15 | 08:00–10:00 | Chapter 4 | 태영 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-15-machine-trading-ch04/) |
 | 2026-08-22 | 08:00–10:00 | Chapter 5 | 핀조이 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf) | [자료](https://aimlquant.github.io/study/sessions/2026-08-22-machine-trading-ch05/) |
 | 2026-08-29 | 08:00–10:00 | Chapter 6 | 원미 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf) | [회차](https://aimlquant.github.io/study/sessions/2026-08-29-machine-trading-ch06/) |
 | 2026-09-05 | 08:00–10:00 | Chapter 7 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-05-machine-trading-ch07/) |
@@ -73,8 +73,8 @@ html/             # GitHub Pages 배포 산출물
 |---|---|---|---|---|---|
 | 2026-07-25 | 09:00–10:00 | Chapter 1–2 | 수경 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-07-25-kg-llm-ch01-ch02/) |
 | 2026-08-01 | 09:00–10:00 | Chapter 3 | 태영 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-01-kg-llm-ch03/) |
-| 2026-08-08 | 09:00–10:00 | Chapter 4 | 종훈(S) | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mc566f92559137856a5817a3391b681e6) | [회차](https://aimlquant.github.io/study/sessions/2026-08-08-kg-llm-ch04/) |
-| 2026-08-15 | 09:00–10:00 | Chapter 5 | 두균 | [접속](https://lgehq.webex.com/lgehq/j.php?MTID=m48de660ac23783eb903ddd4c68227e79) | [회차](https://aimlquant.github.io/study/sessions/2026-08-15-kg-llm-ch05/) |
+| 2026-08-08 | 09:00–10:00 | Chapter 4 | 종훈(S) | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-08-08-kg-llm-ch04/) |
+| 2026-08-15 | 09:00–10:00 | Chapter 5 | 두균 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-15-kg-llm-ch05/) |
 | 2026-08-22 | 09:00–10:00 | Chapter 6 | 종훈(L) | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf) | [회차](https://aimlquant.github.io/study/sessions/2026-08-22-kg-llm-ch06/) |
 | 2026-08-29 | 09:00–10:00 | Chapter 7 | 재익 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf) | [회차](https://aimlquant.github.io/study/sessions/2026-08-29-kg-llm-ch07/) |
 | 2026-09-05 | 09:00–10:00 | Chapter 8 | 태호 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-05-kg-llm-ch08/) |

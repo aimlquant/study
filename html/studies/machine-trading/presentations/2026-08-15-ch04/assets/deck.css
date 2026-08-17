@@ -146,8 +146,8 @@ a {
   max-width: 1080px;
   margin: 16px 0 0;
   color: var(--muted);
-  font-size: 20px;
-  line-height: 1.55;
+  font-size: 21px;
+  line-height: 1.5;
 }
 
 .slide-body {
@@ -385,7 +385,7 @@ a {
 .kpi p {
   margin: 0;
   color: var(--muted);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.55;
 }
 
@@ -403,7 +403,7 @@ a {
   padding: 12px 0 12px 18px;
   color: var(--text);
   border-left: 4px solid var(--primary);
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.5;
 }
 
@@ -441,7 +441,7 @@ a {
 
 .panel li {
   margin: 9px 0;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.45;
 }
 
@@ -496,6 +496,23 @@ a {
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   align-items: stretch;
 }
+
+/* 패널 안에 중첩된 코드 창은 자체 최소 높이를 다시 쌓지 않는다. .panel 이 이미
+   280px 를 갖고 있어 두 값이 겹치면 stage 세로가 넘쳐 takeaway 가 footer 를
+   침범한다(편집 규칙 13항과 같은 부모-자식 계약). */
+.panel .code-block { min-height: 0; padding: 30px 26px; }
+/* .two-col 과 나란히 놓인 코드 창도 280px 를 그대로 쓰면 stage 세로가 넘쳐
+   제목이 가려지고 takeaway 가 footer 를 침범한다. 짧은 코드에는 이 변형을 쓴다.
+   `.code-block` 규칙이 아래에 있으므로 요소 선택자로 명시도를 올려 둔다. */
+pre.code-block--compact {
+  min-height: 0;
+  /* .slide-body 가 세로 flex 라 min-height 만 풀면 내용보다 더 줄어 코드가
+     잘린다. 줄어들지 않게 고정하고 남는 공간은 아래 패널이 갖게 한다. */
+  flex: none;
+}
+/* 코드 창과 패널 행을 한 슬라이드에 함께 두면 280 + 280 만으로 stage 세로를
+   다 써 버려 lead 가 코드 창 뒤로 숨는다. 이 슬라이드에서는 패널 바닥을 낮춘다. */
+.slide--compact-code .panel { min-height: 200px; }
 
 .code-block {
   min-height: 280px;
@@ -557,6 +574,16 @@ a {
   font-weight: 950;
   letter-spacing: 0.15em;
 }
+
+.closing-question small {
+  margin-left: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0;
+}
+
+.slide.is-deck-omitted { display: none !important; }
 
 .back-link {
   color: var(--muted);
@@ -1255,7 +1282,7 @@ body.chrome-hidden .deck-settings {
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: var(--shadow);
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .compare-table th,
@@ -1280,7 +1307,7 @@ body.chrome-hidden .deck-settings {
 .compare-table thead th {
   color: #fff;
   background: var(--primary-deep);
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .compare-table tbody th {
@@ -1403,7 +1430,7 @@ body.chrome-hidden .deck-settings {
 
 .deck-report-figure figcaption {
   display: grid;
-  grid-template-columns: 120px repeat(3, 1fr);
+  grid-template-columns: 136px repeat(3, 1fr);
   width: min(1080px, 100%);
   margin-top: 9px;
   overflow: hidden;
@@ -1415,7 +1442,7 @@ body.chrome-hidden .deck-settings {
 .deck-report-figure figcaption > * {
   padding: 9px 12px;
   border-right: 1px solid var(--border);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.35;
 }
 
@@ -1439,13 +1466,283 @@ body.chrome-hidden .deck-settings {
 .slide--visual > .lead {
   max-width: 1140px;
   margin-top: 9px;
-  font-size: 16px;
-  line-height: 1.38;
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 .slide--visual--compact .deck-report-figure img {
   max-height: 370px;
 }
+
+.slide--concept-pair .concept-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 22px;
+  padding: 4px 0 4px;
+}
+
+.concept-pair__item {
+  display: flex;
+  min-width: 0;
+  margin: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.concept-pair__item img {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: 272px;
+  object-fit: contain;
+  background: #fafaf9;
+  border: 1px solid #dfe2e7;
+  border-radius: 10px;
+  box-shadow: 0 14px 38px rgba(15, 44, 89, 0.11);
+}
+
+.concept-pair__item figcaption {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  width: 100%;
+  max-width: 520px;
+  margin-top: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.concept-pair__item figcaption > * {
+  padding: 9px 11px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.concept-pair__item figcaption strong {
+  color: #fff;
+  background: var(--primary-deep);
+  text-align: center;
+}
+
+.concept-pair__item figcaption span { color: var(--muted); }
+
+.slide--figure-table { padding: 28px 54px 24px; }
+.slide--figure-table .slide-header { min-height: 32px; margin-bottom: 8px; }
+.slide--figure-table > h1 { font-size: 36px; line-height: 1.12; }
+.slide--figure-table > h1::after { width: 46px; height: 3px; margin-top: 9px; }
+.slide--figure-table > .lead { margin-top: 8px; font-size: 17px; line-height: 1.4; }
+.slide--figure-table .slide-footer { padding-top: 7px; }
+
+.figure-table-body {
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 6px 0 4px;
+}
+
+.deck-concept-strip {
+  display: flex;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.deck-concept-strip img {
+  display: block;
+  width: auto;
+  max-width: 1000px;
+  height: auto;
+  max-height: 200px;
+  border: 1px solid #dfe2e7;
+  border-radius: 9px;
+  background: #fafaf9;
+}
+
+.deck-concept-strip figcaption {
+  width: min(1000px, 100%);
+  max-width: 1000px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.deck-concept-strip figcaption strong { color: var(--text); }
+
+.slide--figure-table .compare-table th,
+.slide--figure-table .compare-table td { padding: 7px 13px; font-size: 14px; line-height: 1.25; }
+.slide--figure-table .takeaway { margin-top: 0; padding: 10px 14px; font-size: 15px; line-height: 1.3; }
+
+.slide--figure-table--large-figure .figure-table-body { gap: 6px; }
+.slide--figure-table--large-figure .deck-concept-strip img { width: min(1000px, 100%); }
+
+.formula-strip {
+  display: grid;
+  grid-template-columns: 1.45fr .85fr .75fr 1.25fr;
+  align-items: center;
+  gap: 0;
+  margin-top: 7px;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 22px rgba(15, 44, 89, .08);
+}
+
+.formula-strip > * {
+  min-width: 0;
+  padding: 8px 11px;
+  border-right: 1px solid var(--border);
+  font-size: 13px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.formula-strip > *:last-child { border-right: 0; }
+.formula-strip strong { color: #fff; background: var(--primary-deep); }
+.formula-strip span { color: var(--primary); font-weight: 850; }
+.formula-strip small { color: var(--muted); }
+
+.ensemble-story {
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 16px;
+}
+
+.ensemble-story__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.ensemble-story__card {
+  min-height: 240px;
+  padding: 20px 26px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.ensemble-story__card--accent {
+  background: color-mix(in srgb, #e8f4ec 80%, var(--surface));
+  border-color: #70a987;
+  border-top-color: #1f7042;
+}
+
+.ensemble-story__card .eyebrow { margin: 0 0 4px; }
+.ensemble-story__card h2 { margin: 0 0 8px; font-size: 22px; }
+.ensemble-story__card p:last-child { margin: 8px 0 0; color: var(--muted); font-size: 15px; line-height: 1.38; }
+
+.mini-forest {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.mini-forest span {
+  position: relative;
+  min-height: 80px;
+  padding: 8px 4px 42px;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border: 1px solid color-mix(in srgb, var(--primary) 40%, var(--border));
+  border-radius: 8px;
+  font: 800 12px/1.2 "D2Coding", "JetBrains Mono", Consolas, monospace;
+  text-align: center;
+}
+
+.mini-forest span::after {
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  left: 0;
+  color: currentColor;
+  content: "│\A╱ ╲\A● ●";
+  font: 800 11px/9px var(--font-sans-ko);
+  white-space: pre;
+}
+
+.mini-forest--varied span:nth-child(2n) { color: #1f7042; background: #e8f4ec; }
+.mini-forest--varied span:nth-child(3n) { color: #a44a26; background: #fff1eb; }
+
+.ensemble-result {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  background: var(--primary-deep);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 17px;
+  text-align: center;
+}
+
+.ensemble-result > span { color: #c9d8ed; font-size: 14px; text-align: left; }
+.ensemble-result > i { color: #91a9c8; font-style: normal; }
+
+.slide--factor-selection { padding: 34px 68px 28px; }
+.slide--factor-selection .slide-header { margin-bottom: 14px; }
+.slide--factor-selection > h1 { font-size: 40px; }
+.slide--factor-selection > .lead { margin-top: 10px; font-size: 18px; line-height: 1.4; }
+.slide--factor-selection .slide-body { justify-content: flex-start; gap: 14px; padding: 16px 0 10px; }
+
+.selection-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1.15fr auto 1.45fr;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.selection-flow > div {
+  display: flex;
+  min-width: 0;
+  padding: 16px 18px;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.selection-flow > i { align-self: center; color: var(--primary); font-size: 24px; font-style: normal; }
+.selection-flow b { color: var(--primary); font-size: 18px; }
+.selection-flow span { margin-top: 4px; color: var(--muted); font-size: 14px; line-height: 1.35; }
+.selection-flow__stop { background: #e8f4ec !important; border-color: #70a987 !important; }
+.selection-flow__stop b { color: #1f7042; }
+
+.factor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.factor-grid article {
+  display: grid;
+  min-width: 0;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  box-shadow: 0 8px 18px rgba(15, 44, 89, .07);
+}
+
+.factor-grid code { color: var(--primary); font-size: 13px; font-weight: 850; overflow-wrap: anywhere; }
+.factor-grid b { margin-top: 4px; font-size: 16px; line-height: 1.25; }
+.factor-grid span { margin-top: 3px; color: var(--muted); font-size: 14px; }
+.slide--factor-selection .takeaway { margin-top: 0; padding-top: 10px; padding-bottom: 10px; font-size: 17px; }
+
+html.theme-dark .concept-pair__item img,
+html.theme-dark .deck-concept-strip img { background: #fafaf9; border-color: #6f7886; }
 
 .deck-report-figure figcaption span strong {
   color: var(--text);
@@ -1454,6 +1751,12 @@ body.chrome-hidden .deck-settings {
 
 .compare-table--dense th,
 .compare-table--dense td { padding: 13px 16px; font-size: 15px; line-height: 1.35; }
+
+/* 행이 8개 이상인 표 — 기본 행 높이로는 캡션 띠가 푸터를 침범한다.
+   figure-only·tall-chart 처럼 이 계열에도 별도 크기 계약을 둔다. */
+.compare-table--tall th,
+.compare-table--tall td { padding: 8px 16px; font-size: 13.5px; line-height: 1.3; }
+.compare-table--tall thead th { font-size: 12.5px; }
 
 html.theme-dark .deck-report-figure img { background: #fafaf9; border-color: #6f7886; }
 html.theme-dark .deck-report-figure figcaption b { color: #fff; background: #0f2c59; }
@@ -1510,6 +1813,15 @@ html.theme-dark .deck-report-figure figcaption b { color: #fff; background: #0f2
   }
 }
 
+
+/* 구문 강조 토큰 — deck.js 의 토크나이저가 붙이는 클래스. 코드 창 배경
+   (#090e17~#141c29) 기준으로 최종 투사 크기에서도 구분되게 골랐다. */
+pre code .tok-com { color: #8195A8; font-style: italic; }
+pre code .tok-str { color: #9ECE6A; }
+pre code .tok-num { color: #FF9E64; }
+pre code .tok-kw  { color: #BB9AF7; }
+pre code .tok-lit { color: #FF757F; }
+pre code .tok-fn  { color: #7AA2F7; }
 
 /* ===== Visible code-window chrome ===== */
 pre[data-code-language] {

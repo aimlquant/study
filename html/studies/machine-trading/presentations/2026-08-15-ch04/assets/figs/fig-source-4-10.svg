@@ -1,57 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 6 706 296" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">두 상태 HMM의 전이 확률</title>
+  <desc id="desc">강세 상태에서 강세로 남을 확률은 0.60, 약세로 바뀔 확률은 0.40이다. 약세 상태에서 강세로 바뀔 확률은 0.75, 약세로 남을 확률은 0.25다. 화살표 굵기는 확률에 비례한다.</desc>
   <defs>
-    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
-    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
-    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
-    <style>
-      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}
-      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
-      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
-      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
-      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
-      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
-      .labl{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:start}
-      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
-      .key{fill:#0F2C59;stroke:#0F2C59}
-      .tk{fill:#fff;font-size:13px;font-weight:700;text-anchor:middle}
-      .sk{fill:#C7D2E6;font-size:10.5px;text-anchor:middle}
-      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
-      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
-      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
-      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
-      .muted{fill:#F3F1EC;stroke:#8A8377;stroke-width:1.3}
-      .mutedt{fill:#6B6357;font-size:10.5px;font-weight:700;text-anchor:middle}
-      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
-      .ar{stroke:#A3341F;stroke-width:1.4;fill:none;marker-end:url(#ahr)}
-      .ag{stroke:#1B6B3A;stroke-width:1.4;fill:none;marker-end:url(#ahg)}
-      .plain{stroke:#0F2C59;stroke-width:1.3;fill:none}
-      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
-      .grid{stroke:#E7E5E4;stroke-width:1;fill:none}
-      .ln{stroke:#0F2C59;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lnr{stroke:#A3341F;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lng{stroke:#1B6B3A;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lnthin{stroke:#9AA9C4;stroke-width:1.1;fill:none;stroke-linejoin:round}
-      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
-      .band{fill:#0F2C59;opacity:.07}
-      .bandr{fill:#A3341F;opacity:.09}
-      .edge{fill:none;stroke:#0F2C59;stroke-width:1.3}
-      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
-    </style>
+    <marker id="blue" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0 0L11 5.5L0 11Z" fill="#173b67"/></marker>
+    <marker id="green" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0 0L11 5.5L0 11Z" fill="#1f7042"/></marker>
+    <marker id="red" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0 0L11 5.5L0 11Z" fill="#b54724"/></marker>
+    <style>.state1{fill:#e8f4ec;stroke:#1f7042;stroke-width:2.5}.state2{fill:#fde8df;stroke:#b54724;stroke-width:2.5}.name1{fill:#1f7042;font-size:17px;font-weight:700}.name2{fill:#b54724;font-size:17px;font-weight:700}.prob{fill:#101828;font-size:13px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:5}.small{fill:#606978;font-size:11px}.sum{fill:#173b67;font-size:12px;font-weight:700}.loop1{fill:none;stroke:#1f7042;stroke-width:4.2;marker-end:url(#green)}.loop2{fill:none;stroke:#b54724;stroke-width:2.3;marker-end:url(#red)}.to2{fill:none;stroke:#173b67;stroke-width:3.3;marker-end:url(#blue)}.to1{fill:none;stroke:#173b67;stroke-width:5.2;marker-end:url(#blue)}</style>
   </defs>
-<circle cx="210" cy="150" r="72" fill="#E8F1EA" stroke="#1B6B3A" stroke-width="2"/>
-<text class="goodt" x="210" y="140" style="font-size:15px">상태 1</text>
-<text class="goodt" x="210" y="162" style="font-size:15px">강세</text>
-<circle cx="510" cy="150" r="72" fill="#FBEFEA" stroke="#A3341F" stroke-width="2"/>
-<text class="warnt" x="510" y="140" style="font-size:15px">상태 2</text>
-<text class="warnt" x="510" y="162" style="font-size:15px">약세</text>
-<path class="a" d="M276,124 Q360,86 444,124"/>
-<text class="lab halo" x="360" y="92">0.40</text>
-<path class="a" d="M444,180 Q360,220 276,180"/>
-<text class="lab halo" x="360" y="222">0.75</text>
-<path class="a" d="M168,92 Q140,20 210,32 Q272,42 254,100"/>
-<text class="lab halo" x="196" y="24">0.60</text>
-<path class="a" d="M552,92 Q580,20 510,32 Q448,42 466,100"/>
-<text class="lab halo" x="524" y="24">0.25</text>
-<text class="sl" x="24" y="272">T의 (i, j) 성분 = 오늘 상태 i에서 내일 상태 j로 갈 확률. 각 행의 합은 1이다.</text>
-<text class="sl" x="24" y="292">상태 이름은 우리가 붙인 것일 뿐 — 알고리즘은 "강세·약세"를 알지 못한다.</text>
+  <circle cx="250" cy="177" r="76" class="state1"/><text x="250" y="169" text-anchor="middle" class="name1">상태 1</text><text x="250" y="194" text-anchor="middle" class="name1">강세</text>
+  <circle cx="650" cy="177" r="76" class="state2"/><text x="650" y="169" text-anchor="middle" class="name2">상태 2</text><text x="650" y="194" text-anchor="middle" class="name2">약세</text>
+  <path d="M326 157C430 107 525 107 574 157" class="to2"/><text x="450" y="112" text-anchor="middle" class="prob">0.40 · 약세로 전환</text>
+  <path d="M574 205C505 270 395 270 326 205" class="to1"/><text x="450" y="277" text-anchor="middle" class="prob">0.75 · 강세로 전환</text>
+  <path d="M214 110C170 55 205 24 250 24C297 24 332 57 287 111" class="loop1"/><text x="250" y="20" text-anchor="middle" class="prob">0.60 · 유지</text>
+  <path d="M614 110C570 55 605 24 650 24C697 24 732 57 687 111" class="loop2"/><text x="650" y="20" text-anchor="middle" class="prob">0.25 · 유지</text>
+  <rect x="130" y="302" width="240" height="24" rx="7" fill="#e8f4ec"/><text x="250" y="319" text-anchor="middle" class="sum">강세에서 나감: 0.60 + 0.40 = 1</text>
+  <rect x="530" y="302" width="240" height="24" rx="7" fill="#fde8df"/><text x="650" y="319" text-anchor="middle" class="sum">약세에서 나감: 0.75 + 0.25 = 1</text>
 </svg>

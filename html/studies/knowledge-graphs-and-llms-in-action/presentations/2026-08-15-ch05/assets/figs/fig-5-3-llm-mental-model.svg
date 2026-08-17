@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .h{font-size:19px;font-weight:900}
+    .m{font-size:15px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .muted{fill:#eef1f5;stroke:#cbd5e1}
+    .plain{fill:#fff;stroke:#cbd5e1}
+    .accent{fill:#0f2c59;stroke:#0f2c59}
+    .grayline{stroke:#94a3b8;stroke-width:2.5;fill:none;stroke-linecap:round}
+    .line{stroke:#0f2c59;stroke-width:3.5;fill:none;stroke-linecap:round}
+  </style>
+  <title id="title">LLM으로 텍스트를 구조화된 지식으로 바꾸는 정신 모형</title>
+  <desc id="desc">여러 전문 모델을 잇는 전통적 NLP 파이프라인과 한 번의 통과로 처리하는 LLM 접근의 대비</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f2c59"/></marker>
+    <marker id="garrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker>
+  </defs>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <text class="t h" x="480" y="50" text-anchor="middle" fill="#0f172a">같은 목적, 두 가지 처리 방식</text>
+
+  <!-- traditional row -->
+  <text class="t s" x="40" y="118" text-anchor="start" fill="#64748b">전통적 NLP · 서로 의존하는 여러 전문 모델</text>
+  <rect class="muted" x="40" y="132" width="96" height="64" rx="10"/>
+  <text class="t s" x="88" y="170" text-anchor="middle" fill="#334155">텍스트</text>
+  <rect class="muted" x="196" y="132" width="110" height="64" rx="10"/>
+  <text class="t xs" x="251" y="160" text-anchor="middle" fill="#334155">개체명 인식</text>
+  <text class="t xs" x="251" y="178" text-anchor="middle" fill="#94a3b8">NER</text>
+  <rect class="muted" x="366" y="132" width="130" height="64" rx="10"/>
+  <text class="t xs" x="431" y="160" text-anchor="middle" fill="#334155">상호참조 해소</text>
+  <text class="t xs" x="431" y="178" text-anchor="middle" fill="#94a3b8">coreference</text>
+  <rect class="muted" x="556" y="132" width="110" height="64" rx="10"/>
+  <text class="t xs" x="611" y="160" text-anchor="middle" fill="#334155">관계 추출</text>
+  <text class="t xs" x="611" y="178" text-anchor="middle" fill="#94a3b8">RE</text>
+  <rect class="muted" x="726" y="132" width="120" height="64" rx="10"/>
+  <text class="t s" x="786" y="170" text-anchor="middle" fill="#334155">지식 그래프</text>
+  <path class="grayline" d="M136 164 L192 164" marker-end="url(#garrow)"/>
+  <path class="grayline" d="M306 164 L362 164" marker-end="url(#garrow)"/>
+  <path class="grayline" d="M496 164 L552 164" marker-end="url(#garrow)"/>
+  <path class="grayline" d="M666 164 L722 164" marker-end="url(#garrow)"/>
+
+  <line x1="40" y1="240" x2="920" y2="240" stroke="#e2e8f0" stroke-width="2"/>
+
+  <!-- LLM row -->
+  <text class="t s" x="40" y="300" text-anchor="start" fill="#0f2c59">LLM 접근 · 한 번의 통과로 개체와 관계를 함께</text>
+  <rect class="plain" x="40" y="316" width="120" height="80" rx="12"/>
+  <text class="t m" x="100" y="362" text-anchor="middle" fill="#334155">텍스트</text>
+
+  <rect class="accent" x="230" y="300" width="260" height="112" rx="16"/>
+  <text class="t m" x="360" y="342" text-anchor="middle" fill="#fff">대규모 언어 모델 (LLM)</text>
+  <text class="t xs" x="360" y="368" text-anchor="middle" fill="#cbd5e1">개체명 인식 + 관계 추출</text>
+  <text class="t xs" x="360" y="388" text-anchor="middle" fill="#cbd5e1">상호참조·약어 풀이 암묵 처리</text>
+
+  <rect class="plain" x="560" y="316" width="150" height="80" rx="12"/>
+  <text class="t s" x="635" y="350" text-anchor="middle" fill="#334155">개체 + 관계</text>
+  <text class="t xs" x="635" y="372" text-anchor="middle" fill="#64748b">[개체,유형,관계,…]</text>
+
+  <rect class="accent" x="780" y="316" width="140" height="80" rx="12"/>
+  <text class="t m" x="850" y="362" text-anchor="middle" fill="#fff">지식 그래프</text>
+
+  <path class="line" d="M160 356 L226 356" marker-end="url(#arrow)"/>
+  <path class="line" d="M490 356 L556 356" marker-end="url(#arrow)"/>
+  <path class="line" d="M710 356 L776 356" marker-end="url(#arrow)"/>
+
+  <rect x="40" y="446" width="880" height="66" rx="12" fill="#eef2fb" stroke="#c7d3ea"/>
+  <text class="t s" x="60" y="474" text-anchor="start" fill="#0f172a">전이 학습 덕분에 라벨 데이터가 적어도 되고, 생성적 특성으로 더 깨끗한 그래프를 처음부터 얻는다.</text>
+  <text class="t xs" x="60" y="498" text-anchor="start" fill="#b45309">단, 환각(근거 없는 사실 생성)이라는 한계를 반드시 통제해야 한다.</text>
+</svg>

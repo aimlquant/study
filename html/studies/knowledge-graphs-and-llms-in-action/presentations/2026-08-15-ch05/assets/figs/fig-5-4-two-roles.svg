@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .h{font-size:19px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .plain{fill:#fff;stroke:#cbd5e1}
+    .soft{fill:#e8eef8;stroke:#b7c7e3}
+    .accent{fill:#0f2c59;stroke:#0f2c59}
+    .warm{fill:#fff7ed;stroke:#fdba74}
+    .line{stroke:#0f2c59;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+  <title id="title">텍스트로 지식 그래프를 만들 때 LLM의 두 가지 역할</title>
+  <desc id="desc">데이터 탐색과 프롬프트 엔지니어링을 거쳐 프롬프트 기반 접근 또는 파인튜닝 접근으로 갈라지는 흐름</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f2c59"/></marker></defs>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <text class="t h" x="480" y="48" text-anchor="middle" fill="#0f172a">프롬프트 기반 접근 vs 파인튜닝 접근</text>
+
+  <!-- data exploration -->
+  <rect class="soft" x="36" y="238" width="128" height="74" rx="12"/>
+  <text class="t m" x="100" y="270" text-anchor="middle" fill="#0f172a">데이터 탐색</text>
+  <text class="t xs" x="100" y="292" text-anchor="middle" fill="#475569">도메인·난관 이해</text>
+
+  <!-- prompt engineering -->
+  <rect class="plain" x="206" y="238" width="150" height="74" rx="12"/>
+  <text class="t m" x="281" y="270" text-anchor="middle" fill="#0f172a">프롬프트</text>
+  <text class="t m" x="281" y="290" text-anchor="middle" fill="#0f172a">엔지니어링</text>
+
+  <!-- decision diamond -->
+  <polygon points="470,230 540,275 470,320 400,275" fill="#fff" stroke="#0f2c59" stroke-width="2.5"/>
+  <text class="t s" x="470" y="270" text-anchor="middle" fill="#0f172a">품질에</text>
+  <text class="t s" x="470" y="288" text-anchor="middle" fill="#0f172a">만족?</text>
+
+  <path class="line" d="M164 275 L202 275" marker-end="url(#arrow)"/>
+  <path class="line" d="M356 275 L396 275" marker-end="url(#arrow)"/>
+
+  <!-- top branch: prompt-based -->
+  <text class="t xs" x="560" y="150" text-anchor="start" fill="#166534">위쪽 갈래 · 프롬프트 기반 접근</text>
+  <rect class="soft" x="560" y="162" width="180" height="64" rx="12"/>
+  <text class="t s" x="650" y="190" text-anchor="middle" fill="#0f172a">손질 없이 바로 사용</text>
+  <text class="t xs" x="650" y="210" text-anchor="middle" fill="#475569">제로샷 / 원샷</text>
+  <path class="line" d="M470 230 L470 194 L556 194" marker-end="url(#arrow)"/>
+  <text class="t xs" x="486" y="216" text-anchor="start" fill="#166534">예</text>
+
+  <!-- bottom branch: fine-tuning -->
+  <text class="t xs" x="40" y="360" text-anchor="start" fill="#b45309">아래쪽 갈래 · 파인튜닝 접근 (과제가 너무 복잡할 때)</text>
+  <rect class="warm" x="400" y="386" width="160" height="66" rx="12"/>
+  <text class="t s" x="480" y="414" text-anchor="middle" fill="#7c2d12">작은 학습</text>
+  <text class="t s" x="480" y="434" text-anchor="middle" fill="#7c2d12">데이터셋 준비</text>
+  <rect class="warm" x="592" y="386" width="140" height="66" rx="12"/>
+  <text class="t s" x="662" y="414" text-anchor="middle" fill="#7c2d12">파인튜닝</text>
+  <text class="t xs" x="662" y="434" text-anchor="middle" fill="#9a3412">OpenAI API</text>
+  <path class="line" d="M470 320 L470 386" marker-end="url(#arrow)"/>
+  <text class="t xs" x="486" y="352" text-anchor="start" fill="#b45309">아니오</text>
+  <path class="line" d="M560 419 L588 419" marker-end="url(#arrow)"/>
+
+  <!-- KG output -->
+  <rect class="accent" x="784" y="244" width="140" height="86" rx="14"/>
+  <text class="t m" x="854" y="284" text-anchor="middle" fill="#fff">지식 그래프</text>
+  <text class="t xs" x="854" y="306" text-anchor="middle" fill="#cbd5e1">생성</text>
+  <path class="line" d="M740 194 L854 194 L854 240" marker-end="url(#arrow)"/>
+  <path class="line" d="M732 419 L854 419 L854 334" marker-end="url(#arrow)"/>
+
+  <rect x="36" y="470" width="888" height="48" rx="10" fill="#eef2fb" stroke="#c7d3ea"/>
+  <text class="t s" x="480" y="500" text-anchor="middle" fill="#0f172a">프롬프트 엔지니어링 결과물은 파인튜닝 학습셋의 초벌 주석(preannotation)으로 재사용된다 — 헛수고가 아니다.</text>
+</svg>

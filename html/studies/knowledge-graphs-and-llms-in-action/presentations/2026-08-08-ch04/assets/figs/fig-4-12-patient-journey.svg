@@ -1,15 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
     <style>
-      .t{font-family:'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;fill:#0f172a}
-      .title{font-size:30px;font-weight:900}
-      .sub{font-size:15px;fill:#475569;font-weight:700}
-      .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:2}
-      .accent{fill:#0f2c59}
-      .soft{fill:#e8eef8}
-      .muted{fill:#f8fafc}
-      .label{font-size:19px;font-weight:900}
-      .body{font-size:14px;fill:#334155;font-weight:700}
-      .small{font-size:12px;fill:#475569;font-weight:700}
-      .line{stroke:#0f2c59;stroke-width:3;fill:none}
+      .t{font-family:'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif}
+      .h{font-size:20px;font-weight:900}
+      .m{font-size:15px;font-weight:800}
+      .s{font-size:12px;font-weight:700}
+      .xs{font-size:10px;font-weight:700}
+      .dark{fill:#0f2c59;stroke:#0f2c59}
+      .soft{fill:#e8eef8;stroke:#b7c7e3}
+      .plain{fill:#fff;stroke:#cbd5e1}
+      .green{fill:#e7f7ef;stroke:#99d8b6}
+      .warn{fill:#fff7ed;stroke:#fdba74}
+      .line{stroke:#0f2c59;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .dash{stroke:#64748b;stroke-width:2.5;fill:none;stroke-dasharray:7 7;stroke-linecap:round}
+      .thin{stroke:#94a3b8;stroke-width:2;fill:none}
+      .axis{stroke:#64748b;stroke-width:2;fill:none}
+      .bar{fill:#0f2c59}
+      .bar2{fill:#89a7d8}
+      .badge{fill:#0f2c59}
+      .badgeText{fill:#fff;font-size:12px;font-weight:900}
     </style>
-    <title id="title">환자 여정 지도</title><desc id="desc">임상 사건은 시간, 경험, 표준 진료 경로 속에서 해석된다</desc><rect width="960" height="540" rx="18" fill="#fafaf9"/><text class="t title" x="48" y="58">환자 여정 지도</text><text class="t sub" x="48" y="86">임상 사건은 시간, 경험, 표준 진료 경로 속에서 해석된다</text><rect class="box" x="60" y="130" width="220" height="130" rx="10" fill="#ffffff"/><text class="t label" x="78" y="168" fill="#0f172a">Symptoms</text><text class="t body" x="78" y="200" fill="#334155">첫 방문</text><text class="t body" x="78" y="224" fill="#334155">증상 기록</text><text class="t body" x="78" y="248" fill="#334155">주관성</text><rect class="box" x="370" y="130" width="220" height="130" rx="10" fill="#e8eef8"/><text class="t label" x="388" y="168" fill="#0f172a">Diagnosis</text><text class="t body" x="388" y="200" fill="#334155">검사·판독</text><text class="t body" x="388" y="224" fill="#334155">질병 코드</text><text class="t body" x="388" y="248" fill="#334155">불확실성</text><rect class="box" x="680" y="130" width="220" height="130" rx="10" fill="#e7f7ef"/><text class="t label" x="698" y="168" fill="#0f172a">Treatment</text><text class="t body" x="698" y="200" fill="#334155">약물·시술</text><text class="t body" x="698" y="224" fill="#334155">반응</text><text class="t body" x="698" y="248" fill="#334155">부작용</text><rect class="box" x="60" y="330" width="220" height="130" rx="10" fill="#ffffff"/><text class="t label" x="78" y="368" fill="#0f172a">Monitoring</text><text class="t body" x="78" y="400" fill="#334155">추적 검사</text><text class="t body" x="78" y="424" fill="#334155">재발·진행</text><text class="t body" x="78" y="448" fill="#334155">결과 기록</text><rect class="box" x="370" y="330" width="220" height="130" rx="10" fill="#fff7ed"/><text class="t label" x="388" y="368" fill="#0f172a">Privacy</text><text class="t body" x="388" y="400" fill="#334155">식별정보 제거</text><text class="t body" x="388" y="424" fill="#334155">통계만 저장</text><text class="t body" x="388" y="448" fill="#334155">동의 관리</text><rect class="box" x="680" y="330" width="220" height="130" rx="10" fill="#0f2c59"/><text class="t label" x="698" y="368" fill="#ffffff">Clinical KG</text><text class="t body" x="698" y="400" fill="#ffffff">환자 맥락</text><text class="t body" x="698" y="424" fill="#ffffff">오믹스·EHR</text><text class="t body" x="698" y="448" fill="#ffffff">질의 가능</text><path class="line" d="M280 195 C 325 195, 325 195, 358 195"/><polygon points="358,188 370,195 358,202" fill="#0f2c59"/><path class="line" d="M590 195 C 635 195, 635 195, 668 195"/><polygon points="668,188 680,195 668,202" fill="#0f2c59"/><path class="line" d="M790 260 C 480 260, 480 330, 158 330"/><polygon points="158,323 170,330 158,337" fill="#0f2c59"/><path class="line" d="M280 195 C 325 195, 325 395, 358 395"/><polygon points="358,388 370,395 358,402" fill="#0f2c59"/><path class="line" d="M590 395 C 635 395, 635 395, 668 395"/><polygon points="668,388 680,395 668,402" fill="#0f2c59"/><path class="line" d="M280 395 C 480 395, 480 395, 668 395"/><polygon points="668,388 680,395 668,402" fill="#0f2c59"/></svg>
+    <title id="title">환자 여정 지도</title><desc id="desc">임상 사건은 시간, 경험, 표준 진료 경로 속에서 해석된다</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f2c59"/></marker></defs><rect width="960" height="540" fill="#fafaf9"/><path class="axis" d="M95 260 L860 260"/><circle class="soft" cx="95" cy="260" r="44"/><text class="t s" x="95" y="266" text-anchor="middle" fill="#64748b">Symptoms</text><path class="thin" d="M95 304 L95 382"/><circle class="soft" cx="270" cy="260" r="44"/><text class="t s" x="270" y="266" text-anchor="middle" fill="#64748b">Diagnosis</text><path class="thin" d="M270 304 L270 382"/><circle class="soft" cx="445" cy="260" r="44"/><text class="t s" x="445" y="266" text-anchor="middle" fill="#64748b">Treatment</text><path class="thin" d="M445 304 L445 382"/><circle class="soft" cx="620" cy="260" r="44"/><text class="t s" x="620" y="266" text-anchor="middle" fill="#64748b">Monitoring</text><path class="thin" d="M620 304 L620 382"/><circle class="soft" cx="795" cy="260" r="44"/><text class="t s" x="795" y="266" text-anchor="middle" fill="#64748b">Outcome</text><path class="thin" d="M795 304 L795 382"/><rect class="plain" x="60" y="385" width="250" height="78" rx="12"/><text class="t m" x="78" y="412" text-anchor="start" fill="#0f172a">EHR</text><text class="t xs" x="78" y="434" text-anchor="start" fill="#475569">임상의 기록 · 검사 · 치료 반응</text><rect class="warn" x="355" y="385" width="250" height="78" rx="12"/><text class="t m" x="373" y="412" text-anchor="start" fill="#0f172a">Privacy layer</text><text class="t xs" x="373" y="434" text-anchor="start" fill="#475569">원자료 대신 통계·익명화·동의</text><rect class="dark" x="650" y="385" width="250" height="78" rx="12"/><text class="t m" x="668" y="412" text-anchor="start" fill="#fff">Clinical KG</text><text class="t xs" x="668" y="434" text-anchor="start" fill="#e2e8f0">환자 맥락 + 오믹스 + 지식</text><path class="line" d="M310 424 L355 424" marker-end="url(#arrow)"/><path class="line" d="M605 424 L650 424" marker-end="url(#arrow)"/><text class="t m" x="480" y="95" text-anchor="middle" fill="#0f172a">임상 경로는 표준 진료, 환자 여정은 실제 경험의 시간 흐름을 본다</text></svg>

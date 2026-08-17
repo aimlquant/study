@@ -60,8 +60,7 @@
   <text class="t name" x="227" y="282" text-anchor="middle">Andrews</text>
   <circle cx="162" cy="376" r="18" fill="#0f2c59"/>
   <text class="t name" x="162" y="412" text-anchor="middle">Dorothy M. Wrinch</text>
-  <text class="t rel" x="175" y="462" text-anchor="middle">고용기관</text>
-  <text class="t org" x="175" y="484" text-anchor="middle">Johns Hopkins University</text>
+  <text class="t org" x="175" y="470" text-anchor="middle">Johns Hopkins University</text>
 
   <circle cx="752" cy="232" r="16" fill="#0f2c59"/>
   <text class="t name" x="752" y="266" text-anchor="middle">W.</text>
@@ -69,8 +68,7 @@
   <text class="t name" x="862" y="266" text-anchor="middle">E. J. Cohn</text>
   <circle cx="800" cy="356" r="18" fill="#0f2c59"/>
   <text class="t name" x="800" y="392" text-anchor="middle">James B. Conant</text>
-  <text class="t rel" x="800" y="438" text-anchor="middle">고용기관</text>
-  <text class="t org" x="800" y="460" text-anchor="middle">Harvard University</text>
+  <text class="t org" x="800" y="450" text-anchor="middle">Harvard University</text>
 
   <circle cx="430" cy="86" r="20" fill="#0f2c59"/>
   <text class="t name" x="430" y="126" text-anchor="middle">Irving Langmuir</text>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 390" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">HMM 매개변수를 학습하는 EM 반복</title>
+  <desc id="desc">초기 전이와 방출 확률에서 출발해 E 단계에서 날짜별 상태 확률을 계산하고 M 단계에서 이를 가중치로 전이와 방출 확률을 갱신한다. 로그가능도가 충분히 개선되지 않을 때까지 반복하며 여러 초기값 중 가장 좋은 결과를 고른다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><marker id="green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#1f7042"/></marker><style>.head{fill:#101828;font-size:16px;font-weight:700}.box{fill:#fff;stroke:#173b67;stroke-width:1.8}.e{fill:#eaf1f9;stroke:#173b67;stroke-width:2}.m{fill:#e8f4ec;stroke:#1f7042;stroke-width:2}.stop{fill:#fff7ed;stroke:#c85b2a;stroke-width:1.8}.title{fill:#173b67;font-size:14px;font-weight:700}.greenText{fill:#1f7042;font-size:14px;font-weight:700}.body{fill:#4f5866;font-size:11px}.arrow{fill:none;stroke:#173b67;stroke-width:2.2;marker-end:url(#arrow)}.loop{fill:none;stroke:#1f7042;stroke-width:2.2;marker-end:url(#green)}.small{fill:#606978;font-size:11px}.key{fill:#173b67}.white{fill:#fff;font-size:13px;font-weight:700}</style></defs>
+  <rect x="28" y="82" width="180" height="112" rx="13" class="box"/>
+  <text x="118" y="108" text-anchor="middle" class="title">0 · 초기값</text>
+  <text x="118" y="137" text-anchor="middle" class="body">전이 확률 T</text><text x="118" y="157" text-anchor="middle" class="body">방출 확률 E</text><text x="118" y="177" text-anchor="middle" class="body">초기 상태 확률 π</text>
+  <path d="M208 138H252" class="arrow"/>
+  <rect x="254" y="66" width="232" height="144" rx="13" class="e"/>
+  <text x="370" y="94" text-anchor="middle" class="title">1 · E 단계</text>
+  <text x="370" y="122" text-anchor="middle" class="body">현재 T·E·π와 관측된 상승·하락을 사용</text>
+  <text x="370" y="148" text-anchor="middle" class="body">각 날짜가 강세일 확률과</text><text x="370" y="167" text-anchor="middle" class="body">약세일 확률을 계산</text>
+  <rect x="302" y="180" width="136" height="20" rx="6" fill="#fff"/><text x="370" y="195" text-anchor="middle" class="small">예: 강세 0.72 · 약세 0.28</text>
+  <path d="M486 138H530" class="arrow"/>
+  <rect x="532" y="66" width="232" height="144" rx="13" class="m"/>
+  <text x="648" y="94" text-anchor="middle" class="greenText">2 · M 단계</text>
+  <text x="648" y="122" text-anchor="middle" class="body">E 단계의 상태 확률을 가중치로 사용</text>
+  <text x="648" y="148" text-anchor="middle" class="body">강세→약세 전환 비율과</text><text x="648" y="167" text-anchor="middle" class="body">각 상태의 상승·하락 비율을 다시 계산</text>
+  <rect x="580" y="180" width="136" height="20" rx="6" fill="#fff"/><text x="648" y="195" text-anchor="middle" class="small">T·E·π 갱신</text>
+  <path d="M764 138H804" class="arrow"/>
+  <rect x="806" y="82" width="90" height="112" rx="13" class="stop"/>
+  <text x="851" y="109" text-anchor="middle" fill="#9b3f1d" font-size="13" font-weight="700">개선?</text>
+  <text x="851" y="139" text-anchor="middle" class="body">로그가능도</text><text x="851" y="158" text-anchor="middle" class="body">증가가</text><text x="851" y="177" text-anchor="middle" class="body">충분한가</text>
+  <path d="M851 194V254H370V212" class="loop"/>
+  <text x="610" y="275" text-anchor="middle" class="small">예 → 갱신한 매개변수로 E·M 단계를 반복</text>
+  <path d="M851 254V313" class="arrow"/>
+  <text x="864" y="286" class="small">아니오</text>
+  <rect x="664" y="315" width="232" height="52" rx="12" class="key"/>
+  <text x="780" y="337" text-anchor="middle" class="white">수렴한 매개변수 저장</text><text x="780" y="356" text-anchor="middle" fill="#d8e4f2" font-size="11">여러 초기값 중 로그가능도가 가장 큰 결과 선택</text>
+  <rect x="28" y="315" width="560" height="52" rx="12" fill="#f7f8fa" stroke="#d3d7de" stroke-width="1.3"/>
+  <text x="308" y="337" text-anchor="middle" class="title">핵심</text><text x="308" y="356" text-anchor="middle" class="small">상태를 확정해서 붙이지 않고, 0~1 사이의 확률을 가중치로 사용한다.</text>
+</svg>
