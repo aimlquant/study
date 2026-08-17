@@ -229,7 +229,18 @@
       "title": "Chapter 5. 옵션 전략"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-22-ch06/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-22-ch06/"
+        }
+      ],
       "chapters": [
         "Chapter 6"
       ],
@@ -241,7 +252,7 @@
       "presenters": [
         "종훈(L)"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 6. LLM으로 지식 그래프 구축하기"
     },
