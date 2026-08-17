@@ -74,6 +74,4 @@
   <path class="line" d="M392 374 H 274"/>
   <polygon points="274,367 262,374 274,381" fill="#0f2c59"/>
 
-  <text class="t zone" x="86" y="472">각 단계는 서로 다른 ML 모델에 의존한다</text>
-  <text class="t zone" x="86" y="494">OCR · NER · RE · 개체 해소 · 그래프 ML</text>
 </svg>

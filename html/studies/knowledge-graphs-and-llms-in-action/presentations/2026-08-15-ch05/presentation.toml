@@ -1,0 +1,13 @@
+study_id = "kg-llm-in-action-2026"
+session_id = "2026-08-15-ch05"
+title = "텍스트에서 지식 그래프를 만들기"
+date = "2026-08-15"
+presenters = ["두균"]
+chapters = ["Chapter 5"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+source_fidelity = "source-structure-v1"
+source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_05_extracting_domain_specific_knowledge_from_unstructured_data/05_extracting_domain_specific_knowledge_from_unstructured_data_ko_explained.md"

@@ -1,92 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="34 24 676 340" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
-  <defs>
-    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
-    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#A3341F"/></marker>
-    <marker id="ahg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1B6B3A"/></marker>
-    <style>
-      .t{fill:#0F0F10;font-size:13px;font-weight:700;text-anchor:middle}
-      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
-      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
-      .sl{fill:#57534E;font-size:10.5px;text-anchor:start}
-      .sr{fill:#57534E;font-size:10.5px;text-anchor:end}
-      .lab{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:middle}
-      .labl{fill:#0F2C59;font-size:11.5px;font-weight:700;text-anchor:start}
-      .box{fill:#fff;stroke:#0F2C59;stroke-width:1.4}
-      .key{fill:#0F2C59;stroke:#0F2C59}
-      .tk{fill:#fff;font-size:13px;font-weight:700;text-anchor:middle}
-      .sk{fill:#C7D2E6;font-size:10.5px;text-anchor:middle}
-      .good{fill:#E8F1EA;stroke:#1B6B3A;stroke-width:1.4}
-      .goodt{fill:#1B6B3A;font-size:11px;font-weight:700;text-anchor:middle}
-      .warn{fill:#FBEFEA;stroke:#A3341F;stroke-width:1.4}
-      .warnt{fill:#A3341F;font-size:11px;font-weight:700;text-anchor:middle}
-      .muted{fill:#F3F1EC;stroke:#8A8377;stroke-width:1.3}
-      .mutedt{fill:#6B6357;font-size:10.5px;font-weight:700;text-anchor:middle}
-      .a{stroke:#0F2C59;stroke-width:1.4;fill:none;marker-end:url(#ah)}
-      .ar{stroke:#A3341F;stroke-width:1.4;fill:none;marker-end:url(#ahr)}
-      .ag{stroke:#1B6B3A;stroke-width:1.4;fill:none;marker-end:url(#ahg)}
-      .plain{stroke:#0F2C59;stroke-width:1.3;fill:none}
-      .axis{stroke:#8A8377;stroke-width:1.1;fill:none}
-      .grid{stroke:#E7E5E4;stroke-width:1;fill:none}
-      .ln{stroke:#0F2C59;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lnr{stroke:#A3341F;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lng{stroke:#1B6B3A;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
-      .lnthin{stroke:#9AA9C4;stroke-width:1.1;fill:none;stroke-linejoin:round}
-      .dash{stroke:#8A8377;stroke-width:1.2;fill:none;stroke-dasharray:5 4}
-      .band{fill:#0F2C59;opacity:.07}
-      .bandr{fill:#A3341F;opacity:.09}
-      .edge{fill:none;stroke:#0F2C59;stroke-width:1.3}
-      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
-      .an-s{text-anchor:start}
-      .an-m{text-anchor:middle}
-      .an-e{text-anchor:end}
-    </style>
-  </defs>
-<path class="axis" d="M40,90 H700"/>
-<path class="dash" d="M470,52 V126"/>
-<text class="lab an-s" x="40" y="46">선형 (또는 구간별 선형)</text>
-<text class="lab an-e" x="700" y="46" fill="#A3341F">명시적 비선형</text>
-<rect x="42" y="62" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="80" y="77" style="font-size:9.8px">단계적 회귀</text>
-<rect x="123" y="62" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="161" y="77" style="font-size:9.8px">회귀 트리</text>
-<rect x="204" y="62" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="242" y="77" style="font-size:9.8px">분류 트리</text>
-<rect x="285" y="62" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="323" y="77" style="font-size:9.8px">SVM</text>
-<rect x="366" y="62" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="404" y="77" style="font-size:9.8px">HMM</text>
-<rect x="482" y="62" width="70" height="22" rx="7" fill="#FBEFEA" stroke="#A3341F" stroke-width="1.1"/>
-<text class="s an-m" x="517" y="77" style="font-size:9.8px">신경망</text>
-<path class="axis" d="M40,182 H700"/>
-<path class="dash" d="M470,144 V218"/>
-<text class="lab an-s" x="40" y="138">연속 반응변수</text>
-<text class="lab an-e" x="700" y="138" fill="#A3341F">이산 반응변수</text>
-<rect x="42" y="154" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="80" y="169" style="font-size:9.8px">단계적 회귀</text>
-<rect x="123" y="154" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="161" y="169" style="font-size:9.8px">회귀 트리</text>
-<rect x="204" y="154" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="242" y="169" style="font-size:9.8px">신경망</text>
-<rect x="482" y="154" width="70" height="22" rx="7" fill="#FBEFEA" stroke="#A3341F" stroke-width="1.1"/>
-<text class="s an-m" x="517" y="169" style="font-size:9.8px">분류 트리</text>
-<rect x="556" y="154" width="70" height="22" rx="7" fill="#FBEFEA" stroke="#A3341F" stroke-width="1.1"/>
-<text class="s an-m" x="591" y="169" style="font-size:9.8px">SVM</text>
-<rect x="630" y="154" width="70" height="22" rx="7" fill="#FBEFEA" stroke="#A3341F" stroke-width="1.1"/>
-<text class="s an-m" x="665" y="169" style="font-size:9.8px">HMM</text>
-<path class="axis" d="M40,274 H700"/>
-<path class="dash" d="M470,236 V310"/>
-<text class="lab an-s" x="40" y="230">지도 학습 — 클래스가 관측된다</text>
-<text class="lab an-e" x="700" y="230" fill="#A3341F">비지도 학습 — 관측되지 않는다</text>
-<rect x="42" y="246" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="80" y="261" style="font-size:9.8px">단계적 회귀</text>
-<rect x="123" y="246" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="161" y="261" style="font-size:9.8px">트리</text>
-<rect x="204" y="246" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="242" y="261" style="font-size:9.8px">SVM</text>
-<rect x="285" y="246" width="76" height="22" rx="7" fill="#E8EEF7" stroke="#0F2C59" stroke-width="1.1"/>
-<text class="s an-m" x="323" y="261" style="font-size:9.8px">신경망</text>
-<rect x="482" y="246" width="70" height="22" rx="7" fill="#FBEFEA" stroke="#A3341F" stroke-width="1.1"/>
-<text class="s an-m" x="517" y="261" style="font-size:9.8px">HMM</text>
-<text class="sl" x="40" y="330">HMM 은 연속·이산 반응을 모두 다룰 수 있으나 이 장의 예제는 이산이다.</text>
-<text class="sl" x="40" y="348">세 축은 서로 독립이다 — 한 축의 분류로 다른 축을 넘겨짚지 않는다.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">여섯 모델을 출력, 규칙의 모양, 정답 라벨로 구분하기</title><desc id="desc">수치 수익률을 예측하는 모델, 상승 하락 클래스를 예측하는 모델, 보이지 않는 상태를 추정하는 HMM을 구분한다. 규칙의 모양은 선형, 구간별, 비선형, 확률적 상태 전이로 나뉜다. HMM을 제외한 모델은 관측 가능한 목표값을 사용하는 지도 학습이다.</desc>
+  <defs><style>.head{fill:#101828;font-size:16px;font-weight:700}.row{fill:#fff;stroke:#173b67;stroke-width:1.7}.row2{fill:#f8fafc;stroke:#173b67;stroke-width:1.7}.label{fill:#173b67;font-size:13px;font-weight:700}.body{fill:#56606e;font-size:10.5px}.chip1{fill:#dce8f5;stroke:#173b67;stroke-width:1}.chip2{fill:#d8efe0;stroke:#1f7042;stroke-width:1}.chip3{fill:#fde8df;stroke:#b54724;stroke-width:1}.t1{fill:#173b67;font-size:10.5px;font-weight:700}.t2{fill:#1f7042;font-size:10.5px;font-weight:700}.t3{fill:#b54724;font-size:10.5px;font-weight:700}.divider{stroke:#d7dce2;stroke-width:1}</style></defs>
+
+  <rect x="28" y="57" width="864" height="91" rx="13" class="row"/>
+  <text x="50" y="83" class="label">1 · 출력</text><text x="50" y="103" class="body">모델이 직접 예측하는 것</text>
+  <line x1="178" y1="70" x2="178" y2="135" class="divider"/>
+  <rect x="198" y="78" width="225" height="48" rx="9" class="chip1"/><text x="310" y="98" text-anchor="middle" class="t1">다음 날 수익률 수치</text><text x="310" y="116" text-anchor="middle" class="body">단계적 회귀 · 회귀 트리 · 신경망</text>
+  <rect x="439" y="78" width="196" height="48" rx="9" class="chip2"/><text x="537" y="98" text-anchor="middle" class="t2">상승 / 하락 클래스</text><text x="537" y="116" text-anchor="middle" class="body">분류 트리 · SVM</text>
+  <rect x="651" y="78" width="220" height="48" rx="9" class="chip3"/><text x="761" y="98" text-anchor="middle" class="t3">상태와 관측 확률</text><text x="761" y="116" text-anchor="middle" class="body">HMM</text>
+
+  <rect x="28" y="160" width="864" height="99" rx="13" class="row2"/>
+  <text x="50" y="187" class="label">2 · 규칙의 모양</text><text x="50" y="207" class="body">입력과 출력이 이어지는 방식</text>
+  <line x1="178" y1="173" x2="178" y2="246" class="divider"/>
+  <rect x="198" y="181" width="155" height="56" rx="9" class="chip1"/><text x="275" y="202" text-anchor="middle" class="t1">하나의 선형식</text><text x="275" y="222" text-anchor="middle" class="body">단계적 회귀</text>
+  <rect x="365" y="181" width="155" height="56" rx="9" class="chip1"/><text x="442" y="202" text-anchor="middle" class="t1">구간별 상수·클래스</text><text x="442" y="222" text-anchor="middle" class="body">회귀·분류 트리</text>
+  <rect x="532" y="181" width="155" height="56" rx="9" class="chip2"/><text x="609" y="202" text-anchor="middle" class="t2">비선형 변환</text><text x="609" y="222" text-anchor="middle" class="body">다항식 SVM · 신경망</text>
+  <rect x="699" y="181" width="172" height="56" rx="9" class="chip3"/><text x="785" y="202" text-anchor="middle" class="t3">확률적 상태 전이</text><text x="785" y="222" text-anchor="middle" class="body">HMM</text>
+
+  <rect x="28" y="271" width="864" height="81" rx="13" class="row"/>
+  <text x="50" y="297" class="label">3 · 정답 라벨</text><text x="50" y="317" class="body">학습할 때 정답을 볼 수 있는가</text>
+  <line x1="178" y1="283" x2="178" y2="340" class="divider"/>
+  <rect x="198" y="288" width="430" height="45" rx="9" class="chip1"/><text x="413" y="307" text-anchor="middle" class="t1">지도 학습 · 미래 수익률이나 상승/하락을 관측</text><text x="413" y="325" text-anchor="middle" class="body">단계적 회귀 · 두 트리 · SVM · 신경망</text>
+  <rect x="644" y="288" width="227" height="45" rx="9" class="chip3"/><text x="757" y="307" text-anchor="middle" class="t3">은닉 상태 라벨 없음</text><text x="757" y="325" text-anchor="middle" class="body">HMM · EM으로 추정</text>
 </svg>

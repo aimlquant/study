@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" role="img" aria-labelledby="title desc">
+  <title id="title">다중 회귀의 학습과 테스트 성과</title><desc id="desc">CAGR과 샤프 비율 모두 학습 구간보다 테스트 구간에서 크게 낮아진다</desc>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","NanumGothic",Inter,system-ui,sans-serif;fill:#172033}.axis{stroke:#7d8795;stroke-width:1.2}.grid{stroke:#e4e7eb;stroke-width:1}.train{fill:#9bb7d6}.test{fill:#1b6b3a}.title{font-size:16px;font-weight:700;text-anchor:middle}.tick{font-size:11px;fill:#667085;text-anchor:end}.value{font-size:14px;font-weight:700;text-anchor:middle}.legend{font-size:12px}</style>
+  <rect width="760" height="300" rx="14" fill="#fafaf9"/>
+  <text class="title" x="205" y="28">CAGR</text><path class="axis" d="M62 248H348M62 48V248"/>
+  <path class="grid" d="M62 198H348M62 148H348M62 98H348M62 48H348"/>
+  <text class="tick" x="54" y="252">0%</text><text class="tick" x="54" y="202">10%</text><text class="tick" x="54" y="152">20%</text><text class="tick" x="54" y="102">30%</text><text class="tick" x="54" y="52">40%</text>
+  <rect class="train" x="112" y="76.5" width="70" height="171.5" rx="4"/><rect class="test" x="228" y="246" width="70" height="2" rx="2"/>
+  <text class="value" x="147" y="68">34.3%</text><text class="value" x="263" y="235">0.4%</text><text class="legend" x="130" y="272">학습</text><text class="legend" x="246" y="272">테스트</text>
+  <text class="title" x="570" y="28">샤프 비율</text><path class="axis" d="M426 248H712M426 48V248"/>
+  <path class="grid" d="M426 181.3H712M426 114.7H712M426 48H712"/>
+  <text class="tick" x="418" y="252">0.0</text><text class="tick" x="418" y="185">0.5</text><text class="tick" x="418" y="118">1.0</text><text class="tick" x="418" y="52">1.5</text>
+  <rect class="train" x="476" y="61.3" width="70" height="186.7" rx="4"/><rect class="test" x="592" y="234.7" width="70" height="13.3" rx="4"/>
+  <text class="value" x="511" y="53">1.4</text><text class="value" x="627" y="226">0.1</text><text class="legend" x="494" y="272">학습</text><text class="legend" x="610" y="272">테스트</text>
+</svg>

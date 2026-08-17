@@ -362,10 +362,10 @@
     <section class="slide slide--section" aria-label="4.4.1 임상 LLM 지원 섹션" data-report-refs="source-4-4-1 source-listing-4-23 table-decision" data-source-refs="section:4.4.1" data-source-title="section:4.4.1">
       <p class="eyebrow">SECTION 4.4.1</p><h1 class="source-title">4.4.1 LLM 기반 임상 의사결정 지원 분석 — 발견을 진료로 잇다</h1><p>발견을 실행 질문으로 바꾸되 안전 게이트를 유지한다</p><span class="section-number">4.4.1</span>
     </section>
-    <section class="slide" aria-label="도입 판단 기준" data-report-refs="source-4-4-1 table-decision source-listing-4-23">
+    <section class="slide" aria-label="도입 판단 기준" data-report-refs="source-4-4-1 table-decision source-listing-4-23" data-source-refs="listing:4.23">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">DECISION GUIDE</span></header>
       <h1>다중 소스 KG + LLM은 세 조건이 맞을 때만 운영 가능하다</h1>
-      <p class="lead">Chapter 4의 예제를 실무로 옮길 때는 데이터 연결성, 지표 적합성, LLM 통제성을 따로 검증한다.</p>
+      <p class="lead">Listing 4.23을 실무로 옮길 때는 데이터 연결성, 지표 적합성, LLM 통제성을 따로 검증한다.</p>
       <div class="slide-body">
         <div class="decision-grid">
           <article><p class="eyebrow">GOOD SIGNAL</p><h2>적합 신호</h2><ul><li>공통 식별자와 온톨로지가 있다</li><li>질문에 맞는 부분 그래프와 경계가 정의된다</li><li>LLM 해석에 원 질의와 경로 링크가 붙는다</li><li>전문가 승인과 보류 선택지가 있다</li></ul></article>
@@ -381,31 +381,35 @@
       <h1>확인 질문</h1>
       <p class="lead">다음 질문에 답할 수 있으면 Chapter 4의 핵심 구조를 잡은 것이다.</p>
       <div class="slide-body">
-        <ol class="question-list">
-          <li>WCC와 Louvain 결과가 좋아 보여도 왜 질병 경로 분석을 별도로 해야 하는가?</li>
-          <li>DWPC는 단순 경로 수와 비교해 어떤 편향을 줄이는가?</li>
-          <li>LLM 해석을 임상 의사결정 지원에 넣을 때 반드시 함께 저장해야 하는 근거는 무엇인가?</li>
-        </ol>
+        <div class="question-list">
+          <article><span>Q1</span><p>WCC와 Louvain 결과가 좋아 보여도 왜 질병 경로 분석을 별도로 해야 하는가?</p></article>
+          <article><span>Q2</span><p>DWPC는 단순 경로 수와 비교해 어떤 편향을 줄이는가?</p></article>
+          <article><span>Q3</span><p>LLM 해석을 임상 의사결정 지원에 넣을 때 반드시 함께 저장해야 하는 근거는 무엇인가?</p></article>
+        </div>
         <p class="takeaway"><strong>토론</strong> — 우리 도메인에서 “질병 경로”에 해당하는 부분 그래프와 “임상 안전 게이트”에 해당하는 승인 절차는 무엇인가?</p>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · 확인 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--closing" aria-label="세 문장 요약과 Q&A" data-report-refs="summary table-overview references">
+    <section class="slide slide--closing" aria-label="세 문장 요약과 Q&A" data-report-refs="summary source-summary-4 table-overview references">
       <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">Q&amp;A</span></header>
       <h1>세 문장 요약</h1>
       <div class="slide-body">
-        <ol class="question-list">
-          <li>다중 소스 KG는 공통 식별자, 스키마, 제약조건이 맞아야 분석 가능한 지식 저장소가 된다.</li>
-          <li>WCC, Louvain, 질병 경로 지표, DWPC는 같은 그래프를 서로 다른 질문으로 읽게 한다.</li>
-          <li>LLM은 그래프 분석 결과를 이야기와 후속 질문으로 바꾸지만, 최종 판단은 근거 경로와 사람의 검토로 닫아야 한다.</li>
-        </ol>
+        <div class="question-list">
+          <article><span>1</span><p>다중 소스 KG는 공통 식별자, 스키마, 제약조건이 맞아야 분석 가능한 지식 저장소가 된다.</p></article>
+          <article><span>2</span><p>WCC, Louvain, 질병 경로 지표, DWPC는 같은 그래프를 서로 다른 질문으로 읽게 한다.</p></article>
+          <article><span>3</span><p>LLM은 그래프 분석 결과를 이야기와 후속 질문으로 바꾸지만, 최종 판단은 근거 경로와 사람의 검토로 닫아야 한다.</p></article>
+        </div>
         <div class="report-jump-links"><a href="report.html">상세 리포트</a><a href="../../">회차 목록</a></div>
       </div>
       <footer class="slide-footer"><span>Chapter 4 · Q&A</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
   </main>
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어"><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
   <script src="assets/deck-lightbox.js"></script>
   <script src="assets/deck.js"></script>
   <script defer src="assets/katex/katex.min.js"></script>

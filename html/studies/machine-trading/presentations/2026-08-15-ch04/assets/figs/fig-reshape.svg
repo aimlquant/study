@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 370" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">날짜 곱하기 종목 행렬을 긴 관측값 목록으로 펼치기</title><desc id="desc">날짜 세 행과 종목 A B C 세 열의 행렬을 종목 A의 모든 날짜, 종목 B의 모든 날짜, 종목 C의 모든 날짜 순서로 긴 벡터로 펼친다. 결측값과 당시 지수 구성 종목이 아닌 칸은 공통 마스크로 제외한다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><style>.head{fill:#101828;font-size:16px;font-weight:700}.cell{fill:#fff;stroke:#aeb5bf;stroke-width:1}.a{fill:#eaf1f9}.b{fill:#e8f4ec}.c{fill:#fff7ed}.missing{fill:#f2f3f5}.label{fill:#394150;font-size:11px;font-weight:700}.small{fill:#606978;font-size:10.5px}.title{fill:#173b67;font-size:13px;font-weight:700}.arrow{fill:none;stroke:#173b67;stroke-width:2.2;marker-end:url(#arrow)}.mask{fill:#fde8df;stroke:#b54724;stroke-width:1.2}.vector{fill:#fff;stroke:#173b67;stroke-width:1.5}</style></defs>
+  <text x="28" y="31" class="head">표의 ‘한 칸’을 회귀모형의 ‘한 행’으로 바꾼다</text>
+  <text x="42" y="75" class="title">1 · 날짜 × 종목 표</text>
+  <text x="130" y="102" text-anchor="middle" class="label">종목 A</text><text x="210" y="102" text-anchor="middle" class="label">종목 B</text><text x="290" y="102" text-anchor="middle" class="label">종목 C</text>
+  <text x="80" y="137" text-anchor="end" class="label">1일</text><text x="80" y="187" text-anchor="end" class="label">2일</text><text x="80" y="237" text-anchor="end" class="label">3일</text>
+  <rect x="90" y="112" width="80" height="40" class="cell a"/><text x="130" y="137" text-anchor="middle" class="small">A₁</text><rect x="170" y="112" width="80" height="40" class="cell b"/><text x="210" y="137" text-anchor="middle" class="small">B₁</text><rect x="250" y="112" width="80" height="40" class="cell c"/><text x="290" y="137" text-anchor="middle" class="small">C₁</text>
+  <rect x="90" y="152" width="80" height="40" class="cell a"/><text x="130" y="177" text-anchor="middle" class="small">A₂</text><rect x="170" y="152" width="80" height="40" class="missing"/><text x="210" y="177" text-anchor="middle" class="small">NaN</text><rect x="250" y="152" width="80" height="40" class="cell c"/><text x="290" y="177" text-anchor="middle" class="small">C₂</text>
+  <rect x="90" y="192" width="80" height="40" class="cell a"/><text x="130" y="217" text-anchor="middle" class="small">A₃</text><rect x="170" y="192" width="80" height="40" class="cell b"/><text x="210" y="217" text-anchor="middle" class="small">B₃</text><rect x="250" y="192" width="80" height="40" class="missing"/><text x="290" y="217" text-anchor="middle" class="small">비구성</text>
+  <text x="210" y="263" text-anchor="middle" class="small">모든 변수와 목표값이 같은 모양이어야 한다</text>
+  <path d="M330 172H428" class="arrow"/><text x="379" y="153" text-anchor="middle" class="small">order="F"</text>
+  <text x="408" y="75" class="title">2 · 종목별로 세로 연결</text>
+  <rect x="430" y="95" width="180" height="207" rx="10" class="vector"/>
+  <rect x="450" y="111" width="140" height="23" rx="4" class="a"/><text x="520" y="127" text-anchor="middle" class="small">A₁</text><rect x="450" y="137" width="140" height="23" rx="4" class="a"/><text x="520" y="153" text-anchor="middle" class="small">A₂</text><rect x="450" y="163" width="140" height="23" rx="4" class="a"/><text x="520" y="179" text-anchor="middle" class="small">A₃</text>
+  <rect x="450" y="189" width="140" height="23" rx="4" class="b"/><text x="520" y="205" text-anchor="middle" class="small">B₁</text><rect x="450" y="215" width="140" height="23" rx="4" class="missing"/><text x="520" y="231" text-anchor="middle" class="small">B₂ = NaN</text><rect x="450" y="241" width="140" height="23" rx="4" class="b"/><text x="520" y="257" text-anchor="middle" class="small">B₃</text>
+  <rect x="450" y="267" width="140" height="23" rx="4" class="c"/><text x="520" y="283" text-anchor="middle" class="small">C₁ · C₂ · C₃…</text>
+  <path d="M610 198H678" class="arrow"/>
+  <text x="678" y="75" class="title">3 · 공통 마스크 적용</text>
+  <rect x="680" y="95" width="212" height="207" rx="10" class="mask"/>
+  <text x="786" y="124" text-anchor="middle" fill="#9b3f1d" font-size="12" font-weight="700">같은 위치를 함께 제거</text>
+  <text x="706" y="155" class="small">✓ A₁ · A₂ · A₃</text><text x="706" y="181" class="small">✓ B₁</text><text x="706" y="207" class="small">✕ B₂ · 결측</text><text x="706" y="233" class="small">✓ B₃</text><text x="706" y="259" class="small">✕ C₃ · 당시 비구성</text>
+  <text x="786" y="286" text-anchor="middle" class="label">남은 한 줄 = 한 종목·일 사례</text>
+  <rect x="116" y="326" width="688" height="30" rx="8" fill="#f7f8fa" stroke="#d3d7de"/><text x="460" y="346" text-anchor="middle" class="small">예측변수 4개와 목표값을 동일한 순서로 펼치고 동일한 마스크를 써야 날짜와 종목이 뒤섞이지 않는다.</text>
+</svg>

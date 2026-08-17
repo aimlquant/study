@@ -43,11 +43,11 @@
     <section class="slide" aria-label="발표의 핵심 질문" data-report-refs="summary table-overview">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
       <h1>왜 지금 이 문제를 다시 봐야 할까?</h1>
-      <p class="lead">이 장이 다루는 두 힘 또는 기존 방식과 새 접근의 긴장을 한 문장으로 제시합니다.</p>
+      <p class="lead">기존 방식과 새 접근에서 무엇이 달라지는지 비교 조건과 함께 한 문장으로 제시합니다.</p>
       <div class="slide-body">
         <div class="two-col">
           <article class="panel"><p class="eyebrow">CURRENT</p><h2>현재 방식의 강점과 한계</h2><ul><li>이미 잘하는 것</li><li>반복해서 막히는 지점</li><li>그로 인한 실제 비용</li></ul></article>
-          <article class="panel panel--accent"><p class="eyebrow">NEW LENS</p><h2>이 장이 제안하는 관점</h2><ul><li>핵심 아이디어</li><li>달라지는 책임과 흐름</li><li>검증해야 할 가정</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">NEW LENS</p><h2>이 장이 제안하는 관점</h2><ul><li>핵심 아이디어</li><li>달라지는 처리 단계</li><li>검증해야 할 가정</li></ul></article>
         </div>
         <p class="takeaway"><strong>오늘의 질문</strong> — 발표 전체를 관통하는 질문을 하나만 남깁니다.</p>
       </div>
@@ -62,7 +62,7 @@
         <div class="flow">
           <article class="flow__step"><span>01</span><h2>문제와 개념</h2><p>왜 필요한지와 무엇인지를 먼저 합의합니다.</p></article>
           <b class="flow__arrow" aria-hidden="true">→</b>
-          <article class="flow__step"><span>02</span><h2>메커니즘과 구조</h2><p>구성요소가 책임을 주고받는 방식을 봅니다.</p></article>
+          <article class="flow__step"><span>02</span><h2>메커니즘과 구조</h2><p>각 구성요소의 입력과 출력이 어떻게 이어지는지 봅니다.</p></article>
           <b class="flow__arrow" aria-hidden="true">→</b>
           <article class="flow__step"><span>03</span><h2>사례와 판단</h2><p>어디에 적용하고 어떻게 통제할지 정리합니다.</p></article>
         </div>
@@ -82,7 +82,7 @@
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/concept-flow.svg" alt="입력, 변환, 검증된 결과가 왼쪽에서 오른쪽으로 이어지는 핵심 구조">
-          <figcaption><b>그림 1</b><span>리포트의 필수 그림을 같은 파일로 재사용</span><span>입력 → 변환 → 검증된 결과</span><a class="report-ref" href="report.html#fig-concept">리포트 근거</a></figcaption>
+          <figcaption><b>그림</b><span><strong>읽는 법</strong> — 입력에서 결과까지 화살표를 따라간다</span><span><strong>핵심</strong> — 변환과 검증을 구분한다</span><a class="report-ref" href="report.html#fig-concept">상세 근거</a></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>{{CHAPTERS}} · 핵심 개념</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -152,12 +152,12 @@
 
     <section class="slide slide--visual" aria-label="입력부터 결과까지의 처리 경로" data-report-refs="mechanism fig-mechanism">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">MECHANISM</span></header>
-      <h1>작동 원리는 책임의 이동으로 설명한다</h1>
-      <p class="lead">입력, 변환, 검증, 결과가 누구의 책임인지 한 경로로 연결합니다.</p>
+      <h1>작동 원리는 입력에서 결과까지의 흐름으로 설명한다</h1>
+      <p class="lead">입력, 변환, 검증, 결과가 어떤 순서와 조건으로 이어지는지 한 경로로 연결합니다.</p>
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure">
           <img src="assets/figs/mechanism-path.svg" alt="입력, 해석과 변환, 검증과 승인, 결과와 근거가 이어지고 피드백이 돌아오는 책임 경로">
-          <figcaption><b>그림 2</b><span>리포트의 처리 순서와 피드백을 보존</span><span>자동화와 승인 책임을 함께 표시</span><a class="report-ref" href="report.html#fig-mechanism">리포트 근거</a></figcaption>
+          <figcaption><b>그림</b><span><strong>읽는 법</strong> — 입력부터 결과까지 순서대로 읽는다</span><span><strong>경계</strong> — 검증과 승인 지점을 확인한다</span><a class="report-ref" href="report.html#fig-mechanism">상세 근거</a></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>{{CHAPTERS}} · 처리 경로</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -189,7 +189,7 @@
       <div class="slide-body report-visual-body">
         <figure class="deck-report-figure deck-report-figure--tall">
           <img src="assets/figs/operating-loop.svg" alt="수집, 후보 생성, 검증과 통합, 사용과 피드백이 시계 방향으로 이어지는 운영 루프">
-          <figcaption><b>그림 3</b><span>리포트의 운영 루프를 같은 파일로 재사용</span><span>후보와 검증된 상태를 분리</span><a class="report-ref" href="report.html#fig-operating-loop">리포트 근거</a></figcaption>
+          <figcaption><b>그림</b><span><strong>읽는 법</strong> — 결과에서 피드백으로 돌아오는 경로를 본다</span><span><strong>핵심</strong> — 후보와 검증된 상태를 구분한다</span><a class="report-ref" href="report.html#fig-operating-loop">상세 근거</a></figcaption>
         </figure>
       </div>
       <footer class="slide-footer"><span>{{CHAPTERS}} · 운영 루프</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -316,8 +316,8 @@
     <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
   </nav>
   <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
-  <script src="assets/deck-lightbox.js"></script>
   <script src="assets/deck.js"></script>
+  <script src="assets/deck-lightbox.js"></script>
   <script defer src="assets/katex/katex.min.js"></script>
   <script defer src="assets/katex/auto-render.min.js"></script>
   <script defer src="assets/katex/katex-init.js"></script>

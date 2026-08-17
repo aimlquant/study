@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">초기값이 다른 신경망 열 개의 테스트 CAGR</title>
+  <desc id="desc">시드별 CAGR은 마이너스 6퍼센트에서 플러스 13.8퍼센트까지 넓게 퍼지고, 열 모델의 일별 예측을 평균한 앙상블 CAGR은 마이너스 3퍼센트다.</desc>
+  <defs><style>.head{fill:#101828;font-size:16px;font-weight:700}.axis{stroke:#818895;stroke-width:1.4}.grid{stroke:#e5e8ec;stroke-width:1}.pos{fill:#4f80b5}.neg{fill:#c96a4a}.ensemble{fill:#1f7042}.small{fill:#606978;font-size:10.5px}.label{fill:#173b67;font-size:11px;font-weight:700}.note{fill:#fff7ed;stroke:#c85b2a;stroke-width:1.4}.notetext{fill:#9b3f1d;font-size:12px;font-weight:700}</style></defs>
+  <line x1="72" y1="66" x2="72" y2="286" class="axis"/><line x1="72" y1="196" x2="858" y2="196" class="axis"/>
+  <line x1="72" y1="86" x2="858" y2="86" class="grid"/><line x1="72" y1="141" x2="858" y2="141" class="grid"/><line x1="72" y1="251" x2="858" y2="251" class="grid"/>
+  <text x="62" y="90" text-anchor="end" class="small">+10%</text><text x="62" y="145" text-anchor="end" class="small">+5%</text><text x="62" y="200" text-anchor="end" class="small">0%</text><text x="62" y="255" text-anchor="end" class="small">−5%</text>
+  <rect x="94" y="196" width="44" height="62" rx="4" class="neg"/><text x="116" y="277" text-anchor="middle" class="small">1</text><text x="116" y="273" text-anchor="middle" class="small"></text>
+  <rect x="158" y="196" width="44" height="48" rx="4" class="neg"/><text x="180" y="277" text-anchor="middle" class="small">2</text>
+  <rect x="222" y="177" width="44" height="19" rx="4" class="pos"/><text x="244" y="277" text-anchor="middle" class="small">3</text>
+  <rect x="286" y="196" width="44" height="14" rx="4" class="neg"/><text x="308" y="277" text-anchor="middle" class="small">4</text>
+  <rect x="350" y="175" width="44" height="21" rx="4" class="pos"/><text x="372" y="277" text-anchor="middle" class="small">5</text>
+  <rect x="414" y="158" width="44" height="38" rx="4" class="pos"/><text x="436" y="277" text-anchor="middle" class="small">6</text>
+  <rect x="478" y="174" width="44" height="22" rx="4" class="pos"/><text x="500" y="277" text-anchor="middle" class="small">7</text>
+  <rect x="542" y="44" width="44" height="152" rx="4" class="pos"/><text x="564" y="277" text-anchor="middle" class="small">8</text><text x="564" y="38" text-anchor="middle" class="label">+13.8%</text>
+  <rect x="606" y="140" width="44" height="56" rx="4" class="pos"/><text x="628" y="277" text-anchor="middle" class="small">9</text>
+  <rect x="670" y="196" width="44" height="66" rx="4" class="neg"/><text x="692" y="277" text-anchor="middle" class="small">10</text><text x="692" y="280" text-anchor="middle" class="small"></text>
+  <line x1="746" y1="58" x2="746" y2="286" stroke="#c7ccd3" stroke-dasharray="5 5"/>
+  <rect x="778" y="196" width="56" height="33" rx="4" class="ensemble"/><text x="806" y="277" text-anchor="middle" class="small">평균</text><text x="806" y="247" text-anchor="middle" class="label">−3.0%</text>
+  <text x="388" y="309" text-anchor="middle" class="small">개별 모델 시드</text>
+  <rect x="152" y="324" width="596" height="30" rx="8" class="note"/><text x="450" y="344" text-anchor="middle" class="notetext">좋은 시드를 사후에 고르면 선택 편향이 생긴다. 평균화도 이 예제의 수익성을 구해 주지는 못했다.</text>
+</svg>

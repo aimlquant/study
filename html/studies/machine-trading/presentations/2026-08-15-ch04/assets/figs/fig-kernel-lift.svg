@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 6 700 192" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif" role="img">
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0F2C59"/></marker>
+    <style>
+      .tl{fill:#0F0F10;font-size:12.5px;font-weight:700;text-anchor:start}
+      .s{fill:#57534E;font-size:10.5px;text-anchor:middle}
+      .frame{fill:#fff;stroke:#8A8377;stroke-width:1.2}
+      .a{stroke:#0F2C59;stroke-width:1.5;fill:none;marker-end:url(#ah)}
+      .plane{stroke:#0F0F10;stroke-width:2.2;fill:none}
+      .curve{stroke:#A3341F;stroke-width:2.4;fill:none}
+      .plus{fill:#0F2C59}
+      .minus{fill:#A3341F}
+      .halo{paint-order:stroke fill;stroke:#FAFAF9;stroke-width:3.5px;stroke-linejoin:round}
+    </style>
+  </defs>
+
+<text class="tl" x="16" y="26">원 공간 · 직선으로 못 가른다</text>
+<rect class="frame" x="16" y="38" width="186" height="150" rx="8"/>
+<circle class="minus" cx="55" cy="70" r="4"/>
+<circle class="minus" cx="95" cy="58" r="4"/>
+<circle class="minus" cx="145" cy="66" r="4"/>
+<circle class="minus" cx="179" cy="86" r="4"/>
+<circle class="minus" cx="41" cy="104" r="4"/>
+<circle class="minus" cx="183" cy="130" r="4"/>
+<circle class="minus" cx="59" cy="158" r="4"/>
+<circle class="minus" cx="121" cy="176" r="4"/>
+<circle class="plus" cx="109" cy="112" r="4"/>
+<circle class="plus" cx="87" cy="128" r="4"/>
+<circle class="plus" cx="131" cy="132" r="4"/>
+<circle class="plus" cx="105" cy="146" r="4"/>
+
+<path class="a" d="M210,113 L258,113"/>
+<text class="s halo" x="234" y="104">변환</text>
+
+<text class="tl" x="266" y="26">변환한 공간 · 초평면 하나</text>
+<rect class="frame" x="266" y="38" width="186" height="150" rx="8"/>
+<path class="plane" d="M278,150 L442,88"/>
+<circle class="plus" cx="307" cy="152" r="4"/>
+<circle class="plus" cx="343" cy="146" r="4"/>
+<circle class="plus" cx="381" cy="132" r="4"/>
+<circle class="plus" cx="415" cy="124" r="4"/>
+<circle class="minus" cx="295" cy="104" r="4"/>
+<circle class="minus" cx="329" cy="88" r="4"/>
+<circle class="minus" cx="369" cy="80" r="4"/>
+<circle class="minus" cx="407" cy="66" r="4"/>
+<circle class="minus" cx="439" cy="58" r="4"/>
+<circle class="plus" cx="443" cy="118" r="4"/>
+
+<path class="a" d="M460,113 L508,113"/>
+<text class="s halo" x="484" y="104">되돌림</text>
+
+<text class="tl" x="516" y="26">원 공간으로 되돌리면 곡선</text>
+<rect class="frame" x="516" y="38" width="186" height="150" rx="8"/>
+<path class="curve" d="M552,92 C582,52 636,52 666,92 C666,140 622,172 606,172 C580,172 552,140 552,92 Z"/>
+<circle class="plus" cx="609" cy="112" r="4"/>
+<circle class="plus" cx="587" cy="128" r="4"/>
+<circle class="plus" cx="631" cy="132" r="4"/>
+<circle class="plus" cx="605" cy="146" r="4"/>
+<circle class="minus" cx="536" cy="62" r="4"/>
+<circle class="minus" cx="684" cy="62" r="4"/>
+<circle class="minus" cx="530" cy="170" r="4"/>
+<circle class="minus" cx="688" cy="158" r="4"/>
+</svg>

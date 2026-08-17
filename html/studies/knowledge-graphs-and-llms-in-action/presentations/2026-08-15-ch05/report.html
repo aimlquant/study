@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-report-template="study-report-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="지식 그래프와 LLM 실전 Chapter 5 상세 스터디 리포트">
+  <title>비정형 데이터에서 도메인 특화 지식 추출 · 상세 리포트</title>
+  <link rel="stylesheet" href="assets/report.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#summary">리포트 본문으로 건너뛰기</a>
+  <button id="tocToggle" class="report-nav-toggle" type="button" aria-label="목차 열기" aria-controls="tocDrawer" aria-expanded="false" title="목차"><span aria-hidden="true">☰</span></button>
+  <div class="report-settings" aria-label="설정">
+    <button id="settingsToggle" class="report-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="report-settings-panel" aria-hidden="true">
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">화면</span><button id="themeToggle" type="button" onclick="cycleTheme()" aria-label="나이트 모드 전환">☀</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">출력</span><button class="report-settings-action" type="button" onclick="window.print()">Print / PDF</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">이동</span><nav class="report-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="report.html">Report</a><a href="./">Slides</a></nav></div>
+    </div>
+  </div>
+  <div id="tocBackdrop" class="report-toc-backdrop" hidden></div>
+  <nav id="tocDrawer" class="report-toc-drawer" aria-label="문서 목차" aria-hidden="true">
+    <div class="report-toc-drawer__head"><span>목차</span><button id="tocClose" type="button" aria-label="목차 닫기">×</button></div>
+    <ol id="tocDrawerList" class="report-toc-drawer__list"></ol>
+  </nav>
+
+  <article class="report continuous-mode">
+    <section class="report-cover">
+      <div class="report-cover__wordmark"><span class="report-cover__wordmark-name">AIML Quant</span><span class="report-cover__wordmark-sub">지식 그래프와 LLM 실전</span></div>
+      <span class="report-cover__kicker">Study Report · Chapter 5</span>
+      <h1 class="report-cover__title">비정형 데이터에서 도메인 특화 지식 추출</h1>
+      <p class="report-cover__subtitle">Chapter 5</p>
+      <dl class="report-cover__meta">
+        <div><dt>발표자</dt><dd>두균</dd></div>
+        <div><dt>범위</dt><dd>Chapter 5</dd></div>
+        <div><dt>발행</dt><dd>2026-08-15</dd></div>
+      </dl>
+    </section>
+
+    <section class="report-section s0 page-break" id="summary">
+      <div class="report-section__kicker">Section 00 · Executive Summary</div>
+      <h1>0. 핵심 요약</h1>
+      <div class="callout--hero"><span class="callout__kicker">One Sentence</span><span class="callout__body">비정형 텍스트를 지식 그래프로 바꾸는 일은 <strong>개체(NER)와 관계(RE)</strong>를 뽑아내는 두 작업으로 압축되며, LLM은 이 둘을 한 번의 통과로 처리해 더 깨끗한 그래프를 만들지만 그 출력은 <strong>후보</strong>일 뿐이어서 프롬프트 개선과 평가라는 통제를 거쳐야 신뢰할 수 있다.</span></div>
+      <p>이 장은 이 책에서 지식 그래프와 LLM이 실제로 손잡는 첫 실전 장이다. 지금까지 표·지식 베이스 같은 <strong>구조화된 데이터</strong>에서 그래프를 만들었다면, 이 장은 이메일·보고서·회의록처럼 기업 데이터의 대부분을 차지하는 <strong>비정형 텍스트</strong>를 다룬다. 무대는 록펠러 아카이브 센터(RAC)가 소장한 프로그램 담당관들의 일지이고, 목표는 “연구비 지원 결정이 무대 뒤에서 어떻게 이루어졌는가”를 그래프로 캐내는 것이다.</p>
+      <p>핵심 전환은 두 가지다. 첫째, 텍스트에서 지식으로 가는 길은 개체명 인식과 관계 추출이라는 두 기둥으로 정리된다. 둘째, LLM은 전이 학습과 생성적 특성 덕분에 전통적 NLP가 여러 전문 모델로 나눠 하던 일(NER · 상호참조 해소 · 관계 추출)을 한 번에 처리한다. 다만 환각·예측 불안정이라는 한계가 있어, 프롬프트 엔지니어링과 정량 평가로 출력을 통제해야 한다.</p>
+      <aside class="term-note" role="note"><span class="term-note__kicker">용어 주석</span><ul>
+        <li><strong>KG</strong><span>Knowledge Graph. 흩어진 정보를 개체(점)와 관계(선)로 연결해 정리한, 검증 가능한 지식 구조다.</span></li>
+        <li><strong>LLM</strong><span>Large Language Model. ChatGPT처럼 방대한 텍스트로 학습해 자연어를 이해·생성하는 거대한 생성 모델이다.</span></li>
+        <li><strong>NER</strong><span>Named Entity Recognition. 텍스트에서 사람·조직·주제 같은 개체명 언급을 찾아 정해진 범주로 분류하는 작업이다.</span></li>
+        <li><strong>RE</strong><span>Relation Extraction. 개체 쌍 사이의 의미적 관계를 찾아내는 작업으로, 점(개체)을 잇는 선(관계)을 만든다.</span></li>
+        <li><strong>RAC</strong><span>Rockefeller Archive Center. 록펠러·포드 재단 등 40여 기관의 역사 기록을 보관·연구하는 센터로, 이 장 사례의 데이터 원천이다.</span></li>
+      </ul></aside>
+      <div class="section-summary"><div class="section-summary__kicker">핵심 질문</div><div class="section-summary__body"><ul>
+        <li><strong>문제</strong> — 일지처럼 약어와 이니셜로 뒤덮인 비정형 텍스트에서 어떻게 도메인 특화 개체와 관계를 뽑아낼 것인가?</li>
+        <li><strong>메커니즘</strong> — NER과 RE로 개체·관계를 뽑되, LLM의 생성적 특성으로 상호참조·정규화를 함께 처리한다.</li>
+        <li><strong>판단</strong> — 언제 프롬프트 기반으로 충분하고, 언제 파인튜닝이 필요하며, 전통적 NLP는 어디에 남는가?</li>
+      </ul></div></div>
+      <table class="cmp-table" id="table-overview">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 1</span><span class="asset-caption__title">장의 전체 논리</span></div></caption>
+        <thead><tr><th>절</th><th>핵심 질문</th><th>주장</th><th>발표에서 가져갈 판단</th></tr></thead>
+        <tbody>
+          <tr><td>5.1</td><td>왜 아카이브가 어려운 무대인가?</td><td>일지는 약어·이니셜·전문 용어로 가득한 비정형 텍스트다</td><td>도메인 특성을 먼저 이해해야 추출 시스템을 설계할 수 있다</td></tr>
+          <tr><td>5.2</td><td>텍스트에서 지식으로 가는 핵심 작업은?</td><td>개체(NER)와 관계(RE), 두 기둥으로 압축된다</td><td>일반 범주만으로는 부족하고 &#39;주제&#39; 같은 맞춤 개체가 필요하다</td></tr>
+          <tr><td>5.3</td><td>LLM은 무엇을 바꾸는가?</td><td>여러 전문 모델의 파이프라인을 한 번의 통과로 대체한다</td><td>프롬프트 반복과 평가로 환각·불안정을 통제해야 한다</td></tr>
+          <tr><td>5.3.4</td><td>전통적 NLP는 설 자리가 있는가?</td><td>보안·비용·속도 조건에서 여전히 유효하다</td><td>둘은 공존하거나 서로의 학습 데이터를 만든다</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s1 page-break" id="source-5-1" data-source-kind="section" data-source-ref="5.1">
+      <div class="report-section__kicker">교재 §5.1 · The Archive Challenge</div>
+      <h1>5.1 아카이브라는 도전 — 역사 기록의 산을 마주하기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>아카이브는 주제·복잡도·언어 스타일이 제각각인, 대개 비정형인 데이터 원천이다.</li>
+        <li>RAC 프로그램 담당관들의 일지는 타자·약어·전문 용어로 휘갈겨 쓴 &#39;보물 창고&#39;다.</li>
+        <li>목표는 연구비 지원 결정의 무대 뒤 패턴을 그래프로 밝혀내는 것이다.</li>
+      </ul></div></div>
+      <p>아카이브(기록보관소)는 현재와 과거를 아우르는 넓은 주제를 담고, 책·보고서·회의록·연구비 지원 결정서처럼 대개 비정형인 문서로 이루어진다. 이 장은 그중 록펠러 아카이브 센터(RAC)가 소장한 현대 과학의 기원에 관한 역사 데이터에 초점을 둔다. RAC는 단순한 문서 창고가 아니라, 록펠러·포드 재단을 비롯한 40여 자선·연구·문화 단체의 기록을 보관하고 이를 전 세계 연구자에게 여는 연구 센터다.</p>
+      <p>록펠러 재단은 1913년에 세워진, 미국에서 가장 이른 대형 자선 기관 중 하나다. 연구비 지원 대상을 고르는 과정은 <strong>프로그램 담당관(program officer)</strong>에게 크게 의존했다. 이들은 지원할 가치가 있는 연구 영역을 짚어내고, 연구자 인맥을 쌓고, 회의·전화·저녁 자리의 대화를 일지에 적었다. 대개 타자기로, 급하게, 각종 약어와 그 분야 특유의 전문 용어를 써 가며 휘갈겨 쓴 이 일지들이 이 프로젝트의 원자료다.</p>
+      <aside class="term-note" role="note"><span class="term-note__kicker">용어 주석</span><ul>
+        <li><strong>program officer</strong><span>재단에서 연구비를 줄 만한 연구 영역을 찾아내 지원 결정을 이끄는 담당자다. 그들의 일지가 이 장의 핵심 데이터다.</span></li>
+        <li><strong>philanthropy</strong><span>목표를 정해 놓고 베푸는 현대적 자선을 뜻하며, 록펠러·카네기 등이 정립했다.</span></li>
+      </ul></aside>
+      <figure class="report-figure" id="source-figure-5-1" data-deck-use="required" data-source-kind="figure" data-source-ref="5.1">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">그림 5.1 · 도메인 특화 비정형 텍스트 데이터에서 구조화된 지식으로 가는 경로.</span></figcaption>
+        <img src="assets/figs/fig-5-1-text-to-knowledge-path.svg" alt="비정형 문서가 OCR, 개체명 인식, 관계 추출을 거쳐 지식 그래프로 변환되는 단계별 흐름과 지식 표현·지식 학습이라는 두 도전 과제">
+        <small class="asset-note">각 단계는 문서 디지털화를 위한 OCR, 개체명 인식, 관계 추출 같은 최신 머신러닝 모델에 기댄다. 지식 표현(어떻게 담을 것인가)과 지식 학습(어떻게 캐낼 것인가)이라는 두 도전 과제를 함께 표시했다. 출처: 원자료 그림 5.1의 정신 모형을 공개용 도식으로 재구성.</small>
+      </figure>
+      <p>이 정보를 제대로 캐내 모델링하면 다음 같은 질문에 답할 수 있다. 어떤 아이디어에 연구비가 지원되기 전에 앞서 나타나는 패턴이 있는가? 지원받은 프로젝트는 영향력 있는 과학자나 이전 수혜자의 추천을 따르는가? 한 연구비가 확정되기까지 내부 논의가 몇 번 오가는가? 하위 분야별 지원 흐름은 시간이 지나며 어떻게 바뀌는가?</p>
+      <div class="callout--insight"><span class="callout__kicker">읽기 포인트</span><div class="callout__body"><p>이 장은 최신 머신러닝을 특정 도메인에 맞게 조정하는 방법을 보여 준다. 다음 6장에서는 여기서 뽑아낸 정보로 실제 그래프를 만들어 관계 질문에 답한다. 즉 5장은 &#39;추출&#39;, 6장은 &#39;구축과 질의&#39;다.</p></div></div>
+      <aside class="term-note" role="note"><span class="term-note__kicker">데이터 출처와 접근성 · 각주</span><ul>
+        <li><strong>쓰는 자료</strong><span>RAC가 소장한 &#39;현대 과학 분야의 기원에 관한 역사 데이터의 일부&#39;이며, 구체적으로는 록펠러 재단 프로그램 담당관(예: 워런 위버)의 일지다. (교재 §5.1)</span></li>
+        <li><strong>접근 방법</strong><span>교재는 RAC가 40여 기관의 기록을 &#8220;전 세계 연구자에게 공개한다&#8221;고만 서술하며, 구체적인 접속 URL·다운로드 링크·신청 절차는 밝히지 않는다.</span></li>
+        <li><strong>배포 범위</strong><span>책이 재현용으로 제공하는 것은 원본 일지 데이터가 아니라 KG 생성에 쓴 최종 프롬프트(책 코드 저장소)다. 예제에 등장하는 일지 텍스트도 별도 데이터셋 파일이 아니라 코드 안에 문자열로 포함되어 있어, 원본 일지 전체를 쓰려면 RAC를 통해 직접 자료에 접근해야 한다.</span></li>
+      </ul></aside>
+    </section>
+
+    <section class="report-section s2 page-break" id="source-5-2" data-source-kind="section" data-source-ref="5.2">
+      <div class="report-section__kicker">교재 §5.2 · Two Pillars</div>
+      <h1>5.2 지식 추출의 핵심 개념 — 개체와 관계, 두 개의 기둥</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>텍스트를 그래프로 바꾸는 일은 개체를 찾고(NER) 개체를 잇는 관계를 뽑는(RE) 두 작업으로 압축된다.</li>
+        <li>개체는 그래프의 점, 관계는 점을 잇는 선이며, 선이 있어야 비로소 그래프가 된다.</li>
+        <li>일반 개체 범주만으로는 부족하고 도메인 특화 범주(예: 주제)가 필요하다.</li>
+      </ul></div></div>
+      <p>텍스트 데이터를 구조화된 지식 그래프로 바꾸는 일은 근본적으로 두 작업을 중심으로 돈다. 하나는 글 속에서 <strong>개체(entity)</strong>를 찾아내는 것이고, 다른 하나는 그 개체들을 잇는 <strong>관계(relationship)</strong>를 뽑아내는 것이다. 서로 맞물린 이 두 요소가 어떤 지식 그래프든 그 뼈대를 이룬다. 개체만 뽑으면 흩어진 점일 뿐이고, 점을 잇는 선이 있어야 그래프가 된다.</p>
+    </section>
+
+    <section class="report-section s3 page-break" id="source-5-2-1" data-source-kind="section" data-source-ref="5.2.1">
+      <div class="report-section__kicker">교재 §5.2.1 · Named Entity Recognition</div>
+      <h1>5.2.1 개체명 인식하기 — 글 속 주인공 찾아내기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>NER은 원본 텍스트에서 개체명 언급을 찾아 미리 정한 범주로 분류하는 머신러닝 분류 시스템이다.</li>
+        <li>사람·장소·조직 같은 일반 범주는 곧바로 쓸 수 있지만, 그것만으로 충분한 경우는 드물다.</li>
+        <li>일지에서는 &#39;주제(Topic)&#39; 개체가 중요하며, 사전 기반 NER로는 잡히지 않는다.</li>
+      </ul></div></div>
+      <p>텍스트에서 지식 그래프로 가는 첫 단계는 <strong>개체명 인식(NER)</strong>이다. NER은 원본 텍스트에서 개체명이 언급된 부분을 찾아 미리 정해 둔 범주에 넣도록 학습된 분류 시스템이다. 쉽게 말해 “이 단어는 사람 이름”, “이건 기관 이름”이라고 표시해 준다. 개체명 인식은 여러 데이터 원천을 연결해 통찰을 발견하거나(예: 금융 문서의 사람을 기업 등록부와 연결), 정보 관리·데이터 거버넌스·컴플라이언스·검색을 개선하고, 원인과 결과를 잇는(예: 기상 조건과 항공기 지연) 데 두루 쓰인다.</p>
+      <p>많은 오픈소스 NLP 라이브러리가 사람·장소·조직 같은 일반 범주를 곧바로 쓸 수 있는 모델로 제공한다. 하지만 이런 일반 범주만으로는 충분한 경우가 드물다. 록펠러 재단 프로그램 담당관 워런 위버(Warren Weaver)의 일지 한 항목을 보면, 사람과 조직뿐 아니라 <strong>대화 주제(Topic)</strong>를 인식하는 일이 그에 못지않게 중요하다. 이 Topic 개체는 다시 연구 분야(discipline)·기술(technology)·질병(disease) 세 하위 유형 중 하나가 된다.</p>
+      <figure class="report-figure" id="source-figure-5-2" data-deck-use="required" data-source-kind="figure" data-source-ref="5.2">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">그림 5.2 · 관련 개체명이 강조 표시된, 워런 위버의 일지 항목 일부.</span></figcaption>
+        <img src="assets/figs/fig-5-2-diary-ner.svg" alt="일지 문장에서 사람, 조직, 주제(직무) 개체를 색으로 구분해 강조하고, 주제 개체는 사전에 없어 맞춤 추출이 필요함을 보여 주는 예시">
+        <small class="asset-note">사람(파랑)·조직(초록)·주제(노랑)를 색으로 구분했다. 위버의 일지에는 “대기 관측 연구”, “기상 연구”, “북극 기단”, “온대 기단” 같은 연구 분야 주제가 등장하는데, 이는 미리 만든 사전에 없어 단순 사전 기반 NER로는 잡히지 않는다. 출처: 원자료 그림 5.2(a·b)의 강조 예시를 재구성.</small>
+      </figure>
+      <p>이런 주제를 처리하려면 맞춤형 개체 추출 시스템이 필요하고, 이를 이루는 길은 두 가지다. 하나는 맞춤형 NER 모델을 직접 학습시키는 것이고, 다른 하나는 뒤에서 볼 LLM의 힘을 빌리는 것이다. 아래 표는 이 사례에서 다루는 개체 유형을 정리한 것이다.</p>
+      <table class="cmp-table" id="table-ner-types">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">RAC 일지에서 다루는 개체 유형</span></div></caption>
+        <thead><tr><th>개체 유형</th><th>예시</th><th>일반 NER로 충분한가</th></tr></thead>
+        <tbody>
+          <tr><td>사람 (Person)</td><td>Warren Weaver, C. G. Rossby(“R.”)</td><td>대체로 가능하나 이니셜·약어 지칭이 난관</td></tr>
+          <tr><td>조직 (Organization)</td><td>MIT, University of Oslo, 물리학과</td><td>가능하나 축약형(“U. Cal.”) 해소가 필요</td></tr>
+          <tr><td>주제 (Topic)</td><td>대기 관측 연구, 기상 연구, 기단</td><td>불가 — 사전에 없어 맞춤 추출 필요</td></tr>
+          <tr><td>└ 하위: 연구 분야·기술·질병</td><td>meteorology, cyclotron, …</td><td>도메인 특화 범주로 세분해야 함</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s4 page-break" id="source-5-2-2" data-source-kind="section" data-source-ref="5.2.2">
+      <div class="report-section__kicker">교재 §5.2.2 · Relation Extraction</div>
+      <h1>5.2.2 관계 추출하기 — 개체들을 이어 주는 실</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>관계 추출(RE)은 텍스트 안에서 개체 쌍 사이의 의미적 관계를 찾아내는 작업이다.</li>
+        <li>같은 관계를 여러 방향·이름으로 표현할 수 있으므로 문서 전반의 일관성이 핵심이다.</li>
+        <li>개체(점)에 관계(선)를 더해야 비로소 진정한 지식 그래프가 된다.</li>
+      </ul></div></div>
+      <p>텍스트에서 지식 그래프로 가는 두 번째 단계는 <strong>관계 추출(RE)</strong>이다. 이것은 문서 안에서 개체 쌍 사이의 의미적 관계를 찾아내는 일이다. 예를 들어 “제인 오스틴(빅토리아 시대 작가)은 현재 구글에 고용되어 있다”는 문장에는 PERSON 개체 “제인 오스틴”과 ORGANIZATION 개체 “구글”이 있고, 둘은 피고용 관계로 이어진다. 이 “이어져 있음”을 붙잡는 것이 진정한 지식 그래프의 핵심이다.</p>
+      <div class="callout--insight"><span class="callout__kicker">일관성 규칙</span><div class="callout__body"><p>같은 관계를 <code>제인 오스틴 -WORKS_FOR-&gt; 구글</code>로도, 방향을 뒤집어 <code>구글 -EMPLOYS-&gt; 제인 오스틴</code>으로도 나타낼 수 있다. 중요한 것은 여러 문서에 걸쳐 <strong>일관성</strong>을 지키는 것이다. 같은 개념을 문서마다 다른 이름·방향으로 표현하면 그래프가 뒤죽박죽이 된다.</p></div></div>
+    </section>
+
+    <section class="report-section s5 page-break" id="source-5-3" data-source-kind="section" data-source-ref="5.3">
+      <div class="report-section__kicker">교재 §5.3 · Building KGs with LLMs</div>
+      <h1>5.3 대규모 언어 모델로 지식 그래프 만들기 — 판을 바꾸는 도구</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>전통적 NLP는 학습 데이터셋 제작·모델 선택·하이퍼파라미터 조정이라는 고된 과정을 요구한다.</li>
+        <li>LLM은 전이 학습으로 라벨 데이터 부담을 줄이고, 자연어 프롬프트만으로 과제를 수행한다.</li>
+        <li>가장 중요한 한계는 환각 — 근거 없이 사실을 지어내는 경향 — 이며 이는 미해결 문제로 남아 있다.</li>
+      </ul></div></div>
+      <p>여기까지의 이야기는 “전통적” NLP였다. 과제에 맞는 학습 데이터셋을 만들고, 가장 좋은 모델 구조를 찾고, 하이퍼파라미터를 미세 조정하는 접근이며, 상당 부분이 학습 데이터 품질을 끌어올리는 고된 일에 쓰인다. 2022년 말 OpenAI가 GPT-3.5 계열과 ChatGPT를 공개하면서 이 영역은 달라졌다. 이런 <strong>생성 모델</strong>을 대규모 언어 모델(LLM)이라 부르며, <strong>트랜스포머 구조</strong> 위에 세워져 있다.</p>
+      <p>LLM의 핵심 개념은 <strong>전이 학습</strong>이다. 무작위로 가려진 토큰을 맞히는 일반 과제에서 배운 언어 패턴을 관계 추출 같은 다른 과제에 재사용하는 능력이다. 이 덕분에 지도 학습에 필요한 라벨 데이터의 크기가 크게 줄어든다. 모델을 처음부터 학습시키는 게 아니라 이미 배운 가중치를 다시 쓰기 때문이다. LLM을 뛰어나게 만드는 것은 모델의 복잡도(파라미터 수)와 학습 말뭉치의 크기·품질 두 가지다. 신경망이 클수록 같은 성능에 필요한 데이터 표본이 줄고, 데이터가 많고 깨끗할수록 모델은 좋아진다. 초점이 모델 구조에서 데이터 품질로 옮겨간 <strong>데이터 중심 패러다임</strong> 덕분에, 오늘날 우리는 과제를 자연어로 표현(프롬프트 엔지니어링)하기만 하면 된다.</p>
+      <aside class="term-note" role="note"><span class="term-note__kicker">용어 주석</span><ul>
+        <li><strong>transfer learning</strong><span>일반 과제에서 배운 패턴·지식을 다른 과제에 재사용하는 학습 방식으로, 필요한 라벨 데이터를 줄인다.</span></li>
+        <li><strong>Transformer</strong><span>오늘날 LLM의 바탕이 되는 신경망 구조다.</span></li>
+        <li><strong>hallucination</strong><span>학습 데이터에 근거가 없는데도 모델이 &#39;사실&#39;을 지어내고 잘못 추론하는 경향이다.</span></li>
+      </ul></aside>
+      <p>이 능력에도 불구하고, 이런 모델에 기대는 시스템을 설계할 때는 한계를 염두에 둬야 한다. 가장 중요한 한계는 <strong>환각(hallucination)</strong>이다. 예컨대 학습 데이터에 없는 NASA SLS 로켓 비용을 물으면 모델이 아무 숫자나 골라 비용이라고 주장할 수 있다. 저자들은 이 글을 쓰는 시점까지 환각이 여전히 풀리지 않은 문제로 남아 있다고 본다. 그래서 이 책은 LLM을 “AI”라 부르지 않고, 대신 LLM에게 품질 높은 개체·관계·속성을 뽑아 달라고 요청해 더 포괄적이고 깨끗한 지식 그래프를 만들자고 제안한다.</p>
+      <figure class="report-figure" id="source-figure-5-3" data-deck-use="required" data-source-kind="figure" data-source-ref="5.3">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">그림 5.3 · 텍스트 데이터를 구조화된 지식으로 바꾸는 정신 모형: LLM을 이용한 NER과 RE.</span></figcaption>
+        <img src="assets/figs/fig-5-3-llm-mental-model.svg" alt="여러 전문 모델을 잇는 전통적 NLP 파이프라인과, 한 번의 통과로 개체와 관계를 함께 뽑는 LLM 접근을 위아래로 대비한 도식">
+        <small class="asset-note">전통적 NLP는 NER·상호참조 해소·관계 추출을 서로 의존하는 여러 전문 모델로 잇지만, LLM은 한 번의 통과로 개체와 관계를 함께 뽑고 상호참조·약어 풀이를 암묵적으로 처리한다. 출처: 원자료 그림 5.3의 정신 모형을 재구성하며, 전통 파이프라인과의 대비 축을 명시적으로 덧붙였다.</small>
+      </figure>
+    </section>
+
+    <section class="report-section s6 page-break" id="source-5-3-1" data-source-kind="section" data-source-ref="5.3.1">
+      <div class="report-section__kicker">교재 §5.3.1 · Prompting vs Fine-tuning</div>
+      <h1>5.3.1 LLM 활용하기 — 그냥 쓸까, 길들여 쓸까</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>LLM 활용에는 프롬프트 기반 추론과 파인튜닝 두 길이 있다.</li>
+        <li>데이터 탐색 → 프롬프트 엔지니어링 → (만족 시) 그래프 생성 또는 (복잡 시) 파인튜닝으로 갈라진다.</li>
+        <li>프롬프트 작업은 파인튜닝 학습셋의 초벌 주석으로 재사용되어 헛수고가 아니다.</li>
+      </ul></div></div>
+      <p>LLM으로 지식 그래프를 만드는 데는 두 길이 있다. 하나는 <strong>프롬프트 기반 추론</strong>으로 별다른 손질 없이 바로 쓰는 것이고, 다른 하나는 <strong>파인튜닝</strong>으로 우리 도메인에 특화된, 더 정확하고 안정적인 출력을 내도록 길들이는 것이다. 과제를 자연어로 표현한 것을 <strong>프롬프트</strong>라 하고, 가장 성능 좋은 프롬프트를 찾아가는 반복 과정을 <strong>프롬프트 엔지니어링</strong>이라 한다. 이 장이 관심 두는 것은 <strong>텍스트 완성</strong>이다. 프롬프트를 주면 모델이 맥락과 과제 설명에 맞춰 텍스트(여기서는 개체와 관계)를 생성한다.</p>
+      <figure class="report-figure" id="source-figure-5-4" data-deck-use="required" data-source-kind="figure" data-source-ref="5.4">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">그림 5.4 · 텍스트 데이터로 지식 그래프를 생성할 때 LLM의 두 가지 역할: 프롬프트 기반 접근(위쪽 갈래)과 파인튜닝 접근(아래쪽 갈래)</span></figcaption>
+        <img src="assets/figs/fig-5-4-two-roles.svg" alt="데이터 탐색과 프롬프트 엔지니어링을 거쳐, 품질에 만족하면 프롬프트 기반으로 그래프를 생성하고 너무 복잡하면 학습 데이터셋을 준비해 파인튜닝하는 분기 흐름">
+        <small class="asset-note">데이터 탐색으로 도메인과 난관을 이해한 뒤 프롬프트를 반복 개선한다. 품질에 만족하면 위쪽 갈래(프롬프트 기반)로 그래프를 만들고, 과제가 너무 복잡하면 아래쪽 갈래로 작은 학습셋을 준비해 파인튜닝한다. 출처: 원자료 그림 5.4의 두 갈래 흐름을 재구성.</small>
+      </figure>
+      <p>데이터 과학 프로젝트가 늘 그렇듯 <strong>데이터 탐색</strong>부터 시작한다. 예컨대 일지에서 C. G. 로스비는 첫머리에서만 성과 이름이 나오고 이후엔 “R.”로만 지칭된다. 이런 흔치 않은 지칭을 풀 수 있도록 시스템을 설계해야 한다. 그다음이 프롬프트 엔지니어링인데, 단어 몇 개만 바꿔도 성능이 크게 달라지므로 여러 번 반복이 필요하다. 과제를 최대한 정확히 기술해 모호함을 줄여야, 모델이 답을 지나치게 창의적으로 지어내지 않는다. 프롬프트에 만족하면 곧바로 그래프 생성으로 가고, 너무 복잡하면 프롬프트·기대 출력 쌍으로 이뤄진 작은 학습셋을 만들어 OpenAI API로 파인튜닝한다. 앞선 프롬프트 작업은 사람이 최종 주석을 달기 전 데이터셋을 <strong>초벌 주석</strong>하는 데 재사용되므로 버려지지 않는다.</p>
+    </section>
+
+    <section class="report-section s7 page-break" id="source-5-3-2" data-source-kind="section" data-source-ref="5.3.2">
+      <div class="report-section__kicker">교재 §5.3.2 · Prompt Engineering Example</div>
+      <h1>5.3.2 프롬프트 엔지니어링 예시 — 프롬프트를 진화시켜 가기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>버전 1의 두루뭉술한 프롬프트는 관계가 과잉 세분화되고 예측이 불안정하다.</li>
+        <li>버전 2는 개체·관계 부류 목록과 약어 설명을 더해 라벨을 정규화한다.</li>
+        <li>버전 3은 대표 예시를 확장해 관계를 통일하고 조직·소속까지 잡아낸다.</li>
+      </ul></div></div>
+      <p>프롬프트가 어떻게 진화하는지 실제 예로 따라가 보자. 이 장의 프롬프트들은 ChatGPT 계열을 위해 설계됐고 GPT-4o mini에서 시험됐다. 저자들은 특정 모델의 세부보다 근본 원리에 초점을 두라고 권한다. 먼저 버전 1은 GPT에게 “가능한 한 많은 개체와 관계를 찾아 <code>[개체1, 유형, 관계, 개체2, 유형]</code> 형식으로 출력하라”고 요청한다(리스팅 5.1). 관계에는 방향이 있으므로 순서가 중요하다는 지침과, 관계 추출처럼 복잡한 과제에 특히 유용한 예시 하나를 함께 준다.</p>
+      <article class="source-listing" id="listing-5-1-intro">
+        <h4>리스팅 5.1 · 프롬프트 버전 1: 개체와 관계 찾아내기 <span style="font-weight:600;color:var(--muted,#64748b);">(원자료 bold-numbered 리스팅)</span></h4>
+        <p>과제 설명(<code>task</code>), 예시 입력(<code>example</code>), 기대 출력(<code>example_output</code>)의 세 조각으로 프롬프트를 구성한다. 예시를 곁들이는 것이 관계 추출에서 특히 도움이 된다. 아래 코드의 영문 프롬프트에는 이해를 돕기 위해 각 부분의 뜻을 한글 주석(<code>#</code>)으로 달았다 — 실제 GPT에 보내는 프롬프트는 영문 그대로다.</p>
+        <pre data-code-language="Python"><code>prompt_segments = dict()
+
+# task = 과제 설명 —
+#   "너는 개체명 인식(NER)과 관계 추출(RE)로 텍스트에서 지식 그래프를 만드는
+#    전문가다. 글이 주어지면 가능한 한 많은 개체와 그 사이의 관계를 찾아,
+#    [개체1, 개체1 유형, 관계, 개체2, 개체2 유형] 형식의 목록으로 출력하라.
+#    관계에는 방향이 있으니 순서가 중요하다."
+prompt_segments['task'] = """You are an expert on constructing Knowledge
+Graphs from texts using named entity recognition and relation extraction.
+Given a prompt, identify as many entities and relations among them as
+possible and output a list of relations in the format [ENTITY 1, ENTITY 1
+TYPE, RELATION, ENTITY 2, ENTITY 2 TYPE].
+The relations are directed, so the order matters."""
+
+# example = 예시 입력
+prompt_segments['example'] = "J.R.Smith (Prof. Phys.) is employed by MIT ..."
+
+# example_output = 기대 출력 — [개체, 유형, 관계, 개체, 유형] 형식의 정답 견본
+prompt_segments['example_output'] = """["J. R. Smith", "person", "works for", "MIT", "organization"] ..."""</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-5-2" data-source-kind="listing" data-source-ref="5.2">
+        <h4>Listing 5.2 · OpenAI API 호출</h4>
+        <p>과제 설명은 <code>system</code>, 예시 입력은 <code>user</code>, 예시 출력은 <code>assistant</code> 역할로 넣어 한 차례 시범을 보인 뒤, 진짜 텍스트를 마지막 <code>user</code> 메시지로 던진다. 사실 추출 과제라 <code>temperature=0.</code>으로 출력이 매번 같게 나오도록 한다.</p>
+        <pre data-code-language="Python"><code>OPENAI_MODEL = "gpt-4o-mini"
+
+def openai_query(client, prompt_segments: dict, query: str):
+    messages = [
+        {"role": "system",    "content": prompt_segments['task']},
+        {"role": "user",      "content": prompt_segments['example']},
+        {"role": "assistant", "content": prompt_segments['example_output']},
+        {"role": "user",      "content": query},
+    ]
+    response = client.chat.completions.create(
+        model=OPENAI_MODEL, messages=messages,
+        temperature=0., max_tokens=2000)
+    return response.choices[0].message.content
+    # API 응답(response)은 포장이 여러 겹입니다. 모델이 여러 후보 답을 줄 수 있어
+    # choices[0] = 첫 번째 후보를 고르고, 그 안의 message.content = 실제 답변
+    # 텍스트만 꺼내 돌려줍니다.</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-5-3" data-source-kind="listing" data-source-ref="5.3">
+        <h4>Listing 5.3 · 리스팅 5.2 프롬프트의 GPT 출력</h4>
+        <p>D. H. 앤드루스와 J. B. 마이어의 직함·전문 분야·사제 관계까지 성과 이름을 온전히 복원했다. 원본이 “Mayer”나 “he”로만 언급한 것도 상호참조가 암묵 해소됐고, “Prof. Chem.”이 “Professor of Chemistry”로 풀렸다.</p>
+        <pre data-code-language="text"><code>["D.H. Andrews", "person", "has title", "Prof. Chem.", "title"]
+["D.H. Andrews", "person", "specializes in", "thermodynamics", "field"]
+["D.H. Andrews", "person", "is measuring", "specific heats ...", "research"]
+["D.H. Andrews", "person", "is interested in", "mechanical models ...", "research"]
+["D.H. Andrews", "person", "demonstrates", "theory of the Raman spectra", "theory"]
+["J.B. Mayer", "person", "is a former student of", "G. N. Lewis", "person"]
+["J.B. Mayer", "person", "works with", "Max Born", "person"]</code></pre>
+      </article>
+      <p>인상적이지만 이 출력이 그래프에 바로 쓸모 있지는 않다. “specializes in”, “is measuring”, “is interested in”, “demonstrates”는 모두 정확한 표현이나, 사람이라면 하나로 “works on”이라 부를 개념을 GPT는 네 가지로 나눴다. 노드 라벨도 field·research·theory 셋으로 갈렸는데 본질은 모두 앤드루스의 연구 주제다. 게다가 같은 프롬프트·설정으로 다시 돌리자 라만 스펙트럼 이론과 직접 열량 측정법이 빠지는 등 <strong>예측 안정성</strong>이 낮았다. 두루뭉술한 프롬프트에만 기대면 예측이 불안정해진다는 신호다.</p>
+      <p>그래서 <strong>정규화 문제</strong>를 다루기 위해 개체·관계 부류 목록을 넣고, 성능이 떨어지는 몇몇 관계에는 설명을 곁들인 버전 2를 시험한다. 사람을 이니셜로 지칭하는 습관과 대학·학과 이름의 축약도 참고 사항으로 덧붙였다.</p>
+      <article class="source-listing" id="source-listing-5-4" data-source-kind="listing" data-source-ref="5.4">
+        <h4>Listing 5.4 · 프롬프트 버전 2: 특정한 개체와 관계 찾아내기</h4>
+        <p>관심 개체(person, location, organization, date, occupation)와 관심 관계(works for, works with, student of, talked about, talked with, works on)를 명시하고, 이니셜·축약 습관을 설명으로 덧붙인다.</p>
+        <pre data-code-language="Python"><code># 가장 중요한 개체 부류 목록
+Entities of interest: person, location, organization, date, occupation
+(a.k.a. person's work, specialization, research discipline, interests,
+occupation, technology).
+# 가장 중요한 관계 부류 목록
+Top relations of interest: "works for", "works with",
+"student of", "talked about", "talked with", "works on".
+Note that persons are often first referenced by their full name, and
+then mentioned only by their surname or initials ("A. N. Richards" -> "R.").
+Note that organizations are often shortened ("Department of Physics" -> "Dept. Phys.").</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-5-5" data-source-kind="listing" data-source-ref="5.5">
+        <h4>Listing 5.5 · 리스팅 5.4 프롬프트의 GPT 출력</h4>
+        <p>일과 관련된 주제가 모두 같은 라벨 <code>occupation</code>을 갖게 됐고 직함도 온전한 형태로 나왔다. <code>works on</code>이 등장했지만 <code>measures</code>·<code>specializes in</code>도 아직 남아 있고, 직접 열량 측정법 관계는 여전히 누락됐다.</p>
+        <pre data-code-language="Python"><code>["D. H. Andrews", "person", "has title", "Professor of Chemistry", "title"]
+["D. H. Andrews", "person", "works on", "thermodynamics", "occupation"]
+["D. H. Andrews", "person", "measures", "specific heats ...", "occupation"]
+["D. H. Andrews", "person", "is interested in", "mechanical models ...", "occupation"]
+["J. B. Mayer", "person", "is a former student of", "G. N. Lewis", "person"]
+["J. B. Mayer", "person", "specializes in", "energetics ...", "occupation"]</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-5-6" data-source-kind="listing" data-source-ref="5.6">
+        <h4>Listing 5.6 · 프롬프트 버전 3: 더 복잡한 예시</h4>
+        <p>예시를 확장해 명확한 지침과 안정성을 얻는다. <code>works on</code>이 중요하므로 <code>occupation</code>을 다시 강조하고, 앞선 버전이 실패했던 <code>student of</code> 관계의 예시를 하나 넣는다.</p>
+        <pre data-code-language="Python"><code>prompt_segments['example'] = "J.R.Smith, Prof. Phys. is employed by MIT and
+mentioned another colleague Mary Hodge, who studies along with her
+master's student John Smith radioisotopes produced by cyclotron."
+prompt_segments['example_output'] = """
+["J. R. Smith", "person", "works for", "MIT", "organization"]
+["John Smith", "person", "student of", "Mary Hodge", "person"]
+["Mary Hodge", "person", "works on", "radioisotopes", "occupation"]
+["Mary Hodge", "person", "works on", "cyclotron", "occupation"]"""</code></pre>
+        <p style="margin-top:8px;font-size:0.92em;color:var(--muted,#64748b);"><strong>용어</strong> — <em>radioisotopes</em> 방사성 동위원소(핵이 불안정해 방사선을 내며 붕괴하는 원소) · <em>cyclotron</em> 사이클로트론(하전 입자를 나선형으로 가속하는 입자 가속기)</p>
+      </article>
+      <article class="source-listing" id="source-listing-5-7" data-source-kind="listing" data-source-ref="5.7">
+        <h4>Listing 5.7 · 리스팅 5.6 프롬프트의 GPT 출력</h4>
+        <p>유레카 — 원하던 것을 모두 이뤘다. <code>works on</code>이 하나로 통일됐고, 직접 열량 측정법도 <code>calorimetric method</code>로 포착됐으며, 조직과 소속까지 제대로 연결됐다.</p>
+        <pre data-code-language="text"><code>["D. H. Andrews", "person", "works for", "Johns Hopkins ... Department", "organization"]
+["D. H. Andrews", "person", "works on", "thermodynamics", "occupation"]
+["D. H. Andrews", "person", "works on", "specific heats ...", "occupation"]
+["D. H. Andrews", "person", "works on", "calorimetric method", "occupation"]
+["J. B. Mayer", "person", "student of", "G. N. Lewis", "person"]
+["J. B. Mayer", "person", "works with", "Max Born", "person"]
+["J. B. Mayer", "person", "works on", "energetics ...", "occupation"]</code></pre>
+      </article>
+      <p>실제 프로젝트에서는 여기서 몇 번 더 반복해 출력 형식을 JSON으로 바꿨고, 각 개체·관계가 필요할 때 속성(예: TALKED_ABOUT 관계의 감정, WORKS_FOR 관계의 직책)을 갖게 했다. 아래 <a class="asset-ref" href="#table-prompt-evolution">표 3</a>은 세 버전의 진화를 한눈에 정리한 것이고, <a class="asset-ref" href="#fig-prompt-evolution">그림 5</a>는 그 수렴 과정을 도식으로 보여 준다.</p>
+      <table class="cmp-table" id="table-prompt-evolution">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">프롬프트 세 버전의 진화</span></div></caption>
+        <thead><tr><th>버전</th><th>바꾼 것</th><th>얻은 개선</th><th>남은 문제</th></tr></thead>
+        <tbody>
+          <tr><td>v1 (리스팅 5.1–5.3)</td><td>“모든 개체·관계를 찾아라”</td><td>상호참조·약어 자동 해소</td><td>관계 과잉 세분화, 예측 불안정</td></tr>
+          <tr><td>v2 (리스팅 5.4–5.5)</td><td>개체·관계 부류 목록 + 약어 설명</td><td>occupation으로 라벨 통일, works on 등장</td><td>measures·specializes in 잔존, 일부 관계 누락</td></tr>
+          <tr><td>v3 (리스팅 5.6–5.7)</td><td>대표 예시 확장(student of 등)</td><td>works on 통일, 조직·소속·측정법 포착</td><td>실무에선 이후 JSON·속성으로 더 확장</td></tr>
+        </tbody>
+      </table>
+      <figure class="report-figure" id="fig-prompt-evolution" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">프롬프트를 진화시키면 출력이 정규화된다 · AIML Quant 보충</span></figcaption>
+        <img src="assets/figs/fig-prompt-evolution.svg" alt="버전1의 불안정하고 과잉 세분화된 출력이, 부류를 명시한 버전2와 대표 예시를 확장한 버전3을 거쳐 일관된 관계 라벨로 수렴하는 과정">
+        <small class="asset-note">과제 설명·부류 이름 짓기·대표 예시라는 세 지렛대가 정규화와 예측 안정성을 만든다는 점을 재구성했다. 이 도식은 리스팅 5.1–5.7의 진화를 압축한 AIML Quant 보충 시각화다.</small>
+      </figure>
+    </section>
+
+    <section class="report-section s8 page-break" id="source-5-3-3" data-source-kind="section" data-source-ref="5.3.3">
+      <div class="report-section__kicker">교재 §5.3.3 · Prompt Engineering Guidelines</div>
+      <h1>5.3.3 프롬프트 엔지니어링 지침 — 오래도록 통하는 원칙들</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>기술 세부는 빨리 낡지만, RAC 프로젝트에서 얻은 원칙들은 새 모델에도 옮겨 간다.</li>
+        <li>과제 설명·부류 이름·대표 예시·온도·안정성 시험이 출력 품질을 좌우한다.</li>
+        <li>평가와 미니 KG 확인으로 체계적 실패를 잡고, 과도하게 고민하지 않는다.</li>
+      </ul></div></div>
+      <p>LLM은 빠르게 진화하므로 곧 낡을 기술 지침 대신, 저자들이 RAC 프로젝트에서 발견한 오래 통하는 원칙을 정리한다. 아래는 그 모범 사례를 요약한 것이다.</p>
+      <div class="callout--insight"><span class="callout__kicker">프롬프트 엔지니어링 모범 사례</span><div class="callout__body"><ul>
+        <li><strong>과제 설명과 도메인 특화 지침</strong> — 잘 설명된 과제가 품질·안정성의 핵심이다. 데이터셋 특성(예: 이니셜 지칭 습관)을 덧붙인다.</li>
+        <li><strong>개체·관계 부류의 이름 짓기</strong> — 관심 부류 목록을 넣고, 성능이 나쁘면 이름을 바꾼다. 두루뭉술한 “Topic”을 “Occupation”으로 바꾸자 결과가 훨씬 안정됐다.</li>
+        <li><strong>복잡하고 대표적인 예시</strong> — 실제 텍스트를 압축하되 핵심 관계 유형을 모두 담은 예시를 준다.</li>
+        <li><strong>LLM 설정</strong> — 여러 모델과 파라미터를 시험한다. 온도가 높으면 다채롭고(환각도 늘고), 낮으면 출력이 매번 같아진다. 사실 추출은 온도 0을 쓴다.</li>
+        <li><strong>예측 안정성 시험</strong> — 생성 모델은 “기분”을 타므로 같은 프롬프트도 결과가 달라질 수 있다. 명확한 과제 설명과 낮은 온도로 억제하고, 겹침 정도로 안정성을 평가한다.</li>
+        <li><strong>프롬프트 단위 테스트</strong> — 텍스트 토막과 기대 출력을 테스트 목록에 쌓아 성공률을 계산하면, 이전 반복의 성과를 잃지 않는다.</li>
+        <li><strong>미니 KG 눈으로 확인</strong> — 이정표마다 수십 쪽 표본으로 작은 그래프를 만들어 직접 들여다보면 개선 실마리가 보인다.</li>
+        <li><strong>평가</strong> — 만족하면 정량 평가(정밀도·재현율·F1)를 한다. QA 관리자나 LLM 심판이 체계적 실패를 잡고, 모델 드리프트의 기준이 된다.</li>
+        <li><strong>초기 탐색용 KG</strong> — 무엇을 캐낼지 모를 땐 빠른 일반 추출로 정규화되지 않은 그래프를 만들어 데이터를 이해한다.</li>
+        <li><strong>야심 차게 하라</strong> — LLM은 오타·약어·맥락을 처리하므로, 완전하고 깨끗한 예시를 주면 후처리가 줄어든다.</li>
+        <li><strong>지나치게 생각하지 마라</strong> — 제로샷·원샷은 단순 기법이다. 빠른 반복으로 안 되면 남은 시간을 파인튜닝에 투자한다.</li>
+      </ul></div></div>
+      <aside class="term-note" role="note"><span class="term-note__kicker">용어 주석</span><ul>
+        <li><strong>temperature</strong><span>출력의 다양성·창의성을 조절하는 파라미터. 높으면 다채롭고 환각 성향이 커지며, 낮으면 출력이 매번 같아진다.</span></li>
+        <li><strong>zero-shot / one-shot</strong><span>예시 없이(제로샷) 또는 예시 하나만(원샷) 주고 과제를 시키는 방식이다.</span></li>
+        <li><strong>precision · recall · F1</strong><span>정밀도는 찾아낸 것 중 맞은 비율, 재현율은 찾아냈어야 할 것 중 찾은 비율, F1은 둘의 종합이다.</span></li>
+      </ul></aside>
+    </section>
+
+    <section class="report-section s9 page-break" id="source-5-3-4" data-source-kind="section" data-source-ref="5.3.4">
+      <div class="report-section__kicker">교재 §5.3.4 · Traditional NLP vs LLM</div>
+      <h1>5.3.4 지식 그래프 구축: 전통적 NLP인가, LLM인가?</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>전통적 NLP는 속도·비용·보안·온프레미스에서 유리하지만 초기 투자와 전문성이 크다.</li>
+        <li>LLM은 빠른 도메인 맞춤과 올인원 처리, 깨끗한 출력이 강점이나 예측 속도·인프라·대규모 비용이 약점이다.</li>
+        <li>둘은 공존할 수 있고, 하나로 다른 하나의 학습 데이터를 만들 수도 있다.</li>
+      </ul></div></div>
+      <p>그렇다면 전통적 NLP 경로와 LLM 경로 중 무엇을 택할까? 각 접근의 장단점은 구체적 도메인과 비즈니스 고려에 따라 갈린다. 아래 표는 저자들이 정리한 비교를 재구성한 것이다.</p>
+      <table class="cmp-table" id="table-nlp-vs-llm">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">전통적 NLP와 LLM의 장단점</span></div></caption>
+        <thead><tr><th>관점</th><th>전통적 NLP</th><th>LLM</th></tr></thead>
+        <tbody>
+          <tr><td>예측 속도</td><td>빠름, CPU로도 충분</td><td>느림, 강력한 GPU에서도</td></tr>
+          <tr><td>인프라</td><td>단순·저렴, GPU 불필요한 경우 많음</td><td>예측에도 GPU 필요, 복잡·고비용</td></tr>
+          <tr><td>도메인 맞춤</td><td>모델별 주석·학습에 큰 초기 투자</td><td>전이 학습·프롬프트로 빠르게 도달</td></tr>
+          <tr><td>파이프라인</td><td>NER·RE·상호참조 등 여러 모델 조합</td><td>올인원, 데이터 한 번 통과</td></tr>
+          <tr><td>후처리</td><td>정제·정규화·해소 부담 큼</td><td>생성적 특성으로 후처리 감소</td></tr>
+          <tr><td>보안</td><td>온프레미스 격리 구성이 쉽고 저렴</td><td>온프레미스 GPU 클러스터는 부담</td></tr>
+        </tbody>
+      </table>
+      <p>“AI가 주름잡는 세계에서 전통적 NLP가 설 자리가 있는가?”라는 물음에 저자들의 답은 “당연히 있다”이다. LLM과 지식 그래프의 결합에 밝은 미래를 내다보면서도, 보안 요구·대규모 데이터의 비용·스트리밍 속도를 고려하면 NLP 같은 기술의 자리는 여전히 넓다. 만약 LLM을 실서비스에 쓸 수 없다면, 맞춤형 NLP 모델의 학습 데이터를 빠른 프롬프트 엔지니어링으로 초벌 주석해 만드는 식으로 LLM을 활용할 수 있다. 요즘은 많은 LLM이 AWS·Azure·GCP 같은 하이퍼스케일러로 제공되어 이런 고충 일부는 덜어진다.</p>
+      <aside class="term-note" role="note"><span class="term-note__kicker">용어 주석</span><ul>
+        <li><strong>on-premises</strong><span>클라우드가 아니라 자체 서버·설비에 직접 구축·운영하는 배포 방식이다.</span></li>
+        <li><strong>fine-tuning</strong><span>사전학습된 모델을 특정 도메인 데이터로 추가 학습시켜 특화하는 작업이다. OpenAI는 맞춤 모델 예측에 약 10배를 청구한다.</span></li>
+      </ul></aside>
+    </section>
+
+    <section class="report-section s10 page-break" id="synthesis-gate">
+      <div class="report-section__kicker">AIML Quant 보충 · Operating Gate</div>
+      <h1>보충. 후보를 검증된 지식으로 바꾸는 운영 게이트</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>교재의 환각·예측 안정성·평가 논의를 하나의 운영 흐름으로 묶어 본다.</li>
+        <li>LLM 출력은 &#39;확정된 사실&#39;이 아니라 &#39;후보&#39;이며, 검증 게이트를 통과해야 지식이 된다.</li>
+        <li>이 재구성은 교재의 주장을 대체하지 않는, 발표자의 운영 관점 보강이다.</li>
+      </ul></div></div>
+      <p>이 절은 원자료의 새로운 주장이 아니라, 5.3에서 흩어져 나온 통제 장치(온도 0, 예측 안정성 시험, 정량 평가, 미니 KG 확인, 모델 드리프트 감시)를 발표에서 한 장면으로 보여 주기 위한 <strong>AIML Quant 운영 보강</strong>이다. 교재의 흐름은 “관찰 → 추출”이고, 여기에 “검증” 단계를 명시적으로 끼워 넣어 후보와 사실을 구분한다.</p>
+      <figure class="report-figure" id="fig-operating-gate" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">LLM 출력은 후보다 — 검증 게이트를 통과해야 지식이 된다 · AIML Quant 보충</span></figcaption>
+        <img src="assets/figs/fig-operating-gate.svg" alt="비정형 텍스트 관찰에서 LLM이 개체·관계 후보를 만들고, 정량 평가·QA·예측 안정성·환각 통제라는 검증 게이트를 거쳐 검증된 지식 그래프가 되며, 실패 사례가 프롬프트 개선으로 되돌아가는 흐름">
+        <small class="asset-note">정량 평가·QA 관리자/LLM 심판·예측 안정성·환각 통제를 하나의 게이트로 묶고, 실패 사례가 프롬프트 개선으로 되돌아가는 피드백을 표시했다. 교재 §5.3.2–5.3.3의 통제 논의를 운영 흐름으로 재구성한 발표자 보강 도식이다.</small>
+      </figure>
+      <div class="callout--hero"><span class="callout__kicker">Operating Rule</span><span class="callout__body">사용자 클릭·수용이 정답 라벨은 아니다. <strong>후보 · 결정 · 관찰 · 검증된 사실</strong>을 데이터 모델에서 별도 상태로 관리해야 지식 그래프의 신뢰가 유지된다.</span></div>
+    </section>
+
+    <section class="report-section s11 page-break" id="recap">
+      <div class="report-section__kicker">교재 요약 · Chapter Recap</div>
+      <h1>핵심 정리</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 장이 남긴 것</div><div class="section-summary__body"><ul>
+        <li>비정형 텍스트로 KG를 만들려면 도메인 특화 개체명과 그 사이 관계를 찾아야 한다.</li>
+        <li>전통적 NLP는 여러 모델을 학습·연결해야 하고 큰 초기 투자와 전문성을 요구한다.</li>
+        <li>LLM은 프롬프트 엔지니어링(또는 파인튜닝)으로 낮은 초기 비용에 정확한 도메인 KG를 만든다.</li>
+        <li>둘은 장단점이 갈리며 공존하거나 서로의 학습 데이터를 만들 수 있고, LLM의 생성적 특성 덕에 정규화·해소 후처리가 거의 필요 없다.</li>
+      </ul></div></div>
+      <p>정리하면, 이 장의 결론은 “도구 선택”이 아니라 “문제와 통제의 설계”다. 개체(NER)와 관계(RE)라는 두 기둥을 세우고, LLM으로 한 번에 뽑되, 프롬프트를 반복 개선하고 평가로 후보를 검증하면, 일지처럼 험한 비정형 텍스트에서도 검증 가능한 지식 그래프의 재료를 얻을 수 있다. 그 재료로 실제 그래프를 만들고 질문에 답하는 일은 6장의 몫이다.</p>
+    </section>
+
+    <section class="report-appendix s-glossary page-break" id="glossary">
+      <div class="report-section__kicker">Appendix A · Glossary</div>
+      <h1>핵심 용어</h1>
+      <table class="cmp-table" id="table-glossary">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">핵심 용어 사전</span></div></caption>
+        <thead><tr><th>용어</th><th>이 장에서의 의미</th></tr></thead>
+        <tbody>
+          <tr><td>지식 그래프 (KG)</td><td>흩어진 정보를 개체(점)와 관계(선)로 연결해 정리한 검증 가능한 지식 구조.</td></tr>
+          <tr><td>개체명 인식 (NER)</td><td>텍스트에서 사람·조직·주제 등 개체명 언급을 찾아 정해진 범주로 분류하는 작업.</td></tr>
+          <tr><td>관계 추출 (RE)</td><td>텍스트 속 개체 쌍 사이의 의미적 관계를 찾아내는 작업.</td></tr>
+          <tr><td>상호참조 해소</td><td>“Mayer”, “he”처럼 같은 대상을 가리키는 여러 표현을 하나로 잇는 작업. LLM은 이를 암묵 처리한다.</td></tr>
+          <tr><td>전이 학습</td><td>일반 과제에서 배운 패턴·지식을 다른 과제에 재사용해 라벨 데이터를 줄이는 학습 방식.</td></tr>
+          <tr><td>프롬프트 엔지니어링</td><td>가장 성능 좋은 프롬프트를 찾아가는 반복적 개선 과정.</td></tr>
+          <tr><td>파인튜닝</td><td>사전학습 모델을 도메인 데이터로 추가 학습시켜 특화하는 작업.</td></tr>
+          <tr><td>환각 (hallucination)</td><td>근거가 없는데도 모델이 사실을 지어내고 잘못 추론하는 현상.</td></tr>
+          <tr><td>온도 (temperature)</td><td>출력의 다양성을 조절하는 파라미터. 사실 추출은 0을 쓴다.</td></tr>
+          <tr><td>예측 안정성</td><td>같은 입력·프롬프트에 결과가 일관되게 나오는 정도.</td></tr>
+          <tr><td>정규화 (normalization)</td><td>의미가 같은 개체·관계를 일관된 라벨로 통일하는 작업.</td></tr>
+          <tr><td>정밀도·재현율·F1</td><td>예측 품질 지표. 맞은 비율·빠짐없이 찾은 비율·둘의 종합.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-appendix s-refs page-break" id="references">
+      <div class="report-section__kicker">Appendix B · References</div>
+      <h1>참고 자료와 도형 출처</h1>
+      <ol class="references" style="list-style:none;padding:0;">
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>Broekstra, Ackaouy 외, <em>Knowledge Graphs and LLMs in Action</em>, Manning. Chapter 5 “Extracting domain-specific knowledge from unstructured data” 원문과 해설판을 재구성 근거로 사용.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[2]</span><span>Vaswani 외, “Attention Is All You Need”(2017) — 트랜스포머 구조. 본문 §5.3에서 LLM의 바탕으로 인용.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[3]</span><span>데이터 중심 패러다임과 스케일링 관찰 — 원자료 §5.3의 참고문헌 [3]을 따름.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[F]</span><span>그림 1–4는 원자료 그림 5.1–5.4를 공개용으로 재구성한 발표자 도해이며, 그림 5–6은 리스팅 진화와 검증 게이트를 시각화한 AIML Quant 보충이다. 원문 스캔·그림은 복제하지 않았다.</span></li>
+      </ol>
+      <div class="report-jump-links"><a href="./">발표자료</a><a href="../../">회차 목록</a><a href="#summary">문서 처음</a></div>
+    </section>
+  </article>
+  <script src="assets/report.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

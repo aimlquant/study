@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>비정형 데이터에서 도메인 특화 지식 추출</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+
+    <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">지식 그래프와 LLM 실전 · Chapter 5</p>
+        <h1>비정형 데이터에서 도메인 특화 지식 추출</h1>
+        <p class="cover-subtitle">담당자의 일지처럼 험한 비정형 텍스트에서 개체와 관계를 뽑아 검증 가능한 지식 그래프의 재료를 만든다</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>두균</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 5</dd></div>
+        <div><dt>일시</dt><dd>2026-08-15</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide" aria-label="발표의 핵심 질문" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
+      <h1>글로만 흩어진 지식을 어떻게 그래프로 바꿀 것인가?</h1>
+      <p class="lead">기업 데이터의 80~90%는 비정형 텍스트다. 이 장은 그중 록펠러 아카이브 담당자의 일지에서 지식을 캐낸다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">SOURCE PROBLEM</p><h2>담당자의 일지는 험한 텍스트다</h2><ul><li>타자·약어·이니셜(“R.”)로 뒤덮임</li><li>사람·조직뿐 아니라 &#39;주제&#39;가 중요</li><li>사전 기반 NER로는 잡히지 않음</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">TWO PILLARS</p><h2>개체와 관계로 압축</h2><ul><li>개체명 인식(NER) — 점을 찾는다</li><li>관계 추출(RE) — 점을 잇는다</li><li>LLM이 이 둘을 한 번에 처리</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>오늘의 결론</strong> — LLM 출력은 &#39;후보&#39;다. 프롬프트 반복과 평가로 검증해야 지식이 된다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 핵심 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="오늘의 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>오늘의 흐름은 문제 → 두 기둥 → LLM이다</h1>
+      <p class="lead">아카이브라는 무대에서 출발해, 개체·관계 추출을 거쳐 LLM 활용과 판단으로 마무리한다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>5.1</span><h2>아카이브</h2><p>RAC 담당자의 일지가 왜 까다로운 비정형 데이터인지 살펴본다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>5.2</span><h2>두 기둥</h2><p>개체(NER)와 관계(RE)를 정의한다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>5.3</span><h2>LLM</h2><p>프롬프트로 개체·관계를 한 번에 뽑는다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>판단</span><h2>NLP vs LLM</h2><p>언제 무엇을 쓰고 어떻게 검증할지 정한다.</p></article>
+        </div>
+        <p class="takeaway"><strong>발표의 약속</strong> — 특정 모델의 세부보다 오래 통하는 원리로 읽는다.</p>
+        <p style="margin-top:10px;font-size:0.62em;line-height:1.55;color:var(--muted);">RAC = Rockefeller Archive Center · NER = Named Entity Recognition · RE = Relation Extraction<br>LLM = Large Language Model · NLP = Natural Language Processing</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.1 아카이브라는 도전 섹션" data-report-refs="source-5-1 source-figure-5-1" data-source-refs="section:5.1" data-source-title="section:5.1">
+      <p class="eyebrow">SECTION 5.1</p><h1 class="source-title">5.1 아카이브라는 도전 — 역사 기록의 산을 마주하기</h1><p>연구비 결정의 무대 뒤를 그래프로 밝혀낸다</p><span class="section-number">5.1</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="텍스트에서 지식으로 가는 경로" data-report-refs="source-5-1 source-figure-5-1" data-source-refs="figure:5.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>비정형 텍스트는 여러 단계를 거쳐 지식이 된다</h1>
+      <p class="lead">OCR로 디지털화하고, 개체명 인식과 관계 추출을 거쳐 지식 그래프에 이른다. 지식 표현과 지식 학습이 두 도전이다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-5-1-text-to-knowledge-path.svg" alt="비정형 문서가 OCR, 개체명 인식, 관계 추출을 거쳐 지식 그래프로 변환되는 경로">
+          <figcaption><b>그림 1</b><span>원본 그림 5.1</span><span>텍스트 → 구조화된 지식</span><a class="report-ref" href="report.html#source-figure-5-1">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 텍스트에서 지식으로</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="RAC 담당자 일지 배경" data-report-refs="source-5-1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CONTEXT</span></header>
+      <h1>무대는 록펠러 아카이브 센터의 프로그램 담당관 일지다</h1>
+      <p class="lead">담당관들은 회의·전화·저녁 자리의 대화를 약어와 전문 용어로 일지에 적었다. 이 &#39;보물 창고&#39;가 원자료다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>Q1</span><h2>선행 패턴</h2><p>연구비 지원 전에 앞서 나타나는 패턴이 있는가?</p></article>
+          <article class="card"><span>Q2</span><h2>추천 경로</h2><p>영향력 있는 과학자의 추천을 따르는가?</p></article>
+          <article class="card"><span>Q3</span><h2>내부 논의</h2><p>확정까지 논의가 몇 번 오가는가?</p></article>
+          <article class="card"><span>Q4</span><h2>분야 흐름</h2><p>하위 분야 지원은 시간에 따라 변하는가?</p></article>
+        </div>
+        <p class="takeaway"><strong>핵심</strong> — 5장은 &#39;추출&#39;, 6장은 이 정보로 그래프를 만들어 답하는 &#39;구축&#39;이다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · RAC 담당자 일지</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.2 지식 추출의 핵심 개념 섹션" data-report-refs="source-5-2" data-source-refs="section:5.2" data-source-title="section:5.2">
+      <p class="eyebrow">SECTION 5.2</p><h1 class="source-title">5.2 지식 추출의 핵심 개념 — 개체와 관계, 두 개의 기둥</h1><p>개체(NER)는 점을 찾고, 관계(RE)는 점을 잇는다 — 이 둘이 그래프의 뼈대</p><span class="section-number">5.2</span>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.2.1 개체명 인식 섹션" data-report-refs="source-5-2-1 source-figure-5-2" data-source-refs="section:5.2.1" data-source-title="section:5.2.1">
+      <p class="eyebrow">SECTION 5.2.1</p><h1 class="source-title">5.2.1 개체명 인식하기 — 글 속 주인공 찾아내기</h1><p>일반 범주만으로는 부족하다</p><span class="section-number">5.2.1</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="담당자 일지의 개체명 강조" data-report-refs="source-5-2-1 source-figure-5-2" data-source-refs="figure:5.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>사람·조직만이 아니라 &#39;주제&#39;를 인식해야 한다</h1>
+      <p class="lead">록펠러 담당자(위버)의 일지에는 “대기 관측 연구”, “기상 연구”, “기단” 같은 주제가 나온다. 사전에 없어 단순 NER로는 못 잡는다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-5-2-diary-ner.svg" alt="담당자의 일지 문장에서 사람, 조직, 주제 개체를 색으로 구분해 강조한 개체명 인식 예시">
+          <figcaption><b>그림 2</b><span>원본 그림 5.2</span><span>사람·조직·주제 강조</span><a class="report-ref" href="report.html#source-figure-5-2">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 담당자 일지 개체명</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="RAC 개체 유형" data-report-refs="source-5-2-1 table-ner-types">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">ENTITY TYPES</span></header>
+      <h1>&#39;주제&#39;는 다시 세 하위 유형으로 갈린다</h1>
+      <p class="lead">Topic 개체는 연구 분야·기술·질병으로 세분된다. 이런 도메인 특화 범주는 맞춤 추출이 필요하다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>Person</strong><h2>사람</h2><p>이니셜·약어 지칭(“R.”)이 난관.</p></article>
+          <article class="kpi"><strong>Organization</strong><h2>조직</h2><p>축약형(“U. Cal.”) 해소가 필요.</p></article>
+          <article class="kpi"><strong>Topic</strong><h2>주제</h2><p>연구 분야·기술·질병 — 사전에 없음.</p></article>
+        </div>
+        <p class="takeaway"><strong>두 갈래</strong> — ① 맞춤 NER 모델을 학습하거나, ② LLM의 힘을 빌린다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 개체 유형</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.2.2 관계 추출 섹션" data-report-refs="source-5-2-2" data-source-refs="section:5.2.2" data-source-title="section:5.2.2">
+      <p class="eyebrow">SECTION 5.2.2</p><h1 class="source-title">5.2.2 관계 추출하기 — 개체들을 이어 주는 실</h1><p>일관성이 그래프의 품질을 만든다</p><span class="section-number">5.2.2</span>
+    </section>
+
+    <section class="slide" aria-label="관계 추출과 일관성" data-report-refs="source-5-2-2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">RELATION</span></header>
+      <h1>같은 관계라도 문서마다 다르게 쓰면 그래프가 뒤죽박죽</h1>
+      <p class="lead">“제인 오스틴은 구글에 고용되어 있다”에서 PERSON과 ORGANIZATION을 잇는 관계가 RE의 결과물이다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">SAME FACT</p><h2>여러 표현</h2><ul><li>제인 오스틴 -WORKS_FOR-&gt; 구글</li><li>구글 -EMPLOYS-&gt; 제인 오스틴</li><li>방향만 뒤집힌 같은 사실</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">RULE</p><h2>일관성이 핵심</h2><ul><li>문서 전반에 같은 이름·방향</li><li>제각각이면 질의가 깨짐</li><li>스키마를 미리 합의</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>기억할 것</strong> — 개체(점)에 관계(선)를 더해야 비로소 진정한 지식 그래프다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 관계 추출</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.3 LLM으로 지식 그래프 만들기 섹션" data-report-refs="source-5-3 source-figure-5-3" data-source-refs="section:5.3" data-source-title="section:5.3">
+      <p class="eyebrow">SECTION 5.3</p><h1 class="source-title">5.3 대규모 언어 모델로 지식 그래프 만들기 — 판을 바꾸는 도구</h1><p>여러 전문 모델을 한 번의 통과로 대체한다</p><span class="section-number">5.3</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="LLM 정신 모형" data-report-refs="source-5-3 source-figure-5-3" data-source-refs="figure:5.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>LLM은 NER·상호참조·RE를 한 번에 처리한다</h1>
+      <p class="lead">전통적 NLP는 여러 전문 모델을 잇지만, LLM은 한 번의 통과로 개체와 관계를 함께 뽑는다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-5-3-llm-mental-model.svg" alt="전통적 NLP 파이프라인과 한 번의 통과로 처리하는 LLM 접근을 대비한 도식">
+          <figcaption><b>그림 3</b><span>원본 그림 5.3</span><span>두 처리 방식의 대비</span><a class="report-ref" href="report.html#source-figure-5-3">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · LLM 정신 모형</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="전이 학습과 환각" data-report-refs="source-5-3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">WHY / LIMIT</span></header>
+      <h1>전이 학습이 강점을, 환각이 한계를 만든다</h1>
+      <p class="lead">일반 과제에서 배운 패턴을 재사용해 라벨 데이터를 줄이고, 자연어 프롬프트만으로 과제를 수행한다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">STRENGTH</p><h2>전이 학습 · 데이터 중심</h2><ul><li>이미 배운 가중치를 재사용</li><li>적은 라벨로 같은 정확도</li><li>프롬프트 엔지니어링만으로</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">LIMIT</p><h2>환각(hallucination)</h2><ul><li>근거 없이 사실을 지어냄</li><li>모를 때도 자신 있게 말함</li><li>이 시점까지 미해결 문제</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>제안</strong> — LLM에게 품질 높은 개체·관계·속성을 뽑게 해 더 깨끗한 그래프를 만든다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 전이 학습과 환각</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.3.1 LLM 활용하기 섹션" data-report-refs="source-5-3-1 source-figure-5-4" data-source-refs="section:5.3.1" data-source-title="section:5.3.1">
+      <p class="eyebrow">SECTION 5.3.1</p><h1 class="source-title">5.3.1 LLM 활용하기 — 그냥 쓸까, 길들여 쓸까</h1><p>프롬프트 기반과 파인튜닝, 두 갈래</p><span class="section-number">5.3.1</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="LLM의 두 가지 역할" data-report-refs="source-5-3-1 source-figure-5-4" data-source-refs="figure:5.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>만족하면 프롬프트 기반, 복잡하면 파인튜닝</h1>
+      <p class="lead">데이터 탐색과 프롬프트 엔지니어링을 거쳐 두 갈래로 나뉜다. 프롬프트 작업은 파인튜닝 초벌 주석으로 재사용된다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-5-4-two-roles.svg" alt="프롬프트 기반 접근과 파인튜닝 접근으로 갈라지는 분기 흐름">
+          <figcaption><b>그림 4</b><span>원본 그림 5.4</span><span>두 갈래 흐름</span><a class="report-ref" href="report.html#source-figure-5-4">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · LLM의 두 역할</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.3.2 프롬프트 엔지니어링 예시 섹션" data-report-refs="source-5-3-2 fig-prompt-evolution" data-source-refs="section:5.3.2" data-source-title="section:5.3.2">
+      <p class="eyebrow">SECTION 5.3.2</p><h1 class="source-title">5.3.2 프롬프트 엔지니어링 예시 — 프롬프트를 진화시켜 가기</h1><p>버전을 거치며 출력이 수렴한다</p><span class="section-number">5.3.2</span>
+    </section>
+
+    <section class="slide" aria-label="프롬프트 리스팅의 진화" data-report-refs="source-5-3-2 source-listing-5-2 source-listing-5-3 source-listing-5-4 source-listing-5-5 source-listing-5-6 source-listing-5-7 table-prompt-evolution" data-source-refs="listing:5.2 listing:5.3 listing:5.4 listing:5.5 listing:5.6 listing:5.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE CONTRACT</span></header>
+      <h1>Listing 5.2–5.7은 프롬프트를 세 번 진화시킨다</h1>
+      <p class="lead">API 호출은 그대로 두고 프롬프트만 바꾼다. 과제 설명 → 부류 명시 → 대표 예시 순서가 정규화를 만든다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--three">
+          <article class="card"><span>5.2 · 5.3</span><h2>버전 1</h2><p>“모든 개체·관계를 찾아라”. 상호참조는 해소되나 관계가 과잉 세분화되고 불안정.</p><a class="report-ref" href="report.html#source-listing-5-2" style="display:inline-block;margin-top:6px;">전체 코드 보기(Listing 5.2) →</a></article>
+          <article class="card"><span>5.4 · 5.5</span><h2>버전 2</h2><p>개체·관계 부류 목록 + 약어 설명. occupation으로 통일, works on 등장.</p><a class="report-ref" href="report.html#source-listing-5-4" style="display:inline-block;margin-top:6px;">전체 코드 보기(Listing 5.4) →</a></article>
+          <article class="card"><span>5.6 · 5.7</span><h2>버전 3</h2><p>대표 예시 확장(student of). works on 통일, 조직·소속·측정법까지 포착 — 유레카.</p><a class="report-ref" href="report.html#source-listing-5-6" style="display:inline-block;margin-top:6px;">전체 코드 보기(Listing 5.6) →</a></article>
+        </div>
+        <p class="takeaway"><strong>설정</strong> — 사실 추출이므로 <code>temperature=0</code>으로 출력이 매번 같게 나오도록 한다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · Listing 5.2-5.7</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="프롬프트 진화 도식" data-report-refs="source-5-3-2 fig-prompt-evolution table-prompt-evolution">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SYNTHESIS VISUAL</span></header>
+      <h1>세 지렛대가 정규화와 예측 안정성을 만든다</h1>
+      <p class="lead">과제 설명·부류 이름 짓기·대표 예시. 버전이 오를수록 관계 라벨이 works on / occupation으로 수렴한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-prompt-evolution.svg" alt="버전1의 불안정한 출력이 버전2의 부류 명시와 버전3의 대표 예시를 거쳐 일관된 관계로 수렴하는 과정">
+          <figcaption><b>그림 5</b><span>AIML Quant 보충</span><span>프롬프트 진화의 수렴</span><a class="report-ref" href="report.html#fig-prompt-evolution">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 프롬프트 진화</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.3.3 프롬프트 엔지니어링 지침 섹션" data-report-refs="source-5-3-3" data-source-refs="section:5.3.3" data-source-title="section:5.3.3">
+      <p class="eyebrow">SECTION 5.3.3</p><h1 class="source-title">5.3.3 프롬프트 엔지니어링 지침 — 오래도록 통하는 원칙들</h1><p>기술은 낡아도 원칙은 옮겨 간다</p><span class="section-number">5.3.3</span>
+    </section>
+
+    <section class="slide" aria-label="프롬프트 모범 사례" data-report-refs="source-5-3-3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">BEST PRACTICES</span></header>
+      <h1>새 모델에도 옮겨 가는 원칙들</h1>
+      <p class="lead">과제 설명, 부류 이름, 대표 예시, 낮은 온도, 안정성 시험, 평가가 출력 품질을 좌우한다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>이름</span><h2>부류 이름 짓기</h2><p>Topic → Occupation 개명만으로 결과가 안정됐다.</p></article>
+          <article class="card"><span>예시</span><h2>대표 예시</h2><p>핵심 관계 유형을 모두 담은 예시를 준다.</p></article>
+          <article class="card"><span>평가</span><h2>정량 평가</h2><p>정밀도·재현율·F1, QA 관리자 또는 LLM 심판.</p></article>
+          <article class="card"><span>절제</span><h2>오버씽킹 금지</h2><p>빠른 반복으로 안 되면 파인튜닝에 투자.</p></article>
+        </div>
+        <p class="takeaway"><strong>주의</strong> — 이정표마다 미니 KG를 눈으로 확인해 체계적 실패를 잡는다.<br><strong>참고</strong> — F1의 &#39;1&#39;은 F-score의 β=1로, 정밀도·재현율을 똑같은 비중으로 본다(한쪽을 더 중시하려면 F0.5·F2).</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 모범 사례</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="5.3.4 전통적 NLP인가 LLM인가 섹션" data-report-refs="source-5-3-4 table-nlp-vs-llm" data-source-refs="section:5.3.4" data-source-title="section:5.3.4">
+      <p class="eyebrow">SECTION 5.3.4</p><h1 class="source-title">5.3.4 지식 그래프 구축: 전통적 NLP인가, LLM인가?</h1><p>둘은 공존하거나 서로를 돕는다</p><span class="section-number">5.3.4</span>
+    </section>
+
+    <section class="slide" aria-label="전통 NLP와 LLM 비교" data-report-refs="source-5-3-4 table-nlp-vs-llm">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">DECISION</span></header>
+      <h1>전통적 NLP는 여전히 설 자리가 있다</h1>
+      <p class="lead">보안·대규모 비용·스트리밍 속도를 고려하면 NLP의 자리는 넓다. 둘은 서로의 학습 데이터를 만들 수도 있다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">전통적 NLP</p><h2>속도 · 비용 · 보안</h2><ul><li>CPU로도 빠른 예측</li><li>단순·저렴한 온프레미스</li><li>단, 큰 초기 투자와 전문성</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">LLM</p><h2>빠른 맞춤 · 올인원</h2><ul><li>전이 학습·프롬프트로 빠르게</li><li>한 번 통과, 깨끗한 출력</li><li>단, GPU·대규모 비용·속도</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>결론</strong> — “전통적 NLP가 설 자리가 있는가?” → “당연히 있다”.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · NLP vs LLM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="검증 게이트 운영 도식" data-report-refs="synthesis-gate fig-operating-gate recap">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SYNTHESIS VISUAL</span></header>
+      <h1>LLM 출력은 후보다 — 게이트를 통과해야 지식이 된다</h1>
+      <p class="lead">교재의 환각·안정성·평가 논의를 하나의 운영 흐름으로 묶은 발표자 보강이다. 후보와 사실을 상태로 구분한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-operating-gate.svg" alt="관찰에서 LLM 후보를 만들고 정량 평가·QA·예측 안정성·환각 통제 게이트를 거쳐 검증된 지식 그래프가 되는 흐름">
+          <figcaption><b>그림 6</b><span>AIML Quant 보충</span><span>후보 → 검증 → 지식</span><a class="report-ref" href="report.html#fig-operating-gate">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 검증 게이트</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="발표 확인 질문" data-report-refs="summary recap glossary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>확인 질문</h1>
+      <p class="lead">다음에 답할 수 있으면 Chapter 5의 핵심 구조를 잡은 것이다.</p>
+      <div class="slide-body">
+        <div class="question-list">
+          <article><span>Q1</span><p>담당자 일지의 “주제(Topic)” 개체가 일반 사전 기반 NER로 잡히지 않는 이유는?</p></article>
+          <article><span>Q2</span><p>프롬프트 버전 1→3에서 관계 라벨이 정규화된 세 지렛대는 무엇인가?</p></article>
+          <article><span>Q3</span><p>LLM 출력을 지식 그래프로 쓰기 전에 반드시 통과시켜야 할 검증은 무엇인가?</p></article>
+        </div>
+        <p class="takeaway"><strong>토론</strong> — 우리 도메인에서 “Occupation”처럼 개명이 필요한 두루뭉술한 개체 부류는 무엇인가?</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · 확인 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--closing" aria-label="세 문장 요약과 Q&A" data-report-refs="summary recap table-overview references">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">Q&amp;A</span></header>
+      <h1>세 문장 요약</h1>
+      <div class="slide-body">
+        <div class="question-list">
+          <article><span>1</span><p>비정형 텍스트를 지식 그래프로 바꾸는 일은 개체(NER)와 관계(RE)라는 두 기둥으로 압축된다.</p></article>
+          <article><span>2</span><p>LLM은 전이 학습과 생성적 특성으로 여러 전문 모델의 일을 한 번에 처리해 더 깨끗한 그래프를 만든다.</p></article>
+          <article><span>3</span><p>그 출력은 후보일 뿐이므로 프롬프트 반복과 정량 평가로 검증해야 신뢰할 수 있는 지식이 된다.</p></article>
+        </div>
+        <div class="report-jump-links"><a href="report.html">상세 리포트</a><a href="../../">회차 목록</a></div>
+      </div>
+      <footer class="slide-footer"><span>Chapter 5 · Q&A</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+  </main>
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어"><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck-lightbox.js"></script>
+  <script src="assets/deck.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

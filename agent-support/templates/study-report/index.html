@@ -47,7 +47,7 @@
       <p>이 장이 다루는 문제, 기존 접근의 한계, 저자의 핵심 아이디어와 왜 중요한지를 발표자의 언어로 설명한다. 슬라이드 문장을 늘이지 말고 처음 읽는 사람도 장의 논리를 따라갈 수 있는 독립 문서로 쓴다.</p>
       <div class="section-summary"><div class="section-summary__kicker">핵심 질문</div><div class="section-summary__body"><ul>
         <li><strong>문제</strong> — 어떤 기존 방식이 왜 충분하지 않은가?</li>
-        <li><strong>메커니즘</strong> — 핵심 구성요소가 어떤 책임을 주고받는가?</li>
+        <li><strong>메커니즘</strong> — 핵심 구성요소의 입력과 출력은 어떻게 이어지는가?</li>
         <li><strong>판단</strong> — 언제 적용하고 어디에서 통제해야 하는가?</li>
       </ul></div></div>
       <table class="cmp-table" id="table-overview">
@@ -62,11 +62,11 @@
       <h1>[원본 절 번호] [원본 절 제목]</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul><li>정의와 경계를 한 문장으로 적는다.</li><li>구성요소 사이의 관계를 적는다.</li><li>쉽게 오해하는 지점을 적는다.</li></ul></div></div>
       <h2 id="source-subsection" data-source-kind="section" data-source-ref="[원본 소절 번호]">[원본 소절 번호] [원본 소절 제목]</h2>
-      <p>독자가 이 장을 읽는 데 필요한 용어를 먼저 정의한다. 비슷한 개념과 무엇이 다른지, 어떤 책임을 포함하고 무엇은 포함하지 않는지 설명한다.</p>
+      <p>독자가 이 장을 읽는 데 필요한 용어를 먼저 정의한다. 비슷한 개념과 무엇이 다른지, 어디까지 포함하고 어떤 경우는 제외하는지 설명한다.</p>
       <h2>AIML Quant 보충 [원본 절 번호]-A · 구조와 흐름</h2>
-      <p>구성요소를 나열하는 데서 끝내지 말고 입력, 변환, 검증, 결과가 어떻게 이어지는지 설명한다. 아래 도형을 회차의 실제 SVG로 교체하고 캡션에 재구성 범위와 출처를 남긴다.</p>
+      <p>구성요소를 나열하는 데서 끝내지 말고 입력, 변환, 검증, 결과가 어떻게 이어지는지 설명한다. 아래 도형은 회차의 실제 개념과 데이터 흐름을 보여 주는 SVG로 교체한다.</p>
       <figure class="report-figure" id="fig-concept" data-deck-use="required" data-source-kind="figure" data-source-ref="[원본 번호]">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">교재 그림 [원본 번호] 해설 · 핵심 구조 도형</span></figcaption>
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">핵심 구성요소와 데이터 흐름</span></figcaption>
         <img src="assets/figs/concept-flow.svg" alt="입력, 변환, 검증된 결과가 왼쪽에서 오른쪽으로 이어지는 핵심 구조">
         <small class="asset-note">템플릿 예시. 실제 회차에서는 assets/figs/ 아래의 별도 SVG와 구체적인 alt·출처로 교체한다.</small>
       </figure>
@@ -87,17 +87,17 @@
         <li>자동화 가능한 일과 사람이 승인해야 할 일을 구분한다.</li>
       </ul></div></div>
       <h2>2.1 이전과 이후</h2>
-      <p>새 기술의 이름을 설명하는 것만으로는 작동 방식을 이해하기 어렵다. 기존에는 누가 어떤 입력을 받아 어디에서 판단했고, 새 접근에서는 그 책임이 어느 계층으로 이동하는지 먼저 설명한다. 속도나 편의성뿐 아니라 검증 지점과 새로 생기는 운영 비용도 같은 비중으로 다룬다.</p>
+      <p>새 기술의 이름을 설명하는 것만으로는 작동 방식을 이해하기 어렵다. 기존 방식과 새 접근에서 입력, 처리, 판단, 검증 단계가 각각 어떻게 달라지는지 먼저 설명한다. 속도나 편의성뿐 아니라 검증 지점과 새로 생기는 운영 비용도 같은 비중으로 다룬다.</p>
       <table class="cmp-table" id="table-mechanism-shift">
-        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">이전과 이후의 책임 변화</span></div></caption>
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">이전과 이후의 처리·검증 단계</span></div></caption>
         <thead><tr><th>관점</th><th>기존 방식</th><th>새 접근</th><th>남는 질문</th></tr></thead>
         <tbody><tr><td>입력</td><td>정해진 형식과 범위</td><td>더 다양한 자료와 질문</td><td>어떤 입력을 신뢰할 것인가?</td></tr><tr><td>변환</td><td>수작업 또는 고정 규칙</td><td>재사용 가능한 해석·처리 계층</td><td>오류를 어디에서 탐지할 것인가?</td></tr><tr><td>검증</td><td>사후 확인에 의존</td><td>근거·규칙·승인을 흐름에 포함</td><td>최종 책임자는 누구인가?</td></tr></tbody>
       </table>
       <h2>2.2 입력–변환–검증–결과</h2>
       <p>구성요소의 내부 구현을 모두 설명하기보다, 각 단계가 받는 입력과 내보내는 출력, 그리고 다음 단계가 무엇을 검증하는지를 이어서 쓴다. 이 구조는 슬라이드의 메커니즘 도형과 같은 순서를 사용하되 리포트에서는 예외와 한계까지 보존한다.</p>
       <figure class="report-figure" id="fig-mechanism" data-deck-use="required">
-        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">입력에서 검증된 결과까지의 책임 경로</span></figcaption>
-        <img src="assets/figs/mechanism-path.svg" alt="입력, 해석과 변환, 검증과 승인, 결과와 근거가 이어지고 피드백이 돌아오는 책임 경로">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">입력에서 검증된 결과까지의 처리 경로</span></figcaption>
+        <img src="assets/figs/mechanism-path.svg" alt="입력, 해석과 변환, 검증과 승인, 결과와 근거가 이어지고 피드백이 돌아오는 처리 경로">
         <small class="asset-note">템플릿 예시. 실제 회차에서는 교재의 논리를 새로 배치한 SVG로 교체하고 자동화·승인 경계를 구체적으로 표시한다.</small>
       </figure>
       <div class="callout--insight"><span class="callout__kicker">작성 원칙</span><div class="callout__body"><p>“가능하다”는 설명 뒤에는 반드시 입력 조건, 실패 모드, 확인 방법 중 둘 이상을 붙인다.</p></div></div>

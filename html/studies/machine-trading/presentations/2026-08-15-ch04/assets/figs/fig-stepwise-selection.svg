@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">단계적 회귀의 변수 선택 과정</title>
+  <desc id="desc">상수항 모형에서 시작해 네 후보를 검사하고 ret2를 추가한 다음, 남은 변수의 조건부 기여와 ret2 제거 여부를 검사해 ret2 하나인 모형에서 멈춘다.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker>
+    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#776f63"/></marker>
+    <style>
+      .box{fill:#fff;stroke:#173b67;stroke-width:2}.selected{fill:#e9f4ec;stroke:#1f7042;stroke-width:2}.final{fill:#173b67;stroke:#173b67;stroke-width:2}
+      .step{fill:#173b67;font-size:13px;font-weight:700}.head{fill:#101828;font-size:16px;font-weight:700}.body{fill:#4f5662;font-size:12px}.small{fill:#6b645a;font-size:11px}.green{fill:#1f7042;font-size:12px;font-weight:700}.white{fill:#fff;font-size:16px;font-weight:700}.pale{fill:#d8e4f2;font-size:12px}.rule{fill:#fff7ed;stroke:#c85b2a;stroke-width:1.5}.ruletext{fill:#9b3f1d;font-size:12px;font-weight:700}.arrow{fill:none;stroke:#173b67;stroke-width:2.2;marker-end:url(#arrow)}.loop{fill:none;stroke:#776f63;stroke-width:1.8;stroke-dasharray:6 5;marker-end:url(#arrow-muted)}
+    </style>
+  </defs>
+  <rect x="22" y="48" width="188" height="166" rx="14" class="box"/>
+  <text x="40" y="76" class="step">1 · 시작</text>
+  <text x="116" y="112" text-anchor="middle" class="head">상수항만 둔다</text>
+  <text x="116" y="143" text-anchor="middle" class="body">아직 선택한 변수 없음</text>
+  <rect x="55" y="164" width="122" height="28" rx="7" fill="#f2f4f7"/>
+  <text x="116" y="183" text-anchor="middle" class="small">ŷ = β₀</text>
+
+  <path d="M210 131H244" class="arrow"/>
+  <rect x="246" y="48" width="188" height="166" rx="14" class="box"/>
+  <text x="264" y="76" class="step">2 · 하나씩 시험</text>
+  <text x="340" y="103" text-anchor="middle" class="body">각 후보를 따로 추가했을 때</text>
+  <text x="340" y="121" text-anchor="middle" class="body">오차가 줄어드는지 비교</text>
+  <text x="272" y="151" class="small">ret1</text><text x="408" y="151" text-anchor="end" class="small">p = 1.6×10⁻⁵</text>
+  <text x="272" y="173" class="green">ret2</text><text x="408" y="173" text-anchor="end" class="green">p = 4.3×10⁻⁹</text>
+  <text x="272" y="195" class="small">ret5 · ret20</text><text x="408" y="195" text-anchor="end" class="small">더 큼</text>
+
+  <path d="M434 131H468" class="arrow"/>
+  <rect x="470" y="48" width="188" height="166" rx="14" class="selected"/>
+  <text x="488" y="76" class="step">3 · 다시 검사</text>
+  <text x="564" y="104" text-anchor="middle" class="green">ret2를 먼저 포함</text>
+  <text x="496" y="134" class="small">ret1 추가</text><text x="632" y="134" text-anchor="end" class="small">p = 0.54</text>
+  <text x="496" y="156" class="small">ret5 추가</text><text x="632" y="156" text-anchor="end" class="small">p = 0.43</text>
+  <text x="496" y="178" class="small">ret20 추가</text><text x="632" y="178" text-anchor="end" class="small">p = 0.64</text>
+  <text x="564" y="201" text-anchor="middle" class="green">모두 진입 기준 0.05 초과</text>
+
+  <path d="M658 131H692" class="arrow"/>
+  <rect x="694" y="48" width="184" height="166" rx="14" class="final"/>
+  <text x="712" y="76" class="pale">4 · 멈춤</text>
+  <text x="786" y="116" text-anchor="middle" class="white">최종 모형</text>
+  <text x="786" y="145" text-anchor="middle" class="white">ret2 하나</text>
+  <text x="786" y="181" text-anchor="middle" class="pale">새 변수도 없고</text>
+  <text x="786" y="199" text-anchor="middle" class="pale">제거할 변수도 없음</text>
+
+  <path d="M564 214V258H340V222" class="loop"/>
+  <text x="452" y="282" text-anchor="middle" class="small">변수가 추가되거나 제거되면 2–3단계를 반복</text>
+  <rect x="274" y="299" width="352" height="25" rx="7" class="rule"/>
+  <text x="450" y="316" text-anchor="middle" class="ruletext">p값은 ‘현재 모형에 더했을 때의 추가 기여’를 매번 다시 계산한다</text>
+</svg>

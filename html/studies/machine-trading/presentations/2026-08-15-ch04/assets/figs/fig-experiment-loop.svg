@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" role="img" aria-labelledby="title desc">
+  <title id="title">머신러닝 전략의 실험 절차</title>
+  <desc id="desc">질문 정의에서 학습, 시간순 검증, 테스트, 진단으로 이어지는 흐름과 테스트 결과를 모델 선택에 되돌리지 않는 경계</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#0f2c59"/></marker>
+    <style>
+      text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","NanumGothic",Inter,system-ui,sans-serif;fill:#172033}.box{fill:#fff;stroke:#0f2c59;stroke-width:2}.soft{fill:#eef3fa}.test{fill:#e8f3ec;stroke:#1b6b3a}.line{fill:none;stroke:#0f2c59;stroke-width:2;marker-end:url(#arrow)}.label{font-size:15px;font-weight:700;text-anchor:middle}.sub{font-size:11px;fill:#596273;text-anchor:middle}.small{font-size:11px;fill:#a3341f;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="760" height="270" rx="14" fill="#fafaf9"/>
+  <rect class="box soft" x="24" y="78" width="122" height="72" rx="10"/><text class="label" x="85" y="106">1. 질문 정의</text><text class="sub" x="85" y="128">무엇을 언제 예측?</text>
+  <path class="line" d="M146 114H174"/>
+  <rect class="box" x="175" y="78" width="122" height="72" rx="10"/><text class="label" x="236" y="106">2. 모델 학습</text><text class="sub" x="236" y="128">과거 데이터만 사용</text>
+  <path class="line" d="M297 114H325"/>
+  <rect class="box" x="326" y="78" width="122" height="72" rx="10"/><text class="label" x="387" y="106">3. 시간순 검증</text><text class="sub" x="387" y="128">설정·변수 선택</text>
+  <path class="line" d="M448 114H476"/>
+  <rect class="box test" x="477" y="78" width="122" height="72" rx="10"/><text class="label" x="538" y="106">4. 최종 테스트</text><text class="sub" x="538" y="128">마지막에 한 번</text>
+  <path class="line" d="M599 114H627"/>
+  <rect class="box soft" x="628" y="78" width="108" height="72" rx="10"/><text class="label" x="682" y="106">5. 진단</text><text class="sub" x="682" y="128">실패 원인 기록</text>
+  <path class="line" d="M682 150V210H236V151"/>
+  <text class="sub" x="458" y="232">새 가설은 다음 실험의 학습 구간에서 다시 검증</text>
+  <path d="M477 54H599" stroke="#a3341f" stroke-width="2" stroke-dasharray="5 4"/><text class="small" x="538" y="38">테스트 결과로 설정을 되돌려 고르지 않는다</text>
+</svg>

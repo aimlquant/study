@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 285" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK KR,Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,NanumGothic,Inter,system-ui,sans-serif">
+  <title id="title">초기값이 다른 신경망의 예측을 평균하는 방법</title><desc id="desc">동일한 학습 데이터에서 초기값이 다른 세 모델이 다음 날 수익률을 각각 플러스 0.8, 마이너스 0.2, 플러스 0.5퍼센트로 예측하고 평균 플러스 0.37퍼센트를 최종 매수 신호로 사용한다.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#173b67"/></marker><style>.head{fill:#101828;font-size:16px;font-weight:700}.box{fill:#fff;stroke:#173b67;stroke-width:1.7}.avg{fill:#e8f4ec;stroke:#1f7042;stroke-width:2}.signal{fill:#173b67}.title{fill:#173b67;font-size:13px;font-weight:700}.body{fill:#56606e;font-size:11px}.green{fill:#1f7042;font-size:14px;font-weight:700}.white{fill:#fff;font-size:15px;font-weight:700}.arrow{fill:none;stroke:#173b67;stroke-width:2.2;marker-end:url(#arrow)}.join{fill:none;stroke:#8b93a0;stroke-width:1.6}</style></defs>
+  <rect x="28" y="58" width="180" height="54" rx="10" class="box"/><text x="118" y="81" text-anchor="middle" class="title">모델 1 · 시드 A</text><text x="118" y="101" text-anchor="middle" class="body">내일 +0.8%</text>
+  <rect x="28" y="126" width="180" height="54" rx="10" class="box"/><text x="118" y="149" text-anchor="middle" class="title">모델 2 · 시드 B</text><text x="118" y="169" text-anchor="middle" class="body">내일 −0.2%</text>
+  <rect x="28" y="194" width="180" height="54" rx="10" class="box"/><text x="118" y="217" text-anchor="middle" class="title">모델 3 · 시드 C</text><text x="118" y="237" text-anchor="middle" class="body">내일 +0.5%</text>
+  <path d="M208 85H268V153M208 153H268M208 221H268V153" class="join"/>
+  <path d="M268 153H324" class="arrow"/>
+  <rect x="324" y="94" width="248" height="118" rx="13" class="avg"/><text x="448" y="126" text-anchor="middle" class="green">일별 예측을 평균</text><text x="448" y="158" text-anchor="middle" class="body">(+0.8 − 0.2 + 0.5) ÷ 3</text><text x="448" y="188" text-anchor="middle" class="green">= +0.37%</text>
+  <path d="M572 153H634" class="arrow"/>
+  <rect x="634" y="94" width="238" height="118" rx="13" class="signal"/><text x="753" y="130" text-anchor="middle" fill="#d8e4f2" font-size="11">평균 예측이 양수</text><text x="753" y="163" text-anchor="middle" class="white">최종 매수 신호</text><text x="753" y="191" text-anchor="middle" fill="#d8e4f2" font-size="11">개별 모델 하나를 고르지 않음</text>
+</svg>

@@ -1,0 +1,213 @@
+{
+ "_": "도해 안 설명 산문 게이트의 기존 부채 baseline. 항목은 세션/파일 -> 정확한 문자열의 sha256 앞 16자다. 여기 있는 문자열만 통과하므로 같은 파일에 새 산문이 들어가면 검증이 실패한다. 회차를 정리하면 해당 항목을 지워 래칫을 조인다. 목표는 이 파일이 비는 것이다.",
+ "allowed": {
+  "2026-07-25-ch01/extraction-bottleneck.svg": [
+   "15d3a39672d88e80",
+   "2ef076850dade539",
+   "46ccadce8d672759",
+   "6c1c18b9bd5979bb",
+   "8c1dd29f1d8af92e",
+   "9240a1b624e1491f",
+   "ab462445b0da684e",
+   "d729e8c704babe88",
+   "e66bc082f32caeb7"
+  ],
+  "2026-07-25-ch01/four-pillars.svg": [
+   "190ddfaf8a80c0af",
+   "a7889dbf673af162",
+   "b8d25e2f496ff8bb"
+  ],
+  "2026-07-25-ch01/hybrid-loop.svg": [
+   "0195df745fa25fe0",
+   "12058e2adbe210c7",
+   "ae2b4dce391ddc37"
+  ],
+  "2026-07-25-ch01/technology-semantics.svg": [
+   "0dcb5ea7f2267598",
+   "1a7f793508ac131d",
+   "3bf178d8970f6dae",
+   "4383976db65e1749",
+   "6bae909c47d3e42e",
+   "acb8465b459d2354",
+   "d511246a4f4b171e",
+   "e15ae303e234bfbf",
+   "ec8875791344af84"
+  ],
+  "2026-07-25-ch01/use-case-map.svg": [
+   "4e65f962fe27c280",
+   "730cb0ec752a15a8",
+   "efbfb2c05bc7f49d"
+  ],
+  "2026-07-25-ch02/hybrid-loop.svg": [
+   "0fb1ed0d5ffce4a2",
+   "67fc0ea26f2f96b6",
+   "9d72232b62c5b48a",
+   "cd76a5ab87fa9ed7"
+  ],
+  "2026-07-25-ch02/intelligent-architecture.svg": [
+   "dded7ae9fe9c9bd2",
+   "f5efeaf4c02f3d55",
+   "fae0c7e1266f88b0"
+  ],
+  "2026-07-25-ch02/knowledge-acquisition.svg": [
+   "1f005607b5b3efd9",
+   "2a688d2f759ae73c",
+   "bfbd5972137dfe05"
+  ],
+  "2026-07-25-ch02/purpose-driven.svg": [
+   "6b35318b023702a7",
+   "6db7881ad0cbe3dd"
+  ],
+  "2026-07-25-ch02/reasoning-engines.svg": [
+   "163a0f27a7c3ae66",
+   "17533bd031b71f68",
+   "b86ad5dca2c1f76a"
+  ],
+  "2026-08-01-ch02/fig-indexing-bug.svg": [
+   "5119cd0f3ad248dd",
+   "6b2d7a3f88a58645",
+   "cff9c98b2532c572",
+   "f781fd324ac93a86"
+  ],
+  "2026-08-01-ch02/fig-pca-pipeline.svg": [
+   "df42f0c8de362a58"
+  ],
+  "2026-08-08-ch03/fig-bic-tradeoff.svg": [
+   "9aea1746127f4207",
+   "c25db66cab897359"
+  ],
+  "2026-08-08-ch03/fig-bidask-bounce.svg": [
+   "18f14f0da3940ef0",
+   "8e98a6c7e0cd277b",
+   "a30b8bafa2c30c59"
+  ],
+  "2026-08-08-ch03/fig-kalman-hidden.svg": [
+   "5c035ce7c252e8ff",
+   "cbe46fd910952548"
+  ],
+  "2026-08-08-ch03/fig-overfit.svg": [
+   "24868db642ab59f6",
+   "5e30dd79dd9f39c3",
+   "6552eb143ec91ac0",
+   "c808137df9960400"
+  ],
+  "2026-08-08-ch03/fig-phi-three.svg": [
+   "105d31a196e0281f",
+   "33e69bb3c71f751d",
+   "895b766a12fdc0c0",
+   "e5af39b706455bfa"
+  ],
+  "2026-08-08-ch03/fig-sector-neutral.svg": [
+   "b947786769bd14c7"
+  ],
+  "2026-08-08-ch03/fig-stationary-vs-coint.svg": [
+   "d8f983882d5bdf9a",
+   "e5a2f468be89cc8b"
+  ],
+  "2026-08-08-ch03/fig-vec-correction.svg": [
+   "4360aabbe65875c3",
+   "96d07f1e19e7c260",
+   "b50fdc32469aa850"
+  ],
+  "2026-08-08-ch03/src-fig-3-1-ar10-equity.svg": [
+   "bca08ef16e4f43ef",
+   "da7eb940f67ed440"
+  ],
+  "2026-08-08-ch03/src-fig-3-2-arma-equity.svg": [
+   "073d83fb0219ec15",
+   "e0118976006d9ad8"
+  ],
+  "2026-08-08-ch03/src-fig-3-3-var-equity.svg": [
+   "0b98dbf7a0a22e2e",
+   "b8735071ed751aee"
+  ],
+  "2026-08-08-ch03/src-fig-3-4-kalman-hw-train.svg": [
+   "63075dffcb5c8e21",
+   "d723b02d2012d300"
+  ],
+  "2026-08-08-ch03/src-fig-3-5-kalman-hw-test.svg": [
+   "5a8bf339bb62f1c6",
+   "f33ce52c319c4b3b"
+  ],
+  "2026-08-08-ch03/src-fig-3-6-kalman-slope.svg": [
+   "2468a8d976af7969",
+   "334b4fe541a9c16c"
+  ],
+  "2026-08-08-ch03/src-fig-3-7-kalman-offset.svg": [
+   "34d4cb8440712064",
+   "f38cc364855dbd97"
+  ],
+  "2026-08-08-ch03/src-fig-3-8-kalman-pair-train.svg": [
+   "36f13653c493d7c4",
+   "90019a2b0b5587d9"
+  ],
+  "2026-08-08-ch03/src-fig-3-9-kalman-pair-test.svg": [
+   "8e346e1ce2c0bd51",
+   "bdbed00b141ee856"
+  ],
+  "2026-08-08-ch04/fig-4-10-metapath-dwpc.svg": [
+   "7c636092aefd798a"
+  ],
+  "2026-08-08-ch04/fig-4-11-celiac-go-paths.svg": [
+   "459060e9d5b321d1"
+  ],
+  "2026-08-08-ch04/fig-4-12-patient-journey.svg": [
+   "f16a2cad531a5209"
+  ],
+  "2026-08-08-ch04/fig-4-3-identifier-reconciliation.svg": [
+   "30791ec03604f443"
+  ],
+  "2026-08-08-ch04/fig-4-6-discovery-process.svg": [
+   "1e502a76ad9e6599"
+  ],
+  "2026-08-08-ch04/fig-4-9-hetionet-schema.svg": [
+   "9284764259450197"
+  ],
+  "2026-08-15-ch05/fig-5-1-text-to-knowledge-path.svg": [
+   "37af56474c700693",
+   "7242b08da3aa2ac0"
+  ],
+  "2026-08-15-ch05/fig-5-2-diary-ner.svg": [
+   "7cc5abd15605c51f",
+   "c4bc2c10be8d888f"
+  ],
+  "2026-08-15-ch05/fig-5-3-llm-mental-model.svg": [
+   "881886bfa6a5fa04"
+  ],
+  "2026-08-15-ch05/fig-5-4-two-roles.svg": [
+   "13fff9fd20d5d373"
+  ],
+  "2026-08-15-ch05/fig-operating-gate.svg": [
+   "042066bebc3d6fa3",
+   "5cc654e4843ead22",
+   "8d15fabf9c2f6810"
+  ],
+  "2026-08-15-ch05/fig-prompt-evolution.svg": [
+   "06de1a6af23bc00f",
+   "19af84e16c1e5724",
+   "cb087317c4b1bfff"
+  ],
+  "2026-08-29-ch06/fig-bvc-z.svg": [
+   "cb32975589b36f9d"
+  ],
+  "2026-08-29-ch06/fig-darkpool.svg": [
+   "23ca9a28e578c1fb",
+   "4e9adf0d33b0a39c",
+   "5dc54aed1c087ac9",
+   "8344ce5a0e6718fc",
+   "8912d468a4555101",
+   "97fed8f5724eda65",
+   "b428ffc9e3b710a5",
+   "e0aec95ac0bfd2dc"
+  ],
+  "2026-08-29-ch06/fig-latency.svg": [
+   "1ab2b04e94b2e9e3",
+   "1cfc2b2dc02b8726",
+   "5019a812148f3872",
+   "8e214d67c6d9abd1",
+   "90af2e46d1ffb27c",
+   "beba2da2b1305e5a",
+   "e48b63b983bfa7ca"
+  ]
+ }
+}
