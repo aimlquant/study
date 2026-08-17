@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>대규모 언어 모델로 지식 그래프 구축하기</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+
+    <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">지식 그래프와 LLM 실전 · Chapter 6</p>
+        <h1>대규모 언어 모델로 지식 그래프 구축하기</h1>
+        <p class="cover-subtitle">추출된 지식을 검증 가능한 지식 그래프로 조립하고, 지적 네트워크를 분석하기까지</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>종훈(L)</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 6</dd></div>
+        <div><dt>일시</dt><dd>2026-08-22</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide" aria-label="발표의 핵심 질문" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
+      <h1>LLM이 뽑아낸 관계는 왜 아직 지식 그래프가 아닌가?</h1>
+      <p class="lead">같은 사람이 문서마다 다른 이름으로 불리고, 대조할 정답 사전은 세상에 없다. 이 두 조건이 이 장의 모든 설계를 밀어붙인다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">추출이 끝난 자리</p><h2>남은 것은 흩어진 언급</h2><ul><li>Ernest Orlando Lawrence · Ernest O. Lawrence · Lawrence</li><li>직함이 이름에 섞여 들어온 노드</li><li>대소문자만 다른 같은 직업</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">이 장의 계약</p><h2>조립 공정을 통과해야 지식이 된다</h2><ul><li>세 층 스키마로 확정 절차를 강제한다</li><li>정규화와 개체 해소로 언급을 모은다</li><li>그래프 분석으로 답할 수 있게 만든다</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>오늘의 결론</strong> — LLM은 후보를 만들고, 스키마가 그 후보를 검증 가능한 사실로 확정한다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 핵심 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="오늘의 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>오늘은 조립에서 분석으로 넘어간다</h1>
+      <p class="lead">남은 난제를 정리하고, 스키마를 세우고, 표기를 다듬어 언급을 합친 뒤, 완성된 그래프로 사람 네트워크를 읽는다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>01</span><h2>남은 난제</h2><p>추출을 끝내도 왜 그래프가 저절로 생기지 않는지 본다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>02</span><h2>세 층 설계</h2><p>문서·메타그래프·지식 그래프로 책임을 나눈다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>03</span><h2>정규화와 해소</h2><p>표기를 다듬고 흩어진 언급을 한 사람으로 모은다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>04</span><h2>네트워크 분석</h2><p>중심성과 몇 홉 질의로 실제 업무 질문에 답한다.</p></article>
+        </div>
+        <p class="takeaway"><strong>발표의 약속</strong> — 모든 단계는 “틀렸을 때 되돌릴 수 있는가”라는 하나의 기준으로 읽는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="아카이브에서 통찰까지의 경로" data-report-refs="chapter-map source-figure-6-1" data-source-refs="figure:6.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>한 단계의 실패는 다음 단계에서 조용히 굳어진다</h1>
+      <p class="lead">OCR이 인명을 잘못 읽으면 개체 해소가 그 오류를 “다른 사람”으로 확정한다. 그래서 단계별로 따로 진단해야 한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-6-1-text-to-insight-path.svg" alt="비정형 소스에서 OCR, NER과 RE, 지식 그래프 생성, 그래프 데이터 과학을 거쳐 통찰로 이어지는 경로">
+          <figcaption><b>그림 1</b><span>원본 그림 6.1</span><span>점선 안쪽만 LLM으로 대체 가능</span><a class="report-ref" href="report.html#source-figure-6-1">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 학습 지도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="6.1 남은 난제 섹션" data-report-refs="source-6-1 table-challenges" data-source-refs="section:6.1" data-source-title="section:6.1">
+      <p class="eyebrow">SECTION 6.1</p><h1 class="source-title">6.1 아카이브를 지식 그래프로 바꾸기 — 아직 남은 난제들과 LLM 시대의 행운</h1><p>난제를 먼저 목록화해야 스키마와 검증 지점이 정해진다</p><span class="section-number">6.1</span>
+    </section>
+
+    <section class="slide" aria-label="정답 사전이 없다는 제약" data-report-refs="source-6-1 table-challenges" data-source-refs="section:6.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.1</span></header>
+      <h1>가장 무거운 제약은 “대조할 정답지가 없다”이다</h1>
+      <p class="lead">여기 등장하는 연구 분야 상당수는 더 이상 연구되지 않아, 중의성 해소 기준으로 삼을 사전이나 지식 베이스를 만들 가망이 없다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>데이터</span><h2>타자기 문서</h2><p>스캔과 OCR을 거쳐야 하고 인식 오류가 남는다.</p></article>
+          <article class="card"><span>참조</span><h2>사라진 분야</h2><p>외부 지식 베이스로 뜻을 확정할 수 없다.</p></article>
+          <article class="card"><span>표기</span><h2>개인별 약어</h2><p>“J. R. Smith”를 “S.”로 쓰는 습관이 사람마다 다르다.</p></article>
+          <article class="card"><span>구조</span><h2>조밀한 관계</h2><p>한 페이지에 유의미한 관계가 수십 개 들어 있다.</p></article>
+        </div>
+        <p class="takeaway"><strong>주장의 강도</strong> — 원자료는 LLM이 이 문제들의 “상당수를 풀 수 있다”고 말한다. 없앤다고 말하지 않는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 남은 난제</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="6.1.1 그래프 모델링 섹션" data-report-refs="source-6-1-1 source-figure-6-2" data-source-refs="section:6.1.1" data-source-title="section:6.1.1">
+      <p class="eyebrow">SECTION 6.1.1</p><h1 class="source-title">6.1.1 그래프 모델링 — 세 개의 층으로 그래프를 설계하기</h1><p>층을 나누는 이유는 저장 공간이 아니라 순서다</p><span class="section-number">6.1.1</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="세 층 스키마" data-report-refs="source-6-1-1 source-figure-6-2" data-source-refs="figure:6.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>점선 MAPPED_TO가 언급과 확정 개체를 잇는 유일한 다리다</h1>
+      <p class="lead">이 다리를 지우면 최종 그래프에서 원본 페이지로 되짚어 가는 경로가 끊긴다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-6-2-three-layer-schema.svg" alt="문서 수준 층, 메타그래프 층, 지식 그래프 층으로 나뉜 스키마와 그 사이의 MAPPED_TO 관계">
+          <figcaption><b>그림 2</b><span>원본 그림 6.2</span><span>세 층의 노드 클래스와 관계</span><a class="report-ref" href="report.html#source-figure-6-2">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 세 층 스키마</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="세 층의 책임 분담" data-report-refs="source-6-1-1" data-source-refs="section:6.1.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.1.1</span></header>
+      <h1>각 층은 서로 다른 질문 하나씩을 맡는다</h1>
+      <p class="lead">그래프 모델링의 판단 기준은 중복 제거가 아니라 “우리가 던질 질문이 몇 홉의 순회로 표현되는가”이다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>문서 수준 층</strong><h2>원본이 어디에 있었는가</h2><p>File은 파일명·위치·저자를, Page는 정제된 최종 텍스트를 갖는다.</p></article>
+          <article class="kpi"><strong>메타그래프 층</strong><h2>이 주장은 어디서 왔는가</h2><p>병합하지 않은 Entity와 그 언급이 나온 페이지를 잇는다.</p></article>
+          <article class="kpi"><strong>지식 그래프 층</strong><h2>결국 누가 누구와 어떤 관계인가</h2><p>Person·Title·Organization·Occupation과 의미 관계를 담는다.</p></article>
+        </div>
+        <p class="takeaway"><strong>비유와 그 한계</strong> — LLM은 가끔 사실을 지어내는 달변가, 지식 그래프는 검증된 사실의 대장이다. 다만 메타그래프의 언급은 서로 연결돼 있어 기록 자체가 검증 재료가 된다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 층의 책임</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="6.1.2 메타그래프 섹션" data-report-refs="source-6-1-2" data-source-refs="section:6.1.2" data-source-title="section:6.1.2">
+      <p class="eyebrow">SECTION 6.1.2</p><h1 class="source-title">6.1.2 메타그래프 만들기 — 병합하지 말고 일단 다 기록하라</h1><p>병합을 미루는 대가는 노드 수, 얻는 것은 되돌릴 자유다</p><span class="section-number">6.1.2</span>
+    </section>
+
+    <section class="slide" aria-label="병합을 미루는 이유" data-report-refs="source-6-1-2" data-source-refs="section:6.1.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.1.2</span></header>
+      <h1>최종 그래프는 원본이 아니라 파생물이어야 한다</h1>
+      <p class="lead">청킹은 가장 단순한 페이지 단위로 하고, 식별된 모든 언급을 병합하지 않은 Entity 노드로 만든다. 관계는 RELATED_TO_ENTITY 하나에 type 속성으로 종류를 담는다.</p>
+      <div class="slide-body">
+        <div class="balance-grid">
+          <article><span>COST</span><h2>미루면 치르는 비용</h2><ul><li>같은 사람이 여러 노드로 남는다</li><li>노드와 관계 수가 늘어난다</li><li>해소 규칙을 따로 만들어야 한다</li></ul></article>
+          <article><span>GAIN</span><h2>미뤄서 얻는 것</h2><ul><li>모든 개체·관계의 출처 페이지가 남는다</li><li>설명 가능한 시각화를 설계할 수 있다</li><li>규칙만 고쳐 최종 그래프를 다시 만든다</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>데이터 범위</strong> — 예제는 1만 페이지 중 워런 위버 일지 약 150페이지 표본이며, 1939년까지 거슬러 가는 타자기 문서라 철자 오인식이 남아 있을 수 있다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 메타그래프</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="6.1.3 정규화와 정제 섹션" data-report-refs="source-6-1-3 source-listing-6-1" data-source-refs="section:6.1.3" data-source-title="section:6.1.3">
+      <p class="eyebrow">SECTION 6.1.3</p><h1 class="source-title">6.1.3 정규화와 정제 — 이름을 다듬어 그래프의 연결성을 높이기</h1><p>사실은 하나인데 표기가 갈라져 노드가 둘로 나뉘는 상황을 줄인다</p><span class="section-number">6.1.3</span>
+    </section>
+
+    <section class="slide" aria-label="정규화 질의 읽기" data-report-refs="source-6-1-3 source-listing-6-1" data-source-refs="listing:6.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE · Listing 6.1</span></header>
+      <h1>Listing 6.1은 결과를 원래 이름이 아니라 새 속성에 적는다</h1>
+      <p class="lead">전제: Entity 노드가 이미 적재되어 있고, Person·Occupation은 label 속성 값이며, apoc.text.join은 APOC 플러그인을 필요로 한다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre data-code-language="Cypher"><code>MATCH (e:Entity {label: &quot;Person&quot;})
+WITH e, CASE WHEN ANY(title IN $remove_titles
+  WHERE toLower(e.name) STARTS WITH title)
+  THEN apoc.text.join(split(e.name, &quot; &quot;)[1..], &quot; &quot;)
+  ELSE e.name END AS name
+SET e.name_normalized = name</code></pre>
+          <ul>
+            <li><code>$remove_titles</code>는 dr. · prof. · dean · president 같은 직함 목록이다.</li>
+            <li>이름이 그중 하나로 시작하면 <code>split(...)[1..]</code>로 첫 토큰을 잘라낸다.</li>
+            <li>직업은 별도 질의에서 <code>toLower</code>로 소문자 통일한다.</li>
+            <li>원래 <code>name</code>은 그대로 두고 <code>name_normalized</code>에만 쓴다.</li>
+          </ul>
+        </div>
+        <p class="takeaway"><strong>왜 새 속성인가</strong> — “dean을 직함으로 걷어낸 판단”이 틀렸다고 밝혀져도 원본 표기를 잃지 않는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 정규화 질의</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="규칙 기반 정제의 한계" data-report-refs="source-6-1-3" data-source-refs="section:6.1.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.1.3</span></header>
+      <h1>규칙 기반 정제는 싼 장치이지 완전한 해법이 아니다</h1>
+      <p class="lead">GPT는 직함을 이름과 별개로 다루라는 지시를 받고도 가끔 직함을 이름에 끼워 넣었다. 이 규칙은 그 흔한 오염을 걷어낼 뿐이다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">걸러지는 것</p><h2>첫 토큰의 직함</h2><ul><li>“Dr. John Smith” → “John Smith”</li><li>대소문자만 다른 같은 직업</li><li>목록에 있는 학위·경칭</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">남는 것</p><h2>규칙 밖의 표기</h2><ul><li>이름 중간이나 끝에 오는 직함</li><li>목록에 없는 직함</li><li>이름 자체가 목록 단어와 겹치는 경우</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>판단</strong> — 정규화는 개체 해소의 대체물이 아니라 그 앞에 두는 전처리다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 정제의 경계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="6.1.4 개체 해소 섹션" data-report-refs="source-6-1-4 source-figure-6-3 table-signals" data-source-refs="section:6.1.4" data-source-title="section:6.1.4">
+      <p class="eyebrow">SECTION 6.1.4</p><h1 class="source-title">6.1.4 그래프 기반 개체 해소 — 흩어진 이름들을 한 사람으로 모으기</h1><p>LLM이 부담을 줄여 주지만 없애 주지는 않는다</p><span class="section-number">6.1.4</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="로런스의 세 언급" data-report-refs="source-6-1-4 source-figure-6-3" data-source-refs="figure:6.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>세 홉은 명백하지만 여섯 홉은 간접 근거다</h1>
+      <p class="lead">두 언급이 모두 캘리포니아 대학교 직원이면 세 홉, 직업 유사성까지 거치면 여섯 홉으로 이어진다. 관계형 질의로는 표현하기 어려운 순회다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-6-3-lawrence-mention-resolution.svg" alt="페이지 26, 126, 99의 세 가지 로런스 언급이 기관과 직업 노드를 통해 이어지는 그래프">
+          <figcaption><b>그림 3</b><span>원본 그림 6.3</span><span>세 홉과 여섯 홉의 차이</span><a class="report-ref" href="report.html#source-figure-6-3">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 로런스의 세 언급</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="해소 신호 네 가지" data-report-refs="source-6-1-4 table-signals" data-source-refs="section:6.1.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.1.4</span></header>
+      <h1>신호가 겹칠수록 “같은 사람”이라는 확신이 커진다</h1>
+      <p class="lead">성에만 의존하면 잘못된 일치가 대량으로 생긴다. 성에 더해 이름(또는 약자)까지 맞을 때 비로소 후보가 된다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>신호</th><th>무엇을 보는가</th><th>실패 위험</th></tr></thead>
+          <tbody>
+            <tr><td>문자열 유사도</td><td>이름 표기의 일치와 약자 패턴</td><td>성만 같은 동명이인이 대량의 오탐을 만든다</td></tr>
+            <tr><td>그래프 관계</td><td>WORKS_FOR·WORKS_ON 같은 공통 이웃</td><td>홉 수가 길어질수록 근거가 간접적이 된다</td></tr>
+            <tr><td>커뮤니티</td><td>TALKED_ABOUT·TALKED_WITH로 형성된 군집</td><td>표본이 적으면 군집 자체가 불안정하다</td></tr>
+            <tr><td>의미 유사도</td><td>임베딩 공간에서의 주제 근접성</td><td>상위·하위 개념을 같은 것으로 뭉갤 수 있다</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>팁</strong> — 조직명의 Foundation처럼 흔한 단어는 유사도 링크를 만들면 역효과다. 도메인별 불용어 목록을 먼저 정한다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 해소 신호</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="해소 베이스라인 네 단계" data-report-refs="source-6-1-4" data-source-refs="section:6.1.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.1.4</span></header>
+      <h1>베이스라인은 유사도 간선을 만들고 덩어리로 묶는 것이다</h1>
+      <p class="lead">약결합 요소(WCC)는 방향을 무시하고 이어진 덩어리를 찾으므로 “A는 B와, B는 C와 비슷하다”는 연쇄를 한 그룹으로 만든다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>01</span><h2>유사 간선</h2><p>기준을 충족하는 사람 언급 사이에 META_PERSONS_SIMILAR를 만든다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>02</span><h2>WCC</h2><p>같은 개체로 해소될 언급 그룹을 식별한다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>03</span><h2>대표 이름</h2><p>그룹마다 가장 긴 이름을 대표로 고른다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>04</span><h2>KG 층 생성</h2><p>해소된 개체로 최종 지식 그래프 층을 만든다.</p></article>
+        </div>
+        <p class="takeaway"><strong>범위</strong> — 저자들은 이를 완성된 해법이 아니라 베이스라인이라 부르며 “표면만 긁었다”고 적는다. 잘못된 간선 하나가 무관한 두 그룹을 이어 붙일 수 있다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 해소 베이스라인</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="6.2 지적 네트워크 분석 섹션" data-report-refs="source-6-2 source-figure-6-4" data-source-refs="section:6.2" data-source-title="section:6.2">
+      <p class="eyebrow">SECTION 6.2</p><h1 class="source-title">6.2 지적 네트워크 분석: 그래프의 가치 — 지식 그래프로 인물 네트워크를 파헤치기</h1><p>알고리즘 선택이 곧 질문 선택이다</p><span class="section-number">6.2</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="매개 중심성 네트워크" data-report-refs="source-6-2 source-figure-6-4" data-source-refs="figure:6.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>큰 원은 인기 있는 사람이 아니라 빼면 끊기는 사람이다</h1>
+      <p class="lead">매개 중심성은 그 노드를 지나는 최단 경로 수를 센다. 유명 과학자와 함께 덜 알려진 인물이 부각되는 것이 조사할 신호다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-6-4-influence-network-betweenness.svg" alt="여러 연구자 집단을 소수의 큰 노드가 잇는 지적 영향력 네트워크">
+          <figcaption><b>그림 4</b><span>원본 그림 6.4</span><span>노드 크기 = 매개 중심성</span><a class="report-ref" href="report.html#source-figure-6-4">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 영향력 네트워크</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="사이클로트론 질의 읽기" data-report-refs="source-6-2 source-listing-6-2" data-source-refs="listing:6.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE · Listing 6.2</span></header>
+      <h1>Listing 6.2는 두 홉을 허용해 “추천의 추천”까지 본다</h1>
+      <p class="lead">오른쪽 끝의 Occupation에서 시작해 왼쪽으로 읽는다. 전제: 최종 KG 층이 만들어져 있고 직업 이름은 소문자로 저장돼 있다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre data-code-language="Cypher"><code>MATCH path = ()&lt;-[:WORKS_ON|WORKS_FOR]-(p2:Person)
+  -[:TALKED_ABOUT|TALKED_WITH|WORKS_WITH|STUDENT_OF*1..2]-&gt;
+(p:Person)-[:WORKS_ON]-&gt;()-[:SIMILAR_OCCUPATION*0..1]-(o:Occupation)
+WHERE o.name = toLower($occupation)
+  AND NOT ANY(x IN nodes(path) WHERE x.name = &quot;WW&quot;)
+RETURN path</code></pre>
+          <ul>
+            <li><code>SIMILAR_OCCUPATION*0..1</code>이 해소된 동의 직업까지 한 홉 넓힌다.</li>
+            <li><code>*1..2</code>가 사람과 사람 사이 두 홉을 허용해 간접 추천을 잡는다.</li>
+            <li><code>x.name = &quot;WW&quot;</code>는 기록자 워런 위버를 제외하는 필터다.</li>
+            <li>그를 빼지 않으면 거의 모든 경로에 등장해 그림을 지배한다.</li>
+          </ul>
+        </div>
+        <p class="takeaway"><strong>읽는 법</strong> — 질의는 “누가 중요한가”를 묻지 않고 “어떤 경로가 존재하는가”를 묻는다. 중요도 판단은 중심성이 따로 맡는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 사이클로트론 질의</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="사이클로트론 부분그래프" data-report-refs="source-6-2 source-figure-6-5" data-source-refs="figure:6.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>노드 크기는 전역 페이지랭크이지 이 부분그래프의 중요도가 아니다</h1>
+      <p class="lead">어니스트 로런스와 닐스 보어 외에 할로 섀플리, 제임스 B. 코넌트가 가까이 나타난다. 하버드는 사이클로트론을 만들었다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-6-5-cyclotron-influence-pagerank.svg" alt="사이클로트론 직업을 중심으로 두 홉 이내에 놓인 인물, 기관, 직업 노드와 잘못 포함된 인물">
+          <figcaption><b>그림 5</b><span>원본 그림 6.5</span><span>붉은 점선 = RE 실패 사례</span><a class="report-ref" href="report.html#source-figure-6-5">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 사이클로트론 네트워크</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="RE 실패와 피드백 루프" data-report-refs="source-6-2" data-source-refs="section:6.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.2</span></header>
+      <h1>실패가 위험한 이유는 크기가 아니라 성격이다</h1>
+      <p class="lead">GPT가 로런스 어빙(Laurence Irving)의 이름 첫 부분을 Lawrence로 잘못 표기했다. 같은 페이지에 어니스트 로런스가 있었던 탓으로 보인다.</p>
+      <div class="slide-body">
+        <div class="decision-grid">
+          <article><p class="eyebrow">왜 걸러지지 않았나</p><h2>그럴듯했다</h2><ul><li>결과가 자연스러워 보였다</li><li>이름 하나가 겹쳤을 뿐이다</li><li>그래프 어디에도 의심 표시가 없었다</li><li>비교생리학자가 사이클로트론 망에 남았다</li></ul></article>
+          <article><p class="eyebrow">그래서 필요한 것</p><h2>피드백 루프</h2><ul><li>노드가 나온 원본 페이지를 열어 볼 수 있어야 한다</li><li>분석가가 “의심”으로 표시할 수 있어야 한다</li><li>그 표시가 다음 재생성에 반영돼야 한다</li><li>LLM은 마법이 아니며 어이없는 실수도 한다</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>운영 경계</strong> — 분석 화면은 결과를 보여 주는 데서 멈추면 안 되고, 반증 경로까지 제공해야 한다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 검증과 반증</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="두 대학을 잇는 인물" data-report-refs="source-6-2 source-figure-6-6" data-source-refs="figure:6.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>그래프는 “누구에게 묻고 누구 말만 들으면 기우는지”를 함께 알려 준다</h1>
+      <p class="lead">어빙 랭뮤어는 두 대학 모두와 한 홉으로 이어진다. 다만 그는 버널에게, 버널은 도러시 링치에게 부정적 태도를 보인다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-6-6-jhu-harvard-physics-bridge.svg" alt="존스홉킨스와 하버드 소속 인물을 잇는 중간 인물들, 감정이 붙은 관계, 해소되지 않은 중복 노드">
+          <figcaption><b>그림 6</b><span>원본 그림 6.6</span><span>미해소 노드가 그대로 보인다</span><a class="report-ref" href="report.html#source-figure-6-6">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 두 대학의 연결자</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="6.3 다음 단계 섹션" data-report-refs="source-6-3 table-next-steps" data-source-refs="section:6.3" data-source-title="section:6.3">
+      <p class="eyebrow">SECTION 6.3</p><h1 class="source-title">6.3 록펠러 아카이브 센터 프로젝트의 다음 단계 — 프로덕션급 프로젝트로 나아가기 위해</h1><p>남은 과제는 더 좋은 모델이 아니라 더 나은 구조와 해소다</p><span class="section-number">6.3</span>
+    </section>
+
+    <section class="slide" aria-label="프로덕션으로 가는 과제" data-report-refs="source-6-3 table-next-steps" data-source-refs="section:6.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.3</span></header>
+      <h1>앞의 결과는 150페이지 표본 위에 서 있다</h1>
+      <p class="lead">그럼에도 지식 그래프의 복잡성은 충분히 드러났다. 프로덕션 품질로 가려면 여섯 가지가 남는다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>과제</th><th>무엇을 하는가</th><th>무엇이 열리는가</th></tr></thead>
+          <tbody>
+            <tr><td>지식 추출 개선</td><td>프롬프트 반복 또는 LLM 파인튜닝</td><td>그래프 정확도 향상</td></tr>
+            <tr><td>여러 페이지 문서</td><td>ChatGPT-3.5-Turbo로 일지 항목 경계를 식별해 동시 처리</td><td>토큰 한도 안에서 의미 단위 유지</td></tr>
+            <tr><td>개체 해소 확장</td><td>다른 개체로 확장하고 WikiData 등으로 중의성 해소 보완</td><td>외부 지식과 연결된 식별자</td></tr>
+            <tr><td>보조금 추가</td><td>이사회 회의록의 보조금을 일지 대화에 연결</td><td>“추천이 자금 지원으로 이어졌는가”에 답</td></tr>
+            <tr><td>직업 해소</td><td>임베딩 후 병합 계층적 군집화</td><td>핵물리학·동위원소·중질소의 포함 관계 연결</td></tr>
+            <tr><td>대화 노드</td><td>날짜·인터뷰어·인터뷰이·주제로 Conversation 생성</td><td>후속 연쇄 식별과 보조금 연결</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>관찰</strong> — 여섯 중 넷이 해소와 구조에 관한 항목이다. 모델 교체만으로는 닫히지 않는다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 다음 단계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="6.4 지식 그래프의 가치 섹션" data-report-refs="source-6-4 table-value" data-source-refs="section:6.4" data-source-title="section:6.4">
+      <p class="eyebrow">SECTION 6.4</p><h1 class="source-title">6.4 LLM 시대에 지식 그래프가 갖는 가치 — 왜 굳이 지식 그래프를 만드는가</h1><p>다섯 가지 모두 답을 얻는 능력이 아니라 답을 신뢰하는 능력이다</p><span class="section-number">6.4</span>
+    </section>
+
+    <section class="slide" aria-label="지식 그래프의 다섯 가치" data-report-refs="source-6-4 table-value" data-source-refs="section:6.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §6.4</span></header>
+      <h1>파인튜닝만 하면 응답의 신뢰도를 평가할 방법이 없다</h1>
+      <p class="lead">그 대신 LLM의 언어 이해력으로 사실을 추출해 그래프를 만들면, 생성된 통찰에 확신을 가질 수 있다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>설명 가능성</span><h2>근거를 열어 본다</h2><p>밑바탕 데이터와 추론 과정을 검증할 도구를 준다.</p></article>
+          <article class="card"><span>탈신비화</span><h2>블랙박스를 벗긴다</h2><p>추출된 사실 위에서 결과를 평가할 수 있다.</p></article>
+          <article class="card"><span>민주화</span><h2>비용을 한 번만 낸다</h2><p>비싼 모델은 그래프를 만들 때만 쓴다.</p></article>
+          <article class="card"><span>탐색 가능성</span><h2>가설을 자극한다</h2><p>전역 조망과 파고드는 조사를 함께 제공한다.</p></article>
+        </div>
+        <p class="takeaway"><strong>다섯째</strong> — 고급 분석. 그래프 기반 후속 분석과 ML을 수행하면서도 답변 생성 과정을 온전히 통제할 수 있다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · KG의 가치</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="우리 조직에 옮길 때의 판단" data-report-refs="supplement-operations table-decision">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML QUANT 보충</span></header>
+      <h1>가장 먼저 확인할 것은 성능이 아니라 되돌릴 수 있는가이다</h1>
+      <p class="lead">아래는 원자료의 주장이 아니라, 같은 패턴을 사내 회의록·상담 기록·연구 노트에 옮길 때 AIML Quant가 제안하는 점검 항목이다.</p>
+      <div class="slide-body">
+        <div class="decision-grid">
+          <article><p class="eyebrow">GOOD SIGNAL</p><h2>적합 신호</h2><ul><li>병합하지 않은 중간 층이 남아 있다</li><li>모든 노드가 원본 조각에 연결된다</li><li>해소에 신호가 둘 이상 겹친다</li><li>오류를 표시하면 재생성에 반영된다</li></ul></article>
+          <article><p class="eyebrow">WARNING SIGNAL</p><h2>위험 신호</h2><ul><li>추출 시점에 병합해 원표기가 사라진다</li><li>화면에 결론만 있고 근거 경로가 없다</li><li>이름 유사도 하나로 병합한다</li><li>오류를 기록할 자리가 없다</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>작은 실험</strong> — 임계값 두 가지로 그래프를 두 번 만들고, 정답을 아는 인물 30명으로 신호별 정밀도를 따로 잰다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 도입 판단</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="발표 확인 질문" data-report-refs="summary glossary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>확인 질문</h1>
+      <p class="lead">다음 질문에 답할 수 있으면 이 장의 설계 논리를 잡은 것이다.</p>
+      <div class="slide-body">
+        <ol class="question-list">
+          <li>메타그래프 층을 두지 않고 곧바로 최종 그래프를 만들면 무엇을 잃는가?</li>
+          <li>문자열 유사도만으로 사람을 해소하면 어떤 종류의 오류가 늘어나는가?</li>
+          <li>사이클로트론 부분그래프에 비교생리학자가 들어온 사례는 어떤 운영 장치가 있어야 발견되는가?</li>
+        </ol>
+        <p class="takeaway"><strong>토론</strong> — 우리 도메인에서 “메타그래프 층”에 해당하는 것은 무엇이고, 지금 그 자리는 무엇으로 채워져 있는가?</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · 확인 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--closing" aria-label="세 문장 요약과 질의응답" data-report-refs="summary table-overview references">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">Q&amp;A</span></header>
+      <h1>세 문장 요약</h1>
+      <div class="slide-body">
+        <ol class="question-list">
+          <li>잘 설계된 스키마는 그래프 생성과 정제·정규화·해소를 단순하게 만들고, 효율적인 후속 분석을 보장한다.</li>
+          <li>텍스트에서 고품질의 개체 관계를 추출하면 비지도 그래프 기반 개체 해소를 설계하는 데 도움이 된다.</li>
+          <li>그래프 데이터 과학과 그래프 ML은 블랙박스 도구에 지나치게 의존하지 않고도 패턴과 통찰을 끌어내게 해 준다.</li>
+        </ol>
+        <div class="report-jump-links"><a href="report.html">상세 리포트</a><a href="../../">회차 목록</a></div>
+      </div>
+      <footer class="slide-footer"><span>Chapter 6 · Q&amp;A</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어">
+    <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
+  </nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck-lightbox.js"></script>
+  <script src="assets/deck.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

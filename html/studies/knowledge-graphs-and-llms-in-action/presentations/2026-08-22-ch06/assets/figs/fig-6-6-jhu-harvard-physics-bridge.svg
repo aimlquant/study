@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="f66title f66desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;fill:#0f172a}
+    .name{font-size:14px;font-weight:900}
+    .org{font-size:14px;font-weight:900;fill:#0f2c59}
+    .rel{font-size:12.5px;font-weight:800;fill:#475569}
+    .pos{font-size:12.5px;font-weight:900;fill:#15803d}
+    .neg{font-size:12.5px;font-weight:900;fill:#be123c}
+    .dup{font-size:13px;font-weight:900;fill:#b45309}
+    .edge{stroke:#94a3b8;stroke-width:2.2;fill:none}
+    .affil{stroke:#cbd5e1;stroke-width:5;fill:none;stroke-linecap:round}
+    .good{stroke:#15803d;stroke-width:2.6;fill:none;stroke-dasharray:9 5}
+    .bad{stroke:#be123c;stroke-width:2.6;fill:none;stroke-dasharray:9 5}
+    .dupline{stroke:#b45309;stroke-width:2.4;fill:none;stroke-dasharray:5 4}
+  </style>
+  <title id="f66title">존스홉킨스와 하버드를 잇는 물리학 연구 영향력 네트워크</title>
+  <desc id="f66desc">두 대학 소속 인물과 그들을 세 홉 이내로 잇는 중간 인물들. 긍정·부정 감정이 붙은 TALKED_ABOUT 관계와, 같은 과학자가 서로 다른 두 노드로 남아 있는 미해소 언급이 함께 표시된다.</desc>
+  <rect width="960" height="540" rx="18" fill="#fafaf9"/>
+
+  <circle cx="175" cy="300" r="138" fill="#eef2f7" stroke="#cbd5e1" stroke-width="2"/>
+  <circle cx="800" cy="290" r="130" fill="#eef2f7" stroke="#cbd5e1" stroke-width="2"/>
+
+  <path class="affil" d="M412 102 L 272 208"/>
+  <path class="affil" d="M452 98 L 690 214"/>
+  <path class="affil" d="M243 252 L 498 256"/>
+  <path class="affil" d="M470 374 L 300 348"/>
+
+  <path class="bad" d="M450 86 H 632"/>
+  <text class="t neg" x="541" y="74" text-anchor="middle">TALKED_ABOUT · 부정</text>
+
+  <path class="good" d="M410 96 C 300 116, 214 178, 166 356"/>
+  <text class="t pos" x="236" y="152">TALKED_ABOUT · 긍정</text>
+
+  <path class="bad" d="M636 100 C 560 186, 420 248, 198 362"/>
+  <text class="t neg" x="424" y="252" text-anchor="middle">TALKED_ABOUT · 부정</text>
+
+  <path class="edge" d="M534 250 L 728 238"/>
+  <text class="t rel" x="632" y="232" text-anchor="middle">TALKED_WITH</text>
+
+  <path class="edge" d="M486 404 L 578 462"/>
+  <path class="edge" d="M494 396 L 586 454"/>
+  <text class="t rel" x="470" y="452">TALKED_ABOUT · TALKED_WITH</text>
+
+  <path class="edge" d="M402 480 L 578 478"/>
+  <text class="t rel" x="490" y="500" text-anchor="middle">TALKED_WITH</text>
+
+  <path class="edge" d="M376 470 L 214 400"/>
+  <text class="t rel" x="248" y="452">TALKED_WITH</text>
+
+  <path class="edge" d="M612 464 L 786 372"/>
+  <text class="t rel" x="690" y="432" text-anchor="middle">WORKS_WITH</text>
+
+  <path class="dupline" d="M448 100 C 572 142, 566 214, 534 242"/>
+  <text class="t dup" x="592" y="176" text-anchor="middle">같은 인물의</text>
+  <text class="t dup" x="592" y="192" text-anchor="middle">미해소 언급 두 개</text>
+
+  <circle cx="110" cy="248" r="16" fill="#0f2c59"/>
+  <text class="t name" x="110" y="282" text-anchor="middle">Lewis Weed</text>
+  <circle cx="227" cy="248" r="16" fill="#0f2c59"/>
+  <text class="t name" x="227" y="282" text-anchor="middle">Andrews</text>
+  <circle cx="162" cy="376" r="18" fill="#0f2c59"/>
+  <text class="t name" x="162" y="412" text-anchor="middle">Dorothy M. Wrinch</text>
+  <text class="t rel" x="175" y="462" text-anchor="middle">고용기관</text>
+  <text class="t org" x="175" y="484" text-anchor="middle">Johns Hopkins University</text>
+
+  <circle cx="752" cy="232" r="16" fill="#0f2c59"/>
+  <text class="t name" x="752" y="266" text-anchor="middle">W.</text>
+  <circle cx="862" cy="232" r="16" fill="#0f2c59"/>
+  <text class="t name" x="862" y="266" text-anchor="middle">E. J. Cohn</text>
+  <circle cx="800" cy="356" r="18" fill="#0f2c59"/>
+  <text class="t name" x="800" y="392" text-anchor="middle">James B. Conant</text>
+  <text class="t rel" x="800" y="438" text-anchor="middle">고용기관</text>
+  <text class="t org" x="800" y="460" text-anchor="middle">Harvard University</text>
+
+  <circle cx="430" cy="86" r="20" fill="#0f2c59"/>
+  <text class="t name" x="430" y="126" text-anchor="middle">Irving Langmuir</text>
+  <circle cx="652" cy="86" r="20" fill="#0f2c59"/>
+  <text class="t name" x="652" y="126" text-anchor="middle">Bernal</text>
+  <circle cx="516" cy="256" r="18" fill="#0f2c59"/>
+  <text class="t name" x="516" y="292" text-anchor="middle">Langmuir</text>
+  <circle cx="470" cy="390" r="18" fill="#0f2c59"/>
+  <text class="t name" x="470" y="360" text-anchor="middle">V. Bush</text>
+  <circle cx="596" cy="474" r="18" fill="#0f2c59"/>
+  <text class="t name" x="620" y="510" text-anchor="middle">Merriam</text>
+  <circle cx="386" cy="482" r="16" fill="#0f2c59"/>
+  <text class="t name" x="360" y="518" text-anchor="middle">Franz Weidenreich</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="f61title f61desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;fill:#0f172a}
+    .stage{font-size:20px;font-weight:900}
+    .sub{font-size:14px;fill:#334155;font-weight:700}
+    .band{font-size:14px;fill:#0f2c59;font-weight:900;letter-spacing:0.04em}
+    .zone{font-size:13px;fill:#475569;font-weight:800}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:2}
+    .boxAccent{fill:#e8eef8;stroke:#0f2c59;stroke-width:2}
+    .boxSolid{fill:#0f2c59;stroke:#0f2c59;stroke-width:2}
+    .dash{fill:none;stroke:#94a3b8;stroke-width:2;stroke-dasharray:8 6}
+    .line{stroke:#0f2c59;stroke-width:3;fill:none}
+  </style>
+  <title id="f61title">비정형 텍스트에서 지식 그래프 통찰까지의 단계</title>
+  <desc id="f61desc">비정형 소스, OCR 디지털화, 개체명 인식과 관계 추출, 지식 그래프 생성, 그래프 데이터 과학, 통찰로 이어지는 여섯 단계와 5장·6장의 범위 구분</desc>
+  <rect width="960" height="540" rx="18" fill="#fafaf9"/>
+
+  <text class="t band" x="44" y="72">5장에서 마친 단계</text>
+  <rect class="dash" x="452" y="86" width="440" height="160" rx="14"/>
+  <text class="t zone" x="470" y="232">맞춤형 지식 추출 · LLM 프롬프트 또는 파인튜닝</text>
+
+  <rect class="box" x="40" y="96" width="176" height="98" rx="12"/>
+  <text class="t stage" x="60" y="134">비정형 소스</text>
+  <text class="t sub" x="60" y="160">담당자 일지</text>
+  <text class="t sub" x="60" y="180">타자기 문서 스캔</text>
+
+  <rect class="box" x="252" y="96" width="176" height="98" rx="12"/>
+  <text class="t stage" x="272" y="134">디지털화</text>
+  <text class="t sub" x="272" y="160">OCR</text>
+  <text class="t sub" x="272" y="180">표·이미지 추출</text>
+
+  <rect class="boxAccent" x="470" y="106" width="176" height="98" rx="12"/>
+  <text class="t stage" x="490" y="144">개체명 인식</text>
+  <text class="t sub" x="490" y="170">NER</text>
+  <text class="t sub" x="490" y="190">사람·기관·직업</text>
+
+  <rect class="boxAccent" x="698" y="106" width="176" height="98" rx="12"/>
+  <text class="t stage" x="718" y="144">관계 추출</text>
+  <text class="t sub" x="718" y="170">RE</text>
+  <text class="t sub" x="718" y="190">누가 누구와 무엇을</text>
+
+  <path class="line" d="M216 145 H 242"/>
+  <polygon points="242,138 254,145 242,152" fill="#0f2c59"/>
+  <path class="line" d="M428 145 H 460"/>
+  <polygon points="460,138 472,145 460,152" fill="#0f2c59"/>
+  <path class="line" d="M646 155 H 688"/>
+  <polygon points="688,148 700,155 688,162" fill="#0f2c59"/>
+
+  <path class="line" d="M786 204 V 300 H 786"/>
+  <polygon points="779,300 786,312 793,300" fill="#0f2c59"/>
+
+  <text class="t band" x="44" y="300">6장이 다루는 단계</text>
+
+  <rect class="boxSolid" x="698" y="318" width="176" height="112" rx="12"/>
+  <text class="t stage" x="718" y="356" fill="#ffffff">지식 그래프 생성</text>
+  <text class="t sub" x="718" y="382" fill="#dbe6f6">그래프 모델링</text>
+  <text class="t sub" x="718" y="402" fill="#dbe6f6">정규화·정제</text>
+  <text class="t sub" x="718" y="422" fill="#dbe6f6">개체 해소</text>
+
+  <rect class="boxAccent" x="392" y="318" width="176" height="112" rx="12"/>
+  <text class="t stage" x="412" y="356">그래프 데이터 과학</text>
+  <text class="t sub" x="412" y="382">중심성 점수</text>
+  <text class="t sub" x="412" y="402">커뮤니티 탐지</text>
+  <text class="t sub" x="412" y="422">그래프 ML</text>
+
+  <rect class="box" x="86" y="318" width="176" height="112" rx="12"/>
+  <text class="t stage" x="106" y="356">통찰</text>
+  <text class="t sub" x="106" y="382">질의응답</text>
+  <text class="t sub" x="106" y="402">패턴 발견</text>
+  <text class="t sub" x="106" y="422">시각화</text>
+
+  <path class="line" d="M698 374 H 580"/>
+  <polygon points="580,367 568,374 580,381" fill="#0f2c59"/>
+  <path class="line" d="M392 374 H 274"/>
+  <polygon points="274,367 262,374 274,381" fill="#0f2c59"/>
+
+  <text class="t zone" x="86" y="472">각 단계는 서로 다른 ML 모델에 의존한다</text>
+  <text class="t zone" x="86" y="494">OCR · NER · RE · 개체 해소 · 그래프 ML</text>
+</svg>

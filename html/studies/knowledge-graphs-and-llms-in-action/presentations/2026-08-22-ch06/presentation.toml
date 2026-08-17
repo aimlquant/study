@@ -1,0 +1,13 @@
+study_id = "kg-llm-in-action-2026"
+session_id = "2026-08-22-ch06"
+title = "대규모 언어 모델로 지식 그래프 구축하기"
+date = "2026-08-22"
+presenters = ["종훈(L)"]
+chapters = ["Chapter 6"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+source_fidelity = "source-structure-v1"
+source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_06_building_knowledge_graphs_with_large_language_models/06_building_knowledge_graphs_with_large_language_models_ko_explained.md"

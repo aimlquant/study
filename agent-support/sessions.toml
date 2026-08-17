@@ -137,8 +137,12 @@ date = "2026-08-22"
 title = "Chapter 6. LLM으로 지식 그래프 구축하기"
 presenters = ["종훈(L)"]
 chapters = ["Chapter 6"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-22-ch06/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-22-ch06/" },
+]
 
 [[sessions]]
 id = "2026-08-29-machine-trading-ch06"

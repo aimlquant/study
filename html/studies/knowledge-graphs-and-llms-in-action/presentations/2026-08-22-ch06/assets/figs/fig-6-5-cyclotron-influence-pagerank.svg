@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="f65title f65desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;fill:#0f172a}
+    .name{font-size:14px;font-weight:900}
+    .name2{font-size:13px;font-weight:800;fill:#334155}
+    .rel{font-size:12.5px;font-weight:800;fill:#475569}
+    .flag{font-size:13px;font-weight:900;fill:#9f1239}
+    .edge{stroke:#94a3b8;stroke-width:2.2;fill:none}
+    .edgeErr{stroke:#be123c;stroke-width:2.6;fill:none;stroke-dasharray:8 5}
+    .ring{fill:none;stroke:#be123c;stroke-width:3;stroke-dasharray:6 4}
+  </style>
+  <title id="f65title">사이클로트론 연구를 둘러싼 두 홉 이내 영향력 네트워크</title>
+  <desc id="f65desc">사이클로트론 관련 직업을 중심으로 두 홉 이내에 놓인 인물, 기관, 직업 노드. Person 노드는 전역 페이지랭크 중심성에 따라 크기가 조절되며, 관계 추출 실패로 잘못 포함된 인물 노드가 함께 표시된다.</desc>
+  <rect width="960" height="540" rx="18" fill="#fafaf9"/>
+
+  <path class="edgeErr" d="M146 176 L 308 128"/>
+  <text class="t rel" x="212" y="140" fill="#be123c">TALKED_ABOUT</text>
+  <path class="edge" d="M352 118 L 538 112"/>
+  <text class="t rel" x="440" y="102" text-anchor="middle">TALKED_ABOUT</text>
+  <path class="edge" d="M578 128 L 690 254"/>
+  <text class="t rel" x="622" y="200">TALKED_ABOUT</text>
+  <path class="edge" d="M678 322 L 522 390"/>
+  <text class="t rel" x="596" y="372" text-anchor="middle">WORKS_ON</text>
+  <path class="edge" d="M486 383 L 344 336"/>
+  <text class="t rel" x="404" y="344" text-anchor="middle">SIMILAR_OCCUPATION</text>
+  <path class="edge" d="M194 328 L 313 320"/>
+  <text class="t rel" x="252" y="308" text-anchor="middle">WORKS_ON</text>
+  <path class="edge" d="M158 354 L 126 424"/>
+  <text class="t rel" x="60" y="396">WORKS_FOR</text>
+  <path class="edge" d="M312 452 L 192 348"/>
+  <text class="t rel" x="238" y="424">TALKED_ABOUT</text>
+  <path class="edge" d="M754 260 L 866 194"/>
+  <text class="t rel" x="798" y="222">WORKS_FOR</text>
+  <path class="edge" d="M766 306 L 888 328"/>
+  <text class="t rel" x="820" y="300">TALKED_ABOUT</text>
+  <path class="edge" d="M782 428 L 742 334"/>
+  <text class="t rel" x="770" y="392">TALKED_ABOUT</text>
+
+  <circle cx="120" cy="164" r="26" fill="#0f2c59"/>
+  <circle class="ring" cx="120" cy="164" r="34"/>
+  <text class="t name" x="120" y="222" text-anchor="middle">Lawrence Irving</text>
+  <text class="t flag" x="120" y="240" text-anchor="middle">RE 실패로 들어온 인물</text>
+
+  <circle cx="330" cy="120" r="15" fill="#0f2c59"/>
+  <text class="t name2" x="330" y="152" text-anchor="middle">Louis C. Dunn</text>
+
+  <circle cx="560" cy="110" r="20" fill="#0f2c59"/>
+  <text class="t name" x="560" y="150" text-anchor="middle">S.</text>
+
+  <circle cx="720" cy="290" r="46" fill="#0f2c59"/>
+  <text class="t name" x="720" y="356" text-anchor="middle">Ernest Orlando Lawrence</text>
+
+  <circle cx="884" cy="180" r="15" fill="#0e7490"/>
+  <text class="t name2" x="884" y="210" text-anchor="middle">University of</text>
+  <text class="t name2" x="884" y="226" text-anchor="middle">California</text>
+
+  <circle cx="900" cy="332" r="13" fill="#0f2c59"/>
+  <text class="t name2" x="900" y="362" text-anchor="middle">Emilio Segrè</text>
+
+  <circle cx="800" cy="450" r="24" fill="#0f2c59"/>
+  <text class="t name" x="800" y="494" text-anchor="middle">Niels Bohr</text>
+
+  <circle cx="500" cy="398" r="18" fill="#9d174d"/>
+  <text class="t name2" x="500" y="432" text-anchor="middle">100,000,000 to</text>
+  <text class="t name2" x="500" y="448" text-anchor="middle">200,000,000 volt cyclotron</text>
+
+  <circle cx="330" cy="318" r="17" fill="#9d174d"/>
+  <text class="t name2" x="330" y="350" text-anchor="middle">cyclotron</text>
+
+  <circle cx="170" cy="330" r="24" fill="#0f2c59"/>
+  <text class="t name" x="170" y="298" text-anchor="middle">James B. Conant</text>
+
+  <circle cx="120" cy="440" r="15" fill="#0e7490"/>
+  <text class="t name2" x="120" y="470" text-anchor="middle">Harvard</text>
+  <text class="t name2" x="120" y="486" text-anchor="middle">University</text>
+
+  <circle cx="330" cy="468" r="22" fill="#0f2c59"/>
+  <text class="t name" x="330" y="510" text-anchor="middle">Harlow Shapley</text>
+</svg>
