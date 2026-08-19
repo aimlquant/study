@@ -137,6 +137,7 @@ class PageParser(HTMLParser):
         self.images_without_alt = 0
         self.has_title = False
         self.has_viewport = False
+        self.has_icon = False
         self.html_lang = ""
         self.forms = 0
 
@@ -148,6 +149,8 @@ class PageParser(HTMLParser):
             self.has_title = True
         elif tag == "meta" and values.get("name", "").lower() == "viewport":
             self.has_viewport = True
+        elif tag == "link" and "icon" in values.get("rel", "").lower().split():
+            self.has_icon = True
         elif tag == "img" and "alt" not in values:
             self.images_without_alt += 1
         elif tag == "form":
@@ -2099,6 +2102,8 @@ def validate_html(site: Path, errors: list[str], warnings: list[str]) -> None:
                 errors.append(f"missing <title> in {html_path}")
             if not parser.has_viewport:
                 errors.append(f"missing viewport meta tag in {html_path}")
+            if not parser.has_icon:
+                errors.append(f"missing favicon link in {html_path}")
             if parser.html_lang not in {"ko", "en"}:
                 errors.append(f"missing or unsupported html lang in {html_path}")
             if parser.images_without_alt:
