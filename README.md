@@ -62,7 +62,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-08-01 | 08:00–10:00 | Chapter 2 | 종훈 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-01-machine-trading-ch02/) |
 | 2026-08-08 | 08:00–10:00 | Chapter 3 | 태호 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-08-08-machine-trading-ch03/) |
 | 2026-08-15 | 08:00–10:00 | Chapter 4 | 태영 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-15-machine-trading-ch04/) |
-| 2026-08-22 | 08:00–10:00 | Chapter 5 | 핀조이 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf) | [자료](https://aimlquant.github.io/study/sessions/2026-08-22-machine-trading-ch05/) |
+| 2026-08-22 | 08:00–10:00 | Chapter 5 | 핀조이 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-08-22-machine-trading-ch05/) |
 | 2026-08-29 | 08:00–10:00 | Chapter 6 | 원미 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf) | [회차](https://aimlquant.github.io/study/sessions/2026-08-29-machine-trading-ch06/) |
 | 2026-09-05 | 08:00–10:00 | Chapter 7 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-05-machine-trading-ch07/) |
 | 2026-09-12 | 08:00–10:00 | Chapter 8 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-ch08/) |
