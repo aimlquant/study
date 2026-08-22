@@ -75,7 +75,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-08-01 | 09:00–10:00 | Chapter 3 | 태영 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-01-kg-llm-ch03/) |
 | 2026-08-08 | 09:00–10:00 | Chapter 4 | 종훈(S) | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-08-08-kg-llm-ch04/) |
 | 2026-08-15 | 09:00–10:00 | Chapter 5 | 두균 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-15-kg-llm-ch05/) |
-| 2026-08-22 | 09:00–10:00 | Chapter 6 | 종훈(L) | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf) | [회차](https://aimlquant.github.io/study/sessions/2026-08-22-kg-llm-ch06/) |
+| 2026-08-22 | 09:00–10:00 | Chapter 6 | 종훈(L) | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-08-22-kg-llm-ch06/) |
 | 2026-08-29 | 09:00–10:00 | Chapter 7 | 재익 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m4216b4978be315dc5515a5e416d79bdf) | [회차](https://aimlquant.github.io/study/sessions/2026-08-29-kg-llm-ch07/) |
 | 2026-09-05 | 09:00–10:00 | Chapter 8 | 태호 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-05-kg-llm-ch08/) |
 | 2026-09-12 | 09:00–10:00 | Chapter 9 | 정훈 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-kg-llm-ch09/) |
