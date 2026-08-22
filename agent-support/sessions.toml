@@ -130,12 +130,13 @@ title = "Chapter 5. 옵션 전략"
 presenters = ["핀조이"]
 chapters = ["Chapter 5"]
 status = "materials-published"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf"
+meeting_status = "ended"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-22-ch05/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-08-22-ch05/" },
   { kind = "other", label = "상세 리포트 PDF", url = "studies/machine-trading/presentations/2026-08-22-ch05/report.pdf" },
   { kind = "other", label = "발표자료 PDF", url = "studies/machine-trading/presentations/2026-08-22-ch05/presentation.pdf" },
+  { kind = "other", label = "핀조이 발표자 원본 PDF", url = "studies/machine-trading/presentations/2026-08-22-ch05/presenter-original.pdf" },
 ]
 
 [[sessions]]

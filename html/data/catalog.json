@@ -211,6 +211,11 @@
           "kind": "other",
           "label": "발표자료 PDF",
           "url": "studies/machine-trading/presentations/2026-08-22-ch05/presentation.pdf"
+        },
+        {
+          "kind": "other",
+          "label": "핀조이 발표자 원본 PDF",
+          "url": "studies/machine-trading/presentations/2026-08-22-ch05/presenter-original.pdf"
         }
       ],
       "chapters": [
@@ -218,8 +223,7 @@
       ],
       "date": "2026-08-22",
       "id": "2026-08-22-machine-trading-ch05",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-08-22-machine-trading-ch05/",
       "presenters": [
         "핀조이"
@@ -570,7 +574,7 @@
       ],
       "presentation_path": "html/studies/machine-trading",
       "slug": "machine-trading",
-      "source_commit": "1146578b271f890c7b29495acea49fdbb168468b",
+      "source_commit": "aabbc56a253afbbe4a725ed342e15721bf8913b3",
       "source_repository": "https://github.com/restful3/ml4t",
       "start_date": "2026-07-25",
       "start_time": "08:00",

@@ -15,6 +15,7 @@
 - `presentation.toml`: 세션 메타데이터 (workflow: raw-report-deck-v1)
 - `report.pdf`: A4 포맷으로 출력된 상세 리포트 (약 1.9 MB)
 - `presentation.pdf`: 1280x720 16:9 규격 가로형으로 출력된 슬라이드 (약 2.3 MB)
+- `presenter-original.pdf`: 2026-08-22 핀조이 발표자가 업스트림에 공개한 19장 원본 PDF
 - `assets/`: 회차별 전용 스타일시트 및 스냅샷 스크립트
 - `assets/figs/fig-vol-trap.svg`: 실현변동성 vs VXX 방향 어긋남 시각화 다이어그램
 - `assets/figs/fig-gamma-scalping.svg`: 감마 스캘핑(CL/LO) 헤징 및 선물 평균회귀 매커니즘 다이어그램
@@ -40,7 +41,8 @@
 - **빌드 검증**: `build_site.py --check` 및 `validate-site.py` 100% 통과 (경고/오류 0건).
 - **콘솔 에러**: Playwright 구동 브라우저 상에서 Javascript 런타임 에러 0건 (TOC/Nav 버튼 Event Listener null 버그 완벽 수정).
 - **레이아웃 적합성**: 1280x720 뷰포트 내 가로/세로 화면 넘침(Scroll Overflow) 슬라이드 개수 0개 확인.
+- **발표자 원본 보존본**: `presenter-original.pdf`는 원본을 변경하지 않았다. 15쪽 하단 우측의 인용 박스가 본문과 겹치는 원본 레이아웃 결함이 있으므로, 기본 발표 경로는 검증된 `index.html`과 `presentation.pdf`를 유지한다.
 
 ## 5. 배포 경로
-- **슬라이드 라이브 URL**: `https://restful3.github.io/aimlquant/studies/machine-trading/presentations/2026-08-22-ch05/`
-- **리포트 라이브 URL**: `https://restful3.github.io/aimlquant/studies/machine-trading/presentations/2026-08-22-ch05/report.html`
+- **슬라이드 라이브 URL**: `https://aimlquant.github.io/study/studies/machine-trading/presentations/2026-08-22-ch05/`
+- **리포트 라이브 URL**: `https://aimlquant.github.io/study/studies/machine-trading/presentations/2026-08-22-ch05/report.html`
