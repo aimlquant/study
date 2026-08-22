@@ -23,6 +23,7 @@ SITE = {
     "name_ko": "AI·ML·Quant",
     "repository": "restful3/aimlquant",
     "pages_url": "https://restful3.github.io/aimlquant/",
+    "landing_url": "https://restful3.github.io/",
     "youtube_channel_id": "UCFCw_lSFRhco6h25cXiFecw",
     "youtube_handle": "@aimlquant",
     "youtube_url": "https://www.youtube.com/@aimlquant",
@@ -259,6 +260,7 @@ name = "AIML Quant"
 name_ko = "AI·ML·Quant"
 repository = "restful3/aimlquant"
 pages_url = "https://restful3.github.io/aimlquant/"
+landing_url = "https://restful3.github.io/"
 youtube_channel_id = "UCFCw_lSFRhco6h25cXiFecw"
 youtube_handle = "@aimlquant"
 youtube_url = "https://www.youtube.com/@aimlquant"
@@ -458,6 +460,28 @@ class MaterialsGateTest(unittest.TestCase):
         files = build_site.render_files(SITE, STUDIES, [])
 
         self.assertIn(Path("404.html"), files)
+
+
+class LandingLinkTest(unittest.TestCase):
+    """이 저장소는 조직 랜딩의 하위 공간이다. 루트에서 랜딩으로
+    한 번에 돌아갈 수 있어야 방문자가 다른 공간을 찾을 수 있다."""
+
+    def test_root_page_links_back_to_the_landing_page(self) -> None:
+        files = build_site.render_files(SITE, STUDIES, [])
+        root = files[Path("index.html")]
+
+        self.assertIn(
+            f'<a class="back" href="{SITE["landing_url"]}">'
+            f'← {SITE["name"]} 홈</a>',
+            root,
+        )
+
+    def test_site_config_requires_the_landing_url(self) -> None:
+        broken = dict(SITE)
+        broken.pop("landing_url")
+
+        with self.assertRaisesRegex(ValueError, "landing_url"):
+            build_site.validate_site(broken)
 
 
 class RealRegistryTest(unittest.TestCase):
