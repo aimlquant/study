@@ -3,6 +3,7 @@ schema_version = 1
 [site]
 name = "AIML Quant"
 name_ko = "AI·ML·Quant"
+space_ko = "스터디"
 repository = "aimlquant/study"
 pages_url = "https://aimlquant.github.io/study/"
 landing_url = "https://aimlquant.github.io/"

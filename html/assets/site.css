@@ -54,15 +54,23 @@ a {
 }
 
 .shell {
-  width: min(1280px, calc(100% - 64px));
-  min-height: calc(100vh - 64px);
+  width: min(1080px, calc(100% - 48px));
   margin: 32px auto;
-  padding: clamp(38px, 5vw, 64px) clamp(34px, 6vw, 88px) 88px;
+  padding: clamp(34px, 5vw, 64px) clamp(28px, 6vw, 72px) clamp(48px, 6vw, 80px);
+  border-radius: 4px;
   background: var(--bg);
   box-shadow: var(--shell-shadow);
 }
 
-.cover-brand,
+/* 조직 랜딩과 운영 가이드가 쓰는 머리 형식이다. 네 공개 공간이 같은
+   순서(브랜드 표기 → 홈 링크 → 제목 → 리드)로 열리도록 여기서도 쓴다. */
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
 .site-masthead {
   position: relative;
   z-index: 1;
@@ -78,55 +86,31 @@ a {
 }
 
 .brand-name {
-  padding-left: 14px;
+  padding-left: 10px;
   border-left: 4px solid var(--primary);
   color: var(--text);
-  font-size: 1.18rem;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+  font-size: 1rem;
+  font-weight: 700;
   text-decoration: none;
 }
 
 .brand-sub {
-  color: var(--primary);
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 
-.hero {
-  position: relative;
-  display: flex;
-  min-height: 520px;
-  flex-direction: column;
-  overflow: hidden;
-  border-bottom: 1px solid var(--border);
-  background:
-    radial-gradient(circle at 88% 12%, var(--primary-soft) 0, transparent 33%),
-    linear-gradient(140deg, var(--surface) 0%, var(--bg) 68%);
-}
 
-.hero-copy {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 1000px;
-  padding: 64px 0 54px;
-}
 
-.hero h1,
+h1,
 .page-header h1 {
   max-width: 1040px;
-  margin: 14px 0 20px;
+  margin: clamp(28px, 5vw, 48px) 0 0;
   color: var(--text);
-  font-size: clamp(3.2rem, 7vw, 5.4rem);
-  font-weight: 950;
-  line-height: 1.04;
-  letter-spacing: -0.055em;
+  font-size: clamp(2.35rem, 7vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
   text-wrap: balance;
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -134,7 +118,11 @@ a {
 
 .page-header h1 {
   max-width: 980px;
+  margin: 14px 0 20px;
   font-size: clamp(2.6rem, 6vw, 4.5rem);
+  font-weight: 950;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
 }
 
 .eyebrow {
@@ -148,55 +136,19 @@ a {
 }
 
 .lead {
-  max-width: 780px;
-  margin: 0;
+  max-width: 54ch;
+  margin: 18px 0 0;
   color: var(--muted);
-  font-size: clamp(1.04rem, 2.1vw, 1.35rem);
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
   line-height: 1.6;
   word-break: keep-all;
 }
 
-.hero-meta {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 32px;
-  margin: 0;
-  padding: 24px 0 28px;
-  border-top: 1px solid var(--border);
-}
 
-.hero-meta div {
-  min-width: 0;
-}
 
-.hero-meta dt {
-  margin-bottom: 6px;
-  color: var(--text);
-  font-size: 0.7rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
 
-.hero-meta dd {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.94rem;
-  font-weight: 600;
-}
 
-.hero-actions {
-  margin-top: 30px;
-}
 
-.meta-link {
-  color: var(--primary);
-  font-weight: 900;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
 
 section {
   margin-top: 66px;
@@ -588,14 +540,10 @@ section > h2::after {
 }
 
 /* 네 공개 공간이 조직 랜딩으로 돌아가는 링크를 같은 자리에 같은 모습으로
-   보여준다. 운영 가이드(`/guides/`)가 기준이다 — 브랜드 표기 바로 아래.
-   히어로가 세로 flex 라서 align-self 가 없으면 링크가 가로로 늘어난다. */
+   보여준다. 운영 가이드(`/guides/`)가 기준이다 — 브랜드 표기 바로 아래. */
 .back--home {
-  align-self: flex-start;
-  /* 운영 가이드는 브랜드 아래 30px 를 준다. 여기서는 .cover-brand 의
-     min-height 44px 가 글자 아래에 11px 를 더 만들어서, 눈에 보이는
-     간격을 같은 34px 로 맞추려면 19px 를 준다. */
-  margin: 19px 0 0;
+  display: inline-block;
+  margin: 30px 0 0;
   color: var(--primary);
   font-weight: 750;
 }
@@ -821,14 +769,11 @@ section > h2::after {
   }
 
   .shell {
-    width: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 26px 20px 58px;
-    box-shadow: none;
+    width: calc(100% - 24px);
+    margin: 12px auto;
+    padding: 28px 20px 44px;
   }
 
-  .cover-brand,
   .site-masthead {
     min-height: 36px;
     gap: 12px;
@@ -845,25 +790,17 @@ section > h2::after {
     font-size: 1rem;
   }
 
-  .brand-sub {
+  .site-masthead .brand-sub {
     max-width: 14ch;
     font-size: 0.58rem;
     line-height: 1.45;
     text-align: right;
   }
 
-  .hero {
-    min-height: 0;
-  }
-
-  .hero-copy {
-    padding: 64px 0 58px;
-  }
-
-  .hero h1 {
+  h1 {
     max-width: 12ch;
-    font-size: clamp(2.7rem, 14vw, 4rem);
-    line-height: 1.05;
+    font-size: clamp(2.35rem, 12vw, 3.25rem);
+    line-height: 1.06;
   }
 
   .page-header h1 {
@@ -877,26 +814,6 @@ section > h2::after {
     line-height: 1.7;
   }
 
-  .hero-meta {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 12px 0 20px;
-  }
-
-  .hero-meta div {
-    display: grid;
-    grid-template-columns: 92px 1fr;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero-meta div:last-child {
-    border-bottom: 0;
-  }
-
-  .hero-meta dt {
-    margin: 0;
-  }
 
   .grid {
     grid-template-columns: 1fr;

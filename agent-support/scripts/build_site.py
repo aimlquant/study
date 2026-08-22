@@ -127,6 +127,7 @@ def validate_site(site: object) -> None:
     for field in (
         "name",
         "name_ko",
+        "space_ko",
         "repository",
         "pages_url",
         "landing_url",
@@ -753,26 +754,18 @@ def render_files(
       </article>"""
         )
     root_schedule_html = "\n".join(root_schedules)
-    root_body = f"""    <header class="hero">
-      <div class="cover-brand">
-        <span class="brand-name">{html.escape(site["name"])}</span>
-        <span class="brand-sub">OPEN STUDY ARCHIVE</span>
-      </div>
-      <a class="back back--home" href="{html.escape(site["landing_url"])}">← {html.escape(site["name"])} 홈</a>
-      <div class="hero-copy">
-        <p class="eyebrow">GITHUB PAGES × YOUTUBE</p>
-        <h1>{html.escape(site["name_ko"])}</h1>
-        <p class="lead">교안을 먼저 공개하고, 스터디 영상이 공개되면 같은 회차 페이지에서 연결합니다.</p>
-        <div class="actions hero-actions">
-          <a class="button" href="#schedule">전체 일정·Webex 보기</a>
-        </div>
-      </div>
-      <dl class="hero-meta">
-        <div><dt>공개 순서</dt><dd>교안 → 스터디 → 영상</dd></div>
-        <div><dt>학습 영역</dt><dd>AIML · QUANT</dd></div>
-        <div><dt>커뮤니티</dt><dd><a class="meta-link" href="{html.escape(site["youtube_url"])}">YouTube 채널 ↗</a></dd></div>
-      </dl>
-    </header>
+    root_body = f"""    <div class="brand">
+      <span class="brand-name">{html.escape(site["name"])}</span>
+      <span class="brand-sub">OPEN STUDY ARCHIVE</span>
+    </div>
+    <a class="back back--home" href="{html.escape(site["landing_url"])}">← {html.escape(site["name"])} 홈</a>
+    <h1>{html.escape(site["space_ko"])}</h1>
+    <p class="lead">교안을 먼저 공개하고, 스터디 영상이 공개되면 같은 회차 페이지에서 연결합니다.</p>
+    <div class="actions">
+      <a class="button" href="#schedule">전체 일정·Webex 보기</a>
+      <a class="button button--secondary" href="{html.escape(site["youtube_url"])}"
+         target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a>
+    </div>
     <section>
       <h2>진행 중인 스터디</h2>
       <div class="grid">{cards}</div>
@@ -796,7 +789,7 @@ def render_files(
       <div class="grid">{recent}</div>
     </section>"""
     files[Path("index.html")] = page(
-        site["name_ko"],
+        f"{site['space_ko']} · {site['name_ko']}",
         "assets/site.css",
         root_body,
         site["pages_url"],
