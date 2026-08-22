@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+  <title id="title">BTC.USD에 적용한 ARMA(3, 7) 트레이딩 전략</title>
+  <desc id="desc">ARMA(3,7) 한 단계 예측으로 매매한 같은 테스트 구간의 자산 곡선으로, AR(16)과 같은 체결 가정을 쓰지만 연율 3.9로 훨씬 낮고 상승도 더 울퉁불퉁하다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .axis{fill:none;stroke:#9A9AA2;stroke-width:1.5}
+      .grid{fill:none;stroke:#E4E4E1;stroke-width:1}
+      .curve{fill:none;stroke:#0F2C59;stroke-width:3}
+      .ghost{fill:none;stroke:#C9C9CE;stroke-width:2;stroke-dasharray:5 5}
+      .head{font-size:16px;font-weight:800;text-anchor:middle;fill:#0F0F10}
+      .lab{font-size:13px;font-weight:700;fill:#0F2C59}
+      .meta{font-size:12px;fill:#6B6B72}
+    </style>
+  </defs>
+  <rect width="900" height="360" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <text class="head" x="450" y="34">최적 차수 p=3, q=7 — AR 항에 과거 오차(MA)까지 반영</text>
+    <line class="grid" x1="80" y1="80" x2="840" y2="80"/>
+    <line class="grid" x1="80" y1="160" x2="840" y2="160"/>
+    <line class="grid" x1="80" y1="240" x2="840" y2="240"/>
+    <line class="axis" x1="80" y1="300" x2="840" y2="300"/>
+    <line class="axis" x1="80" y1="56" x2="80" y2="300"/>
+    <text class="meta" x="52" y="304">1배</text>
+    <text class="meta" x="44" y="164">3배</text>
+    <text class="meta" x="40" y="84">5배</text>
+    <path class="ghost" d="M80 299 L340 290 L520 262 L650 202 L760 112 L840 60"/>
+    <text class="meta" x="628" y="150" fill="#B0B0B6">점선 = AR(16)의 폭발</text>
+    <path class="curve" d="M80 299 L170 292 L250 296 L330 284 L410 288 L490 270 L560 258 L630 232 L700 224 L770 200 L840 176"/>
+    <circle cx="840" cy="176" r="4" fill="#0F2C59"/>
+    <text class="lab" x="700" y="266">연율(CAGR) = 3.9</text>
+    <text class="meta" x="700" y="284">여전히 환상적이나 AR(16)보다 훨씬 낮음</text>
+    <text class="meta" x="120" y="292">곡선 모양도 AR(16)과 사뭇 다름</text>
+  </g>
+</svg>
