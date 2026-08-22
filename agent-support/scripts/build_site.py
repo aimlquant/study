@@ -129,6 +129,7 @@ def validate_site(site: object) -> None:
         "name_ko",
         "repository",
         "pages_url",
+        "landing_url",
         "youtube_channel_id",
         "youtube_handle",
         "youtube_url",
@@ -752,7 +753,8 @@ def render_files(
       </article>"""
         )
     root_schedule_html = "\n".join(root_schedules)
-    root_body = f"""    <header class="hero">
+    root_body = f"""    <a class="back" href="{html.escape(site["landing_url"])}">← {html.escape(site["name"])} 홈</a>
+    <header class="hero">
       <div class="cover-brand">
         <span class="brand-name">{html.escape(site["name"])}</span>
         <span class="brand-sub">OPEN STUDY ARCHIVE</span>
