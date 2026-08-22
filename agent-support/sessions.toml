@@ -129,8 +129,9 @@ date = "2026-08-22"
 title = "Chapter 5. 옵션 전략"
 presenters = ["핀조이"]
 chapters = ["Chapter 5"]
-status = "materials-published"
+status = "video-public"
 meeting_status = "ended"
+youtube_video_id = "eN9Q8Ndfzpg"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-08-22-ch05/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-08-22-ch05/" },
@@ -146,8 +147,9 @@ date = "2026-08-22"
 title = "Chapter 6. LLM으로 지식 그래프 구축하기"
 presenters = ["종훈(L)"]
 chapters = ["Chapter 6"]
-status = "materials-published"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf"
+status = "video-public"
+meeting_status = "ended"
+youtube_video_id = "C1dMCgen1B0"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-22-ch06/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-22-ch06/" },

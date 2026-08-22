@@ -228,9 +228,11 @@
       "presenters": [
         "핀조이"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-trading-2026",
-      "title": "Chapter 5. 옵션 전략"
+      "title": "Chapter 5. 옵션 전략",
+      "youtube_url": "https://www.youtube.com/watch?v=eN9Q8Ndfzpg",
+      "youtube_video_id": "eN9Q8Ndfzpg"
     },
     {
       "artifacts": [
@@ -250,15 +252,16 @@
       ],
       "date": "2026-08-22",
       "id": "2026-08-22-kg-llm-ch06",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m7eb4e3e4262dd69a5da327418202ebdf",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-08-22-kg-llm-ch06/",
       "presenters": [
         "종훈(L)"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 6. LLM으로 지식 그래프 구축하기"
+      "title": "Chapter 6. LLM으로 지식 그래프 구축하기",
+      "youtube_url": "https://www.youtube.com/watch?v=C1dMCgen1B0",
+      "youtube_video_id": "C1dMCgen1B0"
     },
     {
       "artifacts": [
