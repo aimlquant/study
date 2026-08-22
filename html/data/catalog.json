@@ -116,7 +116,18 @@
       "title": "Chapter 9. 지식 그래프 위의 머신러닝 입문"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/machine-trading/presentations/2026-09-05-ch07/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/machine-trading/presentations/2026-09-05-ch07/"
+        }
+      ],
       "chapters": [
         "Chapter 7"
       ],
@@ -124,8 +135,10 @@
       "id": "2026-09-05-machine-trading-ch07",
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-09-05-machine-trading-ch07/",
-      "presenters": [],
-      "status": "scheduled",
+      "presenters": [
+        "원미"
+      ],
+      "status": "materials-published",
       "study_id": "machine-trading-2026",
       "title": "Chapter 7. 비트코인"
     },

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+  <title id="title">비트코인을 읽는 트레이더의 좌표</title>
+  <desc id="desc">트레이더에게 비트코인은 기준 통화 B와 호가 통화 Q로 이루어진 통화쌍 B.Q의 또 다른 사례이며, 24시간 연중무휴로 거래되고, 시장 위험과 신용 위험을 함께 진다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .risk{fill:#fff;stroke:#B4232A;stroke-width:2}
+      .head{font-size:16px;font-weight:800;text-anchor:middle;fill:#0F0F10}
+      .big{font-size:34px;font-weight:800;text-anchor:middle;fill:#0F2C59}
+      .lab{font-size:14px;font-weight:700;text-anchor:middle;fill:#0F0F10}
+      .meta{font-size:12.5px;fill:#6B6B72;text-anchor:middle}
+      .rhead{font-size:15px;font-weight:800;text-anchor:middle;fill:#B4232A}
+      .pill{fill:#0F2C59}
+    </style>
+  </defs>
+  <rect width="900" height="360" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <text class="head" x="250" y="44">통화쌍 표기 B.Q — 비트코인은 언제나 기준 통화</text>
+    <rect class="box" x="60" y="66" width="380" height="120" rx="10"/>
+    <text class="big" x="250" y="126">BTC . USD</text>
+    <text class="lab" x="150" y="158">B · 기준 통화 (base)</text>
+    <text class="lab" x="352" y="158">Q · 호가 통화 (quote)</text>
+    <text class="meta" x="250" y="180">알파벳순 B&lt;Q — 기준 통화가 항상 앞</text>
+
+    <rect class="box" x="60" y="206" width="380" height="86" rx="10"/>
+    <text class="lab" x="250" y="236">BTC.USD = 비트코인 1개를 사는 데 필요한 USD 수</text>
+    <text class="meta" x="250" y="262">BTC.Q가 커지면 그 통화 대비 비트코인 가치 상승</text>
+    <text class="meta" x="250" y="282">BTC.USD 다음으로 BTC.CNY가 최다 거래</text>
+
+    <rect class="pill" x="120" y="312" width="260" height="30" rx="15"/>
+    <text x="250" y="332" font-size="14" font-weight="800" text-anchor="middle" fill="#fff">연중무휴 24시간 거래 (FX는 주말 휴장)</text>
+
+    <text class="head" x="690" y="44">함께 지는 두 위험</text>
+    <rect class="risk" x="500" y="66" width="360" height="108" rx="10"/>
+    <text class="rhead" x="680" y="96">시장 위험 (market risk)</text>
+    <text class="meta" x="680" y="122">가격이 불리하게 움직여 손실</text>
+    <text class="lab" x="680" y="150">연율 변동성 67% · 최대 낙폭 −79%</text>
+
+    <rect class="risk" x="500" y="190" width="360" height="108" rx="10"/>
+    <text class="rhead" x="680" y="220">신용 위험 (credit risk)</text>
+    <text class="meta" x="680" y="246">맡긴 거래소가 사라져 예치금 손실</text>
+    <text class="lab" x="680" y="274">거래소 45%가 절도·해킹으로 파산</text>
+    <text class="meta" x="680" y="326">전략이 좋아도 거래소가 무너지면 소용없다</text>
+  </g>
+</svg>

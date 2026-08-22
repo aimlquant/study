@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 7. 비트코인</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+    <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">머신 트레이딩</p>
+        <h1>Chapter 7. 비트코인</h1>
+        <p class="cover-subtitle">낯선 시장에 앞 장의 무기를 겨누다 — 시계열·AI·주문 흐름·차익거래, 그리고 비용의 현실</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>원미</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 7</dd></div>
+        <div><dt>일시</dt><dd>2026-09-05</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide" aria-label="핵심 질문 — 낯선 시장의 무기" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
+      <h1>큰 수익률은 예측력일까, 체결 가정일까?</h1>
+      <p class="lead">비트코인은 3·4·6장의 도구를 가장 단순한 무대에 겨눠 보는 실습장입니다. 결과마다 “어떤 체결 가정 위의 숫자인가”를 물어야 합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">기회</p><h2>미성숙한 시장</h2><ul><li>기본적 요인의 영향이 작아 기술적 분석의 무대</li><li>비효율이 남아 차익거래 기회가 보임</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">함정</p><h2>비용과 거래소 위험</h2><ul><li>화려한 수익은 대부분 “중간가 즉시 체결” 가정</li><li>거래소 45%가 파산 — 신용 위험이 복병</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>오늘의 질문</strong> — 신호가 맞는 것과 그 신호로 돈을 버는 것은 왜 다른가?</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 문제 제기</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="오늘의 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>오늘의 흐름</h1>
+      <p class="lead">낯선 시장을 만난 트레이더가 무기를 꺼내 드는 순서를 따라갑니다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>01</span><h2>시계열·평균회귀</h2><p>AR·ADF로 구조를 찾고 볼린저로 되돌림을 노림(§7.2–7.3)</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>02</span><h2>AI·주문 흐름</h2><p>직관 없이 기계에 묻고, 부호 있는 거래량을 읽음(§7.4–7.5)</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>03</span><h2>차익거래·비용</h2><p>공짜 점심과 신용 위험, 그리고 비용의 현실(§7.6–7.7)</p></article>
+        </div>
+        <p class="takeaway"><strong>발표의 약속</strong> — 기법 목록이 아니라 “비용을 넣으면 무엇이 남는가”라는 판단 기준을 가져갑니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.0 들어가며" data-report-refs="summary sec-intro s-intro" data-source-refs="section:7.0" data-source-title="section:7.0">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.0</span></header>
+      <h1>들어가며 — 왜 비트코인에서 기술적 분석인가</h1>
+      <p class="lead">통화·비트코인은 짧은 시간 척도에서 기본적 요인에 거의 영향받지 않아, 기술적 분석의 이상적 놀이터입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">왜 예측 요인이 안 되나</p><h2>동시적 요인</h2><ul><li>금리 결정은 환율에 영향을 미치지만</li><li>사건 순간 가격도 반응 → 앞질러 매매 불가</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">넓은 뜻의 기술적 분석</p><h2>가격·거래량만 입력</h2><ul><li>3·4장 도구 전부가 포함</li><li>새로 더하는 둘: 주문 흐름 · 거래소 간 차익거래</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>관통하는 질문</strong> — 예측력과 수익성은 다르다. 큰 숫자 뒤의 체결 가정을 의심하라.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 도입</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.1 비트코인 사실" data-report-refs="sec-facts s-facts" data-source-refs="section:7.1" data-source-title="section:7.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.1</span></header>
+      <h1>비트코인 사실 — 트레이더의 눈으로 본 새 통화</h1>
+      <p class="lead">트레이더에게 비트코인은 EUR·AUD처럼 또 하나의 통화쌍 B.Q일 뿐입니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>B.Q</span><h2>기준·호가 통화</h2><p>BTC.USD = 비트코인 1개를 사는 데 필요한 USD 수. 비트코인은 늘 기준 통화.</p></article>
+          <article class="card"><span>24/7</span><h2>연중무휴</h2><p>주말 휴장하는 FX와 달리 쉬지 않고 거래. 거래소는 40곳 이상.</p></article>
+          <article class="card"><span>CNY</span><h2>온쇼어·오프쇼어</h2><p>BTC.CNY는 규제 대상, BTC.CNH 거래소는 없음 → 실용성 제한.</p></article>
+        </div>
+        <p class="takeaway"><strong>정의</strong> — 낯선 시장도 좌표(B.Q)에 올려놓으면 익숙한 통화 거래 문제가 됩니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 비트코인 사실</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="비트코인을 읽는 좌표 도식" data-report-refs="sec-facts fig-btc-coord" data-source-refs="section:7.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.1 · CONCEPT</span></header>
+      <h1>좋은 전략도 거래소가 무너지면 소용없다</h1>
+      <p class="lead">시장 위험(가격)과 신용 위험(거래소)을 같은 무게로 봐야 합니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-btc-coord.svg" alt="비트코인을 통화쌍 B.Q로 표기하는 규칙, 24시간 거래, 그리고 시장 위험과 신용 위험 두 위험을 한자리에 모은 개념도">
+          <figcaption><b>그림 1</b><span>통화쌍 표기와 24시간 거래</span><span>시장 위험(−79% 낙폭)과 신용 위험(거래소 45% 파산)</span><a class="report-ref" href="report.html#fig-btc-coord">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 두 위험</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.1.1 위험도 비교" data-report-refs="sec-facts s-risk table-risk" data-source-refs="section:7.1.1 table:7.1" data-source-title="section:7.1.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.1.1 · 교재 표 7.1</span></header>
+      <h1>얼마나 위험한 자산인가 — 변동성과 첨도</h1>
+      <p class="lead">변동성과 첨도(꼬리위험)가 둘 다 높습니다. MXN·SPY·HYG와 나란히 보면 격차가 뚜렷합니다.</p>
+      <div class="slide-body">
+        <table class="compare-table">
+          <caption class="asset-caption asset-caption--table"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">위험자산의 위험도 비교</span></caption>
+          <thead><tr><th>지표</th><th>BTC.USD</th><th>MXN.USD</th><th>SPY</th><th>HYG</th></tr></thead>
+          <tbody>
+            <tr><th>변동성(연율)</th><td>67%</td><td>16%</td><td>20%</td><td>13%</td></tr>
+            <tr><th>최대 낙폭</th><td>−79%</td><td>−49%</td><td>−55%</td><td>−34%</td></tr>
+            <tr><th>첨도(연율)</th><td>7</td><td>8</td><td>1</td><td>4</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>판단</strong> — 큰 수익 기회는 −79% 낙폭과 짝을 이룹니다. 리포트 <a class="report-ref" href="report.html#table-risk">표 2</a>에 전체 수치가 있습니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 위험도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.2 시계열 기법" data-report-refs="sec-timeseries s-timeseries" data-source-refs="section:7.2" data-source-title="section:7.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.2</span></header>
+      <h1>■ 시계열 기법 — 낯선 시장에 던지는 첫 질문</h1>
+      <p class="lead">모르는 상품의 첫 단계는 ARIMA 시계열 분석입니다. BTC.USD 1분봉 중간가가 강한 평균회귀를 보입니다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>P = 16</strong><h2>AR 차수</h2><p>직전 16분을 되돌아봄. φ₁ = 0.685, 표준오차 0.0001.</p></article>
+          <article class="kpi"><strong>−3 &lt; −2.9</strong><h2>ADF 검정</h2><p>귀무가설 기각 → 정상적·평균회귀적 시계열.</p></article>
+          <article class="kpi"><strong>평균회귀</strong><h2>되돌림 가능성</h2><p>평균에서 벗어나면 되돌아오려는 성질 → 전략 여지.</p></article>
+        </div>
+        <p class="takeaway"><strong>메커니즘</strong> — AR(16)·ADF가 “여기에 예측 구조가 있다”를 먼저 확인합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 시계열</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="AR16 자산 곡선의 폭발" data-report-refs="sec-timeseries fig-ar16" data-source-refs="section:7.2 figure:7.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.2 · 교재 그림 7.1</span></header>
+      <h1>연 40,000이라는 숫자는 예측력이 아니라 가정이다</h1>
+      <p class="lead">AR(16) 방향대로 매매하면 CAGR 40,000 — 중간가 즉시 체결 가정에서만 성립합니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-ar16.svg" alt="AR(16) 예측 방향대로 매매한 테스트 구간 자산 곡선이 후반부로 갈수록 지수적으로 폭발해 누적 약 202배에 이르지만, 중간가 즉시 체결이라는 비현실적 가정에서만 성립한다">
+          <figcaption><b>그림 2</b><span>후반부 지수적 폭발 · 누적 ≈ 202배</span><span>중간가 즉시 체결 가정 → 실현 수익 아님</span><a class="report-ref" href="report.html#fig-ar16">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · AR(16)</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.3 평균회귀 전략" data-report-refs="sec-meanrev s-meanrev" data-source-refs="section:7.3" data-source-title="section:7.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.3</span></header>
+      <h1>■ 평균회귀 전략 — 볼린저 밴드로 되돌림을 노린다</h1>
+      <p class="lead">가격이 평균회귀·정상적이므로 단순 평균회귀 전략을 그대로 옮길 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">규칙</p><h2>밴드 이탈 매매</h2><ul><li>이동평균 − 2σ 아래로 → 매수</li><li>이동평균 + 2σ 위로 → 매도, 평균 복귀 시 청산</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">설정</p><h2>최적화 없이도</h2><ul><li>lookback 60분, z = 2로 임의 고정</li><li>총수익 연 42% (온건한 체결 가정)</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>정의</strong> — 이동평균·표준편차는 수익률이 아니라 가격에 대해 계산합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 평균회귀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="ARMA 자산 곡선 대비" data-report-refs="sec-meanrev fig-arma" data-source-refs="section:7.3 figure:7.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.3 · 교재 그림 7.2</span></header>
+      <h1>같은 가정, 다른 모형이면 크기도 모양도 다르다</h1>
+      <p class="lead">ARMA(3, 7)는 AR 항에 과거 오차(MA)를 더합니다. CAGR 3.9로 AR(16)보다 훨씬 낮습니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-arma.svg" alt="ARMA(3,7) 한 단계 예측 자산 곡선으로, AR(16)의 지수적 폭발을 점선으로 함께 보이며 연율 3.9로 훨씬 낮고 상승도 더 울퉁불퉁하다">
+          <figcaption><b>그림 3</b><span>최적 차수 p=3, q=7</span><span>연 3.9 — AR(16)의 폭발과 대비</span><a class="report-ref" href="report.html#fig-arma">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · ARMA(3,7)</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="볼린저 밴드 개념도" data-report-refs="sec-meanrev fig-bollinger-concept" data-source-refs="section:7.3 figure:7.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.3 · 교재 그림 7.3</span></header>
+      <h1>하단에서 사고, 상단에서 팔고, 평균에서 청산한다</h1>
+      <p class="lead">밴드는 이동평균 ± 2σ입니다. 가격이 밴드를 오가며 되돌림 신호를 만듭니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-bollinger-concept.svg" alt="가격이 이동평균 위아래 2 표준편차 밴드를 오가며, 하단 이탈 시 매수, 상단 이탈 시 매도, 이동평균 복귀 시 청산하는 되돌림 매매 개념도">
+          <figcaption><b>그림 4</b><span>±2σ 밴드와 이동평균</span><span>하단→매수 · 상단→매도 · 평균→청산</span><a class="report-ref" href="report.html#fig-bollinger-concept">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 볼린저 개념</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="볼린저 자산 곡선과 비용 절벽" data-report-refs="sec-meanrev fig-bollinger-equity" data-source-refs="section:7.3 figure:7.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.3 · 교재 그림 7.4</span></header>
+      <h1>비용 하나가 +42%를 −99.49%로 뒤집는다</h1>
+      <p class="lead">비용 0 총수익은 연 42%지만, 포지션 전환마다 10bp를 넣으면 누적이 −99.49%로 무너집니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-bollinger-equity.svg" alt="비용 없는 총수익 곡선은 연 42퍼센트로 오르지만 10bp 비용을 넣은 순수익 곡선은 누적 마이너스 99.49퍼센트로 무너져 같은 신호의 부호가 뒤집힌다">
+          <figcaption><b>그림 5</b><span>초록: 총수익 +42% / 빨강: 10bp 순수익 −99.49%</span><span>중간가 체결·지연 0도 낙관적</span><a class="report-ref" href="report.html#fig-bollinger-equity">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 비용 절벽</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.4 인공지능 기법" data-report-refs="sec-ai s-ai table-ai" data-source-refs="section:7.4" data-source-title="section:7.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.4</span></header>
+      <h1>인공지능 기법 — 직관이 없을 때 기계에게 묻는다</h1>
+      <p class="lead">호가 바운스를 피해 다시 중간가를 쓰고, 예측 변수는 1·5·10·30·60분 봉 수익률로 바꿉니다.</p>
+      <div class="slide-body">
+        <table class="compare-table">
+          <caption class="asset-caption asset-caption--table"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">인공지능 기법 3종 결과</span></caption>
+          <thead><tr><th>기법</th><th>교재의 결과</th><th>주의</th></tr></thead>
+          <tbody>
+            <tr><th>배깅 회귀 트리</th><td>표본외 수익 비현실적으로 높음</td><td>호가 반영 재검증 필요</td></tr>
+            <tr><th>서포트 벡터 머신</th><td>학습·테스트 모두 음(−) 수익</td><td>시장이 다르면 정반대</td></tr>
+            <tr><th>순전파 신경망(100개 평균)</th><td>트리만큼 놀라운 표본외 수익</td><td>즉시 체결 가정 동일</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>경고</strong> — “SPY에서 통한 것이 BTC에서 더 잘 통하리라”는 지레짐작은 금물입니다. 리포트 <a class="report-ref" href="report.html#table-ai">표 3</a> 참조.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 인공지능</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.5 주문 흐름" data-report-refs="sec-orderflow s-orderflow" data-source-refs="section:7.5" data-source-title="section:7.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.5</span></header>
+      <h1>■ 주문 흐름 — 매수·매도의 힘겨루기를 읽는다</h1>
+      <p class="lead">주문 흐름은 부호가 붙은 거래량입니다. 능동적으로 시장을 때린 쪽을 부호로 기록합니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>+s / −s</span><h2>부호 있는 거래량</h2><p>매수 시장가 체결 +s, 매도 시장가 체결 −s.</p></article>
+          <article class="card"><span>태그</span><h2>공격자 태그</h2><p>BitStamp BTC.USD 피드가 방향을 알려줌. 마이크로초 타임스탬프.</p></article>
+          <article class="card"><span>≈100%</span><h2>백테스트</h2><p>편도 0.097달러 · 2014-12 336건 · 코인당 32.54달러.</p></article>
+        </div>
+        <p class="takeaway"><strong>정보</strong> — 이 시간 프레임에서 주문 흐름은 비트코인의 합리적 예측 변수입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 주문 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="주문 흐름 신호 파이프라인" data-report-refs="sec-orderflow fig-orderflow" data-source-refs="section:7.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.5 · MECHANISM</span></header>
+      <h1>부호화 → 누적 → 1분 순흐름 → 신호</h1>
+      <p class="lead">누적값의 차이로 최근 1분 순흐름을 싸게 계산하고, 임계값과 비교해 진입·청산합니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-orderflow.svg" alt="공격자 태그로 체결을 부호화하고, 누적한 뒤 현재 누적값에서 1분 전 누적값을 빼 최근 1분 순주문 흐름을 얻어 임계값과 비교해 진입·청산 신호를 만드는 네 단계 흐름">
+          <figcaption><b>그림 6</b><span>이벤트 기반 — 거래가 있는 순간에만 계산</span><span>진입 임계값 90, 청산 0</span><a class="report-ref" href="report.html#fig-orderflow">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 신호 생성</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="예제 7.1 주문 흐름 전략 코드" data-report-refs="sec-example s-example" data-source-refs="example:7.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 예제 7.1</span></header>
+      <h1>신호 생성기는 진입·청산·반전을 한 블록에서 처리한다</h1>
+      <p class="lead">최근 1분 순흐름을 임계값과 비교해 포지션을 바꿉니다. 반전 시 청산과 신규 진입을 함께 셉니다.</p>
+      <div class="slide-body">
+        <div class="code-block">
+          <pre data-code-language="MATLAB"><code class="language-matlab">if (ordflow_lookback &gt; entryThreshold)      % 강한 매수세 → 롱
+  if (pos &lt; 0) dailyPL = dailyPL + (entryP - tradePrice(t)); end
+  entryP = tradePrice(t); pos = 1;
+elseif (ordflow_lookback &lt; -entryThreshold) % 강한 매도세 → 숏
+  if (pos &gt; 0) dailyPL = dailyPL + (tradePrice(t) - entryP); end
+  entryP = tradePrice(t); pos = -1;
+else                                         % 잦아들면 청산
+  pos = 0;
+end</code></pre>
+        </div>
+        <p class="takeaway"><strong>결과</strong> — entryThreshold 90, exitThreshold 0이면 2014-12 총손익 32.54달러(편도 0.097달러). 전체 코드는 orderFlow2.m.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 예제 7.1</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.6 거래소 간 차익거래" data-report-refs="sec-arb s-arb" data-source-refs="section:7.6" data-source-title="section:7.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.6</span></header>
+      <h1>거래소 간 차익거래 — 공짜 점심은 정말 있는가</h1>
+      <p class="lead">한 거래소 매수호가가 다른 거래소 매도호가보다 높은 교차 시장에서만 무위험 이익이 가능합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">성숙 시장</p><h2>기회가 드물다</h2><ul><li>Reg NMS Rule 610이 호가 교차를 금지</li><li>국경 간 거래는 통화 헤지 비용이 이익을 깎음</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">비트코인</p><h2>겉보기엔 넘친다</h2><ul><li>Bitfinex 239.19 vs btc-e 233.546 → 총 5.644달러</li><li>수수료 1달러·인출 2달러 빼면 순 2.6달러</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>판단</strong> — 남는 2.6달러가 정말 이익일까? 마지막 함정은 신용 위험입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 차익거래</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="차익거래 비용 사다리" data-report-refs="sec-arb fig-arb" data-source-refs="section:7.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.6 · TRADE-OFF</span></header>
+      <h1>공짜 점심은 실은 위험의 대가일 수 있다</h1>
+      <p class="lead">btc-e가 더 싼 이유는 낮은 신용등급입니다. 그곳 롱 보유의 신용 위험은 계산식으로 딱 잘라지지 않습니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-arb-ladder.svg" alt="교차 시장에서 코인당 총이익 5.644달러가 수수료 1달러와 인출 2달러를 빼면 순이익 2.6달러로 줄지만, 남는 것은 정량화되지 않는 신용 위험이라는 비용 사다리">
+          <figcaption><b>그림 7</b><span>총 5.644달러 → 순 2.6달러</span><span>남는 것: 정량화 안 되는 신용 위험</span><a class="report-ref" href="report.html#fig-arb">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 비용 사다리</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="재현 감사 비용 절벽" data-report-refs="sec-repro fig-costcliff">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · REPRODUCTION</span></header>
+      <h1>비용을 넣으면 순위를 가르는 것은 model score가 아니다</h1>
+      <p class="lead">공식 아카이브를 checksum으로 고정해 재현(검증 25/25)했습니다. 화려한 총수익은 10bp 비용에서 거의 사라집니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-cost-cliff.svg" alt="AR(16), 볼린저, 배깅 트리의 총수익 막대는 크지만 비용을 넣은 순수익 막대는 0 아래로 내려가고, 주문 흐름만 편도 0.097달러가 스프레드 비용 언저리에 걸쳐 손익 경계에 남는다">
+          <figcaption><b>그림 8</b><span>총수익(초록) vs 비용 반영(빨강)</span><span>주문 흐름만 손익 경계에 생존</span><a class="report-ref" href="report.html#fig-costcliff">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 재현 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="교재 7.7 요약" data-report-refs="summary sec-summary s-summary" data-source-refs="section:7.7" data-source-title="section:7.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §7.7</span></header>
+      <h1>■ 요약 — 미성숙한 시장이 주는 기회와 함정</h1>
+      <p class="lead">수익의 실재 여부는 실행 소프트웨어·API 효율·수수료·거래소 신용도에 달려 있습니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>도구</span><h2>낯선 시장에 겨누기</h2><p>시계열·AI를 처음 보는 시장에도 그대로 적용.</p></article>
+          <article class="card"><span>지표</span><h2>보편적 주문 흐름</h2><p>어떤 시장에서나 통하는 단기 예측 지표.</p></article>
+          <article class="card"><span>구조</span><h2>차익거래 원리</h2><p>더 성숙한 시장에도 응용할 국경 간·거래소 간 원리.</p></article>
+        </div>
+        <p class="takeaway"><strong>결론</strong> — 먼저 확인할 것은 모형 점수가 아니라 데이터 계약·시간 단위·체결 비용·거래소 생존입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 요약</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="연습문제" data-report-refs="sec-exercises ex-7-1 ex-7-2" data-source-refs="exercise:7.1 exercise:7.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 연습문제</span></header>
+      <h1>더 낮은 빈도와 BBO 데이터로 확장한다</h1>
+      <p class="lead">두 연습문제는 이 장의 한계를 스스로 밀어 보게 합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">연습문제 7.1</p><h2>낮은 빈도 시계열</h2><ul><li>5·15분·일간 봉에서 AR(p)·ARMA(p, q) 재검토</li><li>일간 데이터는 api.bitcoincharts.com에서</li></ul></article>
+          <article class="panel"><p class="eyebrow">연습문제 7.2</p><h2>BBO로 원래 버전</h2><ul><li>거래 없던 봉에서도 진입하는 원래 전략</li><li>왜 BBO 데이터가 필요한가? 수익성은 더 높은가 낮은가?</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>확장</strong> — 단순화 버전과 원래 버전의 차이가 곧 “체결 가정”의 값입니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · 연습문제</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="발표 정리 질문" data-report-refs="summary table-glossary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>세 질문으로 이해를 확인한다</h1>
+      <p class="lead">정답을 외우기보다 판단 근거를 말할 수 있는 질문으로 만듭니다.</p>
+      <div class="slide-body">
+        <div class="question-list">
+          <article><span>Q1</span><p>AR(16)의 CAGR 40,000이 비현실적인 이유를 체결 가정으로 설명할 수 있는가?</p></article>
+          <article><span>Q2</span><p>볼린저 +42%가 10bp 비용에서 −99.49%로 뒤집히는 까닭은 무엇인가?</p></article>
+          <article><span>Q3</span><p>거래소 간 차익거래에서 “남는 2.6달러”를 무엇이 지우는가?</p></article>
+        </div>
+        <p class="takeaway"><strong>토론</strong> — 네 전략 중 비용을 견디고 살아남을 후보와 그 이유를 고르세요.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 7 · Checkpoint</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary sec-summary s-summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">WRAP UP</span></header>
+      <div class="closing-body">
+        <p class="eyebrow">KEY TAKEAWAYS</p>
+        <h1>세 문장으로 남기는 결론</h1>
+        <div class="card-grid">
+          <article class="card"><span>01</span><h2>도구는 옮겨진다</h2><p>시계열·AI·주문 흐름을 낯선 시장에도 그대로 겨눌 수 있다.</p></article>
+          <article class="card"><span>02</span><h2>비용이 순위를 정한다</h2><p>큰 총수익은 대부분 체결 가정이며, 10bp면 대부분 사라진다.</p></article>
+          <article class="card"><span>03</span><h2>거래소가 먼저다</h2><p>모형 점수보다 데이터 계약·시간 단위·비용·거래소 생존이 먼저.</p></article>
+        </div>
+        <p class="closing-question">Q&amp;A</p>
+      </div>
+      <div class="closing-links"><a class="back-link" href="report.html">상세 리포트 읽기</a><a class="back-link" href="../../">회차 목록으로 돌아가기</a></div>
+    </section>
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어">
+    <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
+  </nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck-lightbox.js"></script>
+  <script src="assets/deck.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

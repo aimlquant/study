@@ -184,9 +184,13 @@ id = "2026-09-05-machine-trading-ch07"
 study_id = "machine-trading-2026"
 date = "2026-09-05"
 title = "Chapter 7. 비트코인"
-presenters = []
+presenters = ["원미"]
 chapters = ["Chapter 7"]
-status = "scheduled"
+status = "materials-published"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-09-05-ch07/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-09-05-ch07/" },
+]
 
 [[sessions]]
 id = "2026-09-05-kg-llm-ch08"
