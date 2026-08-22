@@ -613,6 +613,83 @@ section > h2::after {
   line-height: 1.5;
 }
 
+/* 원본 교재 카드. 스터디 페이지에만 쓴다. 사실(서지)과 판단(요약)을
+   나누어 보여주고, 구매는 외부 링크로만 안내한다. */
+.book {
+  padding: clamp(24px, 4vw, 34px);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 10px 10px 0;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.book h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.book-subtitle {
+  margin: 6px 0 0;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.book-imprint {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.book-summary {
+  max-width: 62ch;
+  margin: 16px 0 0;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.book-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0 0;
+}
+
+.book-facts div {
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+}
+
+.book-facts dt {
+  margin-bottom: 5px;
+  color: var(--primary);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.book-facts dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.book .actions {
+  margin-top: 22px;
+}
+
 .session-venue {
   margin: 12px 0 0;
   color: var(--muted);
@@ -814,6 +891,10 @@ section > h2::after {
     line-height: 1.7;
   }
 
+
+  .book-facts {
+    grid-template-columns: 1fr;
+  }
 
   .grid {
     grid-template-columns: 1fr;
