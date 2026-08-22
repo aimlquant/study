@@ -587,6 +587,19 @@ section > h2::after {
   outline: none;
 }
 
+/* 네 공개 공간이 조직 랜딩으로 돌아가는 링크를 같은 자리에 같은 모습으로
+   보여준다. 운영 가이드(`/guides/`)가 기준이다 — 브랜드 표기 바로 아래.
+   히어로가 세로 flex 라서 align-self 가 없으면 링크가 가로로 늘어난다. */
+.back--home {
+  align-self: flex-start;
+  /* 운영 가이드는 브랜드 아래 30px 를 준다. 여기서는 .cover-brand 의
+     min-height 44px 가 글자 아래에 11px 를 더 만들어서, 눈에 보이는
+     간격을 같은 34px 로 맞추려면 19px 를 준다. */
+  margin: 19px 0 0;
+  color: var(--primary);
+  font-weight: 750;
+}
+
 .page-header {
   position: relative;
   padding: 44px 0 46px 26px;

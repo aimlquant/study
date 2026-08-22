@@ -471,10 +471,20 @@ class LandingLinkTest(unittest.TestCase):
         root = files[Path("index.html")]
 
         self.assertIn(
-            f'<a class="back" href="{SITE["landing_url"]}">'
+            f'<a class="back back--home" href="{SITE["landing_url"]}">'
             f'← {SITE["name"]} 홈</a>',
             root,
         )
+
+    def test_landing_link_sits_directly_under_the_brand_mark(self) -> None:
+        """네 공개 공간이 같은 자리에 링크를 보여야 방문자가 찾는 법을
+        한 번만 배운다. 운영 가이드가 기준이다 — 브랜드 표기 바로 아래."""
+        files = build_site.render_files(SITE, STUDIES, [])
+        root = files[Path("index.html")]
+        brand = root.index('class="cover-brand"')
+
+        self.assertLess(root.index("</div>", brand), root.index('class="back back--home"'))
+        self.assertLess(root.index('class="back back--home"'), root.index('class="hero-copy"'))
 
     def test_site_config_requires_the_landing_url(self) -> None:
         broken = dict(SITE)

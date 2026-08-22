@@ -753,12 +753,12 @@ def render_files(
       </article>"""
         )
     root_schedule_html = "\n".join(root_schedules)
-    root_body = f"""    <a class="back" href="{html.escape(site["landing_url"])}">← {html.escape(site["name"])} 홈</a>
-    <header class="hero">
+    root_body = f"""    <header class="hero">
       <div class="cover-brand">
         <span class="brand-name">{html.escape(site["name"])}</span>
         <span class="brand-sub">OPEN STUDY ARCHIVE</span>
       </div>
+      <a class="back back--home" href="{html.escape(site["landing_url"])}">← {html.escape(site["name"])} 홈</a>
       <div class="hero-copy">
         <p class="eyebrow">GITHUB PAGES × YOUTUBE</p>
         <h1>{html.escape(site["name_ko"])}</h1>
