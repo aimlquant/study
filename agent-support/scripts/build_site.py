@@ -25,6 +25,7 @@ SLUG_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
 VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 WEBEX_MTID_RE = re.compile(r"^m[0-9a-f]{32}$")
+ISBN13_RE = re.compile(r"^97[89][0-9]{10}$")
 SESSION_STATES = {
     "scheduled",
     "materials-published",
@@ -119,6 +120,49 @@ def validate_meeting_url(value: object, label: str) -> str:
             f"{label} must be an HTTPS Webex join URL with a valid MTID"
         )
     return value
+
+
+def validate_book(book: object, study_id: str) -> None:
+    """스터디마다 원본 교재를 반드시 밝힌다. 발표자료만 보고 온 방문자가
+    무슨 책인지, 어디서 사는지 알 수 없으면 참가 여부를 정할 수 없다."""
+    if not isinstance(book, dict):
+        raise ValueError(f"study {study_id} must declare [studies.book]")
+    for field in (
+        "title",
+        "publisher",
+        "year",
+        "isbn13",
+        "language_ko",
+        "summary_ko",
+        "store_label",
+        "store_url",
+        "publisher_url",
+    ):
+        if not isinstance(book.get(field), str) or not book[field].strip():
+            raise ValueError(
+                f"study {study_id} book field is missing or empty: {field}"
+            )
+    authors = book.get("authors")
+    if (
+        not isinstance(authors, list)
+        or not authors
+        or any(
+            not isinstance(author, str) or not author.strip()
+            for author in authors
+        )
+    ):
+        raise ValueError(
+            f"study {study_id} book authors must be a non-empty string array"
+        )
+    if not ISBN13_RE.fullmatch(book["isbn13"]):
+        raise ValueError(
+            f"study {study_id} book isbn13 must be 13 digits: {book['isbn13']}"
+        )
+    for field in ("store_url", "publisher_url"):
+        if not book[field].startswith("https://"):
+            raise ValueError(
+                f"study {study_id} book {field} must be an HTTPS URL"
+            )
 
 
 def validate_site(site: object) -> None:
@@ -249,6 +293,7 @@ def load_model(
             raise ValueError(
                 f"planned_chapters must be a unique string array: {study_id}"
             )
+        validate_book(study.get("book"), study_id)
         if study.get("status") not in {"active", "archived"}:
             raise ValueError(
                 f"invalid study status for {study_id}: "
@@ -662,6 +707,48 @@ def render_not_found(site: dict) -> str:
     )
 
 
+def render_book(study: dict) -> str:
+    """교재 본문은 저작물이라 배포하지 않는다. 무슨 책인지 밝히고
+    구매처로 보내는 것이 공개 사이트가 할 수 있는 전부다."""
+    book = study["book"]
+    imprint = " · ".join(
+        part
+        for part in (
+            ", ".join(book["authors"]),
+            book["publisher"],
+            book.get("series", ""),
+            book["year"],
+        )
+        if part
+    )
+    subtitle = (
+        f'\n        <p class="book-subtitle">'
+        f'{html.escape(book["subtitle"])}</p>'
+        if book.get("subtitle")
+        else ""
+    )
+    return f"""    <section id="book">
+      <h2>교재</h2>
+      <p class="section-intro">발표자료와 해설은 스터디에서 직접 만들지만, 함께 읽는 원본은 아래 책입니다. 책은 배포하지 않으니 각자 직접 구매해 주세요.</p>
+      <article class="book">
+        <h3>{html.escape(book["title"])}</h3>{subtitle}
+        <p class="book-imprint">{html.escape(imprint)}</p>
+        <p class="book-summary">{html.escape(book["summary_ko"].strip())}</p>
+        <dl class="book-facts">
+          <div><dt>ISBN</dt><dd>{html.escape(book["isbn13"])}</dd></div>
+          <div><dt>언어</dt><dd>{html.escape(book["language_ko"])}</dd></div>
+          <div><dt>스터디 범위</dt><dd>{len(study["planned_chapters"])}개 장</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="button" href="{html.escape(book["store_url"])}"
+             target="_blank" rel="noopener noreferrer">{html.escape(book["store_label"])}에서 구매 ↗</a>
+          <a class="button button--secondary" href="{html.escape(book["publisher_url"])}"
+             target="_blank" rel="noopener noreferrer">출판사 페이지 ↗</a>
+        </div>
+      </article>
+    </section>"""
+
+
 def render_files(
     site: dict,
     studies: list[dict],
@@ -835,6 +922,7 @@ def render_files(
         <a class="button button--secondary" href="{html.escape(study["source_repository"])}">이전 저장소</a>
       </div>
     </header>
+{render_book(study)}
     <section id="schedule">
       <h2>전체 일정</h2>
       <p class="section-intro">발표 담당과 Webex 접속 링크를 확인하세요. 미정 항목은 확정되는 대로 갱신합니다.</p>

@@ -54,6 +54,18 @@ STUDIES = [
         "presentation_path": "html/studies/machine-trading",
         "source_repository": "https://github.com/restful3/ml4t",
         "source_commit": "2f7e3801e088ab50f9cd9181f725477443cf8e47",
+        "book": {
+            "title": "Machine Trading",
+            "authors": ["Ernest P. Chan"],
+            "publisher": "Wiley",
+            "year": "2017",
+            "isbn13": "9781119219606",
+            "language_ko": "영어",
+            "summary_ko": "정량 전략을 하나씩 구현하며 알고리즘 트레이딩을 익힌다.",
+            "store_label": "Amazon",
+            "store_url": "https://www.amazon.com/dp/1119219604",
+            "publisher_url": "https://www.wiley.com/example",
+        },
     }
 ]
 
@@ -296,6 +308,18 @@ archive_path = "materials/quant/archive/machine-trading"
 presentation_path = "html/studies/machine-trading"
 source_repository = "https://github.com/restful3/ml4t"
 source_commit = "2f7e3801e088ab50f9cd9181f725477443cf8e47"
+
+[studies.book]
+title = "Machine Trading"
+authors = ["Ernest P. Chan"]
+publisher = "Wiley"
+year = "2017"
+isbn13 = "9781119219606"
+language_ko = "영어"
+summary_ko = "정량 전략을 하나씩 구현하며 알고리즘 트레이딩을 익힌다."
+store_label = "Amazon"
+store_url = "https://www.amazon.com/dp/1119219604"
+publisher_url = "https://www.wiley.com/example"
 """,
             encoding="utf-8",
         )
@@ -601,3 +625,68 @@ class RealRegistryTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SourceBookTest(unittest.TestCase):
+    """발표자료는 우리가 만들지만 원본은 출판된 책이다. 스터디 페이지가
+    무슨 책을 읽는지, 어디서 살 수 있는지 밝혀야 참가 여부를 판단할 수 있다."""
+
+    def test_study_page_shows_the_source_book(self) -> None:
+        files = build_site.render_files(SITE, STUDIES, [])
+        page = files[Path("studies") / "machine-trading" / "index.html"]
+        book = STUDIES[0]["book"]
+
+        self.assertIn('<section id="book">', page)
+        self.assertIn(book["title"], page)
+        self.assertIn(book["authors"][0], page)
+        self.assertIn(book["publisher"], page)
+        self.assertIn(book["year"], page)
+        self.assertIn(book["isbn13"], page)
+        self.assertIn(book["summary_ko"], page)
+
+    def test_study_page_links_to_the_store_and_the_publisher(self) -> None:
+        files = build_site.render_files(SITE, STUDIES, [])
+        page = files[Path("studies") / "machine-trading" / "index.html"]
+        book = STUDIES[0]["book"]
+
+        self.assertIn(book["store_url"], page)
+        self.assertIn(book["publisher_url"], page)
+        self.assertIn(book["store_label"], page)
+
+    def test_the_book_itself_is_not_distributed(self) -> None:
+        """교재 본문은 저작물이다. 공개 페이지가 배포처럼 읽히면 안 된다."""
+        files = build_site.render_files(SITE, STUDIES, [])
+        page = files[Path("studies") / "machine-trading" / "index.html"]
+
+        self.assertIn("직접 구매", page)
+
+    def test_every_study_must_declare_its_book(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            site, studies, sessions = LifecycleValidationTest().write_metadata(
+                root, "scheduled", ""
+            )
+            text = studies.read_text(encoding="utf-8")
+            studies.write_text(
+                text[: text.index("[studies.book]")], encoding="utf-8"
+            )
+
+            with self.assertRaisesRegex(ValueError, "book"):
+                build_site.load_model(site, studies, sessions)
+
+
+class RealBookRegistryTest(unittest.TestCase):
+    def test_both_active_studies_declare_a_verifiable_book(self) -> None:
+        _, studies, _ = build_site.load_model(
+            build_site.DEFAULT_SITE_CONFIG,
+            build_site.DEFAULT_STUDIES,
+            build_site.DEFAULT_SESSIONS,
+        )
+
+        self.assertEqual(len(studies), 2)
+        for study in studies:
+            with self.subTest(study=study["id"]):
+                book = study["book"]
+                self.assertRegex(book["isbn13"], r"^97[89]\d{10}$")
+                self.assertTrue(book["store_url"].startswith("https://"))
+                self.assertTrue(book["publisher_url"].startswith("https://"))

@@ -26,6 +26,22 @@ presentation_path = "html/studies/knowledge-graphs-and-llms-in-action"
 source_repository = "https://github.com/restful3/ds4th_study"
 source_commit = "c17e79bf7feba943e66069eb24c1fcf55db82407"
 
+# 원본 교재. 발표자료는 우리가 만들지만 읽는 책은 따로 있다.
+# ISBN·저자·출판사는 출판사 페이지와 Amazon 상품 페이지에서 확인했다.
+[studies.book]
+title = "Knowledge Graphs and LLMs in Action"
+subtitle = "Build AI systems using connected data"
+authors = ["Alessandro Negro", "Vlastimil Kus", "Giuseppe Futia", "Fabio Montagna"]
+publisher = "Manning Publications"
+year = "2025"
+isbn13 = "9781633439894"
+language_ko = "영어"
+summary_ko = """
+지식 그래프와 LLM을 함께 써서 환각을 줄이고 답의 근거를 되짚을 수 있는 AI 시스템을 만드는 방법을 다룹니다. 요구사항에서 그래프를 설계하고, 정형·비정형 데이터에서 그래프를 구축하고, 검색 증강 생성(RAG)과 연결하고, 그래프 머신러닝으로 보강하기까지를 의료와 금융범죄 탐지 사례로 따라갑니다."""
+store_label = "Amazon"
+store_url = "https://www.amazon.com/dp/1633439895"
+publisher_url = "https://www.manning.com/books/knowledge-graphs-and-llms-in-action"
+
 [[studies]]
 id = "machine-trading-2026"
 track = "quant"
@@ -50,3 +66,19 @@ archive_path = "materials/quant/archive/machine-trading"
 presentation_path = "html/studies/machine-trading"
 source_repository = "https://github.com/restful3/ml4t"
 source_commit = "aabbc56a253afbbe4a725ed342e15721bf8913b3"
+
+# 원본 교재. 저자·출판사·연도는 교재 PDF 메타데이터와 Amazon 상품 페이지가 일치한다.
+[studies.book]
+title = "Machine Trading"
+subtitle = "Deploying Computer Algorithms to Conquer the Markets"
+authors = ["Ernest P. Chan"]
+publisher = "Wiley"
+series = "Wiley Trading"
+year = "2017"
+isbn13 = "9781119219606"
+language_ko = "영어"
+summary_ko = """
+주식·옵션·선물·외환·비트코인에 적용하는 정량 전략을 하나씩 구현하며 알고리즘 트레이딩을 익힙니다. 시계열 분석, 팩터 모델, 인공지능 기법, 일중 거래와 시장 미시구조, 리스크 관리와 자금 배분까지 전략을 실제로 굴리는 데 필요한 과정을 다룹니다. 저자가 MATLAB 예제 코드를 함께 제공합니다."""
+store_label = "Amazon"
+store_url = "https://www.amazon.com/dp/1119219604"
+publisher_url = "https://www.wiley.com/en-us/Machine+Trading%3A+Deploying+Computer+Algorithms+to+Conquer+the+Markets-p-9781119219651"

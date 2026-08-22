@@ -524,6 +524,24 @@
   "studies": [
     {
       "archive_path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action",
+      "book": {
+        "authors": [
+          "Alessandro Negro",
+          "Vlastimil Kus",
+          "Giuseppe Futia",
+          "Fabio Montagna"
+        ],
+        "isbn13": "9781633439894",
+        "language_ko": "영어",
+        "publisher": "Manning Publications",
+        "publisher_url": "https://www.manning.com/books/knowledge-graphs-and-llms-in-action",
+        "store_label": "Amazon",
+        "store_url": "https://www.amazon.com/dp/1633439895",
+        "subtitle": "Build AI systems using connected data",
+        "summary_ko": "지식 그래프와 LLM을 함께 써서 환각을 줄이고 답의 근거를 되짚을 수 있는 AI 시스템을 만드는 방법을 다룹니다. 요구사항에서 그래프를 설계하고, 정형·비정형 데이터에서 그래프를 구축하고, 검색 증강 생성(RAG)과 연결하고, 그래프 머신러닝으로 보강하기까지를 의료와 금융범죄 탐지 사례로 따라갑니다.",
+        "title": "Knowledge Graphs and LLMs in Action",
+        "year": "2025"
+      },
       "description_ko": "지식 그래프와 LLM을 결합해 검증 가능하고 설명 가능한 하이브리드 지능형 시스템을 설계합니다.",
       "end_date": "2026-10-24",
       "end_time": "10:00",
@@ -562,6 +580,22 @@
     },
     {
       "archive_path": "materials/quant/archive/machine-trading",
+      "book": {
+        "authors": [
+          "Ernest P. Chan"
+        ],
+        "isbn13": "9781119219606",
+        "language_ko": "영어",
+        "publisher": "Wiley",
+        "publisher_url": "https://www.wiley.com/en-us/Machine+Trading%3A+Deploying+Computer+Algorithms+to+Conquer+the+Markets-p-9781119219651",
+        "series": "Wiley Trading",
+        "store_label": "Amazon",
+        "store_url": "https://www.amazon.com/dp/1119219604",
+        "subtitle": "Deploying Computer Algorithms to Conquer the Markets",
+        "summary_ko": "주식·옵션·선물·외환·비트코인에 적용하는 정량 전략을 하나씩 구현하며 알고리즘 트레이딩을 익힙니다. 시계열 분석, 팩터 모델, 인공지능 기법, 일중 거래와 시장 미시구조, 리스크 관리와 자금 배분까지 전략을 실제로 굴리는 데 필요한 과정을 다룹니다. 저자가 MATLAB 예제 코드를 함께 제공합니다.",
+        "title": "Machine Trading",
+        "year": "2017"
+      },
       "description_ko": "알고리즘 트레이딩의 데이터·모델·리스크·실행 기법을 재현 실험과 함께 학습합니다.",
       "end_date": "2026-09-12",
       "end_time": "10:00",
