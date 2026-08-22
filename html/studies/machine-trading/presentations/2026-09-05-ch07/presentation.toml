@@ -1,0 +1,15 @@
+study_id = "machine-trading-2026"
+session_id = "2026-09-05-ch07"
+title = "Chapter 7. 비트코인"
+date = "2026-09-05"
+presenters = ["원미"]
+chapters = ["Chapter 7"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+source_fidelity = "source-structure-v1"
+source_outline_style = "ordered-headings-v1"
+source_exercise_style = "bold-numbered-v1"
+source_material = "materials/quant/active/machine-trading/chapter_7_bitcoins/07_chapter_7_bitcoins_ko_explained.md"

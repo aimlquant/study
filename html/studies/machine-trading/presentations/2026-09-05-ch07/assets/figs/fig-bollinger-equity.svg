@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+  <title id="title">BTC.USD에 대한 볼린저 밴드 트레이딩 전략 자산 곡선</title>
+  <desc id="desc">최적화 없이 lookback 60분, z=2로 돌린 볼린저 밴드 전략의 테스트 자산 곡선. 비용 없는 총수익은 연 42퍼센트로 완만히 오르지만, 포지션 전환마다 10bp 비용을 넣으면 누적 수익이 마이너스 99.49퍼센트로 무너진다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .axis{fill:none;stroke:#9A9AA2;stroke-width:1.5}
+      .grid{fill:none;stroke:#E4E4E1;stroke-width:1}
+      .gross{fill:none;stroke:#127A3E;stroke-width:3}
+      .net{fill:none;stroke:#B4232A;stroke-width:3}
+      .head{font-size:16px;font-weight:800;text-anchor:middle;fill:#0F0F10}
+      .glab{font-size:13px;font-weight:800;fill:#127A3E}
+      .nlab{font-size:13px;font-weight:800;fill:#B4232A}
+      .meta{font-size:12px;fill:#6B6B72}
+    </style>
+  </defs>
+  <rect width="900" height="360" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <text class="head" x="450" y="34">같은 신호, 다른 결말 — 비용 하나가 부호를 뒤집는다</text>
+    <line class="grid" x1="90" y1="90"  x2="840" y2="90"/>
+    <line class="grid" x1="90" y1="150" x2="840" y2="150"/>
+    <line class="axis" x1="90" y1="210" x2="840" y2="210"/>
+    <line class="grid" x1="90" y1="270" x2="840" y2="270"/>
+    <line class="axis" x1="90" y1="70"  x2="90"  y2="300"/>
+    <text class="meta" x="40" y="94">+42%</text>
+    <text class="meta" x="52" y="214">0%</text>
+    <text class="meta" x="34" y="304">−100%</text>
+
+    <path class="gross" d="M90 210 L200 202 L300 196 L410 182 L520 172 L630 156 L730 140 L840 128"/>
+    <circle cx="840" cy="128" r="4" fill="#127A3E"/>
+    <text class="glab" x="612" y="130">비용 0 총수익 · 연 +42%</text>
+
+    <path class="net" d="M90 210 L170 224 L250 244 L330 262 L410 278 L500 289 L600 295 L720 298 L840 299"/>
+    <circle cx="840" cy="299" r="4" fill="#B4232A"/>
+    <text class="nlab" x="360" y="300">10bp 비용 반영 · 누적 −99.49%</text>
+
+    <text class="meta" x="90" y="330">중간가 체결·지연 0·시장충격 0도 낙관적 — 비용을 포함한 하한이 더 중요한 결과다</text>
+  </g>
+</svg>

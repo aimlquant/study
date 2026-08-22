@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" role="img" aria-labelledby="title desc">
+  <title id="title">볼린저 밴드 트레이딩 전략</title>
+  <desc id="desc">가격이 이동평균에서 k 이동표준편차만큼 아래로 내려가면 매수, 그만큼 위로 올라가면 매도하고, 다시 이동평균으로 되돌아오면 청산하는 되돌림 매매의 개념도.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .band{fill:none;stroke:#0F2C59;stroke-width:2}
+      .ma{fill:none;stroke:#6B6B72;stroke-width:2;stroke-dasharray:7 5}
+      .price{fill:none;stroke:#B4232A;stroke-width:2.5}
+      .lab{font-size:13px;font-weight:700;fill:#0F2C59}
+      .malab{font-size:13px;font-weight:700;fill:#6B6B72}
+      .meta{font-size:12px;fill:#6B6B72}
+      .mk{font-size:12.5px;font-weight:800}
+    </style>
+  </defs>
+  <rect width="900" height="340" rx="12" fill="#FAFAF9"/>
+  <rect x="90" y="108" width="700" height="147" fill="#0F2C59" opacity="0.05"/>
+  <g class="text">
+    <line class="band" x1="90" y1="108" x2="790" y2="108"/>
+    <line class="ma"   x1="90" y1="182" x2="790" y2="182"/>
+    <line class="band" x1="90" y1="255" x2="790" y2="255"/>
+    <text class="lab"   x="600" y="102">이동평균 + 2σ (상단 밴드)</text>
+    <text class="malab" x="640" y="176">이동평균 (lookback=60분)</text>
+    <text class="lab"   x="600" y="274">이동평균 − 2σ (하단 밴드)</text>
+
+    <path class="price" d="M90 182 L150 214 L205 253 L260 214 L305 182 L360 140 L420 110 L470 146 L520 182 L580 220 L640 254 L700 214 L760 182"/>
+
+    <g class="mk">
+      <path d="M205 268 l7 12 l-14 0 Z" fill="#127A3E"/>
+      <text x="205" y="298" fill="#127A3E" text-anchor="middle">매수</text>
+      <path d="M420 96 l7 -12 l-14 0 Z" fill="#B4232A"/>
+      <text x="420" y="80" fill="#B4232A" text-anchor="middle">매도</text>
+      <circle cx="305" cy="182" r="5" fill="none" stroke="#0F0F10" stroke-width="2"/>
+      <circle cx="520" cy="182" r="5" fill="none" stroke="#0F0F10" stroke-width="2"/>
+      <path d="M640 268 l7 12 l-14 0 Z" fill="#127A3E"/>
+      <text x="640" y="298" fill="#127A3E" text-anchor="middle">매수</text>
+      <text x="305" y="166" fill="#0F0F10" text-anchor="middle">청산</text>
+      <text x="520" y="166" fill="#0F0F10" text-anchor="middle">청산</text>
+    </g>
+    <text class="meta" x="90" y="326">하단 이탈 → 매수 · 상단 이탈 → 매도 · 평균 복귀 → 청산 (이동평균·표준편차는 가격 기준, z=2)</text>
+  </g>
+</svg>
