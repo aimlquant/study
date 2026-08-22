@@ -21,6 +21,7 @@ SPEC.loader.exec_module(build_site)
 SITE = {
     "name": "AIML Quant",
     "name_ko": "AI·ML·Quant",
+    "space_ko": "스터디",
     "repository": "restful3/aimlquant",
     "pages_url": "https://restful3.github.io/aimlquant/",
     "landing_url": "https://restful3.github.io/",
@@ -92,7 +93,7 @@ class SiteRenderingTest(unittest.TestCase):
                 self.assertIn('<html lang="ko" class="theme-light">', rendered)
                 self.assertIn("AIML Quant", rendered)
         self.assertIn("OPEN STUDY ARCHIVE", root_page)
-        self.assertIn('class="hero-meta"', root_page)
+        self.assertIn('<div class="brand">', root_page)
         self.assertIn("STUDY MATERIALS", study_page)
         self.assertIn("SESSION ARCHIVE", session_page)
 
@@ -258,6 +259,7 @@ schema_version = 1
 [site]
 name = "AIML Quant"
 name_ko = "AI·ML·Quant"
+space_ko = "스터디"
 repository = "restful3/aimlquant"
 pages_url = "https://restful3.github.io/aimlquant/"
 landing_url = "https://restful3.github.io/"
@@ -476,15 +478,44 @@ class LandingLinkTest(unittest.TestCase):
             root,
         )
 
-    def test_landing_link_sits_directly_under_the_brand_mark(self) -> None:
-        """네 공개 공간이 같은 자리에 링크를 보여야 방문자가 찾는 법을
-        한 번만 배운다. 운영 가이드가 기준이다 — 브랜드 표기 바로 아래."""
+    def test_root_header_follows_the_landing_format(self) -> None:
+        """네 공개 공간이 한 형식으로 읽혀야 한다. 운영 가이드가 기준이다 —
+        브랜드 표기, 홈 링크, 제목, 리드 순서. 그 사이에 eyebrow 나
+        커버 블록을 끼우지 않는다."""
+        files = build_site.render_files(SITE, STUDIES, [])
+        header = files[Path("index.html")].split("<section")[0]
+
+        self.assertNotIn("hero", header)
+        self.assertNotIn('class="eyebrow"', header)
+        for earlier, later in (
+            ('class="brand"', 'class="back back--home"'),
+            ('class="back back--home"', "<h1>"),
+            ("<h1>", 'class="lead"'),
+        ):
+            self.assertLess(header.index(earlier), header.index(later))
+
+    def test_root_title_and_heading_name_the_space(self) -> None:
+        """랜딩은 이 공간을 '스터디' 라고 부른다. 페이지 제목도 같은 이름이어야
+        방문자가 어디에 왔는지 안다. 조직 이름은 브랜드 표기가 이미 말한다."""
         files = build_site.render_files(SITE, STUDIES, [])
         root = files[Path("index.html")]
-        brand = root.index('class="cover-brand"')
 
-        self.assertLess(root.index("</div>", brand), root.index('class="back back--home"'))
-        self.assertLess(root.index('class="back back--home"'), root.index('class="hero-copy"'))
+        self.assertIn(f"<h1>{SITE['space_ko']}</h1>", root)
+        self.assertIn(
+            f"<title>{SITE['space_ko']} · {SITE['name_ko']}</title>", root
+        )
+
+    def test_site_config_requires_the_space_name(self) -> None:
+        broken = dict(SITE)
+        broken.pop("space_ko")
+
+        with self.assertRaisesRegex(ValueError, "space_ko"):
+            build_site.validate_site(broken)
+
+    def test_shell_matches_the_landing_width(self) -> None:
+        css = (build_site.DEFAULT_OUTPUT / "assets" / "site.css").read_text(encoding="utf-8")
+
+        self.assertIn("width: min(1080px, calc(100% - 48px));", css)
 
     def test_site_config_requires_the_landing_url(self) -> None:
         broken = dict(SITE)
