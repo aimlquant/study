@@ -37,6 +37,5 @@
       <text x="305" y="166" fill="#0F0F10" text-anchor="middle">청산</text>
       <text x="520" y="166" fill="#0F0F10" text-anchor="middle">청산</text>
     </g>
-    <text class="meta" x="90" y="326">하단 이탈 → 매수 · 상단 이탈 → 매도 · 평균 복귀 → 청산 (이동평균·표준편차는 가격 기준, z=2)</text>
   </g>
 </svg>
