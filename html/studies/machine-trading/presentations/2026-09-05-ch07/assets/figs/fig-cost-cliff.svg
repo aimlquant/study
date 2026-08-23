@@ -62,6 +62,5 @@
     <text class="grp" x="683" y="304">주문 흐름</text>
     <text class="val" x="683" y="250" fill="#C58A1B">≈ 손익 경계</text>
 
-    <text class="meta" x="450" y="330">숫자가 클수록 예측력이 아니라 체결 가정이 크다 — 순위를 가르는 것은 model score가 아니라 비용이다</text>
   </g>
 </svg>
