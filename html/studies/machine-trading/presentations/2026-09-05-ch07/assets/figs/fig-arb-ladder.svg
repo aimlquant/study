@@ -18,14 +18,12 @@
   </defs>
   <rect width="900" height="340" rx="12" fill="#FAFAF9"/>
   <g class="text">
-    <text class="head" x="230" y="34">교차 시장 (2015-02-02 19:00 EST)</text>
     <rect class="q" x="40" y="52" width="180" height="72" rx="9"/>
     <text class="qh" x="130" y="78">Bitfinex</text>
     <text class="qv" x="130" y="102">bid 239.19 / ask 239.48</text>
     <rect class="q" x="240" y="52" width="180" height="72" rx="9"/>
     <text class="qh" x="330" y="78">btc-e</text>
     <text class="qv" x="330" y="102">bid 233.232 / ask 233.546</text>
-    <text class="meta" x="230" y="146">Bitfinex에 239.19 매도 + btc-e에서 233.546 매수</text>
 
     <text class="head" x="230" y="196">비용 사다리 (코인당)</text>
     <rect class="gross" x="40" y="212" width="380" height="30" rx="6"/>

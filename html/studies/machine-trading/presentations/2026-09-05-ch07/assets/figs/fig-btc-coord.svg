@@ -16,7 +16,6 @@
   </defs>
   <rect width="900" height="360" rx="12" fill="#FAFAF9"/>
   <g class="text">
-    <text class="head" x="250" y="44">통화쌍 표기 B.Q — 비트코인은 언제나 기준 통화</text>
     <rect class="box" x="60" y="66" width="380" height="120" rx="10"/>
     <text class="big" x="250" y="126">BTC . USD</text>
     <text class="lab" x="150" y="158">B · 기준 통화 (base)</text>

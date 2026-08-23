@@ -16,7 +16,6 @@
   </defs>
   <rect width="900" height="360" rx="12" fill="#FAFAF9"/>
   <g class="text">
-    <text class="head" x="450" y="34">같은 신호, 다른 결말 — 비용 하나가 부호를 뒤집는다</text>
     <line class="grid" x1="90" y1="90"  x2="840" y2="90"/>
     <line class="grid" x1="90" y1="150" x2="840" y2="150"/>
     <line class="axis" x1="90" y1="210" x2="840" y2="210"/>
@@ -34,6 +33,5 @@
     <circle cx="840" cy="299" r="4" fill="#B4232A"/>
     <text class="nlab" x="360" y="300">10bp 비용 반영 · 누적 −99.49%</text>
 
-    <text class="meta" x="90" y="330">중간가 체결·지연 0·시장충격 0도 낙관적 — 비용을 포함한 하한이 더 중요한 결과다</text>
   </g>
 </svg>
