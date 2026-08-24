@@ -187,6 +187,7 @@ title = "Chapter 7. 비트코인"
 presenters = ["원미"]
 chapters = ["Chapter 7"]
 status = "materials-published"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/machine-trading/presentations/2026-09-05-ch07/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/machine-trading/presentations/2026-09-05-ch07/" },
@@ -200,6 +201,7 @@ title = "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
 presenters = ["태호"]
 chapters = ["Chapter 8"]
 status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
 
 [[sessions]]
 id = "2026-09-12-machine-trading-ch08"
@@ -209,6 +211,7 @@ title = "Chapter 8. 알고리즘 트레이딩은 몸과 마음에 이롭다"
 presenters = []
 chapters = ["Chapter 8"]
 status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32"
 
 [[sessions]]
 id = "2026-09-12-kg-llm-ch09"
@@ -218,6 +221,7 @@ title = "Chapter 9. 지식 그래프 위의 머신러닝 입문"
 presenters = ["정훈"]
 chapters = ["Chapter 9"]
 status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32"
 
 [[sessions]]
 id = "2026-09-19-kg-llm-ch10"
