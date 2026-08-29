@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-report-template="study-report-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chapter 7 개체명 중의성 해소를 개인 주식투자자의 뉴스 정리에 적용한 상세 리포트">
+  <title>뉴스 속 회사 이름을 내 관심 종목에 연결하기 · 상세 리포트</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/report-personal-investor.css">
+</head>
+<body>
+  <a class="skip-link" href="#summary">리포트 본문으로 건너뛰기</a>
+  <button id="tocToggle" class="report-nav-toggle" type="button" aria-label="목차 열기" aria-controls="tocDrawer" aria-expanded="false" title="목차"><span aria-hidden="true">☰</span></button>
+  <div class="report-settings" aria-label="설정">
+    <button id="settingsToggle" class="report-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg></button>
+    <div id="settingsPanel" class="report-settings-panel" aria-hidden="true">
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">화면</span><button id="themeToggle" type="button" onclick="cycleTheme()" aria-label="나이트 모드 전환">☀</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">출력</span><button class="report-settings-action" type="button" onclick="window.print()">Print / PDF</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">이동</span><nav class="report-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="report.html">교재 리포트</a><a href="./">Slides</a></nav></div>
+    </div>
+  </div>
+  <div id="tocBackdrop" class="report-toc-backdrop" hidden></div>
+  <nav id="tocDrawer" class="report-toc-drawer" aria-label="문서 목차" aria-hidden="true"><div class="report-toc-drawer__head"><span>목차</span><button id="tocClose" type="button" aria-label="목차 닫기">×</button></div><ol id="tocDrawerList" class="report-toc-drawer__list"></ol></nav>
+
+  <article class="report continuous-mode">
+<section class="report-cover">
+  <div class="report-cover__wordmark"><span class="report-cover__wordmark-name">AIML Quant</span><span class="report-cover__wordmark-sub">지식 그래프와 LLM 실전</span></div>
+  <span class="report-cover__kicker">Application Report · Chapter 7</span>
+  <h1 class="report-cover__title">뉴스 속 회사 이름을<br>내 관심 종목에 연결하기</h1>
+  <p class="report-cover__subtitle">개체명 중의성 해소를 개인 주식투자의 뉴스 정리에 적용하는 방법</p>
+  <dl class="report-cover__meta"><div><dt>대상</dt><dd>개인 주식투자자</dd></div><div><dt>범위</dt><dd>Chapter 7 응용</dd></div><div><dt>발행</dt><dd>2026-08-29</dd></div></dl>
+</section>
+
+<section class="report-section s0 page-break" id="summary">
+  <div class="report-section__kicker">Section 00 · Summary</div><h1>0. 핵심 요약</h1>
+  <div class="callout--hero"><span class="callout__kicker">한 문장 결론</span><span class="callout__body">NED는 어떤 종목을 살지 알려주는 기술이 아니라, <strong>지금 읽는 뉴스가 어느 회사와 종목에 관한 것인지 덜 헷갈리게 만드는 기술</strong>이다.</span></div>
+  <p>포털 뉴스에서 찾은 회사 이름은 거래 가능한 종목과 항상 일대일로 대응하지 않는다. 삼성전자라는 회사에는 보통주와 우선주가 있고, 구글이라는 회사 표현은 GOOG와 GOOGL 모두와 관련될 수 있다. 카카오처럼 그룹과 계열사의 이름이 겹치면 기사 문맥까지 읽어야 대상을 좁힐 수 있다.</p>
+  <p>이 리포트는 Chapter 7의 후보 생성, 문맥 순위화, 고유 ID 연결, 지식 그래프 활용을 개인 투자자의 관심 종목 뉴스 정리로 옮긴다. 원문의 의학 사례를 대체하는 사실 서술이 아니라 별도의 학습 응용이며, 매수·매도 추천이나 수익률 예측을 목적으로 하지 않는다.</p>
+  <table class="cmp-table" id="table-decision-path"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 1</span><span class="asset-caption__title">개인 투자자의 NED 판단 경로</span></div></caption><thead><tr><th>단계</th><th>질문</th><th>안전한 출력</th></tr></thead><tbody><tr><td>이름 찾기</td><td>기사에 회사·브랜드·종목명이 있는가?</td><td>발견한 문자열과 위치</td></tr><tr><td>후보 만들기</td><td>관심 종목표에서 무엇과 연결될 수 있는가?</td><td>복수 후보 목록</td></tr><tr><td>문맥 판단</td><td>업종·제품·서비스 단어가 어느 후보를 지지하는가?</td><td>후보별 점수와 근거</td></tr><tr><td>ID 연결</td><td>회사까지 확정했는가, 종목까지 확정했는가?</td><td>회사 ID, 종목코드 또는 보류 상태</td></tr></tbody></table>
+</section>
+
+<section class="report-section page-break" id="problem">
+  <div class="report-section__kicker">Section 01 · Problem</div><h1>1. 이름을 찾는 것과 종목을 아는 것은 다르다</h1>
+  <div class="section-summary"><div class="section-summary__kicker">핵심</div><div class="section-summary__body"><ul><li>문자열 검색은 같은 이름의 다른 대상과 한 회사의 여러 종목을 구분하지 못한다.</li><li>회사를 확인한 것과 특정 거래 종목을 확인한 것을 별도 상태로 저장해야 한다.</li></ul></div></div>
+  <p>NER(Named Entity Recognition, 개체명 인식)은 문장에서 이름의 범위를 찾는다. NED(Named Entity Disambiguation, 개체명 중의성 해소)는 그 이름이 어떤 대상을 뜻하는지 문맥으로 고른다. Entity Linking은 선택한 대상을 회사 ID나 종목코드 같은 고유 식별자에 연결한다.</p>
+  <p>예를 들어 “삼성전자는 AI 서버용 메모리 생산 확대를 검토한다”에서 회사는 삼성전자로 명확하다. 그러나 이 문장만으로 005930과 005935 중 하나를 직접 언급했다고 볼 수는 없다. 회사 뉴스는 두 종목과 관련될 수 있지만, 특정 주식 클래스로 임의 확정해서는 안 된다.</p>
+  <table class="cmp-table" id="table-ambiguity"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">개인 투자 뉴스에서 자주 만나는 중의성</span></div></caption><thead><tr><th>표현</th><th>가능한 대상</th><th>추가로 볼 단서</th></tr></thead><tbody><tr><td>삼성전자</td><td>회사, 005930, 005935</td><td>종목코드, 보통주·우선주 명시</td></tr><tr><td>카카오</td><td>카카오, 카카오뱅크, 카카오페이 등</td><td>대출·결제·게임·광고 문맥</td></tr><tr><td>구글</td><td>Alphabet 회사, GOOG, GOOGL</td><td>주식 클래스 또는 티커 명시</td></tr><tr><td>애플</td><td>Apple 회사, 과일</td><td>제품·실적 또는 식품·물가 문맥</td></tr></tbody></table>
+</section>
+
+<section class="report-section page-break" id="scenario">
+  <div class="report-section__kicker">Section 02 · Scenario</div><h1>2. 관심 종목 6개와 최근 뉴스 100건</h1>
+  <p>개인 투자자 민수는 관심 종목별로 최근 뉴스를 모으려 한다. 목표는 수익률 예측이 아니라 기사가 실제로 가리키는 회사를 확인하고, 특정 종목까지 확정할 수 있는지 구분하며, 관련 주제와 공동 언급 종목을 한 화면에 정리하는 것이다.</p>
+  <table class="cmp-table" id="table-watchlist"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">예제 관심 종목표</span></div></caption><thead><tr><th>회사</th><th>종목명</th><th>코드·티커</th><th>대표 별칭</th></tr></thead><tbody><tr><td>삼성전자</td><td>삼성전자</td><td>005930</td><td>삼성전자, Samsung Electronics</td></tr><tr><td>삼성전자</td><td>삼성전자우</td><td>005935</td><td>삼성전자우, 삼성전자 우선주</td></tr><tr><td>카카오</td><td>카카오</td><td>035720</td><td>카카오, Kakao</td></tr><tr><td>카카오뱅크</td><td>카카오뱅크</td><td>323410</td><td>카뱅, KakaoBank</td></tr><tr><td>Alphabet</td><td>Class A</td><td>GOOGL</td><td>구글, Google, Alphabet</td></tr><tr><td>Alphabet</td><td>Class C</td><td>GOOG</td><td>구글, Google, Alphabet</td></tr></tbody></table>
+  <div class="callout--insight"><span class="callout__kicker">설계 원칙</span><div class="callout__body"><p>관심 목록은 “한 줄에 회사 하나”가 아니라 회사와 종목을 분리한다. 한 회사에 여러 거래 종목이 연결될 수 있기 때문이다.</p></div></div>
+</section>
+
+<section class="report-section page-break" id="mapping">
+  <div class="report-section__kicker">Section 03 · Concept Mapping</div><h1>3. Chapter 7의 개념을 투자 뉴스로 옮기기</h1>
+  <p>의학 개체와 주식이 같은 개념이라는 뜻은 아니다. 두 문제는 모호한 표면형을 고유한 지식 그래프 노드에 연결한다는 계산 구조를 공유한다. 전문 의료 온톨로지와 개인 관심 종목표의 규모·검증 수준도 같지 않다.</p>
+  <table class="cmp-table" id="table-concept-map"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">원문 개념과 개인 투자 응용의 대응</span></div></caption><thead><tr><th>Chapter 7 개념</th><th>개인 투자 응용</th><th>공통 원리</th></tr></thead><tbody><tr><td>의학 문서</td><td>뉴스 제목·기사·공시 요약</td><td>비정형 텍스트에서 언급을 찾는다.</td></tr><tr><td>질병·유전자 개체</td><td>회사·종목·계열사·투자 주제</td><td>문자열을 구조화된 개체로 바꾼다.</td></tr><tr><td>UMLS CUI</td><td>회사 ID·종목코드·티커</td><td>별칭을 하나의 식별자에 모은다.</td></tr><tr><td>온톨로지 관계</td><td>회사–종목–계열사–주제 관계</td><td>연결의 종류와 방향을 명시한다.</td></tr><tr><td>공동 등장</td><td>같은 기사에 함께 나온 종목</td><td>관찰된 연관은 인과관계가 아니다.</td></tr></tbody></table>
+</section>
+
+<section class="report-section page-break" id="pipeline">
+  <div class="report-section__kicker">Section 04 · Pipeline</div><h1>4. 후보를 만든 뒤 문맥으로 좁힌다</h1>
+  <p>첫 단계는 기사에서 이름을 찾는 것이다. 다음으로 별칭표에서 가능한 회사와 종목을 모두 꺼낸다. 그 뒤 업종, 제품, 서비스, 계열사, 명시된 종목코드를 문맥 단서로 비교한다. 충분한 근거가 있을 때만 연결하고, 부족하면 검토 대상으로 남긴다.</p>
+  <table class="cmp-table" id="table-pipeline"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">입력에서 검토 결과까지의 처리 흐름</span></div></caption><thead><tr><th>입력</th><th>변환</th><th>출력</th><th>실패 경계</th></tr></thead><tbody><tr><td>뉴스 문장</td><td>회사·브랜드 이름 탐지</td><td>언급 문자열</td><td>별칭 누락</td></tr><tr><td>언급 문자열</td><td>관심 종목표 조회</td><td>회사·종목 후보</td><td>후보를 너무 일찍 하나로 축소</td></tr><tr><td>기사 문맥</td><td>단서별 후보 점수</td><td>순위와 근거</td><td>제목만으로 과잉 확정</td></tr><tr><td>상위 후보</td><td>임계값·충돌 검사</td><td>확정·복수 관련·보류</td><td>불확실성 삭제</td></tr></tbody></table>
+  <div class="callout--insight"><span class="callout__kicker">가장 중요한 보류</span><div class="callout__body"><p>회사는 확정했지만 종목은 하나로 정할 수 없는 상태도 정상적인 결과다. 이 상태를 실패로 취급하면 시스템이 근거 없는 종목코드를 만들어 낸다.</p></div></div>
+</section>
+
+<section class="report-section page-break" id="worked-examples">
+  <div class="report-section__kicker">Section 05 · Worked Examples</div><h1>5. 세 문장을 실제로 판정해 보기</h1>
+  <h3 id="example-samsung">5.1 삼성전자와 두 종목</h3><p>“삼성전자는 AI 서버용 메모리 생산 확대를 검토한다”는 회사까지는 명확하다. `AI 서버`, `메모리`, `생산`은 삼성전자 문맥을 강화하지만 보통주나 우선주를 특정하지 않는다. 결과는 회사 ID와 관련 종목 005930·005935를 함께 남긴다.</p>
+  <h3 id="example-kakao">5.2 카카오와 계열사</h3><p>“카카오는 주택담보대출 비교 서비스를 확대한다”는 이름만 보면 카카오와 여러 계열사가 후보가 된다. `주택담보대출`, `금융 서비스`는 카카오뱅크 후보에 가점을 주지만, 그룹 차원의 발표인지 자회사 서비스인지 제목만으로 불분명하면 본문 확인 상태로 둔다.</p>
+  <h3 id="example-google">5.3 구글과 두 주식 클래스</h3><p>“구글이 새 생성형 AI 검색 기능을 공개했다”는 Alphabet 회사에 연결할 수 있다. 그러나 문장에 Class A·Class C 또는 티커가 없으므로 GOOG와 GOOGL 중 하나를 임의로 고르지 않는다.</p>
+  <table class="cmp-table" id="table-results"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 6</span><span class="asset-caption__title">예제 문장의 안전한 연결 결과</span></div></caption><thead><tr><th>기사 요약</th><th>연결 결과</th><th>확신도</th><th>처리</th></tr></thead><tbody><tr><td>삼성전자 AI 메모리 확대</td><td>삼성전자 회사 / 두 종목 관련</td><td>높음</td><td>회사 뉴스로 묶기</td></tr><tr><td>카카오 주담대 비교 확대</td><td>카카오뱅크 우선 후보</td><td>중간</td><td>기사 본문 확인</td></tr><tr><td>구글 생성형 AI 검색 공개</td><td>Alphabet / GOOG·GOOGL 관련</td><td>높음</td><td>회사 뉴스로 묶기</td></tr><tr><td>애플 가격 상승으로 장바구니 부담</td><td>과일</td><td>높음</td><td>투자 뉴스에서 제외</td></tr></tbody></table>
+</section>
+
+<section class="report-section page-break" id="data-model">
+  <div class="report-section__kicker">Section 06 · Data Model</div><h1>6. 개인용 시스템은 CSV 세 개로 시작한다</h1>
+  <p><code>stocks.csv</code>에는 회사와 거래 종목을, <code>aliases.csv</code>에는 기사에서 만날 수 있는 별칭을, <code>relations.csv</code>에는 회사–종목–주제 관계를 둔다. 거대한 금융 온톨로지를 먼저 도입하지 않아도 문자열 검색보다 나은 정리가 가능하다.</p>
+  <table class="cmp-table" id="table-data-files"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">최소 데이터 파일의 책임</span></div></caption><thead><tr><th>파일</th><th>필수 열</th><th>답하는 질문</th></tr></thead><tbody><tr><td>stocks.csv</td><td>company_id, company_name, stock_name, ticker, market, sector</td><td>이 회사에는 어떤 거래 종목이 있는가?</td></tr><tr><td>aliases.csv</td><td>alias, target_type, target_id</td><td>이 표현은 어떤 회사·종목 후보를 만드는가?</td></tr><tr><td>relations.csv</td><td>source, relation, target</td><td>회사·종목·계열사·주제가 어떻게 연결되는가?</td></tr></tbody></table>
+  <p>회사 ID와 티커를 분리하는 것이 핵심이다. `구글`이라는 별칭은 먼저 Alphabet 회사 ID에 연결하고, 그 회사에서 GOOG와 GOOGL 두 종목으로 확장한다. 기사에 특정 티커가 있을 때만 종목 하나로 좁힌다.</p>
+</section>
+
+<section class="report-section page-break" id="scoring">
+  <div class="report-section__kicker">Section 07 · Explainable Scoring</div><h1>7. 첫 버전은 설명 가능한 규칙 점수로 충분하다</h1>
+  <p>후보 점수는 이름 일치, 업종, 제품·서비스, 명시된 종목코드에 가점을 주고 후보와 충돌하는 단어에 감점을 주는 방식으로 시작할 수 있다. 점수의 목적은 자동 투자 판단이 아니라 사람이 어떤 근거로 기사가 분류됐는지 확인하게 하는 것이다.</p>
+  <div class="source-listing" id="listing-context-score"><h4>예시 코드 · 카카오 계열사 문맥 점수</h4><pre class="language-python"><code>CONTEXT_WORDS = {
+    "카카오": {"플랫폼", "톡비즈", "광고"},
+    "카카오뱅크": {"대출", "예금", "은행", "금리"},
+    "카카오게임즈": {"게임", "신작", "퍼블리싱"},
+}
+
+def context_score(article: str, candidate: str) -&gt; int:
+    words = CONTEXT_WORDS.get(candidate, set())
+    return sum(word in article for word in words)</code></pre><p>실행 가능한 최소 개념 예제다. 실제 사용에서는 별칭 충돌, 부정 표현, 인용문, 기사 날짜와 출처를 추가로 검사해야 한다.</p></div>
+  <div class="callout--insight"><span class="callout__kicker">LLM의 역할</span><div class="callout__body"><p>LLM은 후보와 설명을 제안할 수 있지만 최종 종목코드의 정확성을 보장하지 않는다. LLM 출력도 별칭표·종목표와 대조한 후보 상태로 저장한다.</p></div></div>
+</section>
+
+<section class="report-section page-break" id="knowledge-graph">
+  <div class="report-section__kicker">Section 08 · Knowledge Graph</div><h1>8. 연결 근거를 그래프로 남긴다</h1>
+  <p>기사에서 회사로, 회사에서 종목과 투자 주제로 이어지는 경로를 저장하면 분류 결과의 근거를 다시 확인할 수 있다. 예를 들어 기사 42가 삼성전자를 언급했고, 삼성전자에 005930과 005935가 연결되며, 기사 문맥에 AI 반도체 주제가 관찰됐다는 사실을 분리해 표현한다.</p>
+  <table class="cmp-table" id="table-graph-relations"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 8</span><span class="asset-caption__title">개인 투자 뉴스 그래프의 최소 관계</span></div></caption><thead><tr><th>출발</th><th>관계</th><th>도착</th><th>뜻</th></tr></thead><tbody><tr><td>기사</td><td>MENTIONS</td><td>회사</td><td>기사 문맥이 회사를 지칭한다.</td></tr><tr><td>회사</td><td>HAS_STOCK</td><td>종목</td><td>회사에 연결된 거래 종목이다.</td></tr><tr><td>회사</td><td>AFFILIATED_WITH</td><td>회사</td><td>확인된 계열 관계다.</td></tr><tr><td>회사</td><td>RELATED_TO</td><td>투자 주제</td><td>기사 또는 관심표에서 연결한 주제다.</td></tr><tr><td>기사</td><td>CO_MENTIONS</td><td>회사</td><td>같은 기사 단위에서 함께 관찰됐다.</td></tr></tbody></table>
+  <p>공동 언급은 두 회사 사이의 사업 관계나 주가 인과를 증명하지 않는다. 그래프의 짧은 경로도 읽어 볼 후보를 제공할 뿐 새로운 사실을 자동으로 확정하지 않는다.</p>
+</section>
+
+<section class="report-section page-break" id="product-output">
+  <div class="report-section__kicker">Section 09 · Reader Output</div><h1>9. 결과 화면은 확신도와 근거를 먼저 보여 준다</h1>
+  <p>사용자에게는 종목별 기사 수만 보여 주지 않는다. 연결된 회사, 관련된 복수 종목, 사용한 문맥 단어, 확신도, 검토 상태를 함께 표시해야 잘못된 자동 분류를 발견할 수 있다.</p>
+  <div class="section-summary"><div class="section-summary__kicker">출력 상태</div><div class="section-summary__body"><ul><li><strong>확정:</strong> 회사 또는 특정 종목을 식별할 직접 근거가 있다.</li><li><strong>회사까지만 확정:</strong> 회사는 명확하지만 거래 종목 하나를 고를 수 없다.</li><li><strong>복수 종목 관련:</strong> 같은 회사의 여러 종목에 공통으로 관련된 뉴스다.</li><li><strong>검토 필요:</strong> 후보 점수가 비슷하거나 기사 본문이 필요하다.</li><li><strong>비투자 문맥:</strong> 이름은 같지만 회사·종목에 관한 내용이 아니다.</li></ul></div></div>
+  <p>기사 목록에는 관심 주제, 공시와 일반 뉴스의 구분, 함께 언급된 관심 종목을 덧붙일 수 있다. 긍정·부정 문장 수나 최근 5거래일 가격 변화는 읽을 기사를 정하는 보조 정보일 뿐 매매 신호로 표현하지 않는다.</p>
+</section>
+
+<section class="report-section page-break" id="evaluation">
+  <div class="report-section__kicker">Section 10 · Evaluation</div><h1>10. 수익률보다 정리 정확도를 먼저 측정한다</h1>
+  <p>첫 버전의 평가는 사람이 확인한 회사와 자동 연결 결과를 비교하는 데 집중한다. 수익률이 우연히 좋았는지는 NED 품질을 설명하지 못한다.</p>
+  <ul><li><strong>회사 식별 정확도:</strong> 사람이 확인한 회사와 연결 결과가 같은 비율</li><li><strong>종목 과잉 확정률:</strong> 근거 없이 보통주·우선주 또는 주식 클래스 하나를 고른 비율</li><li><strong>미연결률:</strong> 관심 종목 기사인데 연결하지 못한 비율</li><li><strong>검토 필요 비율:</strong> 시스템이 판단을 안전하게 보류한 비율</li><li><strong>근거 표시율:</strong> 결과마다 사용한 이름과 문맥 단어가 표시된 비율</li></ul>
+  <div class="callout--insight"><span class="callout__kicker">해석 경계</span><div class="callout__body"><p>뉴스와 가격 변화가 같은 시기에 나타났다는 사실만으로 원인과 결과를 주장하지 않는다. 감성 점수와 공동 출현도 투자 추천이 아니라 검토 우선순위를 정하는 보조 정보다.</p></div></div>
+</section>
+
+<section class="report-section page-break" id="implementation">
+  <div class="report-section__kicker">Section 11 · Minimum Implementation</div><h1>11. 관심 종목 10~15개로 작게 시작한다</h1>
+  <p>첫 실습은 관심 종목 10~15개와 예시 뉴스 30~100건이면 충분하다. 관심 종목 CSV 불러오기, 별칭 탐지, 후보 생성, 문맥 점수, 회사·종목 연결, 보류 임계값, 종목·주제별 기사 목록, 연결 근거 표시를 최소 기능으로 둔다.</p>
+  <p>자동 매매, 목표주가, 수익률 보장, 실시간 시세 연동, 복잡한 금융 온톨로지는 첫 버전에서 제외한다. 이 범위만으로도 Chapter 7의 후보 생성, 문맥 순위화, 고유 식별자 연결, 그래프 탐색을 개인 투자자가 이해할 수 있는 형태로 실습할 수 있다.</p>
+</section>
+
+<section class="report-section page-break" id="guardrails">
+  <div class="report-section__kicker">Section 12 · Guardrails</div><h1>12. 원문과 투자 판단의 경계를 지킨다</h1>
+  <ol><li>의학 사례는 Chapter 7의 기준 사례로 남기고 투자 사례는 응용으로 표시한다.</li><li>UMLS·SNOMED CT와 개인 관심 종목표가 같은 수준의 체계라고 주장하지 않는다.</li><li>회사와 주식을 구분하고, 근거가 없으면 특정 종목 하나로 확정하지 않는다.</li><li>LLM 생성 결과, 뉴스 공동 출현, 감성, 가격 변화를 검증된 사실이나 인과로 승격하지 않는다.</li><li>실제 투자 판단에는 기사 원문, 기업 공시, 거래소 정보 등 최신 1차 자료를 별도로 확인한다.</li></ol>
+  <div class="callout--hero"><span class="callout__kicker">마지막 질문</span><span class="callout__body">이 시스템은 “무엇을 살까?”보다 먼저 <strong>“이 뉴스는 실제로 누구에 관한 것인가?”</strong>에 답한다.</span></div>
+</section>
+
+<section class="report-appendix page-break" id="glossary"><div class="report-section__kicker">Appendix A · Glossary</div><h1>핵심 용어</h1><dl><dt>NER</dt><dd>문장에서 회사명처럼 의미 있는 문자열의 위치를 찾는 작업.</dd><dt>NED</dt><dd>문맥을 이용해 발견한 이름이 어떤 실제 대상을 뜻하는지 고르는 작업.</dd><dt>Entity Linking</dt><dd>선택한 대상을 회사 ID나 종목코드 같은 고유 식별자에 연결하는 작업.</dd><dt>후보</dt><dd>아직 확정하지 않은 가능한 회사·종목 목록.</dd><dt>공동 등장</dt><dd>정한 기사 단위에서 두 회사가 함께 관찰됐다는 관계. 인과를 뜻하지 않는다.</dd></dl></section>
+
+<section class="report-appendix page-break" id="references"><div class="report-section__kicker">Appendix B · References</div><h1>자료와 범위</h1><ol class="references"><li>Alessandro Negro, <em>Knowledge Graphs and LLMs in Action</em>, Chapter 7.</li><li><a href="report.html">Chapter 7 교재 충실본 상세 리포트</a>.</li><li>2026-08-29 작성, 「Chapter 7 개인 주식투자자용 응용 초안」. 본 리포트의 직접 구성 자료.</li></ol><div class="report-jump-links"><a href="report.html">교재 리포트</a><a href="./">발표자료</a><a href="#summary">문서 처음</a></div></section>
+</article>
+  <script src="assets/report-personal-investor.js"></script>
+</body>
+</html>
