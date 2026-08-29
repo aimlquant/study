@@ -213,12 +213,12 @@ status = "scheduled"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
 
 [[sessions]]
-id = "2026-09-12-machine-trading-ch08"
+id = "2026-09-12-machine-trading-next-study-discussion"
 study_id = "machine-trading-2026"
 date = "2026-09-12"
-title = "Chapter 8. 알고리즘 트레이딩은 몸과 마음에 이롭다"
-presenters = []
-chapters = ["Chapter 8"]
+title = "다음 교재·스터디 운영 논의"
+presenters = ["참석자 전원"]
+chapters = []
 status = "scheduled"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32"
 
