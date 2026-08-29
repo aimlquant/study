@@ -191,7 +191,28 @@
       "title": "Chapter 6. 일중 거래와 시장 미시구조"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-29-ch07/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-29-ch07/"
+        },
+        {
+          "kind": "other",
+          "label": "개인 투자자 응용 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-29-ch07/report-personal-investor.html"
+        },
+        {
+          "kind": "other",
+          "label": "개인 투자자 응용 발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-29-ch07/index-personal-investor.html"
+        }
+      ],
       "chapters": [
         "Chapter 7"
       ],
@@ -203,7 +224,7 @@
       "presenters": [
         "재익"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 7. 개체명 중의성 해소"
     },
