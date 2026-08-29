@@ -1,0 +1,21 @@
+study_id = "kg-llm-in-action-2026"
+session_id = "2026-08-29-ch07"
+title = "개체명 중의성 해소"
+date = "2026-08-29"
+presenters = ["재익"]
+chapters = ["Chapter 7"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+source_fidelity = "source-structure-v1"
+source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_07_named_entity_disambiguation/07_named_entity_disambiguation_ko_explained.md"
+
+[[retained_alternate_html]]
+path = "report-personal-investor.html"
+reason = "Chapter 7의 NED 개념을 개인 투자자의 관심 종목 뉴스 정리에 적용한 별도 응용 리포트다. 교재 충실본의 canonical 진입점은 report.html이며 이 파일은 응용 학습용으로 병행 보존한다."
+
+[[retained_alternate_html]]
+path = "index-personal-investor.html"
+reason = "개인 투자자용 응용 리포트에서 파생한 별도 발표 덱이다. 교재 충실본의 canonical 슬라이드 진입점은 index.html이며 이 파일은 응용 학습용으로 병행 보존한다."
