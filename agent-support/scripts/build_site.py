@@ -562,6 +562,9 @@ def render_session_card(
     prefix: str = "",
 ) -> str:
     chapters = " · ".join(session.get("chapters", []))
+    chapter_meta = (
+        f'<span>{html.escape(chapters)}</span>' if chapters else ""
+    )
     time_and_venue = (
         f"{study['start_time']}–{study['end_time']} · {study['venue']}"
     )
@@ -572,7 +575,7 @@ def render_session_card(
         f'<p class="eyebrow">{html.escape(str(session["date"]))}</p>'
         f'<h3>{html.escape(session["title"])}</h3>'
         '<div class="session-card-meta">'
-        f'<span>{html.escape(chapters)}</span>'
+        f'{chapter_meta}'
         f'<span>{html.escape(time_and_venue)}</span>'
         f'<span>발표: {html.escape(presenter_label(session))}</span>'
         "</div>"
@@ -619,14 +622,19 @@ def render_schedule_row(
         )
     )
     chapters = " · ".join(session.get("chapters", []))
+    chapter_label = (
+        '\n            <span class="schedule-chapters">'
+        f'{html.escape(chapters)}</span>'
+        if chapters
+        else ""
+    )
     return f"""        <div class="schedule-row">
           <div class="schedule-when">
             <strong>{html.escape(str(session["date"]))}</strong>
             <span>{html.escape(study["start_time"])}–{html.escape(study["end_time"])}</span>
           </div>
           <div class="schedule-topic">
-            <span class="badge badge--{session["status"]}">{status_label(session["status"])}</span>
-            <span class="schedule-chapters">{html.escape(chapters)}</span>
+            <span class="badge badge--{session["status"]}">{status_label(session["status"])}</span>{chapter_label}
             <a href="{prefix}sessions/{session["id"]}/">{html.escape(session["title"])}</a>
           </div>
           <div class="schedule-presenter"><span class="schedule-mobile-label">발표</span>{html.escape(presenter_label(session))}</div>

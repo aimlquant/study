@@ -51,7 +51,7 @@ html/             # GitHub Pages 배포 산출물
 
 - [Quant 전체 일정](https://aimlquant.github.io/study/studies/machine-trading/#schedule): 08:00–10:00, 2026-07-25~2026-09-12
 - [AI/ML 전체 일정](https://aimlquant.github.io/study/studies/knowledge-graphs-and-llms-in-action/#schedule): 09:00–10:00, 2026-07-25~2026-10-24
-- Quant 발표자: 정훈, 종훈, 태호, 태영, 핀조이, 원미 (미정 1회)
+- Quant 발표자: 정훈, 종훈, 태호, 태영, 핀조이, 원미. 9월 12일 운영 논의는 참석자 전원
 - AI/ML 발표자: 수경, 태영, 종훈(S), 두균, 종훈(L), 재익, 태호, 정훈 (미정 6회)
 
 ### Quant · Machine Trading
@@ -65,7 +65,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-08-22 | 08:00–10:00 | Chapter 5 | 핀조이 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-08-22-machine-trading-ch05/) |
 | 2026-08-29 | 08:00–10:00 | Chapter 6 | 원미 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-29-machine-trading-ch06/) |
 | 2026-08-29 | 08:00–10:00 | Chapter 7 | 원미 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-29-machine-trading-ch07/) |
-| 2026-09-12 | 08:00–10:00 | Chapter 8 | 미정 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-ch08/) |
+| 2026-09-12 | 08:00–10:00 | 다음 교재·스터디 운영 논의 | 참석자 전원 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/) |
 
 ### AI/ML · Knowledge Graphs and LLMs in Action
 

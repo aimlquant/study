@@ -568,6 +568,21 @@ class RealRegistryTest(unittest.TestCase):
         self.assertEqual(counts["kg-llm-in-action-2026"], 14)
         self.assertEqual(len(sessions), 22)
 
+        machine_trading = next(
+            study
+            for study in studies
+            if study["id"] == "machine-trading-2026"
+        )
+        self.assertNotIn("Chapter 8", machine_trading["planned_chapters"])
+        discussion = next(
+            session
+            for session in sessions
+            if session["id"]
+            == "2026-09-12-machine-trading-next-study-discussion"
+        )
+        self.assertEqual(discussion["chapters"], [])
+        self.assertEqual(discussion["presenters"], ["참석자 전원"])
+
     def test_root_page_lists_every_public_session(self) -> None:
         site, studies, sessions = build_site.load_model(
             build_site.DEFAULT_SITE_CONFIG,

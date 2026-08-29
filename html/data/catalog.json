@@ -87,18 +87,18 @@
     },
     {
       "artifacts": [],
-      "chapters": [
-        "Chapter 8"
-      ],
+      "chapters": [],
       "date": "2026-09-12",
-      "id": "2026-09-12-machine-trading-ch08",
+      "id": "2026-09-12-machine-trading-next-study-discussion",
       "meeting_status": "available",
       "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32",
-      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-ch08/",
-      "presenters": [],
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/",
+      "presenters": [
+        "참석자 전원"
+      ],
       "status": "scheduled",
       "study_id": "machine-trading-2026",
-      "title": "Chapter 8. 알고리즘 트레이딩은 몸과 마음에 이롭다"
+      "title": "다음 교재·스터디 운영 논의"
     },
     {
       "artifacts": [],
@@ -649,8 +649,7 @@
         "Chapter 4",
         "Chapter 5",
         "Chapter 6",
-        "Chapter 7",
-        "Chapter 8"
+        "Chapter 7"
       ],
       "presentation_path": "html/studies/machine-trading",
       "slug": "machine-trading",
