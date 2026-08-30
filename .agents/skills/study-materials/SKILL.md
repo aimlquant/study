@@ -13,6 +13,16 @@ Each textbook carries its own `study.toml` and `.venv`; the shared tooling
 lives once in `agent-support/studykit/`. Never copy `studykit` into a
 textbook folder.
 
+Choose the notebook mode before generating anything. Use the standard
+listing-reproduction flow below when book listings map to chapter source and
+the goal is to execute or explain those listings. If the official companion
+repository already contains a large, complete chapter corpus whose full run
+requires APIs, GPUs, or large datasets, use the source-map flow described in
+`agent-support/procedures/study-materials.md`: preserve the official snapshot,
+link to its Jupytext source, and build small deterministic chapter guides from
+a book-local manifest and harness. Do not claim that those guides reproduced
+the heavy official results.
+
 Use the CLIs rather than hand-rolling equivalents:
 
 ```bash
@@ -31,6 +41,14 @@ Build notebooks only for chapters that have code in `src`. Generate the skeleton
 Check external service requirements per chapter before promising execution. Neo4j editions and plugins can be mutually exclusive — `n10s` crashes on Enterprise while `seedUri` and `IS NODE KEY` require it — so plan container switching. Enterprise evaluation use is free, but the user must accept the licence themselves. Route OpenAI-dependent listings through the endpoint named by `[llm].env_file`, which is referenced from outside the repository so no secret is copied in, and override hard-coded model constants at runtime instead of editing upstream files.
 
 Run the verification gate before reporting anything complete. `--lint` and the default completion gate differ; a `draft` notebook only needs lint, so without that distinction a partial notebook reports as passing.
+
+For a book-local source-map harness, require the same completion evidence:
+the chapter set and source pin match their catalogs, every notebook source
+matches its generator, relative links resolve, all code cells have clean
+saved outputs, and provenance hashes cover the explainer, source README,
+manifest, harness, builder, and dependency lock. Refresh notebooks one at a
+time through temporary files so a failure does not overwrite the last good
+notebook or multiply memory use.
 
 ```bash
 python3 agent-support/scripts/study-verify.py "materials/<track>/active/<study-slug>"
