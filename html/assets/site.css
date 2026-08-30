@@ -708,6 +708,33 @@ section > h2::after {
   font-weight: 700;
 }
 
+.session-discussion-points {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.session-discussion-points li {
+  position: relative;
+  padding: 13px 16px 13px 42px;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+.session-discussion-points li::before {
+  position: absolute;
+  top: 13px;
+  left: 16px;
+  color: var(--primary);
+  font-weight: 900;
+  content: "→";
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

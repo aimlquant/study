@@ -3644,6 +3644,16 @@ html.reader-size-large .continuous-mode {
   }
 }
 
+/* Exact-width QA mode for guarded headless Chrome's 500px minimum window.
+   Real readers never receive this data attribute. */
+html[data-qa-viewport-width],
+html[data-qa-viewport-width] body,
+html[data-qa-viewport-width] .continuous-mode {
+  width: var(--qa-viewport-width) !important;
+  max-width: var(--qa-viewport-width) !important;
+}
+html[data-qa-viewport-width] .report-settings { right: auto; left: calc(var(--qa-viewport-width) - 60px); }
+
 
 /* AIML Quant project adaptation: external-font-free and accessible skip link */
 :root {

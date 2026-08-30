@@ -138,6 +138,35 @@ class SiteRenderingTest(unittest.TestCase):
         self.assertIn("발표자료", page)
         self.assertNotIn("youtube.com/embed/", page)
 
+    def test_optional_session_brief_is_rendered_as_discussion_context(self) -> None:
+        session = {
+            "id": "2026-08-01-machine-trading-ch02",
+            "study_id": "machine-trading-2026",
+            "date": "2026-08-01",
+            "title": "다음 스터디 운영 논의",
+            "presenters": ["참석자 전원"],
+            "chapters": [],
+            "status": "materials-published",
+            "summary": "교재의 범위와 완주 방식을 함께 결정합니다.",
+            "discussion_points": [
+                "세 운영안을 비교합니다.",
+                "실행 깊이와 역할을 정합니다.",
+            ],
+            "artifacts": [],
+        }
+
+        files = build_site.render_files(SITE, STUDIES, [session])
+        page = files[
+            Path("sessions")
+            / "2026-08-01-machine-trading-ch02"
+            / "index.html"
+        ]
+
+        self.assertIn("논의 안내", page)
+        self.assertIn("교재의 범위와 완주 방식을", page)
+        self.assertIn('class="session-discussion-points"', page)
+        self.assertIn("세 운영안을 비교합니다.", page)
+
     def test_schedule_and_presenter_are_visible_in_lists_and_catalog(self) -> None:
         session = {
             "id": "2026-08-01-machine-trading-ch02",

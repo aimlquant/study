@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+  <title id="title">여섯 파트와 하나의 연구 피드백 루프</title><desc id="desc">기초와 데이터에서 운영까지 이어지고 운영 증거가 다시 연구 질문으로 돌아온다.</desc>
+  <defs><marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#2563eb"/></marker><marker id="back" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#0f2c59"/></marker></defs>
+  <style>text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}.n{font-size:17px;font-weight:800;fill:#2563eb}.h{font-size:24px;font-weight:900;fill:#101114}.b{font-size:16px;fill:#596170}.feedback{font-size:18px;font-weight:800;fill:#0f2c59}</style>
+  <rect width="1200" height="470" rx="28" fill="#f7f9fc"/>
+  <g stroke="#2563eb" stroke-width="5" fill="none" marker-end="url(#arrow)"><line x1="230" y1="191" x2="250" y2="191"/><line x1="410" y1="191" x2="430" y2="191"/><line x1="590" y1="191" x2="610" y2="191"/><line x1="770" y1="191" x2="790" y2="191"/><line x1="950" y1="191" x2="970" y2="191"/></g>
+  <g transform="translate(70 120)"><rect width="160" height="142" rx="16" fill="#fff" stroke="#b8c4d6"/><text x="20" y="36" class="n">01 · Ch1–5</text><text x="20" y="76" class="h">기초·데이터</text><text x="20" y="108" class="b">시점과 식별자</text></g>
+  <g transform="translate(250 120)"><rect width="160" height="142" rx="16" fill="#fff" stroke="#b8c4d6"/><text x="20" y="36" class="n">02 · Ch6–10</text><text x="20" y="76" class="h">특징</text><text x="20" y="108" class="b">레이블과 split</text></g>
+  <g transform="translate(430 120)"><rect width="160" height="142" rx="16" fill="#fff" stroke="#b8c4d6"/><text x="20" y="36" class="n">03 · Ch11–15</text><text x="20" y="76" class="h">모델</text><text x="20" y="108" class="b">기준선과 OOS</text></g>
+  <g transform="translate(610 120)"><rect width="160" height="142" rx="16" fill="#fff" stroke="#b8c4d6"/><text x="20" y="36" class="n">04 · Ch16–20</text><text x="20" y="76" class="h">전략</text><text x="20" y="108" class="b">비용과 위험</text></g>
+  <g transform="translate(790 120)"><rect width="160" height="142" rx="16" fill="#fff" stroke="#b8c4d6"/><text x="20" y="36" class="n">05 · Ch21–24</text><text x="20" y="76" class="h">고급 AI</text><text x="20" y="108" class="b">증분 가치</text></g>
+  <g transform="translate(970 120)"><rect width="160" height="142" rx="16" fill="#eaf0fa" stroke="#0f2c59" stroke-width="2"/><text x="20" y="36" class="n">06 · Ch25–27</text><text x="20" y="76" class="h">운영</text><text x="20" y="108" class="b">감시와 중단</text></g>
+  <path d="M1050 262 V350 Q1050 390 1010 390 H190 Q150 390 150 350 V262" fill="none" stroke="#0f2c59" stroke-width="5" marker-end="url(#back)"/>
+  <rect x="395" y="342" width="410" height="58" rx="29" fill="#fff" stroke="#0f2c59"/><text x="600" y="378" text-anchor="middle" class="feedback">운영 증거 → 연구 질문·데이터·가정 수정</text>
+  <text x="70" y="70" class="feedback">목차가 아니라 검증 가능한 연구 과정으로 읽는다</text>
+</svg>

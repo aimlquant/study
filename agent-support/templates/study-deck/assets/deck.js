@@ -1,8 +1,17 @@
 (function () {
   "use strict";
 
+  const params = new URLSearchParams(window.location.search);
   const allSlides = Array.from(document.querySelectorAll(".slide"));
-  const includeAppendix = new URLSearchParams(window.location.search).get("appendix") === "1";
+  const includeAppendix = params.get("appendix") === "1";
+  const requestedQaWidth = Number(params.get("qa-width"));
+  const qaWidth = Number.isInteger(requestedQaWidth) && requestedQaWidth >= 320 && requestedQaWidth <= 720
+    ? requestedQaWidth
+    : null;
+  if (qaWidth) {
+    document.documentElement.dataset.qaViewportWidth = String(qaWidth);
+    document.documentElement.style.setProperty("--qa-viewport-width", `${qaWidth}px`);
+  }
   const slides = includeAppendix
     ? allSlides
     : allSlides.filter((slide) => slide.dataset.deckAppendix !== "true");
@@ -167,8 +176,10 @@
   }
 
   function fitStage() {
-    const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    const effectiveWidth = qaWidth || window.innerWidth;
+    const scale = Math.min(effectiveWidth / 1280, window.innerHeight / 720);
     document.documentElement.style.setProperty("--deck-scale", String(scale));
+    document.getElementById("deck").style.left = qaWidth ? `${qaWidth / 2}px` : "50%";
   }
 
   function hideChrome() {

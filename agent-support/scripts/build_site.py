@@ -380,6 +380,22 @@ def load_model(
             or not session["title"].strip()
         ):
             raise ValueError(f"session title is missing: {session_id}")
+        summary = session.get("summary")
+        if summary is not None and (
+            not isinstance(summary, str) or not summary.strip()
+        ):
+            raise ValueError(
+                f"session summary must be a non-empty string: {session_id}"
+            )
+        discussion_points = session.get("discussion_points", [])
+        if not isinstance(discussion_points, list) or any(
+            not isinstance(item, str) or not item.strip()
+            for item in discussion_points
+        ):
+            raise ValueError(
+                "session discussion_points must be a string array: "
+                f"{session_id}"
+            )
         for field in ("presenters", "chapters"):
             values = session.get(field)
             if not isinstance(values, list) or any(
@@ -1004,6 +1020,28 @@ def render_files(
         <p>이 회차는 취소되었습니다. 변경된 일정은 스터디 목록에서 확인해 주세요.</p>
       </div>"""
         presenters = presenter_label(session)
+        summary = session.get("summary")
+        discussion_points = session.get("discussion_points", [])
+        brief = ""
+        if summary:
+            points = "".join(
+                f"<li>{html.escape(item)}</li>"
+                for item in discussion_points
+            )
+            point_list = (
+                f'<ul class="session-discussion-points">{points}</ul>'
+                if points
+                else ""
+            )
+            brief = f"""    <section class="session-brief">
+      <h2>논의 안내</h2>
+      <article class="book">
+        <h3>이 회차에서 함께 결정할 것</h3>
+        <p class="book-summary">{html.escape(summary)}</p>
+        {point_list}
+      </article>
+    </section>
+"""
         body = f"""    <header class="site-masthead">
       <a class="brand-name" href="../../">{html.escape(site["name"])}</a>
       <span class="brand-sub">SESSION ARCHIVE</span>
@@ -1016,7 +1054,7 @@ def render_files(
       <p class="session-venue">장소: {html.escape(study["venue"])} · {html.escape(study["timezone"])}</p>
       {meeting_access}
     </header>
-    <section>
+{brief}    <section>
       <h2>발표자료</h2>
       <div class="actions">{artifacts}</div>
     </section>

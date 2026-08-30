@@ -25,6 +25,15 @@
   window.cycleTheme = function () { window.applyTheme(current === 'dark' ? 'light' : 'dark'); };
   window.applyTheme(current);
 
+  // Chrome headless keeps a 500px minimum layout viewport even when the
+  // requested PNG is 390px wide. QA captures can opt into the exact reader
+  // width without changing ordinary URLs or real-device behavior.
+  var qaWidth = Number(new URLSearchParams(window.location.search).get('qa-width'));
+  if (Number.isInteger(qaWidth) && qaWidth >= 320 && qaWidth <= 720) {
+    document.documentElement.dataset.qaViewportWidth = String(qaWidth);
+    document.documentElement.style.setProperty('--qa-viewport-width', qaWidth + 'px');
+  }
+
   // ===== Floating controls / drawer TOC =====
   function getHeadingLabel(h) {
     return (h.textContent || '').replace(/\s+/g, ' ').trim();

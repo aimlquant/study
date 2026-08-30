@@ -1509,6 +1509,15 @@ body.chrome-hidden .deck-settings {
 html.theme-dark .deck-report-figure img { background: #fafaf9; border-color: #6f7886; }
 html.theme-dark .deck-report-figure figcaption b { color: #fff; background: #0f2c59; }
 
+/* Exact-width QA mode for guarded headless Chrome's 500px minimum window.
+   Real readers never receive this data attribute. */
+html[data-qa-viewport-width] body {
+  width: var(--qa-viewport-width);
+  max-width: var(--qa-viewport-width);
+}
+html[data-qa-viewport-width] .deck-settings { right: auto; left: calc(var(--qa-viewport-width) - 60px); }
+html[data-qa-viewport-width] .deck-controls { right: auto; left: calc(var(--qa-viewport-width) - 136px); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
