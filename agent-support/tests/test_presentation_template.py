@@ -76,6 +76,24 @@ class PresentationTemplateContractTest(unittest.TestCase):
         self.assertIn(".slide.is-deck-omitted", deck_css)
         self.assertIn(".slide--figure-table", deck_css)
 
+    def test_guarded_mobile_capture_can_request_the_exact_layout_width(self) -> None:
+        deck_js = (DECK_TEMPLATE / "assets" / "deck.js").read_text(encoding="utf-8")
+        report_js = (REPORT_TEMPLATE / "assets" / "report.js").read_text(
+            encoding="utf-8"
+        )
+        deck_css = (DECK_TEMPLATE / "assets" / "deck.css").read_text(encoding="utf-8")
+        report_css = (REPORT_TEMPLATE / "assets" / "report.css").read_text(
+            encoding="utf-8"
+        )
+
+        for runtime in (deck_js, report_js):
+            self.assertIn("qa-width", runtime)
+            self.assertIn("qaViewportWidth", runtime)
+            self.assertIn("--qa-viewport-width", runtime)
+        for stylesheet in (deck_css, report_css):
+            self.assertIn("html[data-qa-viewport-width]", stylesheet)
+            self.assertIn("var(--qa-viewport-width)", stylesheet)
+
 
 if __name__ == "__main__":
     unittest.main()

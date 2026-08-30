@@ -86,7 +86,18 @@
       "title": "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "교재·운영 심층 분석",
+          "url": "studies/machine-trading/presentations/2026-09-12-next-study-discussion/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "회의용 발표자료",
+          "url": "studies/machine-trading/presentations/2026-09-12-next-study-discussion/"
+        }
+      ],
       "chapters": [],
       "date": "2026-09-12",
       "id": "2026-09-12-machine-trading-next-study-discussion",
@@ -96,7 +107,7 @@
       "presenters": [
         "참석자 전원"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-trading-2026",
       "title": "다음 교재·스터디 운영 논의"
     },

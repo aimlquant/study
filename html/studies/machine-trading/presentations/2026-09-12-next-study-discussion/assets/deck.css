@@ -1509,8 +1509,53 @@ body.chrome-hidden .deck-settings {
 html.theme-dark .deck-report-figure img { background: #fafaf9; border-color: #6f7886; }
 html.theme-dark .deck-report-figure figcaption b { color: #fff; background: #0f2c59; }
 
-/* Exact-width QA mode for guarded headless Chrome's 500px minimum window.
-   Real readers never receive this data attribute. */
+/* Session-specific discussion layouts. Fixed stage coordinates keep the same
+   fit at desktop and mobile scaling. */
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.phase-grid article {
+  min-height: 245px;
+  padding: 24px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 5px solid var(--primary);
+  border-radius: 12px;
+}
+.phase-grid span { color: var(--primary); font-size: 14px; font-weight: 900; letter-spacing: .08em; }
+.phase-grid h2 { margin: 18px 0 8px; font-size: 23px; }
+.phase-grid p { margin: 0 0 20px; color: var(--muted); font-size: 16px; line-height: 1.45; }
+.phase-grid b { color: var(--text); font-size: 15px; line-height: 1.4; }
+
+.agenda-bar { display: flex; width: 100%; height: 118px; margin-bottom: 22px; overflow: hidden; border-radius: 12px; box-shadow: var(--shadow); }
+.agenda-bar span { display: flex; flex: 0 0 var(--w); min-width: 0; flex-direction: column; align-items: center; justify-content: center; color: #fff; background: var(--c); font-size: 13px; font-weight: 800; }
+.agenda-bar b { display: block; font-size: 25px; line-height: 1; }
+.compact-panels .panel { min-height: 205px; padding: 22px 28px; }
+.compact-panels .panel h2 { margin: 0; font-size: 22px; }
+.compact-panels .panel ul { margin-top: 12px; }
+.compact-panels .panel li { margin: 4px 0; font-size: 15px; }
+
+.resource-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.resource-list article { display: grid; grid-template-columns: 82px 1fr; grid-template-rows: auto auto; min-height: 120px; padding: 22px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.resource-list span { grid-row: 1 / span 2; align-self: center; color: var(--primary); font-size: 13px; font-weight: 950; letter-spacing: .1em; }
+.resource-list h2 { margin: 0; font-size: 22px; }
+.resource-list p { margin: 7px 0 0; color: var(--muted); font-size: 16px; }
+
+.weight-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.weight-grid article { position: relative; min-height: 240px; padding: 25px 20px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.weight-grid article::after { position: absolute; right: 0; bottom: 0; left: 0; height: calc(var(--v) * 1%); max-height: 70px; background: var(--primary-soft); content: ""; }
+.weight-grid b { position: relative; z-index: 1; color: var(--primary); font-size: 38px; }
+.weight-grid h2 { position: relative; z-index: 1; margin: 22px 0 10px; font-size: 21px; }
+.weight-grid p { position: relative; z-index: 1; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
+
+.decision-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.decision-steps li { min-height: 225px; padding: 24px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.decision-steps span { display: inline-block; padding: 7px 10px; color: #fff; background: var(--primary); border-radius: 999px; font-size: 13px; font-weight: 900; }
+.decision-steps b { display: block; margin-top: 24px; font-size: 20px; }
+.decision-steps p { margin: 12px 0 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
+
 html[data-qa-viewport-width] body {
   width: var(--qa-viewport-width);
   max-width: var(--qa-viewport-width);
