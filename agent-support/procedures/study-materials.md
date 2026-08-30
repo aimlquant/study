@@ -20,6 +20,32 @@ python3 agent-support/scripts/study-verify.py "materials/<track>/active/<study-s
 
 게이트가 이미 실패 중이면 그것을 먼저 고친다. 새 작업을 얹지 않는다.
 
+### 먼저 노트북 모드를 고른다
+
+교재 코드의 모양이 다르므로 한 골격을 억지로 적용하지 않는다.
+
+| 모드 | 선택 조건 | 기본 산출물 |
+| --- | --- | --- |
+| 리스팅 재현 | 책 리스팅을 장별 소스에 대응해 실행·해설하는 것이 핵심 | `study.toml` + 공용 `studykit` + 코드가 있는 장의 가이드 |
+| 공식 소스 지도 | 공식 저장소가 장 전체의 노트북·데이터·사례를 이미 제공하지만 전수 실행이 API·GPU·대용량 자료를 요구 | 고정 스냅샷 + 책 로컬 원장·하네스 + 전 장 경량 가이드 |
+
+공식 소스 지도 모드는 리스팅을 다시 싣거나 공식 노트북 수백 개를 기본 Run All에 넣지 않는다.
+`.py`/`.ipynb` Jupytext 쌍이면 `.py`를 코드 정본으로 연결하고, 저장 출력이 있는 공식 노트북은
+읽기 자료로 취급한다. 각 장 가이드는 같은 작은 추적 데이터 또는 고정 시드 합성 자료로 핵심
+함정을 재현하고 비교 등급을 `exact / approximate / conceptual / output-only` 중 하나로 밝힌다.
+코드가 없는 종합 장도 자체 경량 실험이 학습 가치가 있으면 이 모드에서는 가이드를 만들 수 있다.
+
+실측 기준 구현은
+`materials/quant/active/machine-learning-for-trading-3e/notebook-study/`다. 이 구현을 다른
+교재에 통째로 복사하라는 뜻이 아니라, 아래 계약을 재사용하라는 뜻이다.
+
+- 책 장↔공식 소스 장·핵심 질문·데이터·대표 실험·한계를 단일 원장에 둔다.
+- 공식 소스 커밋을 수집 원장과 교차 검사하고, 소스 README·해설판·원장·하네스·생성기·lock의
+  SHA-256을 저장 출력에 남긴다.
+- 안정 셀 ID와 상대링크를 검사하고, 생성기와 노트북 셀 소스가 달라지면 실패시킨다.
+- 전 장 갱신은 병렬화하지 않는다. 한 장씩 임시 파일에서 생성→실행→검증하고 성공 후 교체한다.
+- 대형 공식 실험을 실행하지 않았다면 `conceptual reproduction`처럼 그 경계를 명시한다.
+
 ## 1. 교재 등록과 환경 구축
 
 ```bash
@@ -222,7 +248,8 @@ python3 agent-support/scripts/study-new-notebook.py "materials/<track>/active/<s
 python3 agent-support/scripts/study-new-notebook.py "materials/<track>/active/<study-slug>" ch05
 ```
 
-**노트북은 `src` 에 코드가 있는 챕터에만 만든다.** 코드가 없으면 실행할 것이 없다.
+리스팅 재현 모드에서는 **`src` 에 코드가 있는 챕터에만 만든다.** 공식 소스 지도 모드의
+전 장 경량 가이드는 위 0절의 별도 계약을 따른다.
 
 생성 직후 `metadata.studykit.status = "draft"` 이므로 게이트가 lint 만 본다. 서술을 채우고
 `listing_coverage` 를 선언한 뒤 `complete` 로 바꾼다.
