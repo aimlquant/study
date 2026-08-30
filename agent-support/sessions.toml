@@ -220,7 +220,7 @@ title = "다음 교재·스터디 운영 논의"
 presenters = ["참석자 전원"]
 chapters = []
 status = "video-public"
-youtube_video_id = "Z6WALq9JE3A"
+youtube_video_id = "pG8Oh41rrAI"
 summary = "Machine Learning for Trading 3판의 27개 장을 소수 인원이 소화할 수 있도록 회차당 한 사람 발표, 질의 포함 60분, 회차당 최대 한 장을 고정 조건으로 삼습니다. 기존의 한국어 해설·주피터 노트북·HTML 리포트·발표자료·YouTube 방식은 유지하되, 오리엔테이션 1회와 장별 27회, 회고 1회의 29회 과정과 발표 순환을 논의합니다."
 discussion_points = [
   "오리엔테이션 1회, 장별 27회, 회고 1회의 29회 과정을 주간 또는 격주로 운영할지 정합니다.",
