@@ -3938,15 +3938,22 @@ svg.report-lightbox__visual {
 .path-fold__head { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
 .path-fold__title { font-size: 12pt; font-weight: 800; color: var(--text); }
 .path-fold__meta { font-size: 9.5pt; font-weight: 600; color: var(--text-secondary); }
+/* CSS 보더 삼각형 셰브론 — 유니코드 삼각형(▸·▾)은 한글 폰트 스택에서 방향이
+ * 다른 글리프로 폴백되고, 인라인 SVG 는 `.continuous-mode svg` 의
+ * `width: 100% !important` 에 잡혀 요약 줄을 깨뜨린다. 도형을 보더로 직접 그려
+ * 폰트·전역 SVG 규칙 어느 쪽에도 의존하지 않게 한다.
+ * 닫힘은 아래(펼치기), 열림은 180도 회전해 위(접기). */
 .path-fold__chevron {
   flex: 0 0 auto;
+  width: 0;
+  height: 0;
   margin-left: auto;
-  color: var(--brand-primary);
-  font-size: 11pt;
-  font-weight: 800;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-top: 6px solid var(--brand-primary);
   transition: transform 0.15s ease;
 }
-.path-fold[open] > summary .path-fold__chevron { transform: rotate(90deg); }
+.path-fold[open] > summary .path-fold__chevron { transform: rotate(180deg); }
 .path-fold__body { padding: 0 14px 12px; }
 .path-fold__body > :first-child { margin-top: 0; }
 .path-fold__inline {
