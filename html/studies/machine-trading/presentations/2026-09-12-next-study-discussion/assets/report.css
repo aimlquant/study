@@ -3894,3 +3894,120 @@ svg.report-lightbox__visual {
     page-break-inside: auto !important;
   }
 }
+
+/* =========================================================================
+ * PATH FOLD — Section 09 회차 커리큘럼 접기 영역 (이 회차 전용 스냅샷 추가)
+ * 세 경로의 회차 표를 모두 펼치면 본문 흐름을 덮으므로 details/summary 로 접는다.
+ * 공용 study-report-v1 템플릿에는 아직 없는 컴포넌트이며, 인쇄에서는 접힘 상태와
+ * 무관하게 전부 펼쳐 A4 부록으로 남긴다.
+ * ========================================================================= */
+.path-fold {
+  margin-top: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--brand-primary);
+  border-radius: 0 8px 8px 0;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+.path-fold > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  cursor: pointer;
+  list-style: none;
+}
+.path-fold > summary::-webkit-details-marker { display: none; }
+.path-fold > summary:hover { background: var(--surface-hover); }
+.path-fold > summary:focus-visible { outline: 2px solid var(--accent-secondary); outline-offset: -2px; }
+.path-fold__badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--brand-primary);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 12pt;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+.path-fold__head { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
+.path-fold__title { font-size: 12pt; font-weight: 800; color: var(--text); }
+.path-fold__meta { font-size: 9.5pt; font-weight: 600; color: var(--text-secondary); }
+.path-fold__chevron {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--brand-primary);
+  font-size: 11pt;
+  font-weight: 800;
+  transition: transform 0.15s ease;
+}
+.path-fold[open] > summary .path-fold__chevron { transform: rotate(90deg); }
+.path-fold__body { padding: 0 14px 12px; }
+.path-fold__body > :first-child { margin-top: 0; }
+.path-fold__inline {
+  display: inline-block;
+  margin-top: 2px;
+  color: var(--text-secondary);
+  font-size: 9pt;
+  font-weight: 600;
+}
+.path-fold__note {
+  margin-top: 10px;
+  padding: 9px 12px;
+  background: var(--brand-soft);
+  border-radius: 6px;
+  font-size: 10pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+/* 좁은 화면 — 접기 영역은 `.report-section > *` 폭 상한 밖에 있으므로
+ * 같은 계약을 fold 본문에 직접 준다. 없으면 5칼럼 회차 표의 마지막 칼럼이
+ * `.continuous-mode { overflow-x: hidden }` 아래에서 잘려 읽을 수 없게 된다. */
+@media (max-width: 720px) {
+  .continuous-mode .path-fold,
+  .continuous-mode .path-fold__body > * {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  .continuous-mode .path-fold__body { padding-left: 0; padding-right: 0; }
+  .continuous-mode .path-fold__body > p,
+  .continuous-mode .path-fold__body > .path-fold__note,
+  .continuous-mode .path-fold__body > figure { margin-left: 10px; margin-right: 10px; }
+  .continuous-mode .path-fold > summary { padding-left: 10px; padding-right: 10px; }
+  /* 5칼럼 회차 표는 좁은 화면에서 최소 폭이 본문보다 넓다. 문서 전체가 아니라
+   * 표만 가로 스크롤하게 해서 마지막 칼럼이 잘리지 않게 한다. */
+  .continuous-mode .path-fold__scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+@media print {
+  .path-fold__scroll { overflow: visible !important; }
+}
+/* 회차 배치 표는 부록성 장문 표다 — s7 과 같은 분할 허용 계약을 써서
+ * break-inside: avoid 가 29행 표를 다음 페이지로 통째 밀어내며 만드는 공란을 막는다. */
+.path-fold table.cmp-table {
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+.path-fold table.cmp-table thead { display: table-header-group; }
+.path-fold table.cmp-table tr {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+@media print {
+  .path-fold > summary { cursor: default; }
+  .path-fold__chevron { display: none; }
+  /* Chrome 은 닫힌 details 본문을 ::details-content 의 content-visibility 로
+   * 숨긴다. 인쇄본은 접힘 여부와 무관하게 세 경로를 모두 실어야 한다. */
+  .path-fold::details-content {
+    content-visibility: visible !important;
+    block-size: auto !important;
+  }
+}

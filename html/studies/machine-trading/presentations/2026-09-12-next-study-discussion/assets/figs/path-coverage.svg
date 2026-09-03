@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 296" role="img" aria-labelledby="title desc">
+<title id="title">경로별 27장 공통 진도 커버리지</title><desc id="desc">27개 장을 여섯 파트로 묶고, A·B·C 세 경로가 각 장을 전용 회차로 다루는지, 다른 회차 안에서 부분만 인용하는지, 선택 읽기로 남기는지를 칸 상태로 비교한다.</desc>
+<style>text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}.band{font-size:16px;font-weight:800;fill:#ffffff}.chnum{font-size:17px;font-weight:700;fill:#5f6673}.rowname{font-size:16px;font-weight:800;fill:#101114}.rowmeta{font-size:13px;font-weight:600;fill:#5f6673}.leg{font-size:15px;font-weight:600;fill:#5f6673}.an-s{text-anchor:start}.an-m{text-anchor:middle}</style>
+<rect width="1200" height="296" rx="28" fill="#f7f9fc"/>
+<rect x="270" y="34" width="156" height="34" rx="8" fill="#0f2c59"/><text class="band an-m" x="348.0" y="57">기초·데이터</text>
+<rect x="430" y="34" width="156" height="34" rx="8" fill="#1e40af"/><text class="band an-m" x="508.0" y="57">특징</text>
+<rect x="590" y="34" width="156" height="34" rx="8" fill="#2563eb"/><text class="band an-m" x="668.0" y="57">모델</text>
+<rect x="750" y="34" width="156" height="34" rx="8" fill="#0891b2"/><text class="band an-m" x="828.0" y="57">전략</text>
+<rect x="910" y="34" width="124" height="34" rx="8" fill="#7c3aed"/><text class="band an-m" x="972.0" y="57">고급 AI</text>
+<rect x="1038" y="34" width="92" height="34" rx="8" fill="#059669"/><text class="band an-m" x="1084.0" y="57">운영</text>
+<text class="chnum an-m" x="284.0" y="90">1</text>
+<text class="chnum an-m" x="316.0" y="90">2</text>
+<text class="chnum an-m" x="348.0" y="90">3</text>
+<text class="chnum an-m" x="380.0" y="90">4</text>
+<text class="chnum an-m" x="412.0" y="90">5</text>
+<text class="chnum an-m" x="444.0" y="90">6</text>
+<text class="chnum an-m" x="476.0" y="90">7</text>
+<text class="chnum an-m" x="508.0" y="90">8</text>
+<text class="chnum an-m" x="540.0" y="90">9</text>
+<text class="chnum an-m" x="572.0" y="90">10</text>
+<text class="chnum an-m" x="604.0" y="90">11</text>
+<text class="chnum an-m" x="636.0" y="90">12</text>
+<text class="chnum an-m" x="668.0" y="90">13</text>
+<text class="chnum an-m" x="700.0" y="90">14</text>
+<text class="chnum an-m" x="732.0" y="90">15</text>
+<text class="chnum an-m" x="764.0" y="90">16</text>
+<text class="chnum an-m" x="796.0" y="90">17</text>
+<text class="chnum an-m" x="828.0" y="90">18</text>
+<text class="chnum an-m" x="860.0" y="90">19</text>
+<text class="chnum an-m" x="892.0" y="90">20</text>
+<text class="chnum an-m" x="924.0" y="90">21</text>
+<text class="chnum an-m" x="956.0" y="90">22</text>
+<text class="chnum an-m" x="988.0" y="90">23</text>
+<text class="chnum an-m" x="1020.0" y="90">24</text>
+<text class="chnum an-m" x="1052.0" y="90">25</text>
+<text class="chnum an-m" x="1084.0" y="90">26</text>
+<text class="chnum an-m" x="1116.0" y="90">27</text>
+<rect x="60" y="98" width="196" height="44" rx="8" fill="#ffffff" stroke="#dfe2e7"/><text class="rowname an-s" x="74" y="118">A · 전권 순차형</text><text class="rowmeta an-s" x="74" y="135">전용 27장 · 총 29회</text>
+<rect x="270" y="105" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="302" y="105" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="334" y="105" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="366" y="105" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="398" y="105" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="430" y="105" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="462" y="105" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="494" y="105" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="526" y="105" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="558" y="105" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="590" y="105" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="622" y="105" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="654" y="105" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="686" y="105" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="718" y="105" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="750" y="105" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="782" y="105" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="814" y="105" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="846" y="105" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="878" y="105" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="910" y="105" width="28" height="30" rx="5" fill="#7c3aed"/>
+<rect x="942" y="105" width="28" height="30" rx="5" fill="#7c3aed"/>
+<rect x="974" y="105" width="28" height="30" rx="5" fill="#7c3aed"/>
+<rect x="1006" y="105" width="28" height="30" rx="5" fill="#7c3aed"/>
+<rect x="1038" y="105" width="28" height="30" rx="5" fill="#059669"/>
+<rect x="1070" y="105" width="28" height="30" rx="5" fill="#059669"/>
+<rect x="1102" y="105" width="28" height="30" rx="5" fill="#059669"/>
+<rect x="60" y="146" width="196" height="44" rx="8" fill="#ffffff" stroke="#dfe2e7"/><text class="rowname an-s" x="74" y="166">B · 핵심선택형</text><text class="rowmeta an-s" x="74" y="183">전용 20장 · 총 22회</text>
+<rect x="270" y="153" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="302" y="153" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="334" y="153" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="366" y="153" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="398" y="153" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="430" y="153" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="462" y="153" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="494" y="153" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="526" y="153" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="558" y="153" width="28" height="30" rx="5" fill="#1e40af" fill-opacity="0.3" stroke="#1e40af" stroke-width="1.5"/>
+<rect x="590" y="153" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="622" y="153" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="654" y="153" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="686" y="153" width="28" height="30" rx="5" fill="#2563eb" fill-opacity="0.3" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="718" y="153" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="750" y="153" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="782" y="153" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="814" y="153" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="846" y="153" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="878" y="153" width="28" height="30" rx="5" fill="#0891b2" fill-opacity="0.3" stroke="#0891b2" stroke-width="1.5"/>
+<rect x="910" y="153" width="28" height="30" rx="5" fill="#7c3aed"/>
+<rect x="942" y="153" width="28" height="30" rx="5" fill="#7c3aed"/>
+<rect x="974" y="153" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="1006" y="153" width="28" height="30" rx="5" fill="#7c3aed"/>
+<rect x="1038" y="153" width="28" height="30" rx="5" fill="#059669"/>
+<rect x="1070" y="153" width="28" height="30" rx="5" fill="#059669"/>
+<rect x="1102" y="153" width="28" height="30" rx="5" fill="#059669"/>
+<rect x="60" y="194" width="196" height="44" rx="8" fill="#ffffff" stroke="#dfe2e7"/><text class="rowname an-s" x="74" y="214">C · 전략구축형</text><text class="rowmeta an-s" x="74" y="231">전용 14장 · 총 16회</text>
+<rect x="270" y="201" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="302" y="201" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="334" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="366" y="201" width="28" height="30" rx="5" fill="#0f2c59"/>
+<rect x="398" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="430" y="201" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="462" y="201" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="494" y="201" width="28" height="30" rx="5" fill="#1e40af"/>
+<rect x="526" y="201" width="28" height="30" rx="5" fill="#1e40af" fill-opacity="0.3" stroke="#1e40af" stroke-width="1.5"/>
+<rect x="558" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="590" y="201" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="622" y="201" width="28" height="30" rx="5" fill="#2563eb"/>
+<rect x="654" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="686" y="201" width="28" height="30" rx="5" fill="#2563eb" fill-opacity="0.3" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="718" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="750" y="201" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="782" y="201" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="814" y="201" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="846" y="201" width="28" height="30" rx="5" fill="#0891b2"/>
+<rect x="878" y="201" width="28" height="30" rx="5" fill="#0891b2" fill-opacity="0.3" stroke="#0891b2" stroke-width="1.5"/>
+<rect x="910" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="942" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="974" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="1006" y="201" width="28" height="30" rx="5" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="1038" y="201" width="28" height="30" rx="5" fill="#059669"/>
+<rect x="1070" y="201" width="28" height="30" rx="5" fill="#059669"/>
+<rect x="1102" y="201" width="28" height="30" rx="5" fill="#059669" fill-opacity="0.3" stroke="#059669" stroke-width="1.5"/>
+<rect x="270" y="256" width="18" height="18" rx="4" fill="#2563eb"/><text class="leg an-s" x="296" y="270">전용 회차</text>
+<rect x="500" y="256" width="18" height="18" rx="4" fill="#2563eb" fill-opacity="0.3" stroke="#2563eb" stroke-width="1.5"/><text class="leg an-s" x="526" y="270">부분 인용</text>
+<rect x="730" y="256" width="18" height="18" rx="4" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1.5"/><text class="leg an-s" x="756" y="270">선택 읽기</text>
+</svg>
