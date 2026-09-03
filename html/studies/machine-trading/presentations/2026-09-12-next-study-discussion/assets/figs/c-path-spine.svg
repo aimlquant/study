@@ -1,47 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 544" role="img" aria-labelledby="title desc">
 <title id="title">전략구축형 16회의 누적 산출물 사슬</title><desc id="desc">오리엔테이션에서 연구 질문을 고정한 뒤 데이터 계약, 학습 과제와 특징, 기준선과 모델, 백테스트와 비중, 비용과 위험, 모의거래 운영으로 회차가 이어지고 마지막 회차에서 결과를 종합한다.</desc>
-<style>text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}.turn{font-size:16px;font-weight:800;fill:#ffffff}.chap{font-size:16px;font-weight:700}.gain{font-size:15px;font-weight:600;fill:#101114}.flow{fill:none;stroke:#94a3b8;stroke-width:2.4}.spine{fill:none;stroke:#cbd5e1;stroke-width:3}.tick{stroke:#cbd5e1;stroke-width:2}.an-s{text-anchor:start}.an-m{text-anchor:middle}</style>
-<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#94a3b8"/></marker><marker id="arwSpine" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#cbd5e1"/></marker></defs>
+<style>text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}.turn{font-size:18px;font-weight:800;fill:#ffffff}.chap{font-size:18px;font-weight:700}.gain{font-size:17px;font-weight:600;fill:#101114}.flow{fill:none;stroke:#94a3b8;stroke-width:2.4}.spine{fill:none;stroke:#cbd5e1;stroke-width:3}.tick{stroke:#cbd5e1;stroke-width:2}.an-s{text-anchor:start}.an-m{text-anchor:middle}</style>
+<defs><marker id="arw" markerUnits="userSpaceOnUse" viewBox="0 0 13 12" refX="12" refY="6" markerWidth="13" markerHeight="12" orient="auto"><path d="M0 0.5 L12.5 6 L0 11.5 Z" fill="#94a3b8"/></marker><marker id="arwSpine" markerUnits="userSpaceOnUse" viewBox="0 0 13 12" refX="12" refY="6" markerWidth="13" markerHeight="12" orient="auto"><path d="M0 0.5 L12.5 6 L0 11.5 Z" fill="#cbd5e1"/></marker></defs>
 <rect width="1200" height="544" rx="28" fill="#f7f9fc"/>
 <path class="spine" d="M112,40 L112,510" marker-end="url(#arwSpine)"/>
 <line class="tick" x1="112" y1="70" x2="140" y2="70"/>
 <rect x="140" y="48" width="116" height="44" rx="8" fill="#475569"/><text class="turn an-m" x="198" y="76">1회</text>
 <rect x="268" y="48" width="212" height="44" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/><text class="chap an-m" x="374" y="76" fill="#475569">오리엔테이션</text>
-<path class="flow" d="M492,70 L524,70" marker-end="url(#arw)"/>
+<path class="flow" d="M492,70 L532,70" marker-end="url(#arw)"/>
 <rect x="532" y="48" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="76">공통 연구 질문 한 문장과 성공 기준</text>
 <line class="tick" x1="112" y1="126" x2="140" y2="126"/>
 <rect x="140" y="104" width="116" height="44" rx="8" fill="#0f2c59"/><text class="turn an-m" x="198" y="132">2–4회</text>
 <rect x="268" y="104" width="212" height="44" rx="8" fill="#ffffff" stroke="#0f2c59" stroke-width="1.5"/><text class="chap an-m" x="374" y="132" fill="#0f2c59">Ch1 · Ch2 · Ch4</text>
-<path class="flow" d="M492,126 L524,126" marker-end="url(#arw)"/>
+<path class="flow" d="M492,126 L532,126" marker-end="url(#arw)"/>
 <rect x="532" y="104" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="132">데이터 계약과 시점성 점검 목록</text>
 <line class="tick" x1="112" y1="182" x2="140" y2="182"/>
 <rect x="140" y="160" width="116" height="44" rx="8" fill="#1e40af"/><text class="turn an-m" x="198" y="188">5–7회</text>
 <rect x="268" y="160" width="212" height="44" rx="8" fill="#ffffff" stroke="#1e40af" stroke-width="1.5"/><text class="chap an-m" x="374" y="188" fill="#1e40af">Ch6 · Ch7 · Ch8</text>
-<path class="flow" d="M492,182 L524,182" marker-end="url(#arw)"/>
+<path class="flow" d="M492,182 L532,182" marker-end="url(#arw)"/>
 <rect x="532" y="160" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="188">거래 설정 · 학습 과제 명세 · 특징 사전</text>
 <line class="tick" x1="112" y1="238" x2="140" y2="238"/>
 <rect x="140" y="216" width="116" height="44" rx="8" fill="#2563eb"/><text class="turn an-m" x="198" y="244">8–9회</text>
 <rect x="268" y="216" width="212" height="44" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/><text class="chap an-m" x="374" y="244" fill="#2563eb">Ch11 · Ch12</text>
-<path class="flow" d="M492,238 L524,238" marker-end="url(#arw)"/>
+<path class="flow" d="M492,238 L532,238" marker-end="url(#arw)"/>
 <rect x="532" y="216" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="244">기준선 성과와 모델 카드</text>
 <line class="tick" x1="112" y1="294" x2="140" y2="294"/>
 <rect x="140" y="272" width="116" height="44" rx="8" fill="#0891b2"/><text class="turn an-m" x="198" y="300">10–11회</text>
 <rect x="268" y="272" width="212" height="44" rx="8" fill="#ffffff" stroke="#0891b2" stroke-width="1.5"/><text class="chap an-m" x="374" y="300" fill="#0891b2">Ch16 · Ch17</text>
-<path class="flow" d="M492,294 L524,294" marker-end="url(#arw)"/>
+<path class="flow" d="M492,294 L532,294" marker-end="url(#arw)"/>
 <rect x="532" y="272" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="300">백테스트 프로토콜과 비중 규칙</text>
 <line class="tick" x1="112" y1="350" x2="140" y2="350"/>
 <rect x="140" y="328" width="116" height="44" rx="8" fill="#0891b2"/><text class="turn an-m" x="198" y="356">12–13회</text>
 <rect x="268" y="328" width="212" height="44" rx="8" fill="#ffffff" stroke="#0891b2" stroke-width="1.5"/><text class="chap an-m" x="374" y="356" fill="#0891b2">Ch18 · Ch19</text>
-<path class="flow" d="M492,350 L524,350" marker-end="url(#arw)"/>
+<path class="flow" d="M492,350 L532,350" marker-end="url(#arw)"/>
 <rect x="532" y="328" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="356">비용 차감 성과와 위험 한도 · 중단 규칙</text>
 <line class="tick" x1="112" y1="406" x2="140" y2="406"/>
 <rect x="140" y="384" width="116" height="44" rx="8" fill="#059669"/><text class="turn an-m" x="198" y="412">14–15회</text>
 <rect x="268" y="384" width="212" height="44" rx="8" fill="#ffffff" stroke="#059669" stroke-width="1.5"/><text class="chap an-m" x="374" y="412" fill="#059669">Ch25 · Ch26</text>
-<path class="flow" d="M492,406 L524,406" marker-end="url(#arw)"/>
+<path class="flow" d="M492,406 L532,406" marker-end="url(#arw)"/>
 <rect x="532" y="384" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="412">모의거래 운영 런북과 드리프트 감시</text>
 <line class="tick" x1="112" y1="462" x2="140" y2="462"/>
 <rect x="140" y="440" width="116" height="44" rx="8" fill="#475569"/><text class="turn an-m" x="198" y="468">16회</text>
 <rect x="268" y="440" width="212" height="44" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/><text class="chap an-m" x="374" y="468" fill="#475569">회고</text>
-<path class="flow" d="M492,462 L524,462" marker-end="url(#arw)"/>
+<path class="flow" d="M492,462 L532,462" marker-end="url(#arw)"/>
 <rect x="532" y="440" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="468">결과 종합과 다음 반복의 우선순위</text>
 </svg>
