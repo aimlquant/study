@@ -1,14 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
-  <title id="title">한 장의 질문을 닫는 익숙한 회차 리듬</title>
-  <desc id="desc">맥락, 장의 논리, 실행 증거, 적용 경계, 다음 질문을 다섯 단계로 이어 발표한다.</desc>
-  <defs><marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#2563eb"/></marker></defs>
-  <style>text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}.tag{font-size:14px;font-weight:900;fill:#2563eb;letter-spacing:1.6px}.h{font-size:23px;font-weight:900;fill:#101114}.b{font-size:16px;fill:#596273}.time{font-size:15px;font-weight:900;fill:#fff}.foot{font-size:17px;font-weight:850;fill:#0f2c59}</style>
-  <rect width="1200" height="560" rx="28" fill="#f7f9fc"/><text x="58" y="54" class="tag">FAMILIAR SESSION RHYTHM</text><text x="58" y="94" class="h">한 장의 판단을 증거와 반론까지 잇는다</text>
-  <g transform="translate(58 132)"><rect width="200" height="264" rx="20" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><rect width="200" height="44" rx="20" fill="#0f2c59"/><rect y="22" width="200" height="22" fill="#0f2c59"/><text x="100" y="29" text-anchor="middle" class="time">0–5분</text><text x="22" y="88" class="tag">CONTEXT</text><text x="22" y="126" class="h">맥락</text><text x="22" y="164" class="b">이전 장과</text><text x="22" y="190" class="b">오늘의 질문</text><text x="22" y="232" class="tag">WHERE?</text></g>
-  <g transform="translate(280 132)"><rect width="200" height="264" rx="20" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><rect width="200" height="44" rx="20" fill="#2563eb"/><rect y="22" width="200" height="22" fill="#2563eb"/><text x="100" y="29" text-anchor="middle" class="time">5–25분</text><text x="22" y="88" class="tag">LOGIC</text><text x="22" y="126" class="h">장 논리</text><text x="22" y="164" class="b">핵심 가정과</text><text x="22" y="190" class="b">판단 기준</text><text x="22" y="232" class="tag">WHY?</text></g>
-  <g transform="translate(502 132)"><rect width="200" height="264" rx="20" fill="#eef4ff" stroke="#2563eb" stroke-width="3"/><rect width="200" height="44" rx="20" fill="#7c3aed"/><rect y="22" width="200" height="22" fill="#7c3aed"/><text x="100" y="29" text-anchor="middle" class="time">25–45분</text><text x="22" y="88" class="tag">EVIDENCE</text><text x="22" y="126" class="h">실행 증거</text><text x="22" y="164" class="b">가이드와</text><text x="22" y="190" class="b">선택 앵커</text><text x="22" y="232" class="tag">SHOW.</text></g>
-  <g transform="translate(724 132)"><rect width="200" height="264" rx="20" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><rect width="200" height="44" rx="20" fill="#d97706"/><rect y="22" width="200" height="22" fill="#d97706"/><text x="100" y="29" text-anchor="middle" class="time">45–55분</text><text x="22" y="88" class="tag">BOUNDARY</text><text x="22" y="126" class="h">적용 경계</text><text x="22" y="164" class="b">누수·비용·</text><text x="22" y="190" class="b">실패 조건</text><text x="22" y="232" class="tag">BUT?</text></g>
-  <g transform="translate(946 132)"><rect width="196" height="264" rx="20" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><rect width="196" height="44" rx="20" fill="#0f2c59"/><rect y="22" width="196" height="22" fill="#0f2c59"/><text x="98" y="29" text-anchor="middle" class="time">55–60분</text><text x="22" y="88" class="tag">HANDOFF</text><text x="22" y="126" class="h">다음 질문</text><text x="22" y="164" class="b">질의와</text><text x="22" y="190" class="b">다음 장 인계</text><text x="22" y="232" class="tag">NEXT.</text></g>
-  <g fill="none" stroke="#2563eb" stroke-width="5" marker-end="url(#arrow)"><line x1="258" y1="264" x2="278" y2="264"/><line x1="480" y1="264" x2="500" y2="264"/><line x1="702" y1="264" x2="722" y2="264"/><line x1="924" y1="264" x2="944" y2="264"/></g>
-  <g transform="translate(58 430)"><rect width="1084" height="70" rx="18" fill="#fff" stroke="#dbe3ef" stroke-width="2"/><text x="28" y="29" class="tag">ONE CHAPTER · ONE JUDGMENT</text><text x="28" y="54" class="foot">맥락 → 논리 → 증거 → 경계 → 인계</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 272" role="img" aria-labelledby="title desc">
+  <title id="title">한 회차의 다섯 구간과 시간 배분</title>
+  <desc id="desc">0–5분 맥락, 5–25분 장 논리, 25–45분 실행 증거, 45–55분 적용 경계, 55–60분 다음 질문을 차례로 배치했다. 아래 띠의 각 구간 폭은 그 구간에 배분한 시간에 비례한다.</desc>
+  <defs>
+    <marker id="flow" markerUnits="userSpaceOnUse" viewBox="0 0 13 12" refX="12" refY="6" markerWidth="13" markerHeight="12" orient="auto"><path d="M0 0.5 L12.5 6 L0 11.5 Z" fill="#94a3b8"/></marker>
+  </defs>
+  <style>text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}.time{font-size:15px;font-weight:900;fill:#fff}.h{font-size:22px;font-weight:900;fill:#101114}.b{font-size:15px;fill:#596273}.axis{font-size:14px;font-weight:800;fill:#7b8493}.an-s{text-anchor:start}.an-m{text-anchor:middle}.an-e{text-anchor:end}</style>
+  <rect width="1200" height="272" rx="28" fill="#f7f9fc"/>
+  <g transform="translate(60 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#0f2c59"/><text class="time an-m" x="90" y="28">0–5분</text><text class="h an-s" x="18" y="86">맥락</text><text class="b an-s" x="18" y="122">이전 장과</text><text class="b an-s" x="18" y="146">오늘의 질문</text></g>
+  <path d="M248 111 H285" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#flow)"/>
+  <g transform="translate(285 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#2563eb"/><text class="time an-m" x="90" y="28">5–25분</text><text class="h an-s" x="18" y="86">장 논리</text><text class="b an-s" x="18" y="122">핵심 가정과</text><text class="b an-s" x="18" y="146">판단 기준</text></g>
+  <path d="M473 111 H510" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#flow)"/>
+  <g transform="translate(510 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#7c3aed"/><text class="time an-m" x="90" y="28">25–45분</text><text class="h an-s" x="18" y="86">실행 증거</text><text class="b an-s" x="18" y="122">가이드와</text><text class="b an-s" x="18" y="146">선택 앵커</text></g>
+  <path d="M698 111 H735" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#flow)"/>
+  <g transform="translate(735 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#d97706"/><text class="time an-m" x="90" y="28">45–55분</text><text class="h an-s" x="18" y="86">적용 경계</text><text class="b an-s" x="18" y="122">누수·비용·</text><text class="b an-s" x="18" y="146">실패 조건</text></g>
+  <path d="M923 111 H960" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#flow)"/>
+  <g transform="translate(960 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#0f2c59"/><text class="time an-m" x="90" y="28">55–60분</text><text class="h an-s" x="18" y="86">다음 질문</text><text class="b an-s" x="18" y="122">질의와</text><text class="b an-s" x="18" y="146">다음 장 인계</text></g>
+  <text class="axis an-s" x="60" y="214">0분</text><text class="axis an-e" x="1140" y="214">60분</text>
+  <clipPath id="band"><rect x="60" y="222" width="1080" height="26" rx="6"/></clipPath>
+  <g clip-path="url(#band)">
+    <rect x="60.0" y="222" width="90.0" height="26" fill="#0f2c59"/>
+    <rect x="150.0" y="222" width="360.0" height="26" fill="#2563eb"/>
+    <rect x="510.0" y="222" width="360.0" height="26" fill="#7c3aed"/>
+    <rect x="870.0" y="222" width="180.0" height="26" fill="#d97706"/>
+    <rect x="1050.0" y="222" width="90.0" height="26" fill="#0f2c59"/>
+  </g>
+  <rect x="60" y="222" width="1080" height="26" rx="6" fill="none" stroke="#cbd5e1"/>
 </svg>
