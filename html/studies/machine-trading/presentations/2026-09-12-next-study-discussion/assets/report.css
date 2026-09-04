@@ -4018,3 +4018,25 @@ svg.report-lightbox__visual {
     block-size: auto !important;
   }
 }
+
+/* Discussion brief: preserve comparison columns on narrow screens. */
+@media screen and (max-width: 640px) {
+  .continuous-mode .cmp-table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .continuous-mode .cmp-table th,
+  .continuous-mode .cmp-table td {
+    min-width: 108px;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+}
+@media print {
+  .continuous-mode .report-section > h2 ~ h2 {
+    break-before: auto;
+    page-break-before: auto;
+    margin-top: 7mm;
+  }
+}
