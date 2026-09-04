@@ -36,7 +36,7 @@
 
   // ===== Floating controls / drawer TOC =====
   function getHeadingLabel(h) {
-    return (h.textContent || '').replace(/\s+/g, ' ').trim();
+    return (h.dataset.reportToc || h.textContent || '').replace(/\s+/g, ' ').trim();
   }
 
   // External CSS and fonts can change the document height after Chrome's first
@@ -50,6 +50,10 @@
     catch (error) { id = window.location.hash.slice(1); }
     var target = document.getElementById(id);
     if (!target) return;
+    // A reader may have collapsed a plan before following another chapter link.
+    for (var ancestor = target; ancestor; ancestor = ancestor.parentElement) {
+      if (ancestor.tagName === 'DETAILS') ancestor.open = true;
+    }
     var params = new URLSearchParams(window.location.search);
     if (params.get('fragment-capture') === '1') {
       // Chromium's one-shot --screenshot path can produce an empty bitmap when
@@ -86,13 +90,13 @@
   window.buildDrawerTOC = function () {
     var list = document.getElementById('tocDrawerList');
     if (!list || list.children.length) return;
-    var headings = Array.from(document.querySelectorAll('.report-section h1, .report-section h2, .report-appendix h1, .report-appendix h2'));
+    var headings = Array.from(document.querySelectorAll('.report-section h1, .report-section h2, .report-appendix h1, .report-appendix h2, summary[data-report-toc]'));
     headings.forEach(function (h, idx) {
       var label = getHeadingLabel(h);
       if (!label || /^References$/i.test(label)) label = '참고문헌';
-      var id = ensureHeadingId(h, idx + 1);
+      var id = h.tagName === 'SUMMARY' ? h.parentElement.id : ensureHeadingId(h, idx + 1);
       var li = document.createElement('li');
-      li.className = 'report-toc-drawer__item report-toc-drawer__item--' + h.tagName.toLowerCase();
+      li.className = 'report-toc-drawer__item report-toc-drawer__item--' + (h.tagName === 'SUMMARY' ? 'h2' : h.tagName.toLowerCase());
       var a = document.createElement('a');
       a.href = '#' + id;
       a.textContent = label;
@@ -886,6 +890,7 @@
   });
 
   // ===== Init =====
+  window.addEventListener('hashchange', restoreFragmentPosition);
   window.addEventListener('load', function () {
     window.buildTOC();
     window.buildDrawerTOC();

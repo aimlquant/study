@@ -8,12 +8,12 @@
 <rect x="140" y="48" width="116" height="44" rx="8" fill="#475569"/><text class="turn an-m" x="198" y="76">1회</text>
 <rect x="268" y="48" width="212" height="44" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/><text class="chap an-m" x="374" y="76" fill="#475569">오리엔테이션</text>
 <path class="flow" d="M492,70 L532,70" marker-end="url(#arw)"/>
-<rect x="532" y="48" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="76">공통 연구 질문 한 문장과 성공 기준</text>
+<rect x="532" y="48" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="76">공통 연구 질문과 평가 기준 초안</text>
 <line class="tick" x1="112" y1="126" x2="140" y2="126"/>
 <rect x="140" y="104" width="116" height="44" rx="8" fill="#0f2c59"/><text class="turn an-m" x="198" y="132">2–4회</text>
 <rect x="268" y="104" width="212" height="44" rx="8" fill="#ffffff" stroke="#0f2c59" stroke-width="1.5"/><text class="chap an-m" x="374" y="132" fill="#0f2c59">Ch1 · Ch2 · Ch4</text>
 <path class="flow" d="M492,126 L532,126" marker-end="url(#arw)"/>
-<rect x="532" y="104" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="132">데이터 계약과 시점성 점검 목록</text>
+<rect x="532" y="104" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="132">데이터 계약과 데이터 시점 점검 목록</text>
 <line class="tick" x1="112" y1="182" x2="140" y2="182"/>
 <rect x="140" y="160" width="116" height="44" rx="8" fill="#1e40af"/><text class="turn an-m" x="198" y="188">5–7회</text>
 <rect x="268" y="160" width="212" height="44" rx="8" fill="#ffffff" stroke="#1e40af" stroke-width="1.5"/><text class="chap an-m" x="374" y="188" fill="#1e40af">Ch6 · Ch7 · Ch8</text>
@@ -38,7 +38,7 @@
 <rect x="140" y="384" width="116" height="44" rx="8" fill="#059669"/><text class="turn an-m" x="198" y="412">14–15회</text>
 <rect x="268" y="384" width="212" height="44" rx="8" fill="#ffffff" stroke="#059669" stroke-width="1.5"/><text class="chap an-m" x="374" y="412" fill="#059669">Ch25 · Ch26</text>
 <path class="flow" d="M492,406 L532,406" marker-end="url(#arw)"/>
-<rect x="532" y="384" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="412">모의거래 운영 런북과 드리프트 감시</text>
+<rect x="532" y="384" width="608" height="44" rx="8" fill="#eef2f7" stroke="#dfe2e7"/><text class="gain an-s" x="550" y="412">모의거래 운영 절차서과 드리프트 감시</text>
 <line class="tick" x1="112" y1="462" x2="140" y2="462"/>
 <rect x="140" y="440" width="116" height="44" rx="8" fill="#475569"/><text class="turn an-m" x="198" y="468">16회</text>
 <rect x="268" y="440" width="212" height="44" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/><text class="chap an-m" x="374" y="468" fill="#475569">회고</text>
