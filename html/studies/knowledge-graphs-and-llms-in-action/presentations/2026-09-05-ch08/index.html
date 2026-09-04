@@ -1,0 +1,1885 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 개체명 명확화(NED)</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <style>
+    /* 2026-09-05-ch08 회차 스냅샷 — 코드 밀도, 원문 인용, 비유 보조 상자 */
+    .source-note { font-size: 13px; }
+    .slide-header { padding-right: 44px; }
+
+    .slide--code { padding: 34px 60px 26px; }
+    .slide--code .slide-header { min-height: 32px; margin-bottom: 12px; }
+    .slide--code > h1 { max-width: 1160px; font-size: 32px; line-height: 1.16; letter-spacing: -0.035em; }
+    .slide--code > h1::after { width: 46px; height: 3px; margin-top: 10px; }
+    .slide--code > .lead { max-width: 1160px; margin-top: 10px; font-size: 16px; line-height: 1.45; }
+    .slide--code .slide-body { padding: 14px 0 10px; }
+    .slide--code .slide-footer { padding-top: 8px; }
+    .slide--code .code-block { min-height: 0; padding: 16px 20px 14px; font-size: 13px; line-height: 1.5; }
+    .slide--code .panel { min-height: 0; padding: 18px 22px; }
+    .slide--code .panel h2 { margin: 4px 0 10px; font-size: 19px; }
+    .slide--code .panel p { font-size: 14px; line-height: 1.5; }
+    .slide--code .panel ul { margin: 10px 0 0; padding-left: 20px; }
+    .slide--code .panel li { margin: 7px 0; font-size: 13.5px; line-height: 1.45; }
+    .slide--code .takeaway { margin-top: 12px; padding: 8px 0 8px 14px; font-size: 15px; line-height: 1.45; }
+    .slide--code .analogy { margin-top: 10px; font-size: 13.5px; }
+
+    .slide--dense { padding: 36px 62px 26px; }
+    .slide--dense .slide-header { min-height: 34px; margin-bottom: 14px; }
+    .slide--dense > h1 { max-width: 1150px; font-size: 34px; line-height: 1.16; letter-spacing: -0.038em; }
+    .slide--dense > h1::after { width: 50px; margin-top: 12px; }
+    .slide--dense > .lead { max-width: 1150px; margin-top: 12px; font-size: 17px; line-height: 1.5; }
+    .slide--dense .slide-body { padding: 16px 0 12px; }
+    .slide--dense .panel,
+    .slide--dense .card,
+    .slide--dense .flow__step,
+    .slide--dense .balance-grid article,
+    .slide--dense .decision-grid article { min-height: 0; padding: 20px 24px; }
+    .slide--dense .panel h2,
+    .slide--dense .card h2,
+    .slide--dense .flow__step h2,
+    .slide--dense .balance-grid h2,
+    .slide--dense .decision-grid h2 { margin: 0 0 10px; font-size: 20px; }
+    .slide--dense .panel p,
+    .slide--dense .card p,
+    .slide--dense .flow__step p { font-size: 14.5px; line-height: 1.5; }
+    .slide--dense .panel li,
+    .slide--dense .balance-grid li,
+    .slide--dense .decision-grid li { margin: 7px 0; font-size: 14px; line-height: 1.45; }
+    .slide--dense .panel ul,
+    .slide--dense .panel ol { margin: 10px 0 0; }
+    .slide--dense .takeaway { margin-top: 14px; font-size: 15.5px; line-height: 1.45; }
+    .slide--dense .card > span,
+    .slide--dense .flow__step > span { margin-bottom: 12px; }
+    .slide--dense .compare-table { font-size: 14.5px; }
+    .slide--dense .compare-table th,
+    .slide--dense .compare-table td { padding: 9px 14px; line-height: 1.4; }
+
+    .deck-quote { margin: 0; padding: 14px 18px; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 0 10px 10px 0; font-size: 15.5px; line-height: 1.6; }
+    .deck-quote cite { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; font-style: normal; }
+
+    .analogy { margin: 14px 0 0; padding: 12px 16px; color: var(--text); background: var(--primary-soft); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; line-height: 1.55; }
+    .analogy b { color: var(--primary); }
+    .analogy + .analogy { margin-top: 10px; }
+
+    .stack { display: grid; gap: 14px; align-content: start; }
+    .stack--tight { gap: 10px; }
+
+    .compare-table.term-table { font-size: 13.5px; }
+    .compare-table.term-table th,
+    .compare-table.term-table td { padding: 8px 14px; font-size: 13.5px; line-height: 1.38; }
+    .compare-table.term-table tbody th { width: 32%; }
+    .compare-table.term-table thead th { font-size: 13.5px; }
+  
+    /* 부연설명 배지 — 슬라이드 상단 중앙 (2026-09-05 검토본) */
+    .slide { position: relative; }
+    .supp-badge {
+      position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+      z-index: 5; padding: 5px 16px; border: 1px solid #b8c4d8; border-radius: 999px;
+      background: #eef2f9; color: #33507d; font-size: 13px; font-weight: 700;
+      letter-spacing: 0.08em; white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+
+    <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">지식 그래프와 LLM 실전 · Chapter 8</p>
+        <h1>오픈 LLM과 도메인 온톨로지를 활용한 개체명 명확화(NED)</h1>
+        <p class="cover-subtitle">문장 속 언급이 실제로 가리키는 대상을, 온톨로지의 관계와 경로까지 근거로 삼아 확정합니다.</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>태호</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 8</dd></div>
+        <div><dt>일시</dt><dd>2026-09-05</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide slide--dense" aria-label="이 장에서 다루는 내용" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">이 장에서 다루는 내용</span></header>
+      <h1>7장이 다룬 scispaCy의 한계에서 출발해 개념 사이의 관계까지 명확화에 쓴다</h1>
+      <p class="lead">7장은 개체명 명확화(NED)에 초점을 맞추면서 생물의학 전용 도구인 scispaCy의 역할을 강조했습니다. 이 장은 scispaCy가 잘하는 것과 못하는 것을 짚은 뒤, 그 한계를 오픈 LLM과 온톨로지의 조합으로 넘어섭니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>01</span><h2>한계 이해</h2><p>전통적인 개체명 명확화(NED) 도구, 즉 문장 속 단어가 가리키는 진짜 대상을 지식베이스의 정확한 항목으로 연결하는 도구가 어떤 한계를 갖는지 이해합니다.</p></article>
+          <article class="card"><span>02</span><h2>결합 방법</h2><p>방대한 텍스트로 학습한 범용 대규모 언어 모델(LLM)과 도메인 온톨로지를 결합해 NED를 수행하는 방법을 배웁니다.</p></article>
+          <article class="card"><span>03</span><h2>직접 구현</h2><p>최단 경로 탐지, 경로-텍스트 변환, 텍스트 경로 요약을 잇는 다단계 명확화 과정을 직접 구현해 봅니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — "Apple"이라는 단어만 보면 과일인지 회사인지 모호합니다. 주변에 "아이폰·주가·신제품"이 있고 그래프에 <code>Apple Inc. → PRODUCES → iPhone</code> 관계가 있으면 회사로 판단할 수 있습니다. 여기서 "Apple"은 이 장의 모호한 언급 "Zika"에, 주변 단어는 문맥 단서에, 그래프 관계는 이 장이 새로 활용하는 온톨로지의 개체 간 관계에 대응합니다. 비유의 경계는 분명합니다 — 실제 후보와 관계는 모델의 기억이 아니라 SNOMED에서 조회합니다.</p>
+        <p class="takeaway"><strong>역할 분담</strong> — LLM은 문장을 이해하고 설명하며, 온톨로지는 검증된 후보와 관계를 제공합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 8 · 학습 목표</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="오늘의 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>한계 진단에서 시작해 준비·과정·결론 순으로 따라간다</h1>
+      <p class="lead">교재의 절 순서를 그대로 따라가되, 각 절이 무엇을 주장하려고 쓰였는지를 중심으로 읽습니다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>8.1</span><h2>한계 진단</h2><p>scispaCy가 단서 없는 문장에서 후보조차 만들지 못하는 실패를 기록된 출력으로 확인합니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>8.2<br>8.3</span><h2>재료 준비</h2><p>SNOMED를 Neo4j에 적재하고, Ollama로 Llama 3.1 8B를 로컬에 배포합니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>8.4</span><h2>세 단계 NED</h2><p>개체명 인식, 후보 선택, 후보 명확화를 지카 문장 하나로 끝까지 따라갑니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>8.5</span><h2>결론과 경계</h2><p>이 접근이 무엇을 해결하고 무엇을 보장하지 않는지 정리합니다.</p></article>
+        </div>
+        <p class="takeaway"><strong>오늘의 질문</strong> — 언급 곁에 단서 단어가 없을 때, 무엇을 근거로 정확한 개체를 고를 수 있습니까?</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 8 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="8.1 전통적 NED 시스템의 한계 섹션" data-report-refs="source-section-8-1" data-source-refs="section:8.1" data-source-title="section:8.1" data-density="long">
+      <div class="section-copy">
+        <p class="eyebrow">SECTION · §8.1</p>
+        <h1 class="source-title">8.1 전통적 NED 시스템의 한계 이해하기 — scispaCy가 놓치는 관계와 경로</h1>
+        <p>표준 어휘집만으로는 개체 사이의 관계와 경로를 명확화에 쓸 수 없다</p>
+      </div>
+      <span class="section-number">01</span>
+    </section>
+
+    <section class="slide slide--dense" aria-label="표준 개체 어휘집의 역할" data-report-refs="source-section-8-1" data-source-refs="section:8.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.1 · 잘하는 일</span></header>
+      <h1>scispaCy는 표준화된 개체 어휘집으로 언급의 모호함을 없앤다</h1>
+      <p class="lead">scispaCy는 UMLS(Unified Medical Language System, 통합 의학 용어 체계)처럼 표준화된 개체를 담은 어휘집과 온톨로지를 내장하고 있습니다. 이런 표준 개체는 텍스트 속 언급(mention)을 실제 대상과 연결해 모호함을 없애는 데 유용합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">내장 자원</p><h2>표준 개체 어휘집</h2><ul>
+            <li><b>scispaCy</b> — spaCy 프레임워크 위에 세워진 생물의학 전용 자연어 처리 도구로, 생물의학 도메인의 사전학습 모델을 제공해 문서와 논문을 처리하도록 설계되었습니다</li>
+            <li><b>UMLS</b> — 여러 의학 어휘를 통합해 표준 개체를 정의한 체계</li>
+            <li><b>언급(mention)</b> — 텍스트 안에서 어떤 대상을 가리키는 표현</li>
+          </ul></article>
+          <article class="panel"><p class="eyebrow">얻는 효과</p><h2>표현이 달라도 같은 개념</h2><p>병원과 논문마다 다르게 적힌 의학 용어를 하나의 표준 개념으로 연결할 수 있습니다.</p>
+            <p class="analogy"><b>예시</b> — "고혈압", "hypertension", "혈압이 높은 병"은 서로 다른 언급이지만 하나의 표준 개념 ID로 연결됩니다. 그 결과 여러 기관의 데이터를 한 기준으로 분석할 수 있습니다.</p>
+          </article>
+        </div>
+        <p class="takeaway"><strong>출발점</strong> — 여기까지가 7장이 다룬 범위이고, 이 장은 그 다음 한계에서 시작합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-1">리포트 · §8.1 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="전통적 접근의 네 가지 한계" data-report-refs="source-section-8-1 table-limits" data-source-refs="section:8.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.1 · 한계</span></header>
+      <h1>이 접근에는 도메인·갱신·활용도·관계 네 가지 한계가 있다</h1>
+      <p class="lead">원서 저자들은 표준 어휘집 기반 명확화의 한계를 네 항목으로 정리합니다. 이 장이 정면으로 다루는 것은 마지막 항목입니다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>01</span><h2>도메인 고정</h2><p>특정 응용 도메인, 즉 생물의학 분야에만 맞춰 설계되어 있습니다.</p></article>
+          <article class="card"><span>02</span><h2>갱신 부담</h2><p>새로운 개체와 용어를 반영하도록 참조 지식베이스를 확장하고 갱신하기가 어렵습니다.</p></article>
+          <article class="card"><span>03</span><h2>정보 미활용</h2><p>지식베이스에 담긴 방대한 정보를 온전히 활용하지 못합니다.</p></article>
+          <article class="card"><span>04</span><h2>관계 미사용</h2><p>개체 사이에 이미 존재하는 관계와 경로를 명확화 작업에 쓰지 못합니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — "Mercury"는 수성·수은·자동차 브랜드를 뜻할 수 있습니다. 이름만 비교하면 어렵지만 <code>Mercury → IS_A → Planet</code>, <code>Mercury → ORBITS → Sun</code>이라는 관계를 보면 수성이라는 판단이 쉬워집니다. 여기서 관계 정보가 네 번째 항목의 "개체 사이에 이미 존재하는 관계와 경로"에 해당합니다. 다만 비유와 달리 실제 관계는 임의로 상상하지 않고 온톨로지에 저장된 것만 씁니다.</p>
+        <p class="takeaway"><strong>이 장의 표적</strong> — 사전 항목은 갖췄지만 항목들이 서로 어떻게 연결되는지를 쓰지 못하는 것이 핵심 결손입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-limits">리포트 · 한계 정리</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="단서가 있는 입력의 성공" data-report-refs="source-section-8-1 report-8-1-evidence" data-source-refs="section:8.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.1 · 첫 번째 입력</span></header>
+      <h1>단서 단어가 언급 곁에 있으면 scispaCy는 세 언급을 모두 옳게 연결한다</h1>
+      <p class="lead">7장 도입부에서 쓴 유럽 질병예방통제센터(ECDC) 문구입니다. scispaCy는 "Zika(지카)" 주변의 문맥 단어를 이용해 세 개의 올바른 명확화 결과를 찾아냅니다.</p>
+      <div class="slide-body">
+        <blockquote class="deck-quote">4월 13일이 있는 주에 벨리즈는 처음으로 모기 매개 지카 바이러스 전파를 보고했습니다. 관찰된 <b>선천성</b> 지카 <b>증후군</b> 및 기타 신경학적 합병증의 증가에 관한 업데이트. 지카 바이러스 감염과 잠재적으로 연관된 <b>소두증</b> 및 기타 태아 기형.
+        <cite>유럽 질병예방통제센터(ECDC) 문구 — 7장 도입부에서 사용한 예시</cite></blockquote>
+        <p class="analogy"><b>이해를 돕는 예시</b> — "Apple은 달고 아삭하다"에서는 "달다·아삭하다"만으로 Apple이 회사가 아니라 과일임을 쉽게 알 수 있습니다. 여기서 "달다·아삭하다"가 위 문구의 "선천성", "증후군" 같은 강한 문맥 단서에 해당합니다.</p>
+        <p class="takeaway"><strong>왜 쉬운 문제인가</strong> — 정답을 알려 주는 강한 단어가 언급 바로 곁에 있습니다. 이 조건이 사라지면 어떻게 되는지를 다음 입력이 보여 줍니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-1-evidence">리포트 · 두 입력의 대조</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="단서를 뺀 입력" data-report-refs="source-section-8-1 report-8-1-evidence" data-source-refs="section:8.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.1 · 두 번째 입력</span></header>
+      <h1>단서를 빼면 명확화를 뒷받침할 단어가 언급 곁에서 사라진다</h1>
+      <p class="lead">이번에는 "congenital(선천성)"이나 "syndrome(증후군)" 같은 주변 단어가 빠진, 조금 다른 예시로 시험합니다. 앞 예시와 비교하면 명확화 단계를 뒷받침해 줄 단어가 없습니다.</p>
+      <div class="slide-body">
+        <blockquote class="deck-quote">지카는 플라비바이러스과(Flaviviridae)에 속하며 이집트숲모기(Aedes)에 의해 전파됩니다. <b>지카병</b> 및 치쿤구니야열 같은 다른 증후군에 걸린 사람들은 바이러스성 근육통, 감염성 부종, 감염성 결막염 같은 증상을 자주 경험합니다. 지카의 심각한 결과는 임신 중 태반 장벽을 통과하는 능력에서 비롯되며, 이는 소두증과 선천성 기형을 유발합니다.
+        <cite>단서 단어를 뺀 변형 입력 — 결정적 단서가 여러 문장에 흩어져 있습니다</cite></blockquote>
+        <p class="analogy"><b>이해를 돕는 예시</b> — "그 회사는 새 휴대폰을 공개했다. Apple의 주가가 올랐다"에서 Apple 바로 옆에는 <code>company</code>가 없습니다. 앞 문장의 "회사·휴대폰"과 현재 문장의 "주가"를 함께 봐야 합니다. 위 문구에서는 플라비바이러스과, 소두증, 선천성 기형이 그렇게 흩어진 단서입니다.</p>
+        <p class="takeaway"><strong>달라진 조건</strong> — 단서가 사라진 것이 아니라 언급에서 멀어졌습니다. 이 차이만으로 결과가 갈립니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-1-evidence">리포트 · 두 입력의 대조</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="후보가 비어 버린 실행 출력" data-report-refs="source-section-8-1 report-8-1-evidence" data-source-refs="section:8.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.1 · 기록된 출력</span></header>
+      <h1>두 번째 언급에서는 오답이 아니라 검토할 후보 자체가 생성되지 않았다</h1>
+      <p class="lead">모델은 첫 번째와 세 번째 "Zika"를 "C0276289 Zika Virus Infection(지카 바이러스 감염)"으로 명확화합니다. 그러나 두 번째 문장의 "Zika disease(지카병)" 언급에 대해서는 대상 개체를 전혀 찾아내지 못합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout code-layout--balanced">
+          <pre class="code-block" data-code-language="Text">Recognized entity: Zika 0 4
+Ranked target candidates:
+- C0276289 Zika Virus Infection
+- C0318793 Zika Virus
+- C4687930 Zika Virus Antibody Measurement
+Recognized entity: Zika disease 109 121
+Ranked target candidates:
+Recognized entity: Zika 278 282
+Ranked target candidates:
+- C0276289 Zika Virus Infection
+- C0318793 Zika Virus
+- C4687930 Zika Virus Antibody Measurement</pre>
+          <article class="panel panel--accent"><p class="eyebrow">출력 읽는 법</p><h2>빈 줄이 곧 실패다</h2><ul>
+            <li><code>Recognized entity</code> — 표현을 찾아냈다는 뜻이고, 뒤의 두 숫자는 문자 위치입니다</li>
+            <li><code>Ranked target candidates</code> 아래가 비어 있으면 연결할 표준 개체 후보를 찾지 못했다는 뜻입니다</li>
+            <li>두 번째 언급 <code>Zika disease</code>는 답을 잘못 고른 것이 아니라, 순위를 매길 후보가 0개입니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>실패의 종류</strong> — 주변 단서가 사라지자 후보 검색 자체가 무너집니다. 이 실패를 이 장의 접근이 어떻게 되돌리는지가 남은 절의 주제입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-1-evidence">리포트 · 기록된 실행 출력</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="두 입력의 명확화 결과 대조" data-report-refs="source-section-8-1 report-8-1-evidence fig-scispacy-gap" data-source-refs="section:8.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.1 · 결과 대조</span></header>
+      <h1>같은 도구와 같은 어휘집인데 입력의 단서 유무가 결과를 가른다</h1>
+      <p class="lead">두 입력에 대한 scispaCy의 명확화 결과를 나란히 놓은 그림입니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure" data-deck-figure-number="1" data-deck-figure-title="문맥 단서 유무에 따라 갈라지는 scispaCy의 명확화 결과">
+          <img src="assets/figs/fig-scispacy-gap.svg" alt="단서 단어가 있는 입력에서는 scispaCy가 지카 언급 세 개를 모두 명확화하지만, 단서를 뺀 입력에서는 Zika disease 언급의 후보가 0개로 비는 대조 도해">
+          <figcaption><b>그림 1 · 갈라지는 명확화 결과</b><span><strong>읽는 법</strong> — 위쪽은 단서가 언급 곁에 있는 원래 ECDC 문구, 아래쪽은 단서를 뺀 변형 문구다</span><span><strong>비교</strong> — 같은 scispaCy와 UMLS 조합인데도 아래쪽에서는 "Zika disease"의 후보 검색이 실패한다</span><span><strong>경계</strong> — 순위가 밀린 것이 아니라 순위를 매길 후보 자체가 없는 실패다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-scispacy-gap">리포트 그림 1 · 결과 대조 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="이 장이 제안하는 결합" data-report-refs="source-section-8-1 report-8-1-approach" data-source-refs="section:8.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.1 · 이 장의 접근</span></header>
+      <h1>언어 해석은 LLM이 맡고 후보와 사실 관계는 온톨로지가 공급한다</h1>
+      <p class="lead">이 장은 오픈 LLM과 도메인 온톨로지를 사용하는 새로운 접근으로 이런 한계들을 정면으로 다룹니다. scispaCy 같은 도메인 전용 도구와 달리, 이 접근은 풍부한 온톨로지를 쓸 수 있는 다른 응용 도메인에도 그대로 적용할 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">LLM</p><h2>언어를 유창하게 다루되 사실을 지어내기도 한다</h2><p>원서 저자들은 LLM을 유창한 달변가에 가깝다고 표현합니다. 문맥 해석과 설명은 잘하지만, 정확한 코드와 관계를 기억에서 만들어 내게 두어서는 안 됩니다.</p></article>
+          <article class="panel panel--accent"><p class="eyebrow">도메인 온톨로지</p><h2>검증된 사실을 정리해 둔 대장 역할을 한다</h2><p>선택 가능한 후보, 개체 간 관계, 계층 구조를 공급합니다. 지식을 갱신할 때도 모델을 다시 학습시키는 대신 온톨로지만 고치면 됩니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — LLM은 설명을 잘하는 의사이고 온톨로지는 표준 의학 교과서와 코드집입니다. 의사가 문맥을 해석하되, 선택 가능한 병명과 관계는 코드집에서 확인하는 구조입니다. 비유의 경계는 이렇습니다 — 코드집과 달리 온톨로지는 관계까지 담고 있어서, 확인만이 아니라 추론의 근거로도 쓰입니다.</p>
+        <p class="takeaway"><strong>이 장의 핵심</strong> — 두 역할을 잘 엮는 것이 전부입니다. 남은 절은 그 결합을 단계별로 구현합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-1-approach">리포트 · 이 장의 접근</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="8.2 도메인 온톨로지 적재 섹션" data-report-refs="source-section-8-2" data-source-refs="section:8.2" data-source-title="section:8.2" data-density="long">
+      <div class="section-copy">
+        <p class="eyebrow">SECTION · §8.2</p>
+        <h1 class="source-title">8.2 도메인 온톨로지 적재하기 — SNOMED를 Neo4j에 싣기</h1>
+        <p>명확화의 근거가 될 개념과 관계를 먼저 그래프에 올린다</p>
+      </div>
+      <span class="section-number">02</span>
+    </section>
+
+    <section class="slide slide--dense" aria-label="SNOMED와 두 개의 적재 파일" data-report-refs="source-section-8-2" data-source-refs="section:8.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · 원본 데이터</span></header>
+      <h1>명확화를 이끌 온톨로지로 SNOMED를 쓰고, 두 파일로 적재한다</h1>
+      <p class="lead">SNOMED(Systematized Nomenclature of Medicine, 체계화된 의학 명명법)는 45만 개가 넘는 개념과 풍부한 관계 유형을 담은 다국어 임상 용어 저장소입니다. 예제 시나리오에서는 7장과 같은 두 파일을 씁니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">설명 파일</p><h2>개체의 이름과 별칭</h2><p><code>sct2_Description_Full-en_US1000124_20220901.txt</code></p><ul>
+            <li>개체 이름과 별칭, 그리고 개체 간 관계를 담습니다</li>
+            <li>노드와 관계에 붙일 이름표를 제공합니다</li>
+          </ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">관계 파일</p><h2>개체와 관계의 숫자 코드</h2><p><code>sct2_Relationship_Full_US1000124_20220901.txt</code></p><ul>
+            <li>개체와 관계를 식별하는 숫자 코드를 담습니다</li>
+            <li>노드 사이를 잇는 선을 제공합니다</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 예시</b> — SNOMED는 단순한 의학 단어 목록이 아니라 개념과 관계가 함께 들어 있는 구조입니다. 그래프에는 <code>선천성 지카 감염 → 선천성</code>, <code>소두증 → 선천성</code>처럼 두 개념이 공통 속성에 연결된 정보가 들어갑니다.</p>
+        <p class="source-note">두 파일이 실제로 어떻게 생겼는지는 7장 7.5.2절의 예시를 참고합니다. 이 리스팅들의 주석 달린 버전과 더 자세한 설명은 7.6.4절에 있으며, 전체 예제 코드는 책의 온라인 저장소에서 받을 수 있습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-2">리포트 · §8.2 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="SNOMED 계층 구조와 범주 전파" data-report-refs="source-section-8-2 source-figure-8-1" data-source-refs="section:8.2 figure:8.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · 그림 8.1</span></header>
+      <h1>깊은 레벨의 노드는 1레벨 원형 개체에서 내려오는 정보로 범주를 얻는다</h1>
+      <p class="lead">SNOMED의 계층 구조와, 노드를 따라 정보가 전파되는 방식입니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure" data-deck-figure-number="2" data-deck-figure-title="SNOMED 계층 구조의 표본과 범주 전파">
+          <img src="assets/figs/fig-8-1-snomed-hierarchy.svg" alt="SNOMED 루트 아래 1레벨 원형 개체가 있고, 그 아래 중간과 하위 계층의 노드가 1레벨 노드의 유형을 물려받는 계층 구조 도해">
+          <figcaption><b>그림 2 · SNOMED 계층 구조의 표본</b><span><strong>읽는 법</strong> — 맨 위 루트에서 아래로 내려가며 읽는다</span><span><strong>핵심</strong> — 루트 바로 아래 1레벨 노드가 온톨로지의 원형(archetypal) 개체이고, 깊은 노드는 그 이름을 범주로 물려받는다</span><span><strong>왜 필요한가</strong> — 이 전파가 §8.4.1에서 개체명 인식의 허용 범주 목록을 만드는 밑바탕이 된다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-8-1">리포트 그림 2 · 교재 그림 8.1 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="적재의 세 단계" data-report-refs="source-section-8-2 source-listing-8-3 source-listing-8-4 source-listing-8-5" data-source-refs="section:8.2 listing:8.3 listing:8.4 listing:8.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · Listing 8.3 · 8.4 · 8.5</span></header>
+      <h1>적재는 관계 만들기, 이름 붙이기, 범주 내려보내기 세 단계로 나뉜다</h1>
+      <p class="lead">세 리스팅은 각각 다른 일을 맡습니다. 앞 단계의 결과 위에 다음 단계가 정보를 얹는 순서입니다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>8.3</span><h2>관계 불러오기</h2><p>관계 파일 <code>sct2_Relationship_Full…</code>로부터 Neo4j에 노드와 관계를 만듭니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>8.4</span><h2>이름과 별칭 불러오기</h2><p>설명 파일 <code>sct2_Description_Full…</code>에서 이름과 별칭을 뽑아 노드와 관계에 붙입니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>8.5</span><h2>라벨 전파하기</h2><p>계층 구조를 따라가며 1레벨 노드의 정보를 더 깊은 노드로 전파합니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — 8.3은 지하철역과 역 사이의 노선을 만들고, 8.4는 각 역과 노선에 사람이 읽을 수 있는 이름을 붙이며, 8.5는 각 역이 어느 권역에 속하는지 상위 분류를 내려보냅니다. 비유의 경계는 이렇습니다 — 지하철 노선과 달리 SNOMED의 관계는 방향과 유형이 여러 가지이고, 그 차이가 뒤의 명확화 근거가 됩니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-2">리포트 · 적재 세 단계</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="적재 전 제약과 인덱스" data-report-refs="source-section-8-2 source-listing-8-3" data-source-refs="section:8.2 listing:8.3"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · Listing 8.3</span></header>
+      <h1>적재에 앞서 개체 id의 유일성을 보장하고 이름·관계에 인덱스를 건다</h1>
+      <p class="lead"><code>set_constraints</code>는 <code>SnomedEntity</code> 노드의 <code>id</code>가 유일하도록 제약을 걸고, 이름과 관계 속성에 인덱스를 만들어 검색을 빠르게 합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">class SnomedRelationshipsImporter(BaseImporter):
+    [...]
+    def set_constraints(self):
+        queries = [
+            ("CREATE CONSTRAINT IF NOT EXISTS "
+             "FOR (n:SnomedEntity) REQUIRE n.id IS UNIQUE"),
+            ("CREATE INDEX snomedNodeName IF NOT EXISTS "
+             "FOR (n:SnomedEntity) ON (n.name)"),
+            ("CREATE INDEX snomedRelationId IF NOT EXISTS "
+             "FOR ()-[r:SNOMED_RELATION]-() ON (r.id)"),
+            ("CREATE INDEX snomedRelationType IF NOT EXISTS "
+             "FOR ()-[r:SNOMED_RELATION]-() ON (r.type)"),
+            ("CREATE INDEX snomedRelationUmls IF NOT EXISTS "
+             "FOR ()-[r:SNOMED_RELATION]-() ON (r.umls)"),
+        ]
+        for q in queries:
+            self.connection.query(q, db=self.db)</pre>
+          <article class="panel panel--accent"><p class="eyebrow">코드 읽기</p><h2>중복을 막고 조회를 빠르게</h2><ul>
+            <li><code>CREATE CONSTRAINT</code> — 같은 개념이 두 개의 노드로 갈라지지 않게 <code>id</code>의 유일성을 강제합니다</li>
+            <li><code>CREATE INDEX</code> — 노드 이름과 관계의 id·유형·UMLS 코드로 찾는 조회를 빠르게 합니다</li>
+          </ul>
+          <p class="analogy"><b>비유</b> — 제약 조건은 같은 주민등록번호로 두 사람을 만들지 못하게 하는 규칙, 인덱스는 책 뒤의 찾아보기에 해당합니다.</p>
+          </article>
+        </div>
+        <p class="takeaway"><strong>왜 먼저 하는가</strong> — 45만 개 규모를 배치로 밀어 넣기 전에 걸어 두어야 중복 노드와 느린 조회를 예방할 수 있습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-3">리포트 · Listing 8.3 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="관계 적재 쿼리" data-report-refs="source-section-8-2 source-listing-8-3" data-source-refs="section:8.2 listing:8.3"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · Listing 8.3</span></header>
+      <h1>관계를 배치로 MERGE하고, is-a 유형일 때만 SNOMED_IS_A를 한 번 더 만든다</h1>
+      <p class="lead">모든 관계는 <code>SNOMED_RELATION</code>으로 저장되고, 관계 유형이 <code>116680003</code>, 즉 "is-a" 상위 관계일 때는 <code>SNOMED_IS_A</code>가 추가로 만들어집니다. 이 관계가 뒤에서 계층 전파의 핵심으로 쓰입니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">    def import_snomed_rels(self):
+        query = """
+        UNWIND $batch as item
+        MERGE (e1:SnomedEntity {id: item.sourceId})
+        MERGE (e2:SnomedEntity {id: item.destinationId})
+        MERGE (e1)-[:SNOMED_RELATION {id: item.typeId}]->(e2)
+        FOREACH(ignoreMe IN CASE WHEN item.typeId = '116680003'
+        THEN [true] ELSE [] END|
+            MERGE (e1)-[:SNOMED_IS_A]->(e2)
+        )
+        """
+        size = self.get_csv_size(snomedRels_file)
+        self.batch_store(snomed_rels_query,
+                         self.get_rows(snomedRels_file),
+                         size=size)</pre>
+          <article class="panel panel--accent"><p class="eyebrow">코드 읽기</p><h2>두 벌로 저장하는 이유</h2><ul>
+            <li><code>MERGE</code> — 데이터가 없으면 만들고 이미 있으면 기존 데이터를 재사용합니다</li>
+            <li><code>116680003</code> — "A는 B의 한 종류다"라는 상위·하위 관계를 뜻하는 코드입니다</li>
+            <li><code>FOREACH(… CASE …)</code> — 조건이 맞을 때만 관계 하나를 더 만드는 Cypher 관용구입니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>설계 의도</strong> — 일반적인 그래프 탐색에는 <code>SNOMED_RELATION</code>을 쓰고, 계층을 타고 오르내릴 때는 <code>SNOMED_IS_A</code>만 골라 씁니다. "지카와 소두증이 어떻게 연결되는가"는 앞쪽, "소두증이 어느 상위 범주에 속하는가"는 뒤쪽 질문입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-3">리포트 · Listing 8.3 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="관계에 유형 이름 붙이기" data-report-refs="source-section-8-2 source-listing-8-4" data-source-refs="section:8.2 listing:8.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · Listing 8.4</span></header>
+      <h1>첫 번째 쿼리는 숫자 관계 코드에 읽을 수 있는 유형 이름과 별칭을 붙인다</h1>
+      <p class="lead">설명 파일에서 읽은 값으로 <code>SNOMED_RELATION</code>의 <code>type</code>과 <code>aliases</code>를 채웁니다. is-a 관계(<code>116680003</code>)는 이미 별도 관계로 만들어 두었으므로 여기서 제외합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">class SnomedNamesImporter(BaseImporter):
+    [...]
+    def import_snomed_names(self, snomedNames_file):
+        snomed_names_concepts_query = """
+        UNWIND $batch as item
+        MATCH (e1:SnomedEntity)
+            -[r:SNOMED_RELATION {id: item.conceptId}]->
+            (e2:SnomedEntity)
+        WHERE item.conceptId &lt;&gt; '116680003'
+              AND r.id = item.conceptId
+        SET r.type = CASE
+                WHEN r.type IS NULL THEN item.termAsType
+                ELSE r.type END,
+            r.aliases = CASE
+                WHEN item.termAsType IN r.aliases THEN r.aliases
+                ELSE coalesce(r.aliases,[]) + item.termAsType END
+        """</pre>
+          <article class="panel panel--accent"><p class="eyebrow">코드 읽기</p><h2>덮어쓰지 않고 채운다</h2><ul>
+            <li>숫자 코드로만 저장돼 있던 관계에 <code>IS_A</code>, <code>RISK_FACTOR_FOR</code>처럼 사람이 읽을 수 있는 유형 이름이 붙습니다</li>
+            <li><code>CASE … WHEN … IS NULL</code> — 값이 아직 비어 있을 때만 새 값을 넣습니다</li>
+            <li>별칭은 이미 들어 있지 않을 때만 리스트에 덧붙여 중복을 막습니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>왜 유형 이름이 필요한가</strong> — 뒤의 경로 문자열이 <code>(n1)-[:REL_TYPE]-&gt;(n2)</code> 형태로 읽히려면 관계에 이름이 있어야 합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-4">리포트 · Listing 8.4 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="개체에 이름과 별칭 붙이기" data-report-refs="source-section-8-2 source-listing-8-4" data-source-refs="section:8.2 listing:8.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · Listing 8.4</span></header>
+      <h1>두 번째 쿼리로 각 개체가 대표 이름과 여러 별칭을 갖게 된다</h1>
+      <p class="lead">이 단계가 끝나면 개체마다 대표 이름 하나와 별칭 목록이 생깁니다. 뒤에서 전문 검색으로 후보를 찾을 때, 이 이름과 별칭이 검색 인덱스의 재료가 됩니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">        snomed_names_entities_query = """
+        UNWIND $batch as item
+        MATCH (e:SnomedEntity {id: item.conceptId})
+        SET e.name = CASE
+                WHEN e.name IS NULL THEN item.term
+                ELSE e.name END,
+            e.aliases = CASE
+                WHEN item.term in e.aliases THEN e.aliases
+                ELSE coalesce(e.aliases, []) + item.term END
+        """
+        size = self.get_csv_size(snomedNames_file)
+        self.batch_store(snomed_names_concepts_query,
+                         self.get_rows(snomedNames_file), size=size)
+        self.batch_store(snomed_names_entities_query,
+                         self.get_rows(snomedNames_file), size=size)
+    [...]</pre>
+          <article class="panel panel--accent"><p class="eyebrow">코드 읽기</p><h2>한 개념, 여러 표현</h2><ul>
+            <li>한 개념이 <code>myocardial infarction</code>이라는 대표 이름과 <code>heart attack</code> 같은 별칭을 함께 갖습니다</li>
+            <li>같은 파일을 두 번 배치 처리해 관계와 개체를 각각 채웁니다</li>
+          </ul>
+          <p class="analogy"><b>비유</b> — 중복 방지 장치는 주소록에 이미 저장된 별명을 다시 추가하지 않는 것과 같습니다.</p>
+          </article>
+        </div>
+        <p class="takeaway"><strong>다음 단계의 재료</strong> — 문장에 <code>heart attack</code>이 나와도 표준 개념 <code>myocardial infarction</code>을 후보로 검색할 수 있게 됩니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-4">리포트 · Listing 8.4 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="1레벨 노드의 라벨 전파 쿼리" data-report-refs="source-section-8-2 source-listing-8-5" data-source-refs="section:8.2 listing:8.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · Listing 8.5</span></header>
+      <h1>루트 바로 아래 1레벨 노드에서 하위 트리 전체로 범주 이름을 내려보낸다</h1>
+      <p class="lead">루트 노드(<code>138875005</code>) 바로 아래에 붙은 1레벨 노드들이 온톨로지의 원형 범주(예: Disease, Organism, Procedure)입니다. 각 1레벨 노드에서 <code>SNOMED_IS_A</code>를 하위 방향으로 끝까지 확장하며, 아직 그 범주 이름을 갖지 않은 노드에 라벨을 붙입니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Cypher">MATCH p=(n:SnomedEntity)&lt;-[:SNOMED_IS_A]-(m:SnomedEntity)
+WHERE n.id= "138875005" // Root node
+WITH distinct m as first_node
+CALL apoc.path.expandConfig(first_node, {          // #A
+    relationshipFilter: '&lt;SNOMED_IS_A',
+    minLevel: 1,
+    maxLevel: -1,
+    uniqueness: 'RELATIONSHIP_GLOBAL'
+}) yield path
+UNWIND nodes(path) as other_level                  // #B
+WITH first_node, collect(DISTINCT other_level) as uniques
+UNWIND uniques as unique_other_level
+WITH first_node, unique_other_level
+WHERE not first_node.name in
+      coalesce(unique_other_level.type,[])
+RETURN unique_other_level.id as id,
+       first_node.name as label                    // #C</pre>
+          <article class="panel panel--accent"><p class="eyebrow">주석 따라 읽기</p><h2>확장, 수집, 라벨 반환</h2><ul>
+            <li><code>#A</code> — 1레벨 노드에서 하위 방향으로 경로를 확장합니다. <code>maxLevel: -1</code>이라 깊이 제한 없이 하위 트리 전체를 훑습니다</li>
+            <li><code>#B</code> — 확장된 경로에 등장한 모든 노드를 펼쳐 모읍니다</li>
+            <li><code>#C</code> — 각 하위 노드의 id와 붙일 라벨, 즉 1레벨 노드의 이름을 돌려줍니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-5">리포트 · Listing 8.5 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="라벨 전파의 결과" data-report-refs="source-section-8-2 source-listing-8-5" data-source-refs="section:8.2 listing:8.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.2 · Listing 8.5 결과</span></header>
+      <h1>의미 유형이 트리 전체로 퍼져 깊은 개체도 자신의 큰 범주를 알게 된다</h1>
+      <p class="lead"><code>SNOMED_IS_A</code> 관계를 이용해 계층 연결을 따라 의미 유형(semantic type)을 트리 구조 전체에 전파했습니다. 그 결과 깊은 곳의 세밀한 개체도 자신이 어떤 큰 범주에 속하는지를 갖게 됩니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">전파된 값</p><h2>노드의 type 속성</h2><ul>
+            <li>1레벨 원형 범주의 이름이 하위 노드의 <code>type</code>에 채워집니다</li>
+            <li>예를 들어 "복부 초음파 검사"는 여러 단계 아래에 있어도 최상위 <code>Procedure</code> 라벨을 갖게 됩니다</li>
+          </ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">쓰이는 곳</p><h2>NER의 허용 범주 목록</h2><ul>
+            <li>이 <code>type</code> 값들을 모으면 "이 온톨로지가 인정하는 범주 목록"이 됩니다</li>
+            <li>§8.4.1에서 LLM이 임의의 분류명을 만들지 않고 SNOMED에 실제로 존재하는 범주 안에서만 분류하도록 제한하는 근거가 됩니다</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — <code>연구개발본부 → AI연구소 → NLP팀</code> 구조에서 NLP팀에도 "연구개발본부 소속"이라는 정보가 전달되는 것과 같습니다. 조직도 최상위가 1레벨 원형 범주에, 여러 단계 아래의 팀이 깊은 계층의 세부 개체에 해당합니다. 다만 조직도와 달리 한 개체가 여러 범주를 동시에 가질 수 있어서 <code>type</code>은 목록으로 저장됩니다.</p>
+        <p class="takeaway"><strong>준비 완료</strong> — 이제 그래프에는 개체, 이름과 별칭, 관계, 그리고 범주가 모두 올라와 있습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-2">리포트 · 라벨 전파의 효과</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="8.3 모델 준비 섹션" data-report-refs="source-section-8-3" data-source-refs="section:8.3" data-source-title="section:8.3" data-density="long">
+      <div class="section-copy">
+        <p class="eyebrow">SECTION · §8.3</p>
+        <h1 class="source-title">8.3 Ollama와 Llama 3.1 8B로 모델 준비하기 — 로컬에서 돌리는 오픈 LLM</h1>
+        <p>외부 API 대신 내 컴퓨터에서 도는 오픈 모델로 NED 시스템을 배포한다</p>
+      </div>
+      <span class="section-number">03</span>
+    </section>
+
+    <section class="slide slide--dense" aria-label="로컬 배포의 이점과 모델 사양" data-report-refs="source-section-8-3" data-source-refs="section:8.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.3 · 실행 환경</span></header>
+      <h1>모델을 로컬에서 돌리면 데이터 통제권을 얻고 지연과 외부 의존을 줄인다</h1>
+      <p class="lead">앞 장들에서는 OpenAI API로 자연어 처리 작업을 수행했습니다. 이제 그 지식을 확장해, Ollama와 메타가 공개한 Llama 3.1 8B로 NED 시스템을 로컬에 배포합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">Ollama</p><h2>내 컴퓨터에서 LLM을 실행하는 오픈소스 도구</h2><ul>
+            <li>데이터에 대한 완전한 통제권을 얻습니다</li>
+            <li>지연 시간과 외부 제공자에 대한 의존을 함께 줄입니다</li>
+            <li>macOS, Linux, Windows와 호환되며 명령줄과 그래픽 인터페이스를 모두 제공합니다</li>
+          </ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">Llama 3.1 8B</p><h2>80억 파라미터의 오픈소스 LLM</h2><ul>
+            <li>최대 128,000 토큰의 문맥 길이를 지원합니다</li>
+            <li>다국어 정보 처리에 최적화되어 있습니다</li>
+            <li>소비자용 하드웨어에서도 효율적으로 배포되도록 설계되었습니다</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 예시</b> — 의료 기록을 외부 서버에 보내지 않고 사내 PC나 서버에서 처리하는 상황이 여기서 말하는 데이터 통제권입니다. 다만 로컬 실행이 항상 더 빠르다는 뜻은 아닙니다. 실제 속도와 품질은 GPU, 메모리, 양자화 방식에 따라 달라집니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-3">리포트 · §8.3 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="Ollama 서버 실행과 모델 내려받기" data-report-refs="source-section-8-3 source-listing-8-6" data-source-refs="section:8.3 listing:8.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.3 · Listing 8.6</span></header>
+      <h1>서버를 띄우고 모델을 내려받는 두 줄로 배포가 끝난다</h1>
+      <p class="lead">Ollama 설치 파일은 공식 사이트 ollama.com 에서 받습니다. 설치한 뒤 NED 시스템을 위해 아래 두 줄의 명령줄 지시로 Llama 3.1 8B를 내려받고 배포했습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout code-layout--balanced">
+          <pre class="code-block" data-code-language="Bash">ollama serve
+ollama pull llama3.1:latest</pre>
+          <article class="panel panel--accent"><p class="eyebrow">두 명령의 역할</p><h2>서버 실행과 모델 확보</h2><ul>
+            <li><code>ollama serve</code> — 로컬에서 요청을 받을 Ollama 서버를 띄웁니다</li>
+            <li><code>ollama pull llama3.1:latest</code> — 최신 Llama 3.1 모델을 내려받습니다</li>
+          </ul>
+          <p class="analogy"><b>비유</b> — 첫 줄은 주문을 받을 식당 문을 여는 일, 둘째 줄은 주방에서 쓸 재료를 들여오는 일에 해당합니다. 식당이 열려 있어야 손님을 받듯, 서버가 떠 있어야 뒤의 파이썬 코드가 요청을 보낼 수 있습니다.</p>
+          </article>
+        </div>
+        <p class="takeaway"><strong>배포의 의미</strong> — 이 두 줄로 외부 API 호출이 내 컴퓨터 안의 호출로 바뀝니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-6">리포트 · Listing 8.6 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="로컬 주소를 향한 OpenAI 클라이언트" data-report-refs="source-section-8-3 source-listing-8-7" data-source-refs="section:8.3 listing:8.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.3 · Listing 8.7</span></header>
+      <h1>OpenAI 클라이언트의 목적지만 로컬 주소로 바꾸면 연결이 끝난다</h1>
+      <p class="lead">Ollama는 OpenAI Chat Completions API와 호환되도록 만들어져 있어서, 로컬에 배포한 모델과도 앞 장들에서 쓰던 것과 같은 파이썬 코드로 곧장 대화할 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">from openai import OpenAI
+
+class LLM_Model():
+    def __init__(self, url='http://localhost:11434/v1',
+                 key="default"):
+        self.client = OpenAI(
+            base_url=url,   # 모델이 서비스되는 기본 URL
+            api_key=key,    # OpenAI Chat Completions API가
+                            # 요구하지만 오픈 모델에서는
+                            # 사용되지 않는 값
+        )</pre>
+          <article class="panel panel--accent"><p class="eyebrow">코드 읽기</p><h2>바뀌는 것은 주소뿐</h2><ul>
+            <li><code>base_url</code> — 요청 목적지를 외부 서버가 아니라 내 컴퓨터의 Ollama(<code>localhost</code>의 11434 포트)로 지정합니다</li>
+            <li><code>api_key</code> — OpenAI Chat Completions API가 형식상 요구하지만 오픈 모델에는 실제로 쓰이지 않으므로 아무 값이나 넣어도 됩니다</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — 엔진은 OpenAI에서 로컬 Llama로 바뀌었지만 운전대와 페달, 곧 OpenAI Chat Completions API 인터페이스는 그대로입니다. 그래서 모델을 NED 시스템에 끼워 넣는 과정이 단순해집니다. 비유의 경계는 이렇습니다 — 인터페이스가 같다고 응답 품질과 속도까지 같지는 않습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-7">리포트 · Listing 8.7 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="결정적 출력을 위한 생성 메서드" data-report-refs="source-section-8-3 source-listing-8-7" data-source-refs="section:8.3 listing:8.7"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.3 · Listing 8.7</span></header>
+      <h1>temperature=0으로 매번 같은 답을 받고, 응답 객체에서 본문만 꺼낸다</h1>
+      <p class="lead"><code>generate</code> 메서드는 메시지를 받아 응답을 만듭니다. 명확화처럼 일관성이 중요한 작업에서는 매번 같은 결정적 출력을 얻는 설정이 유용합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">    def generate(self, messages):
+        response = self.client.chat.completions.create(
+            model="llama3.1:latest",   # Ollama로 내려받은 모델 지정
+            messages=messages,
+            temperature=0,
+            max_tokens=4000,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0,
+        )
+        #### It assumes as response the ChatGPT API format
+        return response.choices[0].message.content</pre>
+          <article class="panel panel--accent"><p class="eyebrow">코드 읽기</p><h2>일관성과 응답 꺼내기</h2><ul>
+            <li><code>temperature=0</code> — 창의적인 답보다 일관된 답을 내도록 합니다. 의료 코드가 실행할 때마다 바뀌면 안 되기 때문입니다</li>
+            <li><code>response.choices[0].message.content</code> — 서버가 보낸 응답 객체에서 실제 모델 답변이 든 자리를 순서대로 열어 꺼냅니다</li>
+            <li>원문 코드에 남아 있는 주석 <code>#### It assumes as response the ChatGPT API format</code>은 반환 형식이 ChatGPT API 형식임을 전제한다는 뜻입니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>재현성</strong> — 같은 프롬프트에 같은 답이 나와야 뒤의 단계별 결과를 서로 비교할 수 있습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-7">리포트 · Listing 8.7 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="범용 모델을 쓰는 이유" data-report-refs="source-section-8-3" data-source-refs="section:8.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.3 · 설계 의도</span></header>
+      <h1>범용 모델도 도메인 온톨로지와 결합하면 틈새 영역에서 작동한다</h1>
+      <p class="lead">Llama 3.1 같은 범용 모델을 NED에 사용하는 것은, LLM이 도메인 전용 온톨로지와 결합될 때 틈새 영역에서도 얼마나 잘 작동할 수 있는지를 보여 주려는 시도입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">가정하지 않는 것</p><h2>모델이 의학 코드를 외우고 있다</h2><p>범용 LLM이 45만 개 규모의 의학 개념과 그 식별자를 정확히 기억한다고 가정하지 않습니다. 그 지식은 온톨로지에서 조회해 프롬프트에 넣습니다.</p></article>
+          <article class="panel panel--accent"><p class="eyebrow">실제 분담</p><h2>언어 이해는 LLM, 전문 지식은 SNOMED</h2><p>다음 절부터는 이 과정을 하나씩 분해해, 시스템이 복잡한 생물의학 텍스트에서 개체를 어떻게 해석하고 명확화하는지, 그래서 정보 추출과 분석을 어떻게 돕는지 보여 줍니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 예시</b> — 문서 이해를 잘하는 신입 분석가에게 회사의 정확한 제품 코드와 부품 관계를 제품 마스터 DB로 제공하는 구조와 같습니다. 분석가가 범용 모델 Llama 3.1에, 제품 마스터 DB가 도메인 전용 온톨로지 SNOMED에 해당합니다.</p>
+        <p class="source-note">예시 결과는 다음 절들에 나오는 프롬프트로 생성했으며, 2024년 10월에 당시 최신 Llama 3.1 모델을 사용해 얻은 것입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-3">리포트 · §8.3 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="8.4 종단 간 NED 과정 섹션" data-report-refs="source-section-8-4" data-source-refs="section:8.4" data-source-title="section:8.4" data-density="long">
+      <div class="section-copy">
+        <p class="eyebrow">SECTION · §8.4</p>
+        <h1 class="source-title">8.4 종단 간(End-to-End) NED 과정 — 입력 문서에서 명확화된 개체까지</h1>
+        <p>비정형 텍스트 한 편이 온톨로지의 정확한 개체로 확정되기까지</p>
+      </div>
+      <span class="section-number">04</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="NED 시스템의 전체 작업 흐름" data-report-refs="source-section-8-4 source-figure-8-2" data-source-refs="section:8.4 figure:8.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4 · 그림 8.2</span></header>
+      <h1>입력 문서는 인식·선택·명확화 세 단계를 거쳐 명확화된 개체가 된다</h1>
+      <p class="lead">이 예제의 NED 과정을 그린 멘탈 모델입니다. 과정은 비정형 텍스트를 담은 입력 문서에서 시작합니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure" data-deck-figure-number="3" data-deck-figure-title="LLM과 도메인 온톨로지를 사용하는 NED 시스템의 작업 흐름">
+          <img src="assets/figs/fig-8-2-ned-workflow.svg" alt="입력 문서가 개체명 인식, 후보 선택, 후보 명확화를 차례로 거쳐 명확화된 개체가 되고, 도메인 온톨로지가 세 단계 모두에 정보를 공급하는 작업 흐름 도해">
+          <figcaption><b>그림 3 · NED 시스템의 작업 흐름</b><span><strong>읽는 법</strong> — 왼쪽 입력 문서에서 오른쪽 명확화된 개체까지 화살표를 따라 읽는다</span><span><strong>핵심</strong> — 아래에서 올라오는 온톨로지 공급선이 세 단계 모두에 닿는다</span><span><strong>해석</strong> — 각 단계는 여러 상호작용을 거치며 입력 텍스트의 개체를 정확히 명확화한다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-8-2">리포트 그림 3 · 교재 그림 8.2 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="첫 단계 개체명 인식의 역할" data-report-refs="source-section-8-4 table-ned-stages" data-source-refs="section:8.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4 · 1단계</span></header>
+      <h1>개체명 인식이 날것의 텍스트를 다음 단계가 처리할 구조화된 데이터로 바꾼다</h1>
+      <p class="lead">입력 문서는 LLM 기반 개체명 인식(NER, Named Entity Recognition) 구성 요소가 분석합니다. NER는 텍스트에서 관심 개체를 찾아 범주를 붙이는 작업입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">하는 일</p><h2>온톨로지의 범주로 라벨을 붙인다</h2><ul>
+            <li>LLM이 도메인 온톨로지에 담긴 지식을 이용해 입력 텍스트 속 관련 생물의학 개체를 찾아냅니다</li>
+            <li>예컨대 "Zika" 같은 용어는 SNOMED에 따라 Disease(질병) 개념으로 인식될 수 있습니다</li>
+          </ul></article>
+          <article class="panel"><p class="eyebrow">두 축으로 본 전체 구조</p><h2>발견하고, 확정한다</h2><ul>
+            <li>LLM이 도메인 온톨로지를 이용해 입력 텍스트의 생물의학 개체를 찾아 라벨을 붙입니다</li>
+            <li>LLM이 다단계 접근으로 가장 정확한 개체를 고릅니다. 후보 사이의 최단 경로를 탐지하고, 그 경로 정보를 자연어로 옮기고 요약해 명확화를 뒷받침합니다</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — 시험 문제에서 중요한 단어에 밑줄을 긋는 일이 발견 단계, 참고서의 개념 관계를 조사해 보기 중 정답을 고르는 일이 확정 단계입니다. 예를 들어 "Zika가 소두증을 일으킨다"에서 <code>Zika</code>와 <code>소두증</code>을 찾아 구조화된 JSON 항목으로 바꾸는 것이 앞 단계입니다.</p>
+        <p class="takeaway"><strong>주의</strong> — NER에서 붙인 라벨은 초기 분류일 뿐이고, 정확한 표준 개체는 뒤의 명확화 단계에서 확정됩니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-ned-stages">리포트 · 세 단계 정리</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="두 번째 단계 후보 선택의 역할" data-report-refs="source-section-8-4 table-ned-stages" data-source-refs="section:8.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4 · 2단계</span></header>
+      <h1>후보 선택은 각 언급에 대해 가능한 매칭 목록, 곧 후보 풀을 마련한다</h1>
+      <p class="lead">다음으로 시스템은 후보 선택(CS, Candidate Selection) 단계로 넘어갑니다. 전문 검색(full-text search) 메커니즘이 각 개체 언급에 대해 가능한 매칭 목록을 만들어 냅니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">예시</p><h2>"Zika" 하나에 여러 개체</h2><ul>
+            <li>Zika Virus(지카 바이러스)</li>
+            <li>Zika Virus Infection(지카 바이러스 감염)</li>
+            <li>Congenital Zika Virus Infection(선천성 지카 바이러스 감염)</li>
+          </ul></article>
+          <article class="panel"><p class="eyebrow">이 단계의 경계</p><h2>아직 정답을 고르지 않는다</h2><p>이 단계는 잠재적 명확화 대상의 후보 풀을 마련하는 데서 멈춥니다. 다음 단계에서 시스템이 이 후보들을 평가해 가장 정확한 매칭을 찾습니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — 사건의 범인을 확정하기 전에 조건에 맞는 용의자 명단을 먼저 만드는 것과 같습니다. 명단이 후보 풀에, 범인 확정이 다음 단계의 후보 명확화에 해당합니다. 비유의 경계는 이렇습니다 — 명단에 오르는 기준은 수사관의 직관이 아니라 온톨로지의 이름·별칭 검색 결과입니다.</p>
+        <p class="takeaway"><strong>왜 나누는가</strong> — 후보를 넓게 모으는 일과 그중 하나를 고르는 일은 근거가 다르므로 단계를 분리합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-ned-stages">리포트 · 세 단계 정리</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="세 번째 단계 후보 명확화의 역할" data-report-refs="source-section-8-4 table-ned-stages" data-source-refs="section:8.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4 · 3단계</span></header>
+      <h1>후보 명확화는 각 언급에 가장 정밀하게 맞는 개체 하나를 결정한다</h1>
+      <p class="lead">마지막 단계인 후보 명확화(CD, Candidate Disambiguation)에서 LLM은 선택을 다듬어 각 언급에 가장 정밀하게 맞는 개체를 결정합니다. 이렇게 해서 입력 문서에 언급된 각 개체가 온톨로지 안의 대응 개체로 정확히 매핑되도록 보장합니다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>①</span><h2>최단 경로 탐지</h2><p>온톨로지 구조에서 후보 사이의 최단 경로를 찾습니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>②</span><h2>경로-텍스트 변환</h2><p>관련 경로 세부를 자연어로 옮깁니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>③</span><h2>텍스트 경로 요약</h2><p>옮긴 문장을 요약해 문맥 지식으로 명확화를 뒷받침합니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 예시</b> — <code>Zika</code>, <code>임신</code>, <code>소두증</code>, <code>선천성 기형</code>이 함께 나오고 그래프에서도 서로 짧게 연결된다면 <code>Congenital Zika virus infection</code>을 선택합니다. 함께 나온 단어들이 문맥 지식에, 짧게 연결된다는 조건이 최단 경로 탐지에 해당합니다.</p>
+        <p class="takeaway"><strong>결정의 근거</strong> — 후보와 주변 개체 사이의 연결 관계를 증거로 비교해 최종 정답을 고릅니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-ned-stages">리포트 · 세 단계 정리</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="단계마다 온톨로지를 통합하는 이유" data-report-refs="source-section-8-4" data-source-refs="section:8.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4 · 설계 원칙</span></header>
+      <h1>매 단계에 온톨로지를 통합해 모델이 더 근거 있는 결정을 내리게 한다</h1>
+      <p class="lead">이 LLM 주도 접근은 명확화 과정의 매 단계마다 도메인 전용 온톨로지를 통합합니다. 온톨로지의 계층 구조와 관계 구조를 함께 끌어들임으로써, 모델은 개체 분류와 명확화에 대해 더 근거 있는 결정을 내릴 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>범주</span><h2>NER 단계에 공급</h2><p>온톨로지가 인정하는 범주 목록만 쓰게 해, 모델이 새 분류명을 만들지 못하게 합니다.</p></article>
+          <article class="card"><span>후보</span><h2>CS 단계에 공급</h2><p>모델의 기억이 아니라 온톨로지 조회 결과로 후보를 만듭니다.</p></article>
+          <article class="card"><span>관계</span><h2>CD 단계에 공급</h2><p>후보 사이의 경로를 계산해 판단 근거를 제공합니다.</p></article>
+        </div>
+        <p class="takeaway"><strong>특히 유리한 조건</strong> — 용어가 여러 의미나 연관을 가질 수 있는 복잡한 경우입니다. 온톨로지만 갱신하면 새 지식을 반영할 수 있다는 것도 중요한 장점입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4">리포트 · §8.4 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="8.4.1 개체명 인식의 목표" data-report-refs="source-section-8-4-1" data-source-refs="section:8.4.1" data-source-title="section:8.4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · 1단계</span></header>
+      <h1 class="source-title">8.4.1 개체명 인식(NER) — 온톨로지가 정의한 범주로 개체 찾기</h1>
+      <p class="lead">NER의 목표는 비정형 텍스트에 언급된 개체명을 찾아, Disease(질병), Organism(생물체), Procedure(시술) 같은 미리 정해진 범주로 분류하는 것입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">방법</p><h2>프롬프트 엔지니어링</h2><ul>
+            <li>관심 있는 개체 유형을 프롬프트 안에 명시적으로 정의해 주는 방식입니다</li>
+            <li>이때 데이터 과학자나 데이터 엔지니어가 도메인 전문가와 함께 어떤 개체를 정의할지 협의하는 경우가 많습니다</li>
+            <li>우리 시나리오에서는 SNOMED의 구조화된 의학 지식을 끌어들여, LLM이 더 정밀하고 문맥을 아는 개체 인식을 수행하게 합니다</li>
+          </ul></article>
+          <article class="panel"><p class="eyebrow">두 작업의 질문이 다르다</p><h2>NER과 NED의 경계</h2><ul>
+            <li><b>NER의 질문</b> — 문장에 어떤 이름이 있고, 대략 무슨 종류인가?</li>
+            <li><b>NED의 질문</b> — 그 이름은 지식베이스의 정확히 어느 항목인가?</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>다른 도메인의 예시</b> — 의료에서는 Disease와 Procedure를 찾지만, 제조 문서에서는 Product·Part·Defect·Process를 찾도록 도메인 전문가와 범주를 정해야 합니다. 범주 목록 자체가 도메인마다 달라진다는 점이 이 접근의 이식성을 만듭니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4-1">리포트 · §8.4.1 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="허용 범주 목록 조회 쿼리" data-report-refs="source-section-8-4-1 source-listing-8-8" data-source-refs="section:8.4.1 listing:8.8">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · Listing 8.8</span></header>
+      <h1>온톨로지의 type 값을 모아 프롬프트에 넣을 허용 범주 목록을 만든다</h1>
+      <p class="lead">NER를 하려면 온톨로지에서 미리 정의된 범주를 모두 가져와야 합니다. 아래 쿼리는 모든 <code>SnomedEntity</code> 노드의 <code>type</code> 속성, 곧 앞의 라벨 전파로 채워진 범주를 펼쳐 세고 빈도 높은 순으로 정렬한 뒤 하나의 리스트로 모아 돌려줍니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Cypher">MATCH (n:SnomedEntity)
+UNWIND n.type as named_entity
+WITH DISTINCT named_entity, count(named_entity) as num_of_entities
+ORDER BY num_of_entities DESC
+RETURN collect(named_entity) as named_entities</pre>
+          <article class="panel panel--accent"><p class="eyebrow">쿼리 읽는 법</p><h2>꺼내고, 세고, 모은다</h2><ul>
+            <li><code>UNWIND n.type</code> — 목록으로 저장된 범주를 한 줄씩 펼칩니다</li>
+            <li><code>count(named_entity)</code>와 <code>ORDER BY … DESC</code> — 같은 범주가 몇 번 등장하는지 세어 빈도 높은 순으로 정렬합니다</li>
+            <li><code>collect(…)</code> — 하나의 목록으로 만들어 프롬프트의 <code>{named_entities}</code> 자리에 넣습니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>이 목록의 역할</strong> — 모델이 새로운 분류명을 마음대로 만들지 않고 제공된 보기 안에서만 고르게 하는 제약이 됩니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-8">리포트 · Listing 8.8 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="NER 단계의 입력과 출력" data-report-refs="source-section-8-4-1 source-figure-8-3" data-source-refs="section:8.4.1 figure:8.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · 그림 8.3</span></header>
+      <h1>NER가 쓰는 개체명은 온톨로지에서 곧장 유도된다</h1>
+      <p class="lead">NED의 첫 단계인 NER의 입력과 출력입니다. SNOMED에서는 온톨로지의 1레벨 노드가 범주를 정의하고, 그 정보가 다른 모든 노드로 전파됩니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure" data-deck-figure-number="4" data-deck-figure-title="NED의 첫 단계인 개체명 인식">
+          <img src="assets/figs/fig-8-3-ner-stage.svg" alt="NED 파이프라인에서 입력 문서, 개체명 인식, 주석 처리된 언급과 온톨로지 공급선만 진하게 강조되고 뒤의 단계들은 회색으로 표시된 도해">
+          <figcaption><b>그림 4 · NED의 첫 단계, 개체명 인식</b><span><strong>읽는 법</strong> — 진하게 강조된 구간이 이번 단계이고, 회색 구간은 아직 실행되지 않은 뒤 단계다</span><span><strong>입력과 출력</strong> — 입력 문서가 들어가 범주 라벨이 붙은 언급 목록이 나온다</span><span><strong>핵심</strong> — 범주는 모델이 만든 것이 아니라 온톨로지 1레벨 노드에서 유도된다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-8-3">리포트 그림 4 · 교재 그림 8.3 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="NER 프롬프트의 지시와 입력" data-report-refs="source-section-8-4-1 source-listing-8-9" data-source-refs="section:8.4.1 listing:8.9"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · Listing 8.9</span></header>
+      <h1>시스템 메시지가 허용 범주를 고정하고 그 밖의 범주를 금지한다</h1>
+      <p class="lead">시스템 메시지는 SNOMED 온톨로지의 의학 도메인 범주에 속하는 개체명의 등장을 추출하되, 무관하거나 범위를 벗어난 범주는 피하라고 지시합니다. 전체 프롬프트는 코드 저장소에 있습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">system = """You are an assistant capable of extracting named
+entities in the medical domain.
+Your task is to extract ALL single mentions of named entities
+from the text.
+You must only use one of the pre-defined entities from the
+following list:
+{named_entities}.
+No other entity categories are allowed.
+For each sentence, extract the named entities and present the
+output in valid JSON format""".format(named_entities=named_entities)
+
+input = """Risk factors for rhinocerebral mucormycosis include
+poorly controlled diabetes mellitus and severe
+immunosuppression."""</pre>
+          <article class="panel panel--accent"><p class="eyebrow">프롬프트 읽기</p><h2>규칙과 연습 문제</h2><ul>
+            <li><code>{named_entities}</code> — Listing 8.8이 모아 온 허용 범주 목록이 이 자리에 들어갑니다</li>
+            <li><code>No other entity categories are allowed</code> — 목록 밖의 범주를 명시적으로 금지합니다</li>
+            <li><code>input</code> — 어떤 의학적 상태(비뇌형 모균증, rhinocerebral mucormycosis)의 위험 요인을 다루며, 당뇨병이나 면역억제처럼 인식해야 할 의학 용어를 나열한 예시 입력입니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-9">리포트 · Listing 8.9 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="NER 프롬프트의 퓨샷 정답 예시" data-report-refs="source-section-8-4-1 source-listing-8-9" data-source-refs="section:8.4.1 listing:8.9"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · Listing 8.9</span></header>
+      <h1>정답 형식을 JSON 예시로 미리 보여 주면 출력 형식이 안정된다</h1>
+      <p class="lead"><code>assistant</code>는 모델이 내놓아야 할 정답 형식을 JSON으로 보여 주는 퓨샷(few-shot) 예시입니다. "JSON으로 답하라"고 말만 하는 것보다 실제 JSON 예시를 함께 보여 주는 편이 형식 오류를 줄이는 데 유리합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">assistant = [
+    {
+        "sentence": """Risk factors for rhinocerebral
+mucormycosis include poorly controlled diabetes mellitus
+and severe immunosuppression.""",
+        "entities": [
+            {
+                "id": 0,
+                "mention": "Risk factors",
+                "label": "Events"
+            },
+            [...]
+        ]
+    }
+]</pre>
+          <article class="panel panel--accent"><p class="eyebrow">예시가 뽑아 낸 네 개체</p><h2>언급과 라벨의 짝</h2><ul>
+            <li><code>Risk factors</code> → Events</li>
+            <li><code>rhinocerebral mucormycosis</code> → Disease</li>
+            <li><code>poorly controlled diabetes mellitus</code> → Disease</li>
+            <li><code>severe immunosuppression</code> → Qualifier value</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>출력 구조</strong> — <code>sentence</code>는 문장 단위 처리를 강제해 의미의 각 단위를 개별적으로 분석하게 하고, <code>entities</code>에는 문장 내 고유 ID, 텍스트에서 찾은 언급, SNOMED 범주 라벨이 담깁니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-9">리포트 · Listing 8.9 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="NER에 넘긴 지카 문장" data-report-refs="source-section-8-4-1 source-listing-8-10" data-source-refs="section:8.4.1 listing:8.10">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · Listing 8.10</span></header>
+      <h1>입력으로는 §8.1에서 scispaCy가 실패했던 바로 그 지카 문장을 쓴다</h1>
+      <p class="lead">NER 프롬프트로 지시받은 LLM에 전달되는 사용자 메시지입니다.</p>
+      <div class="slide-body">
+        <div class="code-layout code-layout--balanced">
+          <pre class="code-block" data-code-language="Python">user = """Severe outcomes of Zika are due to its
+capacity to cross the placental barrier during
+pregnancy, causing microcephaly and congenital
+malformations"""</pre>
+          <article class="panel panel--accent"><p class="eyebrow">이 문장을 고른 이유</p><h2>모호하지만 단서는 있다</h2><ul>
+            <li>"Zika"만 보면 바이러스인지 질병인지 모호합니다</li>
+            <li>임신(pregnancy)·태반(placental barrier)·소두증(microcephaly)·선천성 기형(congenital malformations)이라는 중요한 단서가 같은 문장에 함께 있습니다</li>
+            <li>단서가 언급 바로 옆에 붙어 있지 않으므로 뒤의 명확화를 시험하기에 적합합니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>비교의 조건</strong> — 같은 문장으로 scispaCy는 후보를 만들지 못했습니다. 이제 같은 입력에 새 접근을 적용합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-10">리포트 · Listing 8.10 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="NER 출력 JSON" data-report-refs="source-section-8-4-1 source-listing-8-11" data-source-refs="section:8.4.1 listing:8.11">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · Listing 8.11</span></header>
+      <h1>Llama 3.1은 세 개체를 찾아 각각 라벨과 문자 위치를 붙였다</h1>
+      <p class="lead">리스팅 8.10 문장에 대한 NER 출력의 일부입니다. 각 항목은 문장 내 고유 ID, 언급 문자열, SNOMED 범주 라벨, 그리고 시작·끝 문자 위치를 담습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="JSON">{
+"sentence": "Severe outcomes of Zika are due to its capacity
+to cross the placental barrier during pregnancy, causing
+microcephaly and congenital malformations.",
+"entities": [
+    {
+        "id": 0,
+        "mention": "Zika",
+        "label": "Organism",
+        "start": 19,
+        "end": 22
+    },
+    [...]
+]
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">식별된 세 개체</p><h2>언급, 라벨, 위치</h2><ul>
+            <li><b>Zika</b> — Organism(생물체)으로 식별되었고, 문장 내 위치는 19번째 문자에서 22번째 문자까지입니다</li>
+            <li><b>Microcephaly(소두증)</b> — Clinical finding (finding), 즉 임상 소견으로 라벨링되어 의학적 상태임을 나타냅니다. 105~116번째 문자입니다</li>
+            <li><b>Congenital malformations(선천성 기형)</b> — 역시 Clinical finding (finding)이고, 122~145번째 문자 사이에 있습니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-11">리포트 · Listing 8.11 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="Organism 라벨의 위치" data-report-refs="source-section-8-4-1 source-listing-8-11" data-source-refs="section:8.4.1 listing:8.11">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · Listing 8.11 해석</span></header>
+      <h1>"Zika"에 붙은 Organism은 최종 답이 아니라 후보 검색을 돕는 초기 분류다</h1>
+      <p class="lead">출력에서 "Zika"가 Organism(생물체)으로 분류된 점을 눈여겨봅니다. 이 초기 라벨이 명확화 과정에서 어떻게 다듬어지는지를 §8.4.3에서 확인하게 됩니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">이 단계에서 확정되는 것</p><h2>언급의 범위와 대략의 종류</h2><ul>
+            <li>문장 안에서 어떤 문자열이 개체인지</li>
+            <li>그 개체가 온톨로지의 어느 큰 범주에 드는지</li>
+          </ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">아직 확정되지 않은 것</p><h2>지식베이스의 정확한 항목</h2><ul>
+            <li>Zika 바이러스인지, 지카 바이러스병인지, 선천성 지카 감염인지</li>
+            <li>이 판단은 후보 선택과 후보 명확화를 거쳐야 내려집니다</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — "Jaguar"를 일단 동물·브랜드와 관련된 이름으로 찾아 둔 뒤, <code>엔진·신차·변속기</code> 문맥을 보고 자동차 브랜드로 확정하는 것과 같습니다. 초기 라벨이 Organism에, 문맥이 함께 등장한 소두증·선천성 기형에 해당합니다. 비유의 경계는 이렇습니다 — 여기서 최종 확정은 사람의 직관이 아니라 온톨로지 경로라는 명시적 근거로 이루어집니다.</p>
+        <p class="takeaway"><strong>라벨의 쓰임</strong> — 초기 라벨은 다음 단계에서 후보 검색의 탐색 공간을 좁히는 데 쓰입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-11">리포트 · Listing 8.11 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="언급 위치 계산 함수" data-report-refs="source-section-8-4-1 source-listing-8-12" data-source-refs="section:8.4.1 listing:8.12"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.1 · Listing 8.12</span></header>
+      <h1>문자 위치는 LLM이 아니라 파이썬 함수가 계산해 채운다</h1>
+      <p class="lead">LLM은 문장 속 언급의 시작·끝 문자 위치를 정확히 알아내는 데 약합니다. 유창하게 말은 하지만 몇 번째 글자인지 세는 일은 서툰 셈입니다. 그래서 <code>start</code>와 <code>end</code> 필드는 아래 함수로 후처리해 생성했습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">def find_all_mention_indices(self, string, substring):
+    indices = []
+    start_index = 0
+    while True:
+        start_index = string.find(substring, start_index)
+        if start_index == -1:
+            break  # No more occurrences found
+        end_index = start_index + len(substring) - 1
+        indices.append((start_index, end_index))
+        #### Move start_index forward to search for the
+        #### next occurrence
+        start_index += len(substring)
+    return indices</pre>
+          <article class="panel panel--accent"><p class="eyebrow">코드 읽기</p><h2>모든 등장을 차례로</h2><ul>
+            <li><code>find</code>로 다음 등장을 찾고, 못 찾으면 <code>-1</code>이 돌아와 반복이 끝납니다</li>
+            <li>찾을 때마다 검색 시작점을 언급 길이만큼 앞으로 밀어 다음 등장을 이어서 찾습니다</li>
+            <li><code>end_index</code>는 마지막 문자를 포함하는 인덱스입니다</li>
+            <li>문장이 <code>Zika and Zika disease</code>라면 첫 번째 Zika를 찾은 뒤 위치를 옮겨 두 번째 Zika도 찾습니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>하이브리드 설계</strong> — 의미를 판단하는 일은 LLM에 맡기고, 글자 위치 계산처럼 정확해야 하는 일은 일반 코드에 맡깁니다. 이 함수가 전통적 NER 시스템이 제공하던 "언급의 위치" 정보를 채워 넣습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-12">리포트 · Listing 8.12 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="8.4.2 후보 선택의 목표" data-report-refs="source-section-8-4-2" data-source-refs="section:8.4.2" data-source-title="section:8.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.2 · 2단계</span></header>
+      <h1 class="source-title">8.4.2 후보 선택(CS) — 온톨로지에서 가능한 후보 길어 올리기</h1>
+      <p class="lead">NED 과정의 두 번째 단계는 후보 선택입니다. 각 개체명이 의도했을 수 있는 의미와 일치하는 관련 개체나 개념을 찾아냅니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">입력</p><h2>언급 목록과 도메인 온톨로지</h2><p>NER 과정이 입력 텍스트에 표시한 언급들과, 조회 대상인 도메인 온톨로지가 이 단계의 입력입니다.</p></article>
+          <article class="panel panel--accent"><p class="eyebrow">출력</p><h2>언급마다 하나 이상의 후보 개체 목록</h2><p>최종 답을 바로 고르는 것이 아니라, 먼저 가능한 정답 후보를 빠짐없이 수집합니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 예시</b> — "Java"의 후보로 프로그래밍 언어, 인도네시아 섬, 커피를 모두 가져온 뒤 다음 단계에서 문맥으로 하나를 고릅니다. 후보를 모으는 일이 이 단계, 하나를 고르는 일이 다음 단계인 후보 명확화입니다.</p>
+        <p class="takeaway"><strong>이 단계의 원칙</strong> — 놓치는 후보가 없어야 합니다. 여기서 빠진 개체는 다음 단계에서 결코 선택될 수 없습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4-2">리포트 · §8.4.2 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="후보 선택 단계의 입력과 출력" data-report-refs="source-section-8-4-2 source-figure-8-4" data-source-refs="section:8.4.2 figure:8.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.2 · 그림 8.4</span></header>
+      <h1>앞 단계에서 탐지된 각 언급마다 그것을 가리킬 수 있는 후보를 조회한다</h1>
+      <p class="lead">NED의 두 번째 단계인 후보 선택의 입력과 출력이며, 후보 개체가 어떻게 선택되는지를 강조한 그림입니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure" data-deck-figure-number="5" data-deck-figure-title="NED의 두 번째 단계인 후보 선택">
+          <img src="assets/figs/fig-8-4-cs-stage.svg" alt="NED 파이프라인에서 주석 처리된 언급, 후보 선택, 언급별 후보 목록과 온톨로지 공급선만 진하게 강조되고 나머지 단계는 회색으로 표시된 도해">
+          <figcaption><b>그림 5 · NED의 두 번째 단계, 후보 선택</b><span><strong>읽는 법</strong> — 강조된 두 번째 상자를 중심으로, 언급 목록이 언급별 후보 목록으로 바뀌는 방향을 따라 읽는다</span><span><strong>앞 단계와의 차이</strong> — 입력이 날것의 문서가 아니라 라벨이 붙은 언급이다</span><span><strong>경계</strong> — 출력은 후보 목록이며 아직 정답이 하나로 좁혀지지 않았다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-8-4">리포트 그림 5 · 교재 그림 8.4 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="후보 선택에서 LLM을 쓰지 않는 이유" data-report-refs="source-section-8-4-2" data-source-refs="section:8.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.2 · 설계 판단</span></header>
+      <h1>이 단계에서는 LLM을 쓰지 않고 Neo4j의 전문 검색으로 후보를 조회한다</h1>
+      <p class="lead">원서 저자들은 두 가지 이유를 듭니다. 그래서 후보 선택을 효율적으로 하기 위해 Neo4j의 전문 검색 기능을 씁니다. 이 기능은 각 언급과 가깝게 일치하는 온톨로지 내 문자열을 찾아냅니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">첫 번째 이유</p><h2>모델의 기억보다 검증된 대장</h2><p>LLM 안에 박제된 지식에 기대기보다 도메인 온톨로지에서 후보를 직접 조회하고 싶기 때문입니다. 달변가의 기억보다 검증된 사실 대장을 믿는 선택입니다.</p></article>
+          <article class="panel"><p class="eyebrow">두 번째 이유</p><h2>온톨로지가 프롬프트에 들어가지 않는다</h2><p>온톨로지의 크기가 너무 커서 그 전체를 프롬프트에 통째로 실을 수 없기 때문입니다. SNOMED는 45만 개가 넘는 개념을 담고 있습니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — 직원 45만 명 중 동명이인을 찾을 때 LLM에게 전 직원 명단을 읽히지 않고 인사 데이터베이스에서 검색하는 것과 같습니다. 후보 조회는 데이터베이스가 더 정확하고 효율적입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4-2">리포트 · §8.4.2 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="라벨로 좁히는 전문 검색 쿼리" data-report-refs="source-section-8-4-2" data-source-refs="section:8.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">&sect;8.4.2 &middot; 후보 조회 코드</span></header>
+      <h1>NER 라벨로 탐색 공간을 줄인 뒤 전문 검색으로 후보를 찾는다</h1>
+      <p class="lead"><code>$labels</code>는 NER 단계의 출력에서 모은 값으로, 시스템이 언급된 개체 유형과 관련 있는 개체의 부분집합만 찾도록 강제합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">class CandidateSelection:
+    [...]
+    def full_text_query(self):
+        query = """
+        CALL db.index.fulltext.queryNodes("names", $fulltextQuery,
+             {limit: $limit})
+        YIELD node
+        WHERE node:SnomedEntity AND ANY(x IN node.type
+              WHERE x IN $labels)
+        RETURN distinct node.name AS candidate_name, node.id
+               AS candidate_id
+        """
+        return query</pre>
+          <article class="panel panel--accent"><p class="eyebrow">쿼리 읽는 법</p><h2>인덱스 조회에 라벨 조건을 얹는다</h2><ul>
+            <li><code>db.index.fulltext.queryNodes("names", ...)</code> — 이름과 별칭으로 만든 전문 검색 인덱스를 조회합니다</li>
+            <li><code>ANY(x IN node.type WHERE x IN $labels)</code> — NER가 붙인 범주에 해당하는 개체만 남깁니다</li>
+            <li>예를 들어 <code>cold</code>의 라벨이 Disease면 감기 쪽에서, Temperature면 낮은 온도 쪽에서 찾도록 범위를 줄입니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>반환값</strong> — 후보의 이름(<code>candidate_name</code>)과 SNOMED 식별자(<code>candidate_id</code>)입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4-2">리포트 &middot; 후보 조회 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="퍼지 매칭 질의 생성" data-report-refs="source-section-8-4-2" data-source-refs="section:8.4.2"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">&sect;8.4.2 &middot; 후보 조회 코드</span></header>
+      <h1>각 단어에 ~0.80을 붙여 철자가 다른 변형 표기까지 후보로 잡는다</h1>
+      <p class="lead"><code>generate_full_text_query</code>가 입력 언급을 단어로 나눈 뒤 각 단어 뒤에 <code>~0.80</code>을 붙입니다. 이는 퍼지 매칭(fuzzy matching)을 뜻합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">    def generate_full_text_query(self, input):
+        full_text_query = ""
+        words = [el for el in input.split() if el]
+        if len(words) &gt; 1:
+            for word in words[:-1]:
+                full_text_query += f" {word}~0.80 AND "
+            full_text_query += f" {words[-1]}~0.80"
+        else:
+            full_text_query = words[0] + "~0.80"
+        return full_text_query.strip()
+    [...]</pre>
+          <article class="panel panel--accent"><p class="eyebrow">퍼지 매칭 읽기</p><h2>유사도 0.80이 경계선</h2><ul>
+            <li>철자가 조금 다르거나 변형된 형태도 유사도 0.80 이상이면 후보로 잡아 줍니다</li>
+            <li>단어가 여럿이면 <code>AND</code>로 이어 모든 단어가 비슷하게 일치하도록 요구합니다</li>
+            <li><b>주의</b> — 기준이 너무 낮으면 무관한 후보가 늘고, 너무 높으면 오탈자나 변형 표현을 놓칠 수 있습니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>두 장치의 합</strong> — 라벨이 범위를 좁히고 퍼지 매칭이 표기 차이를 흡수합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4-2">리포트 &middot; 후보 조회 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="벡터 검색을 더할 때의 이점" data-report-refs="source-section-8-4-2" data-source-refs="section:8.4.2"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.2 · 확장 가능성</span></header>
+      <h1>벡터 기반 검색을 함께 넣으면 문자 매칭이 놓친 후보까지 끌어온다</h1>
+      <p class="lead">전문 검색 메커니즘은 실용적인 해법이지만, 벡터 기반 검색을 함께 넣으면 문자 매칭으로는 잡히지 않는 추가 후보까지 끌어와 성능을 더 높일 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="balance-grid">
+          <article><span>FULL-TEXT SEARCH</span><h2>철자 유사성에 강하다</h2><ul>
+            <li>인덱스를 이용해 텍스트와 유사한 문자열을 빠르게 찾습니다</li>
+            <li>퍼지 매칭으로 오탈자와 어미 변형을 흡수합니다</li>
+            <li>글자 모양이 전혀 다른 동의어는 잡지 못합니다</li>
+          </ul></article>
+          <article><span>VECTOR SEARCH</span><h2>의미 유사성에 강하다</h2><ul>
+            <li>표현이 달라도 뜻이 가까우면 찾아냅니다</li>
+            <li><code>heart attack</code>과 <code>myocardial infarction</code>은 글자 모양이 거의 다르지만 뜻은 같습니다</li>
+            <li>두 방식은 배타적이지 않으므로 결합할 수 있습니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>이 장의 선택</strong> — 예제는 전문 검색만 씁니다. 벡터 검색은 성능을 더 높일 수 있는 확장 방향으로 제시됩니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4-2">리포트 · §8.4.2 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="후보가 붙은 NED 중간 결과" data-report-refs="source-section-8-4-2 source-listing-8-14" data-source-refs="section:8.4.2 listing:8.14">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">&sect;8.4.2 &middot; Listing 8.14</span></header>
+      <h1>NER 결과에 candidates 필드가 새로 붙는다</h1>
+      <p class="lead">"Zika"를 입력 용어로 넘겼을 때 쿼리가 돌려준 결과입니다. 앞 단계의 언급 정보 아래에 후보 목록이 추가됐습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="JSON">{
+    "id": 0,
+    "mention": "Zika",
+    "label": "Organism",
+    "start": 19,
+    "end": 22,
+    "candidates": [
+        {
+            "snomed_id": "50471002",
+            "name": "Zika virus"
+        },
+        [...]
+    ]
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">후보의 두 필드</p><h2>고유번호와 이름</h2><ul>
+            <li><code>snomed_id</code> — SNOMED에서 그 개념의 고유 식별자</li>
+            <li><code>name</code> — 해당 <code>snomed_id</code>에 연결된 의학 개체의 이름</li>
+            <li><code>candidates</code>에는 시스템이 각 언급에 대해 찾아낸 잠재적 매칭이 담기며, 각 후보는 SNOMED를 근거로 한 그 언급의 가능한 해석 하나를 나타냅니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>아직 남은 것</strong> — 앞 단계의 <code>label</code>과 위치 정보는 그대로 유지된 채 후보만 덧붙습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-14">리포트 &middot; Listing 8.14 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="Zika의 세 후보" data-report-refs="source-section-8-4-2 source-listing-8-14" data-source-refs="section:8.4.2 listing:8.14">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">&sect;8.4.2 &middot; Listing 8.14 해석</span></header>
+      <h1>세 후보는 임상 용어에서 "Zika"가 가질 수 있는 의학적 의미들이다</h1>
+      <p class="lead">이 후보들은 다음 명확화 단계에서 더 정교하게 걸러질 준비를 마친 상태입니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>1</span><h2>Zika virus</h2><p><code>snomed_id</code> 50471002 — 지카 바이러스, 즉 병원체 자체를 가리키는 개념입니다.</p></article>
+          <article class="card"><span>2</span><h2>Zika virus disease</h2><p><code>snomed_id</code> 3928002 — 지카 바이러스병, 즉 감염으로 생긴 질환을 가리킵니다.</p></article>
+          <article class="card"><span>3</span><h2>Congenital Zika virus infection</h2><p><code>snomed_id</code> 762725007 — 선천성 지카 바이러스 감염으로, 태아기 감염을 가리키는 더 좁은 개념입니다.</p></article>
+        </div>
+        <p class="analogy"><b>이 시점의 상태</b> — 세 후보가 모두 이름상 그럴듯합니다. 아직 정답을 확정하지 않았다는 점이 중요합니다.</p>
+        <p class="takeaway"><strong>다음 단계의 비교</strong> — 소두증과 선천성 기형의 후보들이 세 Zika 후보 중 누구와 더 의미 있게 연결되는지를 온톨로지 경로로 확인합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-14">리포트 &middot; Listing 8.14 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="8.4.3 후보 명확화의 전략" data-report-refs="source-section-8-4-3" data-source-refs="section:8.4.3" data-source-title="section:8.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · 3단계</span></header>
+      <h1 class="source-title">8.4.3 후보 명확화(CD) — 함께 나온 개체를 단서로 정답 고르기</h1>
+      <p class="lead">NED 과정의 마지막 단계입니다. 대상 개체와 한 문장에 함께 등장하는 다른 의학 개체가 제공하는 문맥 정보를 활용하는 전략을 씁니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">전략</p><h2>동반 개체를 온톨로지와 교차 참조한다</h2><p>함께 등장한 개체들을 도메인 온톨로지의 구조화된 지식과 교차 참조함으로써, 선택된 후보를 검증하고 다듬어 가장 정확한 매칭을 결정합니다.</p></article>
+          <article class="panel"><p class="eyebrow">근거의 성격</p><h2>이름 유사도가 아니라 관계 문맥</h2><p>후보 이름이 얼마나 비슷한지가 아니라, 후보가 주변 개체와 어떤 관계로 연결되는지를 근거로 삼습니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 예시</b> — "Java"와 <code>JVM·Spring·코드</code>가 함께 나오면 섬이나 커피가 아니라 프로그래밍 언어입니다. "Java"가 명확화 대상 언급에, 함께 나온 단어들이 동반 개체의 문맥 정보에 해당합니다. 비유의 경계는 이렇습니다 — 여기서 동반 개체는 단어 그 자체가 아니라 이미 후보가 붙은 개체이고, 연결 여부는 온톨로지에서 계산합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4-3">리포트 · §8.4.3 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="후보 명확화 단계의 입력과 출력" data-report-refs="source-section-8-4-3 source-figure-8-5" data-source-refs="section:8.4.3 figure:8.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · 그림 8.5</span></header>
+      <h1>그래프 기반 알고리즘과 LLM을 결합해 최적의 매칭을 고른다</h1>
+      <p class="lead">NED의 세 번째 단계인 후보 명확화입니다. 앞 단계에서 찾은 모든 후보 중에서 최적 매칭 하나를 고르는 것이 목표입니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure" data-deck-figure-number="6" data-deck-figure-title="NED의 세 번째 단계인 후보 명확화">
+          <img src="assets/figs/fig-8-5-cd-stage.svg" alt="NED 파이프라인에서 언급별 후보, LLM 배지가 붙은 후보 명확화, 명확화된 개체와 온톨로지 공급선만 진하게 강조되고 앞 단계들은 회색으로 표시된 도해">
+          <figcaption><b>그림 6 · NED의 세 번째 단계, 후보 명확화</b><span><strong>읽는 법</strong> — 강조된 세 번째 상자를 중심으로, 언급별 여러 후보가 명확화된 개체 하나로 좁혀지는 방향을 따라 읽는다</span><span><strong>앞 단계와의 차이</strong> — 그래프 알고리즘과 LLM이 이 상자 안에서 함께 일한다</span><span><strong>해석</strong> — 최단 경로 탐지는 알고리즘이, 문맥 판단은 LLM이 맡는다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-8-5">리포트 그림 6 · 교재 그림 8.5 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="동반 등장이 만드는 증거" data-report-refs="source-section-8-4-3" data-source-refs="section:8.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · 문맥의 값어치</span></header>
+      <h1>"Zika" 곁에 "microcephaly"가 있다는 사실 자체가 값진 문맥이 된다</h1>
+      <p class="lead">"Zika"와 "microcephaly(소두증)"를 함께 언급하는 문장을 생각해 봅시다. 선천성 지카 바이러스 감염이 소두증을 일으킨다고 알려져 있으니, 이 동반 등장은 Congenital Zika virus infection과의 연관을 시사합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">동반 등장이 하는 일</p><h2>후보 사이에 우선순위를 만든다</h2><p>명확화 과정은 이 동시 출현을 이용해, "Zika"의 다른 가능한 의미, 즉 일반적인 바이러스나 무관한 용어보다 선천성 지카 바이러스 감염을 우선하도록 할 수 있습니다.</p></article>
+          <article class="panel panel--accent"><p class="eyebrow">단서 묶음</p><h2>임신·태반·소두증·선천성 기형</h2><p>이 묶음은 단순한 바이러스 자체보다 태아의 선천성 감염 개념을 강하게 가리킵니다.</p></article>
+        </div>
+        <p class="takeaway"><strong>다단계 접근</strong> — LLM은 도메인 온톨로지에서 후보 사이의 최단 경로를 탐지하고, 그 경로 정보를 자연어로 옮기고 요약해 명확화를 뒷받침하는 방식으로 가장 정확한 개체를 고릅니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-section-8-4-3">리포트 · §8.4.3 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="명확화된 개체를 만드는 세 단계" data-report-refs="source-section-8-4-3 table-ned-stages" data-source-refs="section:8.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · 세 단계</span></header>
+      <h1>입력 문서의 각 언급마다 탐지·변환·요약 세 단계를 수행한다</h1>
+      <p class="lead">각 언급에 대해 명확화된 개체를 만들어 내기 위해 다음 세 단계를 거칩니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>01</span><h2>최단 경로 탐지</h2><p>한 문장 안의 서로 다른 언급들에 연관된 후보 개체 사이에서 길이가 가장 짧은 경로를 찾습니다. 이 연결들을 지도로 그리면 각 언급이 의도한 의미를 밝히는 데 도움이 되는 잠재적 관계가 드러납니다.</p></article>
+          <article class="card"><span>02</span><h2>경로-텍스트 변환</h2><p>LLM이 텍스트 정보 처리에 강하다는 강점을 활용하기 위해, 후보 개체를 잇는 각 그래프 경로를 자연어 문장으로 옮깁니다. 이 변환 덕분에 LLM은 관계 정보를 자신이 잘 다루는 형식으로 해석할 수 있습니다.</p></article>
+          <article class="card"><span>03</span><h2>텍스트 경로 요약</h2><p>변환된 경로에서 나온 모든 텍스트 정보를 하나의 종합적 설명으로 요약합니다. 이 요약은 관계의 핵심을 잡아내, LLM이 더 정확한 명확화 결정을 내리도록 돕습니다.</p></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — 지도에서 후보와 단서 사이의 가까운 길을 찾고, 노선도를 "A역에서 B역을 거쳐 C역으로 간다"는 문장으로 바꾸며, 여러 길 안내에서 최종 판단에 필요한 핵심 연결만 남기는 순서입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-ned-stages">리포트 · 세 단계 정리</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="후보 명확화의 세 단계 도해" data-report-refs="source-section-8-4-3 source-figure-8-6" data-source-refs="section:8.4.3 figure:8.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · 그림 8.6</span></header>
+      <h1>LLM은 변환과 요약을 맡고, 최단 경로 탐지는 Neo4j GDS가 맡는다</h1>
+      <p class="lead">LLM은 경로-텍스트 변환과 텍스트 경로 요약 단계에 힘을 실어 관계 정보를 효과적으로 해석하고 압축하게 해 줍니다. 최단 경로 탐지는 Neo4j의 그래프 데이터 사이언스(GDS, Graph Data Science) 라이브러리로 후보 사이의 연결을 찾습니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure" data-deck-figure-number="7" data-deck-figure-title="후보 명확화의 세 단계">
+          <img src="assets/figs/fig-8-6-cd-steps.svg" alt="언급별 후보가 점선 상자 안의 최단 경로 탐지, 경로-텍스트 변환, 텍스트 경로 요약을 차례로 거쳐 명확화된 개체가 되는 도해">
+          <figcaption><b>그림 7 · 후보 명확화의 세 단계</b><span><strong>읽는 법</strong> — 점선 상자 안의 세 단계를 위에서 아래로 따라 읽는다</span><span><strong>역할</strong> — 첫 단계는 그래프 알고리즘, 뒤의 두 단계는 LLM이 수행한다</span><span><strong>출력</strong> — 상자를 빠져나온 결과가 명확화된 개체다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-figure-8-6">리포트 그림 7 · 교재 그림 8.6 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="1단계에서 나오는 경로의 예" data-report-refs="source-section-8-4-3 report-8-4-3-shortest-path" data-source-refs="section:8.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · 1단계 예시</span></header>
+      <h1>1단계는 한 문장 안에서 식별된 후보들 사이의 최단 경로를 뽑아낸다</h1>
+      <p class="lead">예컨대 다음과 같은 경로가 나옵니다. 화살표의 방향과 관계 유형이 함께 표시된다는 점이 중요합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout code-layout--balanced">
+          <pre class="code-block" data-code-language="Text">(Congenital Zika virus infection)-[:OCCURRENCE]-&gt;
+(Congenital)&lt;-[:OCCURRENCE]-(Micrencephaly)</pre>
+          <article class="panel panel--accent"><p class="eyebrow">이 경로가 말하는 것</p><h2>공통 속성으로 이어진 두 개념</h2><ul>
+            <li>선천성 지카 바이러스 감염과 소두증이 <code>Congenital</code>이라는 공통 속성으로 연결됩니다</li>
+            <li>가운데 <code>Congenital</code>은 두 개체가 공유하는 발생 속성 노드입니다</li>
+          </ul>
+          <p class="analogy"><b>확인이 필요한 대목</b> — 원문은 이 경로의 뒷부분을 "Zika virus disease와 Chikungunya fever 사이의 경로"라고 설명하지만, 표시된 경로의 노드는 <code>Congenital Zika virus infection</code>, <code>Congenital</code>, <code>Micrencephaly</code>입니다. 다른 예시가 섞인 편집 오류로 보이며, 위 해석대로 읽는 것이 자연스럽습니다.</p>
+          </article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-4-3-shortest-path">리포트 · 최단 경로 탐지 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="허브 노드 제거와 최단 경로 탐색" data-report-refs="source-section-8-4-3 source-listing-8-15 report-8-4-3-shortest-path" data-source-refs="section:8.4.3 listing:8.15"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.15</span></header>
+      <h1>연결 수 상위 350개를 허브로 걸러 내고 1~2홉 최단 경로만 남긴다</h1>
+      <p class="lead">쿼리는 먼저 <code>gds.degree.stream</code>으로 차수(연결 수)가 가장 높은 노드를 모읍니다. 이 허브 노드들은 지나치게 많이 연결되어 있어 나중에 제외되며, 그 결과 더 의미 있고 덜 일반적인 연결에 집중하게 됩니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">class PathExtraction():
+    def __init__(self, model, store, candidates, named_entities):
+        [...]
+    def get_co_occs_query(self, s1_id, s2_id):
+        query = f"""
+        CALL gds.degree.stream('snomedGraph')
+        YIELD nodeId, score
+        WITH gds.util.asNode(nodeId).name AS name, score AS degree
+        ORDER BY degree DESC
+        LIMIT 350
+        WITH collect(name) as hub_nodes
+        MATCH (s1), (s2)
+        WHERE s1.id="{s1_id}" AND s2.id="{s2_id}"
+        WITH s1, s2,
+             allShortestPaths((s1)-[:SNOMED_RELATION*1..2]-(s2))
+             AS paths, hub_nodes
+        UNWIND paths AS path
+        [...]</pre>
+          <article class="panel panel--accent"><p class="eyebrow">두 제한의 이유</p><h2>구별력과 계산량</h2><ul>
+            <li><b>허브 제거</b> — "사물·질병·사람"처럼 거의 모든 것과 연결된 넓은 개념을 거치면 모든 후보가 가까워 보여 구별력이 사라집니다</li>
+            <li><b>1~2홉 제한</b> — 경로가 길어질수록 우연한 연결과 계산량이 늘기 때문에 직접 연결 또는 중간 노드 하나까지만 봅니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-15">리포트 · Listing 8.15 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="경로를 읽을 수 있는 문자열로 변환" data-report-refs="source-section-8-4-3 source-listing-8-15 report-8-4-3-shortest-path" data-source-refs="section:8.4.3 listing:8.15"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.15</span></header>
+      <h1>남은 경로를 방향과 관계 유형이 드러나는 문자열로 만든다</h1>
+      <p class="lead">허브 노드가 낀 경로를 걸러 낸 뒤, 각 경로에 관여한 노드와 관계를 모아 <code>(n1)-[:REL_TYPE]-&gt;(n2)</code> 형식의 읽기 쉬운 문자열로 형식화합니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Cypher">        WITH relationships(path) AS path_edges,
+             nodes(path) as path_nodes, hub_nodes
+        WITH [n IN path_nodes | n.name] AS node_names,
+             [r IN path_edges | r.type] AS rel_types,
+             [n IN path_edges | startnode(n).name] AS rel_starts,
+             hub_nodes
+        WHERE not any(x IN node_names WHERE x IN hub_nodes)
+        WITH [i in range(0, size(node_names)-1) | CASE
+              WHEN i = size(node_names)-1
+                THEN "(" + node_names[size(node_names)-1] + ")"
+              WHEN node_names[i] = rel_starts[i]
+                THEN "(" + node_names[i] + ")" + '-[:'
+                     + rel_types[i] + ']-&gt;'
+              ELSE "(" + node_names[i] + ")" + '&lt;-[:'
+                   + rel_types[i] + ']-' END]
+             as string_paths
+        RETURN DISTINCT apoc.text.join(string_paths, '')
+               AS `Extracted paths`</pre>
+          <article class="panel panel--accent"><p class="eyebrow">왜 방향까지 남기는가</p><h2>관계 유형이 곧 의미다</h2><ul>
+            <li><code>rel_types</code>와 <code>rel_starts</code>를 함께 모아 관계의 유형과 시작 노드를 문자열에 새깁니다</li>
+            <li><code>A ASSOCIATED_WITH B</code>와 <code>A CAUSES B</code>는 전혀 다른 의미이므로, 두 노드가 가깝다는 사실만 남기면 이 구별이 사라집니다</li>
+            <li>예를 들어 <code>(고혈압)-[:RISK_FACTOR_FOR]-&gt;(심혈관질환)</code>처럼 방향과 관계가 함께 보이게 만듭니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-15">리포트 · Listing 8.15 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="경로 추출 쿼리의 결정적 세 단계" data-report-refs="source-section-8-4-3 source-listing-8-15" data-source-refs="section:8.4.3 listing:8.15"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.15 정리</span></header>
+      <h1>이 쿼리는 차수 계산, 최단 경로 탐색, 경로 변환 순으로 진행된다</h1>
+      <p class="lead">원서 저자들이 꼽은 결정적인 단계를 순서대로 정리하면 다음과 같습니다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>01</span><h2>차수 계산</h2><p><code>CALL gds.degree.stream</code>으로 그래프에서 차수, 곧 연결 수가 가장 높은 노드들을 조회합니다. 이 노드들은 지나치게 많이 연결된 허브 노드로, 나중에 제외되어 더 의미 있고 덜 일반적인 연결에 집중하게 합니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>02</span><h2>최단 경로 탐색</h2><p>ID로 지정한 두 개체 <code>s1</code>, <code>s2</code> 사이의 모든 최단 경로를 찾되, 경로 길이를 1~2홉으로 제한합니다. 이 노드들 사이의 관계에서 허브 노드를 걸러 내어 일반적이거나 지나치게 넓은 관계를 피합니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>03</span><h2>경로 변환</h2><p>경로가 식별되면 이를 펼쳐 각 경로에 관여한 노드와 관계를 모두 모읍니다. 그런 다음 관계의 방향과 유형을 보여 주는 읽기 쉬운 문자열로 형식화합니다.</p></article>
+        </div>
+        <p class="takeaway"><strong>이 단계의 산출물</strong> — 다음 단계가 자연어로 옮길 수 있는, 방향과 관계 유형이 보존된 경로 문자열 목록입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-15">리포트 · Listing 8.15 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="GDS로 탐지한 경로 목록" data-report-refs="source-section-8-4-3 source-listing-8-16 report-8-4-3-shortest-path" data-source-refs="section:8.4.3 listing:8.16">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.16</span></header>
+      <h1>탐지된 경로 다수가 선천성 지카 감염에서 여러 선천성 상태로 이어진다</h1>
+      <p class="lead">각 항목은 id와 path를 담고, 각 경로는 온톨로지 경로에서의 동시 출현을 근거로 생물의학 개체 사이의 관계적 연결을 보여 줍니다. 전체 목록은 13개 항목입니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="JSON">{
+    "id": 1,
+    "path": "(Congenital Zika virus infection)-[:OCCURRENCE]-&gt;
+        (Congenital)&lt;-[:OCCURRENCE]-(Micrencephaly)"
+},
+{
+    "id": 2,
+    "path": "(Congenital Zika virus infection)-[:OCCURRENCE]-&gt;
+        (Congenital)&lt;-[:OCCURRENCE]-(Acrocephaly)"
+},
+[...]
+{
+    "id": 10,
+    "path": "(Acrocephaly)-[:IS_A]-&gt;(Craniosynostosis syndrome)
+        -[:IS_A]-&gt;(Congenital malformation)"
+},
+[...]</pre>
+          <article class="panel panel--accent"><p class="eyebrow">관계 유형 읽기</p><h2>세 가지 연결 방식</h2><ul>
+            <li><code>OCCURRENCE</code> — 공통 발생 속성을 공유한다는 뜻입니다</li>
+            <li><code>IS_A</code> — 상위·하위 분류 관계입니다</li>
+            <li><code>PATHOLOGICAL_PROCESS</code> — 병리 과정 속성을 공유한다는 뜻입니다</li>
+            <li>후보 조합마다 여러 경로가 나올 수 있어 목록이 길어집니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>다음 단계가 필요한 이유</strong> — 이 긴 목록을 그대로 최종 LLM에 넣지 않고, 문장으로 바꾼 뒤 요약합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-16">리포트 · Listing 8.16 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="탐지된 경로가 보여 주는 세 가지" data-report-refs="source-section-8-4-3 source-listing-8-16" data-source-refs="section:8.4.3 listing:8.16"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.16 해석</span></header>
+      <h1>경로 목록은 연관, 공통 노드, 대안적 관계 세 가지를 드러낸다</h1>
+      <p class="lead">JSON 출력의 세부를 원서 저자들의 정리에 따라 나눠 읽습니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>01</span><h2>선천성 지카 감염 경로들</h2><p>많은 경로가 선천성 지카 바이러스 감염에서 시작해 <code>[:OCCURRENCE]</code> 관계를 통해 소두증(Micrencephaly), 첨두증(Acrocephaly), 다발성 선천 기형(Multiple congenital malformations) 같은 여러 선천성 상태로 연결됩니다. 이는 선천성 지카 바이러스 감염이 이 상태들과 원인이나 발생으로서 연관됨을 시사합니다.</p></article>
+          <article class="card"><span>02</span><h2>공유되는 선천성 상태</h2><p>Congenital(선천성)은 소두증, 첨두증 같은 여러 선천성 상태를 잇는 공통 노드입니다. 이 중심 노드는 이 상태들이 비슷한 발생 속성을 공유함을 나타냅니다.</p></article>
+          <article class="card"><span>03</span><h2>대안적 관계들</h2><p>일부 경로는 <code>[:IS_A]</code>나 <code>[:PATHOLOGICAL_PROCESS_(ATTRIBUTE)]</code> 같은 관계를 써서 계층적·속성 기반 관계를 보여 줍니다. 예컨대 첨두증은 두개골 조기유합 증후군(Craniosynostosis syndrome) 아래로 분류되며, 이는 다시 선천성 기형과 연결됩니다.</p></article>
+        </div>
+        <p class="takeaway"><strong>해석의 경계</strong> — 경로가 짧다는 것은 관련성의 단서이지 인과의 증명이 아닙니다. 관계 유형과 방향을 함께 읽어야 합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-16">리포트 · Listing 8.16 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="경로를 문장으로 옮기는 프롬프트" data-report-refs="source-section-8-4-3 source-listing-8-17 report-8-4-3-path-to-text" data-source-refs="section:8.4.3 listing:8.17">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.17</span></header>
+      <h1>그래프 경로를 문장으로 옮겨 LLM이 가장 잘 다루는 형식으로 바꾼다</h1>
+      <p class="lead">이 변환은 모델이 개체 사이의 연결을 해석하기 쉽게 만들고, 비슷한 용어를 구별하는 데 도움이 되는 문맥을 제공합니다. 아래는 프롬프트의 단순화 버전입니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">system = """You are an assistant capable of translating a Neo4j
+graph path into a clear sentence.
+Use the exact entity names from the path while generating the
+sentence.
+The sentences will assist a large language model (LLM) in
+disambiguating biomedical entities.
+Ensure the output is a valid JSON with no extraneous
+characters."""
+
+input = {
+    "path": "
+        (Hypertension)-[:RISK_FACTOR_FOR]-&gt;(Cardiovascular Disease)
+        &lt;-[:ASSOCIATED_WITH]-(Myocardial Infarction)"
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">지시의 핵심</p><h2>이름은 그대로 두라</h2><ul>
+            <li>경로에 나온 정확한 개체 이름을 그대로 쓰라고 요구합니다</li>
+            <li>이름을 비슷한 표현으로 바꾸면 원래 후보 ID와 다시 연결하기 어려워지기 때문입니다</li>
+            <li>문장은 자연스럽게 만들되 후보 이름은 정확히 보존해야, 뒤 단계의 LLM이 개체를 정확히 짚어 명확화할 수 있습니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>왜 문장인가</strong> — LLM은 <code>(A)-[:REL]-&gt;(B)</code> 같은 그래프 기호보다 "A는 B와 이런 관계가 있다"는 문장을 더 안정적으로 해석합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-17">리포트 · Listing 8.17 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="경로 변환 프롬프트의 정답 예시" data-report-refs="source-section-8-4-3 source-listing-8-17 report-8-4-3-path-to-text" data-source-refs="section:8.4.3 listing:8.17"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.17</span></header>
+      <h1>정답 예시는 두 관계를 하나의 설명 문장으로 이어 붙여 보여 준다</h1>
+      <p class="lead">고혈압-심혈관질환-심근경색 경로가 어떻게 자연스러운 설명 문장으로 풀리는지를 보여 주는 <code>assistant</code> 예시입니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">assistant = {
+    "sentence": "Hypertension is a risk factor for cardiovascular
+disease. Myocardial infarction is also associated with
+cardiovascular disease, indicating that hypertension may
+increase the risk of experiencing a myocardial infarction
+through its connection to cardiovascular disease."
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">프롬프트의 세부</p><h2>세 구성 요소</h2><ul>
+            <li><b>시스템 지시</b> — Neo4j 그래프 경로를 명확하고 사람이 읽기 쉬운 문장으로 옮깁니다</li>
+            <li><b>입력 그래프 경로</b> — Neo4j 데이터베이스에서 온 그래프 경로로, 복잡한 관계를 나타낼 수 있습니다</li>
+            <li><b>어시스턴트 출력</b> — 생성된 문장을 담은 유효한 JSON 구조로 응답합니다</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 예시</b> — 그래프 <code>고혈압 → 심혈관질환 ← 심근경색</code>을 "고혈압은 심혈관질환의 위험 요인이며 심근경색도 심혈관질환과 관련된다"로 바꾸는 과정입니다. JSON으로 감싸는 이유는 다음 프로그램이 결과를 안정적으로 읽게 하기 위해서입니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-17">리포트 · Listing 8.17 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="경로를 자연어로 옮긴 결과" data-report-refs="source-section-8-4-3 source-listing-8-18 report-8-4-3-path-to-text" data-source-refs="section:8.4.3 listing:8.18">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.18</span></header>
+      <h1>각 그래프 경로가 하나의 문장으로 옮겨져 나온다</h1>
+      <p class="lead">앞의 경로들이 각각 한 문장으로 풀려 나온 모습입니다. 그래프의 화살표가 "~와 연관된다", "~에서 발생한다" 같은 자연어 서술로 바뀌었습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="JSON">[{
+    "sentence": "A Congenital Zika virus infection occurrence is
+associated with a Congenital occurrence, which in turn is
+associated with Micrencephaly."
+},
+[...],
+{
+    "sentence": "Micrencephaly occurs in Congenital and Multiple
+congenital malformations also occur in Congenital."
+},
+{
+    "sentence": "Micrencephaly occurs in Congenital and is also an
+occurrence of Congenital malformation."
+},
+[...]]</pre>
+          <article class="panel panel--accent"><p class="eyebrow">읽는 법</p><h2>미문이 목적이 아니다</h2><ul>
+            <li>문장이 다소 어색하더라도 목적은 문학적으로 좋은 글을 만드는 것이 아닙니다</li>
+            <li>정확한 개체명과 관계를 잃지 않고 LLM에 전달하는 것이 목적입니다</li>
+            <li>이 JSON 항목들이 그래프 경로를 LLM이 해석하고 명확화에 활용할 수 있는 형태로 만들어 줍니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-18">리포트 · Listing 8.18 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="텍스트 경로 요약 프롬프트" data-report-refs="source-section-8-4-3 source-listing-8-19 report-8-4-3-summarize" data-source-refs="section:8.4.3 listing:8.19">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.19</span></header>
+      <h1>요약으로 토큰 수를 줄여 모델이 과도한 세부에 압도되지 않게 한다</h1>
+      <p class="lead">최종 명확화를 실행하기 전에 변환된 경로 문장들을 요약합니다. 모델의 "인지 부하", 곧 토큰 수를 줄여 개체 관계를 해석하고 가장 정확한 후보를 고르기 쉽게 만들기 위해서입니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">system = """You are an assistant that can summarize multiple
+sentences derived from ontology paths into a short summary.
+This summary will be used to support a named entity
+disambiguation task.
+Ensure the output is a valid JSON with no extraneous
+characters."""
+
+input = {
+    "sentences": [
+        {"id": 1, "sentence": "Hypertension is a risk factor
+for cardiovascular disease. [...]"},
+        [...]
+    ]
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">입력의 구성</p><h2>네 개의 관계 문장</h2><ul>
+            <li>고혈압·당뇨병·천식·골다공증에 관한 네 문장이 <code>input</code>에 들어갑니다</li>
+            <li>각 문장은 의학적 상태와 그 결과 또는 연관 사이의 관계를 담습니다</li>
+            <li><code>assistant</code>는 이를 하나의 매끈한 문맥 문장으로 묶어 냅니다</li>
+          </ul></article>
+        </div>
+        <p class="analogy"><b>이해를 돕는 비유</b> — 회의록 20페이지를 그대로 주는 대신 의사결정에 필요한 1페이지 요약을 제공하는 것과 같습니다. 중복 문장을 줄이면 비용과 처리 시간이 줄고 핵심 관계가 더 잘 드러납니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-19">리포트 · Listing 8.19 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="요약 프롬프트의 정답 예시" data-report-refs="source-section-8-4-3 source-listing-8-19 report-8-4-3-summarize" data-source-refs="section:8.4.3 listing:8.19"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.19</span></header>
+      <h1>요약은 짧게 줄이는 것이 아니라 개체와 관계를 보존하는 것이다</h1>
+      <p class="lead">시스템은 온톨로지 경로에서 나온 문장들을 요약하되, 식별된 모든 개체를 요약 안에 보존하라고 지시받습니다. 출력은 유효한 JSON 객체여야 하며, 각 요약은 <code>context</code>라는 키 아래 문자열로 제공됩니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">assistant = {
+    "context": "Hypertension is a risk factor for cardiovascular
+disease, which in turn increases the likelihood of experiencing
+a myocardial infarction. Similarly, diabetes mellitus is linked
+to endocrine disorders, potentially leading to complications
+such as diabetic retinopathy. Asthma and allergic rhinitis are
+both associated with respiratory disorders, suggesting a common
+link between these conditions. Finally, osteoporosis weakens
+bones, making individuals more susceptible to bone fractures."
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">좋은 요약의 조건</p><h2>결정 근거가 남아 있어야 한다</h2><ul>
+            <li>최종 후보를 구별하는 데 필요한 개체명, 관계 유형, 관계 방향은 남겨야 합니다</li>
+            <li>너무 압축하면 결정 근거가 사라질 수 있습니다</li>
+            <li>뒤의 NED가 원래 후보와 근거를 다시 찾을 수 있을 만큼 정확해야 합니다</li>
+            <li>어시스턴트는 관련 개체 묶음마다 하나의 요약 문장을 유효한 JSON 형식으로 응답합니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-19">리포트 · Listing 8.19 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="지카 예시의 요약 결과" data-report-refs="source-section-8-4-3 source-listing-8-20 report-8-4-3-summarize" data-source-refs="section:8.4.3 listing:8.20">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.20</span></header>
+      <h1>여러 경로 문장이 하나의 문맥 문장으로 압축된다</h1>
+      <p class="lead">우리 지카 예시에 요약을 적용하면 앞서 본 여러 경로 문장이 다음 한 문장으로 압축됩니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="JSON">{"context": "A Congenital Zika virus infection occurrence is
+associated with various congenital malformations, including
+Micrencephaly, Acrocephaly, Multiple congenital malformations,
+and Other congenital malformations. These conditions all share
+a common link to the Congenital entity."}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">이 요약이 하는 일</p><h2>판단 근거를 한 문장으로</h2><ul>
+            <li>여러 경로가 공통적으로 말하는 내용, 즉 선천성 지카 감염과 소두증·선천성 기형이 Congenital이라는 공통 개념으로 연결된다는 사실을 하나로 합칩니다</li>
+            <li>복잡한 관계 정보의 정제된 판본을 LLM에게 건네주어, 명확화에 가장 관련 있는 문맥에 집중하게 합니다</li>
+            <li>개체명이 그대로 보존되어 있어 후보 목록과 다시 맞춰 볼 수 있습니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>결정에 미치는 영향</strong> — 세 Zika 후보 중 <code>Congenital Zika virus infection</code>만 이 선천성 문맥과 직접적으로 강하게 맞습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-20">리포트 · Listing 8.20 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="최종 명확화 프롬프트의 시스템 지시" data-report-refs="source-section-8-4-3 source-listing-8-21 report-8-4-3-final" data-source-refs="section:8.4.3 listing:8.21">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.21</span></header>
+      <h1>마지막 단계는 원문장·후보 목록·문맥 문장을 한데 모아 결정한다</h1>
+      <p class="lead">시스템 지시는 세 가지 입력을 명확히 구분합니다. 모델은 문맥 문장에 등장한 개체를 1차 정보원으로 삼아, 원문장의 각 모호한 언급에 가장 잘 맞는 후보를 고르라는 지시를 받습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">system = """You are an assistant specialized in entity
+disambiguation.
+Your task is to identify and accurately disambiguate the
+entities mentioned in a given sentence, relying heavily on the
+contextual entities present in surrounding sentences:
+1. Original Sentence: The sentence that contains ambiguous
+entities that need to be resolved.
+2. Candidate Entities: A list of potential entities extracted
+from the sentence, with each entity having multiple possible
+meanings or labels.
+3. Contextual Sentences: A collection of related or surrounding
+sentences that provide additional context for disambiguating
+the mentioned entities.
+[...]
+The output must be a valid JSON."""</pre>
+          <article class="panel panel--accent"><p class="eyebrow">세 입력</p><h2>문제, 보기, 해설</h2><ul>
+            <li><b>원문장</b> — 명확화가 필요한 모호한 개체를 담은 주 문장</li>
+            <li><b>후보 개체</b> — 각 언급에 대한 잠재적 SNOMED 개체 목록으로, 각기 여러 가능한 해석이나 라벨을 가집니다</li>
+            <li><b>문맥 문장</b> — 원문장 속 각 모호한 개체의 의미를 밝히도록 돕는 추가 문장들</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>선택의 제한</strong> — 모델은 후보 목록 밖의 새로운 의학 개념을 만들어 내지 않고, 제공된 후보 중에서만 고릅니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-21">리포트 · Listing 8.21 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="천식 예시의 후보 목록" data-report-refs="source-section-8-4-3 source-listing-8-21 report-8-4-3-final" data-source-refs="section:8.4.3 listing:8.21"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.21</span></header>
+      <h1>"Asthma" 하나에 아홉 개의 후보가 달려 문맥 없이는 고를 수 없다</h1>
+      <p class="lead">입력 예시는 천식과 알레르기성 비염을 다룹니다. 후보 목록에는 "Asthma(천식)" 하나에 대해 아홉 개의 세부 후보가 달려 있습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">input = {
+    "sentence": "Asthma and allergic rhinitis are commonly
+addressed together in treatment protocols, given their shared
+underlying inflammatory processes in allergic individuals.",
+    "candidates": [
+        {
+            "id": 1,
+            "candidates": [
+                {"snomed_id": "233681001",
+                 "name": "Extrinsic asthma with asthma attack"},
+                {"snomed_id": "195967001", "name": "Asthma"},
+                {"snomed_id": "266361008",
+                 "name": "Intrinsic asthma"},
+                [...]
+            ]
+        }
+    ],
+    "context": "Asthma is associated with respiratory disorders.
+Allergic rhinitis is also linked to respiratory disorders, [...]"
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">아홉 후보</p><h2>구체성의 정도가 제각각</h2><ul>
+            <li>Extrinsic asthma with asthma attack, Asthma, Intrinsic asthma, Asthma attack, Asthma monitored</li>
+            <li>Asthma severity, Occasional asthma, Mild asthma, Moderate asthma</li>
+            <li>이름만으로는 어느 것이 맞는지 가릴 수 없어, 문맥이 필요한 상황을 잘 보여 줍니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-21">리포트 · Listing 8.21 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="천식 예시의 정답과 구체화 경계" data-report-refs="source-section-8-4-3 source-listing-8-21 report-8-4-3-final" data-source-refs="section:8.4.3 listing:8.21"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.21</span></header>
+      <h1>후보가 많아도 원문과 문맥이 뒷받침하는 수준까지만 구체화한다</h1>
+      <p class="lead">모델은 아홉 후보 중에서 문맥에 가장 잘 맞는 일반적 "Asthma(195967001)"를 골랐고, 함께 언급된 "Allergic rhinitis(알레르기성 비염, 61582004)"도 정확히 짚었습니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="Python">assistant = {
+    "entities": [
+        {
+            "id": 1,
+            "disambiguation": {
+                "snomed_id": "195967001",
+                "name": "Asthma"
+            }
+        },
+        {
+            "id": 2,
+            "disambiguation": {
+                "snomed_id": "61582004",
+                "name": "Allergic rhinitis"
+            }
+        }
+    ]
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">판단의 기준</p><h2>과도한 구체화를 피한다</h2><ul>
+            <li>원문에 "발작·경증·중등도" 같은 구체적인 정보가 없으므로 <code>Asthma attack</code>, <code>Mild asthma</code>, <code>Moderate asthma</code>를 고르면 원문보다 과도하게 구체화한 것입니다</li>
+            <li>이 경우 일반적인 <code>Asthma</code>가 가장 안전하고 타당합니다</li>
+            <li>후보가 많다고 가장 구체적인 후보를 선택하는 것이 아닙니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-21">리포트 · Listing 8.21 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="명확화 프롬프트의 구성 요소" data-report-refs="source-section-8-4-3 source-listing-8-21 report-8-4-3-final" data-source-refs="section:8.4.3 listing:8.21"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.21 정리</span></header>
+      <h1>명확화 프롬프트는 지시, 세 입력, 두 출력 필드로 정리된다</h1>
+      <p class="lead">시스템은 모호한 개체를 식별하고 정확히 명확화하도록 지시받습니다. 원문장의 각 개체를 분석하고, 요약된 문맥 정보가 제공하는 문맥적 의미에 가장 잘 맞는 후보를 골라야 하며, 이 문맥 세부에 부합하는 개체를 우선합니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">입력 구조</p><h2>세 가지 재료</h2><ul>
+            <li><b>원문장(Original sentence)</b> — 명확화가 필요한 모호한 개체를 담은 주 문장입니다</li>
+            <li><b>후보 개체(Candidate entities)</b> — 각 언급에 대한 잠재적 SNOMED 개체 목록으로, 각기 여러 가능한 해석이나 라벨을 가집니다</li>
+            <li><b>문맥 문장(Contextual sentences)</b> — 원문장 속 각 모호한 개체의 의미를 밝히도록 돕는 추가 문장들입니다</li>
+          </ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">어시스턴트 출력</p><h2>두 가지 필드</h2><ul>
+            <li><b>id</b> — 개체 언급의 고유 식별자로, 원문에서 어느 표현에 대한 답인지 연결합니다</li>
+            <li><b>disambiguation</b> — 문맥 정보에 가장 잘 맞는, 선택된 SNOMED 개체를 담은 객체로 <code>snomed_id</code>와 <code>name</code>을 포함합니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>결과의 활용</strong> — JSON 형식이므로 결과를 데이터베이스 저장이나 후속 분석에 바로 사용할 수 있습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-4-3-final">리포트 · 최종 명확화 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--code" aria-label="지카 문장의 최종 명확화 결과" data-report-refs="source-section-8-4-3 source-listing-8-22 report-8-4-3-final" data-source-refs="section:8.4.3 listing:8.22">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · Listing 8.22</span></header>
+      <h1>지카 문장의 세 언급이 각각 하나의 SNOMED 개체로 확정됐다</h1>
+      <p class="lead">입력 문장 "Severe outcomes of Zika are due to its capacity to cross the placental barrier during pregnancy, causing microcephaly and congenital malformations."를 LLM에 넘긴 결과입니다.</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block" data-code-language="JSON">{
+    "entities": [
+        {
+            "id": 0,
+            "disambiguation": {
+                "snomed_id": "762725007",
+                "name": "Congenital Zika virus infection"
+            }
+        },
+        [...]
+    ]
+}</pre>
+          <article class="panel panel--accent"><p class="eyebrow">확정된 세 개체</p><h2>언급에서 개념으로</h2><ul>
+            <li><code>id 0</code> "Zika" → Congenital Zika virus infection (762725007)</li>
+            <li><code>id 1</code> "microcephaly" → Micrencephaly (204030002)</li>
+            <li><code>id 2</code> "congenital malformations" → Multiple congenital malformations (116022009)</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>매핑의 의미</strong> — 각 개체는 SNOMED 온톨로지에서 가장 관련 있는 개념에 매칭되어, 문맥 정보를 바탕으로 정밀하게 식별·분류됩니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-8-22">리포트 · Listing 8.22 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="Zika 언급의 단계별 상태 변화" data-report-refs="source-section-8-4-3 fig-zika-evidence report-8-4-3-final" data-source-refs="section:8.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · 기록된 실행</span></header>
+      <h1>초기 Organism 라벨이 동반 개체의 관계 문맥으로 정정됐다</h1>
+      <p class="lead">앞서 scispaCy가 주변 단서 없이는 놓쳐 버렸던 바로 그 문장을, 이 접근은 온톨로지의 관계 구조를 빌려 제대로 풀어냈습니다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure" data-deck-figure-number="8" data-deck-figure-title="Zika 언급의 단계별 상태 변화">
+          <img src="assets/figs/fig-zika-evidence.svg" alt="NER 출력의 Organism 라벨이 후보 선택, 경로 증거, 최종 명확화를 거쳐 Congenital Zika virus infection으로 정정되는 단계별 상태 변화 도해">
+          <figcaption><b>그림 8 · "Zika" 언급의 단계별 상태 변화</b><span><strong>읽는 법</strong> — 왼쪽 초기 라벨에서 오른쪽 최종 개체까지 단계별로 상태가 바뀌는 순서로 읽는다</span><span><strong>핵심</strong> — 바뀐 것은 입력 문장이 아니라 판단에 쓸 수 있는 근거의 양이다</span><span><strong>경계</strong> — 이 결과는 2024년 10월 실행 기준의 기록이며 모델과 온톨로지 판본에 따라 달라질 수 있다</span></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-zika-evidence">리포트 그림 8 · 단계별 상태 변화</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="이 장의 핵심 발전" data-report-refs="source-section-8-4-3 report-8-4-3-final" data-source-refs="section:8.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.4.3 · 정리</span></header>
+      <h1>단어 유사도를 넘어 개체 사이의 관계 문맥을 근거로 삼은 것이 이 장의 발전이다</h1>
+      <p class="lead">NER 단계에서 "Zika"는 단순히 Organism으로 잡혔지만, 최종 명확화에서는 함께 등장한 소두증·선천성 기형이라는 문맥 덕분에 "Congenital Zika virus infection(762725007)"으로 정확히 좁혀졌습니다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>01</span><h2>초기 개체명 인식</h2><p>"Zika라는 표현이 있고 생물체와 관련 있어 보인다"는 수준의 초기 분류입니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>02</span><h2>후보 선택</h2><p>바이러스, 바이러스병, 선천성 감염을 보기로 만듭니다.</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>03</span><h2>최종 명확화</h2><p>임신·소두증·선천성 기형과의 그래프 관계를 근거로 선천성 지카 감염을 선택합니다.</p></article>
+        </div>
+        <p class="takeaway"><strong>돌아본 §8.1</strong> — 같은 입력에서 scispaCy는 후보를 만들지 못했고, 이 접근은 관계 경로라는 새 근거로 답을 냈습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-4-3-final">리포트 · 최종 명확화 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="8.5 결론 섹션" data-report-refs="source-section-8-5" data-source-refs="section:8.5" data-source-title="section:8.5" data-density="long">
+      <div class="section-copy">
+        <p class="eyebrow">SECTION · §8.5</p>
+        <h1 class="source-title">8.5 결론 — 온톨로지와 오픈 LLM이 서로의 빈틈을 메우다</h1>
+        <p>무엇이 해결됐고, 무엇은 여전히 사람이 통제해야 하는가</p>
+      </div>
+      <span class="section-number">05</span>
+    </section>
+
+    <section class="slide slide--dense" aria-label="결론의 핵심 주장" data-report-refs="source-section-8-5 report-8-5-recap" data-source-refs="section:8.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.5 · 결론</span></header>
+      <h1>도메인 온톨로지와 오픈 LLM을 통합해 전통적 도구의 한계 일부를 해소했다</h1>
+      <p class="lead">이 장은 오픈 LLM과 도메인 전용 온톨로지를 사용하는 NED 시스템을 깊이 있게 탐구했습니다. SNOMED 같은 도메인 온톨로지를 Llama 3.1 8B 같은 오픈 범용 LLM과 통합함으로써, scispaCy처럼 생물의학 도메인에서 쓰이는 전통적 자연어 처리 도구의 한계 일부를 해소할 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="card-grid">
+          <article class="card"><span>01</span><h2>이식 가능한 접근</h2><p>이 유연한 접근은 여러 응용 도메인에 걸쳐 적응할 수 있습니다. 필요한 것은 개체의 관계적 성질을 기술하는 풍부한 온톨로지입니다.</p></article>
+          <article class="card"><span>02</span><h2>알고리즘과 모델의 결합</h2><p>최단 경로 탐지와 전문 검색에 Neo4j의 GDS 라이브러리를 쓰고 여기에 LLM의 명확화 능력을 결합하면, 복잡한 텍스트에서 개체를 식별하고 정확히 명확화하는 견고한 시스템을 만들 수 있습니다.</p></article>
+          <article class="card"><span>03</span><h2>관계 데이터의 자연어화</h2><p>경로-텍스트 변환과 텍스트 경로 요약 같은 기법을 통해, 관계 데이터를 자연어 형식으로 처리하는 LLM의 능력을 끌어올려 비슷한 개체를 구별하는 힘을 키웠습니다.</p></article>
+        </div>
+        <p class="takeaway"><strong>남기는 것</strong> — 이 프레임워크는 도메인 전용 NED 작업에서 LLM을 활용하는 미래 응용의 토대를 놓습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-5-recap">리포트 · 결론 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="세 구성 요소의 역할 분담" data-report-refs="source-section-8-5 table-roles" data-source-refs="section:8.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.5 · 역할 분담</span></header>
+      <h1>LLM, 온톨로지, 일반 코드가 서로 잘하는 일을 나눠 맡는다</h1>
+      <p class="lead">이 장에서 만든 시스템을 구성 요소별 책임으로 다시 정리하면 다음과 같습니다.</p>
+      <div class="slide-body">
+        <table class="compare-table">
+          <thead><tr><th>구성 요소</th><th>맡는 역할</th></tr></thead>
+          <tbody>
+            <tr><th>LLM</th><td>문장 이해, 개체명 인식, 경로 설명, 요약, 최종 문맥 판단</td></tr>
+            <tr><th>SNOMED · Neo4j</th><td>검증된 개체·별칭·관계 저장, 후보 검색, 경로 계산</td></tr>
+            <tr><th>일반 파이썬 코드</th><td>문자 위치 계산, 형식 처리, 단계 연결</td></tr>
+          </tbody>
+        </table>
+        <p class="analogy"><b>다른 도메인의 예시</b> — "A200 모델의 패널에서 세로줄 불량이 발생했다"에서 <code>A200 TV → HAS_PART → 디스플레이 패널 → HAS_DEFECT → 세로줄</code> 관계를 이용하면 A200 자동차나 세탁기 후보가 아니라 TV 제품 코드를 선택할 수 있습니다. 모호한 언급이 든 문장이 이 장의 지카 문장에, 제품 관계 구조가 SNOMED의 관계 구조에 해당합니다.</p>
+        <p class="takeaway"><strong>이식의 조건</strong> — 이 구도가 성립하려면 도메인에 개체 간 관계를 담은 온톨로지가 먼저 있어야 합니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-roles">리포트 · 역할 분담 정리</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="이 장의 핵심 메시지 요약" data-report-refs="source-section-8-5 summary" data-source-refs="section:8.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.5 · 요약</span></header>
+      <h1>개체명 명확화는 관계를 근거로 삼을 때 도메인을 넘어 확장된다</h1>
+      <p class="lead">이 장의 핵심 메시지 여섯 가지입니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">문제와 한계</p><h2>왜 새 접근이 필요한가</h2><ul>
+            <li>개체명 명확화는 복잡한 도메인에서 개체를 정확히 식별하고 구별하는 데 필수적입니다</li>
+            <li>scispaCy 같은 전통적 자연어 처리 도구는 다양한 도메인에 쓸 수 없고, 개체 사이의 관계를 활용하지 못하며, 참조 지식을 확장하고 갱신하기도 어렵습니다</li>
+            <li>범용 LLM과 도메인 온톨로지를 결합하면 이 문제들을 해소할 수 있습니다. LLM은 온톨로지가 담은, 끊임없이 갱신되는 지식에 의해 이끌리고 그 관계 구조를 활용할 수 있습니다</li>
+          </ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">구현과 확장</p><h2>무엇을 만들었는가</h2><ul>
+            <li>LLM과 도메인 온톨로지가 얽힌 여러 단계를 포함하는, 유연한 종단 간 NED 과정을 배포했습니다</li>
+            <li>LLM의 능력과 도메인 온톨로지의 그래프 차원을 온전히 활용하기 위해, 명확화를 최단 경로 탐지·경로-텍스트 변환·텍스트 경로 요약 세 단계로 나눴습니다</li>
+            <li>미래의 NED 응용은 이 프레임워크를 사용해, 개체의 관계적 성질을 기술하는 풍부한 온톨로지를 갖춘 다른 도메인에도 적응할 수 있습니다</li>
+          </ul></article>
+        </div>
+        <p class="takeaway"><strong>한 문장 정리</strong> — 텍스트의 의미는 LLM이 해석하되, 선택 가능한 개체와 관계의 근거는 도메인 온톨로지에서 가져오면 더 정확하고 설명 가능한 NED 시스템을 만들 수 있습니다.</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">리포트 · 핵심 요약</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="실무 적용 시 주의할 점" data-report-refs="source-section-8-5 report-8-5-boundaries" data-source-refs="section:8.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§8.5 · 실무 경계</span></header>
+      <h1>실무에 옮길 때는 라벨, 경로, 요약, 온톨로지 품질에서 선을 지켜야 한다</h1>
+      <p class="lead">이 접근을 그대로 가져다 쓸 때 어긋나기 쉬운 지점을 여섯 가지로 정리합니다.</p>
+      <div class="slide-body">
+        <div class="decision-grid">
+          <article><p class="eyebrow">해석의 선</p><h2>주장을 과장하지 않기</h2><ul>
+            <li><b>NER 라벨은 최종 개체가 아닙니다</b> — <code>Zika → Organism</code>은 초기 분류이고 <code>Zika → SNOMED 762725007</code>이 최종 연결입니다</li>
+            <li><b>최단 경로가 인과관계를 증명하지는 않습니다</b> — 그래프에서 가깝다는 것은 관련성의 단서일 뿐이므로 관계 유형과 방향을 함께 봐야 합니다</li>
+            <li><b>경로를 문장으로 바꿀 때 의미를 과장하면 안 됩니다</b> — <code>ASSOCIATED_WITH</code>를 "유발한다"로 바꾸면 원래 지식보다 강한 주장이 됩니다</li>
+          </ul></article>
+          <article><p class="eyebrow">설계의 선</p><h2>정보를 잃지 않기</h2><ul>
+            <li><b>NER 라벨 필터가 너무 엄격하면 정답 후보를 제거할 수 있습니다</b> — 여러 라벨을 허용하거나 필터 없는 보조 검색을 함께 고려할 수 있습니다</li>
+            <li><b>요약은 토큰 절감과 정보 보존 사이의 균형이 필요합니다</b> — 개체명·관계 유형·방향은 가능한 한 보존해야 합니다</li>
+            <li><b>온톨로지 품질이 결과의 상한선을 결정합니다</b> — 후보나 관계가 없거나 오래되었다면 LLM도 올바른 근거를 얻을 수 없습니다</li>
+          </ul></article>
+        </div>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#report-8-5-boundaries">리포트 · 적용 경계</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="핵심 용어 정리 1" data-report-refs="glossary table-glossary"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">핵심 용어 · 1</span></header>
+      <h1>과정과 단계를 가리키는 용어</h1>
+      <div class="slide-body">
+        <table class="compare-table term-table">
+          <thead><tr><th>용어 (원어)</th><th>한 줄 설명</th></tr></thead>
+          <tbody>
+            <tr><th>개체명 명확화 (NED)</th><td>문장 속 언급이 실제로 가리키는 대상을 지식베이스의 정확한 항목으로 연결하는 작업</td></tr>
+            <tr><th>개체명 인식 (NER)</th><td>텍스트에서 개체명을 찾아 미리 정한 범주(질병·생물체 등)로 분류하는 작업</td></tr>
+            <tr><th>후보 선택 (CS)</th><td>각 언급에 대응할 수 있는 온톨로지 내 후보 개체들을 조회해 모으는 단계</td></tr>
+            <tr><th>후보 명확화 (CD)</th><td>여러 후보 중 문맥에 가장 잘 맞는 하나를 최종 선택하는 단계</td></tr>
+            <tr><th>최단 경로 탐지</th><td>두 후보 개체 사이의 가장 짧은 그래프 경로를 찾아 관계를 드러내는 기법</td></tr>
+            <tr><th>경로-텍스트 변환</th><td>그래프 경로를 LLM이 잘 다루는 자연어 문장으로 옮기는 단계</td></tr>
+            <tr><th>텍스트 경로 요약</th><td>여러 경로 문장을 하나의 종합 문맥으로 압축해 모델 부하를 줄이는 단계</td></tr>
+            <tr><th>전문 검색 (full-text search)</th><td>인덱스를 이용해 텍스트와 유사한 문자열을 빠르게 찾는 검색 방식</td></tr>
+            <tr><th>퍼지 매칭 (fuzzy matching)</th><td>철자가 조금 달라도 유사도 기준을 넘으면 일치로 보는 검색 방식(예: <code>~0.80</code>)</td></tr>
+            <tr><th>프롬프트 엔지니어링</th><td>원하는 출력을 얻도록 프롬프트를 설계·구성하는 기법</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#glossary">리포트 · 용어 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="핵심 용어 정리 2" data-report-refs="glossary table-glossary"><div class="supp-badge" aria-hidden="true">부연 설명</div>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">핵심 용어 · 2</span></header>
+      <h1>도구, 자원, 그래프 구조를 가리키는 용어</h1>
+      <div class="slide-body">
+        <table class="compare-table term-table">
+          <thead><tr><th>용어 (원어)</th><th>한 줄 설명</th></tr></thead>
+          <tbody>
+            <tr><th>대규모 언어 모델 (LLM)</th><td>방대한 텍스트로 학습해 언어를 유창하게 생성·해석하는 인공지능 모델</td></tr>
+            <tr><th>scispaCy</th><td>spaCy 위에 세워진 생물의학 전용 자연어 처리 도구로, 사전학습 모델과 UMLS 등 어휘집을 내장</td></tr>
+            <tr><th>SNOMED</th><td>45만 개 이상의 개념과 풍부한 관계 유형을 담은 다국어 임상 용어 온톨로지</td></tr>
+            <tr><th>UMLS</th><td>여러 의학 어휘를 통합한 표준 개체 체계</td></tr>
+            <tr><th>온톨로지 (ontology)</th><td>개념과 그 사이의 관계를 형식적으로 정의한 지식 구조</td></tr>
+            <tr><th>Ollama</th><td>LLM을 로컬 컴퓨터에서 직접 실행하게 해 주는 오픈소스 도구</td></tr>
+            <tr><th>Llama 3.1 8B</th><td>메타가 공개한 80억 파라미터 오픈소스 LLM. 최대 128K 토큰 문맥 지원</td></tr>
+            <tr><th>Neo4j GDS</th><td>Neo4j의 그래프 알고리즘 라이브러리로 최단 경로·차수 등 계산 제공</td></tr>
+            <tr><th>허브 노드 (hub node)</th><td>연결 수(차수)가 매우 높아 지나치게 일반적인 노드. 의미 있는 경로 탐색에서 제외</td></tr>
+            <tr><th>SNOMED_IS_A</th><td>상위-하위(is-a) 계층 관계. 라벨 전파와 계층 탐색의 핵심 관계 유형</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#glossary">리포트 · 용어 해설</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--dense" aria-label="이해를 확인하는 질문" data-report-refs="summary source-section-8-5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>답을 외우기보다 판단 근거를 말할 수 있는지 확인한다</h1>
+      <p class="lead">오늘 다룬 내용으로 답할 수 있는 질문들입니다.</p>
+      <div class="slide-body">
+        <div class="question-list">
+          <article><span>Q1</span><p>같은 지카 문장에서 scispaCy가 후보를 만들지 못한 이유는 무엇이고, 이 장의 접근은 그 자리에 어떤 근거를 새로 넣었습니까?</p></article>
+          <article><span>Q2</span><p>후보 선택 단계에서 LLM을 쓰지 않은 두 가지 이유를 설명할 수 있습니까?</p></article>
+          <article><span>Q3</span><p>최단 경로 탐지에서 허브 노드를 제외하고 1~2홉으로 제한하지 않으면 어떤 문제가 생깁니까?</p></article>
+          <article><span>Q4</span><p>후보가 아홉 개일 때 가장 구체적인 후보를 고르면 안 되는 이유는 무엇입니까?</p></article>
+        </div>
+        <p class="takeaway"><strong>토론</strong> — 우리 도메인에는 이만한 관계 정보를 담은 온톨로지가 있습니까? 없다면 무엇부터 만들어야 합니까?</p>
+      </div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">리포트 · 핵심 요약</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary references">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">WRAP UP</span></header>
+      <div class="closing-body">
+        <p class="eyebrow">KEY TAKEAWAYS</p>
+        <h1>관계를 근거로 삼으면 단서가 흩어진 문장도 풀린다</h1>
+        <div class="card-grid">
+          <article class="card"><span>01</span><h2>한계의 정체</h2><p>전통적 NED는 표준 개체는 갖췄지만 개체 사이의 관계와 경로를 명확화에 쓰지 못했습니다.</p></article>
+          <article class="card"><span>02</span><h2>결합의 구조</h2><p>범주·후보·관계는 온톨로지가 공급하고, 해석과 요약과 최종 판단은 LLM이 맡습니다.</p></article>
+          <article class="card"><span>03</span><h2>적용의 조건</h2><p>관계를 담은 온톨로지가 있어야 하고, 경로의 근접성을 인과로 읽지 않아야 합니다.</p></article>
+        </div>
+        <p class="closing-question">Q&amp;A</p>
+      </div>
+      <div class="closing-links"><a class="back-link" href="report.html">상세 리포트 읽기</a><a class="back-link" href="../../">회차 목록으로 돌아가기</a></div>
+    </section>
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어">
+    <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
+  </nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck.js"></script>
+  <script src="assets/deck-lightbox.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>
