@@ -65,7 +65,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-08-22 | 08:00–10:00 | Chapter 5 | 핀조이 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-08-22-machine-trading-ch05/) |
 | 2026-08-29 | 08:00–10:00 | Chapter 6 | 원미 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-29-machine-trading-ch06/) |
 | 2026-08-29 | 08:00–10:00 | Chapter 7 | 원미 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-29-machine-trading-ch07/) |
-| 2026-09-12 | 08:00–10:00 | 다음 교재·스터디 운영 논의 | 참석자 전원 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/) |
+| 2026-09-12 | 08:00–10:00 | 다음 교재·스터디 운영 논의 | 참석자 전원 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/) |
 
 ### AI/ML · Knowledge Graphs and LLMs in Action
 
@@ -78,7 +78,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-08-22 | 09:00–10:00 | Chapter 6 | 종훈(L) | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-08-22-kg-llm-ch06/) |
 | 2026-08-29 | 09:00–10:00 | Chapter 7 | 재익 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-29-kg-llm-ch07/) |
 | 2026-09-05 | 09:00–10:00 | Chapter 8 | 태호 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400) | [회차](https://aimlquant.github.io/study/sessions/2026-09-05-kg-llm-ch08/) |
-| 2026-09-12 | 09:00–10:00 | Chapter 9 | 정훈 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-kg-llm-ch09/) |
+| 2026-09-12 | 09:00–10:00 | Chapter 9 | 정훈 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-kg-llm-ch09/) |
 | 2026-09-19 | 09:00–10:00 | Chapter 10 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-19-kg-llm-ch10/) |
 | 2026-09-26 | 09:00–10:00 | Chapter 11 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-26-kg-llm-ch11/) |
 | 2026-10-03 | 09:00–10:00 | Chapter 12 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch12/) |
