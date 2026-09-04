@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 560" role="img" aria-labelledby="t d">
+  <title id="t">SNOMED 계층 구조의 표본과 범주 전파</title>
+  <desc id="d">SNOMED root에서 1레벨 원형 개체로, 다시 중간·하위 계층으로 내려가는 트리. 하위 노드는 1레벨 노드의 유형을 물려받는다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6B6B72"/></marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8A6D1D"/></marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .root{fill:#0F2C59}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.2;marker-end:url(#arrow)}
+      .prop{fill:none;stroke:#8A6D1D;stroke-width:1.8;stroke-dasharray:6 5;marker-end:url(#arrowP)}
+      .typechip{fill:#FBF3DC;stroke:#8A6D1D;stroke-width:1.2}
+      .lv{font-size:12.5px;fill:#6B6B72;font-weight:700}
+      .n{font-size:14.5px;font-weight:700;text-anchor:middle;fill:#0F0F10}
+      .nw{font-size:14.5px;font-weight:800;text-anchor:middle;fill:#fff}
+      .tp{font-size:11.5px;text-anchor:middle;fill:#6B4F12}
+    </style>
+  </defs>
+  <rect width="940" height="560" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <text class="lv" x="24" y="66">루트</text>
+    <text class="lv" x="24" y="185">1레벨 · 원형 개체</text>
+    <text class="lv" x="24" y="315">중간 계층 노드</text>
+    <text class="lv" x="24" y="445">하위 계층 노드</text>
+
+    <rect class="root" x="395" y="36" width="180" height="46" rx="10"/>
+    <text class="nw" x="485" y="65">SNOMED root</text>
+
+    <path class="line" d="M430 82L215 152"/>
+    <path class="line" d="M462 82L385 152"/>
+    <path class="line" d="M512 82L590 152"/>
+    <path class="line" d="M545 82L775 152"/>
+
+    <rect class="box" x="130" y="156" width="150" height="46" rx="9"/>
+    <text class="n" x="205" y="185">Body structure</text>
+    <rect class="box" x="310" y="156" width="160" height="46" rx="9"/>
+    <text class="n" x="390" y="178">Pharmaceutical</text>
+    <text class="n" x="390" y="196">product</text>
+    <rect class="box" x="520" y="156" width="140" height="46" rx="9"/>
+    <text class="n" x="590" y="185">Substance</text>
+    <rect class="box" x="700" y="156" width="140" height="46" rx="9"/>
+    <text class="n" x="770" y="185">Disease</text>
+
+    <path class="line" d="M370 202L295 282"/>
+    <path class="line" d="M770 202L745 282"/>
+
+    <rect class="box" x="200" y="286" width="170" height="46" rx="9"/>
+    <text class="n" x="285" y="315">Enzyme inhibitor</text>
+    <rect class="box" x="650" y="286" width="185" height="46" rx="9"/>
+    <text class="n" x="742" y="308">AIDS-associated</text>
+    <text class="n" x="742" y="326">disorder</text>
+
+    <path class="line" d="M300 332L335 412"/>
+    <path class="line" d="M742 332L722 412"/>
+
+    <rect class="box" x="260" y="416" width="150" height="46" rx="9"/>
+    <text class="n" x="335" y="445">Ecallantide</text>
+    <rect class="box" x="620" y="416" width="200" height="46" rx="9"/>
+    <text class="n" x="720" y="438">Retinopathy assoc.</text>
+    <text class="n" x="720" y="456">with AIDS</text>
+
+    <path class="prop" d="M330 202C120 260 100 400 243 487"/>
+    <path class="prop" d="M800 202C900 260 920 400 788 489"/>
+
+    <rect class="typechip" x="245" y="476" width="180" height="26" rx="13"/>
+    <text class="tp" x="335" y="493">유형: Pharmaceutical product</text>
+    <rect class="typechip" x="655" y="476" width="130" height="26" rx="13"/>
+    <text class="tp" x="720" y="493">유형: Disease</text>
+  </g>
+</svg>

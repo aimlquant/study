@@ -1,0 +1,15 @@
+study_id = "kg-llm-in-action-2026"
+session_id = "2026-09-05-ch08"
+title = "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 개체명 명확화(NED)"
+date = "2026-09-05"
+presenters = ["태호"]
+chapters = ["Chapter 8"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+# 해설판은 절 번호가 인쇄돼 있어 기본 outline 스타일을 쓴다.
+# (ordered-headings-v1은 말미 H2 '핵심 용어 해설'/'References'가 8.1/8.2 좌표를 덮어써 부적합)
+source_fidelity = "source-structure-v1"
+source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_08_ned_with_open_llms_and_domain_ontologies/08_ned_with_open_llms_and_domain_ontologies_ko_explained.md"

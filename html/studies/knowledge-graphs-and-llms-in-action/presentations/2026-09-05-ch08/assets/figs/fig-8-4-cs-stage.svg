@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 400" role="img" aria-labelledby="t d">
+  <title id="t">NED의 두 번째 단계 후보 선택 — 활성 구간과 비활성 구간</title>
+  <desc id="d">파이프라인에서 주석 처리된 멘션, 후보 선택, 멘션별 후보와 온톨로지 공급선만 진하게 강조되고 나머지 단계는 회색이다. 후보 산출물 아래에 Zika의 실제 후보 세 개가 보인다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6B6B72"/></marker>
+    <marker id="arrowD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#C9CDD6"/></marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2.2}
+      .art{fill:#EEF2F8;stroke:#5B7CA8;stroke-width:1.5}
+      .boxd{fill:#fff;stroke:#C9CDD6;stroke-width:2}
+      .artd{fill:#F5F5F6;stroke:#DCDCE0;stroke-width:1.5}
+      .badged{fill:#C9CDD6}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .lined{fill:none;stroke:#C9CDD6;stroke-width:2.2;marker-end:url(#arrowD)}
+      .p{font-size:15px;font-weight:800;text-anchor:middle;fill:#0F0F10}
+      .a{font-size:13px;font-weight:600;text-anchor:middle;fill:#2E4A6B}
+      .as{font-size:11.5px;font-weight:600;text-anchor:middle;fill:#2E4A6B}
+      .pd{font-size:15px;font-weight:800;text-anchor:middle;fill:#B9B9C0}
+      .ad{font-size:13px;font-weight:600;text-anchor:middle;fill:#C4C4CA}
+      .b{font-size:12px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1160" height="400" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="artd" x="15" y="70" width="115" height="70" rx="9"/>
+    <text class="ad" x="72" y="98">입력</text>
+    <text class="ad" x="72" y="118">문서</text>
+    <path class="lined" d="M130 105H160"/>
+    <rect class="boxd" x="160" y="60" width="150" height="90" rx="10"/>
+    <text class="pd" x="235" y="98">개체명</text>
+    <text class="pd" x="235" y="120">인식</text>
+    <rect class="badged" x="266" y="52" width="44" height="20" rx="4"/>
+    <text class="b" x="288" y="66">LLM</text>
+    <path class="lined" d="M310 105H340"/>
+    <rect class="art" x="340" y="70" width="135" height="70" rx="9"/>
+    <text class="a" x="407" y="98">문서에 주석</text>
+    <text class="a" x="407" y="118">처리된 멘션</text>
+    <path class="line" d="M475 105H505"/>
+    <rect class="box" x="505" y="60" width="150" height="90" rx="10"/>
+    <text class="p" x="580" y="98">NED</text>
+    <text class="p" x="580" y="120">후보 선택</text>
+    <path class="line" d="M655 105H685"/>
+    <rect class="art" x="685" y="70" width="135" height="70" rx="9"/>
+    <text class="a" x="752" y="98">각 멘션의</text>
+    <text class="a" x="752" y="118">여러 후보</text>
+    <path class="lined" d="M820 105H850"/>
+    <rect class="boxd" x="850" y="60" width="150" height="90" rx="10"/>
+    <text class="pd" x="925" y="98">NED 후보</text>
+    <text class="pd" x="925" y="120">명확화</text>
+    <rect class="badged" x="956" y="52" width="44" height="20" rx="4"/>
+    <text class="b" x="978" y="66">LLM</text>
+    <path class="lined" d="M1000 105H1030"/>
+    <rect class="artd" x="1030" y="70" width="115" height="70" rx="9"/>
+    <text class="ad" x="1087" y="98">명확화된</text>
+    <text class="ad" x="1087" y="118">개체</text>
+
+    <path class="line" d="M752 140V190"/>
+    <rect class="art" x="660" y="196" width="230" height="96" rx="9"/>
+    <text class="a" x="775" y="220">"Zika"의 후보 예</text>
+    <text class="as" x="775" y="242">Zika virus</text>
+    <text class="as" x="775" y="262">Zika virus disease</text>
+    <text class="as" x="775" y="282">Congenital Zika virus infection</text>
+
+    <rect class="box" x="505" y="270" width="150" height="80" rx="10"/>
+    <text class="p" x="580" y="302">도메인</text>
+    <text class="p" x="580" y="326">온톨로지</text>
+    <path class="line" d="M580 270V156"/>
+    <path class="lined" d="M505 300H235V156"/>
+    <path class="lined" d="M655 330H925V156"/>
+  </g>
+</svg>

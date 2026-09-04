@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" role="img" aria-labelledby="t d">
+  <title id="t">후보 명확화의 세 단계</title>
+  <desc id="d">멘션별 후보가 점선 상자 안의 최단 경로 탐지, 경로-텍스트 변환, 텍스트 경로 요약을 거쳐 명확화된 개체가 된다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6B6B72"/></marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2.2}
+      .art{fill:#EEF2F8;stroke:#5B7CA8;stroke-width:1.5}
+      .cont{fill:none;stroke:#6B6B72;stroke-width:2;stroke-dasharray:8 6}
+      .badge{fill:#0F0F10}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .p{font-size:15px;font-weight:800;text-anchor:middle;fill:#0F0F10}
+      .a{font-size:13px;font-weight:600;text-anchor:middle;fill:#2E4A6B}
+      .m{font-size:12px;fill:#6B6B72;text-anchor:middle}
+      .h{font-size:15px;font-weight:800;text-anchor:middle;fill:#0F2C59}
+      .b{font-size:12px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="900" height="430" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="art" x="40" y="180" width="150" height="70" rx="9"/>
+    <text class="a" x="115" y="208">각 멘션의</text>
+    <text class="a" x="115" y="228">여러 후보</text>
+    <path class="line" d="M190 215H278"/>
+
+    <rect class="cont" x="280" y="36" width="350" height="360" rx="12"/>
+    <text class="h" x="455" y="68">NED 후보 명확화</text>
+
+    <rect class="box" x="320" y="90" width="270" height="70" rx="9"/>
+    <text class="p" x="455" y="118">1 · 최단 경로 탐지</text>
+    <text class="m" x="455" y="142">Neo4j GDS</text>
+    <path class="line" d="M455 160V190"/>
+
+    <rect class="box" x="320" y="190" width="270" height="70" rx="9"/>
+    <text class="p" x="447" y="218">2 · 경로-텍스트 변환</text>
+    <text class="m" x="447" y="242">그래프 경로 → 문장</text>
+    <rect class="badge" x="538" y="182" width="44" height="20" rx="4"/>
+    <text class="b" x="560" y="196">LLM</text>
+    <path class="line" d="M455 260V290"/>
+
+    <rect class="box" x="320" y="290" width="270" height="70" rx="9"/>
+    <text class="p" x="447" y="318">3 · 텍스트 경로 요약</text>
+    <text class="m" x="447" y="342">문장들 → 문맥 한 문단</text>
+    <rect class="badge" x="538" y="282" width="44" height="20" rx="4"/>
+    <text class="b" x="560" y="296">LLM</text>
+
+    <path class="line" d="M630 215H700"/>
+    <rect class="art" x="700" y="180" width="160" height="70" rx="9"/>
+    <text class="a" x="780" y="208">명확화된</text>
+    <text class="a" x="780" y="228">개체</text>
+  </g>
+</svg>

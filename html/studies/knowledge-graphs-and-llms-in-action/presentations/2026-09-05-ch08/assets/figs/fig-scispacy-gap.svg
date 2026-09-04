@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 430" role="img" aria-labelledby="t d">
+  <title id="t">문맥 단서 유무에 따른 scispaCy 명확화 결과 비교</title>
+  <desc id="d">단서 단어가 있는 문장은 세 언급이 모두 명확화되고, 단서를 뺀 문장은 Zika disease 언급의 후보가 0개다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6B6B72"/></marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .art{fill:#EEF2F8;stroke:#5B7CA8;stroke-width:1.5}
+      .chip{fill:#0F2C59}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .h{font-size:16px;font-weight:800;text-anchor:middle;fill:#0F0F10}
+      .m{font-size:12.5px;fill:#3A3A40;text-anchor:middle}
+      .mono{font-size:12px;fill:#3A3A40;text-anchor:middle;font-family:Consolas,'Courier New',monospace}
+      .ok{font-size:12.5px;fill:#0F2C59;text-anchor:middle;font-weight:700}
+      .bad{font-size:12.5px;fill:#B3261E;text-anchor:middle;font-weight:800}
+      .chiptext{font-size:12.5px;fill:#fff;text-anchor:middle;font-weight:700}
+    </style>
+  </defs>
+  <rect width="1160" height="430" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="chip" x="30" y="28" width="130" height="26" rx="13"/>
+    <text class="chiptext" x="95" y="46">입력 A · 단서 있음</text>
+    <rect class="art" x="30" y="70" width="300" height="110" rx="10"/>
+    <text class="h" x="180" y="102">ECDC 원문</text>
+    <text class="m" x="180" y="128">"congenital", "syndrome" 등</text>
+    <text class="m" x="180" y="150">단서 단어가 지카 언급 곁에 있음</text>
+    <path class="line" d="M330 125H420"/>
+    <rect class="box" x="420" y="70" width="180" height="110" rx="10"/>
+    <text class="h" x="510" y="115">scispaCy</text>
+    <text class="m" x="510" y="140">+ UMLS 지식베이스</text>
+    <path class="line" d="M600 125H690"/>
+    <rect class="box" x="690" y="70" width="440" height="110" rx="10"/>
+    <text class="h" x="910" y="100">지카 언급 3개 모두 명확화</text>
+    <text class="ok" x="910" y="128">3/3 성공</text>
+    <text class="m" x="910" y="154">각 언급에 올바른 대상 개체 연결</text>
+
+    <rect class="chip" x="30" y="218" width="130" height="26" rx="13"/>
+    <text class="chiptext" x="95" y="236">입력 B · 단서 없음</text>
+    <rect class="art" x="30" y="260" width="300" height="130" rx="10"/>
+    <text class="h" x="180" y="292">변형 문장</text>
+    <text class="m" x="180" y="318">같은 지카 주제, 단서 단어 제거</text>
+    <text class="m" x="180" y="340">"Zika disease" 언급 포함</text>
+    <path class="line" d="M330 325H420"/>
+    <rect class="box" x="420" y="260" width="180" height="130" rx="10"/>
+    <text class="h" x="510" y="315">scispaCy</text>
+    <text class="m" x="510" y="340">+ UMLS 지식베이스</text>
+    <path class="line" d="M600 325H690"/>
+    <rect class="box" x="690" y="260" width="440" height="130" rx="10"/>
+    <text class="mono" x="910" y="292">Zika (0–4) → 후보 3개</text>
+    <text class="bad" x="910" y="322">Zika disease (109–121) → 후보 0개</text>
+    <text class="mono" x="910" y="352">Zika (278–282) → 후보 3개</text>
+    <text class="m" x="910" y="376">주변 단서가 없으면 후보 검색 자체가 실패</text>
+  </g>
+</svg>
