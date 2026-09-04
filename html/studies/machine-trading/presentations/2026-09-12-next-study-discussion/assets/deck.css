@@ -175,6 +175,9 @@ a {
   color: var(--primary);
   font-variant-numeric: tabular-nums;
 }
+.slide-footer .report-ref { margin-left: 0; font-size: 13px; }
+.cover-report-link { position: absolute; left: 64px; bottom: 34px; }
+.cover-report-link .report-ref { margin-left: 0; }
 
 .slide--cover {
   position: relative;

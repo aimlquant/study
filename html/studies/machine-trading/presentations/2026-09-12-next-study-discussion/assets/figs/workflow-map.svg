@@ -7,18 +7,18 @@
   </defs>
   <style>text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}.n{font-size:16px;font-weight:800;fill:#2563eb}.h{font-size:22px;font-weight:900;fill:#101114}.b{font-size:15px;fill:#596170}.edge{font-size:17px;font-weight:800;fill:#0f2c59;paint-order:stroke fill;stroke:#f7f9fc;stroke-width:4px;stroke-linejoin:round}.an-s{text-anchor:start}.an-m{text-anchor:middle}.an-e{text-anchor:end}</style>
   <rect width="1200" height="280" rx="28" fill="#f7f9fc"/>
-  <g transform="translate(60 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">01 · Ch1–5</text><text class="h an-s" x="18" y="76">기초·데이터</text><text class="b an-s" x="18" y="110">시점과 식별자</text></g>
+  <g transform="translate(60 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">01 · Ch1–5</text><text class="h an-s" x="18" y="76">기초·데이터</text><text class="b an-s" x="18" y="104">시점</text><text class="b an-s" x="18" y="124">식별자</text></g>
   <path d="M216 100 H246" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#fwd)"/>
-  <g transform="translate(246 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">02 · Ch6–10</text><text class="h an-s" x="18" y="76">특징</text><text class="b an-s" x="18" y="110">레이블과 split</text></g>
+  <g transform="translate(246 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">02 · Ch6–10</text><text class="h an-s" x="18" y="76">특징</text><text class="b an-s" x="18" y="104">레이블</text><text class="b an-s" x="18" y="124">데이터 분할</text></g>
   <path d="M402 100 H432" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#fwd)"/>
-  <g transform="translate(432 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">03 · Ch11–15</text><text class="h an-s" x="18" y="76">모델</text><text class="b an-s" x="18" y="110">기준선과 OOS</text></g>
+  <g transform="translate(432 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">03 · Ch11–15</text><text class="h an-s" x="18" y="76">모델</text><text class="b an-s" x="18" y="104">기준선</text><text class="b an-s" x="18" y="124">표본 외 평가</text></g>
   <path d="M588 100 H618" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#fwd)"/>
-  <g transform="translate(618 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">04 · Ch16–20</text><text class="h an-s" x="18" y="76">전략</text><text class="b an-s" x="18" y="110">비용과 위험</text></g>
+  <g transform="translate(618 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">04 · Ch16–20</text><text class="h an-s" x="18" y="76">전략</text><text class="b an-s" x="18" y="104">거래비용</text><text class="b an-s" x="18" y="124">위험</text></g>
   <path d="M774 100 H804" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#fwd)"/>
-  <g transform="translate(804 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">05 · Ch21–24</text><text class="h an-s" x="18" y="76">고급 AI</text><text class="b an-s" x="18" y="110">증분 가치</text></g>
+  <g transform="translate(804 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#fff" stroke="#b8c4d6" stroke-width="1"/><text class="n an-s" x="18" y="34">05 · Ch21–24</text><text class="h an-s" x="18" y="76">고급 AI</text><text class="b an-s" x="18" y="104">복잡성 대비</text><text class="b an-s" x="18" y="124">추가 효과</text></g>
   <path d="M960 100 H990" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#fwd)"/>
-  <g transform="translate(990 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#eaf0fa" stroke="#0f2c59" stroke-width="2"/><text class="n an-s" x="18" y="34">06 · Ch25–27</text><text class="h an-s" x="18" y="76">운영</text><text class="b an-s" x="18" y="110">감시와 중단</text></g>
+  <g transform="translate(990 30)"><rect x="0" y="0" width="150" height="140" rx="16" fill="#eaf0fa" stroke="#0f2c59" stroke-width="2"/><text class="n an-s" x="18" y="34">06 · Ch25–27</text><text class="h an-s" x="18" y="76">운영</text><text class="b an-s" x="18" y="104">감시</text><text class="b an-s" x="18" y="124">중단</text></g>
   <path d="M1065 170 V214 Q1065 240 1039 240 H716" fill="none" stroke="#0f2c59" stroke-width="3"/>
   <path d="M484 240 H161 Q135 240 135 214 V170" fill="none" stroke="#0f2c59" stroke-width="3" marker-end="url(#back)"/>
-  <text class="edge an-m" x="600" y="246">운영 증거 → 앞 단계 수정</text>
+  <text class="edge an-m" x="600" y="246">운영 결과 → 앞 단계 수정</text>
 </svg>

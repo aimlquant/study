@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 272" role="img" aria-labelledby="title desc">
   <title id="title">한 회차의 다섯 구간과 시간 배분</title>
-  <desc id="desc">0–5분 맥락, 5–25분 장 논리, 25–45분 실행 증거, 45–55분 적용 경계, 55–60분 다음 질문을 차례로 배치했다. 아래 띠의 각 구간 폭은 그 구간에 배분한 시간에 비례한다.</desc>
+  <desc id="desc">0–5분 맥락, 5–25분 핵심 논리, 25–45분 실행 증거, 45–55분 적용 경계, 55–60분 다음 질문을 차례로 배치했다. 아래 띠의 각 구간 폭은 그 구간에 배분한 시간에 비례한다.</desc>
   <defs>
     <marker id="flow" markerUnits="userSpaceOnUse" viewBox="0 0 13 12" refX="12" refY="6" markerWidth="13" markerHeight="12" orient="auto"><path d="M0 0.5 L12.5 6 L0 11.5 Z" fill="#94a3b8"/></marker>
   </defs>
@@ -8,9 +8,9 @@
   <rect width="1200" height="272" rx="28" fill="#f7f9fc"/>
   <g transform="translate(60 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#0f2c59"/><text class="time an-m" x="90" y="28">0–5분</text><text class="h an-s" x="18" y="86">맥락</text><text class="b an-s" x="18" y="122">이전 장과</text><text class="b an-s" x="18" y="146">오늘의 질문</text></g>
   <path d="M248 111 H285" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#flow)"/>
-  <g transform="translate(285 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#2563eb"/><text class="time an-m" x="90" y="28">5–25분</text><text class="h an-s" x="18" y="86">장 논리</text><text class="b an-s" x="18" y="122">핵심 가정과</text><text class="b an-s" x="18" y="146">판단 기준</text></g>
+  <g transform="translate(285 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#2563eb"/><text class="time an-m" x="90" y="28">5–25분</text><text class="h an-s" x="18" y="86">핵심 논리</text><text class="b an-s" x="18" y="122">핵심 가정과</text><text class="b an-s" x="18" y="146">판단 기준</text></g>
   <path d="M473 111 H510" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#flow)"/>
-  <g transform="translate(510 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#7c3aed"/><text class="time an-m" x="90" y="28">25–45분</text><text class="h an-s" x="18" y="86">실행 증거</text><text class="b an-s" x="18" y="122">가이드와</text><text class="b an-s" x="18" y="146">선택 앵커</text></g>
+  <g transform="translate(510 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#7c3aed"/><text class="time an-m" x="90" y="28">25–45분</text><text class="h an-s" x="18" y="86">실행 증거</text><text class="b an-s" x="18" y="122">가이드와</text><text class="b an-s" x="18" y="146">선택 예제</text></g>
   <path d="M698 111 H735" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#flow)"/>
   <g transform="translate(735 24)"><rect x="0" y="0" width="180" height="174" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/><path d="M0 18 Q0 0 18 0 H162 Q180 0 180 18 V42 H0 Z" fill="#d97706"/><text class="time an-m" x="90" y="28">45–55분</text><text class="h an-s" x="18" y="86">적용 경계</text><text class="b an-s" x="18" y="122">누수·비용·</text><text class="b an-s" x="18" y="146">실패 조건</text></g>
   <path d="M923 111 H960" fill="none" stroke="#94a3b8" stroke-width="3" marker-end="url(#flow)"/>

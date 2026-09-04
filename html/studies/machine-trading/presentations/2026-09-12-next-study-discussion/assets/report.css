@@ -3897,7 +3897,7 @@ svg.report-lightbox__visual {
 
 /* =========================================================================
  * PATH FOLD — Section 09 회차 커리큘럼 접기 영역 (이 회차 전용 스냅샷 추가)
- * 세 경로의 회차 표를 모두 펼치면 본문 흐름을 덮으므로 details/summary 로 접는다.
+ * 회차표는 기본으로 펼쳐 두고, 독자가 긴 계획을 접을 수 있게 한다.
  * 공용 study-report-v1 템플릿에는 아직 없는 컴포넌트이며, 인쇄에서는 접힘 상태와
  * 무관하게 전부 펼쳐 A4 부록으로 남긴다.
  * ========================================================================= */
@@ -4020,6 +4020,16 @@ svg.report-lightbox__visual {
 }
 
 /* Discussion brief: preserve comparison columns on narrow screens. */
+.chapter-plan-table {
+  table-layout: fixed;
+  width: 100%;
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+.chapter-plan-table thead { display: table-header-group; }
+.chapter-plan-table tr { break-inside: avoid; page-break-inside: avoid; }
+.chapter-plan-table th:first-child { width: 52%; text-align: left; }
+.chapter-plan-table td { text-align: center; }
 @media screen and (max-width: 640px) {
   .continuous-mode .cmp-table {
     display: block;
@@ -4034,9 +4044,24 @@ svg.report-lightbox__visual {
   }
 }
 @media print {
-  .continuous-mode .report-section > h2 ~ h2 {
+  .continuous-mode .report-section > h2 {
     break-before: auto;
     page-break-before: auto;
     margin-top: 7mm;
   }
+  .continuous-mode .report-section p,
+  .continuous-mode .report-section li { font-size: 10.5pt; line-height: 1.6; }
+  .continuous-mode .report-section p { margin-bottom: 7pt; }
+}
+@media screen and (max-width: 640px) {
+  .continuous-mode .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .continuous-mode .chapter-plan-table { display: table; }
+  .continuous-mode .chapter-plan-table th,
+  .continuous-mode .chapter-plan-table td {
+    min-width: 0;
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+  .continuous-mode .chapter-plan-table td { white-space: nowrap; }
+  .continuous-mode .chapter-plan-table thead th:not(:first-child) { text-align: center; }
 }
