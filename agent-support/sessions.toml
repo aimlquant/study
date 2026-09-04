@@ -232,7 +232,7 @@ discussion_points = [
   "교재·해설·가이드 노트북을 함께 읽고, 공식 예제와 사례를 언제 추가할지 정합니다. 프라이머·스킬은 회차당 합계 0~1편을 권합니다.",
   "설명 L1, 부분 재현 L2, 확장 실험 L3 중 공통 실습 수준을 정합니다. 첫 세 회차를 배정하고, 3회 말에 준비 부담을 확인해 잠정 계획을 확정하거나 기존 계획을 조정합니다.",
 ]
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
 artifacts = [
   { kind = "report", label = "교재·운영 심층 분석", url = "studies/machine-trading/presentations/2026-09-12-next-study-discussion/report.html" },
   { kind = "slides", label = "회의용 발표자료", url = "studies/machine-trading/presentations/2026-09-12-next-study-discussion/" },
@@ -246,7 +246,7 @@ title = "Chapter 9. 지식 그래프 위의 머신러닝 입문"
 presenters = ["정훈"]
 chapters = ["Chapter 9"]
 status = "scheduled"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc2ca84dfd7dcc1b918d354f94989cc32"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
 
 [[sessions]]
 id = "2026-09-19-kg-llm-ch10"
