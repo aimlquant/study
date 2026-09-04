@@ -131,7 +131,18 @@
       "title": "Chapter 9. 지식 그래프 위의 머신러닝 입문"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/"
+        }
+      ],
       "chapters": [
         "Chapter 8"
       ],
@@ -143,7 +154,7 @@
       "presenters": [
         "태호"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
     },

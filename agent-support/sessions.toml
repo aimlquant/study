@@ -209,8 +209,12 @@ date = "2026-09-05"
 title = "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
 presenters = ["태호"]
 chapters = ["Chapter 8"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/" },
+]
 
 [[sessions]]
 id = "2026-09-12-machine-trading-next-study-discussion"
