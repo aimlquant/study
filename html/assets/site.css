@@ -800,6 +800,10 @@ section > h2::after {
   gap: 24px;
 }
 
+.home-video-grid--single {
+  grid-template-columns: minmax(0, 960px);
+}
+
 .home-video-card {
   min-width: 0;
   overflow: hidden;

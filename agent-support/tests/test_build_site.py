@@ -258,6 +258,9 @@ class SiteRenderingTest(unittest.TestCase):
             / "index.html"
         ]
         root_page = files[Path("index.html")]
+        study_page = files[
+            Path("studies") / "machine-trading" / "index.html"
+        ]
         catalog = json.loads(files[Path("data") / "catalog.json"])
 
         self.assertIn(
@@ -271,6 +274,15 @@ class SiteRenderingTest(unittest.TestCase):
         )
         self.assertIn('class="home-video-grid"', root_page)
         self.assertIn('loading="lazy"', root_page)
+        self.assertIn("최근 공개 영상", study_page)
+        self.assertIn(
+            "https://www.youtube.com/embed/123456789ab",
+            study_page,
+        )
+        self.assertIn(
+            'href="../../sessions/2026-08-01-machine-trading-ch02/"',
+            study_page,
+        )
         self.assertEqual(
             catalog["sessions"][0]["page_url"],
             (
