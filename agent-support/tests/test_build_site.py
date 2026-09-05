@@ -908,17 +908,11 @@ class OperationsSessionRenderingTest(unittest.TestCase):
         self.assertIn("machine-trading-ch02", hub_schedule)
         self.assertNotIn("next-study-discussion", hub_schedule)
 
-    def test_operations_session_is_listed_under_operations_section(self) -> None:
-        self.assertIn('<section id="operations">', self.root)
-        section = self.root.split('<section id="operations">')[1].split(
-            "</section>", 1
-        )[0]
-        self.assertIn("운영 기록", self.root)
-        self.assertIn(
-            'href="sessions/2026-08-08-machine-trading-next-study-discussion/"',
-            section,
-        )
-        self.assertNotIn("machine-trading-ch02", section)
+    def test_hub_links_to_the_operations_space_instead_of_listing(self) -> None:
+        # 운영 기록의 정본은 조직 운영 페이지다. 허브는 목록을 만들지 않고 링크만 둔다.
+        self.assertNotIn('id="operations"', self.root)
+        self.assertIn('href="https://restful3.github.io/operations/"', self.root)
+        self.assertNotIn("next-study-discussion", self.root.split("<section")[0])
         # 회차 페이지 자체는 그대로 만들어진다.
         self.assertIn(
             Path("sessions")
@@ -927,6 +921,8 @@ class OperationsSessionRenderingTest(unittest.TestCase):
             self.files,
         )
 
-    def test_operations_section_is_omitted_without_operations_sessions(self) -> None:
+    def test_operations_link_is_present_without_operations_sessions(self) -> None:
         files = build_site.render_files(SITE, STUDIES, self.sessions[:1])
-        self.assertNotIn('id="operations"', files[Path("index.html")])
+        root = files[Path("index.html")]
+        self.assertNotIn('id="operations"', root)
+        self.assertIn('href="https://restful3.github.io/operations/"', root)

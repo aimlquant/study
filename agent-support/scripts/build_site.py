@@ -924,35 +924,8 @@ def render_files(
       </article>"""
         )
     root_schedule_html = "\n".join(root_schedules)
-    operations_sessions = sorted(
-        (item for item in sessions if item.get("kind", "study") == "operations"),
-        key=lambda item: (str(item["date"]), item["id"]),
-        reverse=True,
-    )
-    operations_rows = "\n".join(
-        render_schedule_row(item, study_by_id[item["study_id"]])
-        for item in operations_sessions
-    )
-    operations_section = (
-        f"""    <section id="operations">
-      <h2>운영 기록</h2>
-      <p class="section-intro">교재 진도와 별도로 진행한 운영 논의와 안내입니다. 회차 페이지에서 자료와 공개 영상을 볼 수 있습니다.</p>
-      <div class="schedule-board">
-        <div class="schedule-head" aria-hidden="true">
-          <span>일시</span><span>주제</span><span>발표자</span><span>접속</span>
-        </div>
-{operations_rows}
-      </div>
-    </section>
-"""
-        if operations_sessions
-        else ""
-    )
-    operations_button = (
-        '\n      <a class="button button--secondary" href="#operations">운영 기록</a>'
-        if operations_sessions
-        else ""
-    )
+    # 운영 회차의 정본 목록은 조직 운영 페이지(/operations/)다. 허브는 링크만 둔다.
+    operations_url = site["landing_url"].rstrip("/") + "/operations/"
     root_body = f"""    <div class="brand">
       <span class="brand-name">{html.escape(site["name"])}</span>
       <span class="brand-sub">OPEN STUDY ARCHIVE</span>
@@ -963,7 +936,8 @@ def render_files(
     <div class="actions">
       <a class="button" href="#schedule">전체 일정·Webex 보기</a>
       <a class="button button--secondary" href="{html.escape(site["youtube_url"])}"
-         target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a>{archive_button}{operations_button}
+         target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a>
+      <a class="button button--secondary" href="{html.escape(operations_url)}">운영 페이지 →</a>{archive_button}
     </div>
     <section>
       <h2>진행 중인 스터디</h2>
@@ -983,7 +957,7 @@ def render_files(
 {root_schedule_html}
       </div>
     </section>
-{operations_section}    <section>
+    <section>
       <h2>공개된 교안</h2>
       <div class="grid">{recent}</div>
     </section>"""
