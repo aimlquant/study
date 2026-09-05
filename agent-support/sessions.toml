@@ -209,8 +209,9 @@ date = "2026-09-05"
 title = "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
 presenters = ["태호"]
 chapters = ["Chapter 8"]
-status = "materials-published"
+status = "video-public"
 meeting_status = "ended"
+youtube_video_id = "vdFUqto5xfE"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/" },
@@ -309,8 +310,9 @@ date = "2026-09-05"
 title = "오리엔테이션. 교재 소개와 진행 방식 확정"
 presenters = ["참석자 전원"]
 chapters = []
-status = "materials-published"
+status = "video-public"
 meeting_status = "ended"
+youtube_video_id = "ZktAZ3zr_ZY"
 summary = "Machine Learning for Trading 3판을 다음 퀀트 교재로 정하고, 전권 27장을 한 장씩 읽는 A안 29회 계획을 채택했습니다. 추석(2026-09-26)과 설(2027-02-06) 주는 쉬고 이후 회차를 한 주씩 미룹니다. 논의에 쓴 교재·운영 분석과 회의 자료는 아래에서 볼 수 있습니다."
 artifacts = [
   { kind = "report", label = "교재·운영 심층 분석", url = "studies/machine-trading/presentations/2026-09-12-next-study-discussion/report.html" },

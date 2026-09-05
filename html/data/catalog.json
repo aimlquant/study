@@ -555,9 +555,11 @@
       "presenters": [
         "참석자 전원"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-learning-for-trading-3e-2026",
-      "title": "오리엔테이션. 교재 소개와 진행 방식 확정"
+      "title": "오리엔테이션. 교재 소개와 진행 방식 확정",
+      "youtube_url": "https://www.youtube.com/watch?v=ZktAZ3zr_ZY",
+      "youtube_video_id": "ZktAZ3zr_ZY"
     },
     {
       "artifacts": [
@@ -582,9 +584,11 @@
       "presenters": [
         "태호"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
+      "title": "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED",
+      "youtube_url": "https://www.youtube.com/watch?v=vdFUqto5xfE",
+      "youtube_video_id": "vdFUqto5xfE"
     },
     {
       "artifacts": [
