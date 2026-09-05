@@ -782,6 +782,12 @@ def render_files(
     files[Path("materials") / "index.html"] = render_materials_gate(site)
     files[Path("404.html")] = render_not_found(site)
     study_by_id = {study["id"]: study for study in studies}
+    active_studies = [
+        study for study in studies if study["status"] == "active"
+    ]
+    archived_studies = [
+        study for study in studies if study["status"] == "archived"
+    ]
     cards = "\n".join(
         '<a class="card" href="studies/{slug}/">'
         '<span class="badge">{track}</span>'
@@ -795,7 +801,47 @@ def render_files(
             description=html.escape(study["description_ko"]),
             schedule=html.escape(study_schedule_label(study)),
         )
-        for study in studies
+        for study in active_studies
+    )
+    # 종료된 교재는 진행 중 목록과 전체 일정에서 빼고 지난 스터디로 안내한다.
+    # 회차 URL과 교안·영상은 교재 페이지에서 그대로 볼 수 있다.
+    archive_cards = "\n".join(
+        '<a class="card card--archived" href="studies/{slug}/">'
+        '<span class="badge badge--archived">종료</span>'
+        '<span class="badge">{track}</span>'
+        "<h2>{title_ko}</h2><p>{title}</p>"
+        '<p class="study-card-description">{description}</p>'
+        '<p class="study-card-schedule">{start}–{end} · {count}회</p></a>'.format(
+            slug=study["slug"],
+            track=html.escape(study["track"].upper()),
+            title_ko=html.escape(study["title_ko"]),
+            title=html.escape(study["title"]),
+            description=html.escape(study["description_ko"]),
+            start=html.escape(study["start_date"]),
+            end=html.escape(study["end_date"]),
+            count=sum(
+                1
+                for item in sessions
+                if item["study_id"] == study["id"]
+                and item["status"] != "cancelled"
+            ),
+        )
+        for study in archived_studies
+    )
+    archive_section = (
+        f"""    <section id="archive">
+      <h2>지난 스터디</h2>
+      <p class="section-intro">종료된 교재입니다. 회차별 교안과 공개 영상은 그대로 볼 수 있습니다.</p>
+      <div class="grid">{archive_cards}</div>
+    </section>
+"""
+        if archived_studies
+        else ""
+    )
+    archive_button = (
+        '\n      <a class="button button--secondary" href="#archive">지난 스터디</a>'
+        if archived_studies
+        else ""
     )
     published_sessions = sorted(
         (
@@ -827,7 +873,7 @@ def render_files(
     )
     root_schedules = []
     for study in sorted(
-        studies,
+        active_studies,
         key=lambda item: (item["start_time"], item["track"]),
     ):
         matching = sorted(
@@ -875,13 +921,13 @@ def render_files(
     <div class="actions">
       <a class="button" href="#schedule">전체 일정·Webex 보기</a>
       <a class="button button--secondary" href="{html.escape(site["youtube_url"])}"
-         target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a>
+         target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a>{archive_button}
     </div>
     <section>
       <h2>진행 중인 스터디</h2>
       <div class="grid">{cards}</div>
     </section>
-    <section id="videos">
+{archive_section}    <section id="videos">
       <h2>최근 공개 영상</h2>
       <p class="section-intro">최신 공개 영상을 이 페이지에서 바로 재생하거나 회차별 교안·발표자료와 함께 볼 수 있습니다.</p>
       <div class="home-video-grid">
@@ -926,13 +972,20 @@ def render_files(
             )
             or '<p class="empty">등록된 회차가 없습니다.</p>'
         )
+        study_status_html = (
+            '\n      <p class="study-status study-status--archived">종료된 스터디 · '
+            f'{html.escape(study["start_date"])}–{html.escape(study["end_date"])} · '
+            "교안과 공개 영상은 계속 볼 수 있습니다.</p>"
+            if study["status"] == "archived"
+            else ""
+        )
         body = f"""    <header class="site-masthead">
       <a class="brand-name" href="../../">{html.escape(site["name"])}</a>
       <span class="brand-sub">STUDY MATERIALS</span>
     </header>
     <a class="back" href="../../">← 전체 스터디</a>
     <header class="page-header">
-      <p class="eyebrow">{html.escape(study["track"].upper())}</p>
+      <p class="eyebrow">{html.escape(study["track"].upper())}</p>{study_status_html}
       <h1>{html.escape(study["title_ko"])}</h1>
       <p class="lead">{html.escape(study["title"])}</p>
       <p class="study-description">{html.escape(study["description_ko"])}</p>

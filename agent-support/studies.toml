@@ -49,19 +49,19 @@ slug = "machine-trading"
 title = "Machine Trading"
 title_ko = "머신 트레이딩"
 description_ko = "알고리즘 트레이딩의 데이터·모델·리스크·실행 기법을 재현 실험과 함께 학습합니다."
-status = "active"
+status = "archived"
 start_date = "2026-07-25"
-end_date = "2026-09-12"
+end_date = "2026-08-29"
 weekday = "saturday"
 start_time = "08:00"
-end_time = "10:00"
+end_time = "09:00"
 timezone = "Asia/Seoul"
 venue = "Webex"
 planned_chapters = [
   "Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4",
   "Chapter 5", "Chapter 6", "Chapter 7",
 ]
-materials_path = "materials/quant/active/machine-trading"
+materials_path = "materials/quant/archive/machine-trading"
 archive_path = "materials/quant/archive/machine-trading"
 presentation_path = "html/studies/machine-trading"
 source_repository = "https://github.com/restful3/ml4t"
@@ -82,3 +82,47 @@ summary_ko = """
 store_label = "Amazon"
 store_url = "https://www.amazon.com/dp/1119219604"
 publisher_url = "https://www.wiley.com/en-us/Machine+Trading%3A+Deploying+Computer+Algorithms+to+Conquer+the+Markets-p-9781119219651"
+
+[[studies]]
+id = "machine-learning-for-trading-3e-2026"
+track = "quant"
+slug = "machine-learning-for-trading-3e"
+title = "Machine Learning for Trading"
+title_ko = "트레이딩을 위한 머신러닝 3판"
+description_ko = "7단계 ML4T 워크플로를 따라 데이터·특성·모델·전략·배포·운영까지 체계적 트레이딩의 전 과정을 27개 장으로 학습합니다."
+status = "active"
+start_date = "2026-09-05"
+end_date = "2027-04-03"
+weekday = "saturday"
+start_time = "08:00"
+end_time = "09:00"
+timezone = "Asia/Seoul"
+venue = "Webex"
+planned_chapters = [
+  "Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4", "Chapter 5",
+  "Chapter 6", "Chapter 7", "Chapter 8", "Chapter 9", "Chapter 10",
+  "Chapter 11", "Chapter 12", "Chapter 13", "Chapter 14", "Chapter 15",
+  "Chapter 16", "Chapter 17", "Chapter 18", "Chapter 19", "Chapter 20",
+  "Chapter 21", "Chapter 22", "Chapter 23", "Chapter 24", "Chapter 25",
+  "Chapter 26", "Chapter 27",
+]
+materials_path = "materials/quant/active/machine-learning-for-trading-3e"
+archive_path = "materials/quant/archive/machine-learning-for-trading-3e"
+presentation_path = "html/studies/machine-learning-for-trading-3e"
+source_repository = "https://github.com/aimlquant/study-materials"
+source_commit = "ab2ceea62e603ef97293e12e6f8d82e7a63c64ea"
+
+# 원본 교재. 서지 정보는 Packt 상품 페이지와 Amazon 상품 페이지에서 확인했다.
+[studies.book]
+title = "Machine Learning for Trading"
+subtitle = "A disciplined workflow from research to live execution, with nine case studies and AI agents"
+authors = ["Stefan Jansen"]
+publisher = "Packt Publishing"
+year = "2026"
+isbn13 = "9781803246970"
+language_ko = "영어"
+summary_ko = """
+7단계 ML4T 워크플로를 따라 데이터 확보, 특성 설계, 모델링, 전략 시뮬레이션, 거래 비용과 리스크 관리, 실거래 배포와 운영까지 체계적 트레이딩의 전 과정을 다룹니다. 인과 머신러닝, 강화학습, RAG, 지식 그래프, 자율 에이전트 같은 최신 기법이 규율 있는 연구 절차 안에서 어디에 놓이는지 아홉 개 사례 연구로 보여 줍니다."""
+store_label = "Amazon"
+store_url = "https://www.amazon.com/dp/1803246979"
+publisher_url = "https://www.packtpub.com/en-us/product/machine-learning-for-trading-9781803246970"
