@@ -222,6 +222,7 @@ id = "2026-09-12-machine-trading-next-study-discussion"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-09-12"
 title = "다음 교재·스터디 운영 논의"
+kind = "operations"
 presenters = ["참석자 전원"]
 chapters = []
 status = "video-public"

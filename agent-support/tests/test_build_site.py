@@ -385,6 +385,16 @@ artifacts = [
             ):
                 build_site.load_model(*paths)
 
+    def test_unknown_session_kind_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            paths = self.write_metadata(
+                Path(directory),
+                "materials-published",
+                'kind = "party"',
+            )
+            with self.assertRaisesRegex(ValueError, "invalid session kind"):
+                build_site.load_model(*paths)
+
     def test_public_status_requires_video_id(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             paths = self.write_metadata(
@@ -838,3 +848,73 @@ class ArchivedStudyRenderingTest(unittest.TestCase):
         self.assertIn("study-status--archived", archived_page)
         self.assertIn("종료된 스터디", archived_page)
         self.assertNotIn("study-status--archived", active_page)
+
+
+class OperationsSessionRenderingTest(unittest.TestCase):
+    """운영 회차(kind = operations)는 교재 일정에서 빠지고 허브의 운영 기록에 실린다."""
+
+    def setUp(self) -> None:
+        self.sessions = [
+            {
+                "id": "2026-08-01-machine-trading-ch02",
+                "study_id": "machine-trading-2026",
+                "date": "2026-08-01",
+                "title": "Chapter 2. 팩터 모델",
+                "presenters": ["종훈"],
+                "chapters": ["Chapter 2"],
+                "status": "scheduled",
+                "kind": "study",
+                "artifacts": [],
+            },
+            {
+                "id": "2026-08-08-machine-trading-next-study-discussion",
+                "study_id": "machine-trading-2026",
+                "date": "2026-08-08",
+                "title": "다음 교재·스터디 운영 논의",
+                "presenters": ["참석자 전원"],
+                "chapters": [],
+                "status": "video-public",
+                "kind": "operations",
+                "meeting_status": "ended",
+                "youtube_video_id": "SgWvSZfn65Y",
+                "artifacts": [],
+            },
+        ]
+        self.files = build_site.render_files(SITE, STUDIES, self.sessions)
+        self.root = self.files[Path("index.html")]
+        self.study_page = self.files[
+            Path("studies") / "machine-trading" / "index.html"
+        ]
+
+    def test_operations_session_leaves_study_schedules(self) -> None:
+        study_schedule = self.study_page.split('<section id="schedule">')[1]
+        self.assertIn("machine-trading-ch02", study_schedule)
+        self.assertNotIn("next-study-discussion", study_schedule)
+        hub_schedule = self.root.split('<section id="schedule">')[1].split(
+            "</section>", 1
+        )[0]
+        self.assertIn("machine-trading-ch02", hub_schedule)
+        self.assertNotIn("next-study-discussion", hub_schedule)
+
+    def test_operations_session_is_listed_under_operations_section(self) -> None:
+        self.assertIn('<section id="operations">', self.root)
+        section = self.root.split('<section id="operations">')[1].split(
+            "</section>", 1
+        )[0]
+        self.assertIn("운영 기록", self.root)
+        self.assertIn(
+            'href="sessions/2026-08-08-machine-trading-next-study-discussion/"',
+            section,
+        )
+        self.assertNotIn("machine-trading-ch02", section)
+        # 회차 페이지 자체는 그대로 만들어진다.
+        self.assertIn(
+            Path("sessions")
+            / "2026-08-08-machine-trading-next-study-discussion"
+            / "index.html",
+            self.files,
+        )
+
+    def test_operations_section_is_omitted_without_operations_sessions(self) -> None:
+        files = build_site.render_files(SITE, STUDIES, self.sessions[:1])
+        self.assertNotIn('id="operations"', files[Path("index.html")])
