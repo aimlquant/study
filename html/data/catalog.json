@@ -589,6 +589,26 @@
     {
       "artifacts": [
         {
+          "kind": "other",
+          "label": "같은 날의 교재·진행 방식 결정",
+          "url": "sessions/2026-09-05-ml4t-orientation/"
+        }
+      ],
+      "chapters": [],
+      "date": "2026-09-05",
+      "id": "2026-09-05-backtest-llm-discussion",
+      "meeting_status": "ended",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-05-backtest-llm-discussion/",
+      "presenters": [
+        "참석자 전원"
+      ],
+      "status": "materials-published",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "기술 논의. LLM으로 백테스트 결과 분석하기"
+    },
+    {
+      "artifacts": [
+        {
           "kind": "report",
           "label": "상세 리포트",
           "url": "studies/machine-trading/presentations/2026-09-05-ch07/report.html"

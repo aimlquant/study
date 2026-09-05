@@ -1086,10 +1086,13 @@ def render_files(
                 if points
                 else ""
             )
+            ended = session.get("meeting_status") == "ended"
+            brief_heading = "논의 기록" if ended else "논의 안내"
+            brief_title = "이 회차의 논의 내용" if ended else "이 회차에서 함께 결정할 것"
             brief = f"""    <section class="session-brief">
-      <h2>논의 안내</h2>
+      <h2>{brief_heading}</h2>
       <article class="book">
-        <h3>이 회차에서 함께 결정할 것</h3>
+        <h3>{brief_title}</h3>
         <p class="book-summary">{html.escape(summary)}</p>
         {point_list}
       </article>
