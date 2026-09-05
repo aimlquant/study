@@ -606,9 +606,13 @@ def render_session_card(
     )
 
 
-def render_home_video_card(session: dict, study: dict) -> str:
+def render_home_video_card(
+    session: dict,
+    study: dict,
+    prefix: str = "",
+) -> str:
     video_id = session["youtube_video_id"]
-    session_url = f'sessions/{session["id"]}/'
+    session_url = f'{prefix}sessions/{session["id"]}/'
     watch_url = f"https://www.youtube.com/watch?v={video_id}"
     title = html.escape(session["title"])
     return f"""<article class="home-video-card">
@@ -1000,6 +1004,27 @@ def render_files(
         matching.sort(
             key=lambda item: (str(item["date"]), item["id"])
         )
+        public_study_videos = sorted(
+            (
+                item
+                for item in matching
+                if item["status"] == "video-public"
+            ),
+            key=lambda item: (str(item["date"]), item["id"]),
+            reverse=True,
+        )
+        featured_video_section = (
+            f'''    <section id="videos">
+      <h2>최근 공개 영상</h2>
+      <p class="section-intro">가장 최근 회차를 이 교재 페이지에서 바로 재생할 수 있습니다. 지난 영상은 아래 전체 일정에서 회차별로 볼 수 있습니다.</p>
+      <div class="home-video-grid home-video-grid--single">
+{render_home_video_card(public_study_videos[0], study, "../../")}
+      </div>
+    </section>
+'''
+            if public_study_videos and study["status"] == "active"
+            else ""
+        )
         # 교재는 참가자 공개 저장소에 있다. 외부 방문자가 GitHub 404를
         # 만나지 않도록 안내 페이지를 거쳐 보낸다.
         materials_url = (
@@ -1040,7 +1065,7 @@ def render_files(
         <a class="button button--secondary" href="{html.escape(study["source_repository"])}">이전 저장소</a>
       </div>
     </header>
-{render_book(study)}
+{featured_video_section}{render_book(study)}
     <section id="schedule">
       <h2>전체 일정</h2>
       <p class="section-intro">발표 담당과 Webex 접속 링크를 확인하세요. 미정 항목은 확정되는 대로 갱신합니다.</p>
