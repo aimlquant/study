@@ -3,6 +3,314 @@
   "sessions": [
     {
       "artifacts": [],
+      "chapters": [],
+      "date": "2027-04-03",
+      "id": "2027-04-03-ml4t-retrospective",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-04-03-ml4t-retrospective/",
+      "presenters": [
+        "참석자 전원"
+      ],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "전권 회고. 배운 것과 다음 교재"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 27"
+      ],
+      "date": "2027-03-27",
+      "id": "2027-03-27-ml4t-ch27",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-03-27-ml4t-ch27/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 27. 체계적 우위"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 26"
+      ],
+      "date": "2027-03-20",
+      "id": "2027-03-20-ml4t-ch26",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-03-20-ml4t-ch26/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 26. MLOps와 거버넌스"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 25"
+      ],
+      "date": "2027-03-13",
+      "id": "2027-03-13-ml4t-ch25",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-03-13-ml4t-ch25/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 25. 실거래 시스템"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 24"
+      ],
+      "date": "2027-03-06",
+      "id": "2027-03-06-ml4t-ch24",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-03-06-ml4t-ch24/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 24. 자율 에이전트"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 23"
+      ],
+      "date": "2027-02-27",
+      "id": "2027-02-27-ml4t-ch23",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-02-27-ml4t-ch23/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 23. 지식 그래프"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 22"
+      ],
+      "date": "2027-02-20",
+      "id": "2027-02-20-ml4t-ch22",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-02-20-ml4t-ch22/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 22. 금융 연구를 위한 RAG"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 21"
+      ],
+      "date": "2027-02-13",
+      "id": "2027-02-13-ml4t-ch21",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-02-13-ml4t-ch21/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 21. 강화학습"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 20"
+      ],
+      "date": "2027-01-30",
+      "id": "2027-01-30-ml4t-ch20",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-01-30-ml4t-ch20/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 20. 전략 종합"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 19"
+      ],
+      "date": "2027-01-23",
+      "id": "2027-01-23-ml4t-ch19",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-01-23-ml4t-ch19/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 19. 리스크 관리"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 18"
+      ],
+      "date": "2027-01-16",
+      "id": "2027-01-16-ml4t-ch18",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-01-16-ml4t-ch18/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 18. 거래 비용"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 17"
+      ],
+      "date": "2027-01-09",
+      "id": "2027-01-09-ml4t-ch17",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-01-09-ml4t-ch17/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 17. 포트폴리오 구성"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 16"
+      ],
+      "date": "2027-01-02",
+      "id": "2027-01-02-ml4t-ch16",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2027-01-02-ml4t-ch16/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 16. 전략 시뮬레이션"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 15"
+      ],
+      "date": "2026-12-26",
+      "id": "2026-12-26-ml4t-ch15",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-12-26-ml4t-ch15/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 15. 인과 머신러닝"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 14"
+      ],
+      "date": "2026-12-19",
+      "id": "2026-12-19-ml4t-ch14",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-12-19-ml4t-ch14/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 14. 잠재 요인 모델"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 13"
+      ],
+      "date": "2026-12-12",
+      "id": "2026-12-12-ml4t-ch13",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-12-12-ml4t-ch13/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 13. 시계열 딥러닝"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 12"
+      ],
+      "date": "2026-12-05",
+      "id": "2026-12-05-ml4t-ch12",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-12-05-ml4t-ch12/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 12. 표 형식 데이터 고급 모델"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 11"
+      ],
+      "date": "2026-11-28",
+      "id": "2026-11-28-ml4t-ch11",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-11-28-ml4t-ch11/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 11. ML 파이프라인"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 10"
+      ],
+      "date": "2026-11-21",
+      "id": "2026-11-21-ml4t-ch10",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-11-21-ml4t-ch10/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 10. 텍스트 특성 공학"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 9"
+      ],
+      "date": "2026-11-14",
+      "id": "2026-11-14-ml4t-ch09",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-11-14-ml4t-ch09/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 9. 모델 기반 특성 추출"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 8"
+      ],
+      "date": "2026-11-07",
+      "id": "2026-11-07-ml4t-ch08",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-11-07-ml4t-ch08/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 8. 금융 특성 공학"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 7"
+      ],
+      "date": "2026-10-31",
+      "id": "2026-10-31-ml4t-ch07",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-31-ml4t-ch07/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 7. 학습 과제 정의"
+    },
+    {
+      "artifacts": [],
       "chapters": [
         "Chapter 15"
       ],
@@ -16,6 +324,20 @@
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 15. LangGraph로 QA 에이전트 구축"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 6"
+      ],
+      "date": "2026-10-24",
+      "id": "2026-10-24-ml4t-ch06",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-24-ml4t-ch06/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 6. 전략 연구 프레임워크"
     },
     {
       "artifacts": [],
@@ -36,6 +358,20 @@
     {
       "artifacts": [],
       "chapters": [
+        "Chapter 5"
+      ],
+      "date": "2026-10-17",
+      "id": "2026-10-17-ml4t-ch05",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-17-ml4t-ch05/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 5. 합성 금융 데이터"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
         "Chapter 13"
       ],
       "date": "2026-10-17",
@@ -48,6 +384,20 @@
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 13. 지식 그래프 기반 검색 증강 생성"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 4"
+      ],
+      "date": "2026-10-10",
+      "id": "2026-10-10-ml4t-ch04",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-10-ml4t-ch04/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 4. 펀더멘털·대체 데이터"
     },
     {
       "artifacts": [],
@@ -68,6 +418,20 @@
     {
       "artifacts": [],
       "chapters": [
+        "Chapter 3"
+      ],
+      "date": "2026-10-03",
+      "id": "2026-10-03-ml4t-ch03",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-03-ml4t-ch03/",
+      "presenters": [],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 3. 시장 미시구조"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
         "Chapter 11"
       ],
       "date": "2026-10-03",
@@ -82,6 +446,22 @@
     {
       "artifacts": [],
       "chapters": [
+        "Chapter 2"
+      ],
+      "date": "2026-09-19",
+      "id": "2026-09-19-ml4t-ch02",
+      "meeting_status": "pending",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-19-ml4t-ch02/",
+      "presenters": [
+        "핀조이"
+      ],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 2. 금융 데이터 세계"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
         "Chapter 10"
       ],
       "date": "2026-09-19",
@@ -92,6 +472,23 @@
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
+    },
+    {
+      "artifacts": [],
+      "chapters": [
+        "Chapter 1"
+      ],
+      "date": "2026-09-12",
+      "id": "2026-09-12-ml4t-ch01",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-12-ml4t-ch01/",
+      "presenters": [
+        "태영"
+      ],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "Chapter 1. 프로세스가 경쟁 우위다"
     },
     {
       "artifacts": [
@@ -109,14 +506,13 @@
       "chapters": [],
       "date": "2026-09-12",
       "id": "2026-09-12-machine-trading-next-study-discussion",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/",
       "presenters": [
         "참석자 전원"
       ],
       "status": "video-public",
-      "study_id": "machine-trading-2026",
+      "study_id": "machine-learning-for-trading-3e-2026",
       "title": "다음 교재·스터디 운영 논의",
       "youtube_url": "https://www.youtube.com/watch?v=SgWvSZfn65Y",
       "youtube_video_id": "SgWvSZfn65Y"
@@ -142,6 +538,31 @@
       "artifacts": [
         {
           "kind": "report",
+          "label": "교재·운영 심층 분석",
+          "url": "studies/machine-trading/presentations/2026-09-12-next-study-discussion/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "회의용 발표자료",
+          "url": "studies/machine-trading/presentations/2026-09-12-next-study-discussion/"
+        }
+      ],
+      "chapters": [],
+      "date": "2026-09-05",
+      "id": "2026-09-05-ml4t-orientation",
+      "meeting_status": "ended",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-05-ml4t-orientation/",
+      "presenters": [
+        "참석자 전원"
+      ],
+      "status": "materials-published",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "오리엔테이션. 교재 소개와 진행 방식 확정"
+    },
+    {
+      "artifacts": [
+        {
+          "kind": "report",
           "label": "상세 리포트",
           "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/report.html"
         },
@@ -156,8 +577,7 @@
       ],
       "date": "2026-09-05",
       "id": "2026-09-05-kg-llm-ch08",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-09-05-kg-llm-ch08/",
       "presenters": [
         "태호"
@@ -670,10 +1090,10 @@
         "year": "2017"
       },
       "description_ko": "알고리즘 트레이딩의 데이터·모델·리스크·실행 기법을 재현 실험과 함께 학습합니다.",
-      "end_date": "2026-09-12",
-      "end_time": "10:00",
+      "end_date": "2026-08-29",
+      "end_time": "09:00",
       "id": "machine-trading-2026",
-      "materials_path": "materials/quant/active/machine-trading",
+      "materials_path": "materials/quant/archive/machine-trading",
       "planned_chapters": [
         "Chapter 1",
         "Chapter 2",
@@ -689,10 +1109,75 @@
       "source_repository": "https://github.com/restful3/ml4t",
       "start_date": "2026-07-25",
       "start_time": "08:00",
-      "status": "active",
+      "status": "archived",
       "timezone": "Asia/Seoul",
       "title": "Machine Trading",
       "title_ko": "머신 트레이딩",
+      "track": "quant",
+      "venue": "Webex",
+      "weekday": "saturday"
+    },
+    {
+      "archive_path": "materials/quant/archive/machine-learning-for-trading-3e",
+      "book": {
+        "authors": [
+          "Stefan Jansen"
+        ],
+        "isbn13": "9781803246970",
+        "language_ko": "영어",
+        "publisher": "Packt Publishing",
+        "publisher_url": "https://www.packtpub.com/en-us/product/machine-learning-for-trading-9781803246970",
+        "store_label": "Amazon",
+        "store_url": "https://www.amazon.com/dp/1803246979",
+        "subtitle": "A disciplined workflow from research to live execution, with nine case studies and AI agents",
+        "summary_ko": "7단계 ML4T 워크플로를 따라 데이터 확보, 특성 설계, 모델링, 전략 시뮬레이션, 거래 비용과 리스크 관리, 실거래 배포와 운영까지 체계적 트레이딩의 전 과정을 다룹니다. 인과 머신러닝, 강화학습, RAG, 지식 그래프, 자율 에이전트 같은 최신 기법이 규율 있는 연구 절차 안에서 어디에 놓이는지 아홉 개 사례 연구로 보여 줍니다.",
+        "title": "Machine Learning for Trading",
+        "year": "2026"
+      },
+      "description_ko": "7단계 ML4T 워크플로를 따라 데이터·특성·모델·전략·배포·운영까지 체계적 트레이딩의 전 과정을 27개 장으로 학습합니다.",
+      "end_date": "2027-04-03",
+      "end_time": "09:00",
+      "id": "machine-learning-for-trading-3e-2026",
+      "materials_path": "materials/quant/active/machine-learning-for-trading-3e",
+      "planned_chapters": [
+        "Chapter 1",
+        "Chapter 2",
+        "Chapter 3",
+        "Chapter 4",
+        "Chapter 5",
+        "Chapter 6",
+        "Chapter 7",
+        "Chapter 8",
+        "Chapter 9",
+        "Chapter 10",
+        "Chapter 11",
+        "Chapter 12",
+        "Chapter 13",
+        "Chapter 14",
+        "Chapter 15",
+        "Chapter 16",
+        "Chapter 17",
+        "Chapter 18",
+        "Chapter 19",
+        "Chapter 20",
+        "Chapter 21",
+        "Chapter 22",
+        "Chapter 23",
+        "Chapter 24",
+        "Chapter 25",
+        "Chapter 26",
+        "Chapter 27"
+      ],
+      "presentation_path": "html/studies/machine-learning-for-trading-3e",
+      "slug": "machine-learning-for-trading-3e",
+      "source_commit": "ab2ceea62e603ef97293e12e6f8d82e7a63c64ea",
+      "source_repository": "https://github.com/aimlquant/study-materials",
+      "start_date": "2026-09-05",
+      "start_time": "08:00",
+      "status": "active",
+      "timezone": "Asia/Seoul",
+      "title": "Machine Learning for Trading",
+      "title_ko": "트레이딩을 위한 머신러닝 3판",
       "track": "quant",
       "venue": "Webex",
       "weekday": "saturday"

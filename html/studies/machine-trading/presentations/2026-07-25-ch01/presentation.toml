@@ -13,7 +13,7 @@ revision_date = "2026-08-06"
 source_fidelity = "source-structure-v1"
 source_outline_style = "ordered-headings-v1"
 source_exercise_style = "bold-numbered-v1"
-source_material = "materials/quant/active/machine-trading/chapter_1_the_basics_of_algorithmic_trading/01_chapter_1_the_basics_of_algorithmic_trading_ko_explained.md"
+source_material = "materials/quant/archive/machine-trading/chapter_1_the_basics_of_algorithmic_trading/01_chapter_1_the_basics_of_algorithmic_trading_ko_explained.md"
 
 [[retained_alternate_html]]
 path = "index_정훈.html"

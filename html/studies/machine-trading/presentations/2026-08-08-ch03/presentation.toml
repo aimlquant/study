@@ -10,4 +10,4 @@ workflow = "raw-report-deck-v1"
 report_source = "report.html"
 artifacts = ["report", "slides"]
 source_fidelity = "source-structure-v1"
-source_material = "materials/quant/active/machine-trading/chapter_3_time_series_analysis/03_chapter_3_time_series_analysis_ko_explained.md"
+source_material = "materials/quant/archive/machine-trading/chapter_3_time_series_analysis/03_chapter_3_time_series_analysis_ko_explained.md"

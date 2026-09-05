@@ -12,4 +12,4 @@ artifacts = ["report", "slides"]
 source_fidelity = "source-structure-v1"
 source_outline_style = "ordered-headings-v1"
 source_exercise_style = "bold-numbered-v1"
-source_material = "materials/quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/04_chapter_4_artificial_intelligence_techniques_ko_explained.md"
+source_material = "materials/quant/archive/machine-trading/chapter_4_artificial_intelligence_techniques/04_chapter_4_artificial_intelligence_techniques_ko_explained.md"

@@ -8,7 +8,16 @@
 4. 학습자료만 `git mv <materials_path> <archive_path>`로 이동한다.
 5. 레지스트리의 `status`를 `archived`로 바꾸고 `materials_path`를 `archive_path`와 같게 갱신한다.
 6. `html/studies/<study-slug>`와 그 아래 발표 폴더는 이동하거나 이름을 바꾸지 않는다.
+   단, 그 안의 교재 참조는 새 경로로 고쳐야 한다. 리포트의
+   `materials/?p=<track>/active/<slug>/…` 링크, `presentation.toml`의 `source_material`,
+   그림 한국어화 원장(`assets/figs/localization/*.json`)의 `source` 경로를
+   `archive` 경로로 일괄 치환한다. 안내 페이지는 `p` 값을 GitHub 경로에 그대로
+   붙이므로 치환하지 않으면 이동 직후 전부 404가 된다(2026-09-05 머신 트레이딩
+   아카이브에서 5개 리포트 26개 링크가 해당했다).
 7. `README.md`의 진행 중 일정과 아카이브 링크를 실제 상태에 맞게 갱신한다.
+   허브는 `archived` 교재를 "진행 중인 스터디"와 전체 일정에서 빼고 "지난 스터디"
+   절에 자동으로 옮겨 그리며, 교재 페이지 머리에 종료 표시를 붙인다. 회차 URL은
+   그대로 유지된다.
 8. 인덱스를 다시 생성하고 사이트 및 저장소 링크를 검증한다.
 9. 이동된 파일 수와 공개 URL이 유지됨을 보고한다. 커밋과 푸시는 별도 명시 요청이 있을 때만 수행한다.
 

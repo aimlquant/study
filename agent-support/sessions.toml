@@ -210,7 +210,7 @@ title = "Chapter 8. 오픈 LLM과 도메인 온톨로지를 활용한 NED"
 presenters = ["태호"]
 chapters = ["Chapter 8"]
 status = "materials-published"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
+meeting_status = "ended"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/" },
@@ -218,21 +218,21 @@ artifacts = [
 
 [[sessions]]
 id = "2026-09-12-machine-trading-next-study-discussion"
-study_id = "machine-trading-2026"
+study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-09-12"
 title = "다음 교재·스터디 운영 논의"
 presenters = ["참석자 전원"]
 chapters = []
 status = "video-public"
+meeting_status = "ended"
 youtube_video_id = "SgWvSZfn65Y"
-summary = "Machine Learning for Trading 3판의 27개 장을 어떻게 공부할지 비교합니다. 전권을 읽는 A안 29회, 핵심 장을 고르는 B 수정안 22회, 공동 전략 실습을 하는 C안 16회의 장별 학습 범위와 회차 계획을 확인할 수 있습니다. 공식 코드·연구 사례·보충자료의 쓰임을 살펴보고, 공통 실습 수준과 첫 세 회차의 진행 방법을 함께 논의합니다. 세 계획은 토론용 제안이며 확정된 진도가 아닙니다."
+summary = "이 논의는 9월 5일 오리엔테이션 회차에서 진행해 A안을 채택했습니다. 자료를 준비한 시점의 예정일이 9월 12일이어서 회차 주소는 그대로 두고, 9월 12일에는 Chapter 1 발표가 진행됩니다. Machine Learning for Trading 3판의 27개 장을 어떻게 공부할지 비교합니다. 전권을 읽는 A안 29회, 핵심 장을 고르는 B 수정안 22회, 공동 전략 실습을 하는 C안 16회의 장별 학습 범위와 회차 계획을 확인할 수 있습니다. 공식 코드·연구 사례·보충자료의 쓰임을 살펴보고, 공통 실습 수준과 첫 세 회차의 진행 방법을 함께 논의합니다. 세 계획은 토론용 제안이며 확정된 진도가 아닙니다."
 discussion_points = [
   "전권 27장을 모두 공통 진도로 읽는 A안, 핵심 20장을 고르는 B안, 하나의 전략 흐름을 14개 장으로 잇는 C안 중 우선 경로와 예비 경로를 정합니다.",
   "각 회차의 중심 장, 다른 회차에서 함께 읽을 관련 절, 선택 읽기 장을 구분합니다. B 수정안은 Ch9·Ch20을 중심 장에 포함합니다.",
   "교재·해설·가이드 노트북을 함께 읽고, 공식 예제와 사례를 언제 추가할지 정합니다. 프라이머·스킬은 회차당 합계 0~1편을 권합니다.",
   "설명 L1, 부분 재현 L2, 확장 실험 L3 중 공통 실습 수준을 정합니다. 첫 세 회차를 배정하고, 3회 말에 준비 부담을 확인해 잠정 계획을 확정하거나 기존 계획을 조정합니다.",
 ]
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
 artifacts = [
   { kind = "report", label = "교재·운영 심층 분석", url = "studies/machine-trading/presentations/2026-09-12-next-study-discussion/report.html" },
   { kind = "slides", label = "회의용 발표자료", url = "studies/machine-trading/presentations/2026-09-12-next-study-discussion/" },
@@ -300,6 +300,274 @@ date = "2026-10-31"
 title = "Chapter 15. LangGraph로 QA 에이전트 구축"
 presenters = ["태영"]
 chapters = ["Chapter 15"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-09-05-ml4t-orientation"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-09-05"
+title = "오리엔테이션. 교재 소개와 진행 방식 확정"
+presenters = ["참석자 전원"]
+chapters = []
+status = "materials-published"
+meeting_status = "ended"
+summary = "Machine Learning for Trading 3판을 다음 퀀트 교재로 정하고, 전권 27장을 한 장씩 읽는 A안 29회 계획을 채택했습니다. 추석(2026-09-26)과 설(2027-02-06) 주는 쉬고 이후 회차를 한 주씩 미룹니다. 논의에 쓴 교재·운영 분석과 회의 자료는 아래에서 볼 수 있습니다."
+artifacts = [
+  { kind = "report", label = "교재·운영 심층 분석", url = "studies/machine-trading/presentations/2026-09-12-next-study-discussion/report.html" },
+  { kind = "slides", label = "회의용 발표자료", url = "studies/machine-trading/presentations/2026-09-12-next-study-discussion/" },
+]
+
+[[sessions]]
+id = "2026-09-12-ml4t-ch01"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-09-12"
+title = "Chapter 1. 프로세스가 경쟁 우위다"
+presenters = ["태영"]
+chapters = ["Chapter 1"]
+status = "scheduled"
+meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
+
+[[sessions]]
+id = "2026-09-19-ml4t-ch02"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-09-19"
+title = "Chapter 2. 금융 데이터 세계"
+presenters = ["핀조이"]
+chapters = ["Chapter 2"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-03-ml4t-ch03"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-10-03"
+title = "Chapter 3. 시장 미시구조"
+presenters = []
+chapters = ["Chapter 3"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-10-ml4t-ch04"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-10-10"
+title = "Chapter 4. 펀더멘털·대체 데이터"
+presenters = []
+chapters = ["Chapter 4"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-17-ml4t-ch05"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-10-17"
+title = "Chapter 5. 합성 금융 데이터"
+presenters = []
+chapters = ["Chapter 5"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-24-ml4t-ch06"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-10-24"
+title = "Chapter 6. 전략 연구 프레임워크"
+presenters = []
+chapters = ["Chapter 6"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-10-31-ml4t-ch07"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-10-31"
+title = "Chapter 7. 학습 과제 정의"
+presenters = []
+chapters = ["Chapter 7"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-11-07-ml4t-ch08"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-11-07"
+title = "Chapter 8. 금융 특성 공학"
+presenters = []
+chapters = ["Chapter 8"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-11-14-ml4t-ch09"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-11-14"
+title = "Chapter 9. 모델 기반 특성 추출"
+presenters = []
+chapters = ["Chapter 9"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-11-21-ml4t-ch10"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-11-21"
+title = "Chapter 10. 텍스트 특성 공학"
+presenters = []
+chapters = ["Chapter 10"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-11-28-ml4t-ch11"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-11-28"
+title = "Chapter 11. ML 파이프라인"
+presenters = []
+chapters = ["Chapter 11"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-12-05-ml4t-ch12"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-12-05"
+title = "Chapter 12. 표 형식 데이터 고급 모델"
+presenters = []
+chapters = ["Chapter 12"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-12-12-ml4t-ch13"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-12-12"
+title = "Chapter 13. 시계열 딥러닝"
+presenters = []
+chapters = ["Chapter 13"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-12-19-ml4t-ch14"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-12-19"
+title = "Chapter 14. 잠재 요인 모델"
+presenters = []
+chapters = ["Chapter 14"]
+status = "scheduled"
+
+[[sessions]]
+id = "2026-12-26-ml4t-ch15"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-12-26"
+title = "Chapter 15. 인과 머신러닝"
+presenters = []
+chapters = ["Chapter 15"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-01-02-ml4t-ch16"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-01-02"
+title = "Chapter 16. 전략 시뮬레이션"
+presenters = []
+chapters = ["Chapter 16"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-01-09-ml4t-ch17"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-01-09"
+title = "Chapter 17. 포트폴리오 구성"
+presenters = []
+chapters = ["Chapter 17"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-01-16-ml4t-ch18"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-01-16"
+title = "Chapter 18. 거래 비용"
+presenters = []
+chapters = ["Chapter 18"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-01-23-ml4t-ch19"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-01-23"
+title = "Chapter 19. 리스크 관리"
+presenters = []
+chapters = ["Chapter 19"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-01-30-ml4t-ch20"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-01-30"
+title = "Chapter 20. 전략 종합"
+presenters = []
+chapters = ["Chapter 20"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-02-13-ml4t-ch21"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-02-13"
+title = "Chapter 21. 강화학습"
+presenters = []
+chapters = ["Chapter 21"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-02-20-ml4t-ch22"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-02-20"
+title = "Chapter 22. 금융 연구를 위한 RAG"
+presenters = []
+chapters = ["Chapter 22"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-02-27-ml4t-ch23"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-02-27"
+title = "Chapter 23. 지식 그래프"
+presenters = []
+chapters = ["Chapter 23"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-03-06-ml4t-ch24"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-03-06"
+title = "Chapter 24. 자율 에이전트"
+presenters = []
+chapters = ["Chapter 24"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-03-13-ml4t-ch25"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-03-13"
+title = "Chapter 25. 실거래 시스템"
+presenters = []
+chapters = ["Chapter 25"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-03-20-ml4t-ch26"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-03-20"
+title = "Chapter 26. MLOps와 거버넌스"
+presenters = []
+chapters = ["Chapter 26"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-03-27-ml4t-ch27"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-03-27"
+title = "Chapter 27. 체계적 우위"
+presenters = []
+chapters = ["Chapter 27"]
+status = "scheduled"
+
+[[sessions]]
+id = "2027-04-03-ml4t-retrospective"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2027-04-03"
+title = "전권 회고. 배운 것과 다음 교재"
+presenters = ["참석자 전원"]
+chapters = []
 status = "scheduled"
 
 # 영상이 실제 public이 된 뒤에만 대상 회차에 다음 두 값을 함께 적용한다.

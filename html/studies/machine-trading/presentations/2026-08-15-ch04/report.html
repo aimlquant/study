@@ -71,7 +71,7 @@
           <tr><td>종목 확대</td><td>여러 종목의 관측값을 한 모델에 어떻게 합치는가?</td><td>각 종목의 수익률을 변동성으로 표준화하고 종목·일 관측값으로 펼친다.</td><td>당시 구성 종목과 발표 시점을 지켜 생존편향과 미래참조를 막는다.</td></tr>
         </tbody>
       </table>
-      <div class="callout--insight"><span class="callout__kicker">읽는 순서</span><div class="callout__body"><p>여섯 기법을 소개한 뒤, 그 수치를 직접 재실행해 검증한 결과는 <a href="#reproduction-audit">보충 A</a>, 우리 문제에 옮길 때의 판단 기준은 <a href="#decision">보충 B</a> 에 따로 두었다. 원문·해설·실행 코드는 참가자용 교재에서 확인한다: <a href="../../../../materials/?p=quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/04_chapter_4_artificial_intelligence_techniques_ko_explained.md">Chapter 4 해설판</a>.</p></div></div>
+      <div class="callout--insight"><span class="callout__kicker">읽는 순서</span><div class="callout__body"><p>여섯 기법을 소개한 뒤, 그 수치를 직접 재실행해 검증한 결과는 <a href="#reproduction-audit">보충 A</a>, 우리 문제에 옮길 때의 판단 기준은 <a href="#decision">보충 B</a> 에 따로 두었다. 원문·해설·실행 코드는 참가자용 교재에서 확인한다: <a href="../../../../materials/?p=quant/archive/machine-trading/chapter_4_artificial_intelligence_techniques/04_chapter_4_artificial_intelligence_techniques_ko_explained.md">Chapter 4 해설판</a>.</p></div></div>
     </section>
 
     <section class="report-section s1 page-break" id="intro">
@@ -934,7 +934,7 @@ uv run python $CH4/run_chapter4_analysis.py
 
 # 네트워크 없이 고정된 SHA-256 만 재검증하고 산출물을 다시 만든다
 uv run python $CH4/run_chapter4_analysis.py --offline</code></pre>
-        <p>셀 단위 결과는 실행이 끝난 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/src/chapter4_full_report.ipynb"><code>chapter4_full_report.ipynb</code></a>에서 확인할 수 있다. 계산의 정본은 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/src/run_chapter4_analysis.py"><code>run_chapter4_analysis.py</code></a>다.</p>
+        <p>셀 단위 결과는 실행이 끝난 <a href="../../../../materials/?p=quant/archive/machine-trading/chapter_4_artificial_intelligence_techniques/src/chapter4_full_report.ipynb"><code>chapter4_full_report.ipynb</code></a>에서 확인할 수 있다. 계산의 정본은 <a href="../../../../materials/?p=quant/archive/machine-trading/chapter_4_artificial_intelligence_techniques/src/run_chapter4_analysis.py"><code>run_chapter4_analysis.py</code></a>다.</p>
       </article>
       <p>같은 입력과 식을 다시 계산한 결과, 검증 방식을 바꾼 Python 실험, 입력이 없어 책의 출력만 확인한 항목은 근거의 강도가 다르다.</p>
       <table class="cmp-table" id="table-reproduction-status">
@@ -1081,14 +1081,14 @@ uv run python $CH4/run_chapter4_analysis.py --offline</code></pre>
       <div class="report-section__kicker">부록 C · 참고 자료와 도형 출처</div>
       <h1>참고 자료와 도형 출처</h1>
       <ol class="references" style="list-style:none;padding:0;">
-        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>Ernest P. Chan, <em>Machine Trading</em> (Wiley, 2017), Chapter 4 “Artificial Intelligence Techniques”. 본문의 절·그림·표·연습문제 번호와 인용 수치의 출처. 참가자용 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/04_chapter_4_artificial_intelligence_techniques_ko_explained.md">한국어 해설판</a>.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>Ernest P. Chan, <em>Machine Trading</em> (Wiley, 2017), Chapter 4 “Artificial Intelligence Techniques”. 본문의 절·그림·표·연습문제 번호와 인용 수치의 출처. 참가자용 <a href="../../../../materials/?p=quant/archive/machine-trading/chapter_4_artificial_intelligence_techniques/04_chapter_4_artificial_intelligence_techniques_ko_explained.md">한국어 해설판</a>.</span></li>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[2]</span><span>Breiman, Friedman, Olshen, Stone (1984). 회귀·분류 트리의 분산 최소화 분할 기준의 출처.</span></li>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[3]</span><span>Friedman (1999). 경사 하강 부스팅의 출처.</span></li>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[4]</span><span>Murphy (2012). EM 알고리즘 논의의 출처.</span></li>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[5]</span><span>Dueker (2006) — 연속 방출 HMM. Kun (2015) — 부스팅이 과적합되지 않는다는 이론적 논거. Anonymous (2015) — SVM 벌점 항의 수학적 세부. Allen (2015) — 2006년 신경망 돌파구. Hothorn (2014) — R 패키지 대응.</span></li>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[6]</span><span>Domingos (2012) — 입력 특성 의존성. Rechenthin (2014) — 고빈도 데이터. Kazemian (2014) — 비정형 데이터.</span></li>
         <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[7]</span><span>저자 배포 자료 <code>epchan.com/book3</code>의 Chapter 4 ZIP (SHA-256 <code>a556978e…0358</code>). 보충 A의 실행 감사에 사용한 코드 22개와 데이터 2개.</span></li>
-        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[8]</span><span>Python 실행 산출물 — 참가자용 교재 저장소의 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/src/reports/chapter4_report.md">Chapter 4 실행 보고서</a>와 <a href="../../../../materials/?p=quant/active/machine-trading/chapter_4_artificial_intelligence_techniques/src/run_chapter4_analysis.py">실행 스크립트</a>.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[8]</span><span>Python 실행 산출물 — 참가자용 교재 저장소의 <a href="../../../../materials/?p=quant/archive/machine-trading/chapter_4_artificial_intelligence_techniques/src/reports/chapter4_report.md">Chapter 4 실행 보고서</a>와 <a href="../../../../materials/?p=quant/archive/machine-trading/chapter_4_artificial_intelligence_techniques/src/run_chapter4_analysis.py">실행 스크립트</a>.</span></li>
       </ol>
       <div class="report-jump-links"><a href="./">발표자료</a><a href="../../">회차 목록</a><a href="#summary">문서 처음</a></div>
     </section>

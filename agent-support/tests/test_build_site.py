@@ -593,9 +593,17 @@ class RealRegistryTest(unittest.TestCase):
             for study in studies
         }
 
-        self.assertEqual(counts["machine-trading-2026"], 8)
+        # 머신 트레이딩은 7개 장으로 종료됐고, 다음 교재 논의 회차는 ML4T 3판
+        # 스터디로 옮겨 오리엔테이션(1회)·27개 장·전권 회고와 함께 30회가 된다.
+        self.assertEqual(counts["machine-trading-2026"], 7)
         self.assertEqual(counts["kg-llm-in-action-2026"], 14)
-        self.assertEqual(len(sessions), 22)
+        self.assertEqual(counts["machine-learning-for-trading-3e-2026"], 30)
+        self.assertEqual(len(sessions), 51)
+        status_by_id = {study["id"]: study["status"] for study in studies}
+        self.assertEqual(status_by_id["machine-trading-2026"], "archived")
+        self.assertEqual(
+            status_by_id["machine-learning-for-trading-3e-2026"], "active"
+        )
 
         machine_trading = next(
             study
@@ -611,6 +619,9 @@ class RealRegistryTest(unittest.TestCase):
         )
         self.assertEqual(discussion["chapters"], [])
         self.assertEqual(discussion["presenters"], ["참석자 전원"])
+        self.assertEqual(
+            discussion["study_id"], "machine-learning-for-trading-3e-2026"
+        )
 
     def test_root_page_lists_every_public_session(self) -> None:
         site, studies, sessions = build_site.load_model(
@@ -625,7 +636,13 @@ class RealRegistryTest(unittest.TestCase):
         )[Path("index.html")]
 
         self.assertEqual(root_page.count('class="track-schedule"'), 2)
+        # 종료된 교재의 회차는 허브 일정에서 빠지고 교재 페이지에만 남는다.
+        active_ids = {
+            study["id"] for study in studies if study["status"] == "active"
+        }
         for session in sessions:
+            if session["study_id"] not in active_ids:
+                continue
             self.assertIn(
                 f'href="sessions/{session["id"]}/"',
                 root_page,
@@ -727,10 +744,97 @@ class RealBookRegistryTest(unittest.TestCase):
             build_site.DEFAULT_SESSIONS,
         )
 
-        self.assertEqual(len(studies), 2)
+        active = [study for study in studies if study["status"] == "active"]
+        self.assertEqual(len(active), 2)
+        self.assertEqual(len(studies), 3)
         for study in studies:
             with self.subTest(study=study["id"]):
                 book = study["book"]
                 self.assertRegex(book["isbn13"], r"^97[89]\d{10}$")
                 self.assertTrue(book["store_url"].startswith("https://"))
                 self.assertTrue(book["publisher_url"].startswith("https://"))
+
+
+class ArchivedStudyRenderingTest(unittest.TestCase):
+    """종료된 교재는 허브의 진행 중 목록과 일정에서 빠지고 지난 스터디로 안내된다."""
+
+    def setUp(self) -> None:
+        archived = json.loads(json.dumps(STUDIES[0]))
+        archived.update(
+            status="archived",
+            end_date="2026-08-29",
+            materials_path=archived["archive_path"],
+        )
+        active = json.loads(json.dumps(STUDIES[0]))
+        active.update(
+            id="ml4t-2026",
+            slug="machine-learning-for-trading-3e",
+            title="Machine Learning for Trading",
+            title_ko="트레이딩을 위한 머신러닝",
+            start_date="2026-09-05",
+            end_date="2027-04-03",
+            planned_chapters=["Chapter 1"],
+            materials_path="materials/quant/active/machine-learning-for-trading-3e",
+            archive_path="materials/quant/archive/machine-learning-for-trading-3e",
+            presentation_path="html/studies/machine-learning-for-trading-3e",
+        )
+        sessions = [
+            {
+                "id": "2026-08-01-machine-trading-ch02",
+                "study_id": "machine-trading-2026",
+                "date": "2026-08-01",
+                "title": "Chapter 2. 팩터 모델",
+                "presenters": ["종훈"],
+                "chapters": ["Chapter 2"],
+                "status": "scheduled",
+                "artifacts": [],
+            },
+            {
+                "id": "2026-09-12-ml4t-ch01",
+                "study_id": "ml4t-2026",
+                "date": "2026-09-12",
+                "title": "Chapter 1. 프로세스가 경쟁 우위다",
+                "presenters": ["태영"],
+                "chapters": ["Chapter 1"],
+                "status": "scheduled",
+                "artifacts": [],
+            },
+        ]
+        self.files = build_site.render_files(SITE, [archived, active], sessions)
+        self.root = self.files[Path("index.html")]
+
+    def section(self, marker: str) -> str:
+        self.assertIn(marker, self.root)
+        return self.root.split(marker, 1)[1].split("</section>", 1)[0]
+
+    def test_root_hides_archived_study_from_active_cards_and_schedules(self) -> None:
+        active_cards = self.section("<h2>진행 중인 스터디</h2>")
+        self.assertIn('href="studies/machine-learning-for-trading-3e/"', active_cards)
+        self.assertNotIn('href="studies/machine-trading/"', active_cards)
+        self.assertEqual(self.root.count('class="track-schedule"'), 1)
+        self.assertIn('href="sessions/2026-09-12-ml4t-ch01/"', self.root)
+        schedule = self.section('<section id="schedule">')
+        self.assertNotIn("machine-trading-ch02", schedule)
+
+    def test_root_lists_archived_study_under_archive_section(self) -> None:
+        archive = self.section('<section id="archive">')
+        self.assertIn("지난 스터디", self.root)
+        self.assertIn('href="studies/machine-trading/"', archive)
+        self.assertIn("종료", archive)
+        self.assertIn("2026-07-25–2026-08-29", archive)
+        self.assertIn('href="#archive"', self.root)
+
+    def test_archive_section_is_omitted_without_archived_studies(self) -> None:
+        files = build_site.render_files(SITE, STUDIES, [])
+        root = files[Path("index.html")]
+        self.assertNotIn('id="archive"', root)
+        self.assertNotIn('href="#archive"', root)
+
+    def test_archived_study_page_shows_ended_notice(self) -> None:
+        archived_page = self.files[Path("studies") / "machine-trading" / "index.html"]
+        active_page = self.files[
+            Path("studies") / "machine-learning-for-trading-3e" / "index.html"
+        ]
+        self.assertIn("study-status--archived", archived_page)
+        self.assertIn("종료된 스터디", archived_page)
+        self.assertNotIn("study-status--archived", active_page)
