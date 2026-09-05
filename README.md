@@ -77,6 +77,7 @@ html/             # GitHub Pages 배포 산출물
 | 날짜 | 시간 | 범위 | 발표자 | Webex | 회차 페이지 |
 |---|---|---|---|---|---|
 | 2026-09-05 | 08:00–09:00 | 오리엔테이션 | 참석자 전원 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-09-05-ml4t-orientation/) |
+| 2026-09-05 | 08:00–09:00 | LLM 백테스트 결과 분석 논의 | 참석자 전원 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-09-05-backtest-llm-discussion/) |
 | 2026-09-12 | 08:00–09:00 | 다음 교재·스터디 운영 논의 | 참석자 전원 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/) |
 | 2026-09-12 | 08:00–09:00 | Chapter 1 | 태영 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-ml4t-ch01/) |
 | 2026-09-19 | 08:00–09:00 | Chapter 2 | 핀조이 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-19-ml4t-ch02/) |

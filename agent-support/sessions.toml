@@ -573,3 +573,24 @@ status = "scheduled"
 # 영상이 실제 public이 된 뒤에만 대상 회차에 다음 두 값을 함께 적용한다.
 # status = "video-public"
 # youtube_video_id = "123456789ab"
+
+
+[[sessions]]
+id = "2026-09-05-backtest-llm-discussion"
+study_id = "machine-learning-for-trading-3e-2026"
+date = "2026-09-05"
+title = "기술 논의. LLM으로 백테스트 결과 분석하기"
+presenters = ["참석자 전원"]
+chapters = []
+status = "materials-published"
+meeting_status = "ended"
+summary = "백테스트 결과를 LLM으로 종합 해석하는 방법을 논의했습니다. 샤프 비율·최대 낙폭 등 개별 지표와 원시 시계열 결과를 어떤 형태로 전달할지, 코딩 에이전트가 데이터를 직접 분석하게 할지, 여러 에이전트의 전략 개선 제안을 어떻게 평가할지 살펴봅니다. 성능 검증 결과를 발표한 회차가 아니라 구현 방향을 탐색한 자유 토론입니다."
+discussion_points = [
+  "파이프라인 단계마다 입력·출력과 평가 대상을 분명히 합니다.",
+  "요약된 메트릭, 원시 백테스트 결과, 데이터 스키마를 구분해 LLM에 전달합니다.",
+  "코딩 에이전트가 CSV와 데이터프레임을 분석하는 흐름을 검토합니다.",
+  "여러 에이전트의 개선 제안을 비교하려면 평가 지침과 판단의 일관성이 필요합니다.",
+]
+artifacts = [
+  { kind = "other", label = "같은 날의 교재·진행 방식 결정", url = "sessions/2026-09-05-ml4t-orientation/" },
+]
