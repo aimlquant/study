@@ -50,9 +50,10 @@ html/             # GitHub Pages 배포 산출물
 확정되는 대로 갱신한다. 모바일에 최적화된 일정은 각 스터디의 GitHub Pages에서 볼 수 있다.
 
 - [Quant 전체 일정](https://aimlquant.github.io/study/studies/machine-trading/#schedule): 08:00–10:00, 2026-07-25~2026-09-12
-- [AI/ML 전체 일정](https://aimlquant.github.io/study/studies/knowledge-graphs-and-llms-in-action/#schedule): 09:00–10:00, 2026-07-25~2026-10-24
+- [AI/ML 전체 일정](https://aimlquant.github.io/study/studies/knowledge-graphs-and-llms-in-action/#schedule): 09:00–10:00, 2026-07-25~2026-10-31
 - Quant 발표자: 정훈, 종훈, 태호, 태영, 핀조이, 원미. 9월 12일 운영 논의는 참석자 전원
-- AI/ML 발표자: 수경, 태영, 종훈(S), 두균, 종훈(L), 재익, 태호, 정훈 (미정 6회)
+- AI/ML 발표자: 수경, 태영, 종훈(S), 두균, 종훈(L), 재익, 태호, 정훈 (미정 2회)
+- 2026-09-26은 추석 연휴로 휴회하며, 이후 AI/ML 회차는 한 주씩 미뤄졌다
 
 ### Quant · Machine Trading
 
@@ -80,11 +81,11 @@ html/             # GitHub Pages 배포 산출물
 | 2026-09-05 | 09:00–10:00 | Chapter 8 | 태호 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400) | [회차](https://aimlquant.github.io/study/sessions/2026-09-05-kg-llm-ch08/) |
 | 2026-09-12 | 09:00–10:00 | Chapter 9 | 정훈 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-kg-llm-ch09/) |
 | 2026-09-19 | 09:00–10:00 | Chapter 10 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-19-kg-llm-ch10/) |
-| 2026-09-26 | 09:00–10:00 | Chapter 11 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-26-kg-llm-ch11/) |
-| 2026-10-03 | 09:00–10:00 | Chapter 12 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch12/) |
-| 2026-10-10 | 09:00–10:00 | Chapter 13 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-10-kg-llm-ch13/) |
-| 2026-10-17 | 09:00–10:00 | Chapter 14 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-17-kg-llm-ch14/) |
-| 2026-10-24 | 09:00–10:00 | Chapter 15 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-24-kg-llm-ch15/) |
+| 2026-10-03 | 09:00–10:00 | Chapter 11 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch11/) |
+| 2026-10-10 | 09:00–10:00 | Chapter 12 | 재익 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-10-kg-llm-ch12/) |
+| 2026-10-17 | 09:00–10:00 | Chapter 13 | 정훈 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-17-kg-llm-ch13/) |
+| 2026-10-24 | 09:00–10:00 | Chapter 14 | 종훈(L) | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-24-kg-llm-ch14/) |
+| 2026-10-31 | 09:00–10:00 | Chapter 15 | 태영 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-31-kg-llm-ch15/) |
 
 날짜·챕터·발표자·Webex 링크·발행 상태의 정본은
 [`agent-support/sessions.toml`](agent-support/sessions.toml)이다. 참여자는

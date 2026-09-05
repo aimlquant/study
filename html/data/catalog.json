@@ -6,11 +6,13 @@
       "chapters": [
         "Chapter 15"
       ],
-      "date": "2026-10-24",
-      "id": "2026-10-24-kg-llm-ch15",
+      "date": "2026-10-31",
+      "id": "2026-10-31-kg-llm-ch15",
       "meeting_status": "pending",
-      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-24-kg-llm-ch15/",
-      "presenters": [],
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-31-kg-llm-ch15/",
+      "presenters": [
+        "태영"
+      ],
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 15. LangGraph로 QA 에이전트 구축"
@@ -20,11 +22,13 @@
       "chapters": [
         "Chapter 14"
       ],
-      "date": "2026-10-17",
-      "id": "2026-10-17-kg-llm-ch14",
+      "date": "2026-10-24",
+      "id": "2026-10-24-kg-llm-ch14",
       "meeting_status": "pending",
-      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-17-kg-llm-ch14/",
-      "presenters": [],
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-24-kg-llm-ch14/",
+      "presenters": [
+        "종훈(L)"
+      ],
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 14. 자연어로 지식 그래프에 질문하기"
@@ -34,11 +38,13 @@
       "chapters": [
         "Chapter 13"
       ],
-      "date": "2026-10-10",
-      "id": "2026-10-10-kg-llm-ch13",
+      "date": "2026-10-17",
+      "id": "2026-10-17-kg-llm-ch13",
       "meeting_status": "pending",
-      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-10-kg-llm-ch13/",
-      "presenters": [],
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-17-kg-llm-ch13/",
+      "presenters": [
+        "정훈"
+      ],
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 13. 지식 그래프 기반 검색 증강 생성"
@@ -48,11 +54,13 @@
       "chapters": [
         "Chapter 12"
       ],
-      "date": "2026-10-03",
-      "id": "2026-10-03-kg-llm-ch12",
+      "date": "2026-10-10",
+      "id": "2026-10-10-kg-llm-ch12",
       "meeting_status": "pending",
-      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch12/",
-      "presenters": [],
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-10-kg-llm-ch12/",
+      "presenters": [
+        "재익"
+      ],
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 12. GNN 기반 노드 분류와 링크 예측"
@@ -62,10 +70,10 @@
       "chapters": [
         "Chapter 11"
       ],
-      "date": "2026-09-26",
-      "id": "2026-09-26-kg-llm-ch11",
+      "date": "2026-10-03",
+      "id": "2026-10-03-kg-llm-ch11",
       "meeting_status": "pending",
-      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-26-kg-llm-ch11/",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch11/",
       "presenters": [],
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
@@ -608,7 +616,7 @@
         "year": "2025"
       },
       "description_ko": "지식 그래프와 LLM을 결합해 검증 가능하고 설명 가능한 하이브리드 지능형 시스템을 설계합니다.",
-      "end_date": "2026-10-24",
+      "end_date": "2026-10-31",
       "end_time": "10:00",
       "id": "kg-llm-in-action-2026",
       "materials_path": "materials/aiml/active/knowledge-graphs-and-llms-in-action",
