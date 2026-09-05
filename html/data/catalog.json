@@ -491,33 +491,6 @@
       "title": "Chapter 1. 프로세스가 경쟁 우위다"
     },
     {
-      "artifacts": [
-        {
-          "kind": "report",
-          "label": "교재·운영 심층 분석",
-          "url": "studies/machine-trading/presentations/2026-09-12-next-study-discussion/report.html"
-        },
-        {
-          "kind": "slides",
-          "label": "회의용 발표자료",
-          "url": "studies/machine-trading/presentations/2026-09-12-next-study-discussion/"
-        }
-      ],
-      "chapters": [],
-      "date": "2026-09-12",
-      "id": "2026-09-12-machine-trading-next-study-discussion",
-      "meeting_status": "ended",
-      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/",
-      "presenters": [
-        "참석자 전원"
-      ],
-      "status": "video-public",
-      "study_id": "machine-learning-for-trading-3e-2026",
-      "title": "다음 교재·스터디 운영 논의",
-      "youtube_url": "https://www.youtube.com/watch?v=SgWvSZfn65Y",
-      "youtube_video_id": "SgWvSZfn65Y"
-    },
-    {
       "artifacts": [],
       "chapters": [
         "Chapter 9"
@@ -533,6 +506,33 @@
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 9. 지식 그래프 위의 머신러닝 입문"
+    },
+    {
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "교재·운영 심층 분석",
+          "url": "studies/machine-trading/presentations/2026-09-12-next-study-discussion/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "회의용 발표자료",
+          "url": "studies/machine-trading/presentations/2026-09-12-next-study-discussion/"
+        }
+      ],
+      "chapters": [],
+      "date": "2026-09-05",
+      "id": "2026-09-12-machine-trading-next-study-discussion",
+      "meeting_status": "ended",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/",
+      "presenters": [
+        "참석자 전원"
+      ],
+      "status": "video-public",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "다음 교재·스터디 운영 논의",
+      "youtube_url": "https://www.youtube.com/watch?v=SgWvSZfn65Y",
+      "youtube_video_id": "SgWvSZfn65Y"
     },
     {
       "artifacts": [

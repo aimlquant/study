@@ -361,17 +361,30 @@ def load_model(
             raise ValueError(
                 f"invalid date for {session_id}: {session.get('date')}"
             ) from exc
-        if not session_id.startswith(f"{session_date.isoformat()}-"):
-            raise ValueError(
-                f"session id must start with its date: {session_id}"
-            )
-        # 운영 회차(kind = "operations")는 교재 일정에서 빠지고 허브의 운영 기록에 실린다.
+        # 운영 자료는 이미 공개된 URL을 보존하면서 실제 대상 회차 날짜를 바로잡을 수 있다.
+        # 이 경우 기존 URL 날짜를 명시해야 하며 일반 스터디 회차에는 예외를 허용하지 않는다.
         kind = session.get("kind", "study")
         if kind not in {"study", "operations"}:
             raise ValueError(
                 f"invalid session kind for {session_id}: {kind!r}"
             )
         session["kind"] = kind
+        route_date = session_date
+        if "url_date" in session:
+            if kind != "operations":
+                raise ValueError(
+                    f"url_date is only allowed for operations sessions: {session_id}"
+                )
+            try:
+                route_date = date.fromisoformat(str(session["url_date"]))
+            except ValueError as exc:
+                raise ValueError(
+                    f"invalid url_date for {session_id}: {session.get('url_date')}"
+                ) from exc
+        if not session_id.startswith(f"{route_date.isoformat()}-"):
+            raise ValueError(
+                f"session id must start with its date or url_date: {session_id}"
+            )
         study_start, study_end = study_dates[study_id]
         if not study_start <= session_date <= study_end:
             raise ValueError(
@@ -860,6 +873,7 @@ def render_files(
             item
             for item in sessions
             if item["status"] in {"materials-published", "video-public"}
+            and item.get("kind", "study") == "study"
         ),
         key=lambda item: (str(item["date"]), item["id"]),
         reverse=True,
@@ -872,7 +886,12 @@ def render_files(
         or '<p class="empty">등록된 회차가 없습니다.</p>'
     )
     public_videos = sorted(
-        (item for item in sessions if item["status"] == "video-public"),
+        (
+            item
+            for item in sessions
+            if item["status"] == "video-public"
+            and item.get("kind", "study") == "study"
+        ),
         key=lambda item: (str(item["date"]), item["id"]),
         reverse=True,
     )

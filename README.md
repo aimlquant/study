@@ -114,7 +114,7 @@ html/             # GitHub Pages 배포 산출물
 
 | 날짜 | 시간 | 주제 | 발표자 | Webex | 회차 페이지 |
 |---|---|---|---|---|---|
-| 2026-09-12 | 08:00–09:00 | 다음 교재·스터디 운영 논의 | 참석자 전원 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/) |
+| 2026-09-05 | 08:00–09:00 | 다음 교재·스터디 운영 논의 (오리엔테이션 사전 읽기) | 참석자 전원 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-09-12-machine-trading-next-study-discussion/) |
 
 ### AI/ML · Knowledge Graphs and LLMs in Action
 

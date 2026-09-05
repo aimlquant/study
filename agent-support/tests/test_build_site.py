@@ -641,6 +641,8 @@ class RealRegistryTest(unittest.TestCase):
         )
         self.assertEqual(discussion["chapters"], [])
         self.assertEqual(discussion["presenters"], ["참석자 전원"])
+        self.assertEqual(str(discussion["date"]), "2026-09-05")
+        self.assertEqual(str(discussion["url_date"]), "2026-09-12")
         self.assertEqual(
             discussion["study_id"], "machine-learning-for-trading-3e-2026"
         )
@@ -664,6 +666,12 @@ class RealRegistryTest(unittest.TestCase):
         }
         for session in sessions:
             if session["study_id"] not in active_ids:
+                continue
+            if session.get("kind", "study") != "study":
+                self.assertNotIn(
+                    f'href="sessions/{session["id"]}/"',
+                    root_page,
+                )
                 continue
             self.assertIn(
                 f'href="sessions/{session["id"]}/"',
@@ -912,7 +920,7 @@ class OperationsSessionRenderingTest(unittest.TestCase):
         # 운영 기록의 정본은 조직 운영 페이지다. 허브는 목록을 만들지 않고 링크만 둔다.
         self.assertNotIn('id="operations"', self.root)
         self.assertIn('href="https://restful3.github.io/operations/"', self.root)
-        self.assertNotIn("next-study-discussion", self.root.split("<section")[0])
+        self.assertNotIn("next-study-discussion", self.root)
         # 회차 페이지 자체는 그대로 만들어진다.
         self.assertIn(
             Path("sessions")
