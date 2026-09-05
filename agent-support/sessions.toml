@@ -258,47 +258,47 @@ chapters = ["Chapter 10"]
 status = "scheduled"
 
 [[sessions]]
-id = "2026-09-26-kg-llm-ch11"
+id = "2026-10-03-kg-llm-ch11"
 study_id = "kg-llm-in-action-2026"
-date = "2026-09-26"
+date = "2026-10-03"
 title = "Chapter 11. 그래프 표현 학습과 그래프 신경망"
 presenters = []
 chapters = ["Chapter 11"]
 status = "scheduled"
 
 [[sessions]]
-id = "2026-10-03-kg-llm-ch12"
+id = "2026-10-10-kg-llm-ch12"
 study_id = "kg-llm-in-action-2026"
-date = "2026-10-03"
+date = "2026-10-10"
 title = "Chapter 12. GNN 기반 노드 분류와 링크 예측"
-presenters = []
+presenters = ["재익"]
 chapters = ["Chapter 12"]
 status = "scheduled"
 
 [[sessions]]
-id = "2026-10-10-kg-llm-ch13"
+id = "2026-10-17-kg-llm-ch13"
 study_id = "kg-llm-in-action-2026"
-date = "2026-10-10"
+date = "2026-10-17"
 title = "Chapter 13. 지식 그래프 기반 검색 증강 생성"
-presenters = []
+presenters = ["정훈"]
 chapters = ["Chapter 13"]
 status = "scheduled"
 
 [[sessions]]
-id = "2026-10-17-kg-llm-ch14"
+id = "2026-10-24-kg-llm-ch14"
 study_id = "kg-llm-in-action-2026"
-date = "2026-10-17"
+date = "2026-10-24"
 title = "Chapter 14. 자연어로 지식 그래프에 질문하기"
-presenters = []
+presenters = ["종훈(L)"]
 chapters = ["Chapter 14"]
 status = "scheduled"
 
 [[sessions]]
-id = "2026-10-24-kg-llm-ch15"
+id = "2026-10-31-kg-llm-ch15"
 study_id = "kg-llm-in-action-2026"
-date = "2026-10-24"
+date = "2026-10-31"
 title = "Chapter 15. LangGraph로 QA 에이전트 구축"
-presenters = []
+presenters = ["태영"]
 chapters = ["Chapter 15"]
 status = "scheduled"
 
