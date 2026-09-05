@@ -365,6 +365,13 @@ def load_model(
             raise ValueError(
                 f"session id must start with its date: {session_id}"
             )
+        # 운영 회차(kind = "operations")는 교재 일정에서 빠지고 허브의 운영 기록에 실린다.
+        kind = session.get("kind", "study")
+        if kind not in {"study", "operations"}:
+            raise ValueError(
+                f"invalid session kind for {session_id}: {kind!r}"
+            )
+        session["kind"] = kind
         study_start, study_end = study_dates[study_id]
         if not study_start <= session_date <= study_end:
             raise ValueError(
@@ -824,6 +831,7 @@ def render_files(
                 for item in sessions
                 if item["study_id"] == study["id"]
                 and item["status"] != "cancelled"
+                and item.get("kind", "study") == "study"
             ),
         )
         for study in archived_studies
@@ -881,6 +889,7 @@ def render_files(
                 item
                 for item in sessions
                 if item["study_id"] == study["id"]
+                and item.get("kind", "study") == "study"
             ),
             key=lambda item: (str(item["date"]), item["id"]),
         )
@@ -911,6 +920,35 @@ def render_files(
       </article>"""
         )
     root_schedule_html = "\n".join(root_schedules)
+    operations_sessions = sorted(
+        (item for item in sessions if item.get("kind", "study") == "operations"),
+        key=lambda item: (str(item["date"]), item["id"]),
+        reverse=True,
+    )
+    operations_rows = "\n".join(
+        render_schedule_row(item, study_by_id[item["study_id"]])
+        for item in operations_sessions
+    )
+    operations_section = (
+        f"""    <section id="operations">
+      <h2>운영 기록</h2>
+      <p class="section-intro">교재 진도와 별도로 진행한 운영 논의와 안내입니다. 회차 페이지에서 자료와 공개 영상을 볼 수 있습니다.</p>
+      <div class="schedule-board">
+        <div class="schedule-head" aria-hidden="true">
+          <span>일시</span><span>주제</span><span>발표자</span><span>접속</span>
+        </div>
+{operations_rows}
+      </div>
+    </section>
+"""
+        if operations_sessions
+        else ""
+    )
+    operations_button = (
+        '\n      <a class="button button--secondary" href="#operations">운영 기록</a>'
+        if operations_sessions
+        else ""
+    )
     root_body = f"""    <div class="brand">
       <span class="brand-name">{html.escape(site["name"])}</span>
       <span class="brand-sub">OPEN STUDY ARCHIVE</span>
@@ -921,7 +959,7 @@ def render_files(
     <div class="actions">
       <a class="button" href="#schedule">전체 일정·Webex 보기</a>
       <a class="button button--secondary" href="{html.escape(site["youtube_url"])}"
-         target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a>{archive_button}
+         target="_blank" rel="noopener noreferrer">YouTube 채널 ↗</a>{archive_button}{operations_button}
     </div>
     <section>
       <h2>진행 중인 스터디</h2>
@@ -941,7 +979,7 @@ def render_files(
 {root_schedule_html}
       </div>
     </section>
-    <section>
+{operations_section}    <section>
       <h2>공개된 교안</h2>
       <div class="grid">{recent}</div>
     </section>"""
@@ -954,7 +992,10 @@ def render_files(
 
     for study in studies:
         matching = [
-            item for item in sessions if item["study_id"] == study["id"]
+            item
+            for item in sessions
+            if item["study_id"] == study["id"]
+            and item.get("kind", "study") == "study"
         ]
         matching.sort(
             key=lambda item: (str(item["date"]), item["id"])
