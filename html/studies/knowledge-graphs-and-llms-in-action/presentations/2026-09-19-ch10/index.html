@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>그래프 특징 공학: 수동 및 반자동 접근법</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+
+    <section class="slide slide--cover" id="slide-01" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">지식 그래프와 LLM 실전 · Chapter 10</p>
+        <h1>그래프 특징 공학: 수동 및 반자동 접근법</h1>
+        <p class="cover-subtitle">그래프의 노드·관계를 머신러닝이 먹을 수 있는 숫자 벡터로 — 수동에서 반자동(ReFeX)까지</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>두균</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 10</dd></div>
+        <div><dt>일시</dt><dd>2026-09-19</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide" id="slide-02" aria-label="발표의 핵심 질문" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OPENING</span></header>
+      <h1>그래프 구조를 어떻게 &#39;숫자 벡터&#39;로 바꿀 것인가?</h1>
+      <p class="lead">현대 ML은 그래프를 직접 먹지 못하고 숫자 벡터를 요구한다. 그 벡터의 품질이 성능을 좌우한다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">PROBLEM</p><h2>특징화가 성패를 가른다</h2><ul><li>노드·관계·그래프의 성질을 벡터로</li><li>측정값이 아니라 구조에서 만들어야</li><li>차원을 하나씩 쌓아 표현을 만든다</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">SPECTRUM</p><h2>수동 → 반자동 → 자동</h2><ul><li>수동: 해석 가능·노동집약</li><li>반자동(ReFeX): 균형</li><li>자동(11·12장): 효율적·해석 어려움</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>오늘의 결론</strong> — 특징 공학은 &#39;지표 고르기&#39;가 아니라 해석 가능성과 자동화 사이 어디에 설지 정하는 설계다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 핵심 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" id="slide-03" aria-label="오늘의 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>오늘의 흐름은 노드 → 관계 → 반자동이다</h1>
+      <p class="lead">사기 탐지로 노드 특징을, 약물 재창출로 관계 특징을, ReFeX로 반자동 추출을 본다.</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>10.1</span><h2>노드 특징</h2><p>차수·삼각형·중심성·페이지랭크 → 분류기</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>10.2</span><h2>관계 특징</h2><p>노드 벡터 결합 / 메타경로·DWPC</p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>10.3</span><h2>ReFeX</h2><p>재귀 집계로 반자동 추출</p></article>
+        </div>
+        <p class="takeaway"><strong>발표의 약속</strong> — 지표마다 작은 사기 네트워크로 &#39;직접 계산&#39;해 보이며 직관을 잡는다.</p>
+        <p style="margin-top:10px;font-size:0.62em;line-height:1.55;color:var(--muted);">DWPC = Degree-Weighted Path Count · PC = Path Count · ReFeX = Recursive Feature eXtraction · 에고넷 = 노드와 그 1홉 이웃</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-04" aria-label="10.1 노드의 수동 특징 섹션" data-report-refs="source-10-1 fig-fraud-network" data-source-refs="section:10.1" data-source-title="section:10.1">
+      <p class="eyebrow">SECTION 10.1</p><h1 class="source-title">10.1 노드의 수동 특징 — 사기 탐지 네트워크에서 시작하기</h1><p>국소(에고넷)에서 전역으로 지표를 쌓는다</p><span class="section-number">10.1</span>
+    </section>
+
+    <section class="slide slide--visual" id="slide-05" aria-label="사기 탐지 예제 네트워크" data-report-refs="source-10-1 fig-fraud-network">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>공통 예제 — 20명의 네트워크, 4명이 알려진 사기꾼</h1>
+      <p class="lead">과제는 노드를 분류해 아직 밝혀지지 않은 사기꾼을 찾는 것. 이 그래프가 10.1·10.3의 모든 계산에 쓰인다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-fraud-network.svg" alt="20개 노드와 25개 간선의 사기 탐지 네트워크, 검은 노드 4개가 사기꾼">
+          <figcaption><b>그림 1</b><span>원본 그림 10.1</span><span>사기 탐지 예제</span><a class="report-ref" href="report.html#fig-fraud-network">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 예제 네트워크</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" id="slide-06" aria-label="네트워크 만들기 코드" data-report-refs="source-10-1 source-listing-10-1 source-listing-10-2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE</span></header>
+      <h1>Listing 10.1–10.2 — 그래프를 만들고 재사용한다</h1>
+      <p class="lead">노드에 <code>is_fraudster</code> 속성을 붙이는 것이 뒤의 &#39;사기 차수·사기 삼각형&#39; 특징의 기준이 된다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">10.1</p><h2>네트워크 생성</h2><ul><li>무향 그래프 · 노드 20 · 간선 25</li><li>사기꾼 D·E·F·I 표시</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">10.2</p><h2>재사용</h2><ul><li>한 번 만든 G를 모든 지표에 사용</li><li>국소 → 전역 순서로 특징 축적</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>핵심</strong> — 국소 특징(에고넷)과 전역 특징(중심성)을 구분해 쌓는다. <a class="report-ref" href="report.html#source-listing-10-1">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · Listing 10.1-10.2</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-07" aria-label="10.1.1 차수 섹션" data-report-refs="source-10-1-1 fig-degree-triangle" data-source-refs="section:10.1.1" data-source-title="section:10.1.1">
+      <p class="eyebrow">SECTION 10.1.1</p><h1 class="source-title">10.1.1 차수(Degree) — 이웃이 몇 명이며, 그중 사기꾼은 몇인가</h1><p>이웃을 사기·정상으로 나눠 센다</p><span class="section-number">10.1.1</span>
+    </section>
+
+    <section class="slide slide--visual" id="slide-08" aria-label="국소 특징 도식" data-report-refs="source-10-1-1 fig-degree-triangle">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>차수와 삼각형 — 이웃을 &#39;사기/정상&#39;으로 나눈다</h1>
+      <p class="lead">전체 차수 = 사기 차수 + 정상 차수. 삼각형은 두 알터의 사기 여부로 사기·정상·반사기로 나뉜다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-degree-triangle.svg" alt="노드 D의 사기/정상 차수와 사기·정상·반사기 삼각형 유형">
+          <figcaption><b>그림 2</b><span>원본 §10.1.1–10.1.2</span><span>국소 특징</span><a class="report-ref" href="report.html#fig-degree-triangle">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 국소 특징</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" id="slide-09" aria-label="차수 계산과 값" data-report-refs="source-10-1-1 source-listing-10-3 table-degree">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METRIC</span></header>
+      <h1>Listing 10.3 — 사기 차수가 위험 신호다</h1>
+      <p class="lead">이웃이 전부 사기꾼일수록 나도 사기꾼일 가능성이 높다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>D</strong><h2>4 = 2+2</h2><p>사기 2 / 정상 2</p></article>
+          <article class="kpi"><strong>G</strong><h2>4 = 3+1</h2><p>사기 3 — 강하게 둘러싸임</p></article>
+          <article class="kpi"><strong>A</strong><h2>6 = 1+5</h2><p>허브지만 사기 이웃 1</p></article>
+        </div>
+        <p class="takeaway"><strong>기억할 것</strong> — 전체 차수만이 아니라 &#39;사기 차수&#39;로 나눠야 도메인 신호가 살아난다. <a class="report-ref" href="report.html#source-listing-10-3">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 차수</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-10" aria-label="10.1.2 삼각형 섹션" data-report-refs="source-10-1-2" data-source-refs="section:10.1.2" data-source-title="section:10.1.2">
+      <p class="eyebrow">SECTION 10.1.2</p><h1 class="source-title">10.1.2 삼각형(Triangles) — 서로 얽힌 세 사람의 관계</h1><p>이웃 간 강한 결속을 드러낸다</p><span class="section-number">10.1.2</span>
+    </section>
+
+    <section class="slide" id="slide-11" aria-label="삼각형 계산과 값" data-report-refs="source-10-1-2 source-listing-10-4 table-triangle">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METRIC</span></header>
+      <h1>Listing 10.4 — 삼각형은 긴밀한 집단을 드러낸다</h1>
+      <p class="lead">세 노드가 모두 연결되면 삼각형. 두 알터의 사기 여부로 사기·정상·반사기로 센다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">정의</p><h2>강한 결속</h2><ul><li>내 친구들이 서로도 친구</li><li>사기 삼각형 = 두 알터 모두 사기</li><li>반사기 = 한 명만 사기</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">값</p><h2>D·F·G에 사기 삼각형</h2><ul><li>D·E·F·G: 사기 삼각형 1개씩</li><li>I·L: 정상 삼각형</li><li>A: 반사기 삼각형</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>기억할 것</strong> — 사기 삼각형이 있는 노드는 사기 집단에 결속돼 있을 가능성이 크다. <a class="report-ref" href="report.html#source-listing-10-4">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 삼각형</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-12" aria-label="10.1.3 밀도 섹션" data-report-refs="source-10-1-3" data-source-refs="section:10.1.3" data-source-title="section:10.1.3">
+      <p class="eyebrow">SECTION 10.1.3</p><h1 class="source-title">10.1.3 밀도(Density) — 이웃들이 서로 얼마나 촘촘히 얽혀 있나</h1><p>가능한 간선 대비 실제 간선의 비율</p><span class="section-number">10.1.3</span>
+    </section>
+
+    <section class="slide" id="slide-13" aria-label="밀도 개념과 값" data-report-refs="source-10-1-3 table-density">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METRIC</span></header>
+      <h1>밀도 = 2M / (N(N−1)) — 0에서 1 사이</h1>
+      <p class="lead">각 노드의 에고넷 밀도를 계산해 이웃끼리 얼마나 얽혀 있는지 본다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>A</strong><h2>0.33</h2><p>이웃 7, 실제 간선 7 / 가능 21</p></article>
+          <article class="kpi"><strong>F</strong><h2>0.83</h2><p>이웃끼리 촘촘</p></article>
+          <article class="kpi"><strong>C·E·J</strong><h2>1.0</h2><p>이웃이 빠짐없이 연결</p></article>
+        </div>
+        <p class="takeaway"><strong>전환점</strong> — 여기까지는 에고넷(국소) 지표. 이제부터는 네트워크 전체(전역)를 본다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 밀도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-14" aria-label="10.1.4 측지 경로 섹션" data-report-refs="source-10-1-4" data-source-refs="section:10.1.4" data-source-title="section:10.1.4">
+      <p class="eyebrow">SECTION 10.1.4</p><h1 class="source-title">10.1.4 측지 경로(또는 최단 경로) — 사기꾼까지 얼마나 가까운가</h1><p>다익스트라로 최단 거리를 계산</p><span class="section-number">10.1.4</span>
+    </section>
+
+    <section class="slide" id="slide-15" aria-label="측지 경로 개념과 값" data-report-refs="source-10-1-4 table-geodesic">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METRIC</span></header>
+      <h1>사기꾼까지의 거리와 1·2·3홉 경로 수</h1>
+      <p class="lead">경로가 많고 짧을수록 사기가 대상 노드에 영향을 미칠 가능성이 크다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">정의</p><h2>가장 가까운 사기꾼</h2><ul><li>측지 거리 = 최소 홉 수</li><li>다익스트라로 계산</li><li>도메인용으로 변형</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">값</p><h2>A는 I와 1홉</h2><ul><li>A: 측지 거리 1, 2홉 경로 4개</li><li>G: 1홉 경로 3개</li><li>실제 망에선 수동 계산 불가</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>주의</strong> — 측지 경로 계산은 비용이 크다. 라이브러리(NetworkX·Neo4j GDS)를 쓴다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 측지 경로</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-16" aria-label="10.1.5 근접 중심성 섹션" data-report-refs="source-10-1-5 fig-centrality" data-source-refs="section:10.1.5" data-source-title="section:10.1.5">
+      <p class="eyebrow">SECTION 10.1.5</p><h1 class="source-title">10.1.5 근접 중심성(Closeness) — 네트워크에서 얼마나 "가운데"에 있나</h1><p>평균 최단 거리(원거리도)의 역수</p><span class="section-number">10.1.5</span>
+    </section>
+
+    <section class="slide slide--visual" id="slide-17" aria-label="중심성 대비 도식" data-report-refs="source-10-1-5 fig-centrality">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>근접 대 매개 — 서로 다른 관점의 중요도</h1>
+      <p class="lead">근접 중심성은 &#39;모두에게 가까운가&#39;, 매개 중심성은 &#39;얼마나 자주 다리인가&#39;를 본다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-centrality.svg" alt="근접 중심성 노드와 두 집단을 잇는 매개 중심성 다리 노드의 대비">
+          <figcaption><b>그림 3</b><span>원본 §10.1.5–10.1.6</span><span>전역 특징</span><a class="report-ref" href="report.html#fig-centrality">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 중심성 대비</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" id="slide-18" aria-label="근접 중심성 값" data-report-refs="source-10-1-5 table-closeness">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METRIC</span></header>
+      <h1>근접 중심성 — A가 가장 &#39;가운데&#39;</h1>
+      <p class="lead">사기꾼의 근접 중심성이 높으면 사기가 네트워크를 통해 빠르게 퍼진다. 도달 불가 노드는 제외해 정규화한다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>A</strong><h2>0.50</h2><p>모두에게 가장 가깝다</p></article>
+          <article class="kpi"><strong>I</strong><h2>0.45</h2><p>사기꾼이면서 중심적</p></article>
+          <article class="kpi"><strong>R·S</strong><h2>0.24</h2><p>가장 외곽</p></article>
+        </div>
+        <p class="takeaway"><strong>해석</strong> — 값이 클수록 중심적. 원거리도(평균 거리)를 역수로 뒤집은 값이다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 근접 중심성</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-19" aria-label="10.1.6 매개 중심성 섹션" data-report-refs="source-10-1-6" data-source-refs="section:10.1.6" data-source-title="section:10.1.6">
+      <p class="eyebrow">SECTION 10.1.6</p><h1 class="source-title">10.1.6 매개 중심성(Betweenness) — 얼마나 자주 다리 역할을 하나</h1><p>최단 경로 위에 얼마나 자주 등장하나</p><span class="section-number">10.1.6</span>
+    </section>
+
+    <section class="slide" id="slide-20" aria-label="매개 중심성 계산과 값" data-report-refs="source-10-1-6 source-listing-10-8 table-betweenness">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METRIC</span></header>
+      <h1>Listing 10.8 — A는 결정적 &#39;다리&#39;다</h1>
+      <p class="lead">다른 쌍들의 최단 경로 위에 자주 등장할수록 정보 흐름을 통제하는 병목이 된다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>A</strong><h2>104</h2><p>결정적 다리</p></article>
+          <article class="kpi"><strong>I · O</strong><h2>65 · 63</h2><p>주요 통로</p></article>
+          <article class="kpi"><strong>C·E·J·L·M</strong><h2>0</h2><p>다리 아님</p></article>
+        </div>
+        <p class="takeaway"><strong>해석</strong> — 근접 중심성이 높아도 매개 중심성은 0일 수 있다. 두 지표는 다른 질문에 답한다. <a class="report-ref" href="report.html#source-listing-10-8">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 매개 중심성</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-21" aria-label="10.1.7 페이지랭크 섹션" data-report-refs="source-10-1-7 fig-pagerank" data-source-refs="section:10.1.7" data-source-title="section:10.1.7">
+      <p class="eyebrow">SECTION 10.1.7</p><h1 class="source-title">10.1.7 페이지랭크(PageRank) — 연결의 양뿐 아니라 질까지 본다</h1><p>순위 높은 노드와 연결될수록 높은 점수</p><span class="section-number">10.1.7</span>
+    </section>
+
+    <section class="slide slide--visual" id="slide-22" aria-label="페이지랭크 차이 도식" data-report-refs="source-10-1-7 fig-pagerank">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>기본 vs 사기 가중 — 차이가 조사 대상을 가린다</h1>
+      <p class="lead">노드 D는 기본은 평범하나 사기 가중에서 급등(0.068→0.168). 두 값의 차이가 사기꾼과의 실질 연결을 드러낸다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-pagerank.svg" alt="노드 A G D F의 기본 대 사기 가중 페이지랭크 막대, D가 급등">
+          <figcaption><b>그림 4</b><span>원본 §10.1.7</span><span>페이지랭크 차이</span><a class="report-ref" href="report.html#fig-pagerank">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 페이지랭크 차이</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" id="slide-23" aria-label="페이지랭크 계산" data-report-refs="source-10-1-7 source-listing-10-9 table-pagerank">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE</span></header>
+      <h1>Listing 10.9 — 개인화 벡터로 사기 쪽으로 편향</h1>
+      <p class="lead">감쇠 계수 0.85로 확률적 서퍼의 링크 추종을 조절하고, 사기꾼에 가중치를 준 개인화로 점수를 편향시킨다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">기본</p><h2>구조적 중요도</h2><ul><li>A가 가장 높음(0.108)</li><li>모든 연결을 동등하게</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">사기 가중</p><h2>사기 관련성</h2><ul><li>D가 급등(0.168)</li><li>사기꾼 초기 중요도↑</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>해석</strong> — 기본→사기 가중에서 크게 오르는 노드가 정밀 조사 대상이다. <a class="report-ref" href="report.html#source-listing-10-9">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 페이지랭크 코드</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-24" aria-label="10.1.8 예측 섹션" data-report-refs="source-10-1-8" data-source-refs="section:10.1.8" data-source-title="section:10.1.8">
+      <p class="eyebrow">SECTION 10.1.8</p><h1 class="source-title">10.1.8 예측(Prediction) — 뽑아낸 특징으로 분류기를 학습시키기</h1><p>모든 지표를 모아 로지스틱 회귀로</p><span class="section-number">10.1.8</span>
+    </section>
+
+    <section class="slide" id="slide-25" aria-label="예측 파이프라인" data-report-refs="source-10-1-8 source-listing-10-10 source-listing-10-11 source-listing-10-12 source-listing-10-13">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE CONTRACT</span></header>
+      <h1>Listing 10.10–10.13 — 특징 모으기 → 학습 → 예측</h1>
+      <p class="lead">모든 지표를 노드별 데이터프레임으로 모으고, 계층적 분할·스케일링 후 로지스틱 회귀로 학습한다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>10.10</span><h2>특징 모으기</h2><p>지표 + 라벨을 데이터프레임으로.</p></article>
+          <article class="card"><span>10.11</span><h2>학습·평가</h2><p>stratify · StandardScaler · 특징 중요도.</p></article>
+          <article class="card"><span>10.12</span><h2>예측</h2><p>predict_proba로 사기 확률.</p></article>
+          <article class="card"><span>10.13</span><h2>실행</h2><p>상위 5개 중요 특징 출력.</p></article>
+        </div>
+        <p class="takeaway"><strong>값어치</strong> — 전 과정이 사람의 통제 아래 있고 각 특징을 그래프로 설명할 수 있다. <a class="report-ref" href="report.html#source-listing-10-10">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · Listing 10.10-10.13</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-26" aria-label="10.2 관계의 수동 특징 섹션" data-report-refs="source-10-2" data-source-refs="section:10.2" data-source-title="section:10.2">
+      <p class="eyebrow">SECTION 10.2</p><h1 class="source-title">10.2 관계의 수동 특징 — 두 노드 사이의 연결을 표현하기</h1><p>링크 예측 = 두 노드 사이 관계 가능성</p><span class="section-number">10.2</span>
+    </section>
+
+    <section class="slide" id="slide-27" aria-label="관계 예측 개념" data-report-refs="source-10-2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CORE CONCEPT</span></header>
+      <h1>링크 예측 — &#39;두 노드 사이에 관계가 있을까?&#39;</h1>
+      <p class="lead">단백질 상호작용, 고객–제품, 약–질병이 모두 같은 질문이다. 입력은 노드 쌍이다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">노드 기반</p><h2>두 벡터 결합</h2><ul><li>노드 임베딩과 궁합↑</li><li>이어붙이기·평균·아다마르 등</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">경로 기반</p><h2>연결된 방식</h2><ul><li>메타경로·구조 패턴</li><li>복잡한 네트워크 패턴 포착</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>사례</strong> — 약물 재창출(기존 약의 새 용도)을 화합물–질병 링크 예측으로 모델링한다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 관계 예측</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-28" aria-label="10.2.1 노드 기반 표현 섹션" data-report-refs="source-10-2-1" data-source-refs="section:10.2.1" data-source-title="section:10.2.1">
+      <p class="eyebrow">SECTION 10.2.1</p><h1 class="source-title">10.2.1 노드 기반 표현(Node-based representation) — 두 노드의 지문을 합치기</h1><p>어떤 노드 쌍에도 작동해야 한다</p><span class="section-number">10.2.1</span>
+    </section>
+
+    <section class="slide" id="slide-29" aria-label="노드 벡터 결합 연산" data-report-refs="source-10-2-1 source-listing-10-14 table-combine">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">METHOD</span></header>
+      <h1>Listing 10.14 — 다섯 가지 결합 연산</h1>
+      <p class="lead">u=[1,4], v=[3,1]을 결합하는 다섯 방법. 최선은 시나리오마다 다르니 벤치마크로 고른다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>Catenate</span><h2>[1,4,3,1]</h2><p>정보 보존, 차원 2배</p></article>
+          <article class="card"><span>Average</span><h2>[2,2.5]</h2><p>중심 경향</p></article>
+          <article class="card"><span>L1 · L2</span><h2>[2,3]·[4,9]</h2><p>비유사성 / 큰 차이 강조</p></article>
+          <article class="card"><span>Hadamard</span><h2>[3,4]</h2><p>원소별 곱</p></article>
+        </div>
+        <p class="takeaway"><strong>주의</strong> — 링크 품질은 노드 표현 품질에 직결된다. <a class="report-ref" href="report.html#source-listing-10-14">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 결합 연산</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-30" aria-label="10.2.2 경로 기반 특징 섹션" data-report-refs="source-10-2-2 fig-metapath-dwpc" data-source-refs="section:10.2.2" data-source-title="section:10.2.2">
+      <p class="eyebrow">SECTION 10.2.2</p><h1 class="source-title">10.2.2 경로 기반 특징(Path-based features) — 메타경로로 약과 질병을 잇기</h1><p>Hetionet · 메타경로 · DWPC</p><span class="section-number">10.2.2</span>
+    </section>
+
+    <section class="slide slide--visual" id="slide-31" aria-label="메타경로와 DWPC 도식" data-report-refs="source-10-2-2 fig-metapath-dwpc">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>DWPC — 허브를 지나는 경로의 기여를 낮춘다</h1>
+      <p class="lead">단순 경로 수는 허브에 휘둘린다. DWPC는 중간 노드 차수의 −0.4승으로 감쇠해 구체적 경로를 부각한다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-metapath-dwpc.svg" alt="메타경로 CbGaD 사슬과 DWPC 차수 감쇠 도식">
+          <figcaption><b>그림 5</b><span>원본 §10.2.2</span><span>메타경로·DWPC</span><a class="report-ref" href="report.html#fig-metapath-dwpc">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 메타경로·DWPC</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" id="slide-32" aria-label="메타경로 DWPC 쿼리" data-report-refs="source-10-2-2 source-listing-10-15 source-listing-10-16 source-listing-10-17 table-metapath">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE CONTRACT</span></header>
+      <h1>Listing 10.15–10.17 — 메타경로별 DWPC 계산</h1>
+      <p class="lead">메타경로는 노드·관계 타입의 순서열. 각 화합물–질병 쌍의 특징이 된다(메트포르민–제2형 당뇨병 CbGaD = 0.0007).</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--three">
+          <article class="card"><span>10.15</span><h2>CbGaD (길이 2)</h2><p>화합물–결합–유전자–연관–질병.</p></article>
+          <article class="card"><span>10.16</span><h2>CbGeAlD (길이 3)</h2><p>유전자–발현–해부구조–국소화.</p></article>
+          <article class="card"><span>10.17</span><h2>CbGpPWpGaD (길이 4)</h2><p>경로(Pathway) 공유 유전자.</p></article>
+        </div>
+        <p class="takeaway"><strong>규모 관리</strong> — 전수 계산은 비용 막대. 메타경로 축소(1,026→709)와 쌍 선택으로 관리. <a class="report-ref" href="report.html#source-listing-10-15">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · Listing 10.15-10.17</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-33" aria-label="10.3 반자동 특징 추출 섹션" data-report-refs="source-10-3" data-source-refs="section:10.3" data-source-title="section:10.3">
+      <p class="eyebrow">SECTION 10.3</p><h1 class="source-title">10.3 반자동 특징 추출 — ReFeX로 손일을 덜기</h1><p>수동과 신경망 사이의 중간 지대</p><span class="section-number">10.3</span>
+    </section>
+
+    <section class="slide" id="slide-34" aria-label="ReFeX 개념" data-report-refs="source-10-3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CORE CONCEPT</span></header>
+      <h1>ReFeX — 해석 가능성을 지키며 자동화한다</h1>
+      <p class="lead">국소·에고넷 특징을 재귀 집계해 &#39;지역(행동적)&#39; 특징을 만든다. 정체성이 아니라 &#39;어떤 노드와 연결되는가&#39;를 담는다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">장점</p><h2>투명·비교 가능</h2><ul><li>왜 의심스러운지 설명 가능</li><li>그래프·시점 간 비교</li><li>결정론적(재현성)</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">두 규칙</p><h2>구조적 · 효과적</h2><ul><li>추가 속성 없이 구조만</li><li>속성 예측 도움 + 전이 가능</li><li>사람 감독은 여전히 필수</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>주의</strong> — 재귀는 특징 수를 기하급수로 늘린다 → 상관·로그 구간화·임계값 가지치기.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · ReFeX 개념</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-35" aria-label="10.3.1 ReFeX 손으로 섹션" data-report-refs="source-10-3-1 fig-refex" data-source-refs="section:10.3.1" data-source-title="section:10.3.1">
+      <p class="eyebrow">SECTION 10.3.1</p><h1 class="source-title">10.3.1 ReFeX를 손으로 수행하기 — 한 노드씩 따라가며</h1><p>국소 → 에고넷 → 재귀 집계</p><span class="section-number">10.3.1</span>
+    </section>
+
+    <section class="slide slide--visual" id="slide-36" aria-label="ReFeX 재귀 도식" data-report-refs="source-10-3-1 fig-refex table-refex-degree table-refex-egonet table-refex-featuresA">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">SOURCE VISUAL</span></header>
+      <h1>노드 A — 6 → 17 → 69로 재귀가 깊어진다</h1>
+      <p class="lead">1차: 이웃 차수 합 17. 2차: 이웃의 1차 합계를 다시 합해 69. 반복할수록 더 먼 이웃 정보가 스며든다.</p>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/fig-refex.svg" alt="ReFeX의 국소·에고넷·재귀 집계 세 단계와 노드 A의 계산">
+          <figcaption><b>그림 6</b><span>원본 §10.3.1</span><span>재귀 집계</span><a class="report-ref" href="report.html#fig-refex">리포트 근거</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · ReFeX 재귀</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" id="slide-37" aria-label="10.3.2 ReFeX 코드 섹션" data-report-refs="source-10-3-2" data-source-refs="section:10.3.2" data-source-title="section:10.3.2">
+      <p class="eyebrow">SECTION 10.3.2</p><h1 class="source-title">10.3.2 코드로 ReFeX를 자동 수행하기</h1><p>세 단계를 클래스로 + 상관 가지치기</p><span class="section-number">10.3.2</span>
+    </section>
+
+    <section class="slide" id="slide-38" aria-label="ReFeX 코드" data-report-refs="source-10-3-2 source-listing-10-18">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE</span></header>
+      <h1>Listing 10.18 — 국소·에고넷·재귀 + 가지치기</h1>
+      <p class="lead">세 단계를 이어붙인 뒤 표준화·상관 0.95 초과 특징을 제거한다.</p>
+      <div class="slide-body">
+        <div class="card-grid card-grid--four">
+          <article class="card"><span>①</span><h2>국소</h2><p>차수(in/out).</p></article>
+          <article class="card"><span>②</span><h2>에고넷</h2><p>노드·간선 수·밀도.</p></article>
+          <article class="card"><span>③</span><h2>재귀</h2><p>이웃 특징 합·평균.</p></article>
+          <article class="card"><span>④</span><h2>가지치기</h2><p>상관 기반 중복 제거.</p></article>
+        </div>
+        <p class="takeaway"><strong>강점</strong> — 결정론적이라 변경 시 영향받은 특징만 재계산. 단, 구조 특징만이라 속성·간선 타입은 못 담음. <a class="report-ref" href="report.html#source-listing-10-18">전체 코드 보기 →</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · Listing 10.18</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" id="slide-39" aria-label="발표 확인 질문" data-report-refs="summary recap glossary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>확인 질문</h1>
+      <p class="lead">다음에 답할 수 있으면 Chapter 10의 핵심 구조를 잡은 것이다.</p>
+      <div class="slide-body">
+        <div class="question-list">
+          <article><span>Q1</span><p>국소(에고넷) 특징과 전역 특징의 차이는? 각각 예를 하나씩 들어 보라.</p></article>
+          <article><span>Q2</span><p>단순 경로 수(PC) 대신 DWPC를 쓰는 이유는? 감쇠가 무엇을 바로잡나?</p></article>
+          <article><span>Q3</span><p>ReFeX가 수동 공학과 신경망 사이의 &#39;중간 지대&#39;인 이유는?</p></article>
+        </div>
+        <p class="takeaway"><strong>토론</strong> — 우리 도메인에서 &#39;사기 차수&#39;나 &#39;사기 가중 페이지랭크&#39;에 해당하는 도메인 특화 변형은 무엇일까?</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · 확인 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--closing" id="slide-40" aria-label="세 문장 요약과 Q&A" data-report-refs="summary recap table-overview references">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">Q&amp;A</span></header>
+      <h1>세 문장 요약</h1>
+      <div class="slide-body">
+        <div class="question-list">
+          <article><span>1</span><p>그래프 ML은 노드·관계를 숫자 벡터로 바꾸는 특징 공학에서 성패가 갈린다.</p></article>
+          <article><span>2</span><p>노드는 국소·전역 지표로, 관계는 노드 결합·메타경로(DWPC)로 표현한다.</p></article>
+          <article><span>3</span><p>ReFeX는 재귀 집계로 해석 가능한 구조 특징을 자동 생성하는 중간 지대다.</p></article>
+        </div>
+        <div class="report-jump-links"><a href="report.html">상세 리포트</a><a href="../../">회차 목록</a></div>
+      </div>
+      <footer class="slide-footer"><span>Chapter 10 · Q&A</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+  </main>
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어"><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck-lightbox.js"></script>
+  <script src="assets/deck.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

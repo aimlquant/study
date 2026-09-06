@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .h{font-size:19px;font-weight:900}
+    .m{font-size:15px;font-weight:800}
+    .s{font-size:13px;font-weight:700}
+    .xs{font-size:11.5px;font-weight:700}
+    .edge{stroke:#94a3b8;stroke-width:2.5;fill:none}
+    .fraudn{fill:#0f2c59;stroke:#0f2c59}
+    .plainn{fill:#fff;stroke:#64748b;stroke-width:2}
+    .panel{fill:#fff;stroke:#cbd5e1}
+  </style>
+  <title id="title">국소 특징: 차수와 삼각형 유형</title>
+  <desc id="desc">사기·정상·전체 차수로 이웃을 나누고, 삼각형을 사기·정상·반사기로 분류하는 개념 도식</desc>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <text class="t h" x="40" y="40" text-anchor="start" fill="#0f172a">국소 특징 — 이웃을 &#39;사기/정상&#39;으로 나눠 센다</text>
+
+  <!-- left: degree -->
+  <rect class="panel" x="40" y="70" width="420" height="420" rx="14"/>
+  <text class="t m" x="60" y="102" text-anchor="start" fill="#0f2c59">차수(Degree) — 대상 노드 D의 이웃</text>
+  <!-- center node D -->
+  <circle class="fraudn" cx="250" cy="270" r="22"/><text class="t m" x="250" y="276" text-anchor="middle" fill="#fff">D</text>
+  <!-- neighbors: 2 fraud (E,F), 2 legit (B,G) -->
+  <line class="edge" x1="250" y1="270" x2="140" y2="180"/>
+  <line class="edge" x1="250" y1="270" x2="360" y2="180"/>
+  <line class="edge" x1="250" y1="270" x2="140" y2="360"/>
+  <line class="edge" x1="250" y1="270" x2="360" y2="360"/>
+  <circle class="fraudn" cx="140" cy="180" r="17"/><text class="t s" x="140" y="185" text-anchor="middle" fill="#fff">E</text>
+  <circle class="fraudn" cx="360" cy="180" r="17"/><text class="t s" x="360" y="185" text-anchor="middle" fill="#fff">F</text>
+  <circle class="plainn" cx="140" cy="360" r="17"/><text class="t s" x="140" y="365" text-anchor="middle" fill="#0f172a">B</text>
+  <circle class="plainn" cx="360" cy="360" r="17"/><text class="t s" x="360" y="365" text-anchor="middle" fill="#0f172a">G</text>
+  <text class="t s" x="250" y="440" text-anchor="middle" fill="#334155">전체 차수 4 = 사기 차수 2 + 정상 차수 2</text>
+  <text class="t xs" x="250" y="464" text-anchor="middle" fill="#64748b">이웃이 전부 사기꾼일수록 나도 사기꾼일 가능성↑</text>
+
+  <!-- right: triangles -->
+  <rect class="panel" x="500" y="70" width="420" height="420" rx="14"/>
+  <text class="t m" x="520" y="102" text-anchor="start" fill="#0f2c59">삼각형(Triangle) — 세 명이 서로 연결</text>
+
+  <!-- fraud triangle: center + 2 fraud -->
+  <text class="t s" x="600" y="150" text-anchor="middle" fill="#7c2d12">사기 삼각형</text>
+  <circle class="plainn" cx="600" cy="185" r="13"/>
+  <circle class="fraudn" cx="565" cy="240" r="13"/>
+  <circle class="fraudn" cx="635" cy="240" r="13"/>
+  <line class="edge" x1="600" y1="185" x2="565" y2="240"/><line class="edge" x1="600" y1="185" x2="635" y2="240"/><line class="edge" x1="565" y1="240" x2="635" y2="240"/>
+
+  <!-- legit triangle -->
+  <text class="t s" x="820" y="150" text-anchor="middle" fill="#166534">정상 삼각형</text>
+  <circle class="plainn" cx="820" cy="185" r="13"/>
+  <circle class="plainn" cx="785" cy="240" r="13"/>
+  <circle class="plainn" cx="855" cy="240" r="13"/>
+  <line class="edge" x1="820" y1="185" x2="785" y2="240"/><line class="edge" x1="820" y1="185" x2="855" y2="240"/><line class="edge" x1="785" y1="240" x2="855" y2="240"/>
+
+  <!-- semi-fraud triangle -->
+  <text class="t s" x="710" y="320" text-anchor="middle" fill="#a16207">반사기 삼각형 (한 명만 사기꾼)</text>
+  <circle class="plainn" cx="710" cy="355" r="13"/>
+  <circle class="fraudn" cx="675" cy="410" r="13"/>
+  <circle class="plainn" cx="745" cy="410" r="13"/>
+  <line class="edge" x1="710" y1="355" x2="675" y2="410"/><line class="edge" x1="710" y1="355" x2="745" y2="410"/><line class="edge" x1="675" y1="410" x2="745" y2="410"/>
+
+  <text class="t xs" x="710" y="464" text-anchor="middle" fill="#64748b">삼각형은 이웃 간 강한 결속(긴밀한 집단)을 드러낸다</text>
+</svg>
