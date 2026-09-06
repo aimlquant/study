@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .h{font-size:19px;font-weight:900}
+    .m{font-size:14px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .mono{font-family:'SFMono-Regular',Menlo,Consolas,monospace;font-size:12px;font-weight:700}
+    .line{stroke:#0f2c59;stroke-width:2.5;fill:none;stroke-linecap:round}
+    .cmp{fill:#e8eef8;stroke:#0f2c59;stroke-width:2}
+    .gene{fill:#fff7ed;stroke:#fdba74;stroke-width:2}
+    .dis{fill:#e7f7ef;stroke:#99d8b6;stroke-width:2}
+    .panel{fill:#fff;stroke:#cbd5e1}
+  </style>
+  <title id="title">메타경로와 차수 가중 경로 수(DWPC)</title>
+  <desc id="desc">화합물-결합-유전자-연관-질병 메타경로와, 허브 유전자를 지나는 경로의 기여를 낮추는 DWPC 감쇠</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f2c59"/></marker></defs>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <text class="t h" x="40" y="40" text-anchor="start" fill="#0f172a">경로 기반 특징 — 메타경로 CbGaD와 DWPC</text>
+
+  <!-- metapath chain -->
+  <rect class="cmp" x="70" y="90" width="150" height="70" rx="12"/><text class="t m" x="145" y="120" text-anchor="middle" fill="#0f2c59">화합물</text><text class="t xs" x="145" y="142" text-anchor="middle" fill="#475569">메트포르민</text>
+  <rect class="gene" x="405" y="90" width="150" height="70" rx="12"/><text class="t m" x="480" y="120" text-anchor="middle" fill="#7c2d12">유전자</text><text class="t xs" x="480" y="142" text-anchor="middle" fill="#9a3412">Gene</text>
+  <rect class="dis" x="740" y="90" width="160" height="70" rx="12"/><text class="t m" x="820" y="120" text-anchor="middle" fill="#166534">질병</text><text class="t xs" x="820" y="142" text-anchor="middle" fill="#15803d">제2형 당뇨병</text>
+  <path class="line" d="M220 125 L401 125" marker-end="url(#arrow)"/><text class="t s" x="310" y="112" text-anchor="middle" fill="#334155">binds (결합)</text>
+  <path class="line" d="M555 125 L736 125" marker-end="url(#arrow)"/><text class="t s" x="645" y="112" text-anchor="middle" fill="#334155">associates (연관)</text>
+  <text class="t xs" x="480" y="184" text-anchor="middle" fill="#64748b">CbGaD · 길이 2</text>
+
+  <!-- DWPC damping -->
+  <rect class="panel" x="70" y="210" width="830" height="290" rx="14"/>
+  <text class="t m" x="90" y="242" text-anchor="start" fill="#0f2c59">DWPC — 허브를 지나는 경로의 기여를 낮춘다 (감쇠 지수 −0.4)</text>
+
+  <!-- path 1: hub gene, degree 100 -->
+  <circle class="cmp" cx="150" cy="320" r="18"/><text class="t s" x="150" y="325" text-anchor="middle" fill="#0f2c59">C</text>
+  <circle class="gene" cx="400" cy="320" r="30"/><text class="t s" x="400" y="318" text-anchor="middle" fill="#7c2d12">허브</text><text class="t xs" x="400" y="334" text-anchor="middle" fill="#9a3412">차수 100</text>
+  <circle class="dis" cx="650" cy="320" r="18"/><text class="t s" x="650" y="325" text-anchor="middle" fill="#166534">D</text>
+  <path class="line" d="M168 320 L369 320"/><path class="line" d="M430 320 L631 320"/>
+  <text class="t mono" x="740" y="316" text-anchor="start" fill="#b91c1c">100^-0.4 ≈ 0.16</text>
+  <text class="t xs" x="740" y="336" text-anchor="start" fill="#64748b">기여 작음</text>
+
+  <!-- path 2: specific gene, degree 10 -->
+  <circle class="cmp" cx="150" cy="430" r="18"/><text class="t s" x="150" y="435" text-anchor="middle" fill="#0f2c59">C</text>
+  <circle class="gene" cx="400" cy="430" r="20"/><text class="t xs" x="400" y="428" text-anchor="middle" fill="#7c2d12">특이</text><text class="t xs" x="400" y="444" text-anchor="middle" fill="#9a3412">차수 10</text>
+  <circle class="dis" cx="650" cy="430" r="18"/><text class="t s" x="650" y="435" text-anchor="middle" fill="#166534">D</text>
+  <path class="line" d="M168 430 L379 430"/><path class="line" d="M420 430 L631 430"/>
+  <text class="t mono" x="740" y="426" text-anchor="start" fill="#166534">10^-0.4 ≈ 0.40</text>
+  <text class="t xs" x="740" y="446" text-anchor="start" fill="#64748b">기여 큼</text>
+
+  <text class="t s" x="485" y="484" text-anchor="middle" fill="#334155">단순 경로 수(PC)는 허브에 휘둘리지만, DWPC는 구체적 경로를 부각한다</text>
+</svg>

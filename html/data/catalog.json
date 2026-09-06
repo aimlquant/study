@@ -468,7 +468,9 @@
       "id": "2026-09-19-kg-llm-ch10",
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-09-19-kg-llm-ch10/",
-      "presenters": [],
+      "presenters": [
+        "두균"
+      ],
       "status": "scheduled",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
