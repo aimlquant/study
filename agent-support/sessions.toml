@@ -256,7 +256,7 @@ id = "2026-09-19-kg-llm-ch10"
 study_id = "kg-llm-in-action-2026"
 date = "2026-09-19"
 title = "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
-presenters = []
+presenters = ["두균"]
 chapters = ["Chapter 10"]
 status = "scheduled"
 
