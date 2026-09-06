@@ -460,7 +460,18 @@
       "title": "Chapter 2. 금융 데이터 세계"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-19-ch10/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-19-ch10/"
+        }
+      ],
       "chapters": [
         "Chapter 10"
       ],
@@ -471,7 +482,7 @@
       "presenters": [
         "두균"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
     },
