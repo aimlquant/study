@@ -31,7 +31,7 @@
     <text class="label" x="550" y="108">검증·승인</text>
     <text class="meta" x="550" y="132">규칙 · 근거 · 책임</text>
     <text class="label" x="770" y="108" fill="#fff">결과·근거</text>
-    <text class="meta" x="770" y="132" fill="#D9E2EF">설명 · 사용 · 기록</text>
+    <text class="meta" x="770" y="132" style="fill:#D9E2EF">설명 · 사용 · 기록</text>
     <text class="meta" x="550" y="226">오류와 사용 결과를 다음 처리에 반영</text>
   </g>
 </svg>

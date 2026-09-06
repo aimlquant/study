@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 390" role="img"><style>text{font-family:'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;font-size:24px;fill:#0f2c59;text-anchor:middle}.small{font-size:22px}</style><defs><marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#0f2c59"/></marker></defs><rect width="1140" height="390" fill="#fafaf9"/>
+<rect x="10" y="10" width="1120" height="370" rx="14" fill="#f1f4f8" stroke="#0f2c59"/>
+<text x="570" y="43">공유 데이터 인프라</text>
+<rect x="70" y="68" width="190" height="68" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="165.0" y="95.0">연구·증거</text>
+<text x="165.0" y="125.0">프레임워크</text>
+<rect x="310" y="68" width="220" height="68" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="420.0" y="110.0">특성 공학</text>
+<rect x="580" y="68" width="220" height="68" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="690.0" y="110.0">모델 개발</text>
+<rect x="850" y="68" width="250" height="68" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="975.0" y="110.0">전략 설계</text>
+<path d="M260 102H310" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M530 88H580" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M580 116H530" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M800 102H850" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M975 136V179H420V136" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M32 216H1108" stroke="#0f2c59" stroke-width="2" stroke-dasharray="8 6" fill="none"/>
+<rect x="430" y="197" width="260" height="38" rx="9" fill="#fafaf9" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="560.0" y="224.0">탐색 → 확인</text>
+<rect x="760" y="278" width="340" height="70" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="930.0" y="306.0">동결 사양·홀드아웃 평가</text>
+<text x="930.0" y="336.0">배포·모니터링</text>
+<path d="M1050 136V278" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M760 313H32V102H70" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)" stroke-dasharray="8 6"/>
+<text x="395" y="344" class="small">재학습·중지·폐기</text>
+</svg>

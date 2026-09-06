@@ -1392,6 +1392,8 @@ body.chrome-hidden .report-settings {
 }
 .report-quick-links {
   display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
   align-items: center;
   justify-content: flex-end;
   gap: 6px;

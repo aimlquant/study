@@ -28,7 +28,7 @@
     <text class="label" x="730" y="87">2. 후보 생성</text>
     <text class="meta" x="730" y="108">해석 · 추출 · 제안</text>
     <text class="label" x="730" y="252" fill="#fff">3. 검증·통합</text>
-    <text class="meta" x="730" y="273" fill="#D9E2EF">규칙 · 승인 · 이력</text>
+    <text class="meta" x="730" y="273" style="fill:#D9E2EF">규칙 · 승인 · 이력</text>
     <text class="label" x="170" y="252">4. 사용·피드백</text>
     <text class="meta" x="170" y="273">질의 · 오류 · 개선</text>
     <circle cx="450" cy="172" r="64" fill="#E8EEF7"/>

@@ -116,10 +116,12 @@ class SlideTrace:
     label: str
     refs: list[str]
     source_refs: list[str]
+    element_id: str = ""
     source_title_ref: str = ""
     figure_comparison: str = ""
     visual_adaptation: str = ""
     code_blocks_with_language: list[bool] = field(default_factory=list)
+    table_count: int = 0
     image_sources: set[str] = field(default_factory=set)
     report_links: set[str] = field(default_factory=set)
     report_references: list[ReportReferenceTrace] = field(default_factory=list)
@@ -183,6 +185,13 @@ class ReportDeckTraceParser(HTMLParser):
         self.duplicate_source_anchors: set[tuple[str, str]] = set()
         self.invalid_source_anchors: list[str] = []
         self.deck_report_source = ""
+        self.deck_caption_scope = ""
+        self.deck_caption_numbers: dict[str, list[int]] = {"그림": [], "표": []}
+        self.deck_figure_count = 0
+        self.notebook_example_ids: set[str] = set()
+        self._deck_caption_parts: list[str] | None = None
+        self._deck_caption_tag = ""
+        self._deck_caption_kind = ""
         self._current_figure: FigureTrace | None = None
         self._current_slide: SlideTrace | None = None
         self._section_depth = 0
@@ -232,10 +241,14 @@ class ReportDeckTraceParser(HTMLParser):
 
         if tag == "main" and values.get("data-report-source"):
             self.deck_report_source = values["data-report-source"].strip()
+            self.deck_caption_scope = values.get("data-caption-scope", "")
+        if "notebook-example" in classes and element_id:
+            self.notebook_example_ids.add(element_id)
         if tag == "section":
             self._section_depth += 1
             if "slide" in classes:
                 self._current_slide = SlideTrace(
+                    element_id=element_id,
                     label=values.get("aria-label", "").strip(),
                     refs=values.get("data-report-refs", "").split(),
                     source_refs=values.get("data-source-refs", "").split(),
@@ -253,6 +266,13 @@ class ReportDeckTraceParser(HTMLParser):
                 self.report_sections.add(element_id)
                 self._report_text_section_depth = self._section_depth
 
+        if self._current_slide is not None and "data-deck-caption" in values:
+            self._deck_caption_parts = []
+            self._deck_caption_tag = tag
+            self._deck_caption_kind = values["data-deck-caption"]
+        if tag == "figure" and self._current_slide is not None:
+            self.deck_figure_count += 1
+
         if tag == "figure" and "report-figure" in classes:
             required = values.get("data-deck-use") == "required"
             if required and not element_id:
@@ -268,6 +288,8 @@ class ReportDeckTraceParser(HTMLParser):
             self._in_asset_note = True
         elif tag == "table":
             self._current_table_id = element_id
+            if self._current_slide is not None:
+                self._current_slide.table_count += 1
         elif tag == "caption":
             self._in_table_caption = True
 
@@ -332,6 +354,8 @@ class ReportDeckTraceParser(HTMLParser):
                 )
 
     def handle_data(self, data: str) -> None:
+        if self._deck_caption_parts is not None:
+            self._deck_caption_parts.append(data)
         if self._caption_chip_parts is not None:
             self._caption_chip_parts.append(data)
         if self._in_figure_caption and self._current_figure is not None:
@@ -355,6 +379,16 @@ class ReportDeckTraceParser(HTMLParser):
             self.unlinked_report_text_parts.append(data)
 
     def handle_endtag(self, tag: str) -> None:
+        if self._deck_caption_parts is not None and tag == self._deck_caption_tag:
+            label = " ".join(" ".join(self._deck_caption_parts).split())
+            match = CAPTION_NUMBER_RE.fullmatch(label)
+            expected_kind = {"figure": "그림", "table": "표"}.get(self._deck_caption_kind)
+            if match and match.group(1) == expected_kind:
+                self.deck_caption_numbers[expected_kind].append(int(match.group(2)))
+            else:
+                self.invalid_caption_chips.append(label or "<empty deck caption>")
+            self._deck_caption_parts = None
+            self._deck_caption_tag = ""
         if tag == "pre" and self._active_slide_pre_language is not None:
             if self._current_slide is not None:
                 self._current_slide.code_blocks_with_language.append(
@@ -1007,6 +1041,112 @@ def within(path: Path, parent: Path) -> bool:
         return True
     except ValueError:
         return False
+
+
+def validate_deck_caption_scope(trace, deck_html, errors):
+    if trace.deck_caption_scope not in ("", "deck"):
+        errors.append(f"unknown deck caption scope in {deck_html}")
+    if trace.deck_caption_scope != "deck":
+        return
+    for invalid in trace.invalid_caption_chips:
+        errors.append(f"invalid deck caption in {deck_html}: {invalid}")
+    counts = {"그림": trace.deck_figure_count, "표": sum(s.table_count for s in trace.slides)}
+    for kind, numbers in trace.deck_caption_numbers.items():
+        if numbers != list(range(1, counts[kind] + 1)):
+            errors.append(f"deck {kind} captions must be consecutive 1..N for all assets in {deck_html}: {numbers}, count={counts[kind]}")
+
+
+def validate_deck_teaching_review(metadata, report_trace, deck_trace, report_html, deck_html, errors):
+    """Validate the review's evidence links, not the quality of its prose."""
+    version = metadata.get("deck_quality")
+    if version is None:
+        return
+    if version != "report-teaching-v1":
+        errors.append(f"unknown deck_quality in {deck_html}: {version!r}")
+        return
+    report_page = PageParser()
+    report_page.feed(report_html.read_text(encoding="utf-8"))
+    has_deck_link = False
+    for tag, attribute, href in report_page.references:
+        target_url = urlparse(href)
+        if tag != "a" or attribute != "href" or target_url.scheme or target_url.netloc or not target_url.path:
+            continue
+        target = (report_html.parent / unquote(target_url.path)).resolve()
+        if target == deck_html.parent.resolve():
+            target /= "index.html"
+        has_deck_link |= target == deck_html.resolve()
+    if not has_deck_link:
+        errors.append(f"paired report must link to its deck: {report_html}")
+    name = metadata.get("deck_review")
+    if not isinstance(name, str) or not name:
+        errors.append(f"deck_review is required in {deck_html}")
+        return
+    path = (REPO_ROOT / name).resolve()
+    if Path(name).is_absolute() or not within(path, (REPO_ROOT / "agent-support/reviews").resolve()):
+        errors.append(f"deck_review must be under agent-support/reviews: {name}")
+        return
+    try:
+        review = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(review, dict) or review.get("schema_version") != 1 or review.get("verdict") != "reviewed":
+            raise ValueError("expected reviewed schema_version=1")
+        for key, artifact in (("report_sha256", report_html), ("deck_sha256", deck_html)):
+            if review.get(key) != hashlib.sha256(artifact.read_bytes()).hexdigest():
+                errors.append(f"deck_review {key} is stale: {artifact}")
+        slides = {slide.element_id: slide for slide in deck_trace.slides}
+        if "" in slides or len(slides) != len(deck_trace.slides):
+            raise ValueError("teaching slides require unique non-empty ids")
+
+        def identifiers(value, allowed, label):
+            if not isinstance(value, list) or not value or any(not isinstance(x, str) or x not in allowed for x in value):
+                raise ValueError(f"invalid or missing {label}")
+            return set(value)
+
+        units = review.get("units")
+        if not isinstance(units, list) or not units:
+            raise ValueError("teaching units are required")
+        covered_slides, covered_report = set(), set()
+        for unit in units:
+            if not isinstance(unit, dict):
+                raise ValueError("each teaching unit must be an object")
+            for key in ("question", "explanation", "evidence", "conditions"):
+                if not isinstance(unit.get(key), str) or not unit[key].strip():
+                    raise ValueError(f"unit {key} is required (explain inapplicable items)")
+            refs = identifiers(unit.get("report_refs"), report_trace.ids, "unit report_refs")
+            ids = identifiers(unit.get("slide_ids"), slides, "unit slide_ids")
+            if not refs <= {ref for i in ids for ref in slides[i].refs}:
+                raise ValueError("unit report_refs must be traced by its teaching slides")
+            covered_slides.update(ids)
+            covered_report.update(refs)
+        if covered_slides != set(slides):
+            errors.append(f"deck_review misses teaching slide(s): {sorted(set(slides) - covered_slides)}")
+        if not report_trace.report_sections <= covered_report:
+            errors.append(f"deck_review misses report section(s): {sorted(report_trace.report_sections - covered_report)}")
+        experiments = review.get("experiments", [])
+        if not isinstance(experiments, list):
+            raise ValueError("experiments must be an array")
+        covered_experiments = set()
+        for item in experiments:
+            if not isinstance(item, dict) or item.get("report_id") not in report_trace.notebook_example_ids:
+                raise ValueError("experiment must name a report notebook-example")
+            report_id = item["report_id"]
+            if report_id in covered_experiments:
+                raise ValueError("duplicate experiment review")
+            covered_experiments.add(report_id)
+            codes = identifiers(item.get("code_slides"), slides, "code_slides")
+            outputs = identifiers(item.get("result_slides"), slides, "result_slides")
+            interpretations = identifiers(item.get("interpretation_slides"), slides, "interpretation_slides")
+            if any(report_id not in slides[i].refs for i in codes | outputs | interpretations):
+                raise ValueError("experiment slides must trace the same notebook-example")
+            if not any(slides[i].code_blocks_with_language for i in codes):
+                raise ValueError("experiment code_slides contain no code")
+            if not any(slides[i].image_sources or slides[i].table_count for i in outputs):
+                raise ValueError("experiment result_slides contain no chart or table")
+            if not isinstance(item.get("interpretation"), str) or not item["interpretation"].strip():
+                raise ValueError("experiment interpretation is required")
+        if covered_experiments != report_trace.notebook_example_ids:
+            errors.append(f"deck_review misses notebook evidence: {sorted(report_trace.notebook_example_ids - covered_experiments)}")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        errors.append(f"invalid deck_review {name}: {exc}")
 
 
 def normalize_font_stack(value: str) -> tuple[str, ...]:
@@ -1991,6 +2131,8 @@ def validate_metadata(
                         f"inline SVG in {report_html}: {figure_id}"
                     )
             if "slides" in artifacts:
+                validate_deck_teaching_review(metadata, report_trace, deck_trace, report_html, deck_html, errors)
+                validate_deck_caption_scope(deck_trace, deck_html, errors)
                 if deck_trace.deck_report_source != "report.html":
                     errors.append(
                         f"deck must declare data-report-source='report.html' on its main "
@@ -2061,7 +2203,12 @@ def validate_metadata(
                         for report_id in slide.refs
                         if report_id in report_trace.caption_labels_by_id
                     }
-                    stale_slide_labels = visible_slide_labels - expected_slide_labels
+                    # Explicit deck-local captions are independent of the report.
+                    # Numbered report-ref links above retain their target checks.
+                    stale_slide_labels = (
+                        visible_slide_labels - expected_slide_labels
+                        if deck_trace.deck_caption_scope != "deck" else set()
+                    )
                     if stale_slide_labels:
                         found_text = ", ".join(
                             f"{kind} {number}"
@@ -2101,7 +2248,14 @@ def validate_metadata(
                             f"{report_html}: {figure_id}"
                         )
                         continue
-                    if not (figure.image_sources & deck_image_sources):
+                    adapted = any(
+                        slide.visual_adaptation == "intentional"
+                        and figure_id in slide.refs
+                        and figure_id in slide.report_links
+                        and slide.image_sources
+                        for slide in deck_trace.slides
+                    )
+                    if not (figure.image_sources & deck_image_sources) and not adapted:
                         errors.append(
                             f"deck does not visually reuse required report figure src in "
                             f"{deck_html}: {figure_id} -> {sorted(figure.image_sources)}"
