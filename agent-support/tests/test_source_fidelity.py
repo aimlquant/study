@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import importlib.util
 import io
+import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -770,6 +772,78 @@ class PrintSourceOutlineTest(unittest.TestCase):
         self.assertEqual(len(lines) - 1, int(count))
         for line in lines[:-1]:
             self.assertEqual(3, len(line.split("\t")), line)
+
+
+class ReportOnlyLearningTest(unittest.TestCase):
+    def test_colon_captions_are_not_silently_omitted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            p = Path(directory) / "chapter.md"
+            p.write_text("# 제목\n### 1.1 절\n그림 1.1: 위험 비교\n\nTable 1.2: Results\n")
+            outline = validate_site.parse_source_outline(p)
+        self.assertEqual(list(outline), [("section", "1.1"), ("figure", "1.1"), ("table", "1.2")])
+
+    def test_report_only_checks_source_without_requiring_a_deck(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "materials/study/chapter.md"
+            source.parent.mkdir(parents=True)
+            source.write_text(SYNTHETIC_SOURCE)
+            trace = validate_site.ReportDeckTraceParser()
+            trace.feed(SYNTHETIC_REPORT)
+            metadata = {"source_fidelity": "source-structure-v1", "source_material": "materials/study/chapter.md", "title": "Chapter 1. 정확한 장 제목"}
+            with mock.patch.object(validate_site, "REPO_ROOT", root):
+                errors = []
+                validate_site.validate_source_fidelity(metadata, {"materials_path": "materials/study"}, trace, None, root / "report.html", root / "index.html", errors)
+                self.assertEqual(errors, [])
+                trace.source_anchors.pop(("section", "1.2"))
+                validate_site.validate_source_fidelity(metadata, {"materials_path": "materials/study"}, trace, None, root / "report.html", root / "index.html", errors)
+                self.assertTrue(any("missing coordinate" in e for e in errors), errors)
+                self.assertFalse(any("deck" in e for e in errors), errors)
+
+    def test_review_catches_missing_sections_stale_report_and_stale_source(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "materials/study/chapter.md"
+            source.parent.mkdir(parents=True)
+            source.write_text(SYNTHETIC_SOURCE)
+            report = root / "report.html"
+            report.write_text(SYNTHETIC_REPORT)
+            trace = validate_site.ReportDeckTraceParser()
+            trace.feed(SYNTHETIC_REPORT)
+            path = root / "agent-support/reviews/content.json"
+            path.parent.mkdir(parents=True)
+            review = {"schema_version": 1, "verdict": "reviewed", "report_sha256": hashlib.sha256(report.read_bytes()).hexdigest(),
+                "sources": [{"role": role, "path": "materials/study/chapter.md", "sha256": hashlib.sha256(source.read_bytes()).hexdigest()} for role in ("original", "outline")],
+                "sections": [{"ref": ref, "report_id": trace.source_anchors[("section", ref)].element_id, "explanation": "정의와 계산", "evidence": "입력 예제", "limits": "조건부", "visuals": "상태 비교"} for ref in ("1.1", "1.2")]}
+            metadata = {"report_quality": "source-learning-v1", "source_fidelity": "source-structure-v1", "source_material": "materials/study/chapter.md", "content_review": "agent-support/reviews/content.json"}
+            def check():
+                path.write_text(json.dumps(review))
+                errors = []
+                with mock.patch.object(validate_site, "REPO_ROOT", root):
+                    validate_site.validate_content_review(metadata, {"materials_path": "materials/study"}, trace, report, errors, [])
+                return errors
+            self.assertEqual(check(), [])
+            for field, invalid in (("sources", [None]), ("sections", {}),
+                                   ("sections", [None]), ("experiments", {}),
+                                   ("experiments", [None])):
+                with self.subTest(field=field, invalid=invalid):
+                    original = review.get(field)
+                    review[field] = invalid
+                    self.assertTrue(any("invalid content_review" in e for e in check()))
+                    if original is None:
+                        review.pop(field)
+                    else:
+                        review[field] = original
+            section = review["sections"].pop()
+            self.assertTrue(any("coverage differs" in e for e in check()))
+            review["sections"].append(section)
+            report.write_text(SYNTHETIC_REPORT + "<p>변경된 주장</p>")
+            self.assertTrue(any("report hash is stale" in e for e in check()))
+            report.write_text(SYNTHETIC_REPORT)
+            source.write_text(SYNTHETIC_SOURCE + "\n수정된 원문")
+            self.assertTrue(any("source hash is stale" in e for e in check()))
+            metadata.pop("source_fidelity")
+            self.assertTrue(any("requires source_fidelity" in e for e in check()))
 
 
 if __name__ == "__main__":

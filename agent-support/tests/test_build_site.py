@@ -167,6 +167,26 @@ class SiteRenderingTest(unittest.TestCase):
         self.assertIn('class="session-discussion-points"', page)
         self.assertIn("세 운영안을 비교합니다.", page)
 
+    def test_chapter_summary_without_discussion_has_learning_context(self) -> None:
+        session = {
+            "id": "2026-08-01-machine-trading-ch02",
+            "study_id": "machine-trading-2026",
+            "date": "2026-08-01",
+            "title": "Chapter 2. 팩터 모델",
+            "presenters": ["태영"],
+            "chapters": ["Chapter 2"],
+            "status": "materials-published",
+            "summary": "팩터 노출의 의미와 측정 방법을 설명합니다.",
+            "artifacts": [],
+        }
+        page = build_site.render_files(SITE, STUDIES, [session])[
+            Path("sessions/2026-08-01-machine-trading-ch02/index.html")
+        ]
+        self.assertIn("이번 회차에서 배울 것", page)
+        self.assertNotIn("함께 결정할 것", page)
+        self.assertNotIn('class="session-discussion-points"', page)
+        self.assertTrue(all(line == line.rstrip() for line in page.splitlines()))
+
     def test_schedule_and_presenter_are_visible_in_lists_and_catalog(self) -> None:
         session = {
             "id": "2026-08-01-machine-trading-ch02",

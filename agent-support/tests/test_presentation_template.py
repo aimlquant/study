@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import importlib.util
 import shutil
+import subprocess
+import sys
 import tempfile
+import tomllib
 import unittest
 from pathlib import Path
 
@@ -21,6 +24,31 @@ REPORT_TEMPLATE = REPO_ROOT / "agent-support" / "templates" / "study-report"
 
 
 class PresentationTemplateContractTest(unittest.TestCase):
+    def test_report_only_scaffold_enables_report_gates_without_a_deck(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT),
+                 "--study", "machine-learning-for-trading-3e-2026",
+                 "--session", "test-report-only", "--title", "시험 리포트",
+                 "--date", "2026-09-12", "--presenter", "태영",
+                 "--chapter", "Chapter 1", "--artifacts", "report",
+                 "--source-material", "materials/quant/active/example/ch01.md",
+                 "--site", directory],
+                capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            target = Path(directory) / "studies/machine-learning-for-trading-3e/presentations/test-report-only"
+            metadata = tomllib.loads((target / "presentation.toml").read_text())
+            self.assertEqual(metadata["artifacts"], ["report"])
+            self.assertEqual(metadata["source_fidelity"], "source-structure-v1")
+            self.assertEqual(metadata["report_quality"], "source-learning-v1")
+            self.assertEqual(metadata["source_material"], "materials/quant/active/example/ch01.md")
+            self.assertFalse((target / "index.html").exists())
+            self.assertFalse((target / "assets/deck.js").exists())
+            self.assertTrue((target / "assets/report.js").is_file())
+            self.assertNotIn('<a href="./">Slides</a>', (target / "report.html").read_text())
+            self.assertNotIn("derive index.html", result.stdout)
+
     def test_current_templates_pass_the_scaffolder_contract(self) -> None:
         new_presentation.validate_template_sources(DECK_TEMPLATE, REPORT_TEMPLATE)
 

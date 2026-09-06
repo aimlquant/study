@@ -484,7 +484,7 @@ def parse_source_outline(
         re.IGNORECASE,
     )
     caption_re = re.compile(
-        r"^(그림|Figure|표|Table)\s+(\d+\.\d+)\s+(.+?)\s*$",
+        r"^(그림|Figure|표|Table)\s+(\d+\.\d+)(?:\s*:\s*|\s+)(.+?)\s*$",
         re.IGNORECASE,
     )
     exercise_re = re.compile(r"^#{1,6}\s+(?:Exercise\s*\(연습문제\)|연습문제)(?:\s*[—-]\s*)?(.+?)\s*$", re.IGNORECASE)
@@ -687,7 +687,7 @@ def validate_source_fidelity(
     metadata: dict,
     study: dict,
     report_trace: ReportDeckTraceParser,
-    deck_trace: ReportDeckTraceParser,
+    deck_trace: ReportDeckTraceParser | None,
     report_html: Path,
     deck_html: Path,
     errors: list[str],
@@ -796,6 +796,9 @@ def validate_source_fidelity(
             f"report source coordinates are out of source order in {report_html}: "
             f"{[f'{kind}:{ref}' for kind, ref in actual_order]}"
         )
+
+    if deck_trace is None:
+        return
 
     deck_refs: set[tuple[str, str]] = set()
     title_slides: dict[tuple[str, str], list[SlideTrace]] = {}
@@ -910,6 +913,92 @@ def validate_source_fidelity(
             f"{deck_html}: "
             f"{[f'{kind}:{ref}' for kind, ref in missing_required_source_figures]}"
         )
+
+
+def validate_content_review(metadata, study, trace, report_html, errors, warnings):
+    """Check review coverage and freshness, never claim semantic correctness."""
+    version = metadata.get("report_quality")
+    if version is None:
+        return  # Existing publications retain their recorded review procedure.
+    if version != "source-learning-v1":
+        errors.append(f"unknown report_quality in {report_html}: {version!r}")
+        return
+    if metadata.get("source_fidelity") != SOURCE_FIDELITY_VERSION:
+        errors.append(f"source-learning-v1 requires source_fidelity in {report_html}")
+    review_name = metadata.get("content_review")
+    if not isinstance(review_name, str) or not review_name:
+        errors.append(f"content_review is required in {report_html}")
+        return
+    path = (REPO_ROOT / review_name).resolve()
+    if Path(review_name).is_absolute() or not within(path, (REPO_ROOT / "agent-support/reviews").resolve()):
+        errors.append(f"content_review must be under agent-support/reviews: {review_name}")
+        return
+    try:
+        review = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(review, dict) or review.get("schema_version") != 1:
+            raise ValueError("expected review schema_version=1")
+        if review.get("report_sha256") != hashlib.sha256(report_html.read_bytes()).hexdigest():
+            errors.append(f"content_review report hash is stale: {report_html}")
+        sources = review.get("sources", [])
+        if not isinstance(sources, list) or not sources:
+            raise ValueError("review sources are required")
+        roles = set()
+        for source in sources:
+            if not isinstance(source, dict):
+                raise ValueError("each review source must be an object")
+            roles.add(source["role"])
+            relative = Path(source["path"])
+            source_path = (REPO_ROOT / relative).resolve()
+            materials_root = (REPO_ROOT / study["materials_path"]).resolve()
+            if relative.is_absolute() or not within(source_path, materials_root):
+                raise ValueError("review source must remain under study materials_path")
+            if not re.fullmatch(r"[0-9a-f]{64}", source["sha256"]):
+                raise ValueError("invalid review source hash")
+            if materials_root.is_dir():
+                if not source_path.is_file() or hashlib.sha256(source_path.read_bytes()).hexdigest() != source["sha256"]:
+                    errors.append(f"content_review source hash is stale or missing: {source['path']}")
+        if not {"original", "outline"}.issubset(roles):
+            raise ValueError("review needs original and outline sources")
+        if not any(source["role"] == "outline" and source["path"] == metadata.get("source_material") for source in sources):
+            raise ValueError("review outline must match source_material")
+        sections = review.get("sections", [])
+        if not isinstance(sections, list):
+            raise ValueError("review sections must be a list")
+        expected = {ref for kind, ref in trace.source_anchors if kind == "section"}
+        seen = set()
+        for section in sections:
+            if not isinstance(section, dict):
+                raise ValueError("each review section must be an object")
+            ref = section["ref"]
+            if ref in seen or ref not in expected:
+                raise ValueError(f"duplicate or unknown review section: {ref}")
+            seen.add(ref)
+            anchor = trace.source_anchors[("section", ref)]
+            if section.get("report_id") != anchor.element_id:
+                raise ValueError(f"review section target differs: {ref}")
+            for field in ("explanation", "evidence", "limits", "visuals"):
+                if not isinstance(section.get(field), str) or not section[field].strip():
+                    raise ValueError(f"review section {ref} needs {field}; state a reason when inapplicable")
+        if not expected or seen != expected:
+            raise ValueError(f"review section coverage differs: missing {sorted(expected - seen)}")
+        experiments = review.get("experiments", [])
+        if not isinstance(experiments, list):
+            raise ValueError("review experiments must be a list")
+        for experiment in experiments:
+            if not isinstance(experiment, dict):
+                raise ValueError("each review experiment must be an object")
+            if experiment["status"] not in {"executed", "stored-output", "book-only", "not-run"}:
+                raise ValueError("unknown experiment execution status")
+            for field in ("scope", "source", "interpretation"):
+                if not isinstance(experiment.get(field), str) or not experiment[field].strip():
+                    raise ValueError(f"experiment needs {field}")
+            targets = experiment["report_ids"]
+            if not isinstance(targets, list) or not targets or not set(targets).issubset(trace.ids):
+                raise ValueError("experiment report_ids must identify actual evidence")
+        if review.get("verdict") != "reviewed":
+            raise ValueError("content review is unfinished")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        errors.append(f"invalid content_review {review_name}: {exc}")
 
 
 def within(path: Path, parent: Path) -> bool:
@@ -1818,10 +1907,8 @@ def validate_metadata(
         validate_svg_prose_contract(metadata_path.parent, errors)
 
         if (
-            {"report", "slides"}.issubset(artifacts)
-            and template_id == "study-deck-v1"
+            "report" in artifacts
             and report_template_id == "study-report-v1"
-            and deck_html.is_file()
             and report_html.is_file()
         ):
             expected_workflow = "raw-report-deck-v1"
@@ -1839,18 +1926,20 @@ def validate_metadata(
             report_trace = ReportDeckTraceParser()
             report_trace.feed(report_html.read_text(encoding="utf-8", errors="replace"))
             deck_trace = ReportDeckTraceParser()
-            deck_trace.feed(deck_html.read_text(encoding="utf-8", errors="replace"))
+            if "slides" in artifacts and deck_html.is_file():
+                deck_trace.feed(deck_html.read_text(encoding="utf-8", errors="replace"))
 
             validate_source_fidelity(
                 metadata,
                 studies[study_id],
                 report_trace,
-                deck_trace,
+                deck_trace if "slides" in artifacts else None,
                 report_html,
                 deck_html,
                 errors,
                 warnings,
             )
+            validate_content_review(metadata, studies[study_id], report_trace, report_html, errors, warnings)
             if metadata.get("source_fidelity") == SOURCE_FIDELITY_VERSION:
                 validate_source_fidelity_report_css(metadata_path.parent, errors)
                 validate_svg_connector_fill_contract(metadata_path.parent, errors)
@@ -1901,121 +1990,122 @@ def validate_metadata(
                         f"report figure lacks non-empty image alt text or an accessible "
                         f"inline SVG in {report_html}: {figure_id}"
                     )
-            if deck_trace.deck_report_source != "report.html":
-                errors.append(
-                    f"deck must declare data-report-source='report.html' on its main "
-                    f"element: {deck_html}"
-                )
-            if not deck_trace.slides:
-                errors.append(f"deck has no traceable slides: {deck_html}")
+            if "slides" in artifacts:
+                if deck_trace.deck_report_source != "report.html":
+                    errors.append(
+                        f"deck must declare data-report-source='report.html' on its main "
+                        f"element: {deck_html}"
+                    )
+                if not deck_trace.slides:
+                    errors.append(f"deck has no traceable slides: {deck_html}")
 
-            labels = [slide.label for slide in deck_trace.slides]
-            for index, label in enumerate(labels, start=1):
-                if not label:
-                    errors.append(
-                        f"slide {index} lacks a non-empty aria-label in {deck_html}"
-                    )
-            duplicates = sorted(
-                label for label in set(labels) if label and labels.count(label) > 1
-            )
-            if duplicates:
-                errors.append(
-                    f"deck slide aria-label values must be unique in {deck_html}: "
-                    f"{duplicates}"
+                labels = [slide.label for slide in deck_trace.slides]
+                for index, label in enumerate(labels, start=1):
+                    if not label:
+                        errors.append(
+                            f"slide {index} lacks a non-empty aria-label in {deck_html}"
+                        )
+                duplicates = sorted(
+                    label for label in set(labels) if label and labels.count(label) > 1
                 )
+                if duplicates:
+                    errors.append(
+                        f"deck slide aria-label values must be unique in {deck_html}: "
+                        f"{duplicates}"
+                    )
 
-            referenced: set[str] = set()
-            deck_image_sources: set[str] = set()
-            for slide in deck_trace.slides:
-                label = slide.label or "unnamed slide"
-                if not slide.refs:
-                    errors.append(
-                        f"slide lacks data-report-refs in {deck_html}: {label}"
-                    )
-                    continue
-                referenced.update(slide.refs)
-                deck_image_sources.update(slide.image_sources)
-                unknown = sorted(set(slide.refs) - report_trace.ids)
-                if unknown:
-                    errors.append(
-                        f"slide references unknown report id(s) in {deck_html} "
-                        f"({label}): {unknown}"
-                    )
-                untraced_links = sorted(slide.report_links - set(slide.refs))
-                if untraced_links:
-                    errors.append(
-                        f"slide report.html anchor is absent from data-report-refs in "
-                        f"{deck_html} ({label}): {untraced_links}"
-                    )
-                for report_reference in slide.report_references:
-                    expected = report_trace.caption_labels_by_id.get(
-                        report_reference.target
-                    )
-                    if expected is None:
+                referenced: set[str] = set()
+                deck_image_sources: set[str] = set()
+                for slide in deck_trace.slides:
+                    label = slide.label or "unnamed slide"
+                    if not slide.refs:
+                        errors.append(
+                            f"slide lacks data-report-refs in {deck_html}: {label}"
+                        )
                         continue
-                    visible = extract_caption_references(report_reference.text)
-                    if visible and visible != {expected}:
-                        expected_text = f"{expected[0]} {expected[1]}"
+                    referenced.update(slide.refs)
+                    deck_image_sources.update(slide.image_sources)
+                    unknown = sorted(set(slide.refs) - report_trace.ids)
+                    if unknown:
+                        errors.append(
+                            f"slide references unknown report id(s) in {deck_html} "
+                            f"({label}): {unknown}"
+                        )
+                    untraced_links = sorted(slide.report_links - set(slide.refs))
+                    if untraced_links:
+                        errors.append(
+                            f"slide report.html anchor is absent from data-report-refs in "
+                            f"{deck_html} ({label}): {untraced_links}"
+                        )
+                    for report_reference in slide.report_references:
+                        expected = report_trace.caption_labels_by_id.get(
+                            report_reference.target
+                        )
+                        if expected is None:
+                            continue
+                        visible = extract_caption_references(report_reference.text)
+                        if visible and visible != {expected}:
+                            expected_text = f"{expected[0]} {expected[1]}"
+                            found_text = ", ".join(
+                                f"{kind} {number}" for kind, number in sorted(visible)
+                            )
+                            errors.append(
+                                f"deck report reference caption label is stale in "
+                                f"{deck_html} ({label}): report.html#"
+                                f"{report_reference.target} expects {expected_text}, "
+                                f"found {found_text} in {report_reference.text!r}"
+                            )
+                    visible_slide_labels = extract_caption_references(slide.text)
+                    expected_slide_labels = {
+                        report_trace.caption_labels_by_id[report_id]
+                        for report_id in slide.refs
+                        if report_id in report_trace.caption_labels_by_id
+                    }
+                    stale_slide_labels = visible_slide_labels - expected_slide_labels
+                    if stale_slide_labels:
                         found_text = ", ".join(
-                            f"{kind} {number}" for kind, number in sorted(visible)
+                            f"{kind} {number}"
+                            for kind, number in sorted(stale_slide_labels)
+                        )
+                        expected_text = (
+                            ", ".join(
+                                f"{kind} {number}"
+                                for kind, number in sorted(expected_slide_labels)
+                            )
+                            if expected_slide_labels
+                            else "<none>"
                         )
                         errors.append(
-                            f"deck report reference caption label is stale in "
-                            f"{deck_html} ({label}): report.html#"
-                            f"{report_reference.target} expects {expected_text}, "
-                            f"found {found_text} in {report_reference.text!r}"
+                            f"deck slide contains caption label(s) not backed by "
+                            f"data-report-refs in {deck_html} ({label}): "
+                            f"{found_text}; expected one of {expected_text}"
                         )
-                visible_slide_labels = extract_caption_references(slide.text)
-                expected_slide_labels = {
-                    report_trace.caption_labels_by_id[report_id]
-                    for report_id in slide.refs
-                    if report_id in report_trace.caption_labels_by_id
-                }
-                stale_slide_labels = visible_slide_labels - expected_slide_labels
-                if stale_slide_labels:
-                    found_text = ", ".join(
-                        f"{kind} {number}"
-                        for kind, number in sorted(stale_slide_labels)
-                    )
-                    expected_text = (
-                        ", ".join(
-                            f"{kind} {number}"
-                            for kind, number in sorted(expected_slide_labels)
-                        )
-                        if expected_slide_labels
-                        else "<none>"
-                    )
-                    errors.append(
-                        f"deck slide contains caption label(s) not backed by "
-                        f"data-report-refs in {deck_html} ({label}): "
-                        f"{found_text}; expected one of {expected_text}"
-                    )
 
-            missing_sections = sorted(report_trace.report_sections - referenced)
-            if missing_sections:
-                errors.append(
-                    f"deck does not cover report section id(s) in {deck_html}: "
-                    f"{missing_sections}"
-                )
-            missing_figures = sorted(report_trace.required_figures - referenced)
-            if missing_figures:
-                errors.append(
-                    f"deck does not reuse required report figure id(s) in {deck_html}: "
-                    f"{missing_figures}"
-                )
-            for figure_id in sorted(report_trace.required_figures):
-                figure = report_trace.figures[figure_id]
-                if not figure.image_sources:
+                missing_sections = sorted(report_trace.report_sections - referenced)
+                if missing_sections:
                     errors.append(
-                        f"required report figure must use a reusable img src in "
-                        f"{report_html}: {figure_id}"
+                        f"deck does not cover report section id(s) in {deck_html}: "
+                        f"{missing_sections}"
                     )
-                    continue
-                if not (figure.image_sources & deck_image_sources):
+                missing_figures = sorted(report_trace.required_figures - referenced)
+                if missing_figures:
                     errors.append(
-                        f"deck does not visually reuse required report figure src in "
-                        f"{deck_html}: {figure_id} -> {sorted(figure.image_sources)}"
+                        f"deck does not reuse required report figure id(s) in {deck_html}: "
+                        f"{missing_figures}"
                     )
+                for figure_id in sorted(report_trace.required_figures):
+                    figure = report_trace.figures[figure_id]
+                    if not figure.image_sources:
+                        errors.append(
+                            f"required report figure must use a reusable img src in "
+                            f"{report_html}: {figure_id}"
+                        )
+                        continue
+                    if not (figure.image_sources & deck_image_sources):
+                        errors.append(
+                            f"deck does not visually reuse required report figure src in "
+                            f"{deck_html}: {figure_id} -> {sorted(figure.image_sources)}"
+                        )
 
             validate_font_stack_contract(
                 metadata_path.parent,

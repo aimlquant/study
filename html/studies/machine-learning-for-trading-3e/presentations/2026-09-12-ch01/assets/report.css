@@ -3899,6 +3899,8 @@ svg.report-lightbox__visual {
     page-break-inside: auto !important;
   }
 }
+
+
 .report pre[data-code-language]::after { content: attr(data-code-language); }
 
 /* Printed code must expose every character without a scroll viewport. */
@@ -3913,6 +3915,21 @@ svg.report-lightbox__visual {
     max-width: 100%;
     overflow: visible;
   }
+}
+
+
+
+/* ML4T chapter 1 reading contracts */
+.figure-scroll { overflow-x: auto; }
+.figure-scroll img { width: 100%; height: auto; }
+.notebook-example { margin-top: 2rem; padding-top: 1rem; border-top: 2px solid var(--brand-primary); }
+.report-section h3, .notebook-example h3 { scroll-margin-top: 32px; }
+.source-note { font-size: .86em; line-height: 1.65; color: var(--text-muted, #526174); }
+@media print {
+  .figure-scroll { overflow: visible; }
+  .figure-scroll img { min-width: 0; }
+  html .report.continuous-mode { --reader-body-size: 15px; --reader-line-height: 1.7; }
+  .continuous-mode .report-section p { margin-top: 0; margin-bottom: 12px; }
 }
 
 /* A4 section spacing and intact short code blocks. */

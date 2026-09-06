@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "c3907e1e8118612bcadb7a284a6300021b3a95da3e72e39a621d5ccb65b27133",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/01_chapter_01_the_process_is_your_edge.md",
+      "sha256": "9ccdcb71d43a97be4298775dd93713e9df183fe46f1204ca6d21f1691f41e52b",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "outline",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/01_chapter_01_the_process_is_your_edge_ko.md",
+      "sha256": "ed890b4f67c2cfe080aa79e0e74c5ffd73ee4d0c587ee37c1bb7ee3d68028b69",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "explainer",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/01_chapter_01_the_process_is_your_edge_ko_explained.md",
+      "sha256": "cb755cf63091ad405b4987944ed5fe43f07d3ef041aa19b3d7132739d9c5d4ae",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "notebook",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/src/ch01/01_chapter_guide.ipynb",
+      "sha256": "6e30076a689621330535a6e0a4ca2a9b679c45d4ab2cd0f6bff37c6e163b153e",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "errata",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/errata.toml",
+      "sha256": "1e80873864f74330c95d803de9016839824b9be261295d1eb475b90fde01174a",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "runtime",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/notebook-study/harness.py",
+      "sha256": "7e34c71d009781730e82dc0b5dbb75acbdd51b1f647a7b1b5731c9803af4b9f5",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "runtime",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/notebook-study/experiments/ch01.py",
+      "sha256": "3cab61b607f5c5751d25cabd5a79209cdf78cb97efa052166def0cdc31d51a31",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "runtime",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/notebook-study/requirements.lock",
+      "sha256": "5338a81107f16a93b4754bf8de0be616f753b9b31a28aa1bdcf1c65b5861f676",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "official",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/official-resources/code/machine-learning-for-trading/01_process_is_edge/factor_regimes.py",
+      "sha256": "ce07ad4bb868efc3ac096f60eff8169024aa27698da54fb49091d835f962cf24",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    },
+    {
+      "role": "official",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/official-resources/code/machine-learning-for-trading/01_process_is_edge/macro_regimes.py",
+      "sha256": "8383a9f39aa2ed516f5e0ba2c5450d158fa6d39b0994d188d2e8d9f3d291dc19",
+      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+    }
+  ],
+  "sections": [
+    {
+      "ref": "1.1",
+      "report_id": "s1-1",
+      "explanation": "네 충격, 단절·국면·두 드리프트·온라인 탐지, 적응적 시장 가설과 다섯 연구 실패를 연결했다.",
+      "evidence": "shocks, table-change, adaptive-markets, lifecycle: 원서의 사례와 논리를 설명한다.",
+      "limits": "사례는 원서의 2020–2025년 설명이며 현 시장 진단이나 수익 보장이 아니다. 구매 QR·홍보 문구는 학습 범위에서 제외.",
+      "visuals": "fig-lifecycle: 여섯 단계, 다섯 QA와 갱신/범위 재설정 피드백을 새 배치로 보여준다."
+    },
+    {
+      "ref": "1.2",
+      "report_id": "s1-2",
+      "explanation": "공유 데이터 기반, 다섯 고정 조건, 특성·모델 반복, 전략·배포·감시와 증거 경계를 각 하위 주제에서 설명했다.",
+      "evidence": "table-invariants, lab-boundary: 공개 시점 예와 실제 125/126일 출력·지표 계산을 연결했다.",
+      "limits": "실적 예·20일 규칙은 보충. 비용·체결·선택 보정을 검증한 전략으로 읽지 않는다. 보고한 연율 평균은 CAGR이 아니다.",
+      "visuals": "fig-workflow, fig-boundary-output: 두 층과 증거 경계, 구간별 별도 초기 자산의 누적 곡선."
+    },
+    {
+      "ref": "1.3",
+      "report_id": "s1-3",
+      "explanation": "예측 우선/메커니즘 우선, 신호/측정 산출물, 인과 가정과 생성 AI의 세 위험을 구분했다.",
+      "evidence": "entrypoints, table-deliverables, causal-inference, generative-ai: 원서 설명과 보충 기사 예.",
+      "limits": "경제적 이야기를 인과 식별로 승격하지 않으며 도구의 장점을 조건부로 설명한다. 그림 1.4의 행 대응은 임의로 고치지 않았다.",
+      "visuals": "fig-entries: 공유 검증과 두 산출물. fig-ai-workflow: 원서 일곱 행의 역할 대응을 읽는 도해."
+    },
+    {
+      "ref": "1.4",
+      "report_id": "s1-4",
+      "explanation": "세 국면 과제, AQR 스타일과 FRED 거시 입력, 표준화·GMM 모수/학습/확률, 위험 결과와 실시간 적용 한계를 연결했다.",
+      "evidence": "gmm-mechanism, table-factor-results, macro-results, lab-gmm: 책 2상태/6상태와 0.710, 22셀 재실행 GMM 출력.",
+      "limits": "공식 전체 분석은 미실행. 직접 변동성/이동 평균을 분리. fig1.5/1.6의 정확한 월별 경로는 원시 자료 미재실행으로 생략하고 보고 집계만 새로 비교했다. source note에 범위 명시.",
+      "visuals": "fig-factor-risk, fig-macro-risk: 다른 집계/축을 구별. fig-time-boundary, fig-gmm-output: 학습/확인과 관측 후 상태 소속 확률. 작은 예제는 원서 재현이 아니다."
+    },
+    {
+      "ref": "1.5",
+      "report_id": "s1-5",
+      "explanation": "기관 견제의 역할, 독립 연구 네 실패, 문서화와 다섯 점검, 구조적 제약·용량 기회·인프라 축적을 하위 제목별 설명했다.",
+      "evidence": "table-solo-failures, scoping-check부터 reusable-infrastructure: 원서의 비용 두 배/지연 등 민감도 질문.",
+      "limits": "기관 성공이나 작은 운용의 수익을 보장하지 않는다. 정량 합격선을 창작하지 않고 원서의 조건부 제안으로 서술.",
+      "visuals": "table-solo-failures가 실패와 기록을 대응하며 추가 범용 운영 도형은 만들지 않았다."
+    },
+    {
+      "ref": "1.6",
+      "report_id": "s1-6",
+      "explanation": "시장 변화→데이터/평가 규율→도구/국면→운영이라는 이미 설명한 내용만 요약하고 2장으로 연결했다.",
+      "evidence": "checkpoints: 모든 질문을 실제 본문 앵커로 연결했다.",
+      "limits": "새 수치·전략·권고를 요약에서 추가하지 않았다. 토론 질문은 독자 전략에 적용할 열린 질문이다.",
+      "visuals": "앞 절의 핵심 자료를 참조하며 결론을 장식하는 추가 그림은 불필요하다."
+    }
+  ],
+  "experiments": [
+    {
+      "status": "executed",
+      "scope": "CPU local conceptual example, 2021 five stocks, 125/126 daily returns, costs excluded",
+      "source": "01_chapter_guide.ipynb cell 8ee9f5c645228076; harness._evidence_boundary; rerun 2026-09-06",
+      "report_ids": [
+        "lab-boundary",
+        "table-boundary-output",
+        "fig-boundary-output"
+      ],
+      "interpretation": "각 구간 성과를 분리해 읽는 예이며 유의성·비용 후 alpha·실제 체결을 입증하지 않는다."
+    },
+    {
+      "status": "executed",
+      "scope": "Training-only scaler and frozen two-component GMM; five daily stock returns, different from AQR monthly factors",
+      "source": "01_chapter_guide.ipynb cell 1e7d90cc52028f6d; experiments/ch01.py; rerun 2026-09-06",
+      "report_ids": [
+        "lab-gmm",
+        "table-gmm-output",
+        "fig-gmm-output"
+      ],
+      "interpretation": "관측한 날의 상태 소속 확률. 미래 수익 확률·위기 탐지 성능으로 읽지 않는다."
+    },
+    {
+      "status": "book-only",
+      "scope": "Printed factor and macro aggregate statistics; no new full AQR/FRED run",
+      "source": "Chapter1 figures1.5/1.6, original prose and official .py aggregation code",
+      "report_ids": [
+        "fig-factor-risk",
+        "table-factor-results",
+        "fig-macro-risk"
+      ],
+      "interpretation": "책의 보고값이며 다른 두 변동성 집계와 낙폭 크기/경로 의미를 구별한다."
+    },
+    {
+      "status": "executed",
+      "scope": "2021 reference data diagnosis; not certification of vendor semantics",
+      "source": "01_chapter_guide.ipynb cell 6f09ca67905ccd51; rerun 2026-09-06",
+      "report_ids": [
+        "practice-guide",
+        "fig-reference-prices"
+      ],
+      "interpretation": "33 OHLC review rows and13 adjustment-factor changes remain data-meaning limits."
+    }
+  ]
+}

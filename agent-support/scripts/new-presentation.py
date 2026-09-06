@@ -39,6 +39,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--session", required=True, help="Lowercase ASCII session slug")
     parser.add_argument("--title", required=True, help="Presentation title")
     parser.add_argument("--subtitle", help="Cover subtitle; defaults to the chapter list")
+    parser.add_argument("--artifacts", choices=("report", "paired"), default="paired")
+    parser.add_argument("--source-material", default="", help="Registry-relative source outline path; required before publication")
     parser.add_argument("--date", required=True, help="Presentation date in YYYY-MM-DD")
     parser.add_argument(
         "--presenter", action="append", required=True, help="Presenter; repeat as needed"
@@ -203,6 +205,8 @@ def main() -> int:
             "DATE_TOML": toml_value(args.date),
             "PRESENTERS_TOML": toml_value(presenters),
             "CHAPTERS_TOML": toml_value(chapters),
+            "ARTIFACTS_TOML": toml_value(["report"] if args.artifacts == "report" else ["report", "slides"]),
+            "SOURCE_MATERIAL_TOML": toml_value(args.source_material),
         }
         deck_html = render(
             html_template.read_text(encoding="utf-8"), html_replacements, html_template.name
@@ -222,10 +226,15 @@ def main() -> int:
         if target.exists():
             raise ValueError(f"presentation directory already exists: {target}")
         target.mkdir(parents=True)
-        (target / "index.html").write_text(deck_html, encoding="utf-8")
+        if args.artifacts == "paired":
+            (target / "index.html").write_text(deck_html, encoding="utf-8")
+        else:
+            report_html = report_html.replace('<a href="./">Slides</a>', '')
+            report_html = report_html.replace('<a href="./">발표자료</a>', '')
         (target / "report.html").write_text(report_html, encoding="utf-8")
         (target / "presentation.toml").write_text(metadata, encoding="utf-8")
-        shutil.copytree(assets_template, target / "assets")
+        if args.artifacts == "paired":
+            shutil.copytree(assets_template, target / "assets")
         shutil.copytree(report_assets_template, target / "assets", dirs_exist_ok=True)
         (target / "assets" / "figs").mkdir(exist_ok=True)
 
@@ -233,10 +242,11 @@ def main() -> int:
             display = target.relative_to(REPO_ROOT)
         except ValueError:
             display = target
-        print(f"created session report and presentation: {display}")
+        print(f"created session ({args.artifacts}): {display}")
         print(
             "next: follow agent-support/templates/STUDY_SESSION_BLUEPRINT.md; "
-            "finish and validate report.html first, then derive index.html from it"
+            "finish and validate report.html"
+            + (", then derive index.html from it" if args.artifacts == "paired" else "")
         )
         return 0
     except (OSError, ValueError) as exc:

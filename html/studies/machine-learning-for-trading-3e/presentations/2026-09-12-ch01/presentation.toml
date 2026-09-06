@@ -1,0 +1,17 @@
+study_id = "machine-learning-for-trading-3e-2026"
+session_id = "2026-09-12-ch01"
+title = "프로세스가 곧 경쟁 우위입니다"
+date = "2026-09-12"
+presenters = ["태영"]
+chapters = ["Chapter 1"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report"]
+# 작성 시작부터 검사한다. 원본 경로가 비어 있으면 발행 검증이 실패한다.
+source_fidelity = "source-structure-v1"
+source_material = "materials/quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/01_chapter_01_the_process_is_your_edge_ko.md"
+report_quality = "source-learning-v1"
+# 절별 설명·근거·실습 상태와 원본/산출물 해시를 남기는 제작자용 JSON.
+content_review = "agent-support/reviews/2026-09-12-ml4t-ch01-content.json"
