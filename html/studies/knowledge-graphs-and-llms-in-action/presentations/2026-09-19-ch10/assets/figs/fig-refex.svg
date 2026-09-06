@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .h{font-size:19px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .mono{font-family:'SFMono-Regular',Menlo,Consolas,monospace;font-size:12px;font-weight:700}
+    .line{stroke:#0f2c59;stroke-width:3;fill:none;stroke-linecap:round}
+    .s1{fill:#e8eef8;stroke:#b7c7e3}
+    .s2{fill:#fff7ed;stroke:#fdba74}
+    .s3{fill:#e7f7ef;stroke:#99d8b6}
+  </style>
+  <title id="title">ReFeX 반자동 특징 추출 — 재귀적 집계</title>
+  <desc id="desc">국소 차수, 에고넷 특징, 그리고 이웃 값을 합·평균으로 재귀 집계해 점점 넓은 구조를 포착하는 세 단계</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f2c59"/></marker></defs>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <text class="t h" x="40" y="40" text-anchor="start" fill="#0f172a">ReFeX 재귀 집계</text>
+  <text class="t s" x="40" y="66" text-anchor="start" fill="#64748b">노드 A 예시 · 결정론적</text>
+
+  <!-- stage 1 -->
+  <rect class="s1" x="40" y="100" width="260" height="150" rx="14"/>
+  <text class="t m" x="60" y="132" text-anchor="start" fill="#0f2c59">① 국소 특징</text>
+  <text class="t s" x="60" y="162" text-anchor="start" fill="#334155">노드 자신의 차수</text>
+  <text class="t mono" x="60" y="192" text-anchor="start" fill="#475569">degree(A) = 6</text>
+  <text class="t xs" x="60" y="224" text-anchor="start" fill="#64748b">가중·방향이면 in/out 분리</text>
+
+  <!-- stage 2 -->
+  <rect class="s2" x="350" y="100" width="260" height="150" rx="14"/>
+  <text class="t m" x="370" y="132" text-anchor="start" fill="#7c2d12">② 에고넷 특징</text>
+  <text class="t s" x="370" y="162" text-anchor="start" fill="#334155">에고넷의 노드·간선 수</text>
+  <text class="t mono" x="370" y="192" text-anchor="start" fill="#475569">nodes=7, edges=7</text>
+  <text class="t xs" x="370" y="224" text-anchor="start" fill="#64748b">드나드는 간선 수도 함께</text>
+
+  <!-- stage 3 -->
+  <rect class="s3" x="660" y="100" width="260" height="150" rx="14"/>
+  <text class="t m" x="680" y="132" text-anchor="start" fill="#166534">③ 재귀 집계</text>
+  <text class="t s" x="680" y="162" text-anchor="start" fill="#334155">이웃 값을 합/평균</text>
+  <text class="t mono" x="680" y="192" text-anchor="start" fill="#475569">SUM · MEAN 반복</text>
+  <text class="t xs" x="680" y="224" text-anchor="start" fill="#64748b">점점 먼 이웃까지 스며듦</text>
+
+  <path class="line" d="M300 175 L346 175" marker-end="url(#arrow)"/>
+  <path class="line" d="M610 175 L656 175" marker-end="url(#arrow)"/>
+
+  <!-- recursion detail -->
+  <rect x="40" y="290" width="880" height="210" rx="14" fill="#eef2fb" stroke="#c7d3ea"/>
+  <text class="t m" x="64" y="322" text-anchor="start" fill="#0f172a">재귀가 어떻게 깊어지나 (노드 A)</text>
+
+  <text class="t s" x="64" y="356" text-anchor="start" fill="#0f2c59">1차 반복 — 이웃들의 &#39;차수&#39;를 모은다</text>
+  <text class="t mono" x="84" y="380" text-anchor="start" fill="#475569">sum(neighbor_degrees) = 2+4+4+3+1+9 = 17</text>
+  <text class="t mono" x="84" y="400" text-anchor="start" fill="#475569">mean(neighbor_degrees) = 17 / 6 ≈ 2.83</text>
+
+  <text class="t s" x="64" y="432" text-anchor="start" fill="#166534">2차 반복 — 이웃들의 &#39;1차 합계&#39;를 다시 모은다</text>
+  <text class="t mono" x="84" y="456" text-anchor="start" fill="#475569">sum(neighbor_aggregates) = 11+17+9+16+10+6 = 69</text>
+  <text class="t mono" x="84" y="476" text-anchor="start" fill="#475569">mean(neighbor_aggregates) = 69 / 6 = 11.5</text>
+
+  <text class="t xs" x="720" y="440" text-anchor="middle" fill="#64748b">반복할수록 특징 수가</text>
+  <text class="t xs" x="720" y="460" text-anchor="middle" fill="#64748b">기하급수 증가 → 상관·구간화로 가지치기</text>
+</svg>

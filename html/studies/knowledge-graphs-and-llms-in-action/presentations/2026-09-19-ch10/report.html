@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-report-template="study-report-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="지식 그래프와 LLM 실전 Chapter 10 상세 스터디 리포트">
+  <title>그래프 특징 공학: 수동 및 반자동 접근법 · 상세 리포트</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/report.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#summary">리포트 본문으로 건너뛰기</a>
+  <button id="tocToggle" class="report-nav-toggle" type="button" aria-label="목차 열기" aria-controls="tocDrawer" aria-expanded="false" title="목차"><span aria-hidden="true">☰</span></button>
+  <div class="report-settings" aria-label="설정">
+    <button id="settingsToggle" class="report-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="report-settings-panel" aria-hidden="true">
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">화면</span><button id="themeToggle" type="button" onclick="cycleTheme()" aria-label="나이트 모드 전환">☀</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">출력</span><button class="report-settings-action" type="button" onclick="window.print()">Print / PDF</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">이동</span><nav class="report-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="report.html">Report</a><a href="./">Slides</a></nav></div>
+    </div>
+  </div>
+  <div id="tocBackdrop" class="report-toc-backdrop" hidden></div>
+  <nav id="tocDrawer" class="report-toc-drawer" aria-label="문서 목차" aria-hidden="true">
+    <div class="report-toc-drawer__head"><span>목차</span><button id="tocClose" type="button" aria-label="목차 닫기">×</button></div>
+    <ol id="tocDrawerList" class="report-toc-drawer__list"></ol>
+  </nav>
+
+  <article class="report continuous-mode">
+    <section class="report-cover">
+      <div class="report-cover__wordmark"><span class="report-cover__wordmark-name">AIML Quant</span><span class="report-cover__wordmark-sub">지식 그래프와 LLM 실전</span></div>
+      <span class="report-cover__kicker">Study Report · Chapter 10</span>
+      <h1 class="report-cover__title">그래프 특징 공학: 수동 및 반자동 접근법</h1>
+      <p class="report-cover__subtitle">Chapter 10</p>
+      <dl class="report-cover__meta">
+        <div><dt>발표자</dt><dd>두균</dd></div>
+        <div><dt>범위</dt><dd>Chapter 10</dd></div>
+        <div><dt>발행</dt><dd>2026-09-19</dd></div>
+      </dl>
+    </section>
+
+    <section class="report-section s0 page-break" id="summary">
+      <div class="report-section__kicker">Section 00 · Executive Summary</div>
+      <h1>0. 핵심 요약</h1>
+      <div class="callout--hero"><span class="callout__kicker">One Sentence</span><span class="callout__body">그래프 위의 머신러닝은 <strong>노드·관계를 숫자 벡터로 바꾸는 특징 공학</strong>에서 성패가 갈리며, 이 장은 그 벡터를 <strong>수동(해석 가능·노동집약) → 반자동(ReFeX, 균형)</strong> 순서로 만드는 기술을 사기 탐지와 약물 재창출 사례로 보여 준다.</span></div>
+      <p>로지스틱 회귀부터 딥러닝까지 현대 ML은 그래프 구조를 직접 먹지 못하고 <strong>숫자 벡터</strong>를 요구한다. 그래서 노드·관계·그래프의 의미 있는 성질을 벡터로 포착하는 <strong>벡터화(특징화)</strong>가 다운스트림 성능을 좌우한다. 특징을 만드는 방법은 하나의 스펙트럼을 이룬다 — 사람이 설계하는 <strong>수동 특징</strong>(해석 가능하지만 손이 많이 감), 그 중간의 <strong>반자동 특징</strong>(ReFeX), 그리고 11·12장의 <strong>완전 자동</strong> 표현 학습(효율적이나 해석 어려움).</p>
+      <p>이 장은 수동·반자동에 집중한다. 10.1절은 <strong>사기 탐지 네트워크</strong>에서 노드 특징(차수·삼각형·밀도·측지 경로·근접/매개 중심성·페이지랭크)을 국소에서 전역으로 쌓아 분류기를 학습하고, 10.2절은 <strong>관계 특징</strong>(두 노드 벡터 결합, 메타경로·DWPC)을 약물 재창출로 보여 주며, 10.3절은 <strong>ReFeX</strong>가 재귀 집계로 구조 특징을 자동 생성하되 해석 가능성과 결정론적 성질을 지키는 중간 지대를 제시한다.</p>
+      <aside class="term-note" role="note"><span class="term-note__kicker">용어 주석</span><ul>
+        <li><strong>벡터화·특징화</strong><span>그래프의 노드·관계·그래프 전체를 ML이 처리할 수 있는 숫자 벡터로 바꾸는 표현 단계.</span></li>
+        <li><strong>수동 특징 공학</strong><span>그래프 성질과 도메인 지식에 기반해 사람이 직접 설계한 특징. 해석 가능성이 높지만 노동집약적.</span></li>
+        <li><strong>표현 학습</strong><span>그래프 구조에서 특징을 자동으로 학습하는 방식(11·12장). 사람 개입이 적지만 해석이 어려움.</span></li>
+        <li><strong>에고넷(egonet)</strong><span>특정 노드(에고)와 그 바로 곁 이웃(알터)으로 이뤄진 국소 네트워크.</span></li>
+        <li><strong>ReFeX</strong><span>Recursive Feature eXtraction. 재귀 집계로 구조 특징을 자동 추출하는 반자동 방법.</span></li>
+      </ul></aside>
+      <div class="section-summary"><div class="section-summary__kicker">핵심 질문</div><div class="section-summary__body"><ul>
+        <li><strong>문제</strong> — ML이 못 먹는 그래프 구조를, 어떻게 의미를 보존한 숫자 벡터로 바꿀 것인가?</li>
+        <li><strong>메커니즘</strong> — 국소(에고넷) → 전역(중심성) 지표를 쌓고, 관계는 노드 결합·메타경로로, 반복은 ReFeX 재귀 집계로.</li>
+        <li><strong>판단</strong> — 해석 가능성·계산 자원·도메인 전문성에 따라 수동·반자동·자동 중 어디에 설지 정한다.</li>
+      </ul></div></div>
+      <table class="cmp-table" id="table-overview">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 1</span><span class="asset-caption__title">장의 전체 논리</span></div></caption>
+        <thead><tr><th>절</th><th>무엇을 특징화하나</th><th>핵심 도구</th><th>사례</th></tr></thead>
+        <tbody>
+          <tr><td>10.1</td><td>노드</td><td>차수·삼각형·밀도·경로·중심성·페이지랭크 → 분류기</td><td>사기 탐지</td></tr>
+          <tr><td>10.2</td><td>관계(노드 쌍)</td><td>노드 벡터 결합 / 메타경로·DWPC</td><td>약물 재창출</td></tr>
+          <tr><td>10.3</td><td>노드(반자동)</td><td>ReFeX 재귀 집계 + 가지치기</td><td>사기 네트워크</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s1 page-break" id="source-10-1" data-source-kind="section" data-source-ref="10.1">
+      <div class="report-section__kicker">교재 §10.1 · Node Features</div>
+      <h1>10.1 노드의 수동 특징 — 사기 탐지 네트워크에서 시작하기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>노드는 사람, 관계는 연결인 네트워크에서 일부는 알려진 사기꾼이다. 미확인 사기꾼을 찾는 노드 분류가 과제다.</li>
+        <li>각 노드를 특징 벡터로 표현해야 하며, 국소(에고넷) 특징에서 전역 특징으로 나아간다.</li>
+        <li>지표를 하나씩 더할 때마다 노드 표현에 차원이 하나씩 쌓인다.</li>
+      </ul></div></div>
+      <p>노드는 사람, 관계는 사람 사이의 연결인 네트워크를 생각하자(<a class="asset-ref" href="#fig-fraud-network">그림 1</a>). 이 중 일부(노드 D·E·F·I)는 이미 알려진 <strong>사기꾼</strong>이고, 전체 명단은 없다. 과제는 노드를 분류해 아직 밝혀지지 않은 사기꾼을 찾거나 각 사람의 사기 피해 위험을 판정하는 것이다. 이 작업은 로지스틱 회귀·랜덤 포레스트 같은 <strong>지도 학습</strong> 분류기로 푸는데, 그러려면 각 노드를 좋은 지표가 될 특징 집합으로 표현해야 한다.</p>
+      <figure class="report-figure" id="fig-fraud-network" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">그림 10.1 해설 · 사기 탐지 예제 소셜 네트워크</span></figcaption>
+        <img src="assets/figs/fig-fraud-network.svg" alt="20개 노드 A부터 T까지와 25개 무향 간선으로 이뤄진 네트워크. 검은 노드 D E F I는 알려진 사기꾼, 흰 노드는 정상 또는 미확인">
+        <small class="asset-note">검은 노드(D·E·F·I)는 알려진 사기꾼, 흰 노드는 정상이거나 아직 확인되지 않은 사람이다. 이 그래프가 이 장 10.1·10.3절 모든 계산의 공통 예제다. 출처: 원자료 그림 10.1을 노드·간선 목록대로 재배치.</small>
+      </figure>
+      <p>특징은 두 종류로 나뉜다. <strong>국소 특징</strong>은 노드의 1홉 이웃, 즉 <strong>에고넷</strong>(에고 = 중심 노드, 알터 = 이웃)을 본다. <strong>전역 특징</strong>은 네트워크 전체에서 노드가 맡는 역할(매개·근접 중심성, 페이지랭크 등)을 측정한다. 아래 코드는 파이썬·NetworkX로 이 예제 네트워크를 만든다.</p>
+      <article class="source-listing" id="source-listing-10-1" data-source-kind="listing" data-source-ref="10.1">
+        <h4>Listing 10.1 사기 탐지 네트워크 예제 만들기</h4>
+        <p>빈 무향 그래프에 20개 노드(A~T)와 25개 간선을 넣고, 각 노드에 <code>is_fraudster</code> 불리언 속성을 붙인다. 이 속성이 뒤의 &#39;사기 차수&#39;, &#39;사기 삼각형&#39; 같은 도메인 특화 특징의 기준이 된다.</p>
+        <pre data-code-language="Python"><code>import networkx as nx
+def create_fraud_network():
+    G = nx.Graph()                       # 무향 그래프
+    fraudsters = ['D', 'E', 'F', 'I']    # 검은 노드(알려진 사기꾼)
+    nodes = ['A','B','C','D','E','F','G','H','I','J',
+             'K','L','M','N','O','P','Q','R','S','T']
+    G.add_nodes_from(nodes)
+    for node in G.nodes():
+        G.nodes[node]['is_fraudster'] = node in fraudsters
+    edges = [('A','B'),('A','G'),('A','H'),('A','I'),('A','O'),('A','T'),
+             ('B','D'),('B','C'),('D','E'),('D','F'),('D','G'),('E','F'),
+             ('F','G'),('G','I'),('H','K'),('I','K'),('I','N'),('K','J'),
+             ('L','M'),('L','N'),('N','M'),('O','P'),('O','Q'),('Q','R'),('Q','S')]
+    G.add_edges_from(edges)
+    return G</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-10-2" data-source-kind="listing" data-source-ref="10.2">
+        <h4>Listing 10.2 사용 예</h4>
+        <p>한 번 만든 그래프 객체 <code>G</code>는 이 장의 모든 지표 계산에 그대로 재사용한다.</p>
+        <pre data-code-language="Python"><code>G = create_fraud_network()
+degree_metrics = compute_degree_metrics(G)       # 뒤에서 정의할 지표들
+triangle_metrics = compute_triangle_metrics(G)</code></pre>
+      </article>
+      <div class="callout--insight"><span class="callout__kicker">읽기 포인트</span><div class="callout__body"><p>수동 특징의 장점은 <strong>해석 가능성</strong>이다. 뽑은 각 특징을 그래프만 보고 설명할 수 있어, 데이터가 작거나 설명 가능성이 중요할 때 유효하다. 게다가 잘 정의된 구조 특징은 LLM이 그래프를 추론할 때 딛고 설 &#39;사실의 발판&#39;이 된다.</p></div></div>
+    </section>
+
+    <section class="report-section s2 page-break" id="source-10-1-1" data-source-kind="section" data-source-ref="10.1.1">
+      <div class="report-section__kicker">교재 §10.1.1 · Degree</div>
+      <h1>10.1.1 차수(Degree) — 이웃이 몇 명이며, 그중 사기꾼은 몇인가</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>차수는 이웃 수다. 여기서는 이웃을 사기·정상으로 나눠 <strong>사기 차수·정상 차수</strong>도 함께 센다.</li>
+        <li>이웃 10명이 전부 사기꾼이면 전부 정상일 때보다 내가 사기꾼일 가능성이 높다.</li>
+      </ul></div></div>
+      <p>노드의 <strong>차수</strong>는 이웃 수다. 도메인에 맞게 한 걸음 더 나아가, 직접 이웃 중 사기꾼과 정상을 구분해 <strong>사기 차수</strong>와 <strong>정상 차수</strong>를 함께 쓰면 노드의 직접 연결을 훨씬 잘 표현한다. <a class="asset-ref" href="#fig-degree-triangle">그림 2</a>가 그 개념을 보여 준다.</p>
+      <figure class="report-figure" id="fig-degree-triangle" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">국소 특징 — 차수(사기/정상)와 삼각형 유형</span></figcaption>
+        <img src="assets/figs/fig-degree-triangle.svg" alt="노드 D의 이웃을 사기 2명 정상 2명으로 나눈 차수 개념과, 사기·정상·반사기 세 삼각형 유형">
+        <small class="asset-note">왼쪽: 노드 D의 전체 차수 4 = 사기 차수 2 + 정상 차수 2. 오른쪽: 두 알터가 모두 사기면 사기 삼각형, 모두 정상이면 정상 삼각형, 하나만 사기면 반사기 삼각형. 출처: 원자료 §10.1.1–10.1.2의 정의를 재구성.</small>
+      </figure>
+      <article class="source-listing" id="source-listing-10-3" data-source-kind="listing" data-source-ref="10.3">
+        <h4>Listing 10.3 사기 탐지 네트워크에서 여러 종류의 노드 차수 계산</h4>
+        <p>각 노드의 이웃 목록으로 전체 차수를 구하고, <code>is_fraudster</code>가 참인 이웃만 세어 사기 차수를, 나머지를 정상 차수로 나눈다.</p>
+        <pre data-code-language="Python"><code>degree_metrics = {}
+for node in G.nodes():
+    neighbors = list(G.neighbors(node))
+    total_degree = len(neighbors)
+    fraud_degree = sum(1 for n in neighbors
+                       if G.nodes[n].get('is_fraudster', False))
+    legit_degree = total_degree - fraud_degree
+    degree_metrics[node] = {'total_degree': total_degree,
+        'fraud_degree': fraud_degree, 'legit_degree': legit_degree}</code></pre>
+      </article>
+      <table class="cmp-table" id="table-degree">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">표 10.1 · 사기 그래프의 전체·사기·정상 차수(발췌)</span></div></caption>
+        <thead><tr><th>노드</th><th>A</th><th>D</th><th>E</th><th>F</th><th>G</th><th>I</th></tr></thead>
+        <tbody>
+          <tr><td>전체 차수</td><td>6</td><td>4</td><td>2</td><td>3</td><td>4</td><td>4</td></tr>
+          <tr><td>사기 차수</td><td>1</td><td>2</td><td>2</td><td>2</td><td>3</td><td>0</td></tr>
+          <tr><td>정상 차수</td><td>5</td><td>2</td><td>0</td><td>1</td><td>1</td><td>4</td></tr>
+        </tbody>
+      </table>
+      <p>예를 들어 노드 D는 이웃 4명 중 2명이 사기꾼, 2명이 정상이다. 노드 G는 이웃 4명 중 3명이 사기꾼으로, 사기 활동에 강하게 둘러싸여 있다.</p>
+    </section>
+
+    <section class="report-section s3 page-break" id="source-10-1-2" data-source-kind="section" data-source-ref="10.1.2">
+      <div class="report-section__kicker">교재 §10.1.2 · Triangles</div>
+      <h1>10.1.2 삼각형(Triangles) — 서로 얽힌 세 사람의 관계</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>삼각형은 세 노드가 모두 서로 연결된 부분 그래프로, 이웃 간 강한 결속을 나타낸다.</li>
+        <li>두 알터의 사기 여부로 사기·정상·반사기 삼각형으로 나눈다.</li>
+      </ul></div></div>
+      <p><strong>삼각형</strong>은 세 노드가 모두 서로 연결된 부분 그래프다(A-B, A-C, B-C가 모두 존재). 에고넷 안 삼각형은 대상 노드가 이웃들과 <strong>강하게 결속</strong>돼 있다는 신호다. 내 친구들이 서로도 친구인 경우를 떠올리면 된다. 두 알터가 모두 사기면 <strong>사기 삼각형</strong>, 모두 정상이면 <strong>정상 삼각형</strong>, 하나만 사기면 <strong>반사기 삼각형</strong>이다(<a class="asset-ref" href="#fig-degree-triangle">그림 2</a> 오른쪽).</p>
+      <article class="source-listing" id="source-listing-10-4" data-source-kind="listing" data-source-ref="10.4">
+        <h4>Listing 10.4 사기 탐지 네트워크에서 삼각형 지표 계산</h4>
+        <p>각 노드의 두 이웃 쌍에 간선이 있으면 삼각형으로 보고, 두 알터의 <code>is_fraudster</code> 값으로 사기/정상/반사기를 센다.</p>
+        <pre data-code-language="Python"><code>for node in G.nodes():
+    triangles = []
+    neighbors = list(G.neighbors(node))
+    for i in range(len(neighbors)):
+        for j in range(i + 1, len(neighbors)):
+            if G.has_edge(neighbors[i], neighbors[j]):
+                triangles.append((neighbors[i], neighbors[j]))
+    for n1, n2 in triangles:
+        f1 = G.nodes[n1].get('is_fraudster', False)
+        f2 = G.nodes[n2].get('is_fraudster', False)
+        if f1 and f2:      fraud_triangles += 1
+        elif not f1 and not f2: legit_triangles += 1
+        else:              semi_fraud_triangles += 1</code></pre>
+      </article>
+      <table class="cmp-table" id="table-triangle">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">표 10.2 · 사기 그래프의 삼각형 측정값(발췌)</span></div></caption>
+        <thead><tr><th>노드</th><th>A</th><th>D</th><th>E</th><th>F</th><th>G</th><th>I</th><th>L</th></tr></thead>
+        <tbody>
+          <tr><td>전체 삼각형</td><td>1</td><td>2</td><td>1</td><td>2</td><td>2</td><td>1</td><td>1</td></tr>
+          <tr><td>사기 삼각형</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>정상 삼각형</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>반사기 삼각형</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s4 page-break" id="source-10-1-3" data-source-kind="section" data-source-ref="10.1.3">
+      <div class="report-section__kicker">교재 §10.1.3 · Density</div>
+      <h1>10.1.3 밀도(Density) — 이웃들이 서로 얼마나 촘촘히 얽혀 있나</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>밀도는 가능한 최대 간선 대비 실제 간선의 비율(0~1)이다.</li>
+        <li>각 노드의 에고넷 밀도를 계산해 이웃끼리 얼마나 얽혀 있는지 본다.</li>
+      </ul></div></div>
+      <p>N개 노드의 완전 연결 그래프에서 가능한 간선 수는 <code>C(N,2) = N(N−1)/2</code>이다(서로 다른 두 노드 쌍의 수). 간선 수를 M이라 하면 밀도는 다음과 같다.</p>
+      <p style="text-align:center;font-weight:800;"><code>d = M / C(N,2) = 2M / (N(N−1))</code> &nbsp;— 0(연결 없음)에서 1(완전 연결) 사이</p>
+      <p>각 노드의 <strong>에고넷 밀도</strong>도 계산할 수 있다. 예로 노드 A의 에고넷에는 노드가 7개 있어 가능한 간선은 <code>7·6/2 = 21</code>개인데, 실제 간선은 7개이므로 <code>d = 7/21 ≈ 0.33</code>이다. 밀도는 성격상 사기/정상 같은 도메인 특화 변형을 두지 않는다. (밀도 계산 코드는 원자료 리스트 10.5로 제공되며, 위 공식을 각 노드 에고넷에 적용한다.)</p>
+      <table class="cmp-table" id="table-density">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">표 10.3 · 사기 그래프의 밀도(발췌)</span></div></caption>
+        <thead><tr><th>노드</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
+        <tbody><tr><td>밀도</td><td>0.33</td><td>0.5</td><td>1</td><td>0.6</td><td>1</td><td>0.83</td><td>0.6</td></tr></tbody>
+      </table>
+      <p>밀도가 1인 노드(C·E·J·L·M 등)는 이웃들이 서로 빠짐없이 연결돼 있다는 뜻이고, A(0.33)는 이웃들끼리는 별로 연결돼 있지 않다. <strong>여기까지가 에고넷 기반 지표이고, 다음부터는 네트워크 전체를 고려한다.</strong></p>
+    </section>
+
+    <section class="report-section s5 page-break" id="source-10-1-4" data-source-kind="section" data-source-ref="10.1.4">
+      <div class="report-section__kicker">교재 §10.1.4 · Geodesic Paths</div>
+      <h1>10.1.4 측지 경로(또는 최단 경로) — 사기꾼까지 얼마나 가까운가</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>측지 경로는 두 노드 사이의 최소 거리(홉 수)다.</li>
+        <li>도메인에 맞게 &#39;가장 가까운 사기꾼까지의 거리&#39;와 1·2·3홉 경로 수를 센다.</li>
+      </ul></div></div>
+      <p><strong>측지 경로(최단 경로)</strong>는 두 노드 사이의 최소 거리다. 도메인에 맞게, 대상 노드에서 <strong>가장 가까운 사기꾼까지의 거리</strong>와 임의의 사기꾼에 이르는 1홉·2홉·3홉 경로 수를 센다. 경로가 많고 짧을수록 사기가 대상 노드에 영향을 미칠 가능성이 크다. 예로 노드 A는 사기꾼 I와 직접 연결(측지 거리 1)이고, A-G-I·A-B-D·A-G-D·A-G-F 등 2홉 경로가 4개다. 계산에는 <strong>다익스트라 알고리즘</strong>(잠정 거리가 가장 작은 노드를 반복 선택하며 최단 경로 트리를 쌓음)을 쓴다. (자동 추출 코드는 원자료 리스트 10.6으로, NetworkX의 <code>shortest_path</code>로 각 사기꾼까지 거리를 구하고 <code>max_hops</code> 이내 홉별 경로 수를 센다.)</p>
+      <table class="cmp-table" id="table-geodesic">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">표 10.4 · 사기 그래프의 측지 경로(발췌)</span></div></caption>
+        <thead><tr><th>노드</th><th>A</th><th>B</th><th>C</th><th>G</th><th>H</th></tr></thead>
+        <tbody>
+          <tr><td>측지 거리</td><td>1</td><td>1</td><td>2</td><td>1</td><td>2</td></tr>
+          <tr><td>1홉 경로</td><td>1</td><td>1</td><td>0</td><td>3</td><td>0</td></tr>
+          <tr><td>2홉 경로</td><td>4</td><td>3</td><td>1</td><td>5</td><td>2</td></tr>
+          <tr><td>3홉 경로</td><td>18</td><td>13</td><td>3</td><td>25</td><td>4</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s6 page-break" id="source-10-1-5" data-source-kind="section" data-source-ref="10.1.5">
+      <div class="report-section__kicker">교재 §10.1.5 · Closeness</div>
+      <h1>10.1.5 근접 중심성(Closeness) — 네트워크에서 얼마나 "가운데"에 있나</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>근접 중심성은 한 노드가 다른 모든 노드에 얼마나 가까운지다.</li>
+        <li>원거리도(평균 최단 거리)의 역수이며, 도달 불가 노드는 제외해 정규화한다.</li>
+      </ul></div></div>
+      <p>한 노드에서 다른 모든 노드까지의 평균 최단 거리를 <strong>원거리도(farness)</strong>라 한다. <code>g(vi) = (Σ d(vi,vj)) / (N−1)</code>. <strong>근접 중심성</strong>은 중심적일수록 큰 값을 주려고 이 원거리도의 <strong>역수</strong>로 정의한다. <code>closeness(vi) = g(vi)⁻¹</code>. 값이 크면 다른 노드들과 대체로 가깝다는 뜻이다. 사기 맥락에서 사기꾼의 근접 중심성이 높으면 사기가 네트워크를 통해 빠르게 퍼질 수 있다. 도달할 수 없는 노드까지의 거리는 무한대가 되므로, 실무 구현은 <strong>도달 가능한 부분만</strong> 사용해 정규화한다(원자료 리스트 10.7). <a class="asset-ref" href="#fig-centrality">그림 3</a> 왼쪽이 이 개념이다.</p>
+      <figure class="report-figure" id="fig-centrality" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">전역 특징 — 근접 중심성 대 매개 중심성</span></figcaption>
+        <img src="assets/figs/fig-centrality.svg" alt="왼쪽은 모두에게 가까운 근접 중심성 노드, 오른쪽은 두 집단을 잇는 다리 역할의 매개 중심성 노드">
+        <small class="asset-note">근접 중심성은 &#39;모두에게 가까운가&#39;(평균 거리의 역수)를, 매개 중심성은 &#39;얼마나 자주 다리인가&#39;(최단 경로 위 등장)를 측정한다. 두 지표는 서로 다른 관점의 중요도다. 출처: 원자료 §10.1.5–10.1.6의 정의를 재구성.</small>
+      </figure>
+      <table class="cmp-table" id="table-closeness">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 6</span><span class="asset-caption__title">표 10.5 · 사기 그래프의 근접 중심성(발췌)</span></div></caption>
+        <thead><tr><th>노드</th><th>A</th><th>G</th><th>I</th><th>O</th><th>R</th><th>S</th></tr></thead>
+        <tbody><tr><td>근접 중심성</td><td>0.5</td><td>0.43</td><td>0.45</td><td>0.40</td><td>0.24</td><td>0.24</td></tr></tbody>
+      </table>
+      <p>노드 A(0.5)가 다른 모든 노드에 가장 가깝고, R·S(0.24)가 가장 멀다.</p>
+    </section>
+
+    <section class="report-section s7 page-break" id="source-10-1-6" data-source-kind="section" data-source-ref="10.1.6">
+      <div class="report-section__kicker">교재 §10.1.6 · Betweenness</div>
+      <h1>10.1.6 매개 중심성(Betweenness) — 얼마나 자주 다리 역할을 하나</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>매개 중심성은 다른 노드 쌍들의 최단 경로 위에 한 노드가 얼마나 자주 나타나는지다.</li>
+        <li>값이 높은 노드는 정보 흐름을 통제하는 다리·병목이다.</li>
+      </ul></div></div>
+      <p><strong>매개 중심성</strong>은 다른 노드 쌍들 사이 최단 경로 위에 그 노드가 얼마나 자주 등장하는지를 잰다. <code>betweenness(v) = Σ σst(v)/σst</code>이며, <code>σst</code>는 s–t 최단 경로 총수, <code>σst(v)</code>는 그중 v를 지나는 수다(<a class="asset-ref" href="#fig-centrality">그림 3</a> 오른쪽). 값이 높으면 많은 노드 쌍의 <strong>다리</strong> 역할을 해 정보 흐름을 통제할 잠재력이 크다.</p>
+      <article class="source-listing" id="source-listing-10-8" data-source-kind="listing" data-source-ref="10.8">
+        <h4>Listing 10.8 사기 탐지 네트워크에서 매개 중심성 계산</h4>
+        <p>NetworkX의 <code>betweenness_centrality</code>를 쓰고, 평균 이상인 노드를 &#39;핵심 다리&#39;, 임계값 초과 노드를 &#39;병목&#39;으로 식별하는 분석을 덧붙인다.</p>
+        <pre data-code-language="Python"><code>betweenness = nx.betweenness_centrality(G, normalized=True, endpoints=False)
+# 평균 이상 = 핵심 다리
+key_bridges = [n for n, s in betweenness.items()
+               if s > sum(betweenness.values())/len(betweenness)]</code></pre>
+      </article>
+      <table class="cmp-table" id="table-betweenness">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">표 10.6 · 사기 그래프의 매개 중심성(발췌, 비정규화)</span></div></caption>
+        <thead><tr><th>노드</th><th>A</th><th>I</th><th>O</th><th>G</th><th>N</th><th>C·E·J·L·M</th></tr></thead>
+        <tbody><tr><td>매개 중심성</td><td>104</td><td>65</td><td>63</td><td>35.3</td><td>34</td><td>0</td></tr></tbody>
+      </table>
+      <p>노드 A(104)가 결정적 다리이며, C·E·J·L·M 등은 0으로 어떤 쌍의 다리도 아니다.</p>
+    </section>
+
+    <section class="report-section s8 page-break" id="source-10-1-7" data-source-kind="section" data-source-ref="10.1.7">
+      <div class="report-section__kicker">교재 §10.1.7 · PageRank</div>
+      <h1>10.1.7 페이지랭크(PageRank) — 연결의 양뿐 아니라 질까지 본다</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>페이지랭크는 들어오는 연결의 구조로 중요도를 잰다. 순위 높은 노드와 연결될수록 점수가 높다.</li>
+        <li>사기 맥락에서는 기본 페이지랭크와 사기 가중 페이지랭크를 함께 계산해 차이를 본다.</li>
+      </ul></div></div>
+      <p><strong>페이지랭크</strong>는 연결의 양뿐 아니라 <strong>질</strong>까지 본다. 순위 높은 노드와 연결된 노드가 더 높은 점수를 받는다(유명 인사의 추천이 더 유력해 보이는 원리). 사기 탐지에서는 두 변형을 쓴다 — 모든 연결을 똑같이 보는 <strong>기본 페이지랭크</strong>와, 사기꾼 노드의 초기 중요도를 <strong>개인화 벡터</strong>로 키운 <strong>사기 가중 페이지랭크</strong>. <a class="asset-ref" href="#fig-pagerank">그림 4</a>가 그 차이를 보여 준다.</p>
+      <article class="source-listing" id="source-listing-10-9" data-source-kind="listing" data-source-ref="10.9">
+        <h4>Listing 10.9 사기 탐지를 위한 페이지랭크 변형 계산</h4>
+        <p>감쇠 계수 <code>damping_factor=0.85</code>로 확률적 서퍼가 링크를 따를 확률을 조절하고, 사기꾼에 가중치를 준 <code>personalization</code>으로 점수를 사기 쪽으로 편향시킨다.</p>
+        <pre data-code-language="Python"><code>base_pagerank = nx.pagerank(G, alpha=0.85, personalization=None, weight=None)
+fraud_personalization = {n: (2.0 if G.nodes[n].get('is_fraudster') else 1.0)
+                         for n in G.nodes()}
+fraud_pagerank = nx.pagerank(G, alpha=0.85,
+                             personalization=fraud_personalization, weight=None)</code></pre>
+      </article>
+      <figure class="report-figure" id="fig-pagerank" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">기본 대 사기 가중 페이지랭크의 차이</span></figcaption>
+        <img src="assets/figs/fig-pagerank.svg" alt="노드 A G D F의 기본 대 사기 가중 페이지랭크 막대. 노드 D는 기본은 평범하나 사기 가중에서 급등">
+        <small class="asset-note">노드 A는 기본 페이지랭크가 가장 높지만(0.108) 사기 가중에서는 낮아진다. 노드 D는 기본은 평범하나 사기 가중에서 급등(0.068→0.168)해, 사기꾼과의 실질적 연결을 드러낸다. 두 값의 &#39;차이(divergence)&#39;가 정밀 조사 대상을 가려낸다. 출처: 원자료 표 10.7 값을 시각화.</small>
+      </figure>
+      <table class="cmp-table" id="table-pagerank">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 8</span><span class="asset-caption__title">표 10.7 · 사기 그래프의 페이지랭크(발췌)</span></div></caption>
+        <thead><tr><th>노드</th><th>A</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>
+        <tbody>
+          <tr><td>기본</td><td>0.108</td><td>0.068</td><td>0.036</td><td>0.051</td><td>0.067</td></tr>
+          <tr><td>사기 가중</td><td>0.087</td><td>0.168</td><td>0.114</td><td>0.145</td><td>0.109</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s9 page-break" id="source-10-1-8" data-source-kind="section" data-source-ref="10.1.8">
+      <div class="report-section__kicker">교재 §10.1.8 · Prediction</div>
+      <h1>10.1.8 예측(Prediction) — 뽑아낸 특징으로 분류기를 학습시키기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>지금까지의 지표를 노드마다 한 데이터프레임으로 모으고, 라벨을 붙여 로지스틱 회귀로 학습한다.</li>
+        <li>과정은 반복적이며, 전 과정이 사람의 통제 아래 있고 각 특징을 설명할 수 있다.</li>
+      </ul></div></div>
+      <p>이 과정은 <strong>반복적</strong>이다. 분류기가 충분한 품질에 이를 때까지 특징을 늘려 간다. 아래 리스팅들은 모든 지표를 노드별로 모으고(10.10), 학습·평가하고(10.11), 예측하고(10.12), 전체를 실행한다(10.13). 예제 그래프가 작아 결과 자체는 통계적으로 의미 있진 않지만, 과정은 큰 그래프에 그대로 적용된다.</p>
+      <article class="source-listing" id="source-listing-10-10" data-source-kind="listing" data-source-ref="10.10">
+        <h4>Listing 10.10 노드 특징 만들기</h4>
+        <p>차수·삼각형·밀도·경로·근접/매개 중심성·페이지랭크를 노드마다 한 딕셔너리로 모으고, 라벨 <code>is_fraudster</code>를 붙여 pandas 데이터프레임으로 만든다(각 행=노드, 각 열=특징).</p>
+        <pre data-code-language="Python"><code>def create_node_features_dataset(G):
+    degree_metrics = compute_degree_metrics(G)
+    triangle_metrics = compute_triangle_metrics(G)
+    density_metrics = compute_density_metrics(G)
+    # ... path / closeness / betweenness / pagerank 도 동일하게 계산
+    features_dict = {}
+    for node in G.nodes():
+        features_dict[node] = {
+            'total_degree': degree_metrics[node]['total_degree'],
+            # ... 모든 지표 ...
+            'is_fraudster': G.nodes[node]['is_fraudster']}   # 라벨
+    return pd.DataFrame.from_dict(features_dict, orient='index')</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-10-11" data-source-kind="listing" data-source-ref="10.11">
+        <h4>Listing 10.11 사기 분류기를 학습하고 정확도를 평가하기</h4>
+        <p><strong>계층적 분할</strong>(<code>stratify</code>)로 학습·테스트가 같은 사기 비율을 유지하고, <code>StandardScaler</code>로 척도를 맞춘 뒤 로지스틱 회귀로 학습한다. 특징 중요도로 어떤 지표가 사기 탐지에 유용한지 본다.</p>
+        <pre data-code-language="Python"><code>X = df.drop('is_fraudster', axis=1); y = df['is_fraudster']
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+X_train_scaled = StandardScaler().fit_transform(X_train)
+clf = LogisticRegression(random_state=42, max_iter=1000)
+clf.fit(X_train_scaled, y_train)
+feature_importance = pd.DataFrame({'feature': X.columns,
+    'importance': abs(clf.coef_[0])}).sort_values('importance', ascending=False)</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-10-12" data-source-kind="listing" data-source-ref="10.12">
+        <h4>Listing 10.12 학습된 모델로 노드의 클래스 예측하기</h4>
+        <p>노드의 특징을 스케일링해 <code>predict_proba</code>로 사기일 확률을 반환한다.</p>
+        <pre data-code-language="Python"><code>def predict_fraud_probability(G, node, trained_results):
+    node_features = create_node_features_dataset(G).loc[node].drop('is_fraudster')
+    scaled = trained_results['scaler'].transform(node_features.values.reshape(1, -1))
+    return trained_results['model'].predict_proba(scaled)[0][1]</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-10-13" data-source-kind="listing" data-source-ref="10.13">
+        <h4>Listing 10.13 전체 과정의 결과 얻기</h4>
+        <p>네트워크를 만들고 학습·평가한 뒤, 상위 5개 중요 특징과 특정 노드의 사기 확률을 출력한다.</p>
+        <pre data-code-language="Python"><code>G = create_fraud_network()
+results = train_fraud_classifier(G)
+print(results['classification_report'])
+print(results['feature_importance'].head())   # 상위 5개 중요 특징
+prob = predict_fraud_probability(G, 'A', results)</code></pre>
+      </article>
+      <div class="callout--insight"><span class="callout__kicker">이 접근의 값어치</span><div class="callout__body"><p>과정이 복잡해도 <strong>전적으로 사람의 통제 아래</strong> 있고 각 특징을 그래프만 보고 설명할 수 있다. 데이터가 작거나 설명 가능성이 중요할 때 유효하다.</p></div></div>
+    </section>
+
+    <section class="report-section s10 page-break" id="source-10-2" data-source-kind="section" data-source-ref="10.2">
+      <div class="report-section__kicker">교재 §10.2 · Relationship Features</div>
+      <h1>10.2 관계의 수동 특징 — 두 노드 사이의 연결을 표현하기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>관계(링크) 예측은 &#39;두 노드가 주어졌을 때 그 사이에 관계가 존재할 가능성&#39;을 묻는다.</li>
+        <li>노드 쌍을 입력으로 쓰며, 노드 기반 결합 또는 경로 기반 특징으로 표현한다.</li>
+      </ul></div></div>
+      <p>노드가 아니라 <strong>노드 사이의 관계</strong>를 표현하는 문제로 눈을 돌리자. <strong>관계 예측(링크 예측)</strong>은 “두 노드가 주어졌을 때 그 사이에 관계가 존재할 가능성은?”을 묻는다. 두 단백질의 상호작용, 고객–제품 관심, 약–질병 치료가 모두 같은 질문이다. 입력은 개별 노드가 아니라 <strong>노드 쌍</strong>이며, 두 접근이 있다 — 출발·도착 노드의 특징 벡터를 결합하는 <strong>노드 기반 결합</strong>, 그리고 노드가 연결된 방식을 분석하는 <strong>경로 기반 특징</strong>(메타경로). 이 절은 약물 재창출(기존 약의 새 용도 찾기)을 사례로 든다.</p>
+    </section>
+
+    <section class="report-section s11 page-break" id="source-10-2-1" data-source-kind="section" data-source-ref="10.2.1">
+      <div class="report-section__kicker">교재 §10.2.1 · Node-based</div>
+      <h1>10.2.1 노드 기반 표현(Node-based representation) — 두 노드의 지문을 합치기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>두 노드의 특징 벡터(지문)를 결합해 링크 표현을 만든다. 실재 연결이든 잠재 연결이든 작동해야 한다.</li>
+        <li>이어붙이기·평균·L1·L2·아다마르 곱 중 시나리오에 맞는 것을 벤치마크로 고른다.</li>
+      </ul></div></div>
+      <p>가장 직관적인 접근은 연결될 수 있는 두 노드의 특징(지문)을 결합하는 것이다. 이 결합은 이미 연결된 쌍이든 잠재적 쌍이든 <strong>어떤 노드 쌍에도</strong> 작동해야 한다. 흔한 결합 연산은 아래 표와 같다.</p>
+      <article class="source-listing" id="source-listing-10-14" data-source-kind="listing" data-source-ref="10.14">
+        <h4>Listing 10.14 두 노드 표현을 하나의 링크 표현으로 결합하기</h4>
+        <p>이어붙이기·평균·L1·L2·아다마르 곱을 각각 한 함수로 구현한다.</p>
+        <pre data-code-language="Python"><code>def catenate(u, v):        return u + v            # 이어붙이기(차원 2배)
+def operator_avg(u, v):    return (u + v) / 2.0    # 평균
+def operator_l1(u, v):     return np.abs(u - v)    # L1(맨해튼)
+def operator_l2(u, v):     return (u - v) ** 2     # L2(유클리드)
+def operator_hadamard(u, v): return u * v          # 아다마르(원소별 곱)</code></pre>
+      </article>
+      <table class="cmp-table" id="table-combine">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 9</span><span class="asset-caption__title">두 노드 벡터 결합 연산 (u=[1,4], v=[3,1] 예)</span></div></caption>
+        <thead><tr><th>연산</th><th>정의</th><th>예 결과</th><th>특징</th></tr></thead>
+        <tbody>
+          <tr><td>이어붙이기</td><td>u 뒤에 v</td><td>[1,4,3,1]</td><td>정보 보존, 차원 2배</td></tr>
+          <tr><td>평균</td><td>(u+v)/2</td><td>[2,2.5]</td><td>중심 경향, 차원 유지</td></tr>
+          <tr><td>L1</td><td>|u−v|</td><td>[2,3]</td><td>비유사성</td></tr>
+          <tr><td>L2</td><td>(u−v)²</td><td>[4,9]</td><td>큰 차이 강조</td></tr>
+          <tr><td>아다마르</td><td>u×v</td><td>[3,4]</td><td>곱셈적 결합</td></tr>
+        </tbody>
+      </table>
+      <p>어느 것이 최선인지 알려 주는 일반 규칙은 없으므로, 벤치마크로 시나리오에 맞는 결합을 고른다.</p>
+    </section>
+
+    <section class="report-section s12 page-break" id="source-10-2-2" data-source-kind="section" data-source-ref="10.2.2">
+      <div class="report-section__kicker">교재 §10.2.2 · Path-based</div>
+      <h1>10.2.2 경로 기반 특징(Path-based features) — 메타경로로 약과 질병을 잇기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>메타경로는 노드 타입·관계 타입의 순서열로 정의된 경로 패턴이다.</li>
+        <li>단순 경로 수(PC)는 허브에 휘둘리므로, 차수로 감쇠한 DWPC를 쓴다.</li>
+      </ul></div></div>
+      <p>노드 표현 대신 노드가 <strong>연결된 방식</strong>으로 관계를 특징짓는다. 이 수동 표현은 도메인 특화적이다. 사례는 <strong>Hetionet</strong>(19개 DB 통합, 5만+ 노드: 약물·질병·유전자·증상). Himmelstein 등[5]은 화합물–질병 사이 길이 2~4의 모든 <strong>메타경로</strong>를 평가해 약물 재창출에 진전을 냈다. 메타경로는 “화합물이 유전자에 결합(binds)하고 그 유전자가 질병과 연관(associates)된다”처럼 <strong>노드 타입과 관계 타입의 순서열</strong>이다(<a class="asset-ref" href="#fig-metapath-dwpc">그림 5</a>).</p>
+      <figure class="report-figure" id="fig-metapath-dwpc" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">경로 기반 특징 — 메타경로 CbGaD와 DWPC 감쇠</span></figcaption>
+        <img src="assets/figs/fig-metapath-dwpc.svg" alt="화합물-결합-유전자-연관-질병 메타경로 사슬과, 허브 유전자를 지나는 경로의 기여를 낮추는 DWPC 감쇠">
+        <small class="asset-note">위: 메타경로 CbGaD(화합물–binds–유전자–associates–질병). 아래: DWPC는 각 경로를 중간 노드 차수의 −0.4승으로 감쇠해, 허브(차수 100, ≈0.16)보다 구체적 유전자(차수 10, ≈0.40)를 지나는 경로를 부각한다. 출처: 원자료 §10.2.2·표 10.8을 재구성.</small>
+      </figure>
+      <table class="cmp-table" id="table-metapath">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 10</span><span class="asset-caption__title">표 10.8 · 약물–질병을 잇는 메타경로 예시</span></div></caption>
+        <thead><tr><th>메타경로</th><th>길이</th><th>약어</th></tr></thead>
+        <tbody>
+          <tr><td>Compound–binds–Gene–associates–Disease</td><td>2</td><td>CbGaD</td></tr>
+          <tr><td>Compound–resembles–Compound–treats–Disease</td><td>2</td><td>CrCtD</td></tr>
+          <tr><td>Compound–binds–Gene–expresses–Anatomy–localizes–Disease</td><td>3</td><td>CbGeAlD</td></tr>
+          <tr><td>Compound–binds–Gene–participates–Pathway–participates–Gene–associates–Disease</td><td>4</td><td>CbGpPWpGaD</td></tr>
+        </tbody>
+      </table>
+      <p>단순히 경로 수(PC)를 세면 연결이 많은 <strong>허브</strong>가 결과를 지배해 오해를 부른다. 그래서 <strong>차수 가중 경로 수(DWPC)</strong>를 쓴다. 각 경로를 중간 노드 차수에 <strong>반비례</strong>하도록 가중(감쇠 지수 −0.4)해, 연결 많은 노드의 기여를 낮추고 구체적 경로를 부각한다.</p>
+      <article class="source-listing" id="source-listing-10-15" data-source-kind="listing" data-source-ref="10.15">
+        <h4>Listing 10.15 CbGaD 메타경로에 대한 메트포르민–제2형 당뇨병 DWPC</h4>
+        <p><code>count(path)</code>로 경로 수 PC를, <code>reduce(... d ^ -0.4)</code>로 각 중간 노드 차수를 감쇠해 곱한 뒤 합산한 DWPC를 구한다. Hetionet에서 이 값은 0.0007이며, 메트포르민–제2형 당뇨병 쌍 벡터의 CbGaD 특징이 된다.</p>
+        <pre data-code-language="Cypher"><code>MATCH path = (c:Compound)-[:BINDS_CbG]-(g)-[:ASSOCIATES_DaG]-(d:Disease)
+WHERE c.name = 'Metformin' AND d.name = 'type 2 diabetes mellitus'
+WITH [count{(v)-[:BINDS_CbG]-()}, count{()-[:BINDS_CbG]-(g)},
+      count{(g)-[:ASSOCIATES_DaG]-()}, count{()-[:ASSOCIATES_DaG]-(d)}] AS degrees, path, d
+WITH d.name AS disease_name, count(path) AS PC,
+     sum(reduce(pdp = 1.0, x in degrees | pdp * x ^ -0.4)) AS DWPC
+RETURN disease_name, PC, DWPC</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-10-16" data-source-kind="listing" data-source-ref="10.16">
+        <h4>Listing 10.16 CbGeAlD 메타경로에 대한 DWPC 값</h4>
+        <p>길이 3짜리 메타경로. 화합물이 유전자에 결합하고, 그 유전자가 해부 구조에서 발현되며(<code>&lt;-EXPRESSES-</code>), 그 해부 구조에 질병이 국소화된다. 구조는 10.15와 같고 셀 차수만 늘어난다.</p>
+        <pre data-code-language="Cypher"><code>MATCH path = (c:Compound)-[:BINDS_CbG]-(g:Gene)&lt;-[:EXPRESSES_AeG]-
+             (a:Anatomy)&lt;-[:LOCALIZES_DlA]-(d:Disease)
+WHERE c.name = 'Metformin' AND d.name = 'type 2 diabetes mellitus'
+// ... degrees 리스트에 6개 방향별 차수 ...
+WITH d.name AS disease_name, count(path) AS PC,
+     sum(reduce(pdp = 1.0, x in degrees | pdp * x ^ -0.4)) AS DWPC
+RETURN disease_name, PC, DWPC</code></pre>
+      </article>
+      <article class="source-listing" id="source-listing-10-17" data-source-kind="listing" data-source-ref="10.17">
+        <h4>Listing 10.17 CbGpPWpGaD 메타경로에 대한 DWPC 값</h4>
+        <p>길이 4짜리 메타경로. 화합물이 유전자 g1에 결합, g1이 경로(Pathway)에 참여, 같은 경로에 g2도 참여, g2가 질병과 연관된다.</p>
+        <pre data-code-language="Cypher"><code>MATCH path = (c:Compound)-[:BINDS_CbG]-(g1:Gene)-[:PARTICIPATES_GpPW]-&gt;
+             (pw:Pathway)&lt;-[:PARTICIPATES_GpPW]-(g2:Gene)-[:ASSOCIATES_DaG]-(d:Disease)
+WHERE c.name = 'Metformin' AND d.name = 'type 2 diabetes mellitus'
+// ... degrees 리스트에 8개 방향별 차수 ...
+RETURN d.name, count(path) AS PC,
+       sum(reduce(pdp = 1.0, x in degrees | pdp * x ^ -0.4)) AS DWPC</code></pre>
+      </article>
+      <p>모든 화합물–질병 쌍의 모든 메타경로를 계산하는 것은 비용이 막대하다. Himmelstein 등은 <strong>2단계 축소</strong>로 이를 관리했다 — 통계적 <strong>메타경로 축소</strong>(1,026 → 709개)와 도메인·차수 기반 <strong>쌍 선택</strong>. 노드 결합은 더 단순하지만 수동 노드 특징과 함께 쓰면 성능이 나쁜 경우가 많고, 자동 추출 특징과 쓸 때 더 효과적이다.</p>
+      <div class="callout--insight"><span class="callout__kicker">AIML Quant 보충 · LLM 활용</span><div class="callout__body"><p>원자료는 그래프 특징 공학에 LLM을 쓰는 법도 소개한다. 정확한 스키마와 예시를 &#39;사실의 발판&#39;으로 쥐여 주면, LLM이 메타경로 설명을 <strong>Cypher 쿼리로 번역</strong>(쿼리 생성)하고, 눈에 안 띄는 관련 패턴을 제안(특징 공학)하며, 실행 인프라 코드를 돕는다(코드 생성). 지어내지 않게 스키마·예시를 함께 주는 것이 핵심이다.</p></div></div>
+    </section>
+
+    <section class="report-section s13 page-break" id="source-10-3" data-source-kind="section" data-source-ref="10.3">
+      <div class="report-section__kicker">교재 §10.3 · ReFeX</div>
+      <h1>10.3 반자동 특징 추출 — ReFeX로 손일을 덜기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>ReFeX는 수동 공학의 해석 가능성을 지키면서 특징 선택을 자동화하는 중간 지대다.</li>
+        <li>국소·에고넷 특징을 재귀적으로 집계해 &#39;지역(행동적)&#39; 특징을 만든다.</li>
+      </ul></div></div>
+      <p>수동 공학은 통찰을 주지만 도메인 전문성·시간·맞춤화 부담이 크다. <strong>ReFeX(재귀적 특징 추출)</strong>는 그 장점(해석 가능성·신뢰성·예측 가능성)을 지키면서 특징 선택을 자동화하는, 수동과 신경망 사이의 <strong>중간 지대</strong>다. 블랙박스와 달리 과정이 투명해 “왜 이 계정이 의심스러운가”를 설명해야 하는 사기 탐지에 값지다. 또 <strong>서로 다른 그래프·시점 간 비교</strong>가 가능하다.</p>
+      <p>ReFeX는 국소(노드 기반) 특징을 이웃(에고넷) 특징과 <strong>재귀적으로 결합</strong>해 <strong>지역(행동적) 특징</strong>을 만든다. 즉 노드의 <strong>정체성</strong>이 아니라 “어떤 종류의 노드와 연결되는가”라는 성격을 담는다. 두 규칙 — <strong>구조적</strong>(추가 속성 없이 구조만 사용)과 <strong>효과적</strong>(속성 예측에 도움 + 그래프 간 전이 가능) — 을 따른다. 과정은 ① 국소 특징(차수) ② 에고넷 특징(노드·간선 수) ③ 재귀 집계(합/평균)의 세 단계이며, 재귀는 특징 수를 기하급수로 늘리므로 상관 분석·로그 구간화·임계값 <strong>가지치기</strong>로 관리한다. 사람의 감독은 여전히 필수다.</p>
+    </section>
+
+    <section class="report-section s14 page-break" id="source-10-3-1" data-source-kind="section" data-source-ref="10.3.1">
+      <div class="report-section__kicker">교재 §10.3.1 · ReFeX by Hand</div>
+      <h1>10.3.1 ReFeX를 손으로 수행하기 — 한 노드씩 따라가며</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>같은 사기 네트워크에서(색은 무시) 국소 차수 → 에고넷 → 재귀 집계를 손으로 따라간다.</li>
+        <li>노드 A: 차수 6 → 이웃 차수 합 17 → 이웃 합계의 합 69로 재귀가 깊어진다.</li>
+      </ul></div></div>
+      <p>같은 네트워크에 ReFeX를 손으로 적용한다(ReFeX는 노드 타입을 무시하므로 색은 상관없다). 단순화를 위해 무향·비가중, 가지치기 생략. <a class="asset-ref" href="#fig-refex">그림 6</a>이 세 단계와 노드 A의 재귀를 보여 준다.</p>
+      <figure class="report-figure" id="fig-refex" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">ReFeX — 국소·에고넷·재귀 집계의 세 단계</span></figcaption>
+        <img src="assets/figs/fig-refex.svg" alt="국소 차수, 에고넷 특징, 그리고 이웃 값을 합과 평균으로 재귀 집계하는 세 단계와 노드 A의 계산">
+        <small class="asset-note">① 국소: degree(A)=6. ② 에고넷: 노드 7·간선 7. ③ 재귀: 1차에 이웃 차수 합 17, 2차에 이웃의 1차 합계를 다시 합해 69. 반복할수록 더 먼 이웃 정보가 스며들고, 특징이 기하급수로 늘어 가지치기가 필요하다. 출처: 원자료 §10.3.1·표 10.9~10.11을 재구성.</small>
+      </figure>
+      <table class="cmp-table" id="table-refex-degree">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 11</span><span class="asset-caption__title">표 10.9 · 노드 차수(국소 특징, 발췌)</span></div></caption>
+        <thead><tr><th>노드</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+        <tbody><tr><td>차수</td><td>6</td><td>3</td><td>1</td><td>4</td><td>2</td></tr></tbody>
+      </table>
+      <table class="cmp-table" id="table-refex-egonet">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 12</span><span class="asset-caption__title">표 10.10 · 에고넷 구조(발췌)</span></div></caption>
+        <thead><tr><th>노드 에고넷</th><th>노드 수</th><th>내부 간선</th><th>드나드는 간선</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>7</td><td>7</td><td>9</td></tr>
+          <tr><td>B</td><td>4</td><td>3</td><td>5</td></tr>
+          <tr><td>D</td><td>5</td><td>6</td><td>4</td></tr>
+        </tbody>
+      </table>
+      <p>노드 A를 예로 재귀를 따라가자. <strong>1차 반복</strong>: 이웃(H·I·G·B·T·O) 차수의 합 = 2+4+4+3+1+9 = <strong>17</strong>, 평균 ≈ 2.83. <strong>2차 반복</strong>: 각 이웃이 가진 1차 합계를 다시 더해 11+17+9+16+10+6 = <strong>69</strong>, 평균 = 11.5. 이렇게 반복할수록 더 먼 이웃 정보가 A에게 스며든다.</p>
+      <table class="cmp-table" id="table-refex-featuresA">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 13</span><span class="asset-caption__title">표 10.11 · 노드 A에 대해 계산된 특징(가지치기 전)</span></div></caption>
+        <thead><tr><th>특징 유형</th><th>특징</th><th>값</th></tr></thead>
+        <tbody>
+          <tr><td>국소</td><td>차수</td><td>6</td></tr>
+          <tr><td>에고넷</td><td>에고넷의 간선 수</td><td>7</td></tr>
+          <tr><td>재귀 1차</td><td>이웃 차수의 합 / 평균</td><td>17 / 2.83</td></tr>
+          <tr><td>재귀 2차</td><td>이웃 합계의 합 / 평균</td><td>69 / 11.5</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-section s15 page-break" id="source-10-3-2" data-source-kind="section" data-source-ref="10.3.2">
+      <div class="report-section__kicker">교재 §10.3.2 · ReFeX in Code</div>
+      <h1>10.3.2 코드로 ReFeX를 자동 수행하기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
+        <li>세 단계(국소·에고넷·재귀 집계)를 클래스로 옮기고, 상관 기반 가지치기로 중복 특징을 제거한다.</li>
+        <li>ReFeX는 결정론적이라 같은 입력에 같은 출력을 내며, 변경 시 영향받은 특징만 재계산할 수 있다.</li>
+      </ul></div></div>
+      <p>아래는 구현의 핵심이다. <code>_extract_local_features</code>(차수, 방향 그래프면 in/out 분리), <code>_extract_egonet_features</code>(노드·간선 수·밀도), <code>_generate_recursive_features</code>(이웃 특징을 <code>np.sum</code>·<code>np.mean</code>으로 집계), <code>_prune_features</code>(표준화 후 상관 0.95 초과 특징 제거).</p>
+      <article class="source-listing" id="source-listing-10-18" data-source-kind="listing" data-source-ref="10.18">
+        <h4>Listing 10.18 ReFeX 구현(핵심 부분)</h4>
+        <p>반복 한계와 상관 임계값으로 초기화하고, 국소 → 에고넷 → 재귀 집계를 이어붙인 뒤 상관 기반 가지치기를 수행한다.</p>
+        <pre data-code-language="Python"><code>class ReFeX:
+    def __init__(self, max_iterations=2, correlation_threshold=0.95):
+        self.max_iterations = max_iterations
+        self.correlation_threshold = correlation_threshold
+
+    def extract_features(self, G):
+        features = self._extract_local_features(G)                 # 1) 국소(차수)
+        features = np.column_stack((features,
+                                    self._extract_egonet_features(G)))  # 2) 에고넷
+        for _ in range(self.max_iterations):
+            new = self._generate_recursive_features(G, features)   # 3) 재귀 집계
+            features = np.column_stack((features, new))
+        return self._prune_features(features)                      # 가지치기
+
+    def _generate_recursive_features(self, G, cur):
+        # 이웃들의 특징을 합과 평균으로 집계
+        # new[:, :k] = np.sum(neighbor_feats, axis=0)
+        # new[:, k:] = np.mean(neighbor_feats, axis=0)
+        ...</code></pre>
+      </article>
+      <div class="callout--hero"><span class="callout__kicker">ReFeX Rule</span><span class="callout__body">ReFeX는 <strong>결정론적</strong>이라 같은 입력에 항상 같은 출력을 내며(재현성), 그래프가 바뀌면 영향받은 특징만 <strong>선택적으로 재계산</strong>할 수 있다. 다만 구조 특징에만 의존해 노드 속성·간선 타입을 직접 반영하지 못하고, 최적 특징 선택에는 여전히 사람의 감독이 필요하다.</span></div>
+    </section>
+
+    <section class="report-section s16 page-break" id="recap">
+      <div class="report-section__kicker">교재 요약 · Chapter Recap</div>
+      <h1>핵심 정리</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 장이 남긴 것</div><div class="section-summary__body"><ul>
+        <li>수동·반자동 특징 공학은 해석 가능성과 자동화 사이 균형을 잡으며 ML의 토대를 놓는다.</li>
+        <li>노드 특징은 국소(에고넷) + 전역(중심성) 지표를 결합해 만든다.</li>
+        <li>관계는 노드 기반 결합(이어붙이기·평균·L1/L2·아다마르) 또는 경로 기반(메타경로·DWPC)으로 표현한다.</li>
+        <li>ReFeX는 재귀 집계로 해석 가능한 구조 특징을 자동 생성하는 중간 지대다. 선택 기준은 해석 가능성·계산 자원·도메인 전문성이다.</li>
+      </ul></div></div>
+      <p>결론은 “어떤 지표를 쓰느냐”가 아니라 “해석 가능성과 자동화 사이 어디에 설 것인가”의 설계다. 수동으로 국소·전역 지표를 쌓아 통제와 설명력을 얻고, 관계는 노드 결합·메타경로로 표현하며, 반복이 부담되면 ReFeX로 자동화하되 사람의 감독과 가지치기를 남긴다. 이 토대 위에서 11·12장의 완전 자동 표현 학습이 무엇을 얻고 무엇(해석 가능성·결정론)을 내주는지 판단할 수 있다. 발표자료·전체 코드는 <a href="./">발표자료</a>와 이 책의 코드 저장소에서 이어 볼 수 있다.</p>
+    </section>
+
+    <section class="report-appendix s-glossary page-break" id="glossary">
+      <div class="report-section__kicker">Appendix A · Glossary</div>
+      <h1>핵심 용어</h1>
+      <table class="cmp-table" id="table-glossary">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 14</span><span class="asset-caption__title">핵심 용어 사전</span></div></caption>
+        <thead><tr><th>용어</th><th>이 장에서의 의미</th></tr></thead>
+        <tbody>
+          <tr><td>벡터화·특징화</td><td>그래프의 노드·관계·그래프를 ML이 처리할 숫자 벡터로 바꾸는 표현 단계.</td></tr>
+          <tr><td>에고넷 / 에고 / 알터</td><td>중심 노드(에고)와 그 이웃(알터)으로 이뤄진 국소 네트워크.</td></tr>
+          <tr><td>차수 / 사기 차수</td><td>이웃 수. 사기 도메인에서는 사기·정상 이웃으로 세분.</td></tr>
+          <tr><td>삼각형 / 반사기 삼각형</td><td>세 노드가 모두 연결된 부분 그래프. 두 알터 중 하나만 사기면 반사기.</td></tr>
+          <tr><td>밀도</td><td>가능한 최대 간선 대비 실제 간선 비율(0~1).</td></tr>
+          <tr><td>측지·최단 경로</td><td>두 노드 사이 최소 거리(홉). 다익스트라로 계산.</td></tr>
+          <tr><td>근접 중심성 / 원거리도</td><td>다른 모든 노드에 얼마나 가까운지. 평균 최단 거리(원거리도)의 역수.</td></tr>
+          <tr><td>매개 중심성</td><td>다른 쌍들의 최단 경로 위에 얼마나 자주 나타나는지. 다리·병목.</td></tr>
+          <tr><td>페이지랭크</td><td>연결의 양뿐 아니라 질까지 보는 중요도. 사기 가중 변형 가능.</td></tr>
+          <tr><td>메타경로 / DWPC</td><td>노드·관계 타입의 순서열. DWPC는 차수로 감쇠해 허브 편향을 줄임.</td></tr>
+          <tr><td>ReFeX</td><td>재귀 집계로 구조 특징을 자동 추출하는 반자동·결정론적 방법.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-appendix s-refs page-break" id="references">
+      <div class="report-section__kicker">Appendix B · References</div>
+      <h1>참고 자료와 도형 출처</h1>
+      <ol class="references" style="list-style:none;padding:0;">
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>Alessandro Negro 외, <em>Knowledge Graphs and LLMs in Action</em>, Manning. Chapter 10 원문·해설판을 재구성 근거로 사용.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[5]</span><span>Himmelstein 외, Hetionet 기반 약물 재창출 연구 — 메타경로·DWPC의 출처(§10.2.2).</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[8]</span><span>ReFeX(Recursive Feature eXtraction) — §10.3의 출처.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[F]</span><span>그림 1~6은 원자료 그림 10.1~10.10과 표 10.1~10.11의 관계·값을 공개용으로 재구성한 발표자 도해다. 원문 스캔·그림은 복제하지 않았다.</span></li>
+      </ol>
+      <div class="report-jump-links"><a href="./">발표자료</a><a href="../../">회차 목록</a><a href="#summary">문서 처음</a></div>
+    </section>
+  </article>
+  <script src="assets/report.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

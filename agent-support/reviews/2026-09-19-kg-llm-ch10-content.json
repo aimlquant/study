@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "aaab2eefbae18936f5a4b1b297c1f7c12d662ddb68f37ac70445718bcee6872e",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_10_graph_feature_engineering_manual_and_semiautomated_approaches/10_graph_feature_engineering_manual_and_semiautomated_approaches.md",
+      "sha256": "0e6fb6f4e3bf52dee4e47ccf907f97e77d658b9e1295a2503f3a07751a398c7c"
+    },
+    {
+      "role": "outline",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_10_graph_feature_engineering_manual_and_semiautomated_approaches/10_graph_feature_engineering_manual_and_semiautomated_approaches_ko_explained.md",
+      "sha256": "546695afd2c8655964c0242d73d76a5ce32b23321f6e54a198b86122b5869897"
+    }
+  ],
+  "sections": [
+    {
+      "ref": "10.1",
+      "report_id": "source-10-1",
+      "explanation": "노드를 특징 벡터로 표현하는 문제를 세우고 국소(에고넷)와 전역 특징을 구분한다.",
+      "evidence": "사기 네트워크 예제와 Listing 10.1-10.2로 그래프 생성·재사용을 보인다.",
+      "limits": "예제 그래프가 작아 결과의 통계적 일반화는 유보한다.",
+      "visuals": "그림 1(사기 네트워크)."
+    },
+    {
+      "ref": "10.1.1",
+      "report_id": "source-10-1-1",
+      "explanation": "차수를 사기·정상·전체로 나눠 직접 연결을 표현한다.",
+      "evidence": "Listing 10.3 코드와 표 10.1 값(D=2+2, G=3+1).",
+      "limits": "사기 차수만으로 사기를 단정하지 않고 다른 지표와 함께 쓴다.",
+      "visuals": "그림 2(차수·삼각형)."
+    },
+    {
+      "ref": "10.1.2",
+      "report_id": "source-10-1-2",
+      "explanation": "세 노드가 모두 연결된 삼각형으로 이웃 간 결속을 포착한다.",
+      "evidence": "Listing 10.4와 표 10.2(사기·정상·반사기 삼각형).",
+      "limits": "삼각형 존재는 결속 신호일 뿐 사기의 증거는 아니다.",
+      "visuals": "그림 2 오른쪽(삼각형 유형)."
+    },
+    {
+      "ref": "10.1.3",
+      "report_id": "source-10-1-3",
+      "explanation": "가능한 간선 대비 실제 간선 비율(밀도)로 에고넷 결속을 잰다.",
+      "evidence": "공식 d=2M/(N(N-1))과 표 10.3(A=0.33, C·E=1).",
+      "limits": "밀도는 도메인 특화 변형이 없고 여기서 전역 지표로 전환한다.",
+      "visuals": "공식과 표 4."
+    },
+    {
+      "ref": "10.1.4",
+      "report_id": "source-10-1-4",
+      "explanation": "가장 가까운 사기꾼까지의 측지 거리와 홉별 경로 수를 센다.",
+      "evidence": "다익스트라 설명과 표 10.4(A는 I와 1홉, 2홉 4개).",
+      "limits": "실제 망에서는 수동 계산이 불가해 라이브러리에 의존한다.",
+      "visuals": "표 5."
+    },
+    {
+      "ref": "10.1.5",
+      "report_id": "source-10-1-5",
+      "explanation": "평균 최단 거리(원거리도)의 역수인 근접 중심성을 계산한다.",
+      "evidence": "공식과 표 10.5(A=0.5 최중심, R·S=0.24).",
+      "limits": "도달 불가 노드는 제외해 정규화하며 값이 서로 가까울 수 있다.",
+      "visuals": "그림 3 왼쪽(근접 중심성)."
+    },
+    {
+      "ref": "10.1.6",
+      "report_id": "source-10-1-6",
+      "explanation": "최단 경로 위 등장 빈도인 매개 중심성으로 다리 역할을 잰다.",
+      "evidence": "Listing 10.8과 표 10.6(A=104, 다수 노드 0).",
+      "limits": "근접 중심성이 높아도 매개 중심성은 0일 수 있다.",
+      "visuals": "그림 3 오른쪽(매개 중심성)."
+    },
+    {
+      "ref": "10.1.7",
+      "report_id": "source-10-1-7",
+      "explanation": "연결의 질까지 보는 페이지랭크와 사기 가중 변형을 계산한다.",
+      "evidence": "Listing 10.9와 표 10.7(D 0.068→0.168 급등).",
+      "limits": "점수 자체보다 기본↔사기 가중의 차이를 해석해야 한다.",
+      "visuals": "그림 4(페이지랭크 차이)."
+    },
+    {
+      "ref": "10.1.8",
+      "report_id": "source-10-1-8",
+      "explanation": "모든 지표를 모아 로지스틱 회귀로 사기 분류기를 학습한다.",
+      "evidence": "Listing 10.10-10.13(특징·학습·예측·실행).",
+      "limits": "예제가 작아 결과는 참고용이며 큰 그래프에 확장된다.",
+      "visuals": "코드 리스팅 위주(전용 도형 없음)."
+    },
+    {
+      "ref": "10.2",
+      "report_id": "source-10-2",
+      "explanation": "링크 예측을 '두 노드 사이 관계 가능성'으로 정의한다.",
+      "evidence": "단백질·고객·약-질병 예와 두 접근(노드 결합·경로) 소개.",
+      "limits": "입력이 노드 쌍이라는 점이 노드 분류와의 핵심 차이다.",
+      "visuals": "서술 중심(전용 도형 없음)."
+    },
+    {
+      "ref": "10.2.1",
+      "report_id": "source-10-2-1",
+      "explanation": "두 노드 벡터를 결합해 링크 표현을 만든다.",
+      "evidence": "Listing 10.14와 표 9(이어붙이기·평균·L1·L2·아다마르).",
+      "limits": "최선의 결합은 시나리오마다 달라 벤치마크가 필요하다.",
+      "visuals": "표 9(결합 연산)."
+    },
+    {
+      "ref": "10.2.2",
+      "report_id": "source-10-2-2",
+      "explanation": "메타경로와 DWPC로 경로 기반 관계 특징을 만든다.",
+      "evidence": "Listing 10.15-10.17, 표 10.8, 메트포르민 CbGaD=0.0007.",
+      "limits": "전수 계산은 비용 막대라 메타경로 축소·쌍 선택이 필요하다.",
+      "visuals": "그림 5(메타경로·DWPC)."
+    },
+    {
+      "ref": "10.3",
+      "report_id": "source-10-3",
+      "explanation": "ReFeX를 수동과 신경망 사이의 중간 지대로 소개한다.",
+      "evidence": "해석 가능성·비교 가능성·결정론과 두 규칙(구조적·효과적).",
+      "limits": "재귀는 특징을 기하급수로 늘려 가지치기가 필수다.",
+      "visuals": "서술 중심(다음 소절에서 도형)."
+    },
+    {
+      "ref": "10.3.1",
+      "report_id": "source-10-3-1",
+      "explanation": "국소→에고넷→재귀 집계를 노드 A로 손수 따라간다.",
+      "evidence": "표 10.9·10.10·10.11과 A의 재귀(6→17→69).",
+      "limits": "단순화를 위해 무향·비가중, 가지치기는 생략했다.",
+      "visuals": "그림 6(ReFeX 재귀)."
+    },
+    {
+      "ref": "10.3.2",
+      "report_id": "source-10-3-2",
+      "explanation": "세 단계를 ReFeX 클래스로 구현하고 상관 가지치기를 붙인다.",
+      "evidence": "Listing 10.18(국소·에고넷·재귀·가지치기).",
+      "limits": "구조 특징만 다뤄 노드 속성·간선 타입은 반영 못 한다.",
+      "visuals": "코드 리스팅 위주(전용 도형 없음)."
+    }
+  ],
+  "experiments": []
+}
