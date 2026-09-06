@@ -92,12 +92,12 @@ html/studies/<study-slug>/presentations/<session-slug>/
 - 장식만 하는 이미지와 의미 없는 KPI 카드는 만들지 않는다.
 - 책의 그림을 그대로 베끼거나 캡처하지 않는다.
 - 외부 수치와 이미지는 가까운 위치에 직접 출처를 표시한다.
-- 한 챕터 리포트는 대체로 표·도형 6–10개를 목표로 한다. 내용상 불필요하면 숫자를 채우지 않는다.
+- 표·도형은 원본 자산과 장별 학습 질문에 맞춘다. 개수는 상한이나 합격 기준이 아니다.
 - 리포트의 모든 `.report-figure`는 클릭·Enter로 전체 화면에서 열리고, 휠·버튼·핀치로 확대되므로 구체적인 캡션과 `alt`를 제공한다.
 
 ### 4. 검증된 리포트에서 슬라이드를 파생한다
 
-리포트 한 핵심 주장에는 정의, 작동 방식, 예시, 한계, 판단 기준 가운데 적어도 두 가지가 따라야 한다. 짧은 카드와 목록만으로 본문을 끝내지 않는다. 리포트 게이트를 통과한 뒤에만 18–30장의 발표 흐름으로 압축한다.
+리포트의 핵심 주장에는 이해에 필요한 원리, 원서의 근거·사례와 조건이 연결되어야 한다. 분량이나 설명 요소 개수만으로 충분함을 판정하지 않는다. 짧은 카드와 목록만으로 본문을 끝내지 않는다. 리포트 게이트를 통과한 뒤에만 18–30장의 발표 흐름으로 압축한다.
 
 발표자료에는 리포트에 없는 새 주장·수치·사례를 넣지 않는다. 필요하면 리포트를 먼저 고친 뒤 다시 파생한다. 결론형 제목 아래에 대응하는 `교재 §/그림/표/Listing/Example` 좌표를 표시한다. 리포트 SVG가 발표 화면에서 읽히면 동일 파일을 직접 사용하고, 복잡하면 핵심 관계와 그림 번호를 보존한 발표용 SVG/CSS로 재배치한다. 장식용 대체 그림으로 바꾸지 않는다.
 
@@ -137,7 +137,7 @@ python3 agent-support/scripts/validate-site.py --site html --check-materials
 
 ## 완료 체크리스트
 
-- [ ] `report.html`, `index.html`, `presentation.toml`, 로컬 자산이 모두 있다.
+- [ ] 요청한 산출물과 `presentation.toml`, 로컬 자산이 있다. 리포트 단독이면 덱과 Slides 링크를 만들지 않는다.
 - [ ] 리포트가 슬라이드 문장 확장본이 아니라 독립적인 상세 자료다.
 - [ ] 원자료 감사 뒤 리포트 게이트를 통과하고 나서 발표자료를 만들었다.
 - [ ] 원본 절·그림·표·Listing·Example·Box의 번호와 정확한 제목이 별도 매핑표가 아니라 실제 본문 요소로 원본 순서에 보존됐다.
@@ -171,3 +171,5 @@ python3 agent-support/scripts/validate-site.py --site html --check-materials
 ## 아카이브 수명주기
 
 책이 끝나면 학습자료는 `materials/<track>/active/`에서 `materials/<track>/archive/`로 이동할 수 있다. 에이전트는 `agent-support/studies.toml`의 `materials_path`만 따라가며, 공개 회차 경로 `html/studies/<study-slug>/presentations/<session-slug>/`와 이미 공유된 URL은 바꾸지 않는다. 회차에 필요한 SVG·이미지·CSS·JavaScript는 모두 회차 폴더 안에 있으므로 원문 이동 뒤에도 발표와 리포트가 그대로 동작해야 한다.
+
+새 리포트는 작성 시작부터 원문 대조를 활성화하고, `source-learning-v1` 내용 검토 기록을 남긴다. JSON 계약과 노트북 증거 연결은 `agent-support/procedures/study-presentation.md`의 「설명·실습 근거 기록」을 따른다. 원본 목차·내용 검증과 이후 덱 파생 검증은 별도로 수행한다.

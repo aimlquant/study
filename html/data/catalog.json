@@ -474,7 +474,13 @@
       "title": "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "1장 상세 리포트",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/report.html"
+        }
+      ],
       "chapters": [
         "Chapter 1"
       ],
@@ -486,7 +492,7 @@
       "presenters": [
         "태영"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 1. 프로세스가 경쟁 우위다"
     },

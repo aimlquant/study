@@ -57,13 +57,19 @@
       // opt into a deterministic capture layout that removes only the report
       // siblings before the target section. Normal readers and ordinary hash
       // links keep the document untouched.
-      var section = target.closest('.report-section, .report-appendix') || target;
-      var report = section.closest('.report');
+      var report = target.closest('.report');
       if (report) {
-        Array.from(report.children).forEach(function (child) {
-          if (child === section || child.compareDocumentPosition(section) & Node.DOCUMENT_POSITION_CONTAINED_BY) return;
-          if (child.compareDocumentPosition(section) & Node.DOCUMENT_POSITION_FOLLOWING) child.style.display = 'none';
-        });
+        // Remove preceding siblings along the complete ancestor path, so a
+        // nested lab, heading or figure starts the QA view at its own content.
+        var node = target;
+        while (node && node !== report) {
+          var previous = node.previousElementSibling;
+          while (previous) {
+            previous.style.display = 'none';
+            previous = previous.previousElementSibling;
+          }
+          node = node.parentElement;
+        }
       }
       document.documentElement.classList.add('report-fragment-capture');
       window.scrollTo(0, 0);
@@ -86,7 +92,7 @@
   window.buildDrawerTOC = function () {
     var list = document.getElementById('tocDrawerList');
     if (!list || list.children.length) return;
-    var headings = Array.from(document.querySelectorAll('.report-section h1, .report-section h2, .report-appendix h1, .report-appendix h2'));
+    var headings = Array.from(document.querySelectorAll('.report-section h1, .report-section h2, .report-section h3, .report-appendix h1, .report-appendix h2, .report-appendix h3'));
     headings.forEach(function (h, idx) {
       var label = getHeadingLabel(h);
       if (!label || /^References$/i.test(label)) label = '참고문헌';
@@ -223,6 +229,7 @@
   function setupImageLightbox() {
     var targets = Array.from(document.querySelectorAll([
       '.report-figure > img',
+      '.report-figure > .figure-scroll > img',
       '.report-figure > svg',
       '.svg-figure > img',
       '.svg-figure > svg',
@@ -285,7 +292,12 @@
 
     function getLabel(target) {
       var figure = target.closest('figure');
-      var caption = figure && figure.querySelector('.asset-caption__title, figcaption');
+      var title = figure && figure.querySelector('.asset-caption__title');
+      if (title) {
+        var chip = figure.querySelector('.asset-caption__chip');
+        return [chip && chip.textContent.trim(), title.textContent.trim()].filter(Boolean).join(' · ');
+      }
+      var caption = figure && figure.querySelector('figcaption');
       return (caption && caption.textContent.trim())
         || target.getAttribute('alt')
         || target.getAttribute('aria-label')

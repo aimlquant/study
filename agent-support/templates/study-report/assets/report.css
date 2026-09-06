@@ -1498,6 +1498,11 @@ body.chrome-hidden .report-settings {
   font-weight: 700;
   line-height: 1.35;
 }
+.report-toc-drawer__item--h3 a {
+  padding-left: 22px;
+  font-size: 12px;
+  font-weight: 500;
+}
 .report-toc-drawer__item--h2 a {
   padding-left: 22px;
   color: var(--text-secondary);
@@ -3893,4 +3898,28 @@ svg.report-lightbox__visual {
     break-inside: auto !important;
     page-break-inside: auto !important;
   }
+}
+.report pre[data-code-language]::after { content: attr(data-code-language); }
+
+/* Printed code must expose every character without a scroll viewport. */
+@media print {
+  .continuous-mode .report-section pre,
+  .continuous-mode .report-section pre code,
+  .continuous-mode .report-appendix pre,
+  .continuous-mode .report-appendix pre code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    min-width: 0;
+    max-width: 100%;
+    overflow: visible;
+  }
+}
+
+/* A4 section spacing and intact short code blocks. */
+@media print {
+  .continuous-mode .report-section { padding-top: 0; padding-bottom: 0; }
+  .continuous-mode .report-section h3 { margin-top: 24px; }
+  .continuous-mode .report-section p { margin-bottom: 10px; }
+  .continuous-mode .report-section pre { break-inside: avoid-page; page-break-inside: avoid; }
+  .continuous-mode .report-section .source-note { font-size: 12px; line-height: 1.55; break-before: avoid-page; }
 }

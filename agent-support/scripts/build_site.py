@@ -1141,20 +1141,23 @@ def render_files(
                 for item in discussion_points
             )
             point_list = (
-                f'<ul class="session-discussion-points">{points}</ul>'
+                f'        <ul class="session-discussion-points">{points}</ul>\n'
                 if points
                 else ""
             )
             ended = session.get("meeting_status") == "ended"
-            brief_heading = "논의 기록" if ended else "논의 안내"
-            brief_title = "이 회차의 논의 내용" if ended else "이 회차에서 함께 결정할 것"
+            if discussion_points or not session.get("chapters"):
+                brief_heading = "논의 기록" if ended else "논의 안내"
+                brief_title = "이 회차의 논의 내용" if ended else "이 회차에서 함께 결정할 것"
+            else:
+                brief_heading = "회차 안내"
+                brief_title = "이번 회차에서 배울 것"
             brief = f"""    <section class="session-brief">
       <h2>{brief_heading}</h2>
       <article class="book">
         <h3>{brief_title}</h3>
         <p class="book-summary">{html.escape(summary)}</p>
-        {point_list}
-      </article>
+{point_list}      </article>
     </section>
 """
         body = f"""    <header class="site-masthead">
