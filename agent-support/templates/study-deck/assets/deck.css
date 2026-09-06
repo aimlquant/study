@@ -1828,3 +1828,52 @@ svg.deck-lightbox__visual {
     display: none !important;
   }
 }
+
+/* Teaching layouts preserve intermediate explanation at projector size. */
+.slide--teaching { padding: 26px 52px 22px; }
+.slide--teaching .slide-header { min-height: 28px; margin-bottom: 12px; }
+.slide--teaching > h1 { font-size: 35px; line-height: 1.22; }
+.slide--teaching > h1::after { margin-top: 10px; height: 3px; }
+.slide--teaching > .lead { margin-top: 12px; font-size: 20px; line-height: 1.45; }
+.slide--teaching .slide-body { gap: 16px; padding: 16px 0; }
+.slide--teaching > .takeaway { margin: 0 0 12px; padding: 12px 16px; font-size: 20px; line-height: 1.45; }
+.slide--teaching .slide-footer { min-height: 28px; padding-top: 8px; font-size: 14px; }
+.teaching-columns { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 24px; }
+.teaching-columns > article { padding: 24px; border: 1px solid var(--border); border-top: 4px solid var(--primary); background: var(--surface); border-radius: 8px; }
+.teaching-columns h2,.teaching-rows h2 { margin: 0; color: var(--primary); font-size: 23px; line-height: 1.4; }
+.teaching-columns p,.teaching-rows p { margin: 12px 0 0; font-size: 22px; line-height: 1.55; }
+.teaching-rows { display: grid; gap: 16px; }
+.teaching-rows > article { display: grid; grid-template-columns: 242px 1fr; gap: 22px; align-items: start; padding: 0 0 14px; border-bottom: 1px solid var(--border); }
+.teaching-rows > article:last-child { border-bottom: 0; padding-bottom: 0; }
+.teaching-rows p { margin: 0; }
+.teaching-table { width: 100%; border-collapse: collapse; table-layout: auto; font-size: 21px; line-height: 1.45; }
+.teaching-table th,.teaching-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.teaching-table th { background: var(--primary-deep); color: #fff; font-weight: 700; }
+.teaching-table td:first-child { color: var(--primary); font-weight: 700; }
+.teaching-table tbody tr:nth-child(even) { background: var(--surface-soft); }
+.teaching-table caption { text-align: left; padding: 0 0 10px; font-size: 19px; font-weight: 700; color: var(--primary); }
+.teaching-table caption [data-deck-caption] { margin-right: 10px; }
+.explain-line { margin: 0; font-size: 22px; line-height: 1.5; }
+.teaching-visual { display: grid; grid-template-columns: minmax(0,1.75fr) minmax(0,1fr); gap: 28px; align-items: center; min-height: 0; height: 100%; }
+.teaching-visual .deck-report-figure { height: 100%; min-width: 0; }
+.teaching-visual .deck-report-figure img { max-width: 100%; max-height: 380px; object-fit: contain; border: 0; box-shadow: none; }
+.teaching-visual .deck-report-figure figcaption { display: flex; width: 100%; margin-top: 10px; }
+.teaching-visual .deck-report-figure figcaption b { min-width: 80px; }
+.teaching-visual .deck-report-figure figcaption > * { font-size: 17px; line-height: 1.35; }
+.teaching-visual .teaching-rows { gap: 20px; }
+.teaching-visual .teaching-rows > article { display: block; padding-bottom: 12px; }
+.teaching-visual .teaching-rows h2 { font-size: 21px; }
+.teaching-visual .teaching-rows p { font-size: 20px; line-height: 1.5; margin-top: 8px; }
+.slide--teaching pre { width: 100%; margin: 0; padding: 18px 24px; font-size: 19px; line-height: 1.45; white-space: pre; overflow: hidden; color: #f5f7fc; background: #111923; }
+.slide--teaching .formula-main { padding: 10px 0; font-size: 28px; text-align: center; }
+.slide--teaching .formula-main .katex-display { margin: 0; }
+.slide--teaching .section-tag { padding-right: 34px; }
+.teaching-visual .deck-report-figure img { flex: 1; min-height: 0; width: 100%; height: 0; max-height: none; }
+.teaching-visual .deck-report-figure figcaption { flex: 0 0 auto; min-height: 42px; }
+.teaching-wide-visual { display: flex; min-height: 0; height: 100%; flex-direction: column; gap: 8px; }
+.teaching-wide-visual .deck-report-figure { flex: 1; min-height: 0; width: 100%; }
+.teaching-wide-visual .deck-report-figure img { flex: 1; min-height: 0; width: 100%; height: 0; max-height: none; max-width: 100%; object-fit: contain; border: 0; box-shadow: none; }
+.teaching-wide-visual .deck-report-figure figcaption { display: flex; flex: 0 0 auto; width: 100%; margin: 6px 0 0; }
+.teaching-wide-visual .deck-report-figure figcaption > * { font-size: 17px; }
+.teaching-wide-visual .deck-report-figure figcaption b { min-width: 80px; }
+.figure-reading { margin: 0; font-size: 20px; line-height: 1.45; }

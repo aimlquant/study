@@ -19,7 +19,7 @@
     <div id="settingsPanel" class="report-settings-panel" aria-hidden="true">
       <div class="report-settings-panel__group"><span class="report-settings-panel__label">화면</span><button id="themeToggle" type="button" onclick="cycleTheme()" aria-label="나이트 모드 전환">☀</button></div>
       <div class="report-settings-panel__group"><span class="report-settings-panel__label">출력</span><button class="report-settings-action" type="button" onclick="window.print()">Print / PDF</button></div>
-      <div class="report-settings-panel__group"><span class="report-settings-panel__label">이동</span><nav class="report-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="report.html">Report</a><a href="../../../../sessions/2026-09-12-ml4t-ch01/">회차</a></nav></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">이동</span><nav class="report-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./">Slides</a><a href="report.html">Report</a><a href="../../../../sessions/2026-09-12-ml4t-ch01/">회차</a></nav></div>
     </div>
   </div>
   <div id="tocBackdrop" class="report-toc-backdrop" hidden></div>
@@ -80,7 +80,7 @@
 <p>따라서 어떤 모델이 항상 최적인지를 찾는 것만으로는 충분하지 않습니다. 신호가 약해졌는지, 잠시 잡음이 커졌는지, 거래 여건이 달라졌는지 구별해야 합니다. 원서가 강조하는 우위는 모든 국면 전환을 미리 맞히는 능력이 아니라, 가정을 시험하고 악화에 대응하는 연구와 운영의 반복 과정입니다.</p>
 <h3 id="lifecycle">연구에서 프로덕션으로 이어지는 시스템으로서의 프로세스</h3>
 <p>이 반복 과정을 생애주기로 보면 데이터 준비, 학습, 평가, 배포 이후의 감시가 연결됩니다. 원서는 López de Prado의 ‘알파 공장’이라는 표현과 CRISP-ML(Q)를 소개합니다. 전자는 전략을 반복적으로 생성·평가·운영하는 체계라는 뜻이고, 후자는 머신러닝 과정에 품질 보증을 포함한 공학적 틀입니다. QA는 <em>Quality Assurance</em>, 즉 단계 사이의 품질 점검을 뜻합니다.</p>
-<figure class="report-figure" id="fig-lifecycle" data-source-kind="figure" data-source-ref="1.1">
+<figure data-deck-use="required" class="report-figure" id="fig-lifecycle" data-source-kind="figure" data-source-ref="1.1">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">개발 이후의 감시까지 연결한 ML 생애주기</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/lifecycle.svg" alt="문제 이해에서 준비, 모델링, 평가, 배포, 감시로 이어지고 감시에서 모델과 문제 설정으로 돌아가는 여섯 단계" loading="eager"></div>
 <small class="asset-note">QA는 다음 단계로 넘기기 전에 점검한다는 뜻입니다. 감시 결과는 재학습뿐 아니라 연구 범위의 재설정으로도 돌아갑니다. 원서 그림의 단계·인계 점검·두 피드백 경로를 새 배치로 그렸습니다. 원서 그림 1.1: 품질 보증을 포함한 ML을 위한 산업 간 표준 프로세스 CRISP-ML(Q).</small></figure>
@@ -93,7 +93,7 @@
 <div class="report-section__kicker">교재 §1.2</div><h1>1.2 ML4T 워크플로 소개</h1>
 <div class="section-summary"><div class="section-summary__kicker">구조를 읽는 기준</div><div class="section-summary__body"><p>여러 전략이 공유하는 데이터 기반 위에 연구가 반복됩니다. 탐색 중에는 가설과 모델을 바꿀 수 있지만, 최종 확인에 쓸 자료와 평가 규칙은 그 탐색으로부터 보호해야 합니다.</p></div></div>
 <p>워크플로에는 두 층이 있습니다. <strong>데이터 인프라</strong>는 모든 연구가 사용할 데이터의 뜻과 이력을 관리합니다. 그 위의 <strong>전략 연구</strong>는 범위 설정, 특성과 모델의 개발, 전략 설계, 배포와 감시를 반복합니다. 데이터가 한 번 준비됐다고 끝나는 순서도가 아닙니다. 실거래에서 찾은 문제가 데이터 정의나 연구 가설로 되돌아갑니다.</p>
-<figure class="report-figure" id="fig-workflow" data-source-kind="figure" data-source-ref="1.2">
+<figure data-deck-use="required" class="report-figure" id="fig-workflow" data-source-kind="figure" data-source-ref="1.2">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">공유 데이터 기반과 탐색·확인의 경계</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/workflow.svg" alt="전체 데이터 기반 안에 연구 프레임워크, 특성과 모델의 양방향 반복, 전략 설계, 확인 경계 아래의 배포와 감시가 있는 도해" loading="eager"></div>
 <small class="asset-note">바깥 틀은 계속 유지할 데이터 기반입니다. 점선은 탐색과 확인을 구분하고, 되돌아가는 선은 감시 결과에 따른 재검토입니다. 원서 그림의 두 층과 피드백을 보존하고 확인 단계의 의미를 함께 표시했습니다. 원서 그림 1.2: 트레이딩을 위한 ML 워크플로는 기반 데이터 인프라 계층을 반복적 전략 연구 루프로부터 분리하며, 확인을 위해 홀드아웃 (holdout)을 따로 남겨 두는 증거 경계로 이를 통제합니다.</small></figure>
@@ -144,10 +144,10 @@ parts = {"탐색": strategy.iloc[:cut], "확인": strategy.iloc[cut:]}
 result = pd.DataFrame({key: _metrics(x) for key, x in parts.items()}).T</code></pre>
 <p>당일 수익률을 평균에 넣고 당일 보유를 정하면 결과를 보고 행동한 셈이 됩니다. 위 코드는 평균을 하루 뒤로 옮겨 그 문제를 피합니다. 평균을 계산할 20일이 아직 없는 시작 구간은 보유하지 않습니다. 확인 구간에서도 직전까지의 수익률을 계속 관측하지만 규칙 자체는 바꾸지 않습니다.</p>
 <table class="cmp-table" id="table-boundary-output"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 6</span><span class="asset-caption__title">가이드 재실행 결과 · 비용 차감 전</span></div></caption><thead><tr><th>구간</th><th>평균 수익률 연율화</th><th>연율 변동성</th><th>샤프 (무위험 0)</th><th>최대 낙폭</th></tr></thead><tbody><tr><td>탐색 125일</td><td>22.9513%</td><td>14.8492%</td><td>1.5456</td><td>−9.8731%</td></tr><tr><td>확인 126일</td><td>14.1179%</td><td>18.7353%</td><td>0.7535</td><td>−7.7670%</td></tr></tbody></table>
-<figure class="report-figure" id="fig-boundary-output">
+<figure data-deck-use="required" class="report-figure" id="fig-boundary-output">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">구간을 나누어 본 작은 규칙의 누적 곡선</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/evidence-output.png" alt="2021년 앞 구간과 뒤 구간을 각각 시작 자산 1로 놓은 두 누적 곡선" loading="eager"></div>
-<small class="asset-note">각 구간을 별도로 1에서 시작합니다. 두 선은 하나의 연속 계좌가 아니며 서로 다른 날짜의 경로입니다. 2026-09-06 가이드의 시간 분할 실험 셀을 재실행한 출력입니다.</small></figure>
+<small class="asset-note">파란색 development는 탐색 125일, 주황색 locked_evaluation은 확인 126일입니다. 각 구간을 별도로 1에서 시작합니다. 두 선은 하나의 연속 계좌가 아니며 서로 다른 날짜의 경로입니다. 2026-09-06 가이드의 시간 분할 실험 셀을 재실행한 출력입니다.</small></figure>
 <p>표의 첫 열은 복리 성장률(CAGR)이 아니라 일평균 수익률에 252를 곱한 값입니다. 변동성은 일수익률의 표본 표준편차에 √252를 곱합니다. 샤프 비율은 무위험 수익률을 0으로 놓았을 때 ‘평균 ÷ 표준편차 × √252’입니다. 최대 낙폭은 각 구간의 초기 자산 1을 포함한 이전 최고점에서 얼마나 하락했는지의 최솟값입니다. 따라서 확인 구간의 변동성이 더 높으면서 최대 낙폭은 더 작아도 모순이 아닙니다. 변동성과 낙폭은 다른 측정값입니다.</p>
 <p>확인 구간의 샤프가 낮다는 관측만으로 시장 국면 변화가 원인이라고 단정할 수 없습니다. 표본도 짧고 선택된 다섯 대형주에 한정됩니다. 이 실험은 비용·슬리피지·시장 충격·종목 생존 편향과 전략 선택의 다중 검정을 해결하지 않습니다. 종가 사이의 수익을 이상적으로 얻는 계산이므로 실제 주문 체결을 재현하지도 않습니다. <strong>이 표가 보여 주는 것은 성과를 구간별로 분리해 읽는 방법입니다.</strong></p>
 <p class="source-note">실습: <a href="../../../../materials/?p=quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/src/ch01/01_chapter_guide.ipynb">1장 가이드 노트북</a>의 시간 분할 실험 셀, 공용 하네스 <code>_evidence_boundary</code>·<code>_metrics</code>. 코드 발췌는 계산이 보이도록 풀어 썼으며 출력 수치를 대조했습니다.</p></article>
@@ -161,7 +161,7 @@ result = pd.DataFrame({key: _metrics(x) for key, x in parts.items()}).T</code></
 <h3 id="entrypoints">두 가지 실용적 출발점과 두 가지 산출물 유형</h3>
 <p><strong>예측 우선</strong> 연구는 목표와 넓은 특성 집합에서 시작합니다. 복잡한 모델도 정규화와 앙상블 등을 통해 새 기간에서 성능을 낼 가능성이 있으므로 복잡성 자체를 배제하지 않습니다. 대신 정보 누출을 막는 평가, 시간 순서 검증, 많은 시도를 고려한 통계 판단이 필요합니다. 원서의 주장은 복잡한 모델이 언제나 더 좋다는 뜻이 아닙니다.</p>
 <p><strong>메커니즘 우선</strong> 연구는 어떤 경제적 이유로 효과가 생길 수 있는지에서 시작합니다. 예를 들어 정보 반영 지연이나 유동성 공급에 대한 보상을 가정하면 탐색할 대상과 실패 조건을 좁힐 수 있습니다. 메커니즘은 엉뚱한 전략을 걸러 내고 감시할 조건을 정하는 데 유용하지만, 경제적 이야기를 적었다고 인과 효과가 식별되는 것은 아닙니다.</p>
-<figure class="report-figure" id="fig-entries" data-source-kind="figure" data-source-ref="1.3">
+<figure data-deck-use="required" class="report-figure" id="fig-entries" data-source-kind="figure" data-source-ref="1.3">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">서로 다른 출발점이 공유하는 검증 절차</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/research-entries.svg" alt="예측 우선과 메커니즘 우선 연구가 공통 검증을 거쳐 거래 신호나 측정 산출물로 연결되는 두 경로" loading="eager"></div>
 <small class="asset-note">위의 두 경로는 상호 배타적인 유형이 아닙니다. 같은 프로젝트가 두 관점을 섞거나 두 산출물을 함께 만들 수 있습니다. 원서의 공통 안전장치와 산출물 구분을 새 배치로 표현했습니다. 원서 그림 1.3: 하나의 거래 연구 루프로 들어가는 두 가지 출발점.</small></figure>
@@ -175,7 +175,7 @@ result = pd.DataFrame({key: _metrics(x) for key, x in parts.items()}).T</code></
 <p>결국 메커니즘이 있으면 어떤 조건에서 전략이 작동하지 않을지 더 명시적으로 말할 수 있습니다. 그러나 메커니즘의 그럴듯함도 수익을 보장하지 않으며, 원서는 표본 외 증거와 거래 가능성을 최종 판단에 계속 남겨 둡니다.</p>
 <h3 id="generative-ai">생성형 AI로 역량을 확장하고 위험을 스케일링하기</h3>
 <p><strong>생성형 AI</strong>는 공시·실적 발표·뉴스처럼 구조가 일정하지 않은 자료를 정리하고, 특성 후보나 코드를 만드는 데 도움을 줄 수 있습니다. 이를테면 여러 문서에서 기업 이름과 사건을 추출하면 사람이 읽을 양을 줄일 수 있습니다. 하지만 추출된 내용이 실제 문서에 있는지, 그 문서를 당시 사용할 수 있었는지는 별도로 확인해야 합니다.</p>
-<figure class="report-figure" id="fig-ai-workflow" data-source-kind="figure" data-source-ref="1.4">
+<figure data-deck-use="required" class="report-figure" id="fig-ai-workflow" data-source-kind="figure" data-source-ref="1.4">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">일곱 단계에서 ML과 생성형 AI가 돕는 작업</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/ai-workflow.svg" alt="전략 가설부터 감시까지 일곱 행에 머신러닝과 생성형 AI의 보조 작업이 나란히 놓인 비교 도해" loading="eager"></div>
 <small class="asset-note">각 기능은 인접 단계와도 연결됩니다. 원서 표는 드리프트 탐지를 실행·비용 행에 놓습니다. 감시에서도 쓰이는 기능이며, 행 대응을 유지해 다시 그렸습니다. 이 배치는 독점적인 역할 분담이나 반드시 따라야 할 API 순서를 뜻하지 않습니다. 원서 그림 1.4: ML/AI 증강 거래 워크플로.</small></figure>
@@ -204,7 +204,7 @@ result = pd.DataFrame({key: _metrics(x) for key, x in parts.items()}).T</code></
 <p>\(K\)는 성분 수, \(\pi_k\)는 성분의 혼합 비중, \(\mu_k\)와 \(\Sigma_k\)는 그 성분의 평균 벡터와 공분산 행렬입니다. \(\mathcal{N}\)은 주어진 모수의 정규분포가 관측을 얼마나 잘 설명하는지를 나타내는 밀도입니다. 분모의 \(j\)는 합산할 성분의 번호입니다. 모든 성분의 가중 밀도를 더하므로 상태 확률의 합은 1입니다. 이 값은 <strong>현재 관측의 상태 소속 확률</strong>이며 다음 날 수익이 날 확률이 아닙니다.</p>
 <p>원서는 성분 수 2–6을 비교합니다. AIC는 적합도와 모형 복잡도를 함께 고려하는 기준으로 작을수록 선호됩니다. 하지만 원서의 AIC가 고른 6상태에서는 군집 분리도를 보는 실루엣 점수가 거의 0이고, 1950년 이후 상태가 지나치게 잘게 나뉩니다. 실루엣은 대략 −1부터 1 사이에서 자기 군집과 다른 군집의 거리 차이를 비교하며, 0에 가까우면 뚜렷하게 나뉘지 않았다는 뜻입니다. 이것은 수익률 점수가 아닙니다.</p>
 <p>그래서 이 사례는 2상태가 안정성과 해석 가능성에서 더 적절하다고 설명합니다. 상태에는 원래 ‘좋은 시장’이라는 이름이 없습니다. 원서의 Risk-On·Risk-Off 이름은 주식시장의 결과를 본 뒤 붙인 사후 해석입니다. 표본 전체로 학습한 상태를 당시 알 수 있었던 신호로 바꾸어 읽으면 안 됩니다.</p>
-<figure class="report-figure" id="fig-factor-risk" data-source-kind="figure" data-source-ref="1.5">
+<figure data-deck-use="required" class="report-figure" id="fig-factor-risk" data-source-kind="figure" data-source-ref="1.5">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">국면별 주식시장 변동성, 1927–2024</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/factor-risk.svg" alt="같은 두 국면에 대해 이동 변동성 평균 9.8과 12.7, 직접 집계 변동성 8.6과 19.1을 다른 두 패널로 비교한 막대" loading="eager"></div>
 <small class="asset-note">위 패널은 원서 그림 범례의 12개월 이동 변동성 평균, 아래는 본문이 보고한 국면별 수익률 변동성입니다. 원시 시계열을 재실행하지 않았으므로 원서의 연도별 곡선·국면 음영은 복원하지 않고 두 집계의 차이를 새로 도해했습니다. 원서 그림 1.5: 국면별 주식시장 변동성, 1927–2024.</small></figure>
@@ -220,7 +220,7 @@ result = pd.DataFrame({key: _metrics(x) for key, x in parts.items()}).T</code></
 <p>원서의 확장 분석은 신용 스프레드·통화·주택·변동성 등 더 많은 지표를 사용합니다. 계층적 군집화는 가까운 관측끼리 점차 묶어 나무 모양의 덴드로그램을 만들고, 코페네틱 상관은 그 나무의 거리 표현이 원래 관측 간 거리를 얼마나 보존하는지 측정합니다. 원서의 0.710은 이 거리 보존의 진단값입니다. 정확도 71%나 다음 수익 예측 성공률 71%라는 뜻이 아닙니다. 더 많은 지표를 쓸수록 잡음과 설정 선택도 늘어납니다.</p>
 <h3 id="macro-results">시장 검증 – 변동성과 낙폭</h3>
 <p>경제 변수로 군집을 만들었다면 그 상태에서 실제 시장 위험이 달랐는지 별도로 봅니다. 원서는 월별 S&amp;P 500 자료를 붙여 상태별 변동성과 낙폭을 비교합니다. 다음 막대는 원서 그림 1.6 오른쪽에 인쇄된 수치입니다. 왼쪽의 2003–2026년 시간띠에는 확장·긴축·회복·위기와 금융위기·팬데믹·인플레이션 사건이 표시되어 있습니다.</p>
-<figure class="report-figure" id="fig-macro-risk" data-source-kind="figure" data-source-ref="1.6">
+<figure data-deck-use="required" class="report-figure" id="fig-macro-risk" data-source-kind="figure" data-source-ref="1.6">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 7</span><span class="asset-caption__title">거시 국면과 시장 변동성, 2003–2026</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/macro-risk.svg" alt="확장 긴축 회복 위기의 연율 변동성 12 15 15 16과 최대 낙폭 크기 15 42 53 10을 서로 다른 축에서 비교하는 막대" loading="eager"></div>
 <small class="asset-note">원서 그림의 위험 요약을 다시 그렸습니다. 오른쪽 낙폭은 손실의 크기를 양수로 표시합니다. 원래 시간띠의 월별 소속은 재계산하지 않았으므로 생략했으며, 모든 막대는 책의 저장 보고값입니다. 원서 그림 1.6: 거시 국면과 시장 변동성, 2003–2026.</small></figure>
@@ -231,7 +231,7 @@ result = pd.DataFrame({key: _metrics(x) for key, x in parts.items()}).T</code></
 <p>위험 감시는 전략의 취약성에서 출발합니다. 모멘텀이라면 상관 급등과 반전이 겹칠 때, 캐리라면 자금 조달 압박과 정책 변화 때, 평균회귀라면 변동성이 커지고 유동성이 줄 때 어떤 손실이 생기는지를 묻습니다. 원서는 이런 조건에 맞춘 통계량과 사전에 정한 위험 조치를 연결하라고 권합니다. 모든 전략에 같은 확률 임계값이나 손절 수치를 적용하라는 규칙은 제시하지 않습니다.</p>
 <article class="notebook-example" id="lab-gmm"><h3>실습 · 학습한 GMM을 고정하고 뒤 기간의 상태 확률 계산하기</h3>
 <p>이 실습은 원서의 GMM을 이해하면서 <em>학습에 쓰는 관측과 나중에 평가하는 관측을 분리하면 무엇이 달라지는가</em>를 확인합니다. 앞 실습과 같은 2021년 다섯 종목을 사용하지만, 여기서는 수익률을 평균하지 않습니다. 하루마다 다섯 개 수익률을 가진 벡터가 입력입니다. 가격 252일에서 얻은 251일을 앞 125일과 뒤 126일로 나눕니다.</p>
-<figure class="report-figure" id="fig-time-boundary">
+<figure data-deck-use="required" class="report-figure" id="fig-time-boundary">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 8</span><span class="asset-caption__title">전처리와 모델을 앞 기간에서만 학습하는 실험</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/time-boundary.svg" alt="학습 125일에서 표준화기와 GMM을 추정하고 확인 126일에는 동결한 변환과 상태 확률 계산만 적용하는 두 열의 도해" loading="eager"></div>
 <small class="asset-note">오른쪽 자료를 관측할 때 왼쪽에서 정한 평균·표준편차·모수는 바꾸지 않습니다. 데이터 분할만으로 모든 누출이 해결되는 것은 아니며 입력 자체의 시점 적합성은 별도입니다. 가이드의 실험 절차를 직접 도해했습니다.</small></figure>
@@ -256,7 +256,7 @@ higher_variance_state = int(np.argmax(trace))</code></pre>
 <p><code>fit(train)</code>은 학습 구간에서 평균과 표준편차를 구하고, <code>transform(test)</code>는 그 값을 그대로 적용합니다. <code>n_components=2</code>는 상태를 두 개로 정했다는 뜻이며 확인 구간에서 상태 수를 골라 바꾸지 않습니다. <code>covariance_type="full"</code>은 종목 간 공동 움직임을 포함한 공분산을 추정합니다. 여러 초기값에서 학습하는 <code>n_init=10</code>과 고정 시드도 가이드 설정입니다.</p>
 <p>어느 상태를 더 큰 변동 상태로 부를지도 학습 자료만 보고 정합니다. 여기서는 <strong>표준화된 공분산 행렬의 대각 원소 합(trace)</strong>이 더 큰 성분을 선택합니다. 대각 원소는 각 입력의 분산이므로 합이 크다는 것은 표준화 공간에서 총 산포가 더 크다는 뜻입니다. 실제 금전 손실이나 바스켓의 포트폴리오 변동성 자체를 계산한 값은 아닙니다.</p>
 <table class="cmp-table" id="table-gmm-output"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 11</span><span class="asset-caption__title">가이드 GMM 재실행에서 확인한 값</span></div></caption><thead><tr><th>항목</th><th>실행 결과</th><th>의미</th></tr></thead><tbody><tr><td>상태 0의 공분산 trace</td><td>4.847327</td><td>학습된 두 성분 중 총 산포가 더 큼</td></tr><tr><td>상태 1의 공분산 trace</td><td>3.891603</td><td>표준화된 입력 공간의 비교값</td></tr><tr><td>학습 날짜가 확인 날짜보다 앞섬</td><td>True</td><td>구간 순서를 확인</td></tr><tr><td>표준화기가 본 자료가 학습 구간뿐임</td><td>True</td><td>확인 구간으로 평균·분산을 갱신하지 않음</td></tr><tr><td>두 상태 확률의 합이 1이고 각 값이 0–1</td><td>True</td><td>출력의 확률 범위를 확인</td></tr></tbody></table>
-<figure class="report-figure" id="fig-gmm-output">
+<figure data-deck-use="required" class="report-figure" id="fig-gmm-output">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 9</span><span class="asset-caption__title">동결한 GMM의 더 큰 변동 상태 소속 확률</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/gmm-output.png" alt="2021년 뒤 126거래일의 다섯 종목 수익률에 대한 상태 0 소속 확률이 0에서 1 사이로 변하는 선" loading="eager"></div>
 <small class="asset-note">세로축은 상태 소속 확률이고 가로축은 관측 날짜입니다. 학습 구간의 공분산 trace로 선택한 상태 0의 확률을 그립니다. 2026-09-06 가이드의 GMM 실험 셀를 재실행한 출력입니다.</small></figure>
@@ -307,7 +307,7 @@ higher_variance_state = int(np.argmax(trace))</code></pre>
 <p><a href="../../../../materials/?p=quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/src/ch01/01_chapter_guide.ipynb">1장 가이드 노트북</a>은 준비된 교재 실행 환경에서 위에서 아래로 Run All 하면 됩니다. 이번 발행을 위해 22개 셀을 다시 실행해 두 실험의 표와 그림을 확인했습니다. 이 가이드 실행에는 GPU나 외부 API가 필요하지 않습니다. 필요한 Python 패키지가 설치된 환경과 동봉 표본 데이터는 있어야 합니다.</p>
 <table class="cmp-table" id="table-practice"><caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 13</span><span class="asset-caption__title">자료별 실행 범위와 리포트의 연결</span></div></caption><thead><tr><th>자료</th><th>입력·계산</th><th>이번 리포트의 사용 범위</th></tr></thead><tbody><tr><td><a href="../../../../materials/?p=quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/src/ch01/01_chapter_guide.ipynb">가이드: 데이터 진단</a></td><td>2021년 5종목, 252가격일</td><td>재실행. 아래 가격 그림과 자료 한계</td></tr><tr><td><a href="#lab-boundary">가이드: 시간 분할</a></td><td>20일 규칙, 125일/126일 비교</td><td>재실행. 코드·지표·누적 곡선</td></tr><tr><td><a href="#lab-gmm">가이드: 2상태 GMM</a></td><td>학습 전용 표준화와 동결 추정</td><td>재실행. 모수 비교·상태 확률</td></tr><tr><td><a href="../../../../materials/?p=quant/active/machine-learning-for-trading-3e/official-resources/code/machine-learning-for-trading/01_process_is_edge/factor_regimes.ipynb">공식 factor_regimes</a></td><td>AQR 월별 요인, GMM 2–6상태</td><td>원서·소스·저장 자료 대조. 전체 분석 재실행 안 함</td></tr><tr><td><a href="../../../../materials/?p=quant/active/machine-learning-for-trading-3e/official-resources/code/machine-learning-for-trading/01_process_is_edge/macro_regimes.ipynb">공식 macro_regimes</a></td><td>FRED 월별 지표와 S&amp;P 500</td><td>원서·소스·저장 자료 대조. 전체 분석 재실행 안 함</td></tr></tbody></table>
 <p>공식 요인 예제의 AQR 자료 수집에는 네트워크가 필요할 수 있습니다. 거시 예제는 로컬 데이터가 준비되어 있으면 이를 읽고, 미준비 자료를 수집할 때는 FRED 등의 준비 경로가 필요합니다. 이 리포트의 기본 실습은 이 수집 과정을 실행하지 않습니다. 공식 예제를 따라갈 때는 <a href="../../../../materials/?p=quant/active/machine-learning-for-trading-3e/official-resources/code/machine-learning-for-trading/01_process_is_edge/README.md">1장 공식 실행 안내</a>와 연결된 데이터 안내를 먼저 확인하세요.</p>
-<figure class="report-figure" id="fig-reference-prices">
+<figure data-deck-use="required" class="report-figure" id="fig-reference-prices">
 <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 10</span><span class="asset-caption__title">실습에 사용한 다섯 종목의 가격 경로</span></figcaption>
 <div class="figure-scroll"><img src="assets/figs/reference-prices.png" alt="2021년 AAPL AMZN GOOGL MSFT NVDA의 조정 가격을 시작값 1로 나누어 비교한 선 그래프" loading="eager"></div>
 <small class="asset-note">종목마다 출발값을 1로 맞춘 가격 경로입니다. 평균회귀나 모멘텀의 수익을 측정한 차트가 아닙니다. 2026-09-06 가이드의 데이터 진단 셀의 재실행 출력입니다.</small></figure>

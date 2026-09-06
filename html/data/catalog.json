@@ -479,6 +479,11 @@
           "kind": "report",
           "label": "1장 상세 리포트",
           "url": "studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "1장 발표 슬라이드",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/"
         }
       ],
       "chapters": [

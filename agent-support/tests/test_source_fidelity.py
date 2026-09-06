@@ -846,5 +846,59 @@ class ReportOnlyLearningTest(unittest.TestCase):
             self.assertTrue(any("requires source_fidelity" in e for e in check()))
 
 
+
+class DeckTeachingReviewTest(unittest.TestCase):
+    def parse(self, html):
+        trace = validate_site.ReportDeckTraceParser()
+        trace.feed(html)
+        return trace
+
+    def test_deck_caption_namespace_is_independent_and_requires_all_labels(self):
+        source = '<main data-report-source="report.html" data-caption-scope="deck"><section class="slide" id="s"><figure><figcaption><b data-deck-caption="figure">그림 1</b></figcaption></figure><table><caption><span data-deck-caption="table">표 1</span></caption></table></section></main>'
+        errors = []
+        validate_site.validate_deck_caption_scope(self.parse(source), Path('deck.html'), errors)
+        self.assertEqual(errors, [])
+        for bad in [source.replace('그림 1', '그림 7'), source.replace('data-deck-caption="table"', '')]:
+            errors = []
+            validate_site.validate_deck_caption_scope(self.parse(bad), Path('deck.html'), errors)
+            self.assertTrue(errors)
+
+    def test_review_checks_freshness_experiment_chain_and_real_anchors(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root/'agent-support/reviews').mkdir(parents=True)
+            report = root/'report.html'
+            deck = root/'index.html'
+            report.write_text('<a href="./">Slides</a><section class="report-section" id="chapter"><article class="notebook-example" id="lab">Experiment</article></section>')
+            deck.write_text('<main data-report-source="report.html"><section class="slide" id="code" data-report-refs="chapter lab"><pre data-code-language="Python">value = 1</pre></section><section class="slide" id="result" data-report-refs="lab"><table><tr><td>1</td></tr></table></section></main>')
+            record = dict(schema_version=1, verdict='reviewed', report_sha256=hashlib.sha256(report.read_bytes()).hexdigest(), deck_sha256=hashlib.sha256(deck.read_bytes()).hexdigest(), units=[dict(question='What?', explanation='Calculation', evidence='Table', conditions='Scope', report_refs=['chapter','lab'], slide_ids=['code','result'])], experiments=[dict(report_id='lab',code_slides=['code'],result_slides=['result'],interpretation_slides=['result'],interpretation='One observed value')])
+            path = root/'agent-support/reviews/deck.json'
+            metadata = dict(deck_quality='report-teaching-v1',deck_review='agent-support/reviews/deck.json')
+            def check(value):
+                path.write_text(json.dumps(value))
+                errors=[]
+                with mock.patch.object(validate_site,'REPO_ROOT',root):
+                    validate_site.validate_deck_teaching_review(metadata,self.parse(report.read_text()),self.parse(deck.read_text()),report,deck,errors)
+                return errors
+            self.assertEqual(check(record),[])
+            original_report = report.read_text()
+            report.write_text(original_report.replace('<a href="./">Slides</a>', ''))
+            self.assertTrue(any('paired report must link' in e for e in check(record)))
+            report.write_text(original_report.replace('href="./"', 'href="index.html#/1"'))
+            self.assertFalse(any('paired report must link' in e for e in check(record)))
+            report.write_text(original_report)
+            for field in ['report_sha256','deck_sha256']:
+                changed=dict(record);changed[field]='old'
+                self.assertTrue(any('stale' in e for e in check(changed)))
+            changed=dict(record);changed['experiments']=[]
+            self.assertTrue(any('notebook evidence' in e for e in check(changed)))
+            changed=json.loads(json.dumps(record));changed['experiments'][0]['result_slides']=['code']
+            self.assertTrue(any('no chart or table' in e for e in check(changed)))
+            changed=json.loads(json.dumps(record));changed['units'][0]['slide_ids']=['missing']
+            self.assertTrue(check(changed))
+            changed=dict(record);changed['units']=[None]
+            self.assertTrue(check(changed))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 360" role="img"><style>text{font-family:'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;font-size:24px;fill:#0f2c59;text-anchor:middle}.small{font-size:22px}</style><defs><marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#0f2c59"/></marker></defs><rect width="1140" height="360" fill="#fafaf9"/>
+<rect x="15" y="25" width="285" height="130" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="157.5" y="68.0">예측 우선</text>
+<text x="157.5" y="98.0">목표·특성 → 모델</text>
+<text x="157.5" y="128.0">비용 후 경제성</text>
+<rect x="15" y="205" width="285" height="130" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="157.5" y="248.0">메커니즘 우선</text>
+<text x="157.5" y="278.0">경제적 이유 → 탐색 제약</text>
+<text x="157.5" y="308.0">실패 조건·감시</text>
+<rect x="355" y="55" width="430" height="250" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="570.0" y="143.0">의사결정 시점의 정보</text>
+<text x="570.0" y="173.0">시간 순서 검증·다중 검정 통제</text>
+<text x="570.0" y="203.0">현실적 백테스트·드리프트 감시</text>
+<text x="570.0" y="233.0">증거에 따른 다음 단계</text>
+<rect x="840" y="25" width="285" height="130" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="982.5" y="83.0">거래 신호</text>
+<text x="982.5" y="113.0">포지션·주문</text>
+<rect x="840" y="205" width="285" height="130" rx="9" fill="#e8eef5" stroke="#0f2c59" stroke-width="1.6"/>
+<text x="982.5" y="263.0">측정 산출물</text>
+<text x="982.5" y="293.0">위험 노출·요인 기여</text>
+<path d="M300 90H327V130H355" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M300 270H327V230H355" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M785 130H812V90H840" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+<path d="M785 230H812V270H840" fill="none" stroke="#0f2c59" stroke-width="2.6" marker-end="url(#arrow)"/>
+</svg>

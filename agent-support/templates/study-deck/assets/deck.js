@@ -100,6 +100,14 @@
     });
   }
 
+  function numberTables() {
+    let number = 0;
+    slides.forEach((slide) => slide.querySelectorAll('table caption [data-deck-caption="table"]').forEach((label) => {
+      number += 1;
+      label.textContent = `표 ${number}`;
+    }));
+  }
+
   function numberFigures() {
     let figureNumber = 0;
     slides.forEach((slide) => {
@@ -254,6 +262,7 @@
   window.addEventListener("beforeprint", () => document.body.classList.remove("chrome-hidden"));
 
   numberFigures();
+  numberTables();
   buildToc();
   fitStage();
   applyTheme(savedTheme() === "dark" ? "dark" : "light");

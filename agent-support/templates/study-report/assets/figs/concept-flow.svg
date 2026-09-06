@@ -25,6 +25,6 @@
     <text class="label" x="360" y="86">변환·메커니즘</text>
     <text class="meta" x="360" y="108">해석 · 추출 · 계산</text>
     <text class="label" x="610" y="86" fill="#fff">검증된 결과</text>
-    <text class="meta" x="610" y="108" fill="#D9E2EF">근거 · 승인 · 피드백</text>
+    <text class="meta" x="610" y="108" style="fill:#D9E2EF">근거 · 승인 · 피드백</text>
   </g>
 </svg>
