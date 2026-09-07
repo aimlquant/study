@@ -49,9 +49,9 @@
       margin-top: 4px;
     }
     .dense-table th, .dense-table td {
-      padding: 6px 12px;
-      font-size: 17px;
-      line-height: 1.35;
+      padding: 8px 14px;
+      font-size: 18px;
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -94,7 +94,7 @@
         <div class="teaching-columns">
           <article>
             <h2>1. 분류와 내재 규칙</h2>
-            <p>데이터는 단순 숫자가 아닙니다. 타임스탬프, 캘린더, 기업행위, 수정 규칙이 결합된 계약입니다.</p>
+            <p>데이터는 단순 숫자가 아닙니다. 타임스탬프 관례, 캘린더, 기업행위, 수정 규칙이 결합된 종합 계약입니다.</p>
           </article>
           <article>
             <h2>2. 자산군별 시장 구조</h2>
@@ -107,7 +107,7 @@
         </div>
       </div>
       <p class="takeaway">머신러닝 트레이딩 실패의 대부분은 알고리즘이 아닌 데이터 파이프라인의 조용한 결함에서 발생합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number>02</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number>02</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
     <!-- Slide 3 -->
@@ -119,20 +119,20 @@
         <div class="teaching-rows">
           <article>
             <h2>당시 알 수 있었는가?</h2>
-            <p>공시 지연(Lag)이나 나중에 수정된 수치를 과거 의사결정에 소급 투입하면 치명적인 미래정보 누수가 발생합니다.</p>
+            <p>공시 지연(Lag)이나 나중에 수정된 수치를 과거 의사결정에 소급 투입하면 치명적인 미래정보 누수(Lookahead)가 발생합니다.</p>
           </article>
           <article>
             <h2>살아남은 자만의 결과인가?</h2>
-            <p>오늘 상장된 종목만으로 과거를 구성하면 파산·상장폐지된 기업의 손실이 누락되어 성과가 왜곡됩니다.</p>
+            <p>오늘 상장된 종목만으로 과거를 구성하면 파산·상장폐지된 기업의 손실이 누락되어 성과가 심각하게 왜곡됩니다.</p>
           </article>
           <article>
             <h2>실제로 거래 가능한 가격인가?</h2>
-            <p>액면분할 미조정, 선물 만기 단절, OTC 참고 호가를 실체결가로 오인하면 가짜 알파가 생성됩니다.</p>
+            <p>액면분할 미조정, 선물 만기 단절, OTC 참고 호가를 실체결가로 오인하면 거대한 가짜 알파가 생성됩니다.</p>
           </article>
         </div>
       </div>
       <p class="takeaway">체계적인 데이터 관리 규율이 모델의 정교함보다 장기적 생존을 좌우합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number>03</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number>03</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
     <!-- Slide 4 -->
@@ -161,7 +161,7 @@
         </div>
       </div>
       <p class="takeaway">이론과 함께 22개 공식 주피터 노트북의 실측 결과를 연계하여 확인합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number>04</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number>04</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
     <!-- Slide 5 -->
@@ -170,7 +170,7 @@
       <h1>측정 대상에 따른 3대 금융 데이터 범주</h1>
       <p class="lead">데이터가 현실의 어떤 과정을 측정하는지에 따라 관측 지연과 엔지니어링 주의점이 달라집니다.</p>
       <div class="slide-body">
-        <table class="teaching-table">
+        <table class="teaching-table dense-table">
           <thead>
             <tr><th>범주</th><th>측정 대상</th><th>대표 예시</th><th>관측 특성</th></tr>
           </thead>
@@ -182,7 +182,7 @@
         </table>
       </div>
       <p class="takeaway">데이터를 읽을 때는 숫자뿐만 아니라 타임스탬프 관례와 조정 정책을 함께 읽어야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-1">상세 설명 ↗</a><span><b data-slide-number>05</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-1">상세 설명 ↗</a><span><b data-slide-number>05</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
     <!-- Slide 6 -->
@@ -198,42 +198,55 @@
         </div>
       </div>
       <p class="takeaway">역사적 데이터셋의 상장폐지 추적 구간을 사전에 확인하지 않으면 백테스트 전체가 무효화됩니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-1">상세 설명 ↗</a><span><b data-slide-number>06</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-1">상세 설명 ↗</a><span><b data-slide-number>06</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
     <!-- Slide 7 -->
-    <section class="slide slide--teaching" id="slide-07" aria-label="모델링 전 확정해야 할 4대 데이터 계약" data-report-refs="sec-1">
+    <section class="slide slide--teaching" id="slide-07" aria-label="모델링 전 확정해야 할 4대 데이터 계약 (Part 1)" data-report-refs="sec-1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.1 데이터 계약</span></header>
-      <h1>모델링 전 확정해야 할 4대 데이터 계약</h1>
+      <h1>모델링 전 확정해야 할 4대 데이터 계약 (Part 1)</h1>
       <p class="lead">하위 파이프라인 코드가 제각기 해석하지 못하도록 전사적으로 고정해야 하는 원칙입니다.</p>
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
             <h2>1. 타임스탬프 의미론</h2>
-            <p><strong>Event Time</strong>(사건 발생) vs <strong>Knowledge Time</strong>(공시 접수) vs <strong>Ingestion Time</strong>(수집)을 엄격히 분리.</p>
+            <p><strong>Event Time</strong>(경제적 사건 발생 시점) vs <strong>Knowledge Time</strong>(공시 접수/공개 시점) vs <strong>Ingestion Time</strong>(시스템 수집 시점)을 엄격히 분리하여 데이터 파이프라인에 전달합니다.</p>
           </article>
           <article>
-            <h2>2. 기업행위 조정 방법</h2>
-            <p>분할/배당 요인의 소급 역방향(Backward) 적용 방식 및 총수익률(Total Return) vs 가격수익률 명시.</p>
-          </article>
-          <article>
-            <h2>3. 식별자 안정성</h2>
-            <p>티커 재사용 및 합병에 흔들리지 않는 <strong>영구 고유 식별자(FIGI, CIK, PermID)</strong> 매핑 체계 유지.</p>
-          </article>
-          <article>
-            <h2>4. 수정 및 재작성 처리</h2>
-            <p>거시지표나 재무제표 개정 시 <strong>의사결정 당시의 원본 수치(Vintage)</strong>를 복원할 수 있는 이중시간 지원.</p>
+            <h2>2. 기업행위 조정 방법론</h2>
+            <p>분할 및 배당 요인을 과거로 소급(Backward)하는지 전방(Forward) 적용하는지 명시하고, 총수익률(Total Return)과 단순 가격수익률 중 어느 기준을 쓰는지 사전에 확정합니다.</p>
           </article>
         </div>
       </div>
-      <p class="takeaway">이 4대 계약이 누락되면 이후 단계의 특징 추출과 백테스트 전체가 조용히 왜곡됩니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-1">상세 설명 ↗</a><span><b data-slide-number>07</b> / <b data-slide-total>41</b></span></footer>
+      <p class="takeaway">타임스탬프와 기업행위 조정 규칙이 명확하지 않으면 특징 추출 단계에서 치명적 누수가 발생합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-1">상세 설명 ↗</a><span><b data-slide-number>07</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
     <!-- Slide 8 -->
-    <section class="slide slide--teaching" id="slide-08" aria-label="자산군별 시장 데이터 환경 총괄 (Part 1)" data-report-refs="sec-2">
+    <section class="slide slide--teaching" id="slide-08" aria-label="모델링 전 확정해야 할 4대 데이터 계약 (Part 2)" data-report-refs="sec-1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.1 데이터 계약</span></header>
+      <h1>모델링 전 확정해야 할 4대 데이터 계약 (Part 2)</h1>
+      <p class="lead">식별자 일관성과 과거 수정 이력의 재현 가능성을 보장하는 계약입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article>
+            <h2>3. 식별자 안정성</h2>
+            <p>티커 변경, 상장폐지 후 티커 재사용, M&A에 영향을 받지 않도록 유효 기간이 지정된 <strong>영구 고유 식별자(FIGI, CIK, PermID)</strong> 크로스워크 매핑 체계를 구축합니다.</p>
+          </article>
+          <article>
+            <h2>4. 수정 및 재작성 처리</h2>
+            <p>거시경제 지표나 재무제표의 사후 개정(Restatement) 시, <strong>의사결정 당시 시장 참여자가 실제로 보았던 최초 발표치(Vintage)</strong>를 온전히 복원할 수 있는 이중시간(Bitemporal) 조회를 지원합니다.</p>
+          </article>
+        </div>
+      </div>
+      <p class="takeaway">영구 식별자와 빈티지 복원 능력이 갖추어져야 백테스트의 역사적 사실성이 성립합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-1">상세 설명 ↗</a><span><b data-slide-number>08</b> / <b data-slide-total>46</b></span></footer>
+    </section>
+
+    <!-- Slide 9 -->
+    <section class="slide slide--teaching" id="slide-09" aria-label="자산군별 시장 데이터 환경 총괄 (Part 1: 주식, ETP, 선물)" data-report-refs="sec-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2 자산군 환경</span></header>
-      <h1>자산군별 시장 데이터 환경 (거래소 상품)</h1>
+      <h1>자산군별 시장 데이터 환경 (Part 1: 주식, ETP, 선물)</h1>
       <p class="lead">거래소 중심 상품은 관측성이 높으나 정교한 시계열 처리 및 조정이 요구됩니다.</p>
       <div class="slide-body">
         <table class="teaching-table dense-table">
@@ -241,42 +254,60 @@
             <tr><th>자산군</th><th>관측 가능성</th><th>주요 실패 양상 (Failure Modes)</th><th>엔지니어링 우선순위</th></tr>
           </thead>
           <tbody>
-            <tr><td>주식 (Equities)</td><td>높음 (통합 시장)</td><td>분산 시장 파편화, 기업행위 왜곡</td><td>분할/배당 역방향 조정 및 영구 식별자 매핑</td></tr>
+            <tr><td>주식 (Equities)</td><td>높음 (통합 시장)</td><td>분산 시장 파편화, 기업행위 왜곡, 티커 재사용</td><td>분할/배당 역방향 조정 및 영구 식별자 매핑</td></tr>
             <tr><td>ETP (ETF/ETN)</td><td>높음 / 중간</td><td>NAV 괴리, 룩스루 누수, 유동성 불일치</td><td>시장가 vs NAV 2계층 분리 및 보유자산 PIT</td></tr>
             <tr><td>선물 (Futures)</td><td>높음 (거래소)</td><td>만기 롤오버 단절, 연속 시계열 왜곡</td><td>롤 규칙(거래량/OI) 및 후방조정 방식 선택</td></tr>
-            <tr><td>옵션 (Options)</td><td>높음 / 희소</td><td>차원 폭발, 꼬리 잡음, 롤오버 오염</td><td>원시 체인 대신 내재변동성 표면(IV Surface) 구성</td></tr>
           </tbody>
         </table>
       </div>
       <p class="takeaway">거래소 데이터는 투명하지만 만기, 보유자산, 기업행위에 따른 조정 규칙을 확립해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2">상세 설명 ↗</a><span><b data-slide-number>08</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2">상세 설명 ↗</a><span><b data-slide-number>09</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 9 -->
-    <section class="slide slide--teaching" id="slide-09" aria-label="자산군별 시장 데이터 환경 총괄 (Part 2)" data-report-refs="sec-2">
+    <!-- Slide 10 -->
+    <section class="slide slide--teaching" id="slide-10" aria-label="자산군별 시장 데이터 환경 총괄 (Part 2: 옵션, 크립토)" data-report-refs="sec-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2 자산군 환경</span></header>
-      <h1>자산군별 시장 데이터 환경 (디지털 및 OTC)</h1>
-      <p class="lead">탈중앙 및 장외(OTC) 시장은 단일 가격이 부재하므로 관례와 모델링이 선행되어야 합니다.</p>
+      <h1>자산군별 시장 데이터 환경 (Part 2: 옵션, 디지털 자산)</h1>
+      <p class="lead">차원 축소와 탈중앙 오더북/준비금 메커니즘을 다룹니다.</p>
       <div class="slide-body">
         <table class="teaching-table dense-table">
           <thead>
             <tr><th>자산군</th><th>관측 가능성</th><th>주요 실패 양상 (Failure Modes)</th><th>엔지니어링 우선순위</th></tr>
           </thead>
           <tbody>
-            <tr><td>크립토 (Crypto)</td><td>중간 (CEX/DEX)</td><td>24/7 세션화, 가짜 거래량, MEV</td><td>CEX 무결성 필터링, DEX 준비금 모델</td></tr>
-            <tr><td>외환 (FX)</td><td>낮음 (글로벌 OTC)</td><td>통합 테이프 부재, 종가 불일치</td><td>런던 16:00 / 뉴욕 17:00 종가 관례 명시</td></tr>
-            <tr><td>채권 (Bonds)</td><td>낮음 (희소 OTC)</td><td>실체결 부재, 모델 평가값 혼동</td><td>매트릭스 가격평가, 유동성 추론 규칙</td></tr>
-            <tr><td>스왑 / 파생</td><td>낮음 (보고 기반)</td><td>관례 불일치, 인공 수익률</td><td>거래·호가·커브 기반 표현 명시</td></tr>
-            <tr><td>원자재</td><td>중간 (선물/현물)</td><td>현물 모호성, 인도 등급 편차</td><td>계약 명세 메타데이터 내장, 기간구조</td></tr>
+            <tr><td>옵션 (Options)</td><td>높음 / 희소</td><td>차원 폭발, 꼬리 비유동성 잡음, 롤오버 오염</td><td>원시 체인 대신 내재변동성 표면(IV Surface) 구성</td></tr>
+            <tr><td>디지털 자산 (Crypto)</td><td>중간 (CEX) / 공개 (DEX)</td><td>24/7 세션화, 거래량 무결성(워시 트레이딩), MEV</td><td>CEX 거래소 선별 및 DEX AMM 준비금 기반 모델</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="takeaway">옵션은 표면으로 차원을 압축하고, DEX는 오더북 대신 풀 준비금 비율로 유동성을 모델링합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2">상세 설명 ↗</a><span><b data-slide-number>10</b> / <b data-slide-total>46</b></span></footer>
+    </section>
+
+    <!-- Slide 11 -->
+    <section class="slide slide--teaching" id="slide-11" aria-label="자산군별 시장 데이터 환경 총괄 (Part 3: 외환, 채권, 스왑, 원자재)" data-report-refs="sec-2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2 자산군 환경</span></header>
+      <h1>자산군별 시장 데이터 환경 (Part 3: 글로벌 OTC)</h1>
+      <p class="lead">단일 테이프가 없는 장외시장은 관례와 모델링이 선행되어야 합니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table dense-table">
+          <thead>
+            <tr><th>자산군</th><th>관측 가능성</th><th>주요 실패 양상 (Failure Modes)</th><th>엔지니어링 우선순위</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>외환 (FX)</td><td>낮음 (글로벌 OTC)</td><td>통합 테이프 부재, 종가 관례 불일치</td><td>집계 규칙 정의 및 런던 16:00 / 뉴욕 17:00 종가 관례 명시</td></tr>
+            <tr><td>채권 (Fixed Income)</td><td>낮음 (희소 OTC)</td><td>실체결 부재, 모델 평가값과 실거래 혼동</td><td>비유동 상품 처리 규칙, 매트릭스 가격평가 문서화</td></tr>
+            <tr><td>스왑 / 파생상품</td><td>낮음 (보고 의무 기반)</td><td>곡선 구성, 관례 불일치가 만든 인공 수익률</td><td>거래 기반 vs 호가 기반 vs 커브 기반 표현 명시</td></tr>
+            <tr><td>원자재 (Commodities)</td><td>중간 (선물/현물)</td><td>현물의 모호성, 인도 명세(장소·등급) 편차</td><td>메타데이터의 계약 명세 내장, 선물 곡선 표현</td></tr>
           </tbody>
         </table>
       </div>
       <p class="takeaway">단일 가격이 존재하지 않는 시장에서는 호가 집계, 커브 구축, 행렬 가격결정 규칙을 세워야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2">상세 설명 ↗</a><span><b data-slide-number>09</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2">상세 설명 ↗</a><span><b data-slide-number>11</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 10 -->
-    <section class="slide slide--teaching" id="slide-10" aria-label="주식: 기업행위 왜곡과 역방향 조정 알고리즘" data-report-refs="sec-2-1">
+    <!-- Slide 12 -->
+    <section class="slide slide--teaching" id="slide-12" aria-label="주식: 기업행위 왜곡과 역방향 조정 알고리즘" data-report-refs="sec-2-1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.1 주식</span></header>
       <h1>주식: 기업행위 왜곡과 역방향 조정 알고리즘</h1>
       <p class="lead">액면분할과 현금배당은 가격 시계열에 급격한 불연속을 만들어냅니다.</p>
@@ -294,11 +325,11 @@
         </div>
       </div>
       <p class="takeaway">장기 백테스트와 ML 특징 공학에서는 반드시 총수익률 기준 역방향 조정을 적용해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-1">상세 설명 ↗</a><span><b data-slide-number>10</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-1">상세 설명 ↗</a><span><b data-slide-number>12</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 11 -->
-    <section class="slide slide--teaching" id="slide-11" aria-label="실습 2: Apple 기업행위 역방향 조정 검증" data-report-refs="box-2">
+    <!-- Slide 13 -->
+    <section class="slide slide--teaching" id="slide-13" aria-label="실습 2: Apple 기업행위 역방향 조정 검증" data-report-refs="box-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.1 실습</span></header>
       <h1>실습 2 · Apple(AAPL) 1980~2018 기업행위 조정</h1>
       <p class="lead">실제 38년간의 4회 주식분할과 54회 현금 배당을 자체 알고리즘으로 검증합니다.</p>
@@ -316,11 +347,11 @@
         </div>
       </div>
       <p class="takeaway">미조정 가격 사용 시 누적 성과를 68배 과소평가하게 되므로 엄격한 조정 검증이 필수적입니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-2">상세 설명 ↗</a><span><b data-slide-number>11</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-2">상세 설명 ↗</a><span><b data-slide-number>13</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 12 -->
-    <section class="slide slide--teaching" id="slide-12" aria-label="상장거래상품(ETP)의 이중 구조와 5대 위험" data-report-refs="sec-2-2">
+    <!-- Slide 14 -->
+    <section class="slide slide--teaching" id="slide-14" aria-label="상장거래상품(ETP)의 이중 구조와 5대 위험" data-report-refs="sec-2-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.2 ETP</span></header>
       <h1>상장거래상품(ETP)의 이중 구조와 5대 위험</h1>
       <p class="lead">거래소 상장 래퍼와 기초자산 보유층 사이의 불일치를 이해해야 합니다.</p>
@@ -341,11 +372,11 @@
         </div>
       </div>
       <p class="takeaway">ETP 분석 시 시장 가격과 NAV 수익률을 명확히 구분하고 보유 비중의 PIT를 통제해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-2">상세 설명 ↗</a><span><b data-slide-number>12</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-2">상세 설명 ↗</a><span><b data-slide-number>14</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 13 -->
-    <section class="slide slide--teaching" id="slide-13" aria-label="실습 3: 100개 ETF 패널 유동성 및 OHLC 진단" data-report-refs="box-3">
+    <!-- Slide 15 -->
+    <section class="slide slide--teaching" id="slide-15" aria-label="실습 3: 100개 ETF 패널 유동성 및 OHLC 진단" data-report-refs="box-3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.2 실습</span></header>
       <h1>실습 3 · 100개 ETF 패널 유동성 및 OHLC 진단</h1>
       <p class="lead">2006~2025년 20년간의 ETF 패널 데이터에서 유동성 격차와 무결성을 진단합니다.</p>
@@ -357,11 +388,11 @@
         </div>
       </div>
       <p class="takeaway">벤더가 제공한 데이터라도 가격 필드 간 불변식과 유동성 편차를 반드시 사전 검증해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-3">상세 설명 ↗</a><span><b data-slide-number>13</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-3">상세 설명 ↗</a><span><b data-slide-number>15</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 14 -->
-    <section class="slide slide--teaching" id="slide-14" aria-label="선물: 만기 롤오버와 연속 시계열 구성" data-report-refs="sec-2-3">
+    <!-- Slide 16 -->
+    <section class="slide slide--teaching" id="slide-16" aria-label="선물: 만기 롤오버와 연속 시계열 구성" data-report-refs="sec-2-3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.3 선물</span></header>
       <h1>선물: 만기 롤오버와 연속 시계열 구성</h1>
       <p class="lead">영구 티커가 없는 선물 계약들을 경제적 손익을 보존하는 단일 시계열로 결합합니다.</p>
@@ -379,11 +410,11 @@
         </div>
       </div>
       <p class="takeaway">롤오버 시점의 선택 자체가 백테스트 성과를 규정하므로 원시 계약과 연속 시계열을 함께 저장합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-3">상세 설명 ↗</a><span><b data-slide-number>14</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-3">상세 설명 ↗</a><span><b data-slide-number>16</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 15 -->
-    <section class="slide slide--teaching" id="slide-15" aria-label="실습 4: CME 선물 세션화 및 연속 롤 탐지" data-report-refs="box-4">
+    <!-- Slide 17 -->
+    <section class="slide slide--teaching" id="slide-17" aria-label="실습 4: CME 선물 세션화 및 연속 롤 탐지" data-report-refs="box-4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.3 실습</span></header>
       <h1>실습 4 · CME 30개 선물 세션화 및 롤오버</h1>
       <p class="lead">Databento 시간봉 데이터를 이용한 전자거래 세션 정렬과 롤오버 알고리즘입니다.</p>
@@ -395,11 +426,11 @@
         </div>
       </div>
       <p class="takeaway">선물 백테스트는 롤 규칙과 연속화 산식에 민감하므로 거래량 기반 롤 탐지를 표준화해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-4">상세 설명 ↗</a><span><b data-slide-number>15</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-4">상세 설명 ↗</a><span><b data-slide-number>17</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 16 -->
-    <section class="slide slide--teaching" id="slide-16" aria-label="옵션: 체인에서 내재변동성 표면으로" data-report-refs="sec-2-4">
+    <!-- Slide 18 -->
+    <section class="slide slide--teaching" id="slide-18" aria-label="옵션: 체인에서 내재변동성 표면으로" data-report-refs="sec-2-4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.4 옵션</span></header>
       <h1>옵션: 체인에서 내재변동성 표면으로</h1>
       <p class="lead">수천 개 행사가와 만기 조합의 차원 폭발과 꼬리 잡음을 내재변동성 표면으로 극복합니다.</p>
@@ -418,11 +449,11 @@
         </div>
       </div>
       <p class="takeaway">옵션 표면은 단순한 시각화 요약이 아니라 분석 모델에 투입할 데이터셋 그 자체입니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-4">상세 설명 ↗</a><span><b data-slide-number>16</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-4">상세 설명 ↗</a><span><b data-slide-number>18</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 17 -->
-    <section class="slide slide--teaching" id="slide-17" aria-label="실습 5: Black-Scholes Greeks 계산 및 표면" data-report-refs="box-5">
+    <!-- Slide 19 -->
+    <section class="slide slide--teaching" id="slide-19" aria-label="실습 5: Black-Scholes Greeks 계산 및 표면" data-report-refs="box-5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.4 실습</span></header>
       <h1>실습 5 · Greeks 제1원리 계산 및 롤오버 오염 제거</h1>
       <p class="lead">AlgoSeek S&P 500 옵션 데이터를 활용한 수학적 Greeks 산출과 롤오버 정제입니다.</p>
@@ -434,11 +465,11 @@
         </div>
       </div>
       <p class="takeaway">옵션 시계열의 롤오버 오염을 제거해야만 순수한 변동성 차익거래 전략을 백테스트할 수 있습니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-5">상세 설명 ↗</a><span><b data-slide-number>17</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-5">상세 설명 ↗</a><span><b data-slide-number>19</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 18 -->
-    <section class="slide slide--teaching" id="slide-18" aria-label="디지털 자산: CEX 오더북과 DEX AMM 준비금" data-report-refs="sec-2-5">
+    <!-- Slide 20 -->
+    <section class="slide slide--teaching" id="slide-20" aria-label="디지털 자산: CEX 오더북과 DEX AMM 준비금" data-report-refs="sec-2-5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.5 크립토</span></header>
       <h1>디지털 자산: CEX 오더북과 DEX AMM 준비금</h1>
       <p class="lead">전통 호가창을 가진 CEX와 풀 준비금 비율로 가격을 결정하는 DEX가 공존합니다.</p>
@@ -455,11 +486,11 @@
         </div>
       </div>
       <p class="takeaway">DEX에서는 오더북 재구성이 성립하지 않으며 준비금 기반으로 유동성과 슬리피지를 계산해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-5">상세 설명 ↗</a><span><b data-slide-number>18</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-5">상세 설명 ↗</a><span><b data-slide-number>20</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 19 -->
-    <section class="slide slide--teaching" id="slide-19" aria-label="실습 6: 무기한 선물 펀딩비 차익거래" data-report-refs="box-6">
+    <!-- Slide 21 -->
+    <section class="slide slide--teaching" id="slide-21" aria-label="실습 6: 무기한 선물 펀딩비 차익거래" data-report-refs="box-6">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.5 실습</span></header>
       <h1>실습 6 · 무기한 선물 펀딩비 차익거래 분석</h1>
       <p class="lead">Binance 19개 코인 무기한 선물의 8시간 펀딩 비율(Funding Rate) 분석 결과입니다.</p>
@@ -471,11 +502,11 @@
         </div>
       </div>
       <p class="takeaway">무기한 선물의 펀딩비는 시장 심리의 극단적 편향을 나타내는 강력한 반전 특징으로 작동합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-6">상세 설명 ↗</a><span><b data-slide-number>19</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-6">상세 설명 ↗</a><span><b data-slide-number>21</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 20 -->
-    <section class="slide slide--teaching" id="slide-20" aria-label="장외시장(OTC): 외환과 채권 환경" data-report-refs="sec-2-6">
+    <!-- Slide 22 -->
+    <section class="slide slide--teaching" id="slide-22" aria-label="장외시장(OTC): 외환과 채권 환경" data-report-refs="sec-2-6">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.6 장외시장</span></header>
       <h1>장외시장(OTC): 외환과 채권 환경</h1>
       <p class="lead">단일하고 권위 있는 종가가 존재하지 않는 글로벌 분산 OTC 시장의 특성을 다룹니다.</p>
@@ -492,11 +523,11 @@
         </div>
       </div>
       <p class="takeaway">외환과 채권에서는 보이는 가격이 실제 거래 가능한 가격인지, 평가 모형의 결과물인지 구별해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-6">상세 설명 ↗</a><span><b data-slide-number>20</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-6">상세 설명 ↗</a><span><b data-slide-number>22</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 21 -->
-    <section class="slide slide--teaching" id="slide-21" aria-label="장외시장(OTC): 스왑과 원자재 환경" data-report-refs="sec-2-6">
+    <!-- Slide 23 -->
+    <section class="slide slide--teaching" id="slide-23" aria-label="장외시장(OTC): 스왑과 원자재 환경" data-report-refs="sec-2-6">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2.6 장외시장</span></header>
       <h1>장외시장(OTC): 스왑과 원자재 환경</h1>
       <p class="lead">가격이 아닌 커브를 다루는 스왑 시장과 물리적 제약을 받는 원자재 시장입니다.</p>
@@ -515,34 +546,61 @@
         </div>
       </div>
       <p class="takeaway">OTC 파생과 원자재에서는 개별 가격 대신 기간구조 커브와 계약 명세 메타데이터를 저장해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-6">상세 설명 ↗</a><span><b data-slide-number>21</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-2-6">상세 설명 ↗</a><span><b data-slide-number>23</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 22 -->
-    <section class="slide slide--teaching" id="slide-22" aria-label="5대 데이터 품질 차원 프레임워크" data-report-refs="sec-3-1">
+    <!-- Slide 24 -->
+    <section class="slide slide--teaching" id="slide-24" aria-label="5대 데이터 품질 차원 (Part 1: 적시성, 완전성, 정확성)" data-report-refs="sec-3-1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3 데이터 품질</span></header>
-      <h1>5대 데이터 품질 차원 프레임워크</h1>
+      <h1>5대 데이터 품질 차원 (Part 1: 기본 측정)</h1>
       <p class="lead">데이터 품질 결함은 백테스트에서는 가짜 알파를 만들고 실거래에서는 큰 손실을 초래합니다.</p>
       <div class="slide-body">
-        <table class="teaching-table dense-table">
-          <thead>
-            <tr><th>품질 차원</th><th>확인 대상</th><th>대표 점검 항목</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>1. 적시성 (Timeliness)</strong></td><td>사건 발생부터 수집·이용 가능 시점까지의 지연</td><td>틱 지연, 피드 수집 레이턴시 모니터링</td></tr>
-            <tr><td><strong>2. 완전성 (Completeness)</strong></td><td>자산·기간·필드별 결측치(NaN) 및 누락 공백</td><td>결측치 탐지, 거래소 휴장일 캘린더 갭</td></tr>
-            <tr><td><strong>3. 정확성 (Accuracy)</strong></td><td>측정값이 실제 거래소 원천 사실과 일치하는지</td><td>원천 체결가 대조, 비정상 틱 필터링</td></tr>
-            <tr><td><strong>4. 일관성 (Consistency)</strong></td><td>스키마, 단위, 조정 정책의 시계열 안정성</td><td>단위 변경, 타임존 불일치, 스키마 표류</td></tr>
-            <tr><td><strong>5. 유효성 (Validity)</strong></td><td>물리적·논리적 불변 조건 만족 여부</td><td>OHLC 불변식 (\(\text{High} \ge \text{Low}\)), 거래량 \(\ge 0\)</td></tr>
-          </tbody>
-        </table>
+        <div class="teaching-columns">
+          <article>
+            <h2>1. 적시성 (Timeliness)</h2>
+            <p>사건 발생부터 데이터 수집 및 실제 의사결정 이용 가능 시점까지의 지연시간을 측정하고 피드 레이턴시를 감시합니다.</p>
+          </article>
+          <article>
+            <h2>2. 완전성 (Completeness)</h2>
+            <p>자산, 기간, 필드별 결측치(NaN) 공백 및 거래소 휴장일 캘린더 갭을 식별하여 누락 레코드를 방지합니다.</p>
+          </article>
+          <article>
+            <h2>3. 정확성 (Accuracy)</h2>
+            <p>측정값이 실제 거래소 체결가 및 공시 원천 사실과 일치하는지 정기적으로 교차 대조합니다.</p>
+          </article>
+        </div>
       </div>
-      <p class="takeaway">5개 품질 차원을 주기적으로 자동 스캔하여 이상 데이터를 사전에 차단해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-1">상세 설명 ↗</a><span><b data-slide-number>22</b> / <b data-slide-total>41</b></span></footer>
+      <p class="takeaway">적시성, 완전성, 정확성을 상시 모니터링하여 데이터 원천 결함을 사전에 탐지합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-1">상세 설명 ↗</a><span><b data-slide-number>24</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 23 -->
-    <section class="slide slide--teaching" id="slide-23" aria-label="실습 7: 데이터 품질 검증 및 강건 이상치 탐지" data-report-refs="box-7">
+    <!-- Slide 25 -->
+    <section class="slide slide--teaching" id="slide-25" aria-label="5대 데이터 품질 차원 (Part 2: 일관성, 유효성 & 격리)" data-report-refs="sec-3-1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3 데이터 품질</span></header>
+      <h1>5대 데이터 품질 차원 (Part 2: 규칙 및 유효성)</h1>
+      <p class="lead">스키마 안정성과 물리적/논리적 불변 조건을 검증하고 이상치를 통제합니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article>
+            <h2>4. 일관성 (Consistency)</h2>
+            <p>스키마, 단위, 타임존, 조정 정책이 시간에 따라 안정적으로 유지되는지 확인하여 스키마 표류를 방지합니다.</p>
+          </article>
+          <article>
+            <h2>5. 유효성 (Validity)</h2>
+            <p>\(\text{High} \ge \max(\text{Open}, \text{Close})\), \(\text{Low} \le \min(\text{Open}, \text{Close})\), 거래량 \(\ge 0\) 등 불변식을 검증합니다.</p>
+          </article>
+          <article>
+            <h2>이상치 격리 (Quarantine)</h2>
+            <p>이상치 발견 시 조용히 드롭(Silent Drop)하지 않고 <code>AnomalyManager</code>로 감사 로그를 생성하여 격리합니다.</p>
+          </article>
+        </div>
+      </div>
+      <p class="takeaway">불변식 위반과 이상치를 감사 로그로 격리해야 파이프라인의 체계적 결함이 은폐되지 않습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-1">상세 설명 ↗</a><span><b data-slide-number>25</b> / <b data-slide-total>46</b></span></footer>
+    </section>
+
+    <!-- Slide 26 -->
+    <section class="slide slide--teaching" id="slide-26" aria-label="실습 7: 데이터 품질 검증 및 강건 이상치 탐지" data-report-refs="box-7">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3 실습</span></header>
       <h1>실습 7 · 자동 품질 검증 & MAD 이상치 탐지</h1>
       <p class="lead">`ml4t-data` 라이브러리를 활용한 통계적 이상치 탐지와 감사 격리 처리입니다.</p>
@@ -555,11 +613,11 @@
         </div>
       </div>
       <p class="takeaway">이상 데이터를 조용히 드롭(Silent Drop)하면 파이프라인의 체계적 결함이 은폐됩니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-7">상세 설명 ↗</a><span><b data-slide-number>23</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-7">상세 설명 ↗</a><span><b data-slide-number>26</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 24 -->
-    <section class="slide slide--teaching" id="slide-24" aria-label="실패 모드 ①: 시점 기준(PIT) 오류와 미래정보 누수" data-report-refs="sec-3-2">
+    <!-- Slide 27 -->
+    <section class="slide slide--teaching" id="slide-27" aria-label="실패 모드 ①: 시점 기준(PIT) 오류와 미래정보 누수" data-report-refs="sec-3-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3.2 치명적 실패</span></header>
       <h1>실패 모드 ①: 시점 기준(PIT) 오류와 미래정보 누수</h1>
       <p class="lead">과거 시점 t에는 그 시점까지 실제로 공개되어 알려진 정보만 사용해야 합니다.</p>
@@ -578,11 +636,11 @@
         </div>
       </div>
       <p class="takeaway">모든 펀더멘털 지표에는 유효 시간 구간과 관측 가용 시각이 함께 저장되어야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-2">상세 설명 ↗</a><span><b data-slide-number>24</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-2">상세 설명 ↗</a><span><b data-slide-number>27</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 25 -->
-    <section class="slide slide--teaching" id="slide-25" aria-label="실습 8: 이중시간 PIT 검증 및 FRED 빈티지" data-report-refs="box-8">
+    <!-- Slide 28 -->
+    <section class="slide slide--teaching" id="slide-28" aria-label="실습 8: 이중시간 PIT 검증 및 FRED 빈티지" data-report-refs="box-8">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3.2 실습</span></header>
       <h1>실습 8 · 이중시간 PIT 검증 & FRED 빈티지</h1>
       <p class="lead">미래정보 누출 시각화와 거시경제 데이터의 빈티지 복원 쿼리입니다.</p>
@@ -594,11 +652,11 @@
         </div>
       </div>
       <p class="takeaway">거시경제 지표는 빈티지(Vintage) 개정 이력을 보존하는 이중시간 데이터베이스를 사용해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-8">상세 설명 ↗</a><span><b data-slide-number>25</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-8">상세 설명 ↗</a><span><b data-slide-number>28</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 26 -->
-    <section class="slide slide--teaching" id="slide-26" aria-label="실패 모드 ②: 생존자 편향" data-report-refs="sec-3-2">
+    <!-- Slide 29 -->
+    <section class="slide slide--teaching" id="slide-29" aria-label="실패 모드 ②: 생존자 편향" data-report-refs="sec-3-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3.2 치명적 실패</span></header>
       <h1>실패 모드 ②: 생존자 편향 (Survivorship Bias)</h1>
       <p class="lead">오늘 생존한 종목으로만 과거 유니버스를 구성하면 파산 기업의 손실이 누락되어 성과가 부풀려집니다.</p>
@@ -617,11 +675,11 @@
         </div>
       </div>
       <p class="takeaway">과거 백테스트 시 당시의 Point-in-Time 지수 구성 종목과 상장폐지 종단 수익률을 필수 반영해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-2">상세 설명 ↗</a><span><b data-slide-number>26</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-2">상세 설명 ↗</a><span><b data-slide-number>29</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 27 -->
-    <section class="slide slide--teaching" id="slide-27" aria-label="실습 9: 상장폐지 3대 시나리오 몬테카를로" data-report-refs="box-9">
+    <!-- Slide 30 -->
+    <section class="slide slide--teaching" id="slide-30" aria-label="실습 9: 상장폐지 3대 시나리오 몬테카를로" data-report-refs="box-9">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3.2 실습</span></header>
       <h1>실습 9 · 생존자 편향 몬테카를로 시뮬레이션</h1>
       <p class="lead">미국 주식 3,199개 중 상장폐지된 777개 종목을 대상으로 편향 규모를 정량화합니다.</p>
@@ -639,11 +697,11 @@
         </div>
       </div>
       <p class="takeaway">상장폐지 종목을 배제한 백테스트는 실제 시장 대비 연 수 퍼센트포인트 이상의 가짜 수익을 만들어냅니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-9">상세 설명 ↗</a><span><b data-slide-number>27</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-9">상세 설명 ↗</a><span><b data-slide-number>30</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 28 -->
-    <section class="slide slide--teaching" id="slide-28" aria-label="실패 모드 ③ & ④: 기업행위 및 식별자 무결성" data-report-refs="sec-3-2">
+    <!-- Slide 31 -->
+    <section class="slide slide--teaching" id="slide-31" aria-label="실패 모드 ③ & ④: 기업행위 및 식별자 무결성" data-report-refs="sec-3-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3.2 치명적 실패</span></header>
       <h1>실패 모드 ③ & ④: 기업행위 및 식별자 무결성</h1>
       <p class="lead">조정 방식의 혼용과 티커 재사용은 치명적인 허위 상관관계를 만듭니다.</p>
@@ -662,11 +720,11 @@
         </div>
       </div>
       <p class="takeaway">유효기간이 명시된 영구 고유 식별자 크로스워크를 데이터 핵심 위험 통제로 다루어야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-2">상세 설명 ↗</a><span><b data-slide-number>28</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-2">상세 설명 ↗</a><span><b data-slide-number>31</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 29 -->
-    <section class="slide slide--teaching" id="slide-29" aria-label="실습 10: 영구 식별자 매핑 및 파이프라인 거버넌스" data-report-refs="box-10">
+    <!-- Slide 32 -->
+    <section class="slide slide--teaching" id="slide-32" aria-label="실습 10: 영구 식별자 매핑 및 파이프라인 거버넌스" data-report-refs="box-10">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3.2 실습</span></header>
       <h1>실습 10 · 영구 식별자 매핑 & 파이프라인 거버넌스</h1>
       <p class="lead">이종 벤더 간 크로스워크 조인과 Hive 파티셔닝 기반 안전한 증분 수집입니다.</p>
@@ -678,11 +736,11 @@
         </div>
       </div>
       <p class="takeaway">식별자 무결성과 Hive 파티셔닝 원장 관리를 통해 매일 안전하게 데이터를 증분 수집합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-10">상세 설명 ↗</a><span><b data-slide-number>29</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-10">상세 설명 ↗</a><span><b data-slide-number>32</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 30 -->
-    <section class="slide slide--teaching" id="slide-30" aria-label="벤더 실사(Due Diligence) 3대 축" data-report-refs="sec-3-3">
+    <!-- Slide 33 -->
+    <section class="slide slide--teaching" id="slide-33" aria-label="벤더 실사(Due Diligence) 3대 축" data-report-refs="sec-3-3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3.3 벤더 실사</span></header>
       <h1>벤더 실사(Due Diligence) 3대 축</h1>
       <p class="lead">벤더 선정은 비용이 아니라 신뢰성, 법적 권리, 운영 안정성을 따지는 리스크 관리입니다.</p>
@@ -703,11 +761,11 @@
         </div>
       </div>
       <p class="takeaway">콘텐츠가 우수해도 전달 방식이 취약하거나 법적 권리가 불명확하면 프로덕션에 투입할 수 없습니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-3">상세 설명 ↗</a><span><b data-slide-number>30</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-3">상세 설명 ↗</a><span><b data-slide-number>33</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 31 -->
-    <section class="slide slide--teaching" id="slide-31" aria-label="내부 데이터 거버넌스 5대 기둥" data-report-refs="sec-3-3">
+    <!-- Slide 34 -->
+    <section class="slide slide--teaching" id="slide-34" aria-label="내부 데이터 거버넌스 5대 기둥" data-report-refs="sec-3-3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.3.3 거버넌스</span></header>
       <h1>내부 데이터 거버넌스 5대 기둥</h1>
       <p class="lead">외부 벤더의 품질이 뛰어나도 내부 거버넌스 없이는 오류를 추적하거나 되돌릴 수 없습니다.</p>
@@ -728,11 +786,11 @@
         </div>
       </div>
       <p class="takeaway">소싱과 거버넌스를 결합하여 가장 치명적인 데이터 결함을 연구 초기 단계에서 차단합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-3">상세 설명 ↗</a><span><b data-slide-number>31</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-3">상세 설명 ↗</a><span><b data-slide-number>34</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 32 -->
-    <section class="slide slide--teaching" id="slide-32" aria-label="접근 패턴이 저장 기술 선택을 결정합니다" data-report-refs="sec-4">
+    <!-- Slide 35 -->
+    <section class="slide slide--teaching" id="slide-35" aria-label="접근 패턴이 저장 기술 선택을 결정합니다" data-report-refs="sec-4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.4 스토리지</span></header>
       <h1>접근 패턴이 저장 기술 선택을 결정합니다</h1>
       <p class="lead">컬럼 스캔, 단건 포인트 룩업, ASOF 조인 등 접근 패턴에 따라 최적 기술이 달라집니다.</p>
@@ -751,16 +809,16 @@
         </div>
       </div>
       <p class="takeaway">대부분의 연구는 파티셔닝된 Parquet 파일로 시작하고 필요할 때만 데이터베이스를 추가합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4">상세 설명 ↗</a><span><b data-slide-number>32</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4">상세 설명 ↗</a><span><b data-slide-number>35</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 33 -->
-    <section class="slide slide--teaching" id="slide-33" aria-label="파일 저장소 벤치마크 (표 2.4 실측)" data-report-refs="sec-4-1">
+    <!-- Slide 36 -->
+    <section class="slide slide--teaching" id="slide-36" aria-label="파일 저장소 벤치마크 (표 2.4 실측)" data-report-refs="sec-4-1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.4.1 파일 벤치마크</span></header>
       <h1>파일 저장소 벤치마크 (표 2.4 실측)</h1>
       <p class="lead">100만 행 OHLCV(64MB) 기준 파일 형식별 성능 비교 실측 결과입니다.</p>
       <div class="slide-body">
-        <table class="teaching-table">
+        <table class="teaching-table dense-table">
           <thead>
             <tr><th>파일 형식</th><th>파일 크기</th><th>쓰기 시간</th><th>전체 스캔 시간</th><th>주요 특징 및 권장 용도</th></tr>
           </thead>
@@ -773,11 +831,11 @@
         </table>
       </div>
       <p class="takeaway">Parquet는 뛰어난 압축과 컬럼 선택적 읽기로 연구와 프로덕션 모두의 최우선 기본값입니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-1">상세 설명 ↗</a><span><b data-slide-number>33</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-1">상세 설명 ↗</a><span><b data-slide-number>36</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 34 -->
-    <section class="slide slide--teaching" id="slide-34" aria-label="실습 11: Parquet 푸시다운 및 Polars vs Pandas" data-report-refs="box-11">
+    <!-- Slide 37 -->
+    <section class="slide slide--teaching" id="slide-37" aria-label="실습 11: Parquet 푸시다운 및 Polars vs Pandas" data-report-refs="box-11">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.4.1 실습</span></header>
       <h1>실습 11 · Parquet 푸시다운 & Polars vs Pandas</h1>
       <p class="lead">디스크 I/O 최적화 기술과 1,000만 행 대규모 데이터프레임 벤치마크입니다.</p>
@@ -789,11 +847,11 @@
         </div>
       </div>
       <p class="takeaway">Parquet의 조건자 푸시다운과 Polars의 지연 연산을 결합하여 대규모 데이터 분석 속도를 극대화합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-11">상세 설명 ↗</a><span><b data-slide-number>34</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-11">상세 설명 ↗</a><span><b data-slide-number>37</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 35 -->
-    <section class="slide slide--teaching" id="slide-35" aria-label="서버 없는 임베디드 분석 스택" data-report-refs="sec-4-2">
+    <!-- Slide 38 -->
+    <section class="slide slide--teaching" id="slide-38" aria-label="서버 없는 임베디드 분석 스택" data-report-refs="sec-4-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.4.2 임베디드 SQL</span></header>
       <h1>서버 없는 임베디드 분석 스택</h1>
       <p class="lead">복잡한 서버 설치 없이 파일 위에서 고성능 분석을 수행하는 현대적 퀀트 스택입니다.</p>
@@ -814,16 +872,16 @@
         </div>
       </div>
       <p class="takeaway">표준 연구 파이프라인: [파티셔닝 Parquet 레이크] $\rightarrow$ [DuckDB 고속 SQL] $\rightarrow$ [Polars 피처 생성].</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-2">상세 설명 ↗</a><span><b data-slide-number>35</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-2">상세 설명 ↗</a><span><b data-slide-number>38</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 36 -->
-    <section class="slide slide--teaching" id="slide-36" aria-label="서버 시계열 데이터베이스 벤치마크" data-report-refs="sec-4-2">
+    <!-- Slide 39 -->
+    <section class="slide slide--teaching" id="slide-39" aria-label="서버 시계열 데이터베이스 벤치마크" data-report-refs="sec-4-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.4.3 시계열 DB</span></header>
       <h1>서버 시계열 데이터베이스 벤치마크 (100만 행)</h1>
       <p class="lead">엔터프라이즈 동시성과 서비스 보장이 필요할 때 검토하는 서버 DB 실측 성능입니다.</p>
       <div class="slide-body">
-        <table class="teaching-table">
+        <table class="teaching-table dense-table">
           <thead>
             <tr><th>데이터베이스 엔진</th><th>100만 행 쓰기 시간</th><th>100만 행 읽기 시간</th><th>주요 포지셔닝 및 평가</th></tr>
           </thead>
@@ -836,11 +894,11 @@
         </table>
       </div>
       <p class="takeaway">수집 방식과 스키마에 따라 성능 편차가 크므로 실제 프로덕션 경로로 사전 측정해야 합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-2">상세 설명 ↗</a><span><b data-slide-number>36</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-2">상세 설명 ↗</a><span><b data-slide-number>39</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 37 -->
-    <section class="slide slide--teaching" id="slide-37" aria-label="실습 12: DB 벤치마크 및 ASOF 조인 성능" data-report-refs="box-12">
+    <!-- Slide 40 -->
+    <section class="slide slide--teaching" id="slide-40" aria-label="실습 12: DB 벤치마크 및 ASOF 조인 성능" data-report-refs="box-12">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.4.3 실습</span></header>
       <h1>실습 12 · 시계열 DB & ASOF 조인 성능 분석</h1>
       <p class="lead">비동기 틱 체결 데이터와 직전 최우선 호가를 매칭하는 ASOF 조인 실측입니다.</p>
@@ -853,35 +911,55 @@
         </div>
       </div>
       <p class="takeaway">인메모리 ASOF 조인은 Polars가 가장 빠르며, 파일 기반 SQL 조인은 DuckDB가 가장 효율적입니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#box-12">상세 설명 ↗</a><span><b data-slide-number>37</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#box-12">상세 설명 ↗</a><span><b data-slide-number>40</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 38 -->
-    <section class="slide slide--teaching" id="slide-38" aria-label="ASOF 조인 및 최종 스토리지 선택 매트릭스" data-report-refs="sec-4-2">
+    <!-- Slide 41 -->
+    <section class="slide slide--teaching" id="slide-41" aria-label="스토리지 선택 매트릭스 (연구 및 분석 환경)" data-report-refs="sec-4-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.4.4 결정 매트릭스</span></header>
-      <h1>스토리지 최종 의사결정 매트릭스 (표 2.5)</h1>
-      <p class="lead">연구 및 비즈니스 목적에 맞춘 권장 기본 선택지와 확장 대안입니다.</p>
+      <h1>스토리지 선택 매트릭스 (Part 1: 연구 및 SQL 분석)</h1>
+      <p class="lead">연구 속도 극대화 및 파일 기반 SQL 분석을 위한 권장 기본값과 대안입니다.</p>
       <div class="slide-body">
         <table class="teaching-table dense-table">
           <thead>
-            <tr><th>연구 및 비즈니스 목적</th><th>강력한 기본 선택지 (Default)</th><th>대안 및 확장 선택지 (Alternatives)</th></tr>
+            <tr><th>연구 및 분석 목적</th><th>강력한 기본 선택지 (Default)</th><th>함께 고려할 대안 (Alternatives)</th></tr>
           </thead>
           <tbody>
-            <tr><td>개인 / 소규모 연구 속도</td><td>Parquet + Polars</td><td>Parquet + DuckDB</td></tr>
-            <tr><td>파일 기반 SQL 분석</td><td>DuckDB + Parquet</td><td>Polars 지연 스캔 (Lazy Frame)</td></tr>
-            <tr><td>운영 환경 트랜잭션/신뢰성</td><td>PostgreSQL</td><td>TimescaleDB</td></tr>
-            <tr><td>초고빈도 틱 처리량 (HFT)</td><td>kdb+ / PyKX</td><td>ClickHouse</td></tr>
-            <tr><td>초고속 수집 및 스트리밍</td><td>QuestDB</td><td>ClickHouse</td></tr>
+            <tr><td>개인 및 소규모 연구 속도 극대화</td><td>Parquet + Polars</td><td>Parquet + DuckDB</td></tr>
+            <tr><td>파일 기반 로컬 SQL 분석</td><td>DuckDB + Parquet</td><td>Polars 지연 스캔 (Lazy Frame)</td></tr>
             <tr><td>최저 운영 오버헤드 (Serverless)</td><td>Parquet + DuckDB</td><td>클라우드 관리형 Postgres</td></tr>
+            <tr><td>메모리 내 고속 ASOF 조인</td><td>Polars <code>join_asof</code></td><td>Pandas <code>merge_asof</code></td></tr>
           </tbody>
         </table>
       </div>
-      <p class="takeaway">대부분의 경우 파티셔닝된 Parquet와 Polars 또는 DuckDB 조합으로 시작하면 충분합니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-2">상세 설명 ↗</a><span><b data-slide-number>38</b> / <b data-slide-total>41</b></span></footer>
+      <p class="takeaway">연구 단계에서는 파일 기반의 Parquet + Polars / DuckDB 조합이 가장 높은 생산성을 제공합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-2">상세 설명 ↗</a><span><b data-slide-number>41</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 39 -->
-    <section class="slide slide--teaching" id="slide-39" aria-label="재현 가능한 퀀트 연구를 위한 4대 데이터 원칙" data-report-refs="sec-5">
+    <!-- Slide 42 -->
+    <section class="slide slide--teaching" id="slide-42" aria-label="스토리지 선택 매트릭스 (프로덕션 및 대규모 환경)" data-report-refs="sec-4-2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.4.4 결정 매트릭스</span></header>
+      <h1>스토리지 선택 매트릭스 (Part 2: 프로덕션 및 고빈도)</h1>
+      <p class="lead">엄격한 트랜잭션, 초고빈도 수집, 분산 처리를 위한 엔터프라이즈 선택지입니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table dense-table">
+          <thead>
+            <tr><th>운영 및 프로덕션 목적</th><th>강력한 기본 선택지 (Default)</th><th>함께 고려할 대안 (Alternatives)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>운영 환경 트랜잭션 및 신뢰성</td><td>PostgreSQL</td><td>TimescaleDB (하이퍼테이블)</td></tr>
+            <tr><td>초고빈도 틱 처리량 (HFT)</td><td>kdb+ / PyKX</td><td>ClickHouse (컬럼형 OLAP)</td></tr>
+            <tr><td>고처리량 시계열 수집 및 스트리밍</td><td>QuestDB</td><td>ClickHouse</td></tr>
+            <tr><td>SQL 기반 시계열 ASOF 조인</td><td>DuckDB</td><td>QuestDB</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="takeaway">동시성과 서비스 보장 요구가 추가 운영 부담을 정당화할 때 서버 데이터베이스를 도입합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-4-2">상세 설명 ↗</a><span><b data-slide-number>42</b> / <b data-slide-total>46</b></span></footer>
+    </section>
+
+    <!-- Slide 43 -->
+    <section class="slide slide--teaching" id="slide-43" aria-label="재현 가능한 퀀트 연구를 위한 4대 데이터 원칙" data-report-refs="sec-5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.5 요약</span></header>
       <h1>재현 가능한 퀀트 연구를 위한 4대 데이터 원칙</h1>
       <p class="lead">2장을 관통하는 핵심 교훈과 실무 지침입니다.</p>
@@ -906,40 +984,57 @@
         </div>
       </div>
       <p class="takeaway">원칙이 확립된 데이터 인프라가 지속 가능한 퀀트의 진정한 경쟁 우위입니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-5">상세 설명 ↗</a><span><b data-slide-number>39</b> / <b data-slide-total>41</b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-5">상세 설명 ↗</a><span><b data-slide-number>43</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 40 -->
-    <section class="slide slide--teaching" id="slide-40" aria-label="청중 확인 질문 (Checkpoint Questions)" data-report-refs="sec-5">
+    <!-- Slide 44 -->
+    <section class="slide slide--teaching" id="slide-44" aria-label="청중 확인 질문 (Part 1: PIT & 생존자 편향)" data-report-refs="sec-5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINTS</span></header>
-      <h1>청중 확인 질문 (Checkpoint Questions)</h1>
-      <p class="lead">오늘 발표에서 다룬 핵심 원리를 점검하는 4대 질문입니다.</p>
+      <h1>청중 확인 질문 (Part 1: PIT & 생존자 편향)</h1>
+      <p class="lead">오늘 발표에서 다룬 핵심 원리를 점검하는 질문입니다.</p>
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
-            <h2>Q1. 시점 기준 (PIT)</h2>
-            <p>기업 실적 발표일이 분기 말보다 45일 늦을 때, 왜 단순 시계열 조인은 백테스트를 무효화하는가?</p>
+            <h2>Q1. 시점 기준(PIT) 정확성</h2>
+            <p>기업의 4분기 실적 발표일이 분기 말보다 45일 늦을 때, 왜 단순 시계열 조인은 백테스트를 무효화하는가?</p>
+            <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 1월 의사결정에 12월 31일 실적을 대입하면 45일간의 미래정보를 미리 보고 거래하는 선견 편향이 발생하기 때문.</p>
           </article>
           <article>
-            <h2>Q2. 생존자 편향</h2>
+            <h2>Q2. 생존자 편향 (Survivorship Bias)</h2>
             <p>2014~2018년 미국 주식 패널에서 상장폐지된 777개 종목을 제외하면 왜 연 8%p 이상의 가짜 수익률이 발생하는가?</p>
-          </article>
-          <article>
-            <h2>Q3. 기업행위 왜곡</h2>
-            <p>Apple의 7:1 액면분할을 원시 가격으로 백테스트하면 왜 68배의 누적 성과 왜곡이 일어나는가?</p>
-          </article>
-          <article>
-            <h2>Q4. 스토리지 아키텍처</h2>
-            <p>왜 연구 단계에서는 무거운 관계형 DB 대신 Parquet + DuckDB/Polars 스택이 권장되는가?</p>
+            <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 파산·상장폐지 기업의 종단 손실(-60%)이 누락되어 포트폴리오의 하위 꼬리가 삭제되기 때문.</p>
           </article>
         </div>
       </div>
-      <p class="takeaway">질문에 대한 구체적인 메커니즘과 근거는 상세 리포트에서 확인할 수 있습니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-5">상세 설명 ↗</a><span><b data-slide-number>40</b> / <b data-slide-total>41</b></span></footer>
+      <p class="takeaway">이론적 정의와 실제 손실 메커니즘을 구체적으로 연결하여 점검합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-5">상세 설명 ↗</a><span><b data-slide-number>44</b> / <b data-slide-total>46</b></span></footer>
     </section>
 
-    <!-- Slide 41 -->
-    <section class="slide slide--cover" id="slide-41" aria-label="감사합니다 (Q&A)" data-report-refs="sec-5">
+    <!-- Slide 45 -->
+    <section class="slide slide--teaching" id="slide-45" aria-label="청중 확인 질문 (Part 2: 기업행위 & 스토리지)" data-report-refs="sec-5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CHECKPOINTS</span></header>
+      <h1>청중 확인 질문 (Part 2: 기업행위 & 스토리지)</h1>
+      <p class="lead">기업행위 조정과 스토리지 아키텍처 선택 원리를 점검합니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article>
+            <h2>Q3. 기업행위 왜곡</h2>
+            <p>Apple(AAPL)의 액면분할을 원시 가격으로 백테스트하면 왜 68배의 누적 성과 왜곡이 일어나는가?</p>
+            <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 7:1 분할 시 주가가 -86% 폭락한 것으로 오인되어 장기 보유 복리 효과와 배당 재투자 수익이 소실되기 때문.</p>
+          </article>
+          <article>
+            <h2>Q4. 스토리지 아키텍처 선택</h2>
+            <p>왜 연구 단계에서는 무거운 관계형 DB 대신 Parquet + DuckDB/Polars 스택이 권장되는가?</p>
+            <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 파일 기반 컬럼 압축과 조건자 푸시다운을 통해 서버 운영비 없이 5~15배 빠른 피처 추출이 가능하기 때문.</p>
+          </article>
+        </div>
+      </div>
+      <p class="takeaway">질문에 대한 구체적인 수식과 실측 코드는 상세 리포트에서 확인할 수 있습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#sec-5">상세 설명 ↗</a><span><b data-slide-number>45</b> / <b data-slide-total>46</b></span></footer>
+    </section>
+
+    <!-- Slide 46 -->
+    <section class="slide slide--cover" id="slide-46" aria-label="감사합니다 (Q&A)" data-report-refs="sec-5">
       <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">Q&A · NEXT CHAPTER</span></header>
       <div class="cover-hero">
         <h1>감사합니다</h1>
