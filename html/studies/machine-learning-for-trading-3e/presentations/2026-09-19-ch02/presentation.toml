@@ -1,0 +1,11 @@
+study_id = "machine-learning-for-trading-3e-2026"
+session_id = "2026-09-19-ch02"
+title = "Chapter 2. 금융 데이터 세계 (The Financial Data Universe)"
+date = "2026-09-19"
+presenters = ["핀조이"]
+chapters = ["Chapter 2"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]

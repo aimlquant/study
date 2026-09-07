@@ -444,7 +444,18 @@
       "title": "Chapter 11. 그래프 표현 학습과 그래프 신경망"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "2장 상세 리포트",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-09-19-ch02/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "2장 발표 슬라이드",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-09-19-ch02/"
+        }
+      ],
       "chapters": [
         "Chapter 2"
       ],
@@ -455,7 +466,7 @@
       "presenters": [
         "핀조이"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 2. 금융 데이터 세계"
     },

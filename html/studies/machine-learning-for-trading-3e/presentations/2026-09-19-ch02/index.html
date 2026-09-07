@@ -1,0 +1,1221 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 2. 금융 데이터 세계 (The Financial Data Universe) · 발표 슬라이드</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+
+  <!-- KaTeX Local Assets -->
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+
+  <style>
+    :root {
+      --bg-slide: #0f172a;
+      --bg-card: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-gold: #f59e0b;
+      --accent-green: #34d399;
+      --border: #334155;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: #020617;
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Presentation Canvas (16:9 ratio) */
+    .deck-container {
+      width: 100vw;
+      height: 100vh;
+      max-width: 177.78vh; /* 16:9 aspect ratio */
+      max-height: 56.25vw;
+      position: relative;
+      background: var(--bg-slide);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      display: none;
+      flex: 1;
+      padding: 3rem 4rem;
+      overflow-y: auto;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Slide Header */
+    .slide-header {
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .slide-title-wrap h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .slide-category {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Content Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.15rem;
+      line-height: 1.6;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    /* Cards & Callouts */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+    .card h3 {
+      color: var(--accent);
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.4rem;
+    }
+    .card-gold { border-left: 4px solid var(--accent-gold); }
+    .card-blue { border-left: 4px solid var(--accent); }
+    .card-green { border-left: 4px solid var(--accent-green); }
+
+    .highlight-box {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+    .highlight-box.gold {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--accent-gold);
+    }
+
+    /* Bullet Lists */
+    ul { margin-left: 1.5rem; }
+    li { margin-bottom: 0.6rem; color: #e2e8f0; }
+    li strong { color: #ffffff; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+    th, td {
+      padding: 0.6rem 0.9rem;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+    th {
+      background: #334155;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+
+    /* Key Numbers (KPIs) */
+    .kpi-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .kpi-item {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .kpi-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+    }
+    .kpi-sub { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Title Slide Specifics */
+    .title-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+    .title-slide h1 {
+      font-size: 3rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+    .title-slide .sub {
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+      max-width: 800px;
+    }
+    .title-meta {
+      background: var(--bg-card);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .title-meta strong { color: #ffffff; }
+
+    /* Controls & Footer */
+    .deck-footer {
+      height: 48px;
+      border-top: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: #090d16;
+    }
+    .progress-bar {
+      height: 4px;
+      background: var(--accent);
+      position: absolute;
+      bottom: 48px;
+      left: 0;
+      transition: width 0.2s ease;
+    }
+    .nav-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .nav-btn:hover { background: var(--border); }
+  </style>
+</head>
+<body>
+
+<div class="deck-container">
+  <div class="progress-bar" id="progressBar"></div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+    <!-- Slide 1 -->
+    <section class="slide title-slide active" id="slide-01" data-slide="1" aria-label="금융 데이터 세계" data-report-refs="summary">
+      <div class="slide-category">Machine Learning for Trading (3rd Edition) · Chapter 02</div>
+      <h1>금융 데이터 세계</h1>
+      <div class="sub">The Financial Data Universe</div>
+      <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 1.1rem;">
+        시장·펀더멘털·대체 데이터의 분류, 자산군별 시장 구조, 실사 프레임워크 및 스토리지 아키텍처
+      </p>
+      <div class="title-meta">
+        발표자: <strong>핀조이 (pinjoy)</strong> | 일시: <strong>2026-09-19</strong> | <strong>AIML Quant Study</strong>
+      </div>
+    </section>
+
+    <!-- Slide 2 -->
+    <section class="slide" id="slide-02" data-slide="2" aria-label="데이터는 전략의 원재료이자 첫 번째 위험 요소입니다" data-report-refs="summary">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">Introduction</div>
+          <h2>데이터는 전략의 원재료이자 첫 번째 위험 요소입니다</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-blue">
+            <h3>1. 분류와 내재 규칙</h3>
+            <p>데이터는 단순한 숫자가 아닙니다. 타임스탬프, 캘린더, 기업행위, 수정 규칙이 결합된 계약입니다.</p>
+          </div>
+          <div class="card card-blue">
+            <h3>2. 자산군별 시장 구조</h3>
+            <p>주식의 NBBO, 선물의 롤오버, 옵션의 표면, 크립토의 AMM 슬리피지까지 시장마다 가격 정의가 다릅니다.</p>
+          </div>
+          <div class="card card-blue">
+            <h3>3. 가짜 알파의 원천 봉쇄</h3>
+            <p>시점 기준(PIT) 오류, 생존자 편향, 기업행위 왜곡을 소싱 및 저장 단계에서 사전에 차단합니다.</p>
+          </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 2rem; text-align: center;">
+          <strong style="color: var(--accent); font-size: 1.2rem;">"머신러닝 트레이딩 실패의 대부분은 알고리즘이 아닌 데이터 파이프라인의 조용한 결함에서 발생합니다."</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3 -->
+    <section class="slide" id="slide-03" data-slide="3" aria-label="2장의 4단계 논리 로드맵" data-report-refs="summary">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">Roadmap</div>
+          <h2>2장의 4단계 논리 로드맵</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>2.1 현대적 데이터 분류 체계</h3>
+            <ul>
+              <li>시장 데이터 (Market Data) & 집계 계층</li>
+              <li>펀더멘털 데이터 (발표 지연 및 이중시간)</li>
+              <li>대체 데이터 (위성, 카드, 온체인, 예측시장)</li>
+              <li>모델링 전 4대 데이터 계약 (Data Contracts)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>2.2 자산군별 시장 데이터 환경</h3>
+            <ul>
+              <li>주식 & 기업행위 (Quandl WIKI / AAPL 실습)</li>
+              <li>상장거래상품 (ETP 2계층 & 유동성 불일치)</li>
+              <li>선물 (연속 시계열 & 롤오버) / 옵션 (Greeks & 표면)</li>
+              <li>크립토 (CEX/DEX & 펀딩비) / 외환·채권·스왑·원자재</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>2.3 데이터 소싱 실사 프레임워크</h3>
+            <ul>
+              <li>5대 데이터 품질 차원 & MAD 이상치 탐지</li>
+              <li>4대 치명적 실패 모드 (PIT, 생존자 편향 실증)</li>
+              <li>식별자 무결성 & 벤더 실사 체크리스트</li>
+              <li>파이프라인 거버넌스 및 증분 업데이트</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>2.4 데이터 저장 아키텍처</h3>
+            <ul>
+              <li>파일 벤치마크: Parquet vs HDF5 vs CSV</li>
+              <li>인메모리 및 임베디드 SQL: Polars vs DuckDB</li>
+              <li>시계열 DB (kdb+, ClickHouse, QuestDB)</li>
+              <li>비동기 타임스탬프 ASOF 조인 & 최종 선택 매트릭스</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4 -->
+    <section class="slide" id="slide-04" data-slide="4" aria-label="측정 대상에 따른 3대 금융 데이터 범주" data-report-refs="sec-1 box-1">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.1 Taxonomy</div>
+          <h2>측정 대상에 따른 3대 금융 데이터 범주</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <table>
+          <thead>
+            <tr>
+              <th>데이터 범주</th>
+              <th>측정 대상</th>
+              <th>대표 예시</th>
+              <th>지연 및 관측 특성</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>시장 데이터</strong></td>
+              <td>실제 거래소/OTC 거래 활동</td>
+              <td>틱(Ticks), 호가창(L2/L3), 체결, 바(OHLCV)</td>
+              <td>밀리초 단위, 거래소별 높은 투명성</td>
+            </tr>
+            <tr>
+              <td><strong>펀더멘털 데이터</strong></td>
+              <td>자산 내재가치의 경제적 동인</td>
+              <td>재무제표(10-K/Q), 거시지표(FRED), 수급(COT)</td>
+              <td>사건 시점과 발표 시점 간 지연(Lag), 빈티지 개정</td>
+            </tr>
+            <tr>
+              <td><strong>대체 데이터</strong></td>
+              <td>비전통적 대용 신호</td>
+              <td>위성, 카드 패널, 온체인 TVL, 예측시장</td>
+              <td>높은 비정형성, 결측치 및 법적 권리(MNPI) 검증 필요</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="highlight-box gold" style="margin-top: 1.5rem;">
+          <strong>📦 [실습 <code>01_us_equities_eda</code>]</strong> Quandl WIKI 3,199개 주식 패널 분석 결과, 상장폐지 기록이 2014년 이후에만 집중되어 있어 이전 구간에 강한 생존자 편향이 내포되어 있음을 발견.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5 -->
+    <section class="slide" id="slide-05" data-slide="5" aria-label="모델링 전 확정해야 할 4대 데이터 계약" data-report-refs="sec-1">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.1 Data Contracts</div>
+          <h2>모델링 전 확정해야 할 4대 데이터 계약</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>1. 타임스탬프 의미론</h3>
+            <p><strong>Event Time</strong> (사건 발생) vs <strong>Knowledge Time</strong> (공시 접수) vs <strong>Ingestion Time</strong> (수집)의 엄격한 분리.</p>
+          </div>
+          <div class="card">
+            <h3>2. 기업행위 조정 방법론</h3>
+            <p>분할/배당 요인의 소급 역방향(Backward) 적용 여부 및 총수익률(Total Return) vs 가격수익률 명시.</p>
+          </div>
+          <div class="card">
+            <h3>3. 식별자 안정성</h3>
+            <p>티커 재사용 및 합병에 흔들리지 않는 <strong>영구 고유 식별자(FIGI, CIK, PermID)</strong> 매핑 체계 유지.</p>
+          </div>
+          <div class="card">
+            <h3>4. 수정 및 재작성 처리</h3>
+            <p>거시지표나 재무제표 개정 시 <strong>의사결정 당시의 원본 수치(Vintage)</strong>를 복원할 수 있는 이중시간(Bitemporal) 지원.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6 -->
+    <section class="slide" id="slide-06" data-slide="6" aria-label="자산군별 시장 데이터 환경 총괄" data-report-refs="sec-2">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.2 Asset Classes</div>
+          <h2>자산군별 시장 데이터 환경 총괄 (표 2.1)</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <table>
+          <thead>
+            <tr>
+              <th>자산군</th>
+              <th>관측 가능성</th>
+              <th>주요 실패 양상 (Failure Modes)</th>
+              <th>엔지니어링 우선순위</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>주식</strong></td>
+              <td>높음 (통합 시장)</td>
+              <td>분산 시장 파편화, 기업행위 왜곡</td>
+              <td>분할/배당 역방향 조정 및 영구 식별자</td>
+            </tr>
+            <tr>
+              <td><strong>ETP</strong></td>
+              <td>높음 / 중간</td>
+              <td>NAV 괴리, 룩스루 누수, 유동성 불일치</td>
+              <td>시장가 vs NAV 2계층 분리 및 보유자산 PIT</td>
+            </tr>
+            <tr>
+              <td><strong>선물</strong></td>
+              <td>높음 (거래소)</td>
+              <td>만기 롤오버 단절, 연속 시계열 왜곡</td>
+              <td>롤 규칙(거래량/OI) 및 후방조정 방식</td>
+            </tr>
+            <tr>
+              <td><strong>옵션</strong></td>
+              <td>높음 / 희소</td>
+              <td>차원 폭발, 꼬리 잡음, 롤오버 오염</td>
+              <td>원시 체인 대신 내재변동성 표면(IV Surface)</td>
+            </tr>
+            <tr>
+              <td><strong>크립토</strong></td>
+              <td>중간 (CEX) / 공개 (DEX)</td>
+              <td>24/7 세션화, 가짜 거래량, MEV, 슬리피지</td>
+              <td>CEX 무결성 필터링 및 DEX 준비금 모델</td>
+            </tr>
+            <tr>
+              <td><strong>외환/채권</strong></td>
+              <td>낮음 (글로벌 OTC)</td>
+              <td>통합 테이프 부재, 종가 불일치, 실체결 희소</td>
+              <td>종가 관례 확립, 매트릭스 가격평가 문서화</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Slide 7 -->
+    <section class="slide" id="slide-07" data-slide="7" aria-label="주식: 기업행위 왜곡과 역방향 조정 알고리즘" data-report-refs="sec-2-1 box-2">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.2.1 Equities</div>
+          <h2>주식: 기업행위 왜곡과 역방향 조정 알고리즘</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div>
+            <h3>미조정 가격의 파괴적 왜곡</h3>
+            <ul>
+              <li>액면분할(7:1 등) 발생 시 원시 가격은 <strong>-86% 폭락</strong>으로 기록됨.</li>
+              <li>미조정 가격을 모델 입력으로 사용 시 가짜 변동성과 매도 신호 생성.</li>
+            </ul>
+            <div class="highlight-box">
+              <strong>역방향 조정 산식:</strong><br>
+              $$P_{\text{adj}, t} = P_t \times \prod_{t < t_s} \frac{1}{\text{split}} \times \prod_{t < t_d} \left(1 - \frac{D_t}{P_{t-1}}\right)$$
+            </div>
+          </div>
+          <div class="card card-gold">
+            <h3>📦 [실습 <code>02_corporate_actions</code>] AAPL</h3>
+            <p>Apple 1980~2018 (4회 분할, 54회 배당):</p>
+            <div class="kpi-row">
+              <div class="kpi-item">
+                <span class="kpi-num" style="color: #ef4444;">5.9x</span>
+                <span class="kpi-sub">원시 가격 수익률</span>
+              </div>
+              <div class="kpi-item">
+                <span class="kpi-num" style="color: #34d399;">398.2x</span>
+                <span class="kpi-sub">조정 가격 수익률</span>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-weight: 700; color: var(--accent);">
+              $\rightarrow$ 무려 68배의 누적 성과 차이 발생!<br>
+              자체 알고리즘과 Quandl 기준치 간 0.05% 오차 내 100% 일치 검증 완료.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8 -->
+    <section class="slide" id="slide-08" data-slide="8" aria-label="상장거래상품(ETP)의 이중 구조와 5대 위험" data-report-refs="sec-2-2 box-3">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.2.2 ETPs</div>
+          <h2>상장거래상품(ETP)의 이중 구조와 5대 위험</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>ETP의 2대 데이터 계층</h3>
+            <ul>
+              <li><strong>시장 거래층</strong>: 거래소에서 실시간 형성되는 시장 호가·체결.</li>
+              <li><strong>기초 보유층</strong>: 일말 기준 산출되는 <strong>순자산가치(NAV)</strong> 및 바스켓 비중.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>5대 실패 모드 (Failure Modes)</h3>
+            <ol>
+              <li><strong>수익률 정의</strong>: 분배금(배당) 재투자 반영 여부</li>
+              <li><strong>NAV 프리미엄/할인</strong>: 위기 시 시장가 $\neq$ NAV</li>
+              <li><strong>유동성 불일치</strong>: 유동적 ETF 뒤 비유동 자산</li>
+              <li><strong>룩스루 누수</strong>: 미래 보유비중을 과거에 적용</li>
+            </ol>
+          </div>
+        </div>
+        <div class="highlight-box gold" style="margin-top: 1.5rem;">
+          <strong>📦 [실습 <code>03_etfs_eda</code>]</strong> 100개 ETF(2006~2025) 패널에서 SPY와 원자재 ETF 간 23배 유동성 편차 및 독립 조정 과정에서 발생한 473건(0.1%)의 OHLC 불변식 위반(\(\text{Low} > \text{Open}\) 등) 확인.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 9 -->
+    <section class="slide" id="slide-09" data-slide="9" aria-label="선물: 만기 롤오버와 연속 시계열 구성" data-report-refs="sec-2-3 box-4">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.2.3 Futures</div>
+          <h2>선물: 만기 롤오버와 연속 시계열 구성</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>2대 연속 시계열 생성 방법</h3>
+            <ul>
+              <li><strong>비율 조정 (Ratio Adjustment)</strong>: 과거 가격에 비율을 곱해 백분율 수익률(PnL Ratio)을 완벽 보존 (ML 표준 권장).</li>
+              <li><strong>차분 조정 (Difference Adjustment)</strong>: 절대 스프레드를 가감해 달러 PnL 보존 (단, 과거 가격이 음수가 될 위험).</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>담보 이자 수익률 (Collateral)</h3>
+            <p>선물 연속 시계열은 현물 지수와 달리 <strong>담보 이자가 제외된 초과 수익률(Excess Return)</strong> 대용치로 작동하므로 모델링 시 이를 명시해야 함.</p>
+          </div>
+        </div>
+        <div class="highlight-box gold" style="margin-top: 1.5rem;">
+          <strong>📦 [실습 <code>04</code>~<code>06_futures_continuous</code>]</strong> 30개 CME 선물의 전자거래 23시간 세션 집계 및 거래량 역전일 기반 자동 롤 탐지 파이프라인 구축. 벤더 연속물과의 오차율 0% 검증.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 10 -->
+    <section class="slide" id="slide-10" data-slide="10" aria-label="옵션: 체인에서 내재변동성 표면으로" data-report-refs="sec-2-4 box-5">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.2.4 Options</div>
+          <h2>옵션: 체인에서 내재변동성 표면(IV Surface)으로</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>차원의 폭발과 꼬리 잡음</h3>
+            <ul>
+              <li>수천 개 행사가 $\times$ 만기 조합 중 등가격(ATM) 근월물에만 유동성이 집중됨.</li>
+              <li>원시 체인을 그대로 저장하지 않고 <strong>내재변동성 표면(IV Surface)</strong>으로 압축하여 피처화.</li>
+            </ul>
+          </div>
+          <div class="card card-gold">
+            <h3>📦 [실습 <code>07</code>~<code>09_options</code>]</h3>
+            <ul>
+              <li><strong>Greeks 검증 (<code>08</code>)</strong>: 블랙-숄즈 제1원리 기반 Delta, Gamma, Vega, Theta, Rho 자체 산출 및 AlgoSeek 벤더값 대조.</li>
+              <li><strong>롤오버 오염 제거 (<code>09</code>)</strong>: 고정만기(30일물) 시계열에서 세타 감소와 롤오버 점프를 분리하여 순수 변동성 수익률 추출.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 11 -->
+    <section class="slide" id="slide-11" data-slide="11" aria-label="디지털 자산: CEX 오더북과 DEX AMM 준비금" data-report-refs="sec-2-5 box-6">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.2.5 Crypto</div>
+          <h2>디지털 자산: CEX 오더북과 DEX AMM 준비금</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>CEX (중앙화 거래소)</h3>
+            <ul>
+              <li>전통 오더북(L2/L3) 구조.</li>
+              <li><strong>24/7 세션화</strong> 정의 필요 (00:00 UTC 기준 등).</li>
+              <li>워시 트레이딩 필터링 및 거래소 무결성 검증.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>DEX (탈중앙화 거래소)</h3>
+            <ul>
+              <li>오더북 없음 $\rightarrow$ 상수곱(\(x \cdot y = k\)) 풀 준비금.</li>
+              <li>호가 깊이 대신 <strong>슬리피지 함수</strong> 산출.</li>
+              <li><strong>비영구적 손실(IL)</strong> 및 <strong>MEV</strong> 모델링.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-box gold" style="margin-top: 1.5rem;">
+          <strong>📦 [실습 <code>10_crypto_perps_eda</code> & <code>11</code>]</strong> Binance 19개 코인 무기한 선물의 8시간 펀딩 비율(Funding Rate) 분석. 펀딩비 극단 신호가 미래 반전 수익률을 예측함을 입증하고 델타 뉴트럴 차익거래 성과 검증.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 12 -->
+    <section class="slide" id="slide-12" data-slide="12" aria-label="장외시장(OTC): 외환, 채권, 스왑, 원자재" data-report-refs="sec-2-6">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.2.6 OTC Markets</div>
+          <h2>장외시장(OTC): 외환, 채권, 스왑, 원자재</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>외환 (FX, <code>12_fx_pairs_eda</code>)</h3>
+            <p>통합 테이프 부재. 런던 16:00 고시환율 vs 뉴욕 17:00 마감환율 간 수 핍(Pips) 괴리를 방지하기 위해 일관된 종가 관례 확립 필수.</p>
+          </div>
+          <div class="card">
+            <h3>채권 (Fixed Income)</h3>
+            <p>실체결 극히 희소. 비유동 채권 가격을 추정하는 <strong>매트릭스 가격평가(Matrix Pricing)</strong>의 모델 개입 인지.</p>
+          </div>
+          <div class="card">
+            <h3>스왑 / OTC 파생상품</h3>
+            <p>846조 달러 시장 (금리 스왑 670조 달러). 단일 가격이 아닌 <strong>할인/선도 금리 커브(OIS, SOFR)</strong> 구축이 연구 대상.</p>
+          </div>
+          <div class="card">
+            <h3>원자재 (Commodities)</h3>
+            <p>인도 장소·등급에 따른 베이시스(Basis) 및 선물 기간구조(Contango/Backwardation) 모델링.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 13 -->
+    <section class="slide" id="slide-13" data-slide="13" aria-label="5대 데이터 품질 차원 프레임워크" data-report-refs="sec-3-1 box-7">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.3 Data Sourcing</div>
+          <h2>5대 데이터 품질 차원 프레임워크</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h3>1. 적시성 (Timeliness)</h3>
+            <p>사건 발생부터 수집까지의 지연시간 측정.</p>
+          </div>
+          <div class="card">
+            <h3>2. 완전성 (Completeness)</h3>
+            <p>자산·기간별 결측치(NaN) 탐지.</p>
+          </div>
+          <div class="card">
+            <h3>3. 정확성 (Accuracy)</h3>
+            <p>거래소 원천 사실과의 일치성 대조.</p>
+          </div>
+          <div class="card">
+            <h3>4. 일관성 (Consistency)</h3>
+            <p>스키마, 단위, 조정 정책의 시계열 안정성.</p>
+          </div>
+          <div class="card">
+            <h3>5. 유효성 (Validity)</h3>
+            <p>OHLC 불변식(\(\text{High} \ge \text{Open}/\text{Close}\) 등) 준수.</p>
+          </div>
+          <div class="card">
+            <h3>이상치 격리 (Quarantine)</h3>
+            <p>조용히 드롭하지 않고 감사 로그 생성.</p>
+          </div>
+        </div>
+        <div class="highlight-box gold" style="margin-top: 1.5rem;">
+          <strong>📦 [실습 <code>13_data_quality_framework</code>]</strong> <code>OHLCVValidator</code> 자동 스캔 및 단순 Z-Score 대신 두꺼운 꼬리에 강건한 <strong>MAD(중위수 절대편차)</strong>·<strong>IQR</strong> 이상치 탐지 엔진 구현.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 14 -->
+    <section class="slide" id="slide-14" data-slide="14" aria-label="실패 모드 ①: 시점 기준(PIT) 오류와 미래정보 누수" data-report-refs="sec-3-2 box-8">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.3.2 Fatal Traps</div>
+          <h2>실패 모드 ①: 시점 기준(PIT) 오류와 미래정보 누수</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>이중시간(Bitemporal) 축의 분리</h3>
+            <ul>
+              <li><strong>Event Time</strong>: 분기 실적 발생일 (12월 31일)</li>
+              <li><strong>Knowledge Time</strong>: SEC 공시 접수일 (2월 15일, <strong>45일 지연</strong>)</li>
+              <li>1월 백테스트에 12월 31일 실적을 투입하면 <strong>미래 정보를 미리 보고 거래하는 치명적 오류</strong> 발생.</li>
+            </ul>
+          </div>
+          <div class="card card-gold">
+            <h3>📦 [실습 <code>14_point_in_time_validation</code>]</h3>
+            <ul>
+              <li><strong>중심 이동평균 누수</strong>: \(T-2 \sim T+2\) 중심 이평이 미래 가격을 훔쳐보는 현상 시각화.</li>
+              <li><strong>FRED 빈티지 질의</strong>: <code>vintage_date</code>를 이용해 GDP 속보치(Advance)와 수정 확정치를 분리하는 이중시간 쿼리 구현.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 15 -->
+    <section class="slide" id="slide-15" data-slide="15" aria-label="실패 모드 ②: 생존자 편향" data-report-refs="sec-3-2 box-9">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.3.2 Fatal Traps</div>
+          <h2>실패 모드 ②: 생존자 편향 (Survivorship Bias)</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div>
+            <h3>사라진 패자의 손실을 지운 대가</h3>
+            <p>오늘 생존한 종목으로만 과거 유니버스를 구성하면 상장폐지·파산 기업의 손실이 누락되어 수익률이 극단적으로 과대평가됨.</p>
+            <div class="highlight-box">
+              <strong>CRSP 상장폐지 종단 수익률 시나리오:</strong>
+              <ul>
+                <li>파산/컴플라이언스 실패: <strong>-60%</strong></li>
+                <li>M&A 피인수 프리미엄: <strong>+25%</strong></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card card-gold">
+            <h3>📦 [실습 <code>15_survivorship_bias</code>] (1,000회 Draw)</h3>
+            <p>미국 주식 3,199개 (상장폐지 777개) 대상 몬테카를로:</p>
+            <div class="kpi-row">
+              <div class="kpi-item">
+                <span class="kpi-num">+41.7%</span>
+                <span class="kpi-sub">생존자 포트폴리오</span>
+              </div>
+              <div class="kpi-item">
+                <span class="kpi-num" style="color: #ef4444;">+8.0%p</span>
+                <span class="kpi-sub">경험적 편향 과대평가</span>
+              </div>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.95rem; color: var(--text-muted);">
+              스트레스 위기 시나리오에서는 <strong>+15.3%p</strong>까지 왜곡 심화.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 16 -->
+    <section class="slide" id="slide-16" data-slide="16" aria-label="실패 모드 ③ & ④: 기업행위 및 식별자 무결성" data-report-refs="sec-3-2 box-10">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.3.2 Fatal Traps</div>
+          <h2>실패 모드 ③ & ④: 기업행위 및 식별자 무결성</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>③ 기업행위 조정 오류</h3>
+            <ul>
+              <li>시점별 조정과 전구간 소급 조정을 섞을 때 발생하는 누수.</li>
+              <li>배당 처리 방식(총수익률 vs 단순 가격)의 불일치.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>④ 식별자 재사용 함정</h3>
+            <ul>
+              <li>과거 상장폐지된 바이오 기업 "XYZ"와 5년 뒤 신규 상장한 AI 기업 "XYZ"가 문자열 조인으로 결합되는 문제.</li>
+              <li>과거 신호가 미래의 다른 기업 주가를 예측하는 가짜 상관관계 생성.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-box gold" style="margin-top: 1.5rem;">
+          <strong>📦 [실습 <code>16</code>~<code>19_incremental_updates</code>]</strong> 영구 식별자(FIGI, CIK) 크로스워크 매핑 및 Hive 파티셔닝(<code>year=YYYY/month=MM/</code>) 기반 무결성 보장 증분 수집 파이프라인 구축.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 17 -->
+    <section class="slide" id="slide-17" data-slide="17" aria-label="벤더 실사(Due Diligence) 및 데이터 거버넌스" data-report-refs="sec-3-3">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.3.3 Due Diligence</div>
+          <h2>벤더 실사(Due Diligence) 및 데이터 거버넌스</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h3>1. 데이터 품질 검증</h3>
+            <ul>
+              <li>과거 수정치(Vintage) 지원 여부</li>
+              <li>상장폐지 이력 포함 여부</li>
+              <li>분할/배당 조정 산식 투명성</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>2. 법률 & 컴플라이언스</h3>
+            <ul>
+              <li><strong>MNPI</strong>(미공개정보) 배제 확약</li>
+              <li>웹 크롤링 ToS / 저작권 준수</li>
+              <li>개인정보(GDPR/CCPA) 권리 확인</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>3. 기술 및 운영 SLA</h3>
+            <ul>
+              <li>API 레이트 리밋 & 가동시간</li>
+              <li>대량 일괄 다운로드(Bulk) 지원</li>
+              <li>스키마 변경 사전 통보 체계</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 1.5rem;">
+          <strong>내부 거버넌스 5대 기둥:</strong> (1) 계보 추적, (2) 덮어쓰기 없는 버전 관리, (3) 정제 로깅, (4) 검증 자동화(Great Expectations/Pandera), (5) 소스 교체 시 병렬 검증 운용.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 18 -->
+    <section class="slide" id="slide-18" data-slide="18" aria-label="접근 패턴이 저장 기술 선택을 결정합니다" data-report-refs="sec-4">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.4 Data Storage</div>
+          <h2>접근 패턴이 저장 기술 선택을 결정합니다</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>파일 형식 (File Formats)</h3>
+            <p>연구 반복 속도의 핵심. Parquet, Arrow IPC, HDF5, CSV.</p>
+            <div class="highlight-box">
+              <strong>핵심 기준:</strong> 압축률, 스캔 속도, 조건자 푸시다운(Predicate Pushdown).
+            </div>
+          </div>
+          <div class="card">
+            <h3>데이터베이스 엔진 (Engines)</h3>
+            <p>SQL 분석, 동시성, 시계열 조인이 필요할 때 추가.</p>
+            <div class="highlight-box">
+              <strong>핵심 기준:</strong> 인메모리/임베디드(DuckDB/Polars) vs 서버형(ClickHouse/Postgres).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 19 -->
+    <section class="slide" id="slide-19" data-slide="19" aria-label="파일 저장소 벤치마크" data-report-refs="sec-4-1 box-11">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.4.1 Benchmarks</div>
+          <h2>파일 저장소 벤치마크 (표 2.4 실측)</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <table>
+          <thead>
+            <tr>
+              <th>파일 형식</th>
+              <th>파일 크기 (100만 행)</th>
+              <th>쓰기 시간</th>
+              <th>전체 스캔 시간</th>
+              <th>주요 특징 및 권장 용도</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>CSV</strong></td>
+              <td>136 MB (기준선)</td>
+              <td>0.13s</td>
+              <td>0.05s</td>
+              <td>비압축 텍스트, 스키마 부재, 단순 교환용</td>
+            </tr>
+            <tr>
+              <td><strong>Parquet</strong></td>
+              <td><strong>40 MB (3.4배 압축)</strong></td>
+              <td><strong>0.07s (최저)</strong></td>
+              <td><strong>0.02s (최저)</strong></td>
+              <td><strong>컬럼형 압축, 푸시다운 지원, 퀀트 연구 표준 (압승)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>HDF5</strong></td>
+              <td>71 MB</td>
+              <td>0.13s</td>
+              <td>0.40s</td>
+              <td>과학 계산 레거시, 청킹 의존적, 읽기 느림</td>
+            </tr>
+            <tr>
+              <td><strong>Arrow IPC</strong></td>
+              <td>~64 MB (비압축)</td>
+              <td>0.04s</td>
+              <td>0.005s (mmap)</td>
+              <td>프로세스 간 제로카피(Zero-Copy) 메모리 교환</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="highlight-box gold" style="margin-top: 1.5rem;">
+          <strong>📦 [실습 <code>20</code> & <code>22_pandas_polars_benchmark</code>]</strong> 1,000만 행 대규모 집계에서 <strong>Polars가 Pandas 대비 5~15배 빠른 속도와 절반 이하의 메모리</strong> 기록.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 20 -->
+    <section class="slide" id="slide-20" data-slide="20" aria-label="서버 없는 임베디드 분석 스택" data-report-refs="sec-4-2">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.4.2 Embedded SQL</div>
+          <h2>서버 없는 임베디드 분석 스택</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h3>DuckDB</h3>
+            <p>Parquet 직접 쿼리, 벡터화 OLAP, 네이티브 ASOF JOIN 지원. 서버 없이 파일 위에서 강력한 SQL 실행.</p>
+          </div>
+          <div class="card">
+            <h3>Polars</h3>
+            <p>Rust 기반 멀티스레드 지연 연산(Lazy Execution) 데이터프레임. 초고속 피처 엔지니어링.</p>
+          </div>
+          <div class="card">
+            <h3>SQLite</h3>
+            <p>메타데이터, 설정, 소규모 관계형 테이블 관리의 신뢰할 수 있는 선택지.</p>
+          </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 1.5rem; text-align: center;">
+          <strong style="color: var(--accent); font-size: 1.15rem;">
+            표준 퀀트 연구 파이프라인: [파티셔닝 Parquet 레이크] \(\rightarrow\) [DuckDB 고속 SQL] \(\rightarrow\) [Polars 피처 생성]
+          </strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 21 -->
+    <section class="slide" id="slide-21" data-slide="21" aria-label="서버 시계열 데이터베이스 벤치마크" data-report-refs="sec-4-2 box-12">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.4.3 Database Benchmarks</div>
+          <h2>서버 시계열 데이터베이스 벤치마크 (100만 행)</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <table>
+          <thead>
+            <tr>
+              <th>데이터베이스 엔진</th>
+              <th>100만 행 쓰기 시간</th>
+              <th>100만 행 읽기 시간</th>
+              <th>주요 포지셔닝 및 평가</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>kdb+ / PyKX</strong></td>
+              <td><strong>0.03s</strong></td>
+              <td><strong>0.04s</strong></td>
+              <td>초고성능 인메모리 벡터 엔진, 월가 표준 (고가 라이선스)</td>
+            </tr>
+            <tr>
+              <td><strong>ClickHouse</strong></td>
+              <td>1.47s</td>
+              <td>0.83s</td>
+              <td>초고속 컬럼형 OLAP 분석, 뛰어난 수평 확장성</td>
+            </tr>
+            <tr>
+              <td><strong>QuestDB</strong></td>
+              <td>1.77s</td>
+              <td>3.34s</td>
+              <td>시계열 특화 Ingestion 및 SQL 지원, Parquet 연동</td>
+            </tr>
+            <tr>
+              <td><strong>PostgreSQL / Timescale</strong></td>
+              <td>120.0s ~ 132.0s</td>
+              <td>3.54s ~ 3.58s</td>
+              <td>완벽한 ACID, 범용 관계형 (대량 시계열 수집에는 오버헤드)</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="highlight-box gold" style="margin-top: 1.5rem;">
+          <strong>📦 [실습 <code>21_storage_benchmark_database</code>]</strong> 재현 가능한 데이터베이스 벤치마크 스위트. InfluxDB는 모니터링 전용으로 퀀트 미시구조에는 부적합함 확인.
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 22 -->
+    <section class="slide" id="slide-22" data-slide="22" aria-label="ASOF 조인 및 최종 스토리지 선택 매트릭스" data-report-refs="sec-4-2">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.4.4 Decision Matrix</div>
+          <h2>ASOF 조인 및 최종 스토리지 선택 매트릭스 (표 2.5)</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="highlight-box" style="margin-bottom: 1.25rem;">
+          <strong>ASOF 조인 성능 순위:</strong> <code>Polars join_asof &gt; Pandas merge_asof &gt; DuckDB ASOF JOIN &gt; QuestDB</code>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>연구 및 비즈니스 목적</th>
+              <th>강력한 기본 선택지 (Default)</th>
+              <th>대안 및 확장 선택지 (Alternatives)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>개인 / 소규모 연구 속도</strong></td>
+              <td><strong>Parquet + Polars</strong></td>
+              <td>Parquet + DuckDB</td>
+            </tr>
+            <tr>
+              <td><strong>파일 기반 SQL 분석</strong></td>
+              <td><strong>DuckDB + Parquet</strong></td>
+              <td>Polars 지연 스캔 (Lazy Frame)</td>
+            </tr>
+            <tr>
+              <td><strong>운영 환경 트랜잭션/신뢰성</strong></td>
+              <td><strong>PostgreSQL</strong></td>
+              <td>TimescaleDB</td>
+            </tr>
+            <tr>
+              <td><strong>초고빈도 틱 처리량 (HFT)</strong></td>
+              <td><strong>kdb+ / PyKX</strong></td>
+              <td>ClickHouse</td>
+            </tr>
+            <tr>
+              <td><strong>초고속 수집 및 스트리밍</strong></td>
+              <td><strong>QuestDB</strong></td>
+              <td>ClickHouse</td>
+            </tr>
+            <tr>
+              <td><strong>최저 운영 오버헤드 (Serverless)</strong></td>
+              <td><strong>Parquet + DuckDB</strong></td>
+              <td>클라우드 관리형 Postgres</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Slide 23 -->
+    <section class="slide" id="slide-23" data-slide="23" aria-label="재현 가능한 퀀트 연구를 위한 4대 데이터 원칙" data-report-refs="sec-5">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">2.5 Conclusion</div>
+          <h2>재현 가능한 퀀트 연구를 위한 4대 데이터 원칙</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>1. 가정의 명시화</h3>
+            <p>타임스탬프, 캘린더, 기업행위 규칙을 암묵적으로 넘기지 말고 데이터 계약 메타데이터로 고정하라.</p>
+          </div>
+          <div class="card">
+            <h3>2. 가짜 알파 원천 봉쇄</h3>
+            <p>시점 기준(PIT) 이중시간 쿼리와 생존자 편향 없는 유니버스를 연구 첫날부터 구축하라.</p>
+          </div>
+          <div class="card">
+            <h3>3. 시장 구조 부합 모델링</h3>
+            <p>주식 분할, 선물 롤오버, 옵션 표면, 크립토 AMM 슬리피지를 자산군 특성에 맞게 다루어라.</p>
+          </div>
+          <div class="card">
+            <h3>4. 단순하고 빠른 스토리지</h3>
+            <p>Parquet + Polars/DuckDB로 시작하고, 운영 비용이 정당화될 때 서버 DB를 도입하라.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 24 -->
+    <section class="slide" id="slide-24" data-slide="24" aria-label="청중 확인 질문 (Checkpoint Questions)" data-report-refs="sec-5">
+      <div class="slide-header">
+        <div class="slide-title-wrap">
+          <div class="slide-category">Checkpoints</div>
+          <h2>청중 확인 질문 (Checkpoint Questions)</h2>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Q1. 시점 기준 (PIT)</h3>
+            <p>기업 실적 발표일이 분기 말보다 45일 늦을 때, 왜 단순 시계열 조인은 백테스트를 무효화하는가?</p>
+          </div>
+          <div class="card">
+            <h3>Q2. 생존자 편향</h3>
+            <p>2014~2018년 미국 주식 패널에서 상장폐지된 777개 종목을 제외하면 왜 연 8%p 이상의 가짜 수익률이 발생하는가?</p>
+          </div>
+          <div class="card">
+            <h3>Q3. 기업행위 왜곡</h3>
+            <p>Apple의 7:1 액면분할을 원시 가격으로 백테스트하면 왜 68배의 누적 성과 왜곡이 일어나는가?</p>
+          </div>
+          <div class="card">
+            <h3>Q4. 스토리지 아키텍처</h3>
+            <p>왜 연구 단계에서는 무거운 관계형 DB 대신 Parquet + DuckDB/Polars 스택이 권장되는가?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 25 -->
+    <section class="slide title-slide" id="slide-25" data-slide="25" aria-label="감사합니다 (Q&A)" data-report-refs="sec-5">
+      <div class="slide-category">Q&A & Next Chapter</div>
+      <h1>감사합니다 (Q&A)</h1>
+      <div class="sub">질문 및 토론</div>
+      <div class="card" style="max-width: 700px; text-align: left; margin: 0 auto 2rem;">
+        <h3 style="color: var(--accent);">다음 스터디 예고: Chapter 3. 시장 미시구조</h3>
+        <p style="font-size: 0.95rem; color: #cbd5e1;">
+          L2/L3 틱 데이터로부터 오더북 재구성, 정보 기반 거래 지표(VPIN), 시장 충격(Market Impact) 및 볼륨 바·달러 바·틱 바 샘플링 기법
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Deck Footer -->
+  <footer class="deck-footer">
+    <div>ML4T (3rd Edition) · Chapter 02: The Financial Data Universe</div>
+    <div>
+      <button class="nav-btn" onclick="prevSlide()">◀ 이전 (Left)</button>
+      <span id="slideCounter" style="margin: 0 1rem; font-weight: 700; color: #fff;">1 / 25</span>
+      <button class="nav-btn" onclick="nextSlide()">다음 (Right) ▶</button>
+    </div>
+  </footer>
+</div>
+
+<script>
+  let currentSlide = 1;
+  const totalSlides = 25;
+
+  function showSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    if (n < 1) n = 1;
+    if (n > totalSlides) n = totalSlides;
+    currentSlide = n;
+
+    slides.forEach((s, idx) => {
+      s.classList.toggle('active', (idx + 1) === currentSlide);
+    });
+
+    document.getElementById('slideCounter').innerText = `${currentSlide} / ${totalSlides}`;
+    document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+  }
+
+  function nextSlide() { showSlide(currentSlide + 1); }
+  function prevSlide() { showSlide(currentSlide - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      prevSlide();
+    } else if (e.key === 'Home') {
+      showSlide(1);
+    } else if (e.key === 'End') {
+      showSlide(totalSlides);
+    }
+  });
+
+  // Touch swipe support for mobile/tablet
+  let touchStartX = 0;
+  let touchEndX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) nextSlide();
+    if (touchEndX - touchStartX > 50) prevSlide();
+  });
+
+  showSlide(1);
+</script>
+
+<!-- KaTeX JavaScript Engine -->
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/auto-render.min.js"></script>
+<script defer src="assets/katex/katex-init.js"></script>
+
+</body>
+</html>
