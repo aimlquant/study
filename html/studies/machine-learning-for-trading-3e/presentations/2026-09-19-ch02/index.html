@@ -49,8 +49,8 @@
       margin-top: 4px;
     }
     .dense-table th, .dense-table td {
-      padding: 8px 12px;
-      font-size: 18px;
+      padding: 6px 12px;
+      font-size: 17px;
       line-height: 1.35;
     }
   </style>
@@ -233,15 +233,15 @@
     <!-- Slide 8 -->
     <section class="slide slide--teaching" id="slide-08" aria-label="자산군별 시장 데이터 환경 총괄 (Part 1)" data-report-refs="sec-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2 자산군 환경</span></header>
-      <h1>자산군별 시장 데이터 환경 총괄 (Part 1: 거래소 상품)</h1>
+      <h1>자산군별 시장 데이터 환경 (거래소 상품)</h1>
       <p class="lead">거래소 중심 상품은 관측성이 높으나 정교한 시계열 처리 및 조정이 요구됩니다.</p>
       <div class="slide-body">
-        <table class="teaching-table">
+        <table class="teaching-table dense-table">
           <thead>
             <tr><th>자산군</th><th>관측 가능성</th><th>주요 실패 양상 (Failure Modes)</th><th>엔지니어링 우선순위</th></tr>
           </thead>
           <tbody>
-            <tr><td>주식 (Equities)</td><td>높음 (통합 시장)</td><td>분산 시장 파편화, 기업행위 왜곡, 티커 재사용</td><td>분할/배당 역방향 조정 및 영구 식별자 매핑</td></tr>
+            <tr><td>주식 (Equities)</td><td>높음 (통합 시장)</td><td>분산 시장 파편화, 기업행위 왜곡</td><td>분할/배당 역방향 조정 및 영구 식별자 매핑</td></tr>
             <tr><td>ETP (ETF/ETN)</td><td>높음 / 중간</td><td>NAV 괴리, 룩스루 누수, 유동성 불일치</td><td>시장가 vs NAV 2계층 분리 및 보유자산 PIT</td></tr>
             <tr><td>선물 (Futures)</td><td>높음 (거래소)</td><td>만기 롤오버 단절, 연속 시계열 왜곡</td><td>롤 규칙(거래량/OI) 및 후방조정 방식 선택</td></tr>
             <tr><td>옵션 (Options)</td><td>높음 / 희소</td><td>차원 폭발, 꼬리 잡음, 롤오버 오염</td><td>원시 체인 대신 내재변동성 표면(IV Surface) 구성</td></tr>
@@ -255,19 +255,19 @@
     <!-- Slide 9 -->
     <section class="slide slide--teaching" id="slide-09" aria-label="자산군별 시장 데이터 환경 총괄 (Part 2)" data-report-refs="sec-2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2 자산군 환경</span></header>
-      <h1>자산군별 시장 데이터 환경 총괄 (Part 2: 디지털 및 OTC)</h1>
+      <h1>자산군별 시장 데이터 환경 (디지털 및 OTC)</h1>
       <p class="lead">탈중앙 및 장외(OTC) 시장은 단일 가격이 부재하므로 관례와 모델링이 선행되어야 합니다.</p>
       <div class="slide-body">
-        <table class="teaching-table">
+        <table class="teaching-table dense-table">
           <thead>
             <tr><th>자산군</th><th>관측 가능성</th><th>주요 실패 양상 (Failure Modes)</th><th>엔지니어링 우선순위</th></tr>
           </thead>
           <tbody>
-            <tr><td>크립토 (Crypto)</td><td>중간 (CEX/DEX)</td><td>24/7 세션화, 가짜 거래량, MEV, 슬리피지</td><td>CEX 무결성 필터링 및 DEX 준비금 모델</td></tr>
-            <tr><td>외환 (FX)</td><td>낮음 (글로벌 OTC)</td><td>통합 테이프 부재, 종가 관례 불일치</td><td>런던 16:00 / 뉴욕 17:00 등 종가 관례 명시</td></tr>
-            <tr><td>채권 (Bonds)</td><td>낮음 (희소 OTC)</td><td>실체결 부재, 모델 평가값 혼동</td><td>매트릭스 가격평가와 유동성 추론 규칙 문서화</td></tr>
-            <tr><td>스왑 / 파생</td><td>낮음 (보고 기반)</td><td>관례 불일치, 인공 수익률</td><td>거래 기반 vs 호가 기반 vs 커브 기반 명시</td></tr>
-            <tr><td>원자재</td><td>중간 (선물/현물)</td><td>현물 모호성, 인도 장소·등급 편차</td><td>계약 명세 메타데이터 내장 및 기간구조 모델링</td></tr>
+            <tr><td>크립토 (Crypto)</td><td>중간 (CEX/DEX)</td><td>24/7 세션화, 가짜 거래량, MEV</td><td>CEX 무결성 필터링, DEX 준비금 모델</td></tr>
+            <tr><td>외환 (FX)</td><td>낮음 (글로벌 OTC)</td><td>통합 테이프 부재, 종가 불일치</td><td>런던 16:00 / 뉴욕 17:00 종가 관례 명시</td></tr>
+            <tr><td>채권 (Bonds)</td><td>낮음 (희소 OTC)</td><td>실체결 부재, 모델 평가값 혼동</td><td>매트릭스 가격평가, 유동성 추론 규칙</td></tr>
+            <tr><td>스왑 / 파생</td><td>낮음 (보고 기반)</td><td>관례 불일치, 인공 수익률</td><td>거래·호가·커브 기반 표현 명시</td></tr>
+            <tr><td>원자재</td><td>중간 (선물/현물)</td><td>현물 모호성, 인도 등급 편차</td><td>계약 명세 메타데이터 내장, 기간구조</td></tr>
           </tbody>
         </table>
       </div>
@@ -524,28 +524,18 @@
       <h1>5대 데이터 품질 차원 프레임워크</h1>
       <p class="lead">데이터 품질 결함은 백테스트에서는 가짜 알파를 만들고 실거래에서는 큰 손실을 초래합니다.</p>
       <div class="slide-body">
-        <div class="teaching-columns">
-          <article>
-            <h2>1. 적시성 (Timeliness)</h2>
-            <p>사건 발생부터 수집까지의 지연시간 측정.</p>
-          </article>
-          <article>
-            <h2>2. 완전성 (Completeness)</h2>
-            <p>자산·기간별 결측치(NaN) 공백 탐지.</p>
-          </article>
-          <article>
-            <h2>3. 정확성 (Accuracy)</h2>
-            <p>거래소 원천 사실과의 일치성 대조.</p>
-          </article>
-          <article>
-            <h2>4. 일관성 (Consistency)</h2>
-            <p>스키마, 단위, 조정 정책의 시계열 안정성.</p>
-          </article>
-          <article>
-            <h2>5. 유효성 (Validity)</h2>
-            <p>OHLC 불변식(\(\text{High} \ge \text{Open}/\text{Close}\) 등) 준수.</p>
-          </article>
-        </div>
+        <table class="teaching-table dense-table">
+          <thead>
+            <tr><th>품질 차원</th><th>확인 대상</th><th>대표 점검 항목</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>1. 적시성 (Timeliness)</strong></td><td>사건 발생부터 수집·이용 가능 시점까지의 지연</td><td>틱 지연, 피드 수집 레이턴시 모니터링</td></tr>
+            <tr><td><strong>2. 완전성 (Completeness)</strong></td><td>자산·기간·필드별 결측치(NaN) 및 누락 공백</td><td>결측치 탐지, 거래소 휴장일 캘린더 갭</td></tr>
+            <tr><td><strong>3. 정확성 (Accuracy)</strong></td><td>측정값이 실제 거래소 원천 사실과 일치하는지</td><td>원천 체결가 대조, 비정상 틱 필터링</td></tr>
+            <tr><td><strong>4. 일관성 (Consistency)</strong></td><td>스키마, 단위, 조정 정책의 시계열 안정성</td><td>단위 변경, 타임존 불일치, 스키마 표류</td></tr>
+            <tr><td><strong>5. 유효성 (Validity)</strong></td><td>물리적·논리적 불변 조건 만족 여부</td><td>OHLC 불변식 (\(\text{High} \ge \text{Low}\)), 거래량 \(\ge 0\)</td></tr>
+          </tbody>
+        </table>
       </div>
       <p class="takeaway">5개 품질 차원을 주기적으로 자동 스캔하여 이상 데이터를 사전에 차단해야 합니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#sec-3-1">상세 설명 ↗</a><span><b data-slide-number>22</b> / <b data-slide-total>41</b></span></footer>
