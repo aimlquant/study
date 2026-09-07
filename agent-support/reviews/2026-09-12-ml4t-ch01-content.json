@@ -24,8 +24,13 @@
     {
       "role": "notebook",
       "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/src/ch01/01_chapter_guide.ipynb",
-      "sha256": "6e30076a689621330535a6e0a4ca2a9b679c45d4ab2cd0f6bff37c6e163b153e",
-      "revision": "d78ed12af8219f21495b1fd7ae2ec601d73cba7f"
+      "sha256": "5f27f88200750c3ca9ea7e4b26fd032d848fc283d7af842f5d0378cded1cdd0d",
+      "revision": "180444a007583c931a16d893939c93e20e0f649d",
+      "revalidation": {
+        "date": "2026-09-07",
+        "scope": "Primer 본문 주석 반영에 따른 장별 대응표 해시 갱신",
+        "result": "기존 검토본과 바이트 대조: primer_map_sha256의 HTML·텍스트 출력 2곳만 변경. 노트북 코드·설명·실험 수치·그림과 1장 원문·번역·해설은 동일하며 발표자료의 기존 해석이 유지됨. revision과 sha256은 이 재검증을 통과한 교재 커밋과 파일을 가리킴."
+      }
     },
     {
       "role": "errata",
