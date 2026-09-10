@@ -21,38 +21,226 @@
     </div>
   </div>
 
-  <!-- 레이아웃 예시를 필요한 만큼 복제한다. 순서·장수는 승인된 리포트의 설명 단위에서 정한다.
-       원본 절 첫 설명 화면 예: data-source-refs="section:1.1" data-source-title="section:1.1".
-       실제 번호·정확한 제목을 넣고 refs는 해당 report.html의 실제 ID로 교체한다. -->
+  <!--
+    공용 덱의 완전한 레이아웃 예시다. 필요한 section 전체를 복제하고 고유 id를 부여한다.
+    표지 외 모든 화면은 header → h1 → lead → slide-body → takeaway → footer를 유지한다.
+    본문 내용·순서·장수는 검증된 리포트에서 정하며 예시 목차를 그대로 강제하지 않는다.
+    대괄호 문구·예시 수식·코드는 실제 내용으로, refs와 링크는 실제 리포트 ID로 교체한다.
+    원본 절 첫 설명 화면에는 실제 data-source-refs와 data-source-title을 함께 기록한다.
+    그림 좌우형과 전체 폭형은 선택지다. 같은 그림을 두 번 넣으라는 뜻이 아니다.
+  -->
   <main class="stage" id="deck" aria-live="polite" data-report-source="report.html" data-caption-scope="deck">
     <section class="slide slide--cover" id="slide-cover" aria-label="표지" data-report-refs="summary">
       <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
-      <div class="cover-hero"><p class="eyebrow">{{STUDY_TITLE}}</p><h1>{{DECK_TITLE}}</h1><p class="cover-subtitle">{{SUBTITLE}}</p></div>
-      <dl class="cover-meta"><div><dt>발표자</dt><dd>{{PRESENTERS}}</dd></div><div><dt>범위</dt><dd>{{CHAPTERS}}</dd></div><div><dt>일시</dt><dd>{{DATE}}</dd></div></dl>
+      <div class="cover-hero">
+        <p class="eyebrow">{{STUDY_TITLE}}</p>
+        <h1>{{DECK_TITLE}}</h1>
+        <p class="cover-subtitle">{{SUBTITLE}}</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>{{PRESENTERS}}</dd></div>
+        <div><dt>범위</dt><dd>{{CHAPTERS}}</dd></div>
+        <div><dt>발표일</dt><dd>{{DATE}}</dd></div>
+      </dl>
     </section>
-    <section class="slide slide--teaching" id="slide-definition" aria-label="개념과 질문" data-report-refs="concept">
-      <h1>[리포트의 절 제목]</h1><p class="lead">[이 절에서 답할 구체적인 질문]</p>
-      <div class="slide-body"><div class="teaching-rows"><article><h2>[용어]</h2><p>[처음 읽는 사람을 위한 한 문장 정의]</p></article><article><h2>[작동 원리]</h2><p>[입력이 어떻게 바뀌어 어떤 출력에 이르는지]</p></article><article><h2>[적용 조건]</h2><p>[이 설명이 성립하는 조건 또는 가까운 개념과의 차이]</p></article></div></div><p class="takeaway">[다음 설명으로 이어지는 결론]</p>
+
+    <section class="slide slide--teaching" id="slide-opening" aria-label="이 장의 핵심 질문" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}}</span></header>
+      <h1>[이 장에서 풀어야 할 핵심 질문]</h1>
+      <p class="lead">[문제를 이해하는 데 필요한 배경과 비교 조건]</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article><h2>[첫 번째 질문]</h2><p>[무엇을 확인해야 하며 왜 필요한가]</p></article>
+          <article><h2>[두 번째 질문]</h2><p>[첫 질문만으로 설명되지 않는 지점]</p></article>
+          <article><h2>[세 번째 질문]</h2><p>[결과를 해석할 때 필요한 조건]</p></article>
+        </div>
+      </div>
+      <p class="takeaway">[세 질문이 이어지는 이 장의 논점]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
-    <section class="slide slide--teaching" id="slide-example" aria-label="예제로 확인하는 원리" data-report-refs="mechanism">
-      <h1>[구체적인 예에서 확인할 변화]</h1><p class="lead">[리포트에 있는 입력과 비교 조건]</p>
-      <div class="slide-body"><div class="teaching-columns"><article><h2>[입력 또는 이전 상태]</h2><p>[실제 데이터·상태를 읽는 방법]</p></article><article><h2>[변환과 결과]</h2><p>[중간 계산·규칙과 그 결과를 연결하는 설명]</p></article></div></div><p class="takeaway">[예시로 말할 수 있는 것과 일반화할 수 없는 것]</p>
+
+    <section class="slide slide--teaching" id="slide-roadmap" aria-label="오늘의 학습 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}}</span></header>
+      <h1>[앞 질문에서 다음 질문으로 이어지는 학습 흐름]</h1>
+      <p class="lead">[원본 절 순서에 담긴 논리적 연결]</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>[앞부분의 절과 주제]</h2><p>[처음 이해해야 할 대상과 질문]</p></article>
+          <article><h2>[중간의 절과 주제]</h2><p>[앞의 정의로 설명할 원리와 사례]</p></article>
+          <article><h2>[뒷부분의 절과 주제]</h2><p>[근거를 바탕으로 판단할 조건과 한계]</p></article>
+        </div>
+      </div>
+      <p class="takeaway">[전체 설명을 통해 답할 수 있게 되는 질문]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-overview">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
+
+    <!-- 1.1은 원본 좌표의 작성 예시다. 실제 절 번호와 정확한 번역 제목으로 교체한다. -->
+    <section class="slide slide--teaching" id="slide-definition" aria-label="원본 절의 개념과 질문" data-report-refs="concept" data-source-refs="section:1.1" data-source-title="section:1.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §1.1</span></header>
+      <h1>1.1 [원본 절의 정확한 번역 제목]</h1>
+      <p class="lead">[이 절에서 답할 구체적인 질문]</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>[용어]</h2><p>[처음 읽는 사람을 위한 한 문장 정의]</p></article>
+          <article><h2>[작동 원리]</h2><p>[입력이 어떻게 바뀌어 어떤 출력에 이르는지]</p></article>
+          <article><h2>[적용 조건]</h2><p>[이 설명이 성립하는 조건과 가까운 개념과의 차이]</p></article>
+        </div>
+      </div>
+      <p class="takeaway">[다음 설명으로 이어지는 결론]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#concept">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-example" aria-label="예제로 확인하는 원리" data-report-refs="concept source-subsection" data-source-refs="section:1.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §1.1</span></header>
+      <h1>[구체적인 예에서 확인할 변화]</h1>
+      <p class="lead">[리포트에 있는 입력과 비교 조건]</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article><h2>[입력 또는 이전 상태]</h2><p>[실제 데이터·상태를 읽는 방법]</p></article>
+          <article><h2>[변환과 결과]</h2><p>[중간 계산·규칙과 그 결과를 연결하는 설명]</p></article>
+        </div>
+      </div>
+      <p class="takeaway">[예시로 말할 수 있는 것과 일반화할 수 없는 것]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-subsection">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
     <section class="slide slide--teaching slide--teaching-visual" id="slide-figure" aria-label="도형에서 읽는 관계" data-report-refs="concept fig-concept">
-      <h1>[그림이 설명하는 관계]</h1><p class="lead">[이 그림으로 확인할 질문]</p>
-      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure"><img src="assets/figs/concept-flow.svg" alt="[도형이 표현하는 구체적 관계]"><figcaption><b data-deck-caption="figure">그림 1</b><span data-deck-figure-title>[도형 제목]</span></figcaption></figure><div class="teaching-rows"><article><h2>읽는 순서</h2><p>[축·노드·화살표에서 볼 순서]</p></article><article><h2>관찰과 원리</h2><p>[도형에 실제로 표현된 차이와 그 의미]</p></article><article><h2>해석 경계</h2><p>[개념 모식도인지 측정 결과인지, 적용 조건은 무엇인지]</p></article></div></div></div><p class="takeaway">[관찰에서 이어지는 결론]</p><a class="report-ref" href="report.html#fig-concept">상세 설명</a>
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}}</span></header>
+      <h1>[그림이 설명하는 관계]</h1>
+      <p class="lead">[이 그림으로 확인할 질문]</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure class="deck-report-figure">
+            <img src="assets/figs/concept-flow.svg" alt="입력·변환·검증된 결과를 왼쪽에서 오른쪽으로 연결한 세 노드">
+            <figcaption><b data-deck-caption="figure">그림 1</b><span data-deck-figure-title>[원본 그림의 의미를 보존한 제목]</span></figcaption>
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>[축·노드·화살표에서 볼 순서]</p></article>
+            <article><h2>관찰과 원리</h2><p>[도형에 실제로 표현된 차이와 그 의미]</p></article>
+            <article><h2>해석 경계</h2><p>[개념 모식도인지 측정 결과인지, 적용 조건은 무엇인지]</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">[관찰에서 이어지는 결론]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-concept">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
-    <section class="slide slide--teaching" id="slide-code" aria-label="실습의 입력과 계산" data-report-refs="mechanism">
-      <h1>[실습에서 확인할 계산]</h1><p class="lead">[입력·단위·기간·전처리와 실행 상태]</p>
-      <div class="slide-body"><pre data-code-language="Python"><code># 리포트에서 검토한 코드 발췌를 넣습니다.
-# 앞 셀의 입력을 생략하면 변수와 데이터 모양을 여기서 명시합니다.</code></pre></div><p class="takeaway">[어느 계산 줄이 왜 필요한지; 다음 결과 화면과 연결]</p>
+
+    <!-- 같은 리포트 그림을 전체 폭으로 설명하는 대체 레이아웃. 앞의 좌우형과 선택한다. -->
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-wide-figure" aria-label="전체 폭 그림과 해석" data-report-refs="concept fig-concept">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}}</span></header>
+      <h1>[전체 흐름에서 확인할 연결]</h1>
+      <p class="lead">[흐름의 출발점과 끝에서 확인할 대상]</p>
+      <div class="slide-body">
+        <div class="teaching-wide-visual">
+          <figure class="deck-report-figure">
+            <img src="assets/figs/concept-flow.svg" alt="입력·변환·검증된 결과를 왼쪽에서 오른쪽으로 연결한 세 노드">
+            <figcaption><b data-deck-caption="figure">그림 2</b><span data-deck-figure-title>[원본 그림의 의미를 보존한 제목]</span></figcaption>
+          </figure>
+          <p class="figure-reading">[왼쪽부터 읽을 순서와 단계 사이의 실제 관계를 설명]</p>
+        </div>
+      </div>
+      <p class="takeaway">[흐름이 설명하는 원리와 해석 범위]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-concept">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
-    <section class="slide slide--teaching" id="slide-result" aria-label="실습 결과와 해석" data-report-refs="evidence-limits table-evidence">
-      <h1>[실제 출력에서 확인한 결과]</h1><p class="lead">[앞 코드와 같은 데이터·기간·계산 조건]</p>
-      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 1</span> [기록된 출력]</caption><thead><tr><th>[지표·단위]</th><th>[실제 값]</th><th>[계산 대상·읽는 법]</th></tr></thead><tbody><tr><td>[측정값]</td><td>[검토한 출력]</td><td>[해당 값이 말하는 범위]</td></tr></tbody></table></div><p class="takeaway">[실제 결과의 해석과 입증하지 않은 것; 출력이 없다면 꾸며 내지 않음]</p>
+
+    <section class="slide slide--teaching" id="slide-formula" aria-label="수식의 대상과 기호" data-report-refs="concept">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}}</span></header>
+      <h1>[수식이 계산하는 대상]</h1>
+      <p class="lead">[계산이 필요한 질문과 입력의 단위]</p>
+      <div class="slide-body">
+        <!-- 렌더링 예시 수식이다. 실제 리포트의 수식과 모든 기호 설명으로 함께 교체한다. -->
+        <div class="formula-main">\[\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i\]</div>
+        <div class="teaching-rows">
+          <article><h2>[입력과 기호]</h2><p>[각 기호가 가리키는 자료·개수·계산 대상]</p></article>
+          <article><h2>[계산과 해석]</h2><p>[연산의 의미와 작은 수치 예제를 읽는 방법]</p></article>
+          <article><h2>[조건과 한계]</h2><p>[수식이 성립하는 조건과 계산만으로 알 수 없는 것]</p></article>
+        </div>
+      </div>
+      <p class="takeaway">[계산값에서 이어지는 해석]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#concept">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
-    <section class="slide slide--teaching" id="slide-closing" aria-label="확인 질문과 정리" data-report-refs="summary discussion">
-      <h1>[이 장의 핵심 결론]</h1><p class="lead">[본문 근거로 답할 수 있는 질문]</p><div class="slide-body"><p class="explain-line">[답에 필요한 중간 설명과 조건을 다시 확인]</p></div><p class="takeaway"><a href="report.html">상세 리포트</a> · <a href="../../">회차 목록</a></p>
+
+    <section class="slide slide--teaching" id="slide-code" aria-label="실습의 입력과 계산" data-report-refs="concept notebook-example">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}} · 실습</span></header>
+      <h1>[실습에서 확인할 계산]</h1>
+      <p class="lead">[입력·단위·기간·전처리와 실행 상태]</p>
+      <div class="slide-body">
+        <pre data-code-language="Python"><code># 리포트에서 검토한 코드 발췌를 넣습니다.
+# 입력 변수의 정의와 데이터 모양을 포함합니다.
+# 핵심 계산을 거쳐 다음 화면의 실제 출력으로 연결합니다.</code></pre>
+        <p class="explain-line">[어느 계산 줄이 왜 필요한지 설명]</p>
+      </div>
+      <p class="takeaway">[다음 결과 화면에서 확인할 관찰]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#notebook-example">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-result" aria-label="실습 결과와 해석" data-report-refs="concept notebook-output">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}} · 실습 결과</span></header>
+      <h1>[실제 출력에서 확인한 결과]</h1>
+      <p class="lead">[앞 코드와 같은 데이터·기간·계산 조건]</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 1</span> [기록된 출력]</caption>
+          <thead><tr><th>[지표·단위]</th><th>[실제 값]</th><th>[계산 대상·읽는 법]</th></tr></thead>
+          <tbody>
+            <tr><td>[측정값 A]</td><td>[검토한 출력]</td><td>[해당 값이 말하는 범위]</td></tr>
+            <tr><td>[측정값 B]</td><td>[검토한 출력]</td><td>[앞 지표와 다른 해석]</td></tr>
+            <tr><td>[측정값 C]</td><td>[검토한 출력]</td><td>[비교에 필요한 조건]</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">[값 사이의 실제 차이와 그 의미]</p>
+      </div>
+      <p class="takeaway">[실제 결과의 해석과 입증하지 않은 것]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#notebook-output">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-comparison" aria-label="같은 기준으로 비교하는 개념" data-report-refs="glossary table-glossary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}}</span></header>
+      <h1>[두 개념을 구분하는 기준]</h1>
+      <p class="lead">[같아 보이는 대상에서 구별해야 할 차이]</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 2</span> [같은 항목으로 비교한 개념]</caption>
+          <thead><tr><th>[비교 항목]</th><th>[개념 A]</th><th>[개념 B]</th></tr></thead>
+          <tbody>
+            <tr><td>[대상]</td><td>[무엇을 설명하는가]</td><td>[무엇을 설명하는가]</td></tr>
+            <tr><td>[작동 방식]</td><td>[입력과 처리]</td><td>[입력과 처리]</td></tr>
+            <tr><td>[적용 조건]</td><td>[조건과 한계]</td><td>[조건과 한계]</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="takeaway">[차이를 바탕으로 판단할 수 있는 것]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-glossary">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-checkpoint" aria-label="이해를 확인하는 질문" data-report-refs="summary concept">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}} · 확인 질문</span></header>
+      <h1>[본문의 근거로 답할 수 있는 질문]</h1>
+      <p class="lead">[답을 설명할 때 다시 확인할 사례와 조건]</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>[질문 1 · 개념]</h2><p>[정의와 가까운 개념의 차이를 묻는 질문]</p></article>
+          <article><h2>[질문 2 · 원리]</h2><p>[구체적 입력에서 결과까지 추론하는 질문]</p></article>
+          <article><h2>[질문 3 · 조건]</h2><p>[조건이 달라지면 해석이 어떻게 바뀌는지 묻는 질문]</p></article>
+        </div>
+      </div>
+      <p class="takeaway">[답에 필요한 근거와 해석의 경계]</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#concept">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-closing" aria-label="정리와 질의응답" data-report-refs="summary references">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">{{CHAPTERS}} · Q&amp;A</span></header>
+      <h1>[이 장의 핵심 결론]</h1>
+      <p class="lead">[본문의 논증에서 이어지는 마지막 질문]</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>[핵심 원리]</h2><p>[정의에서 결과까지 이어지는 설명을 정리]</p></article>
+          <article><h2>[근거와 조건]</h2><p>[관찰한 결과와 그 해석이 성립하는 범위]</p></article>
+          <article><h2>[토론]</h2><p>[이 장을 바탕으로 다음에 확인할 가정]</p></article>
+        </div>
+      </div>
+      <p class="takeaway">자료: <a href="report.html">상세 리포트</a> · <a href="../../">회차 목록</a></p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#references">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
   </main>
 

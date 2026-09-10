@@ -1516,7 +1516,11 @@ html[data-qa-viewport-width] body {
   max-width: var(--qa-viewport-width);
 }
 html[data-qa-viewport-width] .deck-settings { right: auto; left: calc(var(--qa-viewport-width) - 60px); }
-html[data-qa-viewport-width] .deck-controls { right: auto; left: calc(var(--qa-viewport-width) - 136px); }
+html[data-qa-viewport-width] .deck-controls {
+  right: auto;
+  left: calc(var(--qa-viewport-width) - 18px);
+  transform: translateX(-100%);
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

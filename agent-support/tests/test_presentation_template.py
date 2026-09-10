@@ -9,7 +9,9 @@ import sys
 import tempfile
 import tomllib
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path
+from xml.etree.ElementTree import Element, SubElement
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -23,7 +25,109 @@ DECK_TEMPLATE = REPO_ROOT / "agent-support" / "templates" / "study-deck"
 REPORT_TEMPLATE = REPO_ROOT / "agent-support" / "templates" / "study-report"
 
 
+class TemplateDOM(HTMLParser):
+    """Small DOM for checking relationships, not whitespace or source line counts."""
+
+    VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input",
+                 "link", "meta", "param", "source", "track", "wbr"}
+
+    def __init__(self, source: str) -> None:
+        super().__init__()
+        self.root = Element("document")
+        self.stack = [self.root]
+        self.feed(source)
+
+    def handle_starttag(self, tag, attrs) -> None:
+        node = SubElement(self.stack[-1], tag, {k: v or "" for k, v in attrs})
+        if tag not in self.VOID_TAGS:
+            self.stack.append(node)
+
+    def handle_endtag(self, tag) -> None:
+        if self.stack[-1].tag == tag:
+            self.stack.pop()
+
+    def handle_data(self, data) -> None:
+        node = self.stack[-1]
+        node.text = (node.text or "") + data
+
+
+def with_class(nodes, name):
+    return [node for node in nodes if name in node.get("class", "").split()]
+
+
 class PresentationTemplateContractTest(unittest.TestCase):
+    def test_paired_scaffold_preserves_every_slide_shell_and_report_target(self) -> None:
+        """A valid scaffold must not silently lose the presentation's common frame."""
+        with tempfile.TemporaryDirectory() as directory:
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT),
+                 "--study", "kg-llm-in-action-2026",
+                 "--session", "test-deck-format", "--title", "템플릿 형식 검증",
+                 "--date", "2026-09-10", "--presenter", "테스트 발표자",
+                 "--chapter", "Chapter 3", "--site", directory],
+                capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            target = Path(directory) / "studies/knowledge-graphs-and-llms-in-action/presentations/test-deck-format"
+            source = (target / "index.html").read_text()
+            self.assertNotRegex(source, new_presentation.TOKEN_RE)
+            deck = TemplateDOM(source).root
+            report = TemplateDOM((target / "report.html").read_text()).root
+            report_ids = {node.get("id") for node in report.iter() if node.get("id")}
+            report_images = {node.get("src") for node in report.iter("img")}
+            main = deck.find(".//main[@id='deck']")
+            self.assertIsNotNone(main)
+            self.assertEqual(main.get("data-report-source"), "report.html")
+            self.assertEqual(main.get("data-caption-scope"), "deck")
+            slides = with_class(main, "slide")
+            self.assertGreater(len(slides), 1)
+            slide_ids = [slide.get("id") for slide in slides]
+            self.assertTrue(all(slide_ids))
+            self.assertEqual(len(slide_ids), len(set(slide_ids)))
+            self.assertEqual(len({slide.get("aria-label") for slide in slides}), len(slides))
+            self.assertEqual(len(with_class(slides, "slide--cover")), 1)
+            for slide in slides:
+                with self.subTest(slide=slide.get("id")):
+                    self.assertTrue(slide.get("aria-label"))
+                    refs = set(slide.get("data-report-refs", "").split())
+                    self.assertTrue(refs)
+                    self.assertLessEqual(refs, report_ids)
+                    if "slide--cover" in slide.get("class", "").split():
+                        self.assertIsNotNone(slide.find(".//h1"))
+                        self.assertEqual(len(with_class(slide, "cover-meta")), 1)
+                        continue
+                    self.assertIn("slide--teaching", slide.get("class", "").split())
+                    children = list(slide)
+                    self.assertEqual([node.tag for node in children],
+                                     ["header", "h1", "p", "div", "p", "footer"])
+                    for index, name in [(0, "slide-header"), (2, "lead"),
+                                        (3, "slide-body"), (4, "takeaway"), (5, "slide-footer")]:
+                        self.assertIn(name, children[index].get("class", "").split())
+                    for name in ("brand-name", "section-tag"):
+                        labels = with_class(children[0], name)
+                        self.assertEqual(len(labels), 1)
+                        self.assertTrue("".join(labels[0].itertext()).strip())
+                    footer = children[-1]
+                    for attr in ("data-slide-number", "data-slide-total"):
+                        self.assertEqual(len([node for node in footer.iter() if attr in node.attrib]), 1)
+                    links = with_class(footer.iter("a"), "report-ref")
+                    self.assertEqual(len(links), 1)
+                    href = links[0].get("href", "")
+                    self.assertTrue(href.startswith("report.html#"))
+                    self.assertIn(href.split("#", 1)[1], refs)
+            for image in deck.iter("img"):
+                self.assertIn(image.get("src"), report_images)
+                self.assertTrue(image.get("alt"))
+            for node in deck.iter():
+                asset = node.get("src", "")
+                if asset.startswith("assets/"):
+                    self.assertTrue((target / asset).is_file(), asset)
+            # Cover the reusable layout families without fixing a talk's slide count.
+            for name in ("teaching-rows", "teaching-columns", "teaching-visual",
+                         "teaching-wide-visual", "teaching-table", "formula-main"):
+                self.assertTrue(with_class(main.iter(), name), name)
+            self.assertIsNotNone(main.find(".//pre[@data-code-language]"))
+
     def test_report_only_scaffold_enables_report_gates_without_a_deck(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             result = subprocess.run(

@@ -24,7 +24,7 @@
   ```
 
 - 원자료의 주장 강도와 주체를 함께 기록한다. `가능하다·도울 수 있다·조건부로 강화한다`를 리포트에서 `한다·증명한다·보장한다`로 높이지 않고, `저자들의 경험상·해당 실험에서`를 무주체의 일반 사실로 바꾸지 않는다. 발표자가 더 보수적인 도입 기준이나 운영 확장을 제안하면 `교재의 주장`과 `이 리포트의 제안`을 본문·캡션·도형에서 눈에 보이게 분리한다.
-- `agent-support/templates/STUDY_SESSION_BLUEPRINT.md`와 그 문서가 가리키는 Chapter 1 완성본을 품질 기준으로 사용하되, Chapter 1의 재구성 목차를 다른 장에 복제하지 않는다. 리포트의 1차 목차는 원본 장·절 순서와 번호·번역 제목으로 고정하고 학습 목표, 데모와 보충 해설을 그 안에 배치한다. 이 단계에서 슬라이드는 제목 목록 이상의 회차별 본문을 작성하지 않는다.
+- `agent-support/templates/STUDY_SESSION_BLUEPRINT.md`와 공용 `study-report`·`study-deck` 템플릿을 품질 기준으로 사용한다. 발표 외형은 `agent-support/templates/study-deck/index.html`의 완전한 레이아웃 예시와 같은 폴더의 CSS·JS를 따르며, 내용·목차·장수는 회차의 리포트에서 정한다. 리포트의 1차 목차는 원본 장·절 순서와 번호·번역 제목으로 고정하고 학습 목표, 데모와 보충 해설을 그 안에 배치한다. 이 단계에서 슬라이드는 제목 목록 이상의 회차별 본문을 작성하지 않는다.
 - `문제 → 개념 → 메커니즘 → 운영 구조 → 근거와 한계 → 사례 → 판단 → 요약`은 목차 템플릿이 아니라 내용 누락을 찾는 체크리스트다. 원본 순서를 바꾸거나 원본 절 제목을 대체하지 않는다.
 - 발표 시간은 설명 단위를 배치한 뒤 예상 말하기 시간과 리허설로 확인한다. 장수는 설명 충분성의 대리 지표가 아니다. 도입·학습 흐름·확인 질문·정리는 장의 내용에 맞게 두고, 필요한 원리·사례를 지운 뒤 미리 정한 장수에 맞추지 않는다.
 - 발표자료는 의미 있는 그림 하나를 슬라이드 하나에 배치하는 것을 기본으로 한다. 서로 다른 원본 그림을 한 장에 함께 두는 것은 두 그림의 동시 비교 자체가 학습 과제이고 최종 프로젝터 크기에서도 세부가 읽힐 때만 허용한다. 같은 절에 속한다는 이유만으로 그림을 묶지 않는다.
@@ -59,15 +59,17 @@ html/studies/<study-slug>/presentations/<session-slug>/
 
 ```bash
 python3 agent-support/scripts/new-presentation.py \
-  --study kg-llm-in-action-2026 \
-  --session 2026-08-01-ch03 \
-  --title "온톨로지로 첫 번째 지식 그래프 만들기" \
-  --date 2026-08-01 \
-  --presenter "태영" \
-  --chapter "Chapter 3"
+  --study "<studies.toml의 study id>" \
+  --session "<YYYY-MM-DD-chNN>" \
+  --title "<발표 제목>" \
+  --date "<YYYY-MM-DD>" \
+  --presenter "<발표자>" \
+  --chapter "Chapter <N>"
 ```
 
 - 리포트 규칙은 `agent-support/templates/study-report/DESIGN.md`, 슬라이드 규칙은 `agent-support/templates/study-deck/DESIGN.md`에서 확인한다.
+- 덱은 `study-deck/index.html`의 section 전체를 복제하고 고유 ID를 준다. 표지 외에는 `.slide--teaching`의 `header → h1 → lead → slide-body → takeaway → footer`를 유지한다. 헤더에는 브랜드와 절 표시, 푸터에는 실제 `data-report-refs` 대상의 리포트 anchor와 `[data-slide-number] / [data-slide-total]`을 둔다. 본문 배치를 바꿀 때도 이 공통 요소를 삭제하지 않는다.
+- 공용 템플릿 변경은 임시 `--site`에 실제 생성한 덱으로 검증한다. 모든 예시의 데스크톱·모바일 렌더와 공통 구조·리포트 링크·번호를 확인하고, `test_presentation_template.py` 회귀 검사를 통과시킨다.
 - 스크립트는 기존 발표 폴더를 덮어쓰지 않는다. 기존 회차 수정은 생성 명령을 다시 실행하지 말고 해당 폴더만 편집한다.
 - `study-slug`는 레지스트리 값을 사용한다.
 - `session-slug`는 `YYYY-MM-DD-chXX-chYY` 형식의 소문자 ASCII를 사용한다.
@@ -159,12 +161,12 @@ canonical 진입점과의 관계를 기록한다.
 예시 메타데이터:
 
 ```toml
-study_id = "kg-llm-in-action-2026"
-session_id = "2026-08-01-ch03"
-title = "온톨로지로 첫 번째 지식 그래프 만들기"
-date = "2026-08-01"
-presenters = ["태영"]
-chapters = ["Chapter 3"]
+study_id = "<studies.toml의 study id>"
+session_id = "<YYYY-MM-DD-chNN>"
+title = "<발표 제목>"
+date = "<YYYY-MM-DD>"
+presenters = ["<발표자>"]
+chapters = ["Chapter <N>"]
 template = "study-deck-v1"
 report_template = "study-report-v1"
 artifacts = ["report", "slides"]
@@ -173,7 +175,7 @@ report_source = "report.html"
 source_fidelity = "source-structure-v1"
 source_outline_style = "ordered-headings-v1"
 source_exercise_style = "bold-numbered-v1"
-source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_03_create_your_first_knowledge_graph_from_ontologies/03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md"
+source_material = "materials/<track>/<active-or-archive>/<study-slug>/<chapter>/<outline>.md"
 ```
 
 생성 직후의 `index.html`은 구조 청사진일 뿐 완성된 회차 발표자료가 아니다. 리포트 게이트를 통과한 뒤 다음 규칙으로 내용을 교체한다.
