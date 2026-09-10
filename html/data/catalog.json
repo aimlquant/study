@@ -276,7 +276,9 @@
       "id": "2026-11-14-ml4t-ch09",
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-11-14-ml4t-ch09/",
-      "presenters": [],
+      "presenters": [
+        "원미"
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 9. 모델 기반 특성 추출"
