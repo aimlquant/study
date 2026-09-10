@@ -1,8 +1,8 @@
-# study-report-v1 디자인 규칙 · Chapter 1 완성본 기준
+# study-report-v1 공용 리포트 디자인 규칙
 
-이 템플릿은 발표자의 자체 출판 템플릿 `ai-odyssey-publisher` 의 실제 theme_report.css와 report.js를 AIML Quant용으로 직접 이식하고, Chapter 1 리포트에서 검증한 장문 구조·표·도형·이미지 뷰어를 공용화한 HTML 리포트다. 구조만 참고한 경량 재구현이 아니다. 워드마크·발표 내용·개인 브랜딩은 AIML Quant에 맞게 교체했고 외부 폰트와 Chart.js 의존성은 제거했다.
+이 템플릿은 발표자의 자체 출판 템플릿 `ai-odyssey-publisher` 의 실제 theme_report.css와 report.js를 AIML Quant용으로 직접 이식하고, 장문 구조·표·도형·이미지 뷰어를 공용화한 HTML 리포트다. 구조만 참고한 경량 재구현이 아니다. 워드마크·발표 내용·개인 브랜딩은 AIML Quant에 맞게 교체했고 외부 폰트와 Chart.js 의존성은 제거했다.
 
-- 완성 기준 예시: `html/studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-01-ch03/report.html`
+- 기본 HTML과 스타일: `agent-support/templates/study-report/index.html`과 같은 폴더의 `assets/`
 - 공통 설계 청사진: `agent-support/templates/STUDY_SESSION_BLUEPRINT.md`
 
 ## 출처와 변경 경계
