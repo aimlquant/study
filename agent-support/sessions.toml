@@ -413,7 +413,7 @@ id = "2026-11-14-ml4t-ch09"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-11-14"
 title = "Chapter 9. 모델 기반 특성 추출"
-presenters = []
+presenters = ["원미"]
 chapters = ["Chapter 9"]
 status = "scheduled"
 
