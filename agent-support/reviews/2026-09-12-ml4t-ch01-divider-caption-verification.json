@@ -1,0 +1,727 @@
+{
+  "artifacts": {
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/index.html": "25d57d5b697d6bfd9f5528f2e85695690173db5d6d4f6c8e95f0c7e7eb264ceb",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/deck.css": "6ed56c3973ac2ddc5e40574091bd19b682f31b9fb3db09b29d0a3938247fe347"
+  },
+  "affected_slides": [
+    3,
+    8,
+    9,
+    11,
+    17,
+    19,
+    21,
+    24,
+    25,
+    28,
+    29,
+    32,
+    37
+  ],
+  "screenshots": [
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-03.png",
+      "sha256": "aa0dd9c9a1c95756edc7a688aa20bc118fecf394e31850d2383e2e8146c75851",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-08.png",
+      "sha256": "1f40ed669d0eeafda026933ef4b88248b811b6e8c095418cc764c6c25fa7fe03",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-09.png",
+      "sha256": "7cc44aceec236872d72383fda42437f3b28b1f61927ef48aa17b7afa2bbc9f3a",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-11.png",
+      "sha256": "2cfec4ec266e246367ec35e1ca7e83c8607adffd5ec4dcc81dd5767e5bb0e145",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-17.png",
+      "sha256": "b41d881d37237ebb748b4f6dde3524e5a3d004277822e45fe85cf005ebe8a000",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-19.png",
+      "sha256": "0b607c689e77faa8605f9ef3627b85629df335cf5e99e85dc62b66f25111d78a",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-21.png",
+      "sha256": "bef0fa73d8a6ea48b71018ac69b234bae467bf54a24898795b0d7e33e7d522c2",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-24.png",
+      "sha256": "fdc861bd1f43b7891392d4d743466090fe82f63480ff39fdb1a7a975b9fa720f",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-25.png",
+      "sha256": "0ff6a4ddf70a140167313804a1cb60bd6675ff2bd29372f465436c53357d8c1a",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-28.png",
+      "sha256": "f4b5f782de2d9b411b899a4a7cd1d4c24e4341b2b2c9edaff5c0b5d4280dc968",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-29.png",
+      "sha256": "a11bfaa52278604e4e8f034832383ffe7f338075bb8484bd4594f404ec90ee2b",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-32.png",
+      "sha256": "0fda822965e67d1912c4617b5063179e4a19f2dccf31aff11bfb4c5df05a75fd",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1366-37.png",
+      "sha256": "04cdad7820e6d529c8eb199f79224d5a4e81c494c9695267bdd15c207effb261",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-03.png",
+      "sha256": "cd7f02a7ff03ccbc3435883eea7cdc13bf260015e223f57c1c0e64a9ebe57a22",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-08.png",
+      "sha256": "1e1f94ed8b721367dcaa8b54c45c9bf80548bc653672b58be8a58e674853d0bf",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-09.png",
+      "sha256": "926dbc4f9be1cd28bf76241737f3c545429f8e1418414751ca5eb8c1497b6bb9",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-11.png",
+      "sha256": "61a7aa7b2af48b3b48ff9de8671090e1582b3ef3637239a4f1f470d0d044bcaf",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-17.png",
+      "sha256": "531f9b7f4763278b3f1bd6c83778903c9fea99b4d8fc34cdf00bf39d76416338",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-19.png",
+      "sha256": "73faa57d90ef4ea1128ac157db3de46472cc4270b5328a7f614ec835dc440b97",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-21.png",
+      "sha256": "49d656268c75237786f2c82e49745bc808b34d102c8ff7b6d9a7d7376fdb6db7",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-24.png",
+      "sha256": "c6b53c20fef43faedc82720b23afaab6cd6666015338eb443260a03a0b70b13f",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-25.png",
+      "sha256": "22e8427646a9552514b55c53f2797521d1f3a31f1730eb564dab51371bd37af4",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-28.png",
+      "sha256": "7d4727e5341e72952f9ca8f4897321226fbab46296a6aabe9ed3e56d4ded9030",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-29.png",
+      "sha256": "d5cfece3f13a728cd62d9bfdc4b4fbacb8626e6b546bed7438a64a17b781d6cf",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-32.png",
+      "sha256": "caa4cc4cf116a7906f351655886f2549bc9ffe9cb73fecc3b89c9debaabe2c96",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-1600-37.png",
+      "sha256": "3a2c60f05733848b610570b74e83ae9192d8d0ace3b36e57b9c747ca6d81d663",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-03.png",
+      "sha256": "9fd65f33ffa2029c544f56b2513c350ae16ea99b964b3eea4c30957e55b172b9",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-08.png",
+      "sha256": "31744e7b55e750e619ba17fa0d867d1c42511992f1ccd6e23854a60db92f2edc",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-09.png",
+      "sha256": "775394e5b607c9febf2b5fcbb53db4698957d6da5ac4914649b73202e75a0d3a",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-11.png",
+      "sha256": "28fccc2a91226c865800a2fc7a533dc005d22ff1bbd1802e9c7267d4d508f3ef",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-17.png",
+      "sha256": "c63eacd96be82f7798d99902499e70ff47ade1edfa832ea2a513fcbca87e7394",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-19.png",
+      "sha256": "4a5d14f70acca7e29ecfb1062ab06a66a9a855b740223241209484ca6d966a01",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-21.png",
+      "sha256": "0775c6668940a2db9a1ab06c1e1905cf6fb3eb82722583520153763a6b785320",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-24.png",
+      "sha256": "45eb00df578f3a826ab1c904d197ffad673586b690ce9136803517f05ce387b3",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-25.png",
+      "sha256": "5095a5aaf644e62fc1882445773d00358f8e7b2d3591b01d447c9a72392ecfd0",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-28.png",
+      "sha256": "da3d02c1c397e065cd6d90cf01fecadc628fa6f61a49179af10e4c3343bb45ad",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-29.png",
+      "sha256": "d7c20bf503f3acb1ea472798a34300551d99082c2c2b4e043471233aa1921115",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-32.png",
+      "sha256": "c625bd20d506d2a8dd070792ccd09366f46434db1bc64bc495786b7b06c3028f",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/final-390-37.png",
+      "sha256": "0ad1bfabaa22145a1b7c3c886ace639a2c1b12c6947119251c2af7306fb8b889",
+      "dimensions": [
+        390,
+        844
+      ]
+    }
+  ],
+  "tests": {
+    "unittest_run": 288,
+    "passed": 283,
+    "skipped": 5,
+    "skip_reason": "external service libraries unavailable",
+    "site_html_count": 100,
+    "site_existing_iframe_warnings": 23,
+    "build_check": "passed",
+    "skill_quick_validate": "passed",
+    "git_diff_check": "passed"
+  },
+  "freshness": "Only slide-29 lead changed after first caption-removal captures; regenerated at all three sizes. Later CSS change only affects divider footer b color; all six dividers regenerated at all three sizes. Other 26 slide bodies, report, notes and SVGs unchanged. Template final CSS matches scaffolded CSS; template HTML changed only in whitespace after scaffolding. Public capture URLs identify content commit f68ab46, and public HTML/CSS/report hashes match reviewed local files.",
+  "status": "verified: session and skill/template changes; published content matches reviewed artifacts",
+  "template_screenshots": [
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-01.png",
+      "sha256": "580fe462fccd5a7260ba7b372fa9280a52c11d4bf8238831e92331adb150c693",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-02.png",
+      "sha256": "758350d6ca340d1d21b3ac18c319df8ff0f8b49a7677a34a970dc4a1322face8",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-03.png",
+      "sha256": "8808895418b618c909b4e8ae39a5507f870d6c0c6cdd84510f51411fd6233478",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-04.png",
+      "sha256": "1da9d6064c006193f09d6991e8e9d17b758678c8f38d11928928e34bdda58eea",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-05.png",
+      "sha256": "83f834aaf75d761733a899a7690475e84baed75d5f753d8ecb18c39073b242bc",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-06.png",
+      "sha256": "930e3b7ffb7354a356bc437608fdb9b7329e5886090ce5d09fce9067a48cca46",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-07.png",
+      "sha256": "50513a0f2e73be2eae54071b4e3b69d43b289682907018a188d220d0e95d28b6",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-08.png",
+      "sha256": "0b9ee9ae73a0335f4974fa57bf3e5d1655a38d86d2dde422464c7e7e90bc6a04",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-09.png",
+      "sha256": "5dd6d427887cf4d16f596d2ac4c07dd09376543faf021917ec1b67aef61980af",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-10.png",
+      "sha256": "1f2b460c30214050cd703cac64b8bfed43a5a424ec877af8e5aeee954469a9ef",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-11.png",
+      "sha256": "f76d2b7c04c6d8d37ef054ae93eeb1576065d3199ddc6d5849b0aa8b93544709",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-12.png",
+      "sha256": "6ad3adb9d8da0ef4145ddc07465450f5c1766499287cec1f7f50226196c07fd0",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-13.png",
+      "sha256": "93edfe4833a8ea3e57d1900c80d6d470f7b284cc1b54080361254eb7cde45109",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-1600-14.png",
+      "sha256": "95dcf9ce9d02379f254f3f1bacb066544a81d3ff9365d7c5ecb03627a65692ea",
+      "dimensions": [
+        1600,
+        900
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-01.png",
+      "sha256": "4bc0e113112b7174a0135e52a899c090c0af207a452119b089b27ba1bb98fc85",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-02.png",
+      "sha256": "9f2827f079bdc75a42f66d7ff8bce3e5207f9bb2ba40676ef9bdb87e65a9f0e6",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-03.png",
+      "sha256": "2fa2cbb46cb795454fcabbb137ecdfcaad2b6a558e6ad7bb5536d236ff106957",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-04.png",
+      "sha256": "5526ea8df2612d0442f1ffced9138c713bd66a91a1e1d78ffc3c9b9f0f034546",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-05.png",
+      "sha256": "f02c3c193af87538da20da70372b908002d894173b560aff724e8b60e66c5232",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-06.png",
+      "sha256": "5ec0833c84eaad79a9b6f2c93dd157f29b510898dfaadca16745abbf834b1ec4",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-07.png",
+      "sha256": "85e1a0f5b9db8d63e9eca5dc3a2ca830a24b8fbdbc3e4d71d4c6da23b5892216",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-08.png",
+      "sha256": "a10551c500aa122466cfe62a2161b4393de40801da525cd83cf417625a52a106",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-09.png",
+      "sha256": "c9d560e3c340df65f4ae30504b6b185311a86e39c778e5287a5910ae5d171cf3",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-10.png",
+      "sha256": "dafee9a5a90a8f0fd655dca5e72ac1f24e03e8e8e29a5ee539a2c41ac6c43425",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-11.png",
+      "sha256": "0ef5ef099251a59193e5e9d0919e79b9657ed3be5ebb3df4e54a6b153d1c975a",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-12.png",
+      "sha256": "0c8fdbb4abc41f4c3b65f1f59386bb4639e4fbc947ce65d065d3e6272aba0890",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-13.png",
+      "sha256": "e33805db996e505430768ed47052d6e64748fb186127e73388e6599c91eafe71",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/template-390-14.png",
+      "sha256": "070e6a6a084628a5f164c76f7e9ce7f0a6f5c3e60f5a8358e4f553bff07a456d",
+      "dimensions": [
+        390,
+        844
+      ]
+    }
+  ],
+  "live_screenshots": [
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/live-1366-03.png",
+      "sha256": "8fda7fe6c6a9c482878ff43a66c44eff61997fb1acb31e5ace05cba9c47e3f95",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/live-1366-21.png",
+      "sha256": "aba1f3433e1b1d8f887bef0d691db814ff75a26ab6097bfded33fe4a8e81d78c",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/live-1366-32.png",
+      "sha256": "98e24efd4300b28bcb7068c4225170b69358cc8d7d2c0159928cd3fd9fbda6f6",
+      "dimensions": [
+        1366,
+        768
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/live-390-03.png",
+      "sha256": "f9fab9e918e0acacc676ebb410efe37db1788332ed9d33d347cd31d5c84ce9de",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/live-390-21.png",
+      "sha256": "a8f2932490219d022f6efd6ada33e351b46804889f4c5b18d54b3c9a2c320cab",
+      "dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/live-390-32.png",
+      "sha256": "33a207d9a95237b36879c0d1586cf567223743b6186cfabad480c010fc0f1bc6",
+      "dimensions": [
+        390,
+        844
+      ]
+    }
+  ],
+  "deployment": {
+    "content_commit": "f68ab466a547a790eef74e7742f38ba6c6fd6d32",
+    "pages_run": 34656117229,
+    "conclusion": "success",
+    "public_url": "https://aimlquant.github.io/study/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/",
+    "files": [
+      {
+        "path": "index.html",
+        "status": 200,
+        "sha256": "25d57d5b697d6bfd9f5528f2e85695690173db5d6d4f6c8e95f0c7e7eb264ceb",
+        "match": true
+      },
+      {
+        "path": "assets/deck.css",
+        "status": 200,
+        "sha256": "6ed56c3973ac2ddc5e40574091bd19b682f31b9fb3db09b29d0a3938247fe347",
+        "match": true
+      },
+      {
+        "path": "report.html",
+        "status": 200,
+        "sha256": "ea59f3f74e525a5ed1cbe92cc1227a55ecfdd4bd2ef52ac5df08f077a0a727c6",
+        "match": true
+      }
+    ]
+  },
+  "supporting_screenshots": [
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/before-live-03.png",
+      "sha256": "c863042c58746297133519acd3a0d19f8b42c57586407473d98c78e3455365ae"
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/theme-1366.png",
+      "sha256": "4506b8c9d5fe4bcabaaec4b5a3dde568dbce98bcc080da1fd6eb3388e5204a7d"
+    },
+    {
+      "path": "tmp/browser-shots/ch01-divider-20260912/zoom-1366.png",
+      "sha256": "78c4263fb4b7848a961376890f43b19555fbfedf44c8167bd6389d1a11360084"
+    }
+  ],
+  "unchanged_report_notes_figures": [
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/report.html",
+      "sha256": "ea59f3f74e525a5ed1cbe92cc1227a55ecfdd4bd2ef52ac5df08f077a0a727c6"
+    },
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/presenter-notes.md",
+      "sha256": "6c3bbf31aef5c52f6e54270150a4fc1933ad2869e47cc092b40596e0dba72f0b"
+    },
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/ai-workflow.svg",
+      "sha256": "85f2458cbd66f7cf2a8aeb4ca456c15e235cb52053074ba1f44d5ce31d478969"
+    },
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/factor-risk.svg",
+      "sha256": "cbf7619f6f9be8600da4c8338124f788dffdd1b0d76e8913b725c3a09760998e"
+    },
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/lifecycle.svg",
+      "sha256": "8e41e3aca74021c094029cfc4da78e915f1c55b618d31bbca4cd446a57d5054d"
+    },
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/macro-risk.svg",
+      "sha256": "542d64ec430c4859bd0c19084eee430e5de16feca41e454c7bc3973c21c1b64c"
+    },
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/research-entries.svg",
+      "sha256": "f73f28bb0210c7fab86d1fbe7bf0ddbbec6ed8fbacc3c9975a2e761cdf85e027"
+    },
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/time-boundary.svg",
+      "sha256": "88e7b96e38768c1f411ce11983767816f97ef3b156246f7faed8ad899100958d"
+    },
+    {
+      "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/workflow.svg",
+      "sha256": "80f8e3ec7496a750b76c904787a10035aefbc5c0898bccfe74a0ab057bd909e4"
+    }
+  ],
+  "support_artifacts": {
+    ".agents/skills/study-presentation/SKILL.md": "b316e0509b3b54429095eb6dc77d7f6242b3cebaabe0f80f8ca6f2f6c26c8cbf",
+    "agent-support/procedures/study-presentation.md": "783f9d993f2da697ab08180b8eee61a76cf476eedcf20af260b38a6dc9c6fd5c",
+    "agent-support/templates/STUDY_SESSION_BLUEPRINT.md": "83c000199a29199055beafd4301291bf00440bba31606f044fa3b655eff8b32b",
+    "agent-support/templates/study-deck/DESIGN.md": "32aead3efd1e626f33d783e4c7b86cc4e6e291af30ffd4231122a71794a8aeaa",
+    "agent-support/templates/study-deck/assets/deck.css": "47587bcf03c8dd0de313f3f3b665a689bf94a64dd27ec41de7697c26ed2ddce4",
+    "agent-support/templates/study-deck/index.html": "1c3819a3c893381c37673e5fcfbea2732e3a65b1c414ffc91436c8f4aac740a4",
+    "agent-support/tests/test_presentation_template.py": "2a73256ee895d0e33ce665a4fda07639d32b1fb5a1b81732ae7ade678fdca2a7",
+    "agent-support/scripts/validate-site.py": "ed8d9ed0af3efa57c4e37dac02b1f33ccb4af7da59982e71c36dcbf74f75cc29",
+    "agent-support/tests/test_source_fidelity.py": "1061691b4d2f92f4676066a1597677aa8cf3278718a524feb6d449edcd343b4c"
+  },
+  "generated_template": {
+    "path": "tmp/browser-shots/ch01-divider-20260912/template-site/studies/machine-learning-for-trading-3e/presentations/divider-template-qa",
+    "html_sha256": "6e618f638bbab9eaa04a61b00e66dea9ac09cd72307c8c47863078045dfd0b2f",
+    "css_sha256": "47587bcf03c8dd0de313f3f3b665a689bf94a64dd27ec41de7697c26ed2ddce4",
+    "examples": 14,
+    "visual_review": "Every example inspected at desktop and 390px; dividers and both figure layouts preserve shell, links, numbering and unclipped stage. Expected letterboxing retained."
+  },
+  "review": {
+    "record": "agent-support/reviews/2026-09-12-ml4t-ch01-divider-caption-claude.md",
+    "peer_scope": "Source/meaning and contract review, selected rendered screens; two requested corrections rechecked against updated hashes and resolved.",
+    "root_scope": "All 13 affected slides at three sizes; all 14 generated template examples at desktop/mobile; public slides 3/21/32 at desktop/mobile. Final divider footer contrast and live renders checked by Codex.",
+    "remaining_major_or_required_corrections": 0
+  },
+  "recorded_at": "2026-09-11T23:06:49.188821+00:00"
+}

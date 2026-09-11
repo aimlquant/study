@@ -79,6 +79,12 @@ class PresentationTemplateContractTest(unittest.TestCase):
             self.assertIsNotNone(main)
             self.assertEqual(main.get("data-report-source"), "report.html")
             self.assertEqual(main.get("data-caption-scope"), "deck")
+            self.assertEqual(main.get("data-figure-captions"), "none")
+            self.assertEqual(list(main.iter("figcaption")), [])
+            divider = main.find(".//section[@data-section-divider]")
+            self.assertIsNotNone(divider)
+            self.assertTrue("".join(divider.find("h1").itertext()).strip())
+            self.assertTrue(with_class(divider.iter(), "section-number"))
             slides = with_class(main, "slide")
             self.assertGreater(len(slides), 1)
             slide_ids = [slide.get("id") for slide in slides]
