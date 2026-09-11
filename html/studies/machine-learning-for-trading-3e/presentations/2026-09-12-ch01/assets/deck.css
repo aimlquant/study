@@ -1903,3 +1903,9 @@ svg.deck-lightbox__visual {
 .teaching-wide-visual .deck-report-figure figcaption>*{font-size:18px}
 .cover-hero h1{font-size:66px}.cover-subtitle{font-size:27px}
 @media print{.chapter-divider{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* The cost example needs both a calculation and definitions at presentation size. */
+.slide--cost-example .slide-body { gap: 46px; }
+.cost-explained { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
+.cost-explained p { margin: 0; padding-top: 20px; border-top: 1px solid var(--border); font-size: 22px; line-height: 1.5; }
+.cost-explained b { display: block; margin-bottom: 8px; color: var(--primary); font-size: 24px; }
