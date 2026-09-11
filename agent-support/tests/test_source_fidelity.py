@@ -863,6 +863,19 @@ class DeckTeachingReviewTest(unittest.TestCase):
             validate_site.validate_deck_caption_scope(self.parse(bad), Path('deck.html'), errors)
             self.assertTrue(errors)
 
+    def test_caption_free_deck_keeps_table_numbering_and_rejects_caption_bands(self):
+        source = '<main data-report-source="report.html" data-caption-scope="deck" data-figure-captions="none"><section class="slide" id="s"><figure><img src="chart.svg" alt="두 집단의 위험 비교"></figure><table><caption><b data-deck-caption="table">표 1</b></caption></table></section></main>'
+        errors = []
+        validate_site.validate_deck_caption_scope(self.parse(source), Path('deck.html'), errors)
+        self.assertEqual(errors, [])
+        for bad in [source.replace('</figure>', '<figcaption>그림 제목</figcaption></figure>'),
+                    source.replace('표 1', '표 2'),
+                    source.replace('data-figure-captions="none"', 'data-figure-captions="typo"')]:
+            with self.subTest(html=bad):
+                errors = []
+                validate_site.validate_deck_caption_scope(self.parse(bad), Path('deck.html'), errors)
+                self.assertTrue(errors)
+
     def test_review_checks_freshness_experiment_chain_and_real_anchors(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
