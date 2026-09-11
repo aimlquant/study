@@ -1881,3 +1881,18 @@ svg.deck-lightbox__visual {
 .teaching-wide-visual .deck-report-figure figcaption > * { font-size: 17px; }
 .teaching-wide-visual .deck-report-figure figcaption b { min-width: 80px; }
 .figure-reading { margin: 0; font-size: 20px; line-height: 1.45; }
+
+/* Section dividers: keep the number and full title together in the central block. */
+.chapter-divider { background: #102f52; color: #f6f8fb; grid-template-rows: 40px 1fr auto auto auto 1fr auto auto; }
+.chapter-divider.is-active { display: grid; }
+.chapter-divider > .slide-header { grid-row: 1; margin: 0; }
+.chapter-divider .brand-name, .chapter-divider .section-tag, .chapter-divider a { color: #f6f8fb; }
+.chapter-divider > .slide-body { grid-row: 3; flex: initial; padding: 0 0 18px; }
+.chapter-divider .section-number { position: static; align-self: flex-start; font-size: 32px; font-weight: 800; line-height: 1; letter-spacing: .04em; color: #93bad7; }
+.chapter-divider > h1 { grid-row: 4; max-width: 1120px; font-size: 56px; line-height: 1.28; color: #f6f8fb; text-wrap: balance; }
+.chapter-divider > h1::after { display: none; }
+.chapter-divider > .lead { grid-row: 5; margin-top: 24px; color: #d2e0eb; font-size: 24px; line-height: 1.5; }
+.chapter-divider > .takeaway { grid-row: 7; background: rgba(255,255,255,.08); border-color: #93bad7; color: #f6f8fb; }
+.chapter-divider > .slide-footer { grid-row: 8; border-color: rgba(255,255,255,.3); color: #d2e0eb; }
+.chapter-divider .slide-footer b { color: inherit; }
+@media print { .slide.chapter-divider { display: grid !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }

@@ -103,10 +103,12 @@ html/studies/<study-slug>/presentations/<session-slug>/
 
 발표자료에는 리포트에 없는 새 주장·수치·사례를 넣지 않는다. 필요하면 리포트를 먼저 고친 뒤 다시 파생한다. 결론형 제목 아래에 대응하는 `교재 §/그림/표/Listing/Example` 좌표를 표시한다. 리포트 SVG가 발표 화면에서 읽히면 동일 파일을 직접 사용하고, 복잡하면 핵심 관계와 그림 번호를 보존한 발표용 SVG/CSS로 재배치한다. 장식용 대체 그림으로 바꾸지 않는다.
 
+장·주요 절 구분 화면은 번호와 정확한 번역 제목을 중앙에 함께 두고 제목을 크게 강조한다. 그림 바로 아래의 `그림 N | 제목` 한 줄 캡션은 생략한다. 그림의 읽는 법·단위·조건은 가까운 본문에 남기며, 자세한 출처는 리포트 링크로 연결한다. 상세 리포트의 캡션과 실제 데이터 표는 유지한다.
+
 추적 계약은 다음과 같다.
 
 - `presentation.toml`: `workflow = "raw-report-deck-v1"`, `report_source = "report.html"`
-- 덱 `<main>`: `data-report-source="report.html"`
+- 덱 `<main>`: `data-report-source="report.html" data-caption-scope="deck" data-figure-captions="none"`
 - 모든 `.slide`: 실제 리포트 ID를 공백으로 나열한 `data-report-refs`
 - 리포트의 모든 `.report-section`과 `data-deck-use="required"` 그림: 한 번 이상 슬라이드에서 참조하고, 필수 그림의 같은 `src`가 덱에 실제로 존재
 - 발표 화면의 Report 링크: 가능하면 `report.html#<id>`로 정확한 근거 위치에 연결
@@ -147,7 +149,8 @@ python3 agent-support/scripts/validate-site.py --site html --check-materials
 - [ ] 원본 절·그림·표·Listing·Example·Box의 번호와 정확한 제목이 별도 매핑표가 아니라 실제 본문 요소로 원본 순서에 보존됐다.
 - [ ] 본문은 원본 절 순서를 따르고 추가 해설·재현 감사·운영 보강은 AIML Quant 보충으로 구분됐다.
 - [ ] 핵심 주장에 근거·조건·한계가 연결되어 있다.
-- [ ] 표·그림에 번호, 제목, 대체 텍스트, 출처 또는 재구성 메모가 있다.
+- [ ] 리포트의 표·그림에는 번호·제목이 있고, 덱의 그림 아래 캡션 줄은 없다. 모든 그림의 대체 텍스트와 근접 출처·재구성 범위는 보존됐다.
+- [ ] 장·주요 절 구분 페이지에 번호와 제목이 중앙의 한 묶음으로 보이며, 가장 긴 제목도 데스크톱·모바일에서 잘리지 않는다.
 - [ ] 일반 기법 설명의 주어가 출처명이 아니라 기법이고, 그림·표 메모가 읽는 법과 해석 경계를 재구성 출처보다 먼저 제공한다.
 - [ ] 리포트 목차와 슬라이드 목차가 자동으로 생성되고 실제 내용 순서와 맞는다.
 - [ ] 모든 슬라이드가 유효한 `data-report-refs`를 가지며 모든 본문 절과 필수 그림이 발표자료에서 다뤄진다.
