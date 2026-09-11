@@ -1516,7 +1516,11 @@ html[data-qa-viewport-width] body {
   max-width: var(--qa-viewport-width);
 }
 html[data-qa-viewport-width] .deck-settings { right: auto; left: calc(var(--qa-viewport-width) - 60px); }
-html[data-qa-viewport-width] .deck-controls { right: auto; left: calc(var(--qa-viewport-width) - 136px); }
+html[data-qa-viewport-width] .deck-controls {
+  right: auto;
+  left: calc(var(--qa-viewport-width) - 18px);
+  transform: translateX(-100%);
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -1877,3 +1881,25 @@ svg.deck-lightbox__visual {
 .teaching-wide-visual .deck-report-figure figcaption > * { font-size: 17px; }
 .teaching-wide-visual .deck-report-figure figcaption b { min-width: 80px; }
 .figure-reading { margin: 0; font-size: 20px; line-height: 1.45; }
+
+/* Chapter 1: short explanations and unmistakable section boundaries. */
+.slide--teaching > h1{font-size:37px;line-height:1.28}
+.slide--teaching > .lead{font-size:22px;line-height:1.5}
+.teaching-rows p,.teaching-columns p{font-size:26px;line-height:1.55}
+.teaching-rows h2,.teaching-columns h2{font-size:25px}
+.teaching-rows{gap:24px}.teaching-rows>article{grid-template-columns:200px 1fr;gap:30px;padding-bottom:22px}
+.teaching-table{font-size:24px}.teaching-table th,.teaching-table td{padding:12px 18px}
+.chapter-divider{background:#102f52;color:#f6f8fb}
+.chapter-divider .brand-name,.chapter-divider .section-tag,.chapter-divider h1,.chapter-divider .lead,.chapter-divider a{color:#f6f8fb}
+.chapter-divider h1{max-width:1020px;font-size:43px}
+.chapter-divider h1::after{background:#93bad7}
+.chapter-divider .slide-body{justify-content:center}
+.chapter-divider .section-number{position:static;align-self:flex-start;right:auto;bottom:auto;font-size:136px;font-weight:800;letter-spacing:-.05em;color:#93bad7;line-height:1}
+.chapter-divider > .takeaway{background:rgba(255,255,255,.08);border-color:#93bad7;color:#f6f8fb}
+.chapter-divider .slide-footer{border-color:rgba(255,255,255,.3);color:#d2e0eb}
+.cost-math{display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;gap:16px;align-items:center;text-align:center}
+.cost-math div{display:flex;flex-direction:column;gap:22px}.cost-math span{font-size:23px}.cost-math strong{font-size:52px;color:var(--primary)}.cost-math>b{font-size:42px}
+.figure-reading{font-size:22px;line-height:1.45}
+.teaching-wide-visual .deck-report-figure figcaption>*{font-size:18px}
+.cover-hero h1{font-size:66px}.cover-subtitle{font-size:27px}
+@media print{.chapter-divider{-webkit-print-color-adjust:exact;print-color-adjust:exact}}

@@ -335,7 +335,7 @@ chapters = ["Chapter 1"]
 status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m9aa5e7d1c892d9f7acd3e6a5cefb6400"
 
-summary = "시장 변화와 연구 규율, 탐색·확인의 증거 경계, 인과 추론·생성형 AI의 역할, 스타일·거시 국면 분석을 원서 1장과 CPU 실습으로 함께 읽습니다."
+summary = "과거에 잘된 전략을 어디까지 믿을 수 있을지, 데이터의 시점·전략 검증·거래 비용·시장 변화를 구체적인 예로 살펴봅니다. 원서 1장의 순서에 따라 새 해설판과 상세 리포트, 절별로 구분한 발표자료를 함께 읽습니다."
 artifacts = [
   { kind = "report", label = "1장 상세 리포트", url = "studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/report.html" },
   { kind = "slides", label = "1장 발표 슬라이드", url = "studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/" },
