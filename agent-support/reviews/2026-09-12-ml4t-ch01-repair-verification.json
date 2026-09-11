@@ -78,5 +78,107 @@
     "reason": "Only the three recorded slide elements and trailing document whitespace differ. CSS/JS/SVG unchanged after initial final render batch. Unchanged-slide pixels remain valid.",
     "before_deck_sha256": "d60bfac9463874e9c1bb6825761faed0a780c30542aee5cc9e92e666170d10b3",
     "after_deck_sha256": "b432dcc16cb7297bf3a8ba39b31d452cc112fb968ae4039240157d94c88c3f03"
+  },
+  "live": {
+    "content_commit": "f2b7a53dbf93f0bb49ace401f911dad568ac02b0",
+    "pages_run": 34650869879,
+    "pages_conclusion": "success",
+    "public_url": "https://aimlquant.github.io/study/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/",
+    "assets": [
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/index.html",
+        "status": 200,
+        "expected": "b432dcc16cb7297bf3a8ba39b31d452cc112fb968ae4039240157d94c88c3f03",
+        "actual": "b432dcc16cb7297bf3a8ba39b31d452cc112fb968ae4039240157d94c88c3f03",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/report.html",
+        "status": 200,
+        "expected": "ea59f3f74e525a5ed1cbe92cc1227a55ecfdd4bd2ef52ac5df08f077a0a727c6",
+        "actual": "ea59f3f74e525a5ed1cbe92cc1227a55ecfdd4bd2ef52ac5df08f077a0a727c6",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/presenter-notes.md",
+        "status": 200,
+        "expected": "6c3bbf31aef5c52f6e54270150a4fc1933ad2869e47cc092b40596e0dba72f0b",
+        "actual": "6c3bbf31aef5c52f6e54270150a4fc1933ad2869e47cc092b40596e0dba72f0b",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/deck.css",
+        "status": 200,
+        "expected": "0b375fbd838b866a626197c5eac6d535fef2a2953b5cff43eee8bf8c5cd6eb4e",
+        "actual": "0b375fbd838b866a626197c5eac6d535fef2a2953b5cff43eee8bf8c5cd6eb4e",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/ai-workflow.svg",
+        "status": 200,
+        "expected": "85f2458cbd66f7cf2a8aeb4ca456c15e235cb52053074ba1f44d5ce31d478969",
+        "actual": "85f2458cbd66f7cf2a8aeb4ca456c15e235cb52053074ba1f44d5ce31d478969",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/factor-risk.svg",
+        "status": 200,
+        "expected": "cbf7619f6f9be8600da4c8338124f788dffdd1b0d76e8913b725c3a09760998e",
+        "actual": "cbf7619f6f9be8600da4c8338124f788dffdd1b0d76e8913b725c3a09760998e",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/lifecycle.svg",
+        "status": 200,
+        "expected": "8e41e3aca74021c094029cfc4da78e915f1c55b618d31bbca4cd446a57d5054d",
+        "actual": "8e41e3aca74021c094029cfc4da78e915f1c55b618d31bbca4cd446a57d5054d",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/macro-risk.svg",
+        "status": 200,
+        "expected": "542d64ec430c4859bd0c19084eee430e5de16feca41e454c7bc3973c21c1b64c",
+        "actual": "542d64ec430c4859bd0c19084eee430e5de16feca41e454c7bc3973c21c1b64c",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/research-entries.svg",
+        "status": 200,
+        "expected": "f73f28bb0210c7fab86d1fbe7bf0ddbbec6ed8fbacc3c9975a2e761cdf85e027",
+        "actual": "f73f28bb0210c7fab86d1fbe7bf0ddbbec6ed8fbacc3c9975a2e761cdf85e027",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/time-boundary.svg",
+        "status": 200,
+        "expected": "88e7b96e38768c1f411ce11983767816f97ef3b156246f7faed8ad899100958d",
+        "actual": "88e7b96e38768c1f411ce11983767816f97ef3b156246f7faed8ad899100958d",
+        "match": true
+      },
+      {
+        "path": "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/workflow.svg",
+        "status": 200,
+        "expected": "80f8e3ec7496a750b76c904787a10035aefbc5c0898bccfe74a0ab057bd909e4",
+        "actual": "80f8e3ec7496a750b76c904787a10035aefbc5c0898bccfe74a0ab057bd909e4",
+        "match": true
+      }
+    ],
+    "desktop_slide_ids": [
+      5,
+      6,
+      8,
+      14,
+      17,
+      24,
+      29,
+      33
+    ],
+    "mobile_slide_ids": [
+      6,
+      8,
+      24,
+      33
+    ],
+    "capture_result": "12 completed, 0 failed; actual renders inspected"
   }
 }
