@@ -1,105 +1,102 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "9ba06367216155574ea838e55155c6d2582402078badbd481f4346d58d23d519",
-  "deck_sha256": "1102e86a2c26d2721136c77d3d7afc17f85fed7d831fed21b64611f53185544a",
+  "report_sha256": "7b89a4a0bc9523100ba57c3f96ef14f49928aadab640627c38e5e2698e5517e2",
+  "deck_sha256": "66e29f49ad7581036e90d6968629d19db3a5cf8ccf79543be2121c4d347afbba",
   "units": [
     {
-      "question": "높은 백테스트 수익을 믿으려면 어떤 질문이 필요한가?",
-      "explanation": "당시 사용 가능했던 입력, 후보 선택 과정, 거래 제약을 세 질문으로 풀고 장 전체의 논증 순서를 소개한다.",
-      "evidence": "슬라이드 2의 수정 자료·설정 선택·비용 사례와 슬라이드 3의 절별 학습 흐름.",
-      "conditions": "도입에서는 전략의 수익성을 주장하지 않으며, 결과 숫자와 그 결과가 생긴 조건을 구분한다.",
+      "question": "도입",
+      "explanation": "백테스트 뜻과 검증질문",
+      "evidence": "최근오른주식 가정",
+      "conditions": "실제전략아님",
       "report_refs": [
-        "summary",
-        "table-reading-map"
+        "summary"
       ],
       "slide_ids": [
         "slide-01",
-        "slide-02",
-        "slide-03"
+        "slide-02"
       ]
     },
     {
-      "question": "시장이 변할 때 왜 모델 선택만으로 충분하지 않은가?",
-      "explanation": "과적합과 선택의 수를 설명하고, 구조적 단절·국면·데이터 드리프트·개념 드리프트를 질문과 사례로 구분한다. 적응적 시장 관점에서 개발 이후 감시까지 연결한다.",
-      "evidence": "2020–2025년 충격 사례의 달라진 가정, CRISP-ML(Q) 생애주기 그림의 읽는 순서, 다섯 실패의 연결 지점.",
-      "conditions": "시장 사례는 미래 예측 공식이 아니다. 입력 변화가 공급자 단위 변경일 수도 있어 경보만으로 재학습을 결정하지 않는다.",
+      "question": "왜 과정이 필요한가",
+      "explanation": "시장 변화와 선택 증가가 과거 결과의 신뢰성을 낮추는 이유. 단절·국면·드리프트는 정의와 가까운 예시로 설명.",
+      "evidence": "원서 4가지 충격과 평균회귀 가상 예",
+      "conditions": "영구적 최적 모델·수익 보장 주장 없음. 역사 사례는 원서 시점.",
       "report_refs": [
-        "adaptive-markets",
-        "change-vocabulary",
-        "fig-lifecycle",
-        "lifecycle",
-        "s1-1",
-        "shocks",
-        "table-change",
-        "table-shocks"
+        "change-words",
+        "changing-market",
+        "more-trials",
+        "s1-1"
       ],
       "slide_ids": [
+        "slide-03",
         "slide-04",
         "slide-05",
-        "slide-06",
-        "slide-07",
-        "slide-08",
-        "slide-09"
+        "slide-06"
       ]
     },
     {
-      "question": "연구에서 확인할 조건을 어떻게 데이터·모델·거래·감시에 배치하는가?",
-      "explanation": "공유 데이터 기반과 반복되는 전략 연구를 구분한다. 실제 사용 가능 시점, 평가 질문, 특성과 레이블, 포지션·주문 전환, 감시 조치를 차례로 설명한다.",
-      "evidence": "워크플로 그림, point-in-time 예, 다섯 평가 조건 표, 손익 악화 원인별 조치 표, 탐색과 홀드아웃의 구분.",
-      "conditions": "백테스트는 가정을 시험하는 도구다. 비용 추정 절차를 사전에 정하는 것과 값을 영구 고정하는 것은 다르며 확인 결과를 보고 사양을 바꾸면 다시 탐색한 것이다.",
+      "question": "어떻게 시험하는가",
+      "explanation": "특성/레이블부터 자료 공개시점, 거래비용, 모니터링, 탐색·확인 순서로 설명.",
+      "evidence": "실적발표 예, 100개후보 예, 왕복비용 .10-.15=-.05 계산",
+      "conditions": "가상예는 실제실험 아님. 별도 CPU실습을 생략하고 원서 메시지에 집중.",
       "report_refs": [
-        "data-infrastructure",
-        "deployment",
+        "cost-example",
+        "data-time",
         "evidence-boundary",
-        "features-models",
+        "fig-time",
         "fig-workflow",
-        "research-framework",
+        "monitoring",
+        "one-strategy",
+        "prediction-trade",
         "s1-2",
-        "strategy-design",
-        "table-invariants",
-        "table-monitoring"
+        "table-monitoring",
+        "table-release"
       ],
       "slide_ids": [
+        "slide-07",
+        "slide-08",
+        "slide-09",
         "slide-10",
         "slide-11",
         "slide-12",
         "slide-13",
         "slide-14",
-        "slide-15",
-        "slide-16"
+        "slide-15"
       ]
     },
     {
-      "question": "시간을 나눈 성과 표와 곡선은 무엇을 보여 주는가?",
-      "explanation": "동봉 2021년 다섯 종목의 일별 동일비중 수익률에 20일 평균 규칙을 적용한다. shift(1)의 역할에서 두 기간의 지표와 곡선 해석으로 이어진다.",
-      "evidence": "준비된 CPU 가이드의 코드, 앞 125일·뒤 126일 실제 출력 표, 각각 1에서 출발하는 누적 경로. Sharpe와 산술 연환산 평균의 계산 뜻을 화면에 설명한다.",
-      "conditions": "비용 차감 전이며 실제 체결·생존 편향·다중 검정을 해결한 전략 검증은 아니다. 구간 차이의 원인을 식별한 실험으로 해석하지 않는다.",
+      "question": "도구를 어디에 쓰는가",
+      "explanation": "두 출발점과 두 결과, 인과적 가정, 생성AI의 원문/시간/후보선택 검증.",
+      "evidence": "공시 요약·거래량과 가격의 공통원인 가정",
+      "conditions": "인과식별은 모든전략의 필수조건 아님. AI역할표는 자체정리 명시.",
       "report_refs": [
-        "fig-boundary-output",
-        "lab-boundary",
-        "s1-2",
-        "table-boundary-output"
+        "causal",
+        "fig-entries",
+        "generative-ai",
+        "s1-3",
+        "two-starts"
       ],
       "slide_ids": [
+        "slide-16",
         "slide-17",
         "slide-18",
         "slide-19"
       ]
     },
     {
-      "question": "인과 추론과 생성형 AI는 연구의 어느 질문에 답하는가?",
-      "explanation": "예측 우선·메커니즘 우선의 출발점과 거래 신호·측정 결과의 평가 목적을 구분한다. 기사와 주가의 동행 사례로 원인 식별의 추가 질문을 설명한다.",
-      "evidence": "연구 진입점 도식, 산출물과 실패 의미 표, 공통 원인 예시, 생성형 AI의 워크플로 참여 그림.",
-      "conditions": "관측된 동행은 인과를 입증하지 않는다. 두 연구 관점과 도구별 역할은 배타적이지 않으며 생성된 출처·시점·후보 선택도 검증해야 한다.",
+      "question": "변화를 어떻게 해석하는가",
+      "explanation": "GMM의 입력/집단추정/소속확률, 상태별위험과 사후/실시간 구분.",
+      "evidence": "원서 본문8.6/19.1와 그림범례9.8/12.7 구별, 거시4상태 위험값",
+      "conditions": "원서 보고값이며 미재실행. 원서 시계열띠는 생략 범위 명시. 수익확률/인과성 미주장.",
       "report_refs": [
-        "causal-inference",
-        "entrypoints",
-        "fig-ai-workflow",
-        "fig-entries",
-        "generative-ai",
-        "s1-3",
-        "table-deliverables"
+        "fig-factor",
+        "fig-macro",
+        "gmm-intuition",
+        "macro-evidence",
+        "past-vs-live",
+        "regime-question",
+        "s1-4"
       ],
       "slide_ids": [
         "slide-20",
@@ -111,161 +108,42 @@
       ]
     },
     {
-      "question": "GMM의 상태 소속 확률과 스타일 국면 결과를 어떻게 읽는가?",
-      "explanation": "국면의 환경적 의미, AQR 요인 입력, 표준화, 평균·공분산을 갖는 성분, 가중 밀도의 정규화를 설명한다. 상태 수와 사후 명명을 연결한다.",
-      "evidence": "표준화의 작은 계산 예, 소속 확률 수식과 기호 정의, 두 종류 변동성 집계의 그림 및 원서 보고값 표.",
-      "conditions": "소속 확률은 다음 날 수익 확률이 아니다. 장기 요인 결과는 원서 보고값이며 재실행 결과로 표시하지 않는다. 사후 Risk-On·Risk-Off 이름이나 집계 차이가 매매 규칙을 입증하지 않는다.",
+      "question": "혼자 어떻게 실천하는가",
+      "explanation": "자기검토와 가정누적, 다섯질문, 비용민감도, 재사용도구.",
+      "evidence": "table-solo와 비용2배/체결지연 예",
+      "conditions": "비용2배는 공통합격선 아님, 소규모이점 조건부.",
       "report_refs": [
-        "factor-input",
-        "fig-factor-risk",
-        "gmm-mechanism",
-        "regime-tasks",
-        "s1-4",
-        "table-factor-results",
-        "table-regime-tasks"
+        "s1-5",
+        "small-research",
+        "solo-checks",
+        "solo-problem",
+        "table-solo"
       ],
       "slide_ids": [
         "slide-26",
         "slide-27",
         "slide-28",
         "slide-29",
-        "slide-30",
-        "slide-31",
-        "slide-32"
+        "slide-30"
       ]
     },
     {
-      "question": "거시 상태 분석과 실시간 위험 감시는 무엇이 다른가?",
-      "explanation": "네 FRED 입력의 변환과 군집 진단의 의미를 설명한 뒤, 이전 최고점 대비 낙폭과 국면 내 수익을 구분한다. 현재 사용 가능한 입력을 위험 조치에 연결한다.",
-      "evidence": "거시 입력 표와 전년 대비 계산 예, 군집 진단값, 변동성·낙폭 도표의 읽는 법, 실시간 감시의 세 단계.",
-      "conditions": "월별 정렬만으로 공개·수정 시점 문제가 해결되지 않는다. 회복 국면의 큰 낙폭은 그때 새로 잃은 돈이 아니며 원서 저장값으로 시간띠를 새로 복원하거나 인과를 주장하지 않는다.",
-      "report_refs": [
-        "fig-macro-risk",
-        "macro-input",
-        "macro-results",
-        "realtime-risk",
-        "s1-4",
-        "table-macro-input"
-      ],
-      "slide_ids": [
-        "slide-33",
-        "slide-34",
-        "slide-35",
-        "slide-36"
-      ]
-    },
-    {
-      "question": "전처리와 GMM을 학습 기간에서 고정하면 확인 기간 출력은 무엇인가?",
-      "explanation": "다섯 종목 수익률 벡터를 앞 125일에서 표준화·학습하고 뒤 126일에는 transform과 predict_proba만 적용한다. 공분산 trace로 큰 산포 성분을 학습에서 이름 붙인다.",
-      "evidence": "학습·확인 경계 그림, 실제 가이드 코드, trace와 확률 합·수렴 확인 표, 상태 0 소속 확률 곡선.",
-      "conditions": "확인 구간으로 모수·상태 수·이름을 고르지 않는다. trace는 분산의 합이며 포트폴리오 손실 그 자체가 아니다. 당일 수익률로 계산한 확률은 종가 이후 상태 설명이다.",
-      "report_refs": [
-        "fig-gmm-output",
-        "fig-time-boundary",
-        "lab-gmm",
-        "s1-4",
-        "table-gmm-output"
-      ],
-      "slide_ids": [
-        "slide-37",
-        "slide-38",
-        "slide-39",
-        "slide-40"
-      ]
-    },
-    {
-      "question": "혼자 연구할 때 빠지기 쉬운 검토 관점을 어떻게 보완하는가?",
-      "explanation": "가설·구현·평가를 한 사람이 수행하는 환경에서 네 실패 유형을 구분한다. 범위·데이터·신호·거래 가능성·감시 점검과 재사용 도구를 연결한다.",
-      "evidence": "독립·기관 연구의 검토 구조 비교, 네 실패 표, 거래 지연·비용 민감도 질문, 용량과 재사용 인프라의 예.",
-      "conditions": "기관과 개인의 우열을 단정하지 않는다. 원서의 민감도 수치는 모든 전략의 공통 합격선이 아니다. 성공 기준을 바꾸면 다른 질문에 답한다는 점을 유지한다.",
-      "report_refs": [
-        "asymmetric-advantages",
-        "data-check",
-        "document-decisions",
-        "monitor-check",
-        "reusable-infrastructure",
-        "s1-5",
-        "scoping-check",
-        "signal-check",
-        "solo-failure",
-        "table-solo-failures",
-        "tradability-check"
-      ],
-      "slide_ids": [
-        "slide-41",
-        "slide-42",
-        "slide-43",
-        "slide-44",
-        "slide-45"
-      ]
-    },
-    {
-      "question": "입력 시점·계산 대상·출력의 뜻을 설명할 수 있는가?",
-      "explanation": "장 전체를 연구와 운영의 반복으로 정리하고 네 확인 질문으로 앞선 설명을 되짚는다.",
-      "evidence": "실적 사용 시각, 홀드아웃 재사용, 변동성 집계 대상, 상태 확률의 해석에 대한 질문. 답의 근거는 각각 앞선 슬라이드 11·16·31–32·40에 있다.",
-      "conditions": "수치를 외우는 것이 아니라 어떤 관측과 계산에서 답이 나오는지 설명하도록 한다.",
+      "question": "무엇을 남기는가",
+      "explanation": "데이터와 선택·거래·운영을 연결해 세질문으로 자가확인.",
+      "evidence": "앞 본문에 답이 있는 세질문",
+      "conditions": "수익보장 안함. 2장데이터 연결.",
       "report_refs": [
         "checkpoints",
-        "s1-6"
-      ],
-      "slide_ids": [
-        "slide-46",
-        "slide-47"
-      ]
-    },
-    {
-      "question": "발표 뒤 무엇을 실행하고 어떤 한계를 확인해야 하는가?",
-      "explanation": "기본 가이드와 공식 장기 분석의 실행 범위를 구분하고 동봉 가격 진단을 읽는다. 혼동하기 쉬운 용어를 정리하고 리포트·회차·노트로 연결한다.",
-      "evidence": "실행 환경 표, 정규화 가격 경로와 close × adj_factor 입력 설명, 용어 비교 표, 발표 후 토론 질문.",
-      "conditions": "기본 CPU 실습에는 GPU·외부 API가 필요 없지만 공식 자료의 미준비 데이터 수집은 별도다. 데이터가 실행된 사실을 경제적 의미까지 검증한 것으로 읽지 않는다.",
-      "report_refs": [
-        "checkpoints",
-        "fig-reference-prices",
-        "glossary",
-        "practice-guide",
         "references",
         "s1-6",
-        "table-glossary",
-        "table-practice"
+        "summary"
       ],
       "slide_ids": [
-        "slide-48",
-        "slide-49",
-        "slide-50",
-        "slide-51"
+        "slide-31",
+        "slide-32",
+        "slide-33"
       ]
     }
   ],
-  "experiments": [
-    {
-      "report_id": "lab-boundary",
-      "code_slides": [
-        "slide-17"
-      ],
-      "result_slides": [
-        "slide-18",
-        "slide-19"
-      ],
-      "interpretation_slides": [
-        "slide-18",
-        "slide-19"
-      ],
-      "interpretation": "20일 규칙 고정, 두 구간을 독립적으로 1에서 시작. 비용·실제 체결을 포함하지 않으며 구간 차이의 인과를 주장하지 않음."
-    },
-    {
-      "report_id": "lab-gmm",
-      "code_slides": [
-        "slide-38"
-      ],
-      "result_slides": [
-        "slide-39",
-        "slide-40"
-      ],
-      "interpretation_slides": [
-        "slide-39",
-        "slide-40"
-      ],
-      "interpretation": "학습 구간에서 전처리·모수·상태 이름을 고정. 당일 종가 이후 상태 소속 확률이며 미래 수익 확률이 아님."
-    }
-  ]
+  "experiments": []
 }
