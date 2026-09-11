@@ -1889,23 +1889,29 @@ svg.deck-lightbox__visual {
 .teaching-rows h2,.teaching-columns h2{font-size:25px}
 .teaching-rows{gap:24px}.teaching-rows>article{grid-template-columns:200px 1fr;gap:30px;padding-bottom:22px}
 .teaching-table{font-size:24px}.teaching-table th,.teaching-table td{padding:12px 18px}
-.chapter-divider{background:#102f52;color:#f6f8fb}
-.chapter-divider .brand-name,.chapter-divider .section-tag,.chapter-divider h1,.chapter-divider .lead,.chapter-divider a{color:#f6f8fb}
-.chapter-divider h1{max-width:1020px;font-size:43px}
-.chapter-divider h1::after{background:#93bad7}
-.chapter-divider .slide-body{justify-content:center}
-.chapter-divider .section-number{position:static;align-self:flex-start;right:auto;bottom:auto;font-size:136px;font-weight:800;letter-spacing:-.05em;color:#93bad7;line-height:1}
-.chapter-divider > .takeaway{background:rgba(255,255,255,.08);border-color:#93bad7;color:#f6f8fb}
-.chapter-divider .slide-footer{border-color:rgba(255,255,255,.3);color:#d2e0eb}
 .cost-math{display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;gap:16px;align-items:center;text-align:center}
 .cost-math div{display:flex;flex-direction:column;gap:22px}.cost-math span{font-size:23px}.cost-math strong{font-size:52px;color:var(--primary)}.cost-math>b{font-size:42px}
 .figure-reading{font-size:22px;line-height:1.45}
 .teaching-wide-visual .deck-report-figure figcaption>*{font-size:18px}
 .cover-hero h1{font-size:66px}.cover-subtitle{font-size:27px}
-@media print{.chapter-divider{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 
 /* The cost example needs both a calculation and definitions at presentation size. */
 .slide--cost-example .slide-body { gap: 46px; }
 .cost-explained { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; }
 .cost-explained p { margin: 0; padding-top: 20px; border-top: 1px solid var(--border); font-size: 22px; line-height: 1.5; }
 .cost-explained b { display: block; margin-bottom: 8px; color: var(--primary); font-size: 24px; }
+
+/* Section dividers: keep the number and full title together in the central block. */
+.chapter-divider { background: #102f52; color: #f6f8fb; grid-template-rows: 40px 1fr auto auto auto 1fr auto auto; }
+.chapter-divider.is-active { display: grid; }
+.chapter-divider > .slide-header { grid-row: 1; margin: 0; }
+.chapter-divider .brand-name, .chapter-divider .section-tag, .chapter-divider a { color: #f6f8fb; }
+.chapter-divider > .slide-body { grid-row: 3; flex: initial; padding: 0 0 18px; }
+.chapter-divider .section-number { position: static; align-self: flex-start; font-size: 32px; font-weight: 800; line-height: 1; letter-spacing: .04em; color: #93bad7; }
+.chapter-divider > h1 { grid-row: 4; max-width: 1120px; font-size: 56px; line-height: 1.28; color: #f6f8fb; text-wrap: balance; }
+.chapter-divider > h1::after { display: none; }
+.chapter-divider > .lead { grid-row: 5; margin-top: 24px; color: #d2e0eb; font-size: 24px; line-height: 1.5; }
+.chapter-divider > .takeaway { grid-row: 7; background: rgba(255,255,255,.08); border-color: #93bad7; color: #f6f8fb; }
+.chapter-divider > .slide-footer { grid-row: 8; border-color: rgba(255,255,255,.3); color: #d2e0eb; }
+.chapter-divider .slide-footer b { color: inherit; }
+@media print { .slide.chapter-divider { display: grid !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }

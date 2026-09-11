@@ -186,6 +186,8 @@ class ReportDeckTraceParser(HTMLParser):
         self.invalid_source_anchors: list[str] = []
         self.deck_report_source = ""
         self.deck_caption_scope = ""
+        self.deck_figure_captions = "numbered"
+        self.deck_figcaption_count = 0
         self.deck_caption_numbers: dict[str, list[int]] = {"그림": [], "표": []}
         self.deck_figure_count = 0
         self.notebook_example_ids: set[str] = set()
@@ -242,6 +244,7 @@ class ReportDeckTraceParser(HTMLParser):
         if tag == "main" and values.get("data-report-source"):
             self.deck_report_source = values["data-report-source"].strip()
             self.deck_caption_scope = values.get("data-caption-scope", "")
+            self.deck_figure_captions = values.get("data-figure-captions", "numbered")
         if "notebook-example" in classes and element_id:
             self.notebook_example_ids.add(element_id)
         if tag == "section":
@@ -272,6 +275,8 @@ class ReportDeckTraceParser(HTMLParser):
             self._deck_caption_kind = values["data-deck-caption"]
         if tag == "figure" and self._current_slide is not None:
             self.deck_figure_count += 1
+        if tag == "figcaption" and self._current_slide is not None:
+            self.deck_figcaption_count += 1
 
         if tag == "figure" and "report-figure" in classes:
             required = values.get("data-deck-use") == "required"
@@ -1044,6 +1049,11 @@ def within(path: Path, parent: Path) -> bool:
 
 
 def validate_deck_caption_scope(trace, deck_html, errors):
+    if trace.deck_figure_captions not in ("numbered", "none"):
+        errors.append(f"unknown deck figure caption policy in {deck_html}")
+    if trace.deck_figure_captions == "none":
+        if trace.deck_figcaption_count or trace.deck_caption_numbers["그림"]:
+            errors.append(f"caption-free deck must not contain figure caption bands or labels in {deck_html}")
     if trace.deck_caption_scope not in ("", "deck"):
         errors.append(f"unknown deck caption scope in {deck_html}")
     if trace.deck_caption_scope != "deck":
@@ -1052,6 +1062,8 @@ def validate_deck_caption_scope(trace, deck_html, errors):
         errors.append(f"invalid deck caption in {deck_html}: {invalid}")
     counts = {"그림": trace.deck_figure_count, "표": sum(s.table_count for s in trace.slides)}
     for kind, numbers in trace.deck_caption_numbers.items():
+        if kind == "그림" and trace.deck_figure_captions == "none":
+            continue
         if numbers != list(range(1, counts[kind] + 1)):
             errors.append(f"deck {kind} captions must be consecutive 1..N for all assets in {deck_html}: {numbers}, count={counts[kind]}")
 
