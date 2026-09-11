@@ -1,0 +1,82 @@
+{
+  "artifacts": {
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/index.html": "b432dcc16cb7297bf3a8ba39b31d452cc112fb968ae4039240157d94c88c3f03",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/report.html": "ea59f3f74e525a5ed1cbe92cc1227a55ecfdd4bd2ef52ac5df08f077a0a727c6",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/presenter-notes.md": "6c3bbf31aef5c52f6e54270150a4fc1933ad2869e47cc092b40596e0dba72f0b",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/deck.css": "0b375fbd838b866a626197c5eac6d535fef2a2953b5cff43eee8bf8c5cd6eb4e",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/ai-workflow.svg": "85f2458cbd66f7cf2a8aeb4ca456c15e235cb52053074ba1f44d5ce31d478969",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/factor-risk.svg": "cbf7619f6f9be8600da4c8338124f788dffdd1b0d76e8913b725c3a09760998e",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/lifecycle.svg": "8e41e3aca74021c094029cfc4da78e915f1c55b618d31bbca4cd446a57d5054d",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/macro-risk.svg": "542d64ec430c4859bd0c19084eee430e5de16feca41e454c7bc3973c21c1b64c",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/research-entries.svg": "f73f28bb0210c7fab86d1fbe7bf0ddbbec6ed8fbacc3c9975a2e761cdf85e027",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/time-boundary.svg": "88e7b96e38768c1f411ce11983767816f97ef3b156246f7faed8ad899100958d",
+    "html/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/assets/figs/workflow.svg": "80f8e3ec7496a750b76c904787a10035aefbc5c0898bccfe74a0ab057bd909e4"
+  },
+  "desktop_slides": 39,
+  "desktop_sizes": [
+    [
+      1600,
+      900
+    ],
+    [
+      1366,
+      768
+    ]
+  ],
+  "mobile_slides": 21,
+  "report_pngs": 8,
+  "pdf_pages": 20,
+  "interaction_checks": {
+    "deck": 10,
+    "report": 7
+  },
+  "visual_root": "tmp/browser-shots/ch01-repair-20260912",
+  "render_freshness": {
+    "changed_slides": [
+      "slide-17",
+      "slide-21",
+      "slide-33"
+    ],
+    "unchanged_slides": [
+      "slide-01",
+      "slide-02",
+      "slide-03",
+      "slide-04",
+      "slide-05",
+      "slide-06",
+      "slide-07",
+      "slide-08",
+      "slide-09",
+      "slide-10",
+      "slide-11",
+      "slide-12",
+      "slide-13",
+      "slide-14",
+      "slide-15",
+      "slide-16",
+      "slide-18",
+      "slide-19",
+      "slide-20",
+      "slide-22",
+      "slide-23",
+      "slide-24",
+      "slide-25",
+      "slide-26",
+      "slide-27",
+      "slide-28",
+      "slide-29",
+      "slide-30",
+      "slide-31",
+      "slide-32",
+      "slide-34",
+      "slide-35",
+      "slide-36",
+      "slide-37",
+      "slide-38",
+      "slide-39"
+    ],
+    "reason": "Only the three recorded slide elements and trailing document whitespace differ. CSS/JS/SVG unchanged after initial final render batch. Unchanged-slide pixels remain valid.",
+    "before_deck_sha256": "d60bfac9463874e9c1bb6825761faed0a780c30542aee5cc9e92e666170d10b3",
+    "after_deck_sha256": "b432dcc16cb7297bf3a8ba39b31d452cc112fb968ae4039240157d94c88c3f03"
+  }
+}

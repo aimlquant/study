@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "7b89a4a0bc9523100ba57c3f96ef14f49928aadab640627c38e5e2698e5517e2",
+  "report_sha256": "ea59f3f74e525a5ed1cbe92cc1227a55ecfdd4bd2ef52ac5df08f077a0a727c6",
   "sources": [
     {
       "role": "original",
@@ -50,7 +50,7 @@
     {
       "ref": "1.4",
       "report_id": "s1-4",
-      "explanation": "GMM의 입력/집단추정/소속확률, 상태별위험과 사후/실시간 구분.",
+      "explanation": "정규분포의 짧은 풀이 뒤 GMM 입력·집단 추정·소속 확률, 상태별 위험과 사후·실시간을 구분.",
       "evidence": "원서 본문8.6/19.1와 그림범례9.8/12.7 구별, 공식코드의 이동변동성 평균/국면별 직접계산 확인, 거시4상태 위험값",
       "limits": "원서 보고값이며 미재실행. 원서 시계열띠는 생략 범위 명시. 수익확률/인과성 미주장.",
       "visuals": "fig-factor, fig-macro"
