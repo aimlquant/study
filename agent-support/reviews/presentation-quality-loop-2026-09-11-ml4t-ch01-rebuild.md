@@ -89,3 +89,17 @@ Claude 최종 재검토 판정: **배포 가능**. 중대 지적 및 보완6항�
 | 추적성과 출판 무결성 | 로컬 PASS | 공식 해설판 교체·링크·회귀 PASS; 라이브는 후속 확인 |
 
 설명 내용·도식·한국어의 독립 검토 기준을 충족해 추가 내용 수정 라운드는 종료한다. 공개 배포 자체의 완료는 라이브 확인 기록으로 구분한다.
+
+## 공개 배포 확인 — 완료
+
+공개 콘텐츠 커밋 `d804b64620af6efa2487644c1ae67b1e65bd6482`와 [Pages 실행 34611306174](https://github.com/aimlquant/study/actions/runs/34611306174)의 `headSha`가 일치하며 build/deploy 모두 성공했다. 2026-09-11 23:40 KST에 공개 리포트·덱·발표자 노트·CSS2개·SVG7개, 총12개 파일을 받아 로컬 최종본과 바이트 단위로 일치함을 확인했다. 비공개 main의 공식 해설판도 GitHub API로 받아 로컬과 일치함을 확인했다.
+
+정확한 공개 깊은 링크에서 `?v=d804b64`를 `#` 앞에 붙여 캡처했다. 덱3·9·10·17·23번의 1366×768 및390px, 리포트1.3·1.4의 데스크톱 및390px, 총14개 화면을 확인했다. 절 구분, 수정된 탐색/확인 도식, 표, 연구 출발점, 거시 위험 막대, 공식 계산 설명이 새 내용으로 표시되며 텍스트·조작부가 잘리지 않는다. 로컬 및 라이브 캡처에서 남은 시각 결함은 찾지 못했다.
+
+공개 링크:
+
+- [발표자료](https://aimlquant.github.io/study/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/)
+- [상세 리포트](https://aimlquant.github.io/study/studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/report.html)
+- [참가자용 해설판 안내](https://aimlquant.github.io/study/materials/?p=quant/active/machine-learning-for-trading-3e/chapter_01_the_process_is_your_edge/01_chapter_01_the_process_is_your_edge_ko_explained.md)
+
+배포 후 이 항목을 추가한 기록 커밋은 공개 HTML·자산을 바꾸지 않는다. 최종 게이트6도 배포·라이브 확인까지 PASS로 종료한다. 작업 중 만든 교재 심링크와 일회용 확인 페이지, 프리뷰 서비스는 정리했다. 기존 Herdr Claude 탭은 유지했다.
