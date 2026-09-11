@@ -523,6 +523,14 @@
       "presenters": [
         "태영"
       ],
+      "reference_videos": [
+        {
+          "description": "원서 1장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 약 10분의 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서와 상세 리포트를 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.1 프로세스가 경쟁 우위다 · 한국어 참고 해설",
+          "youtube_video_id": "KNRzd6od_fw"
+        }
+      ],
       "status": "materials-published",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 1. 프로세스가 경쟁 우위다"

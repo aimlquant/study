@@ -71,6 +71,25 @@ STUDIES = [
 
 
 class SiteRenderingTest(unittest.TestCase):
+    def test_reference_video_does_not_replace_recording_or_promote_status(self):
+        session = {
+            "id": "2026-08-01-machine-trading-ch02", "study_id": "machine-trading-2026",
+            "date": "2026-08-01", "title": "Chapter 2", "presenters": [],
+            "chapters": ["Chapter 2"], "status": "materials-published", "artifacts": [],
+            "reference_videos": [{"status": "public", "youtube_video_id": "123456789ab",
+                                  "title": "참고 <해설>", "description": "AI 학습 보조"}],
+        }
+        files = build_site.render_files(SITE, STUDIES, [session])
+        page = files[Path("sessions") / session["id"] / "index.html"]
+        self.assertIn("참고 해설 영상", page)
+        self.assertIn("참고 &lt;해설&gt;", page)
+        self.assertIn("https://www.youtube.com/embed/123456789ab", page)
+        self.assertIn("영상 준비 중", page)
+        catalog = json.loads(files[Path("data/catalog.json")])["sessions"][0]
+        self.assertEqual(catalog["status"], "materials-published")
+        self.assertNotIn("youtube_video_id", catalog)
+        self.assertEqual(catalog["reference_videos"], session["reference_videos"])
+
     def test_pages_share_the_presentation_visual_identity(self) -> None:
         session = {
             "id": "2026-08-01-machine-trading-ch02",
@@ -426,6 +445,19 @@ artifacts = [
             )
             with self.assertRaisesRegex(ValueError, "invalid session kind"):
                 build_site.load_model(*paths)
+
+    def test_reference_video_requires_explicit_public_status(self):
+        for status in ("private", "unlisted", "public"):
+            with self.subTest(status=status), tempfile.TemporaryDirectory() as directory:
+                reference = ('reference_videos = [{ title = "참고 해설", '
+                             'youtube_video_id = "123456789ab", status = "' + status + '" }]')
+                paths = self.write_metadata(Path(directory), "materials-published", reference)
+                if status == "public":
+                    _, _, sessions = build_site.load_model(*paths)
+                    self.assertEqual(sessions[0]["status"], "materials-published")
+                else:
+                    with self.assertRaisesRegex(ValueError, "reference video requires public"):
+                        build_site.load_model(*paths)
 
     def test_public_status_requires_video_id(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
