@@ -341,6 +341,10 @@ artifacts = [
   { kind = "slides", label = "1장 발표 슬라이드", url = "studies/machine-learning-for-trading-3e/presentations/2026-09-12-ch01/" },
 ]
 
+reference_videos = [
+  { title = "Ch.1 프로세스가 경쟁 우위다 · 한국어 참고 해설", youtube_video_id = "KNRzd6od_fw", status = "public", description = "원서 1장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 약 10분의 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서와 상세 리포트를 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2026-09-19-ml4t-ch02"
 study_id = "machine-learning-for-trading-3e-2026"

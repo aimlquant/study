@@ -42,6 +42,14 @@ YouTube 설명의 관련 자료 링크는 위 회차 URL을 사용한다. 업로
 그 뒤 `youtube_video_id`를 추가하고 상태를 `video-public`으로 바꾼다. 사이트를 다시
 빌드하면 회차 페이지에 영상 플레이어와 YouTube 링크가 생긴다.
 
+## 장별 참고 해설
+
+NotebookLM 등으로 만든 학습 보조 영상은 실제 스터디 녹화와 별도로
+`reference_videos = [{ title = "...", description = "...", youtube_video_id = "...", status = "public" }]`
+에 등록한다. 원격에서 공개 상태를 확인한 ID만 넣는다. 빌더는 발표자료 다음에 참고 해설
+플레이어를 표시한다. 이 항목을 추가해도 회차의 `status`나 정규 녹화용
+`youtube_video_id`를 바꾸지 않는다. 원자료와 생성 중인 영상의 ID는 공개 저장소에 넣지 않는다.
+
 ## 5. 검증
 
 ```bash

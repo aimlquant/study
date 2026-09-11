@@ -462,6 +462,22 @@ def load_model(
                 artifact.get("url"),
                 f"artifact URL for {session_id}",
             )
+        references = session.get("reference_videos", [])
+        if not isinstance(references, list):
+            raise ValueError(f"reference_videos must be an array for {session_id}")
+        seen_references = set()
+        for reference in references:
+            if (not isinstance(reference, dict)
+                    or reference.get("status") != "public"
+                    or not isinstance(reference.get("youtube_video_id"), str)
+                    or not VIDEO_ID_RE.fullmatch(reference["youtube_video_id"])
+                    or not isinstance(reference.get("title"), str)
+                    or not reference["title"].strip()
+                    or not isinstance(reference.get("description", ""), str)):
+                raise ValueError(f"reference video requires public status, title and valid ID for {session_id}")
+            if reference["youtube_video_id"] in seen_references:
+                raise ValueError(f"duplicate reference video for {session_id}")
+            seen_references.add(reference["youtube_video_id"])
         meeting_url = session.get("meeting_url")
         meeting_status = session.get("meeting_status")
         if meeting_status is not None and meeting_status not in {
@@ -1160,6 +1176,21 @@ def render_files(
 {point_list}      </article>
     </section>
 """
+        reference_section = ""
+        for reference in session.get("reference_videos", []):
+            ref_id = reference["youtube_video_id"]
+            ref_title = html.escape(reference["title"])
+            ref_description = html.escape(reference.get("description", ""))
+            reference_section += f'''    <section class="session-reference">
+      <h2>참고 해설 영상</h2>
+      <h3>{ref_title}</h3>
+      <p>{ref_description}</p>
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/{ref_id}" title="{ref_title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <a class="button button--secondary" href="https://www.youtube.com/watch?v={ref_id}">YouTube에서 참고 해설 보기</a>
+    </section>
+'''
         body = f"""    <header class="site-masthead">
       <a class="brand-name" href="../../">{html.escape(site["name"])}</a>
       <span class="brand-sub">SESSION ARCHIVE</span>
@@ -1176,7 +1207,7 @@ def render_files(
       <h2>발표자료</h2>
       <div class="actions">{artifacts}</div>
     </section>
-    <section>
+{reference_section}    <section>
       <h2>스터디 영상</h2>
       {video}
     </section>"""
@@ -1217,6 +1248,8 @@ def render_files(
             public["youtube_url"] = (
                 f"https://www.youtube.com/watch?v={video_id}"
             )
+        if session.get("reference_videos"):
+            public["reference_videos"] = session["reference_videos"]
         catalog_sessions.append(public)
     catalog = {
         "schema_version": 1,
