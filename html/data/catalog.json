@@ -179,6 +179,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-01-02-ml4t-ch16/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 16장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.16 전략 시뮬레이션 · 한국어 참고 해설",
+          "youtube_video_id": "r02_ZCk-YaM"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 16. 전략 시뮬레이션"
@@ -193,6 +201,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-12-26-ml4t-ch15/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 15장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.15 인과 머신러닝 · 한국어 참고 해설",
+          "youtube_video_id": "_f8J8axMwLc"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 15. 인과 머신러닝"
@@ -207,6 +223,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-12-19-ml4t-ch14/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 14장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.14 잠재 요인 모델 · 한국어 참고 해설",
+          "youtube_video_id": "2y7_ew1PZDw"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 14. 잠재 요인 모델"
@@ -221,6 +245,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-12-12-ml4t-ch13/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 13장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.13 시계열 딥러닝 · 한국어 참고 해설",
+          "youtube_video_id": "6gh6uB-ld84"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 13. 시계열 딥러닝"
