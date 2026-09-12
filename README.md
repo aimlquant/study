@@ -77,7 +77,7 @@ html/             # GitHub Pages 배포 산출물
 | 날짜 | 시간 | 범위 | 발표자 | Webex | 회차 페이지 |
 |---|---|---|---|---|---|
 | 2026-09-05 | 08:00–09:00 | 오리엔테이션 | 참석자 전원 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-09-05-ml4t-orientation/) |
-| 2026-09-12 | 08:00–09:00 | Chapter 1 | 태영 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m51ca980cf4cc85580e00bc23464875cb) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-ml4t-ch01/) |
+| 2026-09-12 | 08:00–09:00 | Chapter 1 | 태영 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-09-12-ml4t-ch01/) |
 | 2026-09-19 | 08:00–09:00 | Chapter 2 | 핀조이 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-19-ml4t-ch02/) |
 | 2026-10-03 | 08:00–09:00 | Chapter 3 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-ml4t-ch03/) |
 | 2026-10-10 | 08:00–09:00 | Chapter 4 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-10-ml4t-ch04/) |
@@ -127,9 +127,9 @@ html/             # GitHub Pages 배포 산출물
 | 2026-08-22 | 09:00–10:00 | Chapter 6 | 종훈(L) | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-08-22-kg-llm-ch06/) |
 | 2026-08-29 | 09:00–10:00 | Chapter 7 | 재익 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-08-29-kg-llm-ch07/) |
 | 2026-09-05 | 09:00–10:00 | Chapter 8 | 태호 | 종료 | [자료](https://aimlquant.github.io/study/sessions/2026-09-05-kg-llm-ch08/) |
-| 2026-09-12 | 09:00–10:00 | Chapter 9 | 정훈 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m51ca980cf4cc85580e00bc23464875cb) | [회차](https://aimlquant.github.io/study/sessions/2026-09-12-kg-llm-ch09/) |
+| 2026-09-12 | 09:00–10:00 | Chapter 9 | 정훈 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-09-12-kg-llm-ch09/) |
 | 2026-09-19 | 09:00–10:00 | Chapter 10 | 두균 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-09-19-kg-llm-ch10/) |
-| 2026-10-03 | 09:00–10:00 | Chapter 11 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch11/) |
+| 2026-10-03 | 09:00–10:00 | Chapter 11 | 수경 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch11/) |
 | 2026-10-10 | 09:00–10:00 | Chapter 12 | 재익 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-10-kg-llm-ch12/) |
 | 2026-10-17 | 09:00–10:00 | Chapter 13 | 정훈 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-17-kg-llm-ch13/) |
 | 2026-10-24 | 09:00–10:00 | Chapter 14 | 종훈(L) | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-10-24-kg-llm-ch14/) |

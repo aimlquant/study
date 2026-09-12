@@ -248,8 +248,18 @@ date = "2026-09-12"
 title = "Chapter 9. 지식 그래프 위의 머신러닝 입문"
 presenters = ["정훈"]
 chapters = ["Chapter 9"]
-status = "scheduled"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m51ca980cf4cc85580e00bc23464875cb"
+status = "video-public"
+meeting_status = "ended"
+youtube_video_id = "lOjH_o53iQ0"
+discussion_points = ["노드 분류·링크 예측·커뮤니티 탐지·그래프 분류를 구분하고, 그래프의 관계 정보가 필요한 이유를 설명했습니다.", "카라테 클럽의 차수·node2vec·동종선호 특징과 반복 실험을 비교했습니다. 임베딩의 의미와 그래프 구축의 중요성에 관한 질의응답을 보존했습니다.", "추가 참고 발표: 김수경 책임님이 Graph Data Science 파이프라인, 특징 공학·표현 학습의 역할, 고객·제품 추천 예시를 설명했습니다."]
+summary = "그래프의 관계 정보를 학습 가능한 특징으로 바꾸는 방법을 살펴본 정훈 책임님의 발표와 질의응답입니다. 네 가지 표준 과제와 카라테 클럽 사례를 통해 특징 설계, 임베딩, 훈련·예측 변환의 일관성을 논의했습니다. 김수경 책임님의 특별 보완 발표는 아래 참고 영상에 별도로 정리했습니다."
+reference_videos = [
+  { title = "김수경 책임 특별 참고 발표 · Graph Data Science와 그래프 표현 학습", youtube_video_id = "GThbH_klJFc", status = "public", description = "9장 발표를 보완하는 약 8분의 특별 발표입니다. 특징 공학과 표현 학습의 역할을 구분하고, 그래프 임베딩을 고객·제품 추천 같은 후속 과제에 연결하는 흐름을 설명합니다. 정규 본 발표와 같은 지식 그래프 재생목록에 수록했습니다." },
+]
+
+artifacts = [
+  { kind = "other", label = "발표·질의응답 요약", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-12-ch09/notes.html" },
+]
 
 [[sessions]]
 id = "2026-09-19-kg-llm-ch10"
@@ -269,7 +279,7 @@ id = "2026-10-03-kg-llm-ch11"
 study_id = "kg-llm-in-action-2026"
 date = "2026-10-03"
 title = "Chapter 11. 그래프 표현 학습과 그래프 신경망"
-presenters = []
+presenters = ["수경"]
 chapters = ["Chapter 11"]
 status = "scheduled"
 
@@ -332,8 +342,7 @@ date = "2026-09-12"
 title = "Chapter 1. 프로세스가 경쟁 우위다"
 presenters = ["태영"]
 chapters = ["Chapter 1"]
-status = "materials-published"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m51ca980cf4cc85580e00bc23464875cb"
+status = "video-public"
 
 summary = "과거에 잘된 전략을 어디까지 믿을 수 있을지, 데이터의 시점·전략 검증·거래 비용·시장 변화를 구체적인 예로 살펴봅니다. 원서 1장의 순서에 따라 새 해설판과 상세 리포트, 절별로 구분한 발표자료를 함께 읽습니다."
 artifacts = [
@@ -344,6 +353,9 @@ artifacts = [
 reference_videos = [
   { title = "Ch.1 프로세스가 경쟁 우위다 · 한국어 참고 해설", youtube_video_id = "KNRzd6od_fw", status = "public", description = "원서 1장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 약 10분의 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서와 상세 리포트를 함께 확인해 주세요." },
 ]
+meeting_status = "ended"
+youtube_video_id = "R_2VukoP5tY"
+discussion_points = ["발표·질의응답: 데이터와 개념 드리프트, 미래 정보 누출, 탐색·검증·최종 평가의 분리를 논의했습니다.", "예측 성능과 실제 수익 사이에 있는 스프레드·슬리피지·거래 비용, 데이터 품질과 금융 도메인 지식을 살펴봤습니다.", "실패한 실험도 기록하고 비용·주문 지연·거래 규모를 바꾸어 검증하는 등, 개인 투자자의 연구·운영 절차를 점검했습니다."]
 
 [[sessions]]
 id = "2026-09-19-ml4t-ch02"
