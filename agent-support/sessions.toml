@@ -591,6 +591,10 @@ presenters = []
 chapters = ["Chapter 19"]
 status = "scheduled"
 
+reference_videos = [
+  { title = "Ch.19 리스크 관리 · 한국어 참고 해설", youtube_video_id = "kSKkZqvb3ZU", status = "public", description = "원서 19장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2027-01-30-ml4t-ch20"
 study_id = "machine-learning-for-trading-3e-2026"
@@ -599,6 +603,10 @@ title = "Chapter 20. 전략 종합"
 presenters = []
 chapters = ["Chapter 20"]
 status = "scheduled"
+
+reference_videos = [
+  { title = "Ch.20 전략 종합 · 한국어 참고 해설", youtube_video_id = "7xGPYUjM034", status = "public", description = "원서 20장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
 
 [[sessions]]
 id = "2027-02-13-ml4t-ch21"
@@ -609,6 +617,10 @@ presenters = []
 chapters = ["Chapter 21"]
 status = "scheduled"
 
+reference_videos = [
+  { title = "Ch.21 강화학습 · 한국어 참고 해설", youtube_video_id = "2YgCDRRqRfc", status = "public", description = "원서 21장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2027-02-20-ml4t-ch22"
 study_id = "machine-learning-for-trading-3e-2026"
@@ -617,6 +629,10 @@ title = "Chapter 22. 금융 연구를 위한 RAG"
 presenters = []
 chapters = ["Chapter 22"]
 status = "scheduled"
+
+reference_videos = [
+  { title = "Ch.22 금융 연구를 위한 RAG · 한국어 참고 해설", youtube_video_id = "cKd6_X4oDGA", status = "public", description = "원서 22장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
 
 [[sessions]]
 id = "2027-02-27-ml4t-ch23"
@@ -627,6 +643,10 @@ presenters = []
 chapters = ["Chapter 23"]
 status = "scheduled"
 
+reference_videos = [
+  { title = "Ch.23 지식 그래프 · 한국어 참고 해설", youtube_video_id = "rK5tQO9I23Y", status = "public", description = "원서 23장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2027-03-06-ml4t-ch24"
 study_id = "machine-learning-for-trading-3e-2026"
@@ -635,6 +655,10 @@ title = "Chapter 24. 자율 에이전트"
 presenters = []
 chapters = ["Chapter 24"]
 status = "scheduled"
+
+reference_videos = [
+  { title = "Ch.24 자율 에이전트 · 한국어 참고 해설", youtube_video_id = "yxpSSo_VABw", status = "public", description = "원서 24장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
 
 [[sessions]]
 id = "2027-03-13-ml4t-ch25"
@@ -645,6 +669,10 @@ presenters = []
 chapters = ["Chapter 25"]
 status = "scheduled"
 
+reference_videos = [
+  { title = "Ch.25 실거래 시스템 · 한국어 참고 해설", youtube_video_id = "BUDBTGbK5g4", status = "public", description = "원서 25장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2027-03-20-ml4t-ch26"
 study_id = "machine-learning-for-trading-3e-2026"
@@ -654,6 +682,10 @@ presenters = []
 chapters = ["Chapter 26"]
 status = "scheduled"
 
+reference_videos = [
+  { title = "Ch.26 MLOps와 거버넌스 · 한국어 참고 해설", youtube_video_id = "BzYe6NbgIPI", status = "public", description = "원서 26장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2027-03-27-ml4t-ch27"
 study_id = "machine-learning-for-trading-3e-2026"
@@ -662,6 +694,10 @@ title = "Chapter 27. 체계적 우위"
 presenters = []
 chapters = ["Chapter 27"]
 status = "scheduled"
+
+reference_videos = [
+  { title = "Ch.27 체계적 우위 · 한국어 참고 해설", youtube_video_id = "dZ4mqAn3Dfc", status = "public", description = "원서 27장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
+]
 
 [[sessions]]
 id = "2027-04-03-ml4t-retrospective"
