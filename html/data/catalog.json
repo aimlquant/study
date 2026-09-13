@@ -151,6 +151,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-01-16-ml4t-ch18/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 18장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.18 거래 비용 · 한국어 참고 해설",
+          "youtube_video_id": "UCGNyGgjOaA"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 18. 거래 비용"
@@ -165,6 +173,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-01-09-ml4t-ch17/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 17장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.17 포트폴리오 구성 · 한국어 참고 해설",
+          "youtube_video_id": "5W74a44uM28"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 17. 포트폴리오 구성"
@@ -531,6 +547,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-03-ml4t-ch03/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 3장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.3 시장 미시구조 · 한국어 참고 해설",
+          "youtube_video_id": "oMcUjKKcStw"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 3. 시장 미시구조"
