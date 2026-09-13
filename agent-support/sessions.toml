@@ -304,6 +304,10 @@ artifacts = [
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-19-ch10/" },
 ]
 
+reference_videos = [
+  { title = "Ch.10 그래프 특성 공학: 수동·반자동 접근 · 한국어 참고 해설", youtube_video_id = "kVmuxa9w6VY", status = "public", description = "원서 10장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2026-10-03-kg-llm-ch11"
 study_id = "kg-llm-in-action-2026"
@@ -312,6 +316,10 @@ title = "Chapter 11. 그래프 표현 학습과 그래프 신경망"
 presenters = ["수경"]
 chapters = ["Chapter 11"]
 status = "scheduled"
+
+reference_videos = [
+  { title = "Ch.11 그래프 표현 학습과 그래프 신경망 · 한국어 참고 해설", youtube_video_id = "pi9jgvlS41w", status = "public", description = "원서 11장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
 
 [[sessions]]
 id = "2026-10-10-kg-llm-ch12"
@@ -322,6 +330,10 @@ presenters = ["재익"]
 chapters = ["Chapter 12"]
 status = "scheduled"
 
+reference_videos = [
+  { title = "Ch.12 GNN 기반 노드 분류와 링크 예측 · 한국어 참고 해설", youtube_video_id = "-NhnH6qOyhg", status = "public", description = "원서 12장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2026-10-17-kg-llm-ch13"
 study_id = "kg-llm-in-action-2026"
@@ -330,6 +342,10 @@ title = "Chapter 13. 지식 그래프 기반 검색 증강 생성"
 presenters = ["정훈"]
 chapters = ["Chapter 13"]
 status = "scheduled"
+
+reference_videos = [
+  { title = "Ch.13 지식 그래프 기반 검색 증강 생성 · 한국어 참고 해설", youtube_video_id = "cJwlJViaIRI", status = "public", description = "원서 13장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
 
 [[sessions]]
 id = "2026-10-24-kg-llm-ch14"
@@ -340,6 +356,10 @@ presenters = ["종훈(L)"]
 chapters = ["Chapter 14"]
 status = "scheduled"
 
+reference_videos = [
+  { title = "Ch.14 자연어로 지식 그래프에 질문하기 · 한국어 참고 해설", youtube_video_id = "cdqXKR73uLc", status = "public", description = "원서 14장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2026-10-31-kg-llm-ch15"
 study_id = "kg-llm-in-action-2026"
@@ -348,6 +368,10 @@ title = "Chapter 15. LangGraph로 QA 에이전트 구축"
 presenters = ["태영"]
 chapters = ["Chapter 15"]
 status = "scheduled"
+
+reference_videos = [
+  { title = "Ch.15 LangGraph로 QA 에이전트 구축 · 한국어 참고 해설", youtube_video_id = "uVnn9ikCDpA", status = "public", description = "원서 15장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
 
 [[sessions]]
 id = "2026-09-05-ml4t-orientation"
