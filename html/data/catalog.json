@@ -25,6 +25,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-03-27-ml4t-ch27/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 27장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.27 체계적 우위 · 한국어 참고 해설",
+          "youtube_video_id": "dZ4mqAn3Dfc"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 27. 체계적 우위"
@@ -39,6 +47,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-03-20-ml4t-ch26/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 26장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.26 MLOps와 거버넌스 · 한국어 참고 해설",
+          "youtube_video_id": "BzYe6NbgIPI"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 26. MLOps와 거버넌스"
@@ -53,6 +69,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-03-13-ml4t-ch25/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 25장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.25 실거래 시스템 · 한국어 참고 해설",
+          "youtube_video_id": "BUDBTGbK5g4"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 25. 실거래 시스템"
@@ -67,6 +91,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-03-06-ml4t-ch24/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 24장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.24 자율 에이전트 · 한국어 참고 해설",
+          "youtube_video_id": "yxpSSo_VABw"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 24. 자율 에이전트"
@@ -81,6 +113,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-02-27-ml4t-ch23/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 23장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.23 지식 그래프 · 한국어 참고 해설",
+          "youtube_video_id": "rK5tQO9I23Y"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 23. 지식 그래프"
@@ -95,6 +135,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-02-20-ml4t-ch22/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 22장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.22 금융 연구를 위한 RAG · 한국어 참고 해설",
+          "youtube_video_id": "cKd6_X4oDGA"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 22. 금융 연구를 위한 RAG"
@@ -109,6 +157,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-02-13-ml4t-ch21/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 21장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.21 강화학습 · 한국어 참고 해설",
+          "youtube_video_id": "2YgCDRRqRfc"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 21. 강화학습"
@@ -123,6 +179,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-01-30-ml4t-ch20/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 20장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.20 전략 종합 · 한국어 참고 해설",
+          "youtube_video_id": "7xGPYUjM034"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 20. 전략 종합"
@@ -137,6 +201,14 @@
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-01-23-ml4t-ch19/",
       "presenters": [],
+      "reference_videos": [
+        {
+          "description": "원서 19장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
+          "status": "public",
+          "title": "Ch.19 리스크 관리 · 한국어 참고 해설",
+          "youtube_video_id": "kSKkZqvb3ZU"
+        }
+      ],
       "status": "scheduled",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 19. 리스크 관리"
