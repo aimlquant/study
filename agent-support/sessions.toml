@@ -32,6 +32,11 @@ artifacts = [
   { kind = "slides", label = "Chapter 2 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-07-25-ch02/" },
 ]
 
+reference_videos = [
+  { title = "Ch.1 지식 그래프와 LLM의 만남 · 한국어 참고 해설", youtube_video_id = "tpuXufNvuXk", status = "public", description = "원서 1장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+  { title = "Ch.2 지능형 시스템: 하이브리드 접근 · 한국어 참고 해설", youtube_video_id = "EMZnlcl3yUw", status = "public", description = "원서 2장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2026-08-01-machine-trading-ch02"
 study_id = "machine-trading-2026"
@@ -60,6 +65,10 @@ youtube_video_id = "hvkIxLlMXCU"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-01-ch03/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-01-ch03/" },
+]
+
+reference_videos = [
+  { title = "Ch.3 온톨로지로 첫 지식 그래프 만들기 · 한국어 참고 해설", youtube_video_id = "Fjev-Nywbwo", status = "public", description = "원서 3장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
 ]
 
 [[sessions]]
@@ -92,6 +101,10 @@ artifacts = [
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-08-ch04/" },
 ]
 
+reference_videos = [
+  { title = "Ch.4 단순 네트워크에서 멀티소스 통합으로 · 한국어 참고 해설", youtube_video_id = "YTtltmx4cF4", status = "public", description = "원서 4장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2026-08-15-machine-trading-ch04"
 study_id = "machine-trading-2026"
@@ -120,6 +133,10 @@ youtube_video_id = "SBPWeDYj2Mg"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-15-ch05/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-15-ch05/" },
+]
+
+reference_videos = [
+  { title = "Ch.5 비정형 데이터에서 도메인 특화 지식 추출 · 한국어 참고 해설", youtube_video_id = "UGCuHTrWR48", status = "public", description = "원서 5장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
 ]
 
 [[sessions]]
@@ -153,6 +170,10 @@ youtube_video_id = "C1dMCgen1B0"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-22-ch06/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-22-ch06/" },
+]
+
+reference_videos = [
+  { title = "Ch.6 LLM으로 지식 그래프 구축하기 · 한국어 참고 해설", youtube_video_id = "37AVTLCVxyw", status = "public", description = "원서 6장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
 ]
 
 [[sessions]]
@@ -202,6 +223,10 @@ artifacts = [
   { kind = "other", label = "개인 투자자 응용 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-08-29-ch07/index-personal-investor.html" },
 ]
 
+reference_videos = [
+  { title = "Ch.7 개체명 중의성 해소 · 한국어 참고 해설", youtube_video_id = "OG3jwZjWjp0", status = "public", description = "원서 7장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
+]
+
 [[sessions]]
 id = "2026-09-05-kg-llm-ch08"
 study_id = "kg-llm-in-action-2026"
@@ -215,6 +240,10 @@ youtube_video_id = "vdFUqto5xfE"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-05-ch08/" },
+]
+
+reference_videos = [
+  { title = "Ch.8 오픈 LLM과 도메인 온톨로지를 활용한 NED · 한국어 참고 해설", youtube_video_id = "jFWieVmhtiU", status = "public", description = "원서 8장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
 ]
 
 [[sessions]]
@@ -255,6 +284,7 @@ discussion_points = ["노드 분류·링크 예측·커뮤니티 탐지·그래�
 summary = "그래프의 관계 정보를 학습 가능한 특징으로 바꾸는 방법을 살펴본 정훈 책임님의 발표와 질의응답입니다. 네 가지 표준 과제와 카라테 클럽 사례를 통해 특징 설계, 임베딩, 훈련·예측 변환의 일관성을 논의했습니다. 김수경 책임님의 특별 보완 발표는 아래 참고 영상에 별도로 정리했습니다."
 reference_videos = [
   { title = "김수경 책임 특별 참고 발표 · Graph Data Science와 그래프 표현 학습", youtube_video_id = "GThbH_klJFc", status = "public", description = "9장 발표를 보완하는 약 8분의 특별 발표입니다. 특징 공학과 표현 학습의 역할을 구분하고, 그래프 임베딩을 고객·제품 추천 같은 후속 과제에 연결하는 흐름을 설명합니다. 정규 본 발표와 같은 지식 그래프 재생목록에 수록했습니다." },
+  { title = "Ch.9 지식 그래프 위의 머신러닝 입문 · 한국어 참고 해설", youtube_video_id = "_9az-WXYjlI", status = "public", description = "원서 9장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
 ]
 
 artifacts = [
