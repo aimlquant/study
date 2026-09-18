@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="340" viewBox="0 0 980 340" role="img" aria-labelledby="desc">
+  <desc id="desc">2014–2018년 미국 주식 패널에서 생존자만 포함한 포트폴리오의 가치 경로와 상장폐지 시나리오별 생존 편향 크기(경험적 +8.0, 강세장 +3.5, 스트레스 +15.3%p)를 비교한 도식</desc>
+  <style>
+    text { font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'NanumGothic', 'Inter', system-ui, sans-serif; }
+  </style>
+
+  <!-- Left Panel: Value Paths -->
+  <g transform="translate(60, 40)">
+    <rect x="0" y="0" width="380" height="250" fill="#f8fafc" stroke="#e2e8f0" rx="6"/>
+
+    <!-- Y Axis & Ticks -->
+    <line x1="60" y1="20" x2="60" y2="200" stroke="#cbd5e1" stroke-width="1.5"/>
+    <line x1="60" y1="200" x2="350" y2="200" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <text x="50" y="205" font-size="12" fill="#64748b" text-anchor="end">1.0</text>
+    <text x="50" y="140" font-size="12" fill="#64748b" text-anchor="end">1.2</text>
+    <text x="50" y="75" font-size="12" fill="#64748b" text-anchor="end">1.4</text>
+
+    <text x="60" y="225" font-size="12" fill="#64748b" text-anchor="middle">2014</text>
+    <text x="150" y="225" font-size="12" fill="#64748b" text-anchor="middle">2015</text>
+    <text x="240" y="225" font-size="12" fill="#64748b" text-anchor="middle">2016</text>
+    <text x="330" y="225" font-size="12" fill="#64748b" text-anchor="middle">2018</text>
+
+    <!-- Paths -->
+    <!-- Survivors Only (Biased): ends at 1.417 (+41.7%) -->
+    <path d="M 60 200 Q 140 180, 200 130 T 340 70" fill="none" stroke="#b45309" stroke-width="2.5"/>
+    <text x="345" y="65" font-size="13" fill="#b45309" font-weight="700">생존자만 (+41.7%)</text>
+
+    <!-- Empirical (All Universe): ends around 1.337 (+33.7%) -->
+    <path d="M 60 200 Q 140 185, 200 145 T 340 95" fill="none" stroke="#0369a1" stroke-width="2.5"/>
+    <text x="345" y="105" font-size="13" fill="#0369a1" font-weight="700">전체 유니버스 (+33.7%)</text>
+  </g>
+
+  <!-- Right Panel: Bias by Scenario (Bars) -->
+  <g transform="translate(500, 40)">
+    <rect x="0" y="0" width="420" height="250" fill="#f8fafc" stroke="#e2e8f0" rx="6"/>
+
+    <!-- Axis Baseline -->
+    <line x1="50" y1="200" x2="380" y2="200" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <!-- Bar 1: Bull Market (+3.5%p) -->
+    <rect x="90" y="165" width="60" height="35" fill="#38bdf8" rx="3"/>
+    <!-- Whisker [3.0, 4.0] -->
+    <line x1="120" y1="160" x2="120" y2="170" stroke="#0369a1" stroke-width="2"/>
+    <text x="120" y="152" font-size="13" fill="#0369a1" font-weight="700" text-anchor="middle">+3.5%p</text>
+    <text x="120" y="222" font-size="13" fill="#334155" text-anchor="middle">강세장</text>
+
+    <!-- Bar 2: Empirical (+8.0%p) -->
+    <rect x="200" y="120" width="60" height="80" fill="#f59e0b" rx="3"/>
+    <!-- Whisker [7.4, 8.6] -->
+    <line x1="230" y1="114" x2="230" y2="126" stroke="#b45309" stroke-width="2"/>
+    <text x="230" y="106" font-size="14" fill="#b45309" font-weight="700" text-anchor="middle">+8.0%p</text>
+    <text x="230" y="222" font-size="13" fill="#334155" font-weight="700" text-anchor="middle">경험적 (CRSP)</text>
+
+    <!-- Bar 3: Stress (+15.3%p) -->
+    <rect x="310" y="47" width="60" height="153" fill="#ef4444" rx="3"/>
+    <!-- Whisker [14.5, 16.0] -->
+    <line x1="340" y1="40" x2="340" y2="55" stroke="#991b1b" stroke-width="2"/>
+    <text x="340" y="32" font-size="14" fill="#991b1b" font-weight="700" text-anchor="middle">+15.3%p</text>
+    <text x="340" y="222" font-size="13" fill="#334155" text-anchor="middle">위기/스트레스</text>
+  </g>
+</svg>

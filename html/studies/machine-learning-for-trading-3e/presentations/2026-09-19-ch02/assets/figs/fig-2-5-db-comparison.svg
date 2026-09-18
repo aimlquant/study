@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="340" viewBox="0 0 980 340" role="img" aria-labelledby="desc">
+  <desc id="desc">여섯 서버 데이터베이스(kdb+/PyKX, ClickHouse, QuestDB, PostgreSQL, TimescaleDB, InfluxDB)의 100만 행 쓰기 및 읽기 시간(초) 비교 막대그래프</desc>
+  <style>
+    text { font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'NanumGothic', 'Inter', system-ui, sans-serif; }
+  </style>
+
+  <!-- Plot Canvas -->
+  <rect x="50" y="30" width="880" height="260" fill="#f8fafc" stroke="#e2e8f0" rx="6"/>
+
+  <!-- Legend -->
+  <rect x="700" y="45" width="200" height="30" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="715" y="55" width="12" height="12" fill="#0284c7" rx="2"/>
+  <text x="735" y="66" font-size="12" fill="#334155">쓰기 시간 (Write)</text>
+  <rect x="815" y="55" width="12" height="12" fill="#f59e0b" rx="2"/>
+  <text x="835" y="66" font-size="12" fill="#334155">읽기 시간 (Read)</text>
+
+  <!-- Baseline -->
+  <line x1="80" y1="240" x2="900" y2="240" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Engine 1: kdb+/PyKX -->
+  <g transform="translate(100, 0)">
+    <rect x="0" y="235" width="24" height="5" fill="#0284c7" rx="2"/>
+    <text x="12" y="228" font-size="11" fill="#0369a1" font-weight="700" text-anchor="middle">0.03s</text>
+    <rect x="28" y="234" width="24" height="6" fill="#f59e0b" rx="2"/>
+    <text x="40" y="226" font-size="11" fill="#b45309" font-weight="700" text-anchor="middle">0.04s</text>
+    <text x="26" y="260" font-size="13" fill="#1e293b" font-weight="700" text-anchor="middle">kdb+/PyKX</text>
+    <text x="26" y="278" font-size="11" fill="#64748b" text-anchor="middle">인메모리 벡터</text>
+  </g>
+
+  <!-- Engine 2: ClickHouse -->
+  <g transform="translate(235, 0)">
+    <rect x="0" y="215" width="24" height="25" fill="#0284c7" rx="2"/>
+    <text x="12" y="208" font-size="11" fill="#0369a1" font-weight="700" text-anchor="middle">1.47s</text>
+    <rect x="28" y="226" width="24" height="14" fill="#f59e0b" rx="2"/>
+    <text x="40" y="218" font-size="11" fill="#b45309" font-weight="700" text-anchor="middle">0.83s</text>
+    <text x="26" y="260" font-size="13" fill="#1e293b" font-weight="700" text-anchor="middle">ClickHouse</text>
+    <text x="26" y="278" font-size="11" fill="#64748b" text-anchor="middle">컬럼형 OLAP</text>
+  </g>
+
+  <!-- Engine 3: QuestDB -->
+  <g transform="translate(370, 0)">
+    <rect x="0" y="210" width="24" height="30" fill="#0284c7" rx="2"/>
+    <text x="12" y="203" font-size="11" fill="#0369a1" font-weight="700" text-anchor="middle">1.77s</text>
+    <rect x="28" y="185" width="24" height="55" fill="#f59e0b" rx="2"/>
+    <text x="40" y="178" font-size="11" fill="#b45309" font-weight="700" text-anchor="middle">3.34s</text>
+    <text x="26" y="260" font-size="13" fill="#1e293b" font-weight="700" text-anchor="middle">QuestDB</text>
+    <text x="26" y="278" font-size="11" fill="#64748b" text-anchor="middle">시계열 Ingestion</text>
+  </g>
+
+  <!-- Engine 4: PostgreSQL -->
+  <g transform="translate(505, 0)">
+    <rect x="0" y="80" width="24" height="160" fill="#0284c7" rx="2"/>
+    <text x="12" y="73" font-size="11" fill="#0369a1" font-weight="700" text-anchor="middle">120s</text>
+    <rect x="28" y="182" width="24" height="58" fill="#f59e0b" rx="2"/>
+    <text x="40" y="175" font-size="11" fill="#b45309" font-weight="700" text-anchor="middle">3.58s</text>
+    <text x="26" y="260" font-size="13" fill="#1e293b" font-weight="700" text-anchor="middle">PostgreSQL</text>
+    <text x="26" y="278" font-size="11" fill="#64748b" text-anchor="middle">범용 관계형</text>
+  </g>
+
+  <!-- Engine 5: TimescaleDB -->
+  <g transform="translate(640, 0)">
+    <rect x="0" y="65" width="24" height="175" fill="#0284c7" rx="2"/>
+    <text x="12" y="58" font-size="11" fill="#0369a1" font-weight="700" text-anchor="middle">132s</text>
+    <rect x="28" y="183" width="24" height="57" fill="#f59e0b" rx="2"/>
+    <text x="40" y="176" font-size="11" fill="#b45309" font-weight="700" text-anchor="middle">3.54s</text>
+    <text x="26" y="260" font-size="13" fill="#1e293b" font-weight="700" text-anchor="middle">TimescaleDB</text>
+    <text x="26" y="278" font-size="11" fill="#64748b" text-anchor="middle">하이퍼테이블</text>
+  </g>
+
+  <!-- Engine 6: InfluxDB -->
+  <g transform="translate(775, 0)">
+    <rect x="0" y="145" width="24" height="95" fill="#0284c7" rx="2"/>
+    <text x="12" y="138" font-size="11" fill="#0369a1" font-weight="700" text-anchor="middle">34s</text>
+    <rect x="28" y="130" width="24" height="110" fill="#f59e0b" rx="2"/>
+    <text x="40" y="123" font-size="11" fill="#b45309" font-weight="700" text-anchor="middle">47s</text>
+    <text x="26" y="260" font-size="13" fill="#1e293b" font-weight="700" text-anchor="middle">InfluxDB</text>
+    <text x="26" y="278" font-size="11" fill="#64748b" text-anchor="middle">DevOps 모니터링</text>
+  </g>
+</svg>
