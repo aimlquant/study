@@ -24,7 +24,7 @@
 - **§2.1 금융 데이터 분류 체계 & 4대 핵심 점검 항목**:
   - 시장 데이터(틱, 오더북, 체결, OHLCV), 펀더멘털 데이터(발표 지연 및 빈티지 개정), 대체 데이터(위성, 카드, 온체인, 예측시장)의 특성 대조.
   - 모델링 전 반드시 확인해야 할 4대 핵심 점검 항목(타임스탬프 의미론, 기업행위 조정 방법론, 식별자 안정성, 수정/재작성 처리) 확립.
-  - **`실습 1` (`01_us_equities_eda`)**: Quandl WIKI 3,199개 미국 주식 패널 분석을 통해 777개(24.3%) 상장폐지 종목이 2014년 이후에만 집중되어 1962~2013년 구간에 생존자 편향이 내포되어 있음을 발견.
+  - **`실습 1` (`01_us_equities_eda`)**: Quandl WIKI 3,199개 미국 주식 패널 분석을 통해 777개(24.3%) 상장폐지 종목이 2014년 이후에만 집중되어 1962~2013년 구간에 생존 편향이 내포되어 있음을 발견.
 - **§2.2 자산군별 시장 데이터 환경 (표 2.1)**:
   - 주식, ETP, 선물, 옵션, 크립토, 외환, 채권, 스왑, 원자재 등 9개 자산군의 시장 구조와 실패 모드 분석.
   - **`실습 2` (`02_corporate_actions`)**: Apple(AAPL) 1980~2018 4회 분할 및 54회 배당 역방향 조정 공식 검증. 미조정 가격($5.9\times$) 대비 올바른 조정 가격($398.2\times$)으로 **68배의 누적 성과 왜곡** 실증 및 Quandl 기준치 대비 0.05% 오차 내 100% 일치 검증.
@@ -36,7 +36,7 @@
   - 5차원 품질 프레임워크(적시성, 완전성, 정확성, 일관성, 유효성), 벤더 실사 3대 축, 내부 거버넌스 5대 기둥.
   - **`실습 7` (`13_data_quality_framework`)**: `OHLCVValidator` 및 두꺼운 꼬리에 강건한 MAD/IQR 기반 수익률 이상치 탐지와 `AnomalyManager`의 감사 격리 로그 생성.
   - **`실습 8` (`14_point_in_time_validation`)**: 중심 이동평균의 미래정보 누출 시각화 및 FRED API `vintage_date`를 활용한 GDP 속보치/확정치 이중시간(Bitemporal) 쿼리 구현.
-  - **`실습 9` (`15_survivorship_bias_detection`)**: CRSP 상장폐지 3대 시나리오 몬테카를로 1,000회 시뮬레이션을 통해 생존자 전용 포트폴리오의 **+8.0%p ~ +15.3%p 성과 과대평가** 계량화.
+  - **`실습 9` (`15_survivorship_bias_detection`)**: CRSP 상장폐지 3대 시나리오 몬테카를로 1,000회 시뮬레이션을 통해 생존 종목만 포함한 포트폴리오의 **+8.0%p ~ +15.3%p 성과 과대평가** 계량화.
   - **`실습 10` (`16`~`19_incremental_updates`)**: 영구 식별자(FIGI/CIK) 크로스워크 매핑 및 Hive 파티셔닝(`year=YYYY/month=MM/`) 기반 안전한 일일 증분 수집 파이프라인 구축.
 - **§2.4 데이터 저장 아키텍처 & 벤치마크**:
   - 파일 형식 벤치마크 (표 2.4), 임베디드 분석 스택(DuckDB, Polars, SQLite), 시계열 DB 벤치마크, 스토리지 의사결정 매트릭스 (표 2.5).
@@ -46,9 +46,9 @@
   - 4대 실천 원칙(데이터 기준 명시화, 가짜 알파 원천 봉쇄, 시장 구조 부합 모델링, 단순/빠른 스토리지) 및 7대 핵심 용어 정의.
 
 ## 4. 품질 검증 상태
-- **빌드 및 사이트 검증**: `python agent-support/scripts/build_site.py --check` 및 `python agent-support/scripts/validate-site.py --site html` 100% 통과 (100개 HTML 전수 검증 통과).
-- **테스트 스위트**: `uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v` 284개 테스트 전수 통과 (`OK (skipped=6)`).
-- **슬라이드 레이아웃 적합성**: 1280x720 고정 스케일 스테이지(`study-deck-v1`) 기반으로 46개 전 슬라이드의 가로/세로 오버플로우 및 텍스트 겹침 0건 확인.
+- **빌드 및 사이트 검증**: `python agent-support/scripts/build_site.py --check` 및 `python agent-support/scripts/validate-site.py --site html` 100% 통과 (101개 HTML 전수 검증 통과).
+- **테스트 스위트**: `uv run --with 'nbformat>=5,<6' python -m unittest discover -s agent-support/tests -v` 288개 테스트 전수 통과 (`OK (skipped=6)`).
+- **슬라이드 레이아웃 적합성**: 1280x720 고정 스케일 스테이지(`study-deck-v1`) 기반으로 35개 전 슬라이드의 가로/세로 오버플로우 및 텍스트 겹침 0건 확인.
 - **스타일 가이드라인 준수**:
   - 오렌지색(Gold) 테두리 및 뱃지는 오직 주피터 실습(`card-lab`, `highlight-lab`)에만 배타적으로 적용.
   - 일반 개념 및 로드맵은 블루/슬레이트 카드(`card`)로 통일.
