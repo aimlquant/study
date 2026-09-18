@@ -440,7 +440,7 @@ id = "2026-10-03-ml4t-ch03"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-10-03"
 title = "Chapter 3. 시장 미시구조"
-presenters = []
+presenters = ["세훈"]
 chapters = ["Chapter 3"]
 status = "scheduled"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc09b913d4ab3cb36f79fdfab4c6305cd"
