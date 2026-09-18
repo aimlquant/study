@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="340" viewBox="0 0 980 340" role="img" aria-labelledby="desc">
+  <desc id="desc">1980–2018년 Apple(AAPL) 원시 가격과 기업행위(4회 분할, 54회 배당) 조정 가격의 누적 수익률 로그 곡선 비교. 원시 5.9배 대 조정 398.2배, 68배 누적 성과 왜곡.</desc>
+  <style>
+    text { font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'NanumGothic', 'Inter', system-ui, sans-serif; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect x="50" y="30" width="880" height="260" fill="#f8fafc" stroke="#e2e8f0" rx="6"/>
+
+  <!-- Y Axis (Log Scale: 1x, 10x, 100x, 1000x) -->
+  <line x1="120" y1="50" x2="120" y2="250" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="120" y1="250" x2="880" y2="250" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <text x="110" y="255" font-size="12" fill="#64748b" text-anchor="end">1x</text>
+  <text x="110" y="190" font-size="12" fill="#64748b" text-anchor="end">10x</text>
+  <text x="110" y="125" font-size="12" fill="#64748b" text-anchor="end">100x</text>
+  <text x="110" y="60" font-size="12" fill="#64748b" text-anchor="end">1000x</text>
+
+  <!-- Grid lines -->
+  <line x1="120" y1="190" x2="880" y2="190" stroke="#f1f5f9" stroke-width="1"/>
+  <line x1="120" y1="125" x2="880" y2="125" stroke="#f1f5f9" stroke-width="1"/>
+  <line x1="120" y1="60" x2="880" y2="60" stroke="#f1f5f9" stroke-width="1"/>
+
+  <!-- X Axis Dates -->
+  <text x="150" y="275" font-size="12" fill="#64748b" text-anchor="middle">1980</text>
+  <text x="320" y="275" font-size="12" fill="#64748b" text-anchor="middle">1990</text>
+  <text x="500" y="275" font-size="12" fill="#64748b" text-anchor="middle">2000</text>
+  <text x="680" y="275" font-size="12" fill="#64748b" text-anchor="middle">2010</text>
+  <text x="840" y="275" font-size="12" fill="#64748b" text-anchor="middle">2018</text>
+
+  <!-- Split Lines (Dashed Vertical) -->
+  <g stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4">
+    <line x1="270" y1="50" x2="270" y2="250"/> <!-- 1987: 2:1 -->
+    <line x1="500" y1="50" x2="500" y2="250"/> <!-- 2000: 2:1 -->
+    <line x1="590" y1="50" x2="590" y2="250"/> <!-- 2005: 2:1 -->
+    <line x1="755" y1="50" x2="755" y2="250"/> <!-- 2014: 7:1 -->
+  </g>
+
+  <!-- Split Labels -->
+  <text x="270" y="45" font-size="11" fill="#475569" text-anchor="middle">2:1 분할 (1987)</text>
+  <text x="500" y="45" font-size="11" fill="#475569" text-anchor="middle">2:1 분할 (2000)</text>
+  <text x="590" y="45" font-size="11" fill="#475569" text-anchor="middle">2:1 분할 (2005)</text>
+  <text x="755" y="45" font-size="11" fill="#b91c1c" font-weight="700" text-anchor="middle">7:1 분할 (2014)</text>
+
+  <!-- Curves -->
+  <!-- Adjusted Curve: Smooth exponential upward to ~398.2x (y=80) -->
+  <path d="M 150 250 Q 300 240, 500 200 T 700 130 T 840 80" fill="none" stroke="#0284c7" stroke-width="3"/>
+  <circle cx="840" cy="80" r="5" fill="#0284c7"/>
+  <text x="850" y="76" font-size="14" fill="#0284c7" font-weight="700">조정 가격: 398.2x</text>
+
+  <!-- Raw Curve: Step drops at splits, ends at ~5.9x (y=210) -->
+  <path d="M 150 250 L 270 230 L 270 245 L 500 215 L 500 235 L 590 220 L 590 235 L 755 170 L 755 230 L 840 210" fill="none" stroke="#ef4444" stroke-width="3"/>
+  <circle cx="840" cy="210" r="5" fill="#ef4444"/>
+  <text x="850" y="215" font-size="14" fill="#ef4444" font-weight="700">원시 가격: 5.9x</text>
+
+  <!-- Callout box for difference -->
+  <rect x="660" y="140" width="160" height="40" rx="4" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="740" y="165" font-size="13" fill="#b45309" font-weight="700" text-anchor="middle">68배 누적 성과 왜곡</text>
+</svg>

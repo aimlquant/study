@@ -12,11 +12,11 @@
 
 ## 2. 파일 목록 (Asset Manifest)
 본 세션 디렉토리는 다음 파일들로 구성되어 독립 배포됩니다:
-- `report.html`: 상세 분석 리포트 (KaTeX 오프라인 로컬 수식 렌더링, 12개 실습 박스기사 `실습 1` ~ `실습 12`, 반응형 좌측 목차 사이드바, 인쇄/PDF 최적화 스타일 내장)
-- `index.html`: 발표용 16:9 슬라이드 (총 46개 슬라이드, `study-deck-v1` 1280x720 고정 스케일 스테이지, 네비게이션 및 목차 드로어, 실습 전용 골드 뱃지/카드, 텍스트/표 오버플로우 및 겹침 방지 최적화)
-- `presentation.toml`: 세션 메타데이터 (workflow: raw-report-deck-v1, artifacts: report, slides)
+- `report.html`: 상세 분석 리포트 (KaTeX 오프라인 로컬 수식 렌더링, 12개 실습 박스기사 `실습 1` ~ `실습 12`, 5개 전용 SVG 도해, 4개 비교표, 반응형 좌측 목차 사이드바, 인쇄/PDF 최적화 스타일 내장)
+- `index.html`: 발표용 16:9 슬라이드 (총 35개 슬라이드, `study-deck-v1` 1280x720 고정 스케일 스테이지, 네비게이션 및 목차 드로어, 5개 리포트 SVG 시각자료 재사용, 실습 전용 골드 뱃지/카드, 텍스트/표 오버플로우 및 겹침 방지 최적화)
+- `presentation.toml`: 세션 메타데이터 (workflow: raw-report-deck-v1, artifacts: report, slides, source_fidelity: source-structure-v1)
 - `HANDOFF.md`: 세션 핸드오프 리포트 (본 파일)
-- `assets/`: 회차별 전용 스타일시트(`report.css`, `deck.css`), 스크립트(`report.js`, `deck.js`, `deck-lightbox.js`) 및 오프라인 KaTeX 자산(`katex/`)
+- `assets/`: 회차별 전용 스타일시트(`report.css`, `deck.css`), 스크립트(`report.js`, `deck.js`, `deck-lightbox.js`), 오프라인 KaTeX 자산(`katex/`), 및 5개 SVG 다이어그램(`assets/figs/fig-2-1` ~ `fig-2-5`)
 
 ## 3. 핵심 내용 및 12개 주피터 실습 연계 감사
 본 발표 및 리포트는 교재 2장의 2.1~2.5 전 절에 대한 깊이 있는 이론 전개와 함께, 공식 코드베이스의 22개 주피터 노트북 핵심 실습 결과와 수치를 총 12개의 상세 실습 단위로 완벽하게 통합했습니다:

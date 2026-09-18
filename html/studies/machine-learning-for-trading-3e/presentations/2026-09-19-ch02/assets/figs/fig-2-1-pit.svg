@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="340" viewBox="0 0 980 340" role="img" aria-labelledby="desc">
+  <desc id="desc">2024년 분기별 사건 시점(분기 말)과 공시 인지 시점 사이 45일 지연 및 선견 편향 위험 구간을 표현한 이중시간 시계열 도식</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0 2 L10 6 L0 10 Z" fill="#17375e"/>
+    </marker>
+    <marker id="arrow-danger" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0 2 L10 6 L0 10 Z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'NanumGothic', 'Inter', system-ui, sans-serif; }
+  </style>
+
+  <!-- Timeline Base Line -->
+  <line x1="80" y1="210" x2="900" y2="210" stroke="#94a3b8" stroke-width="2" fill="none"/>
+
+  <!-- Event Times (Q1, Q2, Q3) -->
+  <g>
+    <!-- Q1 -->
+    <circle cx="160" cy="210" r="7" fill="#17375e"/>
+    <text x="160" y="240" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">3월 31일</text>
+    <text x="160" y="262" font-size="14" fill="#64748b" text-anchor="middle">Q1 사건 시점</text>
+
+    <!-- Q2 -->
+    <circle cx="420" cy="210" r="7" fill="#17375e"/>
+    <text x="420" y="240" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">6월 30일</text>
+    <text x="420" y="262" font-size="14" fill="#64748b" text-anchor="middle">Q2 사건 시점</text>
+
+    <!-- Q3 -->
+    <circle cx="680" cy="210" r="7" fill="#17375e"/>
+    <text x="680" y="240" font-size="16" fill="#1e293b" font-weight="700" text-anchor="middle">9월 30일</text>
+    <text x="680" y="262" font-size="14" fill="#64748b" text-anchor="middle">Q3 사건 시점</text>
+  </g>
+
+  <!-- Filing / Knowledge Times (45 days later) -->
+  <g>
+    <!-- Q1 Filing -->
+    <circle cx="280" cy="210" r="7" fill="#047857"/>
+    <text x="280" y="240" font-size="16" fill="#047857" font-weight="700" text-anchor="middle">5월 15일</text>
+    <text x="280" y="262" font-size="14" fill="#047857" text-anchor="middle">Q1 10-Q 공시</text>
+
+    <!-- Q2 Filing -->
+    <circle cx="540" cy="210" r="7" fill="#047857"/>
+    <text x="540" y="240" font-size="16" fill="#047857" font-weight="700" text-anchor="middle">8월 14일</text>
+    <text x="540" y="262" font-size="14" fill="#047857" text-anchor="middle">Q2 10-Q 공시</text>
+
+    <!-- Q3 Filing -->
+    <circle cx="800" cy="210" r="7" fill="#047857"/>
+    <text x="800" y="240" font-size="16" fill="#047857" font-weight="700" text-anchor="middle">11월 14일</text>
+    <text x="800" y="262" font-size="14" fill="#047857" text-anchor="middle">Q3 10-Q 공시</text>
+  </g>
+
+  <!-- Lookahead Danger Zones (Shaded Boxes) -->
+  <rect x="160" y="80" width="120" height="90" rx="4" fill="#fee2e2" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="220" y="115" font-size="14" fill="#991b1b" font-weight="700" text-anchor="middle">45일 지연</text>
+  <text x="220" y="140" font-size="13" fill="#b91c1c" text-anchor="middle">미래정보 위험 구간</text>
+
+  <rect x="420" y="80" width="120" height="90" rx="4" fill="#fee2e2" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="480" y="115" font-size="14" fill="#991b1b" font-weight="700" text-anchor="middle">45일 지연</text>
+  <text x="480" y="140" font-size="13" fill="#b91c1c" text-anchor="middle">미래정보 위험 구간</text>
+
+  <rect x="680" y="80" width="120" height="90" rx="4" fill="#fee2e2" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="740" y="115" font-size="14" fill="#991b1b" font-weight="700" text-anchor="middle">45일 지연</text>
+  <text x="740" y="140" font-size="13" fill="#b91c1c" text-anchor="middle">미래정보 위험 구간</text>
+
+  <!-- Connectors -->
+  <path d="M 160 170 L 160 200" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+  <path d="M 280 170 L 280 200" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+
+  <path d="M 420 170 L 420 200" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+  <path d="M 540 170 L 540 200" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+
+  <path d="M 680 170 L 680 200" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+  <path d="M 800 170 L 800 200" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+
+  <!-- Legend / Rules -->
+  <rect x="80" y="295" width="380" height="30" rx="4" fill="#f1f5f9"/>
+  <circle cx="100" cy="310" r="5" fill="#17375e"/>
+  <text x="115" y="315" font-size="13" fill="#334155">사건 시점 (Event Time, 유효 기준일)</text>
+
+  <rect x="500" y="295" width="400" height="30" rx="4" fill="#f1f5f9"/>
+  <circle cx="520" cy="310" r="5" fill="#047857"/>
+  <text x="535" y="315" font-size="13" fill="#334155">인지 시점 (Knowledge Time, 공시 이용 가능 시점)</text>
+</svg>

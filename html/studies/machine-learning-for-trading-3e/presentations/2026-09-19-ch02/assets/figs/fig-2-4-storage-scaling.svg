@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="340" viewBox="0 0 980 340" role="img" aria-labelledby="desc">
+  <desc id="desc">데이터셋 크기(1천, 1만, 100만 행)에 따른 파일 형식별(Parquet, HDF5, CSV) 읽기 시간 스케일링 로그-로그 비교 도식</desc>
+  <style>
+    text { font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'NanumGothic', 'Inter', system-ui, sans-serif; }
+  </style>
+
+  <!-- Plot Background -->
+  <rect x="80" y="30" width="820" height="260" fill="#f8fafc" stroke="#e2e8f0" rx="6"/>
+
+  <!-- Y Axis (Log: 1ms, 10ms, 100ms, 1000ms) -->
+  <line x1="160" y1="50" x2="160" y2="250" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="160" y1="250" x2="840" y2="250" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <text x="150" y="255" font-size="12" fill="#64748b" text-anchor="end">1 ms</text>
+  <text x="150" y="185" font-size="12" fill="#64748b" text-anchor="end">10 ms</text>
+  <text x="150" y="115" font-size="12" fill="#64748b" text-anchor="end">100 ms</text>
+  <text x="150" y="55" font-size="12" fill="#64748b" text-anchor="end">1,000 ms</text>
+
+  <!-- Grid lines -->
+  <line x1="160" y1="185" x2="840" y2="185" stroke="#f1f5f9" stroke-width="1"/>
+  <line x1="160" y1="115" x2="840" y2="115" stroke="#f1f5f9" stroke-width="1"/>
+
+  <!-- X Axis (Log: 1K, 10K, 100K, 1M) -->
+  <text x="240" y="275" font-size="13" fill="#64748b" text-anchor="middle">1K (1천 행)</text>
+  <text x="440" y="275" font-size="13" fill="#64748b" text-anchor="middle">10K (1만 행)</text>
+  <text x="640" y="275" font-size="13" fill="#64748b" text-anchor="middle">100K (10만 행)</text>
+  <text x="800" y="275" font-size="13" fill="#64748b" font-weight="700" text-anchor="middle">1M (100만 행)</text>
+
+  <!-- Linear O(N) Reference line (dashed) -->
+  <line x1="240" y1="230" x2="800" y2="70" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="760" y="85" font-size="11" fill="#94a3b8">O(N) 선형 기준선</text>
+
+  <!-- HDF5 line (Grey/Reddish, high read latency: 400ms at 1M) -->
+  <path d="M 240 210 L 440 180 L 640 120 L 800 80" fill="none" stroke="#64748b" stroke-width="2.5"/>
+  <circle cx="800" cy="80" r="4" fill="#64748b"/>
+  <text x="810" y="84" font-size="13" fill="#475569" font-weight="700">HDF5 (0.40s)</text>
+
+  <!-- CSV line (Orange, 50ms at 1M) -->
+  <path d="M 240 245 L 440 225 L 640 175 L 800 145" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <circle cx="800" cy="145" r="4" fill="#f59e0b"/>
+  <text x="810" y="149" font-size="13" fill="#b45309" font-weight="700">CSV (0.05s)</text>
+
+  <!-- Parquet line (Teal/Blue, 20ms at 1M) -->
+  <path d="M 240 235 L 440 215 L 640 190 L 800 170" fill="none" stroke="#0284c7" stroke-width="3"/>
+  <circle cx="800" cy="170" r="5" fill="#0284c7"/>
+  <text x="810" y="174" font-size="14" fill="#0284c7" font-weight="800">Parquet (0.02s, 최저)</text>
+
+  <!-- Annotations -->
+  <rect x="260" y="45" width="280" height="32" rx="4" fill="#f0f9ff" stroke="#bae6fd"/>
+  <text x="400" y="66" font-size="12" fill="#0369a1" text-anchor="middle">대규모일수록 Parquet 컬럼형 압축 및 스캔 우위</text>
+</svg>
