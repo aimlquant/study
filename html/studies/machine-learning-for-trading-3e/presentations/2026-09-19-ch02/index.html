@@ -53,6 +53,90 @@
       font-size: 18px;
       line-height: 1.35;
     }
+
+    /* Term Tooltips for Slides */
+    abbr.term, span.term {
+      text-decoration: underline dotted #38bdf8;
+      text-underline-offset: 4px;
+      cursor: help;
+      position: relative;
+      display: inline-block;
+      font-style: normal;
+    }
+    abbr.term::after, span.term::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.45;
+      white-space: normal;
+      width: max-content;
+      max-width: 290px;
+      text-align: left;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+      border: 1px solid #38bdf8;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+      z-index: 10000;
+    }
+    abbr.term::before, span.term::before {
+      content: "";
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px 6px 0 6px;
+      border-style: solid;
+      border-color: #38bdf8 transparent transparent transparent;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease, visibility 0.15s;
+      z-index: 10001;
+      pointer-events: none;
+    }
+    abbr.term:hover::after, abbr.term:focus::after,
+    span.term:hover::after, span.term:focus::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    abbr.term:hover::before, abbr.term:focus::before,
+    span.term:hover::before, span.term:focus::before {
+      opacity: 1;
+      visibility: visible;
+    }
+    abbr.term.tip-down::after, span.term.tip-down::after {
+      bottom: auto;
+      top: calc(100% + 8px);
+      transform: translateX(-50%) translateY(-4px);
+    }
+    abbr.term.tip-down::before, span.term.tip-down::before {
+      bottom: auto;
+      top: calc(100% + 2px);
+      border-width: 0 6px 6px 6px;
+      border-color: transparent transparent #38bdf8 transparent;
+    }
+    abbr.term.tip-down:hover::after, abbr.term.tip-down:focus::after,
+    span.term.tip-down:hover::after, span.term.tip-down:focus::after {
+      transform: translateX(-50%) translateY(0);
+    }
+    abbr.term.tip-right::after, span.term.tip-right::after { left: 0; transform: translateY(4px); }
+    abbr.term.tip-right::before, span.term.tip-right::before { left: 16px; transform: none; }
+    abbr.term.tip-right:hover::after, abbr.term.tip-right:focus::after,
+    span.term.tip-right:hover::after, span.term.tip-right:focus::after { transform: translateY(0); }
+    abbr.term.tip-left::after, span.term.tip-left::after { left: auto; right: 0; transform: translateY(4px); }
+    abbr.term.tip-left::before, span.term.tip-left::before { left: auto; right: 16px; transform: none; }
+    abbr.term.tip-left:hover::after, abbr.term.tip-left:focus::after,
+    span.term.tip-left:hover::after, span.term.tip-left:focus::after { transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -94,15 +178,15 @@
         <div class="teaching-columns">
           <article>
             <h2>1. 분류와 내재 규칙</h2>
-            <p>데이터는 단순 숫자가 아닙니다. 타임스탬프 관례, 캘린더, 기업행위, 수정 규칙을 사전에 확인해야 합니다.</p>
+            <p>데이터는 단순 숫자가 아닙니다. <abbr class="term" data-tooltip="사건 발생 시점(Event), 공시 접수 시점(Knowledge), 수집 시점(Ingestion)을 기록하는 규칙">타임스탬프 관례</abbr>, 캘린더, <abbr class="term" data-tooltip="Corporate Actions: 주식분할, 배당 등 가격 시계열에 단절(Gap)을 유발하는 사건">기업행위</abbr>, 수정 규칙을 사전에 확인해야 합니다.</p>
           </article>
           <article>
             <h2>2. 자산군별 시장 구조</h2>
-            <p>주식의 NBBO, 선물의 롤오버, 옵션의 표면, 크립토의 AMM 슬리피지까지 시장마다 가격 정의가 다릅니다.</p>
+            <p>주식의 <abbr class="term" data-tooltip="National Best Bid and Offer: 미국 전역 거래소의 최우선 매수·매도 호가">NBBO</abbr>, 선물의 <abbr class="term" data-tooltip="Futures Rollover: 만기가 임박한 근월물 선물을 청산하고 차월물 계약으로 갈아타는 포지션 이전">롤오버</abbr>, 옵션의 표면, 크립토의 <abbr class="term" data-tooltip="Automated Market Maker: 오더북 대신 수학적 준비금 수식(x * y = k)으로 가격을 결정하는 알고리즘">AMM</abbr> <abbr class="term" data-tooltip="Slippage: 주문 체결 시 시장 유동성 부족 등으로 인해 예상 가격보다 불리하게 체결되는 편차">슬리피지</abbr>까지 시장마다 가격 정의가 다릅니다.</p>
           </article>
           <article>
             <h2>3. 가짜 알파의 원천 봉쇄</h2>
-            <p>시점 기준(PIT) 오류, 생존 편향, 기업행위 왜곡을 소싱 및 저장 단계에서 사전에 차단합니다.</p>
+            <p><abbr class="term" data-tooltip="Point-in-Time: 의사결정 시점 당시에 실제로 공개되어 알려진 정보만 사용하는 원칙">시점 기준(PIT)</abbr> 오류, <abbr class="term" data-tooltip="Survivorship Bias: 상장폐지·파산 기업을 제외하고 살아남은 종목만으로 분석해 성과를 왜곡하는 오류">생존 편향</abbr>, 기업행위 왜곡을 소싱 및 저장 단계에서 사전에 차단합니다.</p>
           </article>
         </div>
       </div>
@@ -123,7 +207,7 @@
           </article>
           <article>
             <h2>§2.2 · 자산군별 시장 데이터 환경</h2>
-            <p>주식, ETP, 선물, 옵션, 크립토, 채권 등 9개 자산군의 상이한 시장 메커니즘과 실패 모드를 대조합니다.</p>
+            <p>주식, <abbr class="term" data-tooltip="Exchange-Traded Products: ETF, ETN, CEF 등 거래소 상장 금융상품 총칭">ETP</abbr>, 선물, 옵션, 크립토, 채권 등 9개 자산군의 상이한 시장 메커니즘과 실패 모드를 대조합니다.</p>
           </article>
           <article>
             <h2>§2.3 · 데이터 소싱 실사 프레임워크</h2>
@@ -131,7 +215,7 @@
           </article>
           <article>
             <h2>§2.4 · 데이터 저장 아키텍처</h2>
-            <p>Parquet 파일 벤치마크, DuckDB/Polars 임베디드 분석, 시계열 DB 및 ASOF 조인 성능을 비교합니다.</p>
+            <p><abbr class="term" data-tooltip="Apache Parquet: 컬럼별 압축 저장과 조건자 푸시다운을 지원하는 퀀트 표준 파일 포맷">Parquet</abbr> 파일 벤치마크, <abbr class="term" data-tooltip="DuckDB/Polars: 서버 없이 파일 위에서 초고속 SQL 분석 및 지연 연산을 제공하는 임베디드 분석 스택">DuckDB/Polars</abbr> 임베디드 분석, 시계열 DB 및 <abbr class="term" data-tooltip="As-Of Join: 각 이벤트 시점 직전의 가장 최근 유효 호가를 결합하는 시계열 조인">ASOF 조인</abbr> 성능을 비교합니다.</p>
           </article>
         </div>
       </div>
@@ -148,15 +232,15 @@
         <div class="teaching-rows">
           <article>
             <h2>시장 데이터 (Market Data)</h2>
-            <p>호가, 체결, 집계 바(OHLCV) 등 시장 거래 활동을 반영하며, 밀리초 단위로 발생하고 높은 투명성을 가집니다.</p>
+            <p>호가, 체결, 집계 바(<abbr class="term" data-tooltip="Open-High-Low-Close-Volume: 시가, 고가, 저가, 종가, 거래량 요약 바">OHLCV</abbr>) 등 시장 거래 활동을 반영하며, 밀리초 단위로 발생하고 높은 투명성을 가집니다.</p>
           </article>
           <article>
             <h2>펀더멘털 데이터 (Fundamental)</h2>
-            <p>재무제표(10-K/Q), 거시지표(FRED), 수급(COT) 등 자산 가치의 경제적 동인이며, 발표 지연과 빈티지 개정이 따릅니다.</p>
+            <p>재무제표(<abbr class="term" data-tooltip="미국 SEC 공시: 10-K(연간 사업보고서), 10-Q(분기보고서)">10-K/Q</abbr>), 거시지표(<abbr class="term" data-tooltip="Federal Reserve Economic Data: 세인트루이스 연준의 거시경제 데이터베이스">FRED</abbr>), 수급(<abbr class="term" data-tooltip="Commitment of Traders: CFTC가 매주 공표하는 선물 시장 참여자별 수급 포지션 보고서">COT</abbr>) 등 자산 가치의 경제적 동인이며, 발표 지연과 빈티지 개정이 따릅니다.</p>
           </article>
           <article>
             <h2>대체 데이터 (Alternative Data)</h2>
-            <p>위성 사진, 신용카드 패널, 온체인 TVL, 예측시장 등 비전통적 대용 신호이며, 높은 비정형성과 법적 권리 검증을 요합니다.</p>
+            <p>위성 사진, 신용카드 패널, 온체인 <abbr class="term" data-tooltip="Total Value Locked (총예치가치): DeFi 프로토콜에 동결·예치된 가상자산 총액">TVL</abbr>, 예측시장 등 비전통적 대용 신호이며, 높은 비정형성과 법적 권리(<abbr class="term" data-tooltip="Material Non-Public Information (미공개 중요정보): 투자 판단에 중대한 영향을 미치는 미공개 정보">MNPI</abbr>) 검증을 요합니다.</p>
           </article>
         </div>
       </div>
@@ -210,11 +294,11 @@
         <div class="teaching-columns">
           <article>
             <h2>3. 식별자 안정성</h2>
-            <p>티커 변경, 상장폐지 후 티커 재사용, M&A에 영향을 받지 않도록 유효 기간이 지정된 <strong>영구 고유 식별자(FIGI, CIK, PermID)</strong> 크로스워크 매핑 체계를 구축합니다.</p>
+            <p>티커 변경, 상장폐지 후 티커 재사용, <abbr class="term" data-tooltip="Mergers and Acquisitions: 기업의 인수 및 합병">M&A</abbr>에 영향을 받지 않도록 유효 기간이 지정된 <strong>영구 고유 식별자(<abbr class="term" data-tooltip="Financial Instrument Global Identifier: 블룸버그 등이 관리하는 12자리 영구 오픈 금융상품 식별자 (티커 재사용에 불변)">FIGI</abbr>, <abbr class="term" data-tooltip="Central Index Key: 미국 SEC가 상장기업 및 공시 주체에 고유하게 부여하는 10자리 식별 번호">CIK</abbr>, <abbr class="term" data-tooltip="Permanent Identifier: LSEG가 법인 및 금융 증권에 부여하는 불변 고유 식별자">PermID</abbr>)</strong> 크로스워크 매핑 체계를 구축합니다.</p>
           </article>
           <article>
             <h2>4. 수정 및 재작성 처리</h2>
-            <p>거시지표나 재무제표 개정 시, <strong>의사결정 당시 시장 참여자가 실제로 보았던 최초 발표치(Vintage)</strong>를 온전히 복원할 수 있는 이중시간(Bitemporal) 조회를 지원합니다.</p>
+            <p>거시지표나 재무제표 개정 시, <strong>의사결정 당시 시장 참여자가 실제로 보았던 최초 발표치(<abbr class="term" data-tooltip="Data Vintage: 특정 과거 발표 시점에 실제로 공개되었던 최초 데이터 버전 (사후 수정치와 구분)">Vintage</abbr>)</strong>를 온전히 복원할 수 있는 <abbr class="term" data-tooltip="이중시간: 사건 유효 시점(Event Time)과 시스템 인지 시점(Knowledge Time)을 2개 축으로 분리 관리">이중시간(Bitemporal)</abbr> 조회를 지원합니다.</p>
           </article>
         </div>
       </div>
@@ -238,7 +322,7 @@
             <tr><td>선물</td><td>높음(거래소)</td><td>롤 규칙, 연속성 방법</td><td>연속 시계열 구성</td></tr>
             <tr><td>옵션</td><td>높음(단, 꼬리 영역은 희소함)</td><td>비유동성 잡음, 표면 구성</td><td>표면 표현</td></tr>
             <tr><td>디지털 자산</td><td>중간(거래소별)</td><td>거래량 무결성, 24/7 세션화</td><td>거래소 선별</td></tr>
-            <tr><td>외환</td><td>낮음(OTC)</td><td>통합 테이프 부재, 종가 관례</td><td>집계 규칙 정의</td></tr>
+            <tr><td>외환</td><td>낮음(<abbr class="term" data-tooltip="Over-The-Counter (장외거래): 중앙 거래소를 거치지 않고 거래 당사자나 딜러 간에 사적으로 체결되는 거래">OTC</abbr>)</td><td>통합 테이프 부재, 종가 관례</td><td>집계 규칙 정의</td></tr>
             <tr><td>채권</td><td>낮음(OTC, 희소함)</td><td>매트릭스 가격결정, 참고 호가와 확정 호가의 차이</td><td>유동성 추론</td></tr>
           </tbody>
         </table>
@@ -294,17 +378,17 @@
     <!-- Slide 11: ETPs & Lab 3 -->
     <section class="slide slide--teaching" id="slide-11" aria-label="상장거래상품(ETP)의 이중 구조와 5대 위험" data-report-refs="s2-2 sec-etps box-3" data-source-refs="section:2.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §2.2 · 실습 3</span></header>
-      <h1>상장거래상품(ETP)의 이중 구조와 5대 위험</h1>
+      <h1>상장거래상품(<abbr class="term" data-tooltip="Exchange-Traded Products: ETF, ETN, CEF 등 거래소 상장 금융상품 총칭">ETP</abbr>)의 이중 구조와 5대 위험</h1>
       <p class="lead">거래소 상장 래퍼와 기초자산 보유층 사이의 불일치를 이해해야 합니다.</p>
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
             <h2>ETP 5대 실패 모드</h2>
-            <p>1. 분배금 미반영 / 2. 시장가 \(\neq\) NAV 괴리 / 3. 유동성 불일치</p>
-            <p style="margin-top: 6px;">4. 룩스루 누출(미래 비중 사용) / 5. 레버리지·인버스 가치 잠식</p>
+            <p>1. 분배금 미반영 / 2. 시장가 \(\neq\) <abbr class="term" data-tooltip="Net Asset Value (순자산가치): 펀드가 보유한 순자산 총액을 총 발행주식수로 나눈 1주당 실질 가치">NAV</abbr> 괴리 / 3. 유동성 불일치</p>
+            <p style="margin-top: 6px;">4. <abbr class="term" data-tooltip="Look-through leakage: 과거 시점 ETF 익스포저 계산 시 당시 비중이 아닌 훗날 공개된 미래 편입 비중을 사용하는 누수 오류">룩스루 누출</abbr>(미래 비중 사용) / 5. 레버리지·인버스 <abbr class="term" data-tooltip="Volatility Drag: 레버리지/인버스 ETP의 일일 리밸런싱으로 인해 횡보장에서도 복리 효과로 가치가 점진적으로 하락하는 현상">가치 잠식</abbr></p>
           </article>
           <article class="card-lab">
-            <h2>📦 [실습 3 · <code>03_etfs_eda</code>] 100개 ETF 진단</h2>
+            <h2>📦 [실습 3 · <code>03_etfs_eda</code>] 100개 <abbr class="term" data-tooltip="Exchange-Traded Fund (상장지수펀드): 지수나 자산 바스켓을 추종하는 상장 펀드">ETF</abbr> 진단</h2>
             <p>SPY와 원자재 ETF 간 <strong>23배 유동성 편차</strong> 확인.</p>
             <p style="margin-top: 6px;">4개 필드 독립 조정으로 인한 <strong>473건(0.1%)의 OHLC 불변식 위반</strong>(\(\text{Low} > \text{Open}\) 등) 진단.</p>
           </article>
@@ -317,18 +401,18 @@
     <!-- Slide 12: Futures & Lab 4 -->
     <section class="slide slide--teaching" id="slide-12" aria-label="선물: 만기 롤오버와 연속 시계열 구성" data-report-refs="s2-2 sec-futures box-4" data-source-refs="section:2.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §2.2 · 실습 4</span></header>
-      <h1>선물: 만기 롤오버와 연속 시계열 구성</h1>
+      <h1>선물: 만기 <abbr class="term" data-tooltip="Futures Rollover: 만기가 임박한 근월물 선물을 청산하고 차월물 계약으로 갈아타는 포지션 이전">롤오버</abbr>와 연속 시계열 구성</h1>
       <p class="lead">영구 티커가 없는 선물 계약들을 경제적 손익을 보존하는 단일 시계열로 결합합니다.</p>
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
             <h2>2대 연속화 방법론</h2>
-            <p><strong>비율 조정 (Ratio)</strong>: 과거 가격에 비율을 곱해 백분율 수익률(PnL Ratio)을 완벽 보존 (ML 표준 권장).</p>
-            <p><strong>차분 조정 (Difference)</strong>: 절대 스프레드를 가감해 달러 PnL 보존 (단, 과거 가격 음수 위험).</p>
+            <p><abbr class="term" data-tooltip="비율 조정 (Ratio): 과거 가격에 비율을 곱해 롤오버 전후의 백분율 수익률을 완벽하게 보존하는 선물 연속화 방식">비율 조정 (Ratio)</abbr>: 과거 가격에 비율을 곱해 백분율 수익률(PnL Ratio)을 완벽 보존 (ML 표준 권장).</p>
+            <p><abbr class="term" data-tooltip="차분 조정 (Difference): 스프레드를 가감해 절대 달러 손익을 보존하는 방식 (과거 가격이 음수가 될 수 있음)">차분 조정 (Difference)</abbr>: 절대 스프레드를 가감해 달러 PnL 보존 (단, 과거 가격 음수 위험).</p>
           </article>
           <article class="card-lab">
             <h2>📦 [실습 4 · <code>04</code>~<code>06_futures_continuous</code>]</h2>
-            <p>30개 CME 선물의 23시간 전자거래 세션 집계.</p>
+            <p>30개 <abbr class="term" data-tooltip="Chicago Mercantile Exchange (시카고상업거래소): 글로벌 대표 파생상품 거래소">CME</abbr> 선물의 23시간 전자거래 세션 집계.</p>
             <p style="margin-top: 6px;">거래량 역전일 기반 자동 롤 탐지 및 벤더 연속물과 오차율 0% 교차 검증 완료.</p>
           </article>
         </div>
@@ -340,19 +424,19 @@
     <!-- Slide 13: Options & Lab 5 -->
     <section class="slide slide--teaching" id="slide-13" aria-label="옵션: 체인에서 내재변동성 표면으로" data-report-refs="s2-2 sec-options box-5" data-source-refs="section:2.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §2.2 · 실습 5</span></header>
-      <h1>옵션: 체인에서 내재변동성 표면으로</h1>
+      <h1>옵션: 체인에서 <abbr class="term" data-tooltip="Implied Volatility Surface: 옵션 행사가(델타)와 만기별 내재변동성을 2차원/3차원 곡면으로 모델링한 것">내재변동성 표면</abbr>으로</h1>
       <p class="lead">수천 개 행사가와 만기 조합의 차원 폭발과 꼬리 잡음을 내재변동성 표면으로 극복합니다.</p>
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
             <h2>내재변동성 표면 (IV Surface)</h2>
-            <p>등가격(ATM) 근월물에 유동성이 집중되고 외가격(OTM) 꼬리는 잡음이 심합니다.</p>
+            <p><abbr class="term" data-tooltip="At-The-Money: 옵션 행사가격이 기초자산의 현재 시장가격과 일치하는 상태">등가격(ATM)</abbr> 근월물에 유동성이 집중되고 <abbr class="term" data-tooltip="Out-of-The-Money: 당장 권리를 행사해도 내가치가 0인 상태 (콜: 주가 < 행사가, 풋: 주가 > 행사가)">외가격(OTM)</abbr> 꼬리는 잡음이 심합니다.</p>
             <p style="margin-top: 6px;">델타 기준(25D, 50D)과 고정 만기(30일)로 보간된 변동성 표면을 머신러닝 피처로 활용합니다.</p>
           </article>
           <article class="card-lab">
             <h2>📦 [실습 5 · <code>07</code>~<code>09_options</code>]</h2>
-            <p><strong>Greeks 검증 (<code>08</code>)</strong>: 블랙-숄즈 제1원리 기반 Delta, Gamma, Vega, Theta, Rho 자체 산출 및 벤더값 대조.</p>
-            <p style="margin-top: 6px;"><strong>롤오버 정제 (<code>09</code>)</strong>: 30일물 고정만기 시계열에서 세타 감소와 롤오버 점프를 분리하여 순수 변동성 수익률 추출.</p>
+            <p><strong><abbr class="term" data-tooltip="옵션 민감도 지표: Delta(기초자산 가격), Gamma(델타 변화율), Vega(변동성), Theta(시간 경과), Rho(금리)">Greeks</abbr> 검증 (<code>08</code>)</strong>: 블랙-숄즈 제1원리 기반 Delta, Gamma, Vega, Theta, Rho 자체 산출 및 벤더값 대조.</p>
+            <p style="margin-top: 6px;"><strong>롤오버 정제 (<code>09</code>)</strong>: 30일물 고정만기 시계열에서 <abbr class="term" data-tooltip="Theta: 시간 경과에 따라 감소하는 옵션의 시간가치 손실 속도">세타</abbr> 감소와 롤오버 점프를 분리하여 순수 변동성 수익률 추출.</p>
           </article>
         </div>
       </div>
@@ -363,18 +447,18 @@
     <!-- Slide 14: Crypto & Lab 6 -->
     <section class="slide slide--teaching" id="slide-14" aria-label="디지털 자산: CEX 오더북과 DEX AMM 준비금" data-report-refs="s2-2 sec-crypto box-6" data-source-refs="section:2.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2 · 실습 6</span></header>
-      <h1>디지털 자산: CEX 오더북과 DEX AMM 준비금</h1>
+      <h1>디지털 자산: <abbr class="term" data-tooltip="Centralized Exchange: 바이낸스, 코인베이스 등 중앙 거래소가 오더북을 직접 운영하는 암호화폐 거래소">CEX</abbr> 오더북과 <abbr class="term" data-tooltip="Decentralized Exchange: 스마트 계약과 AMM 유동성 풀로 P2P 자산을 교환하는 탈중앙화 거래소">DEX</abbr> <abbr class="term" data-tooltip="Automated Market Maker: 오더북 대신 준비금 수식(x * y = k)으로 가격과 슬리피지를 결정하는 알고리즘">AMM</abbr> 준비금</h1>
       <p class="lead">전통 호가창을 가진 CEX와 풀 준비금 비율로 가격을 결정하는 DEX가 공존합니다.</p>
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
             <h2>CEX vs DEX 시장 구조</h2>
             <p><strong>CEX</strong>: 24/7 세션화(00:00 UTC) 및 가짜 거래량(워시 트레이딩) 필터링.</p>
-            <p style="margin-top: 6px;"><strong>DEX</strong>: 호가창 대신 상수곱(\(x \cdot y = k\)) 풀 준비금 비율로 슬리피지와 MEV를 모델링.</p>
+            <p style="margin-top: 6px;"><strong>DEX</strong>: 호가창 대신 상수곱(\(x \cdot y = k\)) 풀 준비금 비율로 <abbr class="term" data-tooltip="Slippage: 주문 체결 시 풀 준비금 비율 변동으로 인해 예상 가격보다 불리하게 체결되는 편차">슬리피지</abbr>와 <abbr class="term" data-tooltip="Maximal Extractable Value: 블록 검증자가 트랜잭션을 재정렬·선행매매하여 차익을 취하는 가치">MEV</abbr>를 모델링.</p>
           </article>
           <article class="card-lab">
             <h2>📦 [실습 6 · <code>10_crypto_perps_eda</code> & <code>11</code>]</h2>
-            <p>Binance 19개 코인 무기한 선물의 8시간 펀딩 비율(Funding Rate) 분석.</p>
+            <p>Binance 19개 코인 무기한 선물의 8시간 <abbr class="term" data-tooltip="Funding Rate: 무기한 선물이 현물 가격과 괴리되는 것을 막기 위해 8시간마다 롱과 숏 포지션 간 교환하는 프리미엄 비율">펀딩 비율(Funding Rate)</abbr> 분석.</p>
             <p style="margin-top: 6px;">극단 펀딩비가 미래 반전 수익률을 예측함을 입증하고 현물-선물 델타 뉴트럴 차익거래 성과 실증.</p>
           </article>
         </div>
@@ -386,19 +470,19 @@
     <!-- Slide 15: OTC Markets -->
     <section class="slide slide--teaching" id="slide-15" aria-label="장외시장(OTC): 외환, 채권, 스왑, 원자재" data-report-refs="s2-2 sec-otc" data-source-refs="section:2.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">§2.2 장외시장</span></header>
-      <h1>장외시장(OTC): 외환, 채권, 스왑, 원자재</h1>
+      <h1>장외시장(<abbr class="term" data-tooltip="Over-The-Counter (장외거래): 중앙 거래소를 거치지 않고 거래 당사자나 딜러 간에 사적으로 체결되는 거래">OTC</abbr>): 외환, 채권, 스왑, 원자재</h1>
       <p class="lead">단일하고 권위 있는 종가가 존재하지 않는 글로벌 분산 OTC 시장의 특성을 다룹니다.</p>
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
             <h2>외환 (FX) & 채권</h2>
-            <p><strong>FX (`12_fx_pairs_eda`)</strong>: 런던 16:00 vs 뉴욕 17:00 마감환율 괴리 방지를 위한 종가 관례 확립.</p>
-            <p><strong>채권</strong>: 비유동 채권의 <strong>매트릭스 가격평가(Matrix Pricing)</strong> 모델 가정 인지.</p>
+            <p><strong>FX (`12_fx_pairs_eda`)</strong>: 런던 16:00 <abbr class="term" data-tooltip="런던 시각 16:00 등 특정 기준 시점에 딜러 간 거래를 집계하여 공표하는 공식 벤치마크 환율">Fixing</abbr> vs 뉴욕 17:00 마감환율 괴리 방지를 위한 종가 관례 확립.</p>
+            <p><strong>채권</strong>: 비유동 채권의 <strong><abbr class="term" data-tooltip="Matrix Pricing: 거래가 드문 비유동 채권의 가격을 유사 채권 금리로 추정하는 기법">매트릭스 가격평가(Matrix Pricing)</abbr></strong> 모델 가정 인지.</p>
           </article>
           <article>
             <h2>스왑 & 원자재</h2>
-            <p><strong>스왑</strong>: 846조 달러 시장. 단일 가격이 아닌 <strong>할인/선도 금리 커브(OIS, SOFR)</strong> 구축.</p>
-            <p><strong>원자재</strong>: 인도 장소·등급에 따른 베이시스(Basis) 및 기간구조 모델링.</p>
+            <p><strong>스왑</strong>: 846조 달러 시장. 단일 가격이 아닌 <strong><abbr class="term" data-tooltip="OIS(익일물 스왑), SOFR(담보 익일물 조달금리): 현대 장외 파생상품의 무위험 할인 지표금리">스프레드 커브(OIS, SOFR)</abbr></strong> 구축.</p>
+            <p><strong>원자재</strong>: 인도 장소·등급에 따른 <abbr class="term" data-tooltip="Basis: 현물 가격과 선물 가격 사이의 가격 차이">베이시스(Basis)</abbr> 및 <abbr class="term" data-tooltip="콘탱고(원월물 프리미엄)와 백워데이션(근월물 프리미엄)으로 나타나는 선물 만기별 가격 곡선">기간구조</abbr> 모델링.</p>
           </article>
         </div>
       </div>
@@ -443,8 +527,8 @@
       <div class="slide-body">
         <div class="card-lab">
           <h2>📦 [실습 7 · <code>13_data_quality_framework</code>] 품질 자동 검증</h2>
-          <p style="margin-top: 12px;"><strong>[불변식 스캔]</strong> <code>OHLCVValidator</code>가 타임스탬프 역전, 거래량 음수, 가격 상하한 불변식을 전수 자동 스캔.</p>
-          <p style="margin-top: 12px; font-weight: 700; color: #f59e0b;">[강건 이상치 탐지] 두꺼운 꼬리(Fat Tail)에 취약한 단순 Z-Score 대신 중위수 절대편차(MAD) 및 사분위수 범위(IQR) 기반 강건 통계량 적용.</p>
+          <p style="margin-top: 12px;"><strong>[불변식 스캔]</strong> <code><abbr class="term" data-tooltip="ml4t-data 라이브러리의 OHLCV 불변식(High>=Low, 음수 거래량, 결측치 등) 자동 검증기">OHLCVValidator</abbr></code>가 타임스탬프 역전, 거래량 음수, 가격 상하한 불변식을 전수 자동 스캔.</p>
+          <p style="margin-top: 12px; font-weight: 700; color: #f59e0b;">[강건 이상치 탐지] 두꺼운 꼬리(Fat Tail)에 취약한 단순 Z-Score 대신 <abbr class="term" data-tooltip="Median Absolute Deviation: 잔차들의 중위수를 사용해 극단치와 두꺼운 꼬리에 왜곡되지 않는 강건한 변산도 지표">중위수 절대편차(MAD)</abbr> 및 <abbr class="term" data-tooltip="Interquartile Range: 제3사분위수(Q3)와 제1사분위수(Q1)의 차이로 이상치를 판정하는 강건 통계량">사분위수 범위(IQR)</abbr> 기반 강건 통계량 적용.</p>
           <p style="margin-top: 8px;"><code>AnomalyManager</code>가 위반 데이터를 조용히 드롭하지 않고 JSON 감사 추적 로그를 남겨 격리(Quarantine) 처리.</p>
         </div>
       </div>
@@ -465,12 +549,12 @@
           </figure>
           <div class="teaching-rows">
             <article>
-              <h2>사건 시점 (Event Time)</h2>
+              <h2><abbr class="term" data-tooltip="사건 발생 시점: 재무제표 대상 분기 말일 등 실제 경제적 사건이 일어난 날">사건 시점 (Event Time)</abbr></h2>
               <p>분기 말(3/31, 6/30, 9/30) 등 재무 사건이 발생한 기준일입니다.</p>
             </article>
             <article>
-              <h2>인지 시점 (Knowledge Time)</h2>
-              <p>SEC에 10-Q 보고서가 접수되어 실제로 공개된 시점(45일 후)입니다.</p>
+              <h2><abbr class="term" data-tooltip="공시 인지 시점: SEC 접수 및 공시를 통해 시장 참여자가 실제로 알게 된 날">인지 시점 (Knowledge Time)</abbr></h2>
+              <p>SEC에 <abbr class="term" data-tooltip="미국 SEC 분기 사업보고서 공시">10-Q</abbr> 보고서가 접수되어 실제로 공개된 시점(45일 후)입니다.</p>
             </article>
             <article>
               <h2>미래정보 위험 구간</h2>
@@ -491,8 +575,8 @@
       <div class="slide-body">
         <div class="card-lab">
           <h2>📦 [실습 8 · <code>14_point_in_time_validation</code>] 이중시간 검증</h2>
-          <p style="margin-top: 12px;"><strong>[중심 이동평균 누수]</strong> \(T-2 \sim T+2\) 중심 이평이 미래 가격을 훔쳐보는 현상을 시각화하고, 왜 단순 상관계수 지표가 이를 잡아내지 못하는지 증명.</p>
-          <p style="margin-top: 12px; font-weight: 700; color: #f59e0b;">[FRED 빈티지 질의] FREDProvider의 vintage_date 파라미터로 미국 GDP 성장률의 속보치(Advance), 잠정치, 확정치 개정 이력을 과거 시점 그대로 재구성하는 이중시간 쿼리 구현.</p>
+          <p style="margin-top: 12px;"><strong>[중심 이동평균 누수]</strong> \(T-2 \sim T+2\) <abbr class="term" data-tooltip="현재 시점 T를 중심으로 과거와 미래 구간을 함께 평균 내어 미래 정보가 누설되는 지표">중심 이동평균</abbr>이 미래 가격을 훔쳐보는 현상을 시각화하고, 왜 단순 상관계수 지표가 이를 잡아내지 못하는지 증명.</p>
+          <p style="margin-top: 12px; font-weight: 700; color: #f59e0b;">[FRED 빈티지 질의] <code><abbr class="term" data-tooltip="ml4t-data 라이브러리의 연준 FRED 거시경제 시계열 데이터 수집 제공자">FREDProvider</abbr></code>의 <code><abbr class="term" data-tooltip="과거 특정 시점 당시의 발표치(빈티지)를 지정하여 조회하는 FRED 매개변수">vintage_date</abbr></code> 파라미터로 미국 GDP 성장률의 속보치(Advance), 잠정치, 확정치 개정 이력을 과거 시점 그대로 재구성하는 이중시간 쿼리 구현.</p>
         </div>
       </div>
       <p class="takeaway">거시경제 지표는 빈티지(Vintage) 개정 이력을 보존하는 이중시간 데이터베이스를 사용해야 합니다.</p>
@@ -517,7 +601,7 @@
             </article>
             <article>
               <h2>경험적 시나리오: +8.0%p 편향</h2>
-              <p>CRSP 기준 상장폐지 종단 손실을 반영하면 실제 성과는 +33.7% 수준입니다.</p>
+              <p><abbr class="term" data-tooltip="Center for Research in Security Prices: 시카고대 증권가격연구센터의 미국 주식 상장폐지·배당 추적 학술 표준 DB">CRSP</abbr> 기준 상장폐지 종단 손실을 반영하면 실제 성과는 +33.7% 수준입니다.</p>
             </article>
             <article>
               <h2>스트레스 시나리오: +15.3%p 편향</h2>
@@ -586,18 +670,18 @@
     <!-- Slide 23: Identifier Integrity & Lab 10 -->
     <section class="slide slide--teaching" id="slide-23" aria-label="식별자 무결성 및 파이프라인 거버넌스" data-report-refs="s2-3 sec-identifier box-10" data-source-refs="section:2.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §2.3 · 실습 10</span></header>
-      <h1>식별자 무결성 및 파이프라인 거버넌스</h1>
+      <h1><abbr class="term" data-tooltip="Identifier Integrity: 티커 재사용이나 M&amp;A 후에도 동일 자산의 시계열을 정확히 추적하는 영구 고유 식별자 일관성">식별자 무결성</abbr> 및 파이프라인 거버넌스</h1>
       <p class="lead">티커 재사용 문제를 해결하는 영구 식별자 매핑과 Hive 파티셔닝 증분 수집입니다.</p>
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
             <h2>식별자 재사용 함정</h2>
             <p>과거 상장폐지된 바이오 기업 "XYZ"와 5년 뒤 신규 상장한 AI 기업 "XYZ"가 문자열 조인으로 결합되는 문제 방지.</p>
-            <p>유효기간이 명시된 <strong>영구 식별자(FIGI, CIK, PermID)</strong> 크로스워크 매핑 필수.</p>
+            <p>유효기간이 명시된 <strong>영구 식별자(<abbr class="term" data-tooltip="Financial Instrument Global Identifier: 블룸버그 등이 관리하는 12자리 영구 오픈 금융상품 식별자">FIGI</abbr>, <abbr class="term" data-tooltip="Central Index Key: 미국 SEC 상장기업 및 공시 주체 고유 10자리 식별 번호">CIK</abbr>, <abbr class="term" data-tooltip="Permanent Identifier: LSEG가 법인 및 금융 증권에 부여하는 불변 고유 식별자">PermID</abbr>)</strong> 크로스워크 매핑 필수.</p>
           </article>
           <article class="card-lab">
             <h2>📦 [실습 10 · <code>16</code>~<code>19_incremental_updates</code>]</h2>
-            <p><code>DataManager</code> + <code>Universe</code> + <code>HiveStorage</code> 기반 <code>year=YYYY/month=MM/</code> Parquet 파티셔닝.</p>
+            <p><code>DataManager</code> + <code>Universe</code> + <code><abbr class="term" data-tooltip="Apache Hive 파티셔닝 구조(year=YYYY/month=MM/)로 대용량 데이터를 연월별 디렉터리로 분할 저장하는 스토리지 계층">HiveStorage</abbr></code> 기반 <code>year=YYYY/month=MM/</code> <abbr class="term" data-tooltip="Apache Parquet: 컬럼별 압축 저장과 조건자 푸시다운을 지원하는 빅데이터 표준 저장 포맷">Parquet</abbr> 파티셔닝.</p>
             <p style="margin-top: 6px;">거래소 캘린더 기반 갭 탐지 및 덮어쓰기 방지 원장 관리로 과거 데이터 오염 차단.</p>
           </article>
         </div>
@@ -618,12 +702,12 @@
             <tr><th>등급</th><th>일반적 프로필</th><th>PIT 지원</th><th>생존편향 인식</th><th>가장 적합한 용도</th></tr>
           </thead>
           <tbody>
-            <tr><td>무료/공개</td><td>접근이 쉽지만 보장이 제한적임</td><td>드묾(ALFRED)</td><td>드묾</td><td>학습, 프로토타입, 건전성 점검</td></tr>
+            <tr><td>무료/공개</td><td>접근이 쉽지만 보장이 제한적임</td><td>드묾(<abbr class="term" data-tooltip="Archival Federal Reserve Economic Data: 과거 특정 시점 당시의 발표치(빈티지)를 제공하는 FRED 아카이브">ALFRED</abbr>)</td><td>드묾</td><td>학습, 프로토타입, 건전성 점검</td></tr>
             <tr><td>프로슈머(API 우선)</td><td>유동성이 높은 시장에 대해 양호한 커버리지</td><td>부분적</td><td>때때로 부분적</td><td>개인 연구</td></tr>
             <tr><td>기관용</td><td>더 깊은 이력, 문서화된 방법론</td><td>대체로 제공됨</td><td>대체로 제공됨</td><td>프로덕션, 규제 환경</td></tr>
           </tbody>
         </table>
-        <p style="font-size: 19px; margin-top: 14px;"><strong>벤더 실사 3대 축:</strong> 1. 데이터 품질(과거 빈티지, 생존자 유니버스) / 2. 법률(MNPI 통제, ToS 준수) / 3. 기술 SLA(가동시간, 대량 추출).</p>
+        <p style="font-size: 19px; margin-top: 14px;"><strong>벤더 실사 3대 축:</strong> 1. 데이터 품질(과거 빈티지, 생존자 유니버스) / 2. 법률(<abbr class="term" data-tooltip="Material Non-Public Information (미공개 중요정보): 대중에 미공개된 내부 정보로서 투자 판단에 중대한 영향을 미치는 정보">MNPI</abbr> 통제, ToS 준수) / 3. 기술 <abbr class="term" data-tooltip="Service Level Agreement (서비스 수준 협약): 시스템 가동시간, 전송 지연시간 등을 규정한 벤더 보증 기준">SLA</abbr>(가동시간, 대량 추출).</p>
       </div>
       <p class="takeaway">콘텐츠가 우수해도 전달 방식이 취약하거나 법적 권리가 불명확하면 프로덕션에 투입할 수 없습니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#table-2-3">상세 설명 ↗</a><span><b data-slide-number>24</b> / <b data-slide-total>35</b></span></footer>
@@ -638,13 +722,13 @@
         <div class="teaching-columns">
           <article>
             <h2>파일 형식 (File Formats)</h2>
-            <p>연구 반복 속도의 핵심. Parquet, Arrow IPC, HDF5, CSV.</p>
-            <p><strong>핵심 평가 기준:</strong> 압축률, 스캔 속도, 조건자 푸시다운(Predicate Pushdown).</p>
+            <p>연구 반복 속도의 핵심. <abbr class="term" data-tooltip="Apache Parquet: 컬럼별 압축 저장과 조건자 푸시다운을 지원하는 빅데이터 표준 저장 포맷">Parquet</abbr>, <abbr class="term" data-tooltip="Apache Arrow IPC: 메모리 복사 없는 제로카피 고속 데이터 교환 포맷">Arrow IPC</abbr>, <abbr class="term" data-tooltip="Hierarchical Data Format 5: 다차원 수치 배열 저장용 전통 파일 포맷">HDF5</abbr>, CSV.</p>
+            <p><strong>핵심 평가 기준:</strong> 압축률, 스캔 속도, <abbr class="term" data-tooltip="Predicate Pushdown: WHERE 절 필터링을 디스크 I/O 레벨로 밀어 넣어 불필요한 데이터 블록을 건너뛰는 최적화">조건자 푸시다운</abbr>.</p>
           </article>
           <article>
             <h2>데이터베이스 엔진 (Engines)</h2>
             <p>SQL 분석, 동시성, 시계열 조인이 필요할 때 추가.</p>
-            <p><strong>핵심 평가 기준:</strong> 인메모리/임베디드(DuckDB/Polars) vs 서버형(ClickHouse/Postgres).</p>
+            <p><strong>핵심 평가 기준:</strong> 인메모리/임베디드(<abbr class="term" data-tooltip="별도 서버 없이 파일 위에서 벡터화 OLAP 및 ASOF JOIN을 지원하는 고성능 임베디드 SQL 엔진">DuckDB</abbr>/<abbr class="term" data-tooltip="Rust 기반의 멀티스레드 지연 연산을 지원하는 초고속 데이터프레임 라이브러리">Polars</abbr>) vs 서버형(<abbr class="term" data-tooltip="대규모 시계열 집계 쿼리에 최적화된 고성능 오픈소스 컬럼형 OLAP DB">ClickHouse</abbr>/Postgres).</p>
           </article>
         </div>
       </div>
@@ -697,11 +781,11 @@
           <tbody>
             <tr><td>CSV</td><td>136 MB</td><td>0.13s</td><td>0.05s</td><td>기준선: 엔진 의존적 오버헤드</td></tr>
             <tr><td>Parquet</td><td>40 MB</td><td>0.07s</td><td>0.02s</td><td>컬럼형, 압축됨, 선택적 읽기</td></tr>
-            <tr><td>HDF5</td><td>71 MB</td><td>0.13s</td><td>0.40s</td><td>성능은 청킹에 따라 달라짐</td></tr>
+            <tr><td><abbr class="term" data-tooltip="Hierarchical Data Format 5: 다차원 수치 배열 저장용 전통 파일 포맷">HDF5</abbr></td><td>71 MB</td><td>0.13s</td><td>0.40s</td><td>성능은 청킹에 따라 달라짐</td></tr>
           </tbody>
         </table>
         <div class="highlight-lab" style="margin-top: 14px;">
-          <strong>📦 [실습 11 · <code>20</code> & <code>22_pandas_polars_benchmark</code>]</strong> Parquet 조건자 푸시다운(Predicate Pushdown) 지원 확인. 1,000만 행 대규모 집계에서 <strong>Polars가 Pandas 대비 5~15배 빠른 속도와 절반 이하의 메모리 소비</strong> 기록.
+          <strong>📦 [실습 11 · <code>20</code> & <code>22_pandas_polars_benchmark</code>]</strong> Parquet <abbr class="term" data-tooltip="Predicate Pushdown: WHERE 절 필터링을 디스크 I/O 레벨로 밀어 넣어 불필요한 데이터 블록(Row Group)을 건너뛰는 최적화">조건자 푸시다운(Predicate Pushdown)</abbr> 지원 확인. 1,000만 행 대규모 집계에서 <strong><abbr class="term" data-tooltip="Polars: Rust 기반의 멀티스레드 지연 연산을 지원하는 초고속 데이터프레임 라이브러리">Polars</abbr>가 <abbr class="term" data-tooltip="파이썬 표준 데이터프레임 라이브러리">Pandas</abbr> 대비 5~15배 빠른 속도와 절반 이하의 메모리 소비</strong> 기록.
         </div>
       </div>
       <p class="takeaway">Parquet의 조건자 푸시다운과 Polars의 지연 연산을 결합하여 대규모 데이터 분석 속도를 극대화합니다.</p>
@@ -716,15 +800,15 @@
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
-            <h2>DuckDB</h2>
-            <p>Parquet 직접 쿼리, 벡터화 OLAP, 네이티브 ASOF JOIN 지원. 서버 없이 파일 위에서 강력한 SQL 실행.</p>
+            <h2><abbr class="term" data-tooltip="DuckDB: 별도 서버 없이 파일 위에서 고속 벡터화 OLAP 쿼리를 지원하는 임베디드 SQL 엔진">DuckDB</abbr></h2>
+            <p>Parquet 직접 쿼리, 벡터화 OLAP, 네이티브 <abbr class="term" data-tooltip="As-Of Join: 각 체결 이벤트 시점 직전의 가장 최근 유효 호가를 결합하는 시계열 조인">ASOF JOIN</abbr> 지원. 서버 없이 파일 위에서 강력한 SQL 실행.</p>
           </article>
           <article>
-            <h2>Polars</h2>
+            <h2><abbr class="term" data-tooltip="Polars: Rust 기반 멀티스레드 지연 연산 초고속 데이터프레임 라이브러리">Polars</abbr></h2>
             <p>Rust 기반 멀티스레드 지연 연산(Lazy Execution) 데이터프레임. 초고속 피처 엔지니어링.</p>
           </article>
           <article>
-            <h2>SQLite</h2>
+            <h2><abbr class="term" data-tooltip="SQLite: 소규모 관계형 테이블 및 메타데이터 관리에 신뢰할 수 있는 임베디드 DB">SQLite</abbr></h2>
             <p>메타데이터, 설정, 소규모 관계형 테이블 관리의 신뢰할 수 있는 선택지.</p>
           </article>
         </div>
@@ -746,15 +830,15 @@
           </figure>
           <div class="teaching-rows">
             <article>
-              <h2>kdb+/PyKX: 쓰기 0.03s, 읽기 0.04s</h2>
+              <h2><abbr class="term" data-tooltip="kdb+/PyKX: 글로벌 금융권 표준의 초고성능 인메모리 시계열 벡터 분석 엔진 (KX Systems)">kdb+/PyKX</abbr>: 쓰기 0.03s, 읽기 0.04s</h2>
               <p>초고성능 인메모리 벡터 엔진, 월가 표준이나 고가 상용 라이선스.</p>
             </article>
             <article>
-              <h2>ClickHouse & QuestDB</h2>
+              <h2><abbr class="term" data-tooltip="ClickHouse: 대규모 시계열 집계 쿼리에 최적화된 고성능 오픈소스 컬럼형 OLAP DB">ClickHouse</abbr> & <abbr class="term" data-tooltip="QuestDB: 빠른 시계열 데이터 수집(Ingestion)과 네이티브 ASOF JOIN SQL을 지원하는 오픈소스 시계열 DB">QuestDB</abbr></h2>
               <p>초고속 컬럼형 OLAP 분석 및 시계열 특화 Ingestion 지원.</p>
             </article>
             <article>
-              <h2>PostgreSQL / TimescaleDB</h2>
+              <h2>PostgreSQL / <abbr class="term" data-tooltip="TimescaleDB: PostgreSQL 기반으로 자동 시간 파티셔닝(하이퍼테이블)을 지원하는 시계열 확장 DB">TimescaleDB</abbr></h2>
               <p>완벽한 ACID 관계형 지원, 대량 수집 시에는 오버헤드(120~132s) 발생.</p>
             </article>
           </div>
@@ -772,7 +856,7 @@
       <div class="slide-body">
         <div class="card-lab">
           <h2>📦 [실습 12 · <code>21_storage_benchmark_database</code>] ASOF 성능</h2>
-          <p style="margin-top: 12px;"><strong>[ASOF 조인 순위]</strong> 비동기 틱 체결 스트림을 직전 호가와 매칭할 때의 연산 속도 실측:</p>
+          <p style="margin-top: 12px;"><strong>[<abbr class="term" data-tooltip="As-Of Join: 각 체결 이벤트 시점 직전의 가장 최근 유효 호가를 결합하는 시계열 특화 조인">ASOF 조인</abbr> 순위]</strong> 비동기 틱 체결 스트림을 직전 호가와 매칭할 때의 연산 속도 실측:</p>
           <p style="margin-top: 8px; font-weight: 700; color: #f59e0b;">Polars join_asof &gt; Pandas merge_asof &gt; DuckDB ASOF JOIN &gt; QuestDB</p>
           <p style="margin-top: 12px;"><strong>[실무 권장 스택]</strong> <code>파티셔닝 Parquet (원천)</code> $\rightarrow$ <code>DuckDB / Polars (피처)</code> $\rightarrow$ <code>PostgreSQL (주문·계좌)</code></p>
         </div>
@@ -795,7 +879,7 @@
           <tbody>
             <tr><td>연구 속도</td><td>Parquet + Polars</td><td>Parquet + DuckDB</td></tr>
             <tr><td>파일 기반 SQL 분석</td><td>DuckDB + Parquet</td><td>Polars 지연 스캔</td></tr>
-            <tr><td>운영 환경 신뢰성</td><td>PostgreSQL</td><td>TimescaleDB</td></tr>
+            <tr><td>운영 환경 신뢰성</td><td>PostgreSQL</td><td><abbr class="term" data-tooltip="TimescaleDB: PostgreSQL 기반으로 자동 시간 파티셔닝(하이퍼테이블)을 지원하는 시계열 확장 DB">TimescaleDB</abbr></td></tr>
             <tr><td>극단적인 시계열 처리량</td><td>kdb+/KDBX</td><td>ClickHouse</td></tr>
             <tr><td>고처리량 수집</td><td>QuestDB</td><td>ClickHouse</td></tr>
             <tr><td>최저 운영 부담</td><td>Parquet + DuckDB</td><td>관리형 Postgres</td></tr>
@@ -815,19 +899,19 @@
         <div class="teaching-columns">
           <article>
             <h2>1. 데이터 기준 명시화</h2>
-            <p>타임스탬프, 캘린더, 기업행위 규칙을 암묵적으로 넘기지 말고 파이프라인 메타데이터에 명시하라.</p>
+            <p>타임스탬프, 캘린더, <abbr class="term" data-tooltip="Corporate Actions: 주식분할, 배당 등 가격 시계열에 단절을 일으키는 사건">기업행위</abbr> 규칙을 암묵적으로 넘기지 말고 파이프라인 메타데이터에 명시하라.</p>
           </article>
           <article>
             <h2>2. 가짜 알파 원천 봉쇄</h2>
-            <p>시점 기준(PIT) 이중시간 쿼리와 생존 편향 없는 유니버스를 연구 첫날부터 구축하라.</p>
+            <p><abbr class="term" data-tooltip="Point-in-Time: 의사결정 당시 실제로 공개된 데이터만 조회하는 원칙">시점 기준(PIT)</abbr> 이중시간 쿼리와 <abbr class="term" data-tooltip="Survivorship Bias: 상장폐지 기업의 손실이 누락되어 성과가 과대평가되는 오류">생존 편향</abbr> 없는 유니버스를 연구 첫날부터 구축하라.</p>
           </article>
           <article>
             <h2>3. 시장 구조 부합 모델링</h2>
-            <p>주식 분할, 선물 롤오버, 옵션 표면, 크립토 AMM 슬리피지를 자산군 특성에 맞게 다루어라.</p>
+            <p>주식 분할, 선물 <abbr class="term" data-tooltip="Futures Rollover: 만기가 임박한 근월물 선물을 청산하고 차월물 계약으로 갈아타는 포지션 이전">롤오버</abbr>, 옵션 <abbr class="term" data-tooltip="Implied Volatility Surface: 옵션 행사가와 만기별 내재변동성 곡면">표면</abbr>, 크립토 <abbr class="term" data-tooltip="Automated Market Maker: 오더북 없이 준비금 수식(x * y = k)으로 가격을 결정하는 알고리즘">AMM</abbr> <abbr class="term" data-tooltip="Slippage: 주문 체결 시 유동성 부족 등으로 인해 예상 가격보다 불리하게 체결되는 편차">슬리피지</abbr>를 자산군 특성에 맞게 다루어라.</p>
           </article>
           <article>
             <h2>4. 단순하고 빠른 스토리지</h2>
-            <p>Parquet + Polars/DuckDB로 시작하고, 운영 비용이 정당화될 때 서버 DB를 도입하라.</p>
+            <p><abbr class="term" data-tooltip="Apache Parquet: 컬럼별 압축 저장과 조건자 푸시다운을 지원하는 퀀트 표준 파일 포맷">Parquet</abbr> + <abbr class="term" data-tooltip="DuckDB/Polars: 서버 없이 파일 위에서 초고속 SQL 분석 및 지연 연산을 제공하는 임베디드 분석 스택">Polars/DuckDB</abbr>로 시작하고, 운영 비용이 정당화될 때 서버 DB를 도입하라.</p>
           </article>
         </div>
       </div>
@@ -843,12 +927,12 @@
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
-            <h2>Q1. 시점 기준(PIT) 정확성</h2>
+            <h2>Q1. <abbr class="term" data-tooltip="Point-in-Time: 의사결정 당시 실제로 공개된 데이터만 사용하는 원칙">시점 기준(PIT)</abbr> 정확성</h2>
             <p>기업의 4분기 실적 발표일이 분기 말보다 45일 늦을 때, 왜 단순 시계열 조인은 백테스트를 무효화하는가?</p>
-            <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 1월 의사결정에 12월 31일 실적을 대입하면 45일간의 미래정보를 미리 보고 거래하는 선견 편향이 발생하기 때문.</p>
+            <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 1월 의사결정에 12월 31일 실적을 대입하면 45일간의 미래정보를 미리 보고 거래하는 <abbr class="term" data-tooltip="Lookahead Bias: 미래 정보를 미리 알고 과거 시점에서 거래한 것처럼 시뮬레이션하는 오류">선견 편향</abbr>이 발생하기 때문.</p>
           </article>
           <article>
-            <h2>Q2. 생존 편향 (Survivorship Bias)</h2>
+            <h2>Q2. <abbr class="term" data-tooltip="Survivorship Bias: 상장폐지·파산 기업을 제외하고 살아남은 종목만으로 분석해 성과를 왜곡하는 오류">생존 편향</abbr> (Survivorship Bias)</h2>
             <p>2014~2018년 미국 주식 패널에서 상장폐지된 777개 종목을 제외하면 왜 연 8%p 이상의 가짜 수익률이 발생하는가?</p>
             <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 파산·상장폐지 기업의 종단 손실(-60%)이 누락되어 포트폴리오의 하위 꼬리가 삭제되기 때문.</p>
           </article>
@@ -866,14 +950,14 @@
       <div class="slide-body">
         <div class="teaching-columns">
           <article>
-            <h2>Q3. 기업행위 왜곡</h2>
+            <h2>Q3. <abbr class="term" data-tooltip="Corporate Actions: 주식분할, 배당 등 가격 시계열에 단절을 일으키는 사건">기업행위</abbr> 왜곡</h2>
             <p>Apple(AAPL)의 액면분할을 원시 가격으로 백테스트하면 왜 68배의 누적 성과 왜곡이 일어나는가?</p>
             <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 7:1 분할 시 주가가 -86% 폭락한 것으로 오인되어 장기 보유 복리 효과와 배당 재투자 수익이 소실되기 때문.</p>
           </article>
           <article>
             <h2>Q4. 스토리지 아키텍처 선택</h2>
-            <p>왜 연구 단계에서는 무거운 관계형 DB 대신 Parquet + DuckDB/Polars 스택이 권장되는가?</p>
-            <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 파일 기반 컬럼 압축과 조건자 푸시다운을 통해 서버 운영비 없이 5~15배 빠른 피처 추출이 가능하기 때문.</p>
+            <p>왜 연구 단계에서는 무거운 관계형 DB 대신 <abbr class="term" data-tooltip="Parquet + DuckDB/Polars: 컬럼형 파일 포맷과 초고속 임베디드 분석 라이브러리의 조합">Parquet + DuckDB/Polars</abbr> 스택이 권장되는가?</p>
+            <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 파일 기반 컬럼 압축과 <abbr class="term" data-tooltip="Predicate Pushdown: WHERE 절 필터를 디스크 I/O 레벨로 밀어 넣어 불필요한 데이터를 건너뛰는 기법">조건자 푸시다운</abbr>을 통해 서버 운영비 없이 5~15배 빠른 피처 추출이 가능하기 때문.</p>
           </article>
         </div>
       </div>
@@ -913,5 +997,15 @@
   <script defer src="assets/katex/katex.min.js"></script>
   <script defer src="assets/katex/auto-render.min.js"></script>
   <script defer src="assets/katex/katex-init.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.term[title]').forEach(el => {
+        if (!el.getAttribute('data-tooltip')) {
+          el.setAttribute('data-tooltip', el.getAttribute('title'));
+        }
+        el.removeAttribute('title');
+      });
+    });
+  </script>
 </body>
 </html>
