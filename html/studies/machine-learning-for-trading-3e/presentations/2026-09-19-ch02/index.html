@@ -102,7 +102,7 @@
           </article>
           <article>
             <h2>3. 가짜 알파의 원천 봉쇄</h2>
-            <p>시점 기준(PIT) 오류, 생존자 편향, 기업행위 왜곡을 소싱 및 저장 단계에서 사전에 차단합니다.</p>
+            <p>시점 기준(PIT) 오류, 생존 편향, 기업행위 왜곡을 소싱 및 저장 단계에서 사전에 차단합니다.</p>
           </article>
         </div>
       </div>
@@ -127,7 +127,7 @@
           </article>
           <article>
             <h2>§2.3 · 데이터 소싱 실사 프레임워크</h2>
-            <p>5차원 품질 관리, 4대 치명적 실패(PIT, 생존자 편향, 기업행위, 식별자), 벤더 실사 체크리스트를 점검합니다.</p>
+            <p>5차원 품질 관리, 4대 치명적 실패(PIT, 생존 편향, 기업행위, 식별자), 벤더 실사 체크리스트를 점검합니다.</p>
           </article>
           <article>
             <h2>§2.4 · 데이터 저장 아키텍처</h2>
@@ -300,8 +300,8 @@
         <div class="teaching-columns">
           <article>
             <h2>ETP 5대 실패 모드</h2>
-            <p>1. 분배금 재투자 미반영 / 2. 위기 시 시장가 \(\neq\) NAV 괴리</p>
-            <p>3. 유동성 불일치 / 4. 룩스루 누수 (미래 비중 사용)</p>
+            <p>1. 분배금 미반영 / 2. 시장가 \(\neq\) NAV 괴리 / 3. 유동성 불일치</p>
+            <p style="margin-top: 6px;">4. 룩스루 누출(미래 비중 사용) / 5. 레버리지·인버스 가치 잠식</p>
           </article>
           <article class="card-lab">
             <h2>📦 [실습 3 · <code>03_etfs_eda</code>] 100개 ETF 진단</h2>
@@ -346,8 +346,8 @@
         <div class="teaching-columns">
           <article>
             <h2>내재변동성 표면 (IV Surface)</h2>
-            <p>등가격(ATM) 근월물에만 유동성이 집중되고 외가격 꼬리는 잡음을 가집니다.</p>
-            <p>델타 기준(25D, 50D)과 고정 만기(30일)로 보간된 변동성 표면을 머신러닝 피처로 활용합니다.</p>
+            <p>등가격(ATM) 근월물에 유동성이 집중되고 외가격(OTM) 꼬리는 잡음이 심합니다.</p>
+            <p style="margin-top: 6px;">델타 기준(25D, 50D)과 고정 만기(30일)로 보간된 변동성 표면을 머신러닝 피처로 활용합니다.</p>
           </article>
           <article class="card-lab">
             <h2>📦 [실습 5 · <code>07</code>~<code>09_options</code>]</h2>
@@ -369,8 +369,8 @@
         <div class="teaching-columns">
           <article>
             <h2>CEX vs DEX 시장 구조</h2>
-            <p><strong>CEX</strong>: 24/7 세션화(00:00 UTC) 및 워시 트레이딩 필터링.</p>
-            <p><strong>DEX</strong>: 상수곱(\(x \cdot y = k\)) 풀 준비금 기반 슬리피지 함수 및 MEV 모델링.</p>
+            <p><strong>CEX</strong>: 24/7 세션화(00:00 UTC) 및 가짜 거래량(워시 트레이딩) 필터링.</p>
+            <p style="margin-top: 6px;"><strong>DEX</strong>: 호가창 대신 상수곱(\(x \cdot y = k\)) 풀 준비금 비율로 슬리피지와 MEV를 모델링.</p>
           </article>
           <article class="card-lab">
             <h2>📦 [실습 6 · <code>10_crypto_perps_eda</code> & <code>11</code>]</h2>
@@ -533,7 +533,7 @@
     <!-- Slide 21: Lab 9 (15_survivorship_bias_detection) -->
     <section class="slide slide--teaching" id="slide-21" aria-label="실습 9: 상장폐지 3대 시나리오 몬테카를로" data-report-refs="s2-3 box-9" data-source-refs="section:2.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §2.3 · 실습 9</span></header>
-      <h1>실습 9 · 생존자 편향 몬테카를로 시뮬레이션</h1>
+      <h1>실습 9 · 생존 편향 몬테카를로 시뮬레이션</h1>
       <p class="lead">미국 주식 3,199개 중 상장폐지된 777개 종목을 대상으로 편향 규모를 정량화합니다.</p>
       <div class="slide-body">
         <div class="card-lab">
@@ -819,7 +819,7 @@
           </article>
           <article>
             <h2>2. 가짜 알파 원천 봉쇄</h2>
-            <p>시점 기준(PIT) 이중시간 쿼리와 생존자 편향 없는 유니버스를 연구 첫날부터 구축하라.</p>
+            <p>시점 기준(PIT) 이중시간 쿼리와 생존 편향 없는 유니버스를 연구 첫날부터 구축하라.</p>
           </article>
           <article>
             <h2>3. 시장 구조 부합 모델링</h2>
@@ -848,7 +848,7 @@
             <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 1월 의사결정에 12월 31일 실적을 대입하면 45일간의 미래정보를 미리 보고 거래하는 선견 편향이 발생하기 때문.</p>
           </article>
           <article>
-            <h2>Q2. 생존자 편향 (Survivorship Bias)</h2>
+            <h2>Q2. 생존 편향 (Survivorship Bias)</h2>
             <p>2014~2018년 미국 주식 패널에서 상장폐지된 777개 종목을 제외하면 왜 연 8%p 이상의 가짜 수익률이 발생하는가?</p>
             <p style="margin-top: 10px; font-size: 19px; color: var(--muted);">$\rightarrow$ 파산·상장폐지 기업의 종단 손실(-60%)이 누락되어 포트폴리오의 하위 꼬리가 삭제되기 때문.</p>
           </article>
