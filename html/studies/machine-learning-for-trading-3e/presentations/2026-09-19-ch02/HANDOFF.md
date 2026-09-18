@@ -53,6 +53,7 @@
   - 오렌지색(Gold) 테두리 및 뱃지는 오직 주피터 실습(`card-lab`, `highlight-lab`)에만 배타적으로 적용.
   - 일반 개념 및 로드맵은 블루/슬레이트 카드(`card`)로 통일.
 - **수식 렌더링**: 외부 CDN 없이 오프라인 KaTeX 엔진(`assets/katex/`)으로 모든 수식 기호, 분할 조정 산식, 블랙-숄즈 수식 정상 렌더링.
+- **용어 및 약어 툴팁 (Tooltips)**: 슬라이드(71개) 및 리포트(46개) 전반의 주요 금융공학 약어(NBBO, ETP, CEX/DEX, AMM, MEV, PIT, CRSP, SOFR, OIS, CIK, FIGI, PermID, Parquet, HDF5, DuckDB, Polars 등) 및 기술 용어에 마우스 오버 시 상세 설명을 표시하는 인터랙티브 CSS 툴팁(`abbr.term`, `span.term`, `data-tooltip`) 적용 완료.
 
 ## 5. 배포 경로
 - **슬라이드 라이브 URL**: <https://aimlquant.github.io/study/studies/machine-learning-for-trading-3e/presentations/2026-09-19-ch02/>
