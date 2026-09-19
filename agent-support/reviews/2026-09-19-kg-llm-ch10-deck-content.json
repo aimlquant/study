@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "aaab2eefbae18936f5a4b1b297c1f7c12d662ddb68f37ac70445718bcee6872e",
-  "deck_sha256": "5be44d28cd756ad3617f10e2d7aacf3cd25dbaaf544302d0e35500483ecfea76",
+  "report_sha256": "cb1479279bbdde062af784f98b200d95eccf567b5aca8c028026a4575e444d9d",
+  "deck_sha256": "e6bcc63f0dbeea5703be040ad524c6dccd5efa33f098fc550be880feeada80a9",
   "units": [
     {
       "question": "표지 — 이 슬라이드가 답하는 질문은 무엇인가?",
@@ -290,20 +290,6 @@
       ]
     },
     {
-      "question": "페이지랭크 계산 — 이 슬라이드가 답하는 질문은 무엇인가?",
-      "explanation": "페이지랭크 계산에서 다루는 핵심 개념·지표·코드를 리포트 근거에 맞춰 설명한다.",
-      "evidence": "리포트 참조 source-10-1-7, source-listing-10-9, table-pagerank 의 정의·표·그림·코드.",
-      "conditions": "예제 그래프의 규모와 지표의 해석 조건(정규화·감쇠·가지치기)을 함께 밝힌다.",
-      "report_refs": [
-        "source-10-1-7",
-        "source-listing-10-9",
-        "table-pagerank"
-      ],
-      "slide_ids": [
-        "slide-23"
-      ]
-    },
-    {
       "question": "10.1.8 예측 섹션 — 이 슬라이드가 답하는 질문은 무엇인가?",
       "explanation": "10.1.8 예측 섹션에서 다루는 핵심 개념·지표·코드를 리포트 근거에 맞춰 설명한다.",
       "evidence": "리포트 참조 source-10-1-8 의 정의·표·그림·코드.",
@@ -531,5 +517,12 @@
       ]
     }
   ],
-  "experiments": []
+  "experiments": [],
+  "revision_review": {
+    "reviewer": "Codex",
+    "date": "2026-09-19",
+    "scope": "825547a 변경분 재검토. 나머지는 기존 검토 유지.",
+    "evidence": "삼각형 각주는 동일 문서의 알터 2명 분류 코드와 일치. A 에고넷 간선은 A-B/G/H/I/O/T 및 G-I 7개로 listing 10.1과 일치. 슬라이드 문구 보충·리포트 링크 확인. 삭제된 slide-23 검토 단위 제거; PageRank 개념과 표, 리포트 코드는 보존.",
+    "visual_review": "1920×1080 실제 렌더에서 변경 슬라이드 2·6·13·15와 리포트 밀도 단락 확인. 새 문구와 링크의 잘림·겹침 없음."
+  }
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "aaab2eefbae18936f5a4b1b297c1f7c12d662ddb68f37ac70445718bcee6872e",
+  "report_sha256": "cb1479279bbdde062af784f98b200d95eccf567b5aca8c028026a4575e444d9d",
   "sources": [
     {
       "role": "original",
@@ -136,5 +136,12 @@
       "visuals": "코드 리스팅 위주(전용 도형 없음)."
     }
   ],
-  "experiments": []
+  "experiments": [],
+  "revision_review": {
+    "reviewer": "Codex",
+    "date": "2026-09-19",
+    "scope": "825547a 변경분 재검토. 나머지는 기존 검토 유지.",
+    "evidence": "삼각형 각주는 동일 문서의 알터 2명 분류 코드와 일치. A 에고넷 간선은 A-B/G/H/I/O/T 및 G-I 7개로 listing 10.1과 일치. 슬라이드 문구 보충·리포트 링크 확인. 삭제된 slide-23 검토 단위 제거; PageRank 개념과 표, 리포트 코드는 보존.",
+    "visual_review": "1920×1080 실제 렌더에서 변경 슬라이드 2·6·13·15와 리포트 밀도 단락 확인. 새 문구와 링크의 잘림·겹침 없음."
+  }
 }
