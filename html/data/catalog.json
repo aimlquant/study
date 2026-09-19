@@ -717,8 +717,7 @@
       ],
       "date": "2026-09-19",
       "id": "2026-09-19-ml4t-ch02",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc682299ff456b7454dc19d2695a8aa1f",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-09-19-ml4t-ch02/",
       "presenters": [
         "핀조이"
@@ -731,9 +730,11 @@
           "youtube_video_id": "RBRvCSAPfK0"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-learning-for-trading-3e-2026",
-      "title": "Chapter 2. 금융 데이터 세계"
+      "title": "Chapter 2. 금융 데이터 세계",
+      "youtube_url": "https://www.youtube.com/watch?v=Fb1URt_AheE",
+      "youtube_video_id": "Fb1URt_AheE"
     },
     {
       "artifacts": [
@@ -753,8 +754,7 @@
       ],
       "date": "2026-09-19",
       "id": "2026-09-19-kg-llm-ch10",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc682299ff456b7454dc19d2695a8aa1f",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-09-19-kg-llm-ch10/",
       "presenters": [
         "두균"
@@ -767,9 +767,11 @@
           "youtube_video_id": "kVmuxa9w6VY"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
+      "title": "Chapter 10. 그래프 특성 공학: 수동·반자동 접근",
+      "youtube_url": "https://www.youtube.com/watch?v=Zr6E4AJIMJE",
+      "youtube_video_id": "Zr6E4AJIMJE"
     },
     {
       "artifacts": [

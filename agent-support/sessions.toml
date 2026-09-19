@@ -298,8 +298,10 @@ date = "2026-09-19"
 title = "Chapter 10. 그래프 특성 공학: 수동·반자동 접근"
 presenters = ["두균"]
 chapters = ["Chapter 10"]
-status = "materials-published"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc682299ff456b7454dc19d2695a8aa1f"
+status = "video-public"
+youtube_video_id = "Zr6E4AJIMJE"
+meeting_status = "ended"
+discussion_points = ["사기 탐지 그래프의 차수·삼각형·밀도·중심성·PageRank와 특징 기반 분류를 다뤘습니다.", "노드 벡터 결합, 메타경로와 DWPC, RefEx의 재귀 집계를 설명하고 관련 질문을 논의했습니다.", "슬라이드 옆 그래프·코드·참고 리포트와 RefEx 보충 설명까지 보이도록 공유 화면 전체를 보존했습니다.", "녹화의 혼입 음원을 차감해 발표 음성을 복구했습니다. 일부 잔향이나 음질 저하가 남을 수 있습니다."]
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-19-ch10/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-09-19-ch10/" },
@@ -424,8 +426,10 @@ date = "2026-09-19"
 title = "Chapter 2. 금융 데이터 세계"
 presenters = ["핀조이"]
 chapters = ["Chapter 2"]
-status = "materials-published"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc682299ff456b7454dc19d2695a8aa1f"
+status = "video-public"
+youtube_video_id = "Fb1URt_AheE"
+meeting_status = "ended"
+discussion_points = ["시장·펀더멘털·대체 데이터, 타임스탬프·기업행위·식별자·수정 이력의 점검을 다뤘습니다.", "시점 기준 검증과 생존자 편향, 데이터 제공자 평가, Parquet·Polars·DuckDB를 살펴봤습니다.", "후반에는 ML4T 데이터 패키지로 데이터 수집·합성·검증·저장·갱신 과정을 시연했습니다.", "녹화의 혼입 음원을 차감해 발표 음성을 복구했습니다. 일부 잔향이나 음질 저하가 남을 수 있습니다."]
 artifacts = [
   { kind = "report", label = "2장 상세 리포트", url = "studies/machine-learning-for-trading-3e/presentations/2026-09-19-ch02/report.html" },
   { kind = "slides", label = "2장 발표 슬라이드", url = "studies/machine-learning-for-trading-3e/presentations/2026-09-19-ch02/" },
