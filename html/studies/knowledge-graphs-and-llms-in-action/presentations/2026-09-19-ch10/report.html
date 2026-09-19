@@ -187,6 +187,7 @@ for node in G.nodes():
           <tr><td>반사기 삼각형</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
         </tbody>
       </table>
+      <small class="asset-note">삼각형 안 사기꾼 총수가 아니라 알터의 사기 수가 기준이라는 점에 유의한다.</small>
     </section>
 
     <section class="report-section s4 page-break" id="source-10-1-3" data-source-kind="section" data-source-ref="10.1.3">
@@ -199,6 +200,7 @@ for node in G.nodes():
       <p>N개 노드의 완전 연결 그래프에서 가능한 간선 수는 <code>C(N,2) = N(N−1)/2</code>이다(서로 다른 두 노드 쌍의 수). 간선 수를 M이라 하면 밀도는 다음과 같다.</p>
       <p style="text-align:center;font-weight:800;"><code>d = M / C(N,2) = 2M / (N(N−1))</code> &nbsp;— 0(연결 없음)에서 1(완전 연결) 사이</p>
       <p>각 노드의 <strong>에고넷 밀도</strong>도 계산할 수 있다. 예로 노드 A의 에고넷에는 노드가 7개 있어 가능한 간선은 <code>7·6/2 = 21</code>개인데, 실제 간선은 7개이므로 <code>d = 7/21 ≈ 0.33</code>이다. 밀도는 성격상 사기/정상 같은 도메인 특화 변형을 두지 않는다. (밀도 계산 코드는 원자료 리스트 10.5로 제공되며, 위 공식을 각 노드 에고넷에 적용한다.)</p>
+      <p><strong>핵심</strong> — 실제 간선 7개는 A에서 뻗은 간선 6개(A–B·G·H·I·O·T)에, 이웃끼리 연결된 간선 <strong>G–I</strong> 1개를 더한 값이다. 밀도는 에고에서 뻗은 선만 세는 것이 아니라 <strong>이웃들끼리 서로 연결된 선까지 전부</strong> 센다. 밀도의 차이를 만드는 것이 바로 이 이웃 간 연결이다.</p>
       <table class="cmp-table" id="table-density">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">표 10.3 · 사기 그래프의 밀도(발췌)</span></div></caption>
         <thead><tr><th>노드</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr></thead>

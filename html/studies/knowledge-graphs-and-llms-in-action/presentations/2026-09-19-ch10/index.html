@@ -46,6 +46,7 @@
           <article class="panel panel--accent"><p class="eyebrow">SPECTRUM</p><h2>수동 → 반자동 → 자동</h2><ul><li>수동: 해석 가능·노동집약</li><li>반자동(ReFeX): 균형</li><li>자동(11·12장): 효율적·해석 어려움</li></ul></article>
         </div>
         <p class="takeaway"><strong>오늘의 결론</strong> — 특징 공학은 &#39;지표 고르기&#39;가 아니라 해석 가능성과 자동화 사이 어디에 설지 정하는 설계다.</p>
+        <p style="margin-top:10px;font-size:0.62em;line-height:1.55;color:var(--muted);">ReFeX = Recursive Feature eXtraction (재귀적 특징 추출)</p>
       </div>
       <footer class="slide-footer"><span>Chapter 10 · 핵심 질문</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -92,7 +93,7 @@
       <div class="slide-body">
         <div class="two-col">
           <article class="panel"><p class="eyebrow">10.1</p><h2>네트워크 생성</h2><ul><li>무향 그래프 · 노드 20 · 간선 25</li><li>사기꾼 D·E·F·I 표시</li></ul></article>
-          <article class="panel panel--accent"><p class="eyebrow">10.2</p><h2>재사용</h2><ul><li>한 번 만든 G를 모든 지표에 사용</li><li>국소 → 전역 순서로 특징 축적</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">10.2</p><h2>만든 기준 그래프 재사용</h2><ul><li>한 번 만든 G를 모든 지표에 사용</li><li>국소 → 전역 순서로 특징 축적</li></ul></article>
         </div>
         <p class="takeaway"><strong>핵심</strong> — 국소 특징(에고넷)과 전역 특징(중심성)을 구분해 쌓는다. <a class="report-ref" href="report.html#source-listing-10-1">전체 코드 보기 →</a></p>
       </div>
@@ -163,7 +164,7 @@
           <article class="kpi"><strong>F</strong><h2>0.83</h2><p>이웃끼리 촘촘</p></article>
           <article class="kpi"><strong>C·E·J</strong><h2>1.0</h2><p>이웃이 빠짐없이 연결</p></article>
         </div>
-        <p class="takeaway"><strong>전환점</strong> — 여기까지는 에고넷(국소) 지표. 이제부터는 네트워크 전체(전역)를 본다.</p>
+        <p class="takeaway"><strong>전환점</strong> — 여기까지는 에고넷(국소) 지표. 이제부터는 네트워크 전체(전역)를 본다. <a class="report-ref" href="report.html#source-10-1-3">상세 보기 →</a></p>
       </div>
       <footer class="slide-footer"><span>Chapter 10 · 밀도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -178,7 +179,7 @@
       <p class="lead">경로가 많고 짧을수록 사기가 대상 노드에 영향을 미칠 가능성이 크다.</p>
       <div class="slide-body">
         <div class="two-col">
-          <article class="panel"><p class="eyebrow">정의</p><h2>가장 가까운 사기꾼</h2><ul><li>측지 거리 = 최소 홉 수</li><li>다익스트라로 계산</li><li>도메인용으로 변형</li></ul></article>
+          <article class="panel"><p class="eyebrow">정의</p><h2>가장 가까운 사기꾼</h2><ul><li>측지 거리 = 최소 홉 수</li><li>다익스트라로 계산</li><li>사기꾼 도메인용으로 변형</li></ul></article>
           <article class="panel panel--accent"><p class="eyebrow">값</p><h2>A는 I와 1홉</h2><ul><li>A: 측지 거리 1, 2홉 경로 4개</li><li>G: 1홉 경로 3개</li><li>실제 망에선 수동 계산 불가</li></ul></article>
         </div>
         <p class="takeaway"><strong>주의</strong> — 측지 경로 계산은 비용이 크다. 라이브러리(NetworkX·Neo4j GDS)를 쓴다.</p>
@@ -252,20 +253,6 @@
         </figure>
       </div>
       <footer class="slide-footer"><span>Chapter 10 · 페이지랭크 차이</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide" id="slide-23" aria-label="페이지랭크 계산" data-report-refs="source-10-1-7 source-listing-10-9 table-pagerank">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">CODE</span></header>
-      <h1>Listing 10.9 — 개인화 벡터로 사기 쪽으로 편향</h1>
-      <p class="lead">감쇠 계수 0.85로 확률적 서퍼의 링크 추종을 조절하고, 사기꾼에 가중치를 준 개인화로 점수를 편향시킨다.</p>
-      <div class="slide-body">
-        <div class="two-col">
-          <article class="panel"><p class="eyebrow">기본</p><h2>구조적 중요도</h2><ul><li>A가 가장 높음(0.108)</li><li>모든 연결을 동등하게</li></ul></article>
-          <article class="panel panel--accent"><p class="eyebrow">사기 가중</p><h2>사기 관련성</h2><ul><li>D가 급등(0.168)</li><li>사기꾼 초기 중요도↑</li></ul></article>
-        </div>
-        <p class="takeaway"><strong>해석</strong> — 기본→사기 가중에서 크게 오르는 노드가 정밀 조사 대상이다. <a class="report-ref" href="report.html#source-listing-10-9">전체 코드 보기 →</a></p>
-      </div>
-      <footer class="slide-footer"><span>Chapter 10 · 페이지랭크 코드</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--section" id="slide-24" aria-label="10.1.8 예측 섹션" data-report-refs="source-10-1-8" data-source-refs="section:10.1.8" data-source-title="section:10.1.8">
