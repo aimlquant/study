@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">유동성의 세 차원과 체결 조건</title><desc id="desc">스프레드, 심도, 복원력이 주문의 즉시성과 크기와 결합해 체결 비용과 가능성을 정한다.</desc>
+  <defs><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#0F2C59"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:30px;font-weight:700}.b{font-size:24px}.n{font-size:22px;font-weight:700}.box{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.accent{fill:#0F2C59}.white{fill:#fff}.arrow{stroke:#0F2C59;stroke-width:4;fill:none;marker-end:url(#a)}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <rect class="box" x="70" y="80" width="280" height="110" rx="12"/><text class="h" x="210" y="128" text-anchor="middle">스프레드</text><text class="b" x="210" y="164" text-anchor="middle">즉시성의 가격</text>
+  <rect class="box" x="70" y="245" width="280" height="110" rx="12"/><text class="h" x="210" y="293" text-anchor="middle">심도</text><text class="b" x="210" y="329" text-anchor="middle">가격 이동 전 수량</text>
+  <rect class="box" x="70" y="410" width="280" height="110" rx="12"/><text class="h" x="210" y="458" text-anchor="middle">복원력</text><text class="b" x="210" y="494" text-anchor="middle">소진 뒤 재보충</text>
+  <path class="arrow" d="M350 135 C470 135 480 245 555 260"/><path class="arrow" d="M350 300 H555"/><path class="arrow" d="M350 465 C470 465 480 355 555 340"/>
+  <rect class="accent" x="565" y="205" width="260" height="190" rx="16"/><text class="h white" x="695" y="264" text-anchor="middle">주문 조건</text><text class="b white" x="695" y="312" text-anchor="middle">크기 · 방향</text><text class="b white" x="695" y="352" text-anchor="middle">즉시성 · 시점</text>
+  <path class="arrow" d="M825 300 H955"/>
+  <rect class="box" x="965" y="225" width="190" height="150" rx="12"/><text class="h" x="1060" y="278" text-anchor="middle">체결</text><text class="n" x="1060" y="320" text-anchor="middle">비용</text><text class="n" x="1060" y="352" text-anchor="middle">가능성</text>
+</svg>

@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "bbd6132f37a8fe10bc3f50b0b133f8e83f23c593627f1cd8699563e5ab061542",
+  "deck_sha256": "4d6ce05291f8c1ccc59733a79bc1bed7da6520af236d6b0025a5be19c5670322",
+  "units": [
+    {
+      "question": "시장 미시구조를 어떤 순서로 읽는가?",
+      "explanation": "관측·복원·측정의 세 질문과 전체 흐름을 제시한다.",
+      "evidence": "보고서 요약과 장 전체 구조",
+      "conditions": "새로운 수치나 실험을 추가하지 않는다.",
+      "report_refs": ["summary", "table-overview"],
+      "slide_ids": ["slide-cover", "slide-questions", "slide-roadmap"]
+    },
+    {
+      "question": "유동성 공급 비용이 가격 형성에 어떻게 반영되는가?",
+      "explanation": "처리 비용·재고 위험·역선택과 주문 유형의 교환 관계를 설명한다.",
+      "evidence": "유동성 메커니즘 도식과 주문 유형 비교",
+      "conditions": "전략 수익이 아니라 실행 조건을 설명한다.",
+      "report_refs": ["s3-1", "fig-liquidity", "order-intent"],
+      "slide_ids": ["slide-s31", "slide-liquidity", "slide-order-intent"]
+    },
+    {
+      "question": "피드 수준과 시간 의미는 관측 범위를 어떻게 바꾸는가?",
+      "explanation": "L1·L2·L3와 가격·타임스탬프 의미를 구분한다.",
+      "evidence": "피드 계층 도식과 가격·시계 사례",
+      "conditions": "L3도 거래 장소 로컬이며 시장 전체가 아니다.",
+      "report_refs": ["s3-2", "fig-feed-hierarchy", "price-conventions"],
+      "slide_ids": ["slide-s32", "slide-feed-hierarchy", "slide-price-time"]
+    },
+    {
+      "question": "원시 메시지를 어떻게 믿을 수 있는 주문장으로 재생하는가?",
+      "explanation": "규모·상태 전이·큐·불변 조건·스냅샷·생애주기·불균형·합성 검증을 잇는다.",
+      "evidence": "교재 표 3.1–3.2, 그림 3.1–3.3, 가이드 노트북 저장 출력",
+      "conditions": "이벤트 비율과 고유 주문 비율을 구분하고 전체 데이터 재실행을 주장하지 않는다.",
+      "report_refs": ["s3-3", "table-3-1", "fig-3-1", "fig-queue", "book-invariants", "fig-3-2", "table-3-2", "fig-3-3", "notebook-lob-output"],
+      "slide_ids": ["slide-s33", "slide-itch-scale", "slide-state-machine", "slide-queue", "slide-invariants", "slide-lob-depth", "slide-lifecycle", "slide-imbalance", "slide-notebook"]
+    },
+    {
+      "question": "어떤 바가 연구 질문에 맞는가?",
+      "explanation": "샘플링 시계, 거래 방향, 분류 정확도, 적응형 문턱, 통계 비교 순서로 설명한다.",
+      "evidence": "교재 그림 3.4와 표 3.3–3.7",
+      "conditions": "정규성과 전략 성과를 같은 뜻으로 쓰지 않는다.",
+      "report_refs": ["s3-4", "fig-3-4", "fig-lee-ready", "table-3-3", "table-3-4", "table-3-5", "table-3-6", "table-3-7"],
+      "slide_ids": ["slide-s34", "slide-sampling", "slide-lee-ready", "slide-classification", "slide-information-bars", "slide-bar-comparison"]
+    },
+    {
+      "question": "연속 변동과 가격 점프를 어떻게 분리하는가?",
+      "explanation": "RV-BV 분해와 Lee-Mykland 국소 검정, 저장 결과를 연결한다.",
+      "evidence": "분산 분해 수식과 AMD·AMZN·FB 결과",
+      "conditions": "준비 창의 미검사와 2020년 표본 범위를 명시한다.",
+      "report_refs": ["s3-5", "fig-jump-decomposition", "lee-mykland", "jump-results"],
+      "slide_ids": ["slide-s35", "slide-jump-decomposition", "slide-lee-mykland", "slide-jump-results"]
+    },
+    {
+      "question": "미시구조 데이터 품질을 어떤 순서로 검증하는가?",
+      "explanation": "시계·순서·중복·세션·상태·특성 감사를 하나의 파이프라인으로 제시한다.",
+      "evidence": "품질 파이프라인 도식과 보고서 QA 사례",
+      "conditions": "검사와 제외 사유를 데이터 계보에 남긴다.",
+      "report_refs": ["s3-6", "fig-quality", "qa-examples"],
+      "slide_ids": ["slide-s36", "slide-quality"]
+    },
+    {
+      "question": "장 전체를 어떤 질문으로 되짚는가?",
+      "explanation": "관측·복원·측정의 세 축과 확인 질문으로 마무리한다.",
+      "evidence": "보고서 요약·체크포인트·참고문헌",
+      "conditions": "앞 절의 근거만 사용한다.",
+      "report_refs": ["s3-7", "checkpoints", "references"],
+      "slide_ids": ["slide-s37", "slide-checkpoints", "slide-closing"]
+    }
+  ],
+  "experiments": [
+    {
+      "status": "stored-output",
+      "scope": "합성 이벤트의 잔량 회계와 바 경계",
+      "report_id": "notebook-lob-demo",
+      "code_slides": ["slide-notebook"],
+      "result_slides": ["slide-notebook"],
+      "interpretation_slides": ["slide-notebook"],
+      "interpretation": "전체 ITCH나 DataBento 재실행이 아니라 최소 상태 회계와 경계 규칙만 검증한다."
+    }
+  ],
+  "report_asset_audit": [
+    {"report_id": "fig-liquidity", "kind": "figure", "slide_ids": ["slide-liquidity"], "use": "same-svg", "reason": "유동성 공급 비용 연결을 유지"},
+    {"report_id": "fig-feed-hierarchy", "kind": "figure", "slide_ids": ["slide-feed-hierarchy"], "use": "same-svg", "reason": "피드 수준의 관측 범위를 유지"},
+    {"report_id": "table-3-1", "kind": "table", "slide_ids": ["slide-itch-scale"], "use": "editable-table", "reason": "처리 규모와 근삿값을 발표 화면에 유지"},
+    {"report_id": "fig-3-1", "kind": "figure", "slide_ids": ["slide-state-machine"], "use": "same-svg", "reason": "주문 상태 전이를 유지"},
+    {"report_id": "fig-queue", "kind": "figure", "slide_ids": ["slide-queue"], "use": "same-svg", "reason": "총 심도와 큐 위치 차이를 유지"},
+    {"report_id": "fig-3-2", "kind": "figure", "slide_ids": ["slide-lob-depth"], "use": "same-svg", "reason": "세 시점의 주문장 심도를 유지"},
+    {"report_id": "table-3-2", "kind": "table", "slide_ids": ["slide-lifecycle"], "use": "selected-kpis", "reason": "핵심 주문 생애주기 수치와 분모 경계를 유지"},
+    {"report_id": "fig-3-3", "kind": "figure", "slide_ids": ["slide-imbalance"], "use": "same-svg", "reason": "불균형 상관 분포와 범위를 유지"},
+    {"report_id": "fig-3-4", "kind": "figure", "slide_ids": ["slide-sampling"], "use": "same-svg", "reason": "샘플링 경계 차이를 유지"},
+    {"report_id": "fig-lee-ready", "kind": "figure", "slide_ids": ["slide-lee-ready"], "use": "same-svg", "reason": "호가 정렬과 중간점 보완 흐름을 유지"},
+    {"report_id": "table-3-3", "kind": "table", "slide_ids": ["slide-classification"], "use": "editable-table", "reason": "적용 범위와 정확도를 함께 유지"},
+    {"report_id": "table-3-4", "kind": "table", "slide_ids": ["slide-information-bars"], "use": "selected-kpis", "reason": "EWMA 드리프트 비교를 유지"},
+    {"report_id": "table-3-5", "kind": "table", "slide_ids": ["slide-bar-comparison"], "use": "explained-in-prose", "reason": "바 유형의 시계 분류를 발표 설명에 반영"},
+    {"report_id": "table-3-6", "kind": "table", "slide_ids": ["slide-bar-comparison"], "use": "editable-table", "reason": "AAPL 바 통계를 유지"},
+    {"report_id": "table-3-7", "kind": "table", "slide_ids": ["slide-bar-comparison"], "use": "omitted-with-reason", "reason": "별도 NVDA 표의 숫자 대신 직접 방향 레이블이 필요한 조건만 전달해 과밀을 피함"},
+    {"report_id": "fig-jump-decomposition", "kind": "figure", "slide_ids": ["slide-jump-decomposition"], "use": "same-svg", "reason": "RV-BV 분해를 유지"},
+    {"report_id": "table-jump-results", "kind": "table", "slide_ids": ["slide-jump-results"], "use": "editable-table", "reason": "2020년 점프 비중을 유지"},
+    {"report_id": "table-jump-rule", "kind": "table", "slide_ids": ["slide-jump-results"], "use": "omitted-with-reason", "reason": "국소 검정과 일별 규칙의 차이는 발표 설명으로 전달해 결과 표 과밀을 피함"},
+    {"report_id": "fig-quality", "kind": "figure", "slide_ids": ["slide-quality"], "use": "same-svg", "reason": "QA 단계 순서를 유지"},
+    {"report_id": "table-glossary", "kind": "table", "slide_ids": ["slide-checkpoints"], "use": "omitted-with-reason", "reason": "용어 정의는 상세 리포트에서 제공하고 발표는 확인 질문에 집중"}
+  ],
+  "figure_caption_policy": "No visible caption bands; every reused report figure keeps the same SVG source, descriptive alt text, report link, and visible interpretation boundary."
+}

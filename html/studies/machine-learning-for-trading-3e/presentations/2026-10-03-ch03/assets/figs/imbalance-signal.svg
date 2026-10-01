@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">주문장 불균형과 이후 수익률 상관</title><desc id="desc">활동 수준이 높은 종목은 대체로 상관 0 근처에 모이고 일부 저활동 종목만 큰 음의 상관을 보인다.</desc>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:23px;font-weight:800}.s{font-size:19px}.axis{stroke:#475569;stroke-width:3}.grid{stroke:#CBD5E1;stroke-width:2}.zero{stroke:#DC2626;stroke-width:3;stroke-dasharray:9 7}.dot{fill:#0F2C59}.mean{fill:#DC2626}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <line class="axis" x1="120" y1="500" x2="1110" y2="500"/><line class="axis" x1="120" y1="65" x2="120" y2="500"/><line class="zero" x1="120" y1="285" x2="1110" y2="285"/>
+  <line class="grid" x1="120" y1="105" x2="1110" y2="105"/><line class="grid" x1="120" y1="465" x2="1110" y2="465"/>
+  <text class="s" x="90" y="112" text-anchor="end">0.16</text><text class="s" x="90" y="292" text-anchor="end">0</text><text class="s" x="90" y="472" text-anchor="end">−0.35</text><text class="s" x="615" y="565" text-anchor="middle">일별 주문 수 · 로그 눈금</text><text class="s" transform="translate(32 300) rotate(-90)" text-anchor="middle">불균형–이후 수익률 상관</text>
+  <circle class="dot" cx="210" cy="455" r="11"/><text class="h" x="190" y="440">PMM</text><circle class="dot" cx="310" cy="400" r="10"/><text class="s" x="292" y="385">SBR</text><circle class="dot" cx="390" cy="382" r="10"/><text class="s" x="372" y="367">ISR</text>
+  <circle class="dot" cx="610" cy="270" r="9"/><circle class="dot" cx="690" cy="300" r="9"/><circle class="dot" cx="760" cy="278" r="9"/><circle class="dot" cx="820" cy="292" r="9"/><circle class="dot" cx="875" cy="274" r="9"/>
+  <circle class="dot" cx="950" cy="282" r="12"/><text class="s" x="930" y="258">SPY</text><circle class="dot" cx="1010" cy="288" r="12"/><text class="s" x="990" y="326">QQQ</text><circle class="dot" cx="1060" cy="280" r="12"/><text class="s" x="1038" y="252">TQQQ</text>
+  <circle class="mean" cx="735" cy="276" r="7"/><text class="h" x="750" y="248">평균 ρ≈0.01</text>
+</svg>

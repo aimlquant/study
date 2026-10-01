@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">미시구조 데이터 품질 검사 파이프라인</title><desc id="desc">이벤트 순서, 주문장 회계, 바 집계, 거래 세션을 단계별로 검증한다.</desc>
+  <defs><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#0F2C59"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:27px;font-weight:800}.b{font-size:21px}.box{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.accent{fill:#0F2C59}.w{fill:#fff}.arrow{stroke:#0F2C59;stroke-width:4;fill:none;marker-end:url(#a)}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <rect class="box" x="55" y="185" width="240" height="220" rx="16"/><text class="h" x="175" y="245" text-anchor="middle">1 · 이벤트 순서</text><text class="b" x="175" y="300" text-anchor="middle">시퀀스 · 시각</text><text class="b" x="175" y="340" text-anchor="middle">조건 코드</text>
+  <path class="arrow" d="M295 295 H350"/>
+  <rect class="box" x="360" y="185" width="240" height="220" rx="16"/><text class="h" x="480" y="245" text-anchor="middle">2 · 주문장 회계</text><text class="b" x="480" y="300" text-anchor="middle">남은 수량 ≥ 0</text><text class="b" x="480" y="340" text-anchor="middle">가격대 합계 일치</text>
+  <path class="arrow" d="M600 295 H655"/>
+  <rect class="box" x="665" y="185" width="240" height="220" rx="16"/><text class="h" x="785" y="245" text-anchor="middle">3 · 바 집계</text><text class="b" x="785" y="300" text-anchor="middle">OHLC · VWAP</text><text class="b" x="785" y="340" text-anchor="middle">거래량 재계산</text>
+  <path class="arrow" d="M905 295 H960"/>
+  <rect class="accent" x="970" y="185" width="180" height="220" rx="16"/><text class="h w" x="1060" y="245" text-anchor="middle">4 · 세션</text><text class="b w" x="1060" y="300" text-anchor="middle">휴일 · 조기 마감</text><text class="b w" x="1060" y="340" text-anchor="middle">경매 · 거래 정지</text>
+  <path class="arrow" d="M1060 430 C1060 540 175 540 175 430"/><text class="b" x="620" y="575" text-anchor="middle">오류는 앞 단계의 계약으로 되돌아갑니다</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">연속 변동과 점프 분산 분해</title><desc id="desc">수익률 경로에서 대부분의 작은 움직임과 하나의 큰 점프를 구분하고 실현 분산에서 이중거듭제곱변동을 뺀다.</desc>
+  <defs><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#0F2C59"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:28px;font-weight:800}.b{font-size:22px}.axis{stroke:#64748B;stroke-width:2}.path{stroke:#0F2C59;stroke-width:5;fill:none}.jump{stroke:#DC2626;stroke-width:8}.box{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.accent{fill:#0F2C59}.w{fill:#fff}.arrow{stroke:#0F2C59;stroke-width:4;fill:none;marker-end:url(#a)}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <line class="axis" x1="70" y1="450" x2="620" y2="450"/><line class="axis" x1="70" y1="90" x2="70" y2="450"/><path class="path" d="M80 360 L130 342 L180 365 L230 325 L280 350 L330 332 L380 350"/><line class="jump" x1="380" y1="350" x2="430" y2="145"/><path class="path" d="M430 145 L480 170 L530 150 L580 185 L620 165"/><text class="b" x="245" y="405" text-anchor="middle">연속 움직임</text><text class="h" x="470" y="110" text-anchor="middle">점프</text>
+  <path class="arrow" d="M650 285 H735"/>
+  <rect class="box" x="755" y="85" width="380" height="120" rx="14"/><text class="h" x="945" y="137" text-anchor="middle">RV</text><text class="b" x="945" y="175" text-anchor="middle">연속 + 점프</text>
+  <rect class="box" x="755" y="245" width="380" height="120" rx="14"/><text class="h" x="945" y="297" text-anchor="middle">BV</text><text class="b" x="945" y="335" text-anchor="middle">연속 성분 추정</text>
+  <rect class="accent" x="755" y="405" width="380" height="120" rx="14"/><text class="h w" x="945" y="457" text-anchor="middle">max(RV − BV, 0)</text><text class="b w" x="945" y="495" text-anchor="middle">점프 분산 추정</text>
+</svg>
