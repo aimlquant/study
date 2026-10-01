@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "bbd6132f37a8fe10bc3f50b0b133f8e83f23c593627f1cd8699563e5ab061542",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_03_market_microstructure/03_chapter_03_market_microstructure.md",
+      "sha256": "5f64adaa5e8b72206705b11d2ec08aaafe4a41ea37e94c83562cdb4b1a4a0ac3",
+      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+    },
+    {
+      "role": "outline",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_03_market_microstructure/03_chapter_03_market_microstructure_ko.md",
+      "sha256": "cbd15bf419be40479249ff945acc57c21f258c71cd533d4a83908c63e137461a",
+      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+    },
+    {
+      "role": "explainer",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_03_market_microstructure/03_chapter_03_market_microstructure_ko_explained.md",
+      "sha256": "323be016c94f4bf6fe76d9f89b8c2a2a886adcde1397bb0ee71c3a3a95da04d6",
+      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+    },
+    {
+      "role": "supporting-notebook",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_03_market_microstructure/src/ch03/03_chapter_guide.ipynb",
+      "sha256": "5941b003ee8aac9e6e03677c80958479eb247f9eda990ec165eac0ea0bdd121e",
+      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+    }
+  ],
+  "sections": [
+    {
+      "ref": "3.1",
+      "report_id": "s3-1",
+      "explanation": "유동성 공급자의 처리 비용·재고 위험·역선택과 주문 유형의 즉시성·체결 확률 교환을 연결했다.",
+      "evidence": "스프레드 구성 요소, 시장가·지정가 비교, 개장·장중·마감 국면",
+      "limits": "특정 거래소의 보편적 비용 수치나 전략 성과를 주장하지 않는다.",
+      "visuals": "fig-liquidity"
+    },
+    {
+      "ref": "3.2",
+      "report_id": "s3-2",
+      "explanation": "L1·L2·L3·TAQ의 관측 범위와 중간가·체결가·종가, 여러 타임스탬프의 의미를 구분했다.",
+      "evidence": "피드 계층과 원서가 사용한 다섯 데이터 상품",
+      "limits": "L3는 한 거래 장소의 표시 주문장일 뿐 숨은 주문과 타 거래 장소를 포함하지 않는다.",
+      "visuals": "fig-feed-hierarchy, table-feed-levels"
+    },
+    {
+      "ref": "3.3",
+      "report_id": "s3-3",
+      "explanation": "ITCH 메시지를 주문 생애주기 상태 전이로 재생하고 큐·불변 조건·주문장 스냅샷으로 검증하는 흐름을 설명했다.",
+      "evidence": "원서 표 3.1–3.2와 그림 3.1–3.3, 가이드 노트북 저장 출력",
+      "limits": "96.6% 이벤트 비율과 약 92.6% 고유 주문 비율을 구분하고, 합성 노트북을 전체 ITCH 재현으로 해석하지 않는다.",
+      "visuals": "fig-3-1, fig-queue, fig-3-2, fig-3-3"
+    },
+    {
+      "ref": "3.4",
+      "report_id": "s3-4",
+      "explanation": "시간·활동·정보 시계와 Lee-Ready 방향 분류, 적응형 불균형 문턱을 비교했다.",
+      "evidence": "원서 그림 3.4와 표 3.3–3.7",
+      "limits": "Jarque-Bera가 낮다는 사실을 수익·예측 정확도·거래 가능성으로 일반화하지 않는다.",
+      "visuals": "fig-3-4, fig-lee-ready, table-3-3–table-3-7"
+    },
+    {
+      "ref": "3.5",
+      "report_id": "s3-5",
+      "explanation": "RV와 BV의 분산 분해, Lee-Mykland 국소 표준화, 점프 특성의 용도를 연결했다.",
+      "evidence": "원서 저장 출력의 AMD·AMZN·FB 2020년 점프 통계",
+      "limits": "2020년 3월 혼란을 포함한 표본을 장기 상수로 일반화하지 않고 개장 0건은 준비 창의 미검사로 해석한다.",
+      "visuals": "fig-jump-decomposition, table-jump-results, table-jump-rule"
+    },
+    {
+      "ref": "3.6",
+      "report_id": "s3-6",
+      "explanation": "시계·순서·중복·세션·기업행위·상태 불변 조건을 데이터 계보에 남기는 QA 순서를 제시했다.",
+      "evidence": "교재 품질·세션화 지침과 주문장 불변 조건",
+      "limits": "늦은 메시지를 무조건 정렬하거나 결측을 0으로 채우는 처방을 피한다.",
+      "visuals": "fig-quality"
+    },
+    {
+      "ref": "3.7",
+      "report_id": "s3-7",
+      "explanation": "관측 범위·상태 회계·표본 경계·품질 검사를 하나의 연구 파이프라인으로 요약했다.",
+      "evidence": "앞 절의 수치와 검증 항목을 되짚는 확인 질문",
+      "limits": "새로운 실험 결과나 수익 주장을 추가하지 않는다.",
+      "visuals": "추가 그림 불필요"
+    }
+  ],
+  "experiments": [
+    {
+      "status": "stored-output",
+      "scope": "합성 주문 이벤트 잔량 회계와 문턱 통과 뒤 바 누적값 초기화",
+      "source": "03_chapter_guide.ipynb 셀 16, Python 3.12.3",
+      "report_ids": ["notebook-lob-demo", "notebook-lob-output"],
+      "interpretation": "최소 상태 회계와 경계 규칙만 검증하며 전체 ITCH·DataBento 결과의 재실행 증거로 사용하지 않는다."
+    }
+  ]
+}

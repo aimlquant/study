@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">시장 데이터 피드 계층</title><desc id="desc">L1은 최우량 호가, L2는 가격대별 심도, L3는 주문별 이벤트를 보여 준다.</desc>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:34px;font-weight:800}.b{font-size:24px}.s{font-size:22px;fill:#475569}.l1{fill:#E8F1FA;stroke:#0F2C59;stroke-width:3}.l2{fill:#CADCED;stroke:#0F2C59;stroke-width:3}.l3{fill:#0F2C59}.w{fill:white}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <rect class="l1" x="180" y="70" width="840" height="120" rx="12"/><text class="h" x="260" y="132">L1</text><text class="b" x="390" y="116">최우량 매수·매도호가</text><text class="s" x="390" y="154">스프레드 · 중간가 · 즉시 기준 가격</text>
+  <rect class="l2" x="250" y="235" width="700" height="130" rx="12"/><text class="h" x="320" y="304">L2</text><text class="b" x="440" y="286">가격대별 합산 심도</text><text class="s" x="440" y="326">깊이 · 가격대 불균형</text>
+  <rect class="l3" x="320" y="410" width="560" height="135" rx="12"/><text class="h w" x="385" y="482">L3</text><text class="b w" x="505" y="462">주문별 이벤트</text><text class="s w" x="505" y="505">추가 · 취소 · 대체 · 체결</text>
+  <text class="s" x="1050" y="128" text-anchor="middle">접근 쉬움</text><text class="s" x="1050" y="300" text-anchor="middle">심도 증가</text><text class="s" x="1050" y="482" text-anchor="middle">운영 부담 증가</text>
+</svg>

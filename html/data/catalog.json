@@ -650,7 +650,18 @@
       "title": "Chapter 12. GNN 기반 노드 분류와 링크 예측"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "3장 상세 리포트",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-10-03-ch03/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "3장 발표 슬라이드",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-10-03-ch03/"
+        }
+      ],
       "chapters": [
         "Chapter 3"
       ],
@@ -670,7 +681,7 @@
           "youtube_video_id": "oMcUjKKcStw"
         }
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 3. 시장 미시구조"
     },

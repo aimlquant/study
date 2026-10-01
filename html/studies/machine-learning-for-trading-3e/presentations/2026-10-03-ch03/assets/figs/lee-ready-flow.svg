@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">Lee-Ready 거래 방향 분류 흐름</title><desc id="desc">체결을 과거 방향의 호가에 정렬하고 중간가 비교 뒤 동점만 틱 테스트로 분류한다.</desc>
+  <defs><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#0F2C59"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:27px;font-weight:800}.b{font-size:22px}.box{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.accent{fill:#0F2C59}.w{fill:#fff}.arrow{stroke:#0F2C59;stroke-width:4;fill:none;marker-end:url(#a)}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <rect class="box" x="50" y="220" width="230" height="130" rx="14"/><text class="h" x="165" y="270" text-anchor="middle">체결 + 호가</text><text class="b" x="165" y="310" text-anchor="middle">backward as-of</text>
+  <path class="arrow" d="M280 285 H380"/>
+  <rect class="accent" x="390" y="210" width="260" height="150" rx="14"/><text class="h w" x="520" y="270" text-anchor="middle">체결가 vs 중간가</text><text class="b w" x="520" y="315" text-anchor="middle">p &gt; m · p &lt; m · p = m</text>
+  <path class="arrow" d="M650 250 C745 190 770 130 850 115"/><text class="b" x="745" y="178" text-anchor="middle">p &gt; m</text><rect class="box" x="865" y="65" width="270" height="100" rx="14"/><text class="h" x="1000" y="125" text-anchor="middle">매수자 시작</text>
+  <path class="arrow" d="M650 285 H850"/><text class="b" x="750" y="265" text-anchor="middle">p &lt; m</text><rect class="box" x="865" y="235" width="270" height="100" rx="14"/><text class="h" x="1000" y="295" text-anchor="middle">매도자 시작</text>
+  <path class="arrow" d="M650 320 C745 385 770 455 850 475"/><text class="b" x="745" y="410" text-anchor="middle">p = m</text><rect class="box" x="865" y="420" width="270" height="130" rx="14"/><text class="h" x="1000" y="472" text-anchor="middle">틱 테스트</text><text class="b" x="1000" y="514" text-anchor="middle">업틱·다운틱·이어 쓰기</text>
+</svg>

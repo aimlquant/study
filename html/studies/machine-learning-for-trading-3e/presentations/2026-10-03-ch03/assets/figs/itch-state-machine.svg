@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">ITCH 주문 생애주기 상태 머신</title><desc id="desc">새 주문은 활성 상태로 들어오며 취소, 대체, 체결, 삭제, 세션 종료 메시지에 따라 상태가 바뀐다.</desc>
+  <defs><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#0F2C59"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:28px;font-weight:800}.m{font-size:23px;font-weight:700;fill:#0F2C59}.box{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.end{fill:#0F2C59}.w{fill:#fff}.arrow{stroke:#0F2C59;stroke-width:4;fill:none;marker-end:url(#a)}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <rect class="box" x="80" y="235" width="210" height="110" rx="16"/><text class="h" x="185" y="300" text-anchor="middle">신규 메시지</text>
+  <rect class="box" x="455" y="205" width="270" height="170" rx="16"/><text class="h" x="590" y="275" text-anchor="middle">활성 주문</text><text class="m" x="590" y="320" text-anchor="middle">남은 수량 · 가격 · 큐</text>
+  <rect class="end" x="900" y="65" width="220" height="90" rx="14"/><text class="h w" x="1010" y="120" text-anchor="middle">체결 완료</text>
+  <rect class="end" x="900" y="255" width="220" height="90" rx="14"/><text class="h w" x="1010" y="310" text-anchor="middle">삭제·취소</text>
+  <rect class="end" x="900" y="445" width="220" height="90" rx="14"/><text class="h w" x="1010" y="500" text-anchor="middle">세션 종료</text>
+  <path class="arrow" d="M290 290 H445"/><text class="m" x="365" y="270" text-anchor="middle">A · F</text>
+  <path class="arrow" d="M725 250 C810 225 820 130 890 115"/><text class="m" x="800" y="180" text-anchor="middle">E · C</text>
+  <path class="arrow" d="M725 300 H890"/><text class="m" x="805" y="280" text-anchor="middle">D</text>
+  <path class="arrow" d="M725 350 C810 380 820 470 890 485"/><text class="m" x="805" y="425" text-anchor="middle">S</text>
+  <path class="arrow" d="M540 205 C430 105 750 70 665 205"/><text class="m" x="590" y="105" text-anchor="middle">X · 부분 체결</text>
+  <path class="arrow" d="M540 375 C430 500 760 535 665 375"/><text class="m" x="595" y="522" text-anchor="middle">U · 새 ID</text>
+</svg>

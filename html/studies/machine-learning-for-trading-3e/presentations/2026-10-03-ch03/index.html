@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="트레이딩을 위한 머신러닝 3판 Chapter 3 시장 미시구조 발표자료">
+  <title>시장 미시구조 · Chapter 3</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg></button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a><a href="../../../../sessions/2026-10-03-ml4t-ch03/">회차</a></nav></div>
+    </div>
+  </div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html" data-caption-scope="deck" data-figure-captions="none">
+    <section class="slide slide--cover" id="slide-cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero"><p class="eyebrow">트레이딩을 위한 머신러닝 3판 · Chapter 3</p><h1>시장 미시구조</h1><p class="cover-subtitle">주문 이벤트에서 실행 가능한 연구 데이터까지</p></div>
+      <dl class="cover-meta"><div><dt>발표자</dt><dd>세훈</dd></div><div><dt>범위</dt><dd>Chapter 3</dd></div><div><dt>발표일</dt><dd>2026-10-03</dd></div></dl>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-questions" aria-label="핵심 질문" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 3</span></header>
+      <h1>가격 하나를 만들기까지 무엇이 개입하는가?</h1><p class="lead">미시구조는 가격·호가·체결을 규칙과 사건의 결과로 읽습니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>관측</h2><p>L1·L2·L3·TAQ 중 어떤 피드가 필요한 상태를 보여 주는가?</p></article><article><h2>복원</h2><p>어떤 불변 조건으로 원시 주문 메시지를 믿을 수 있는 주문장으로 만드는가?</p></article><article><h2>측정</h2><p>거래를 어떤 시계로 묶고 점프를 어떻게 분리해야 하는가?</p></article></div></div>
+      <p class="takeaway">모델보다 먼저 정해야 할 것은 관측 범위, 상태 회계, 표본 경계입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-roadmap" aria-label="학습 흐름" data-report-refs="table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 3</span></header>
+      <h1>원시 이벤트에서 연구용 특성까지</h1><p class="lead">각 단계의 오류는 다음 단계에서 더 정교한 숫자로 증폭됩니다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>시장과 피드</h2><p>유동성 공급 유인과 데이터 계층을 이해합니다.</p></article><article><h2>상태와 표본</h2><p>주문장을 재구성하고 시간·활동·정보 시계를 비교합니다.</p></article><article><h2>사건과 품질</h2><p>점프를 분리하고 세션·시계·기업행위를 검증합니다.</p></article></div></div>
+      <p class="takeaway">파이프라인 전체의 의미를 보존해야 예측 결과도 해석할 수 있습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-overview">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s31" aria-label="3.1 절 시작" data-report-refs="s3-1" data-section-divider="3.1" data-source-refs="section:3.1" data-source-title="section:3.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1</span></header><h1>미시구조 (microstructure)가 가격 형성에 미치는 영향</h1><p class="lead">왜 같은 정보도 주문 유형·큐·스프레드에 따라 다른 체결 결과를 만드는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">3.1</div></div><p class="takeaway">가격은 정보뿐 아니라 거래 규칙과 유동성 공급 비용의 결과입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s3-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-liquidity" aria-label="유동성 공급 메커니즘" data-report-refs="liquidity-dimensions fig-liquidity" data-source-refs="section:3.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1</span></header><h1>스프레드는 유동성 공급자가 요구하는 보상입니다</h1><p class="lead">주문을 기다리는 동안 처리 비용·재고 위험·역선택을 부담합니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="유동성 공급의 세 비용"><img src="assets/figs/liquidity-mechanism.svg" alt="처리 비용, 재고 위험, 역선택 위험이 스프레드와 심도로 이어지는 흐름"></figure><div class="teaching-rows"><article><h2>처리 비용</h2><p>인프라·메시지·수수료.</p></article><article><h2>재고 위험</h2><p>한쪽 체결 누적의 가격 노출.</p></article><article><h2>역선택</h2><p>정보가 빠른 상대와의 불리한 거래.</p></article></div></div></div>
+      <p class="takeaway">보이는 스프레드는 비용·재고·정보 비대칭이 합쳐진 균형값입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-liquidity">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-order-intent" aria-label="주문 의도와 비용" data-report-refs="provider-frictions order-intent intraday-regimes" data-source-refs="section:3.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.1</span></header><h1>즉시성·가격 통제·체결 확률은 교환 관계입니다</h1><p class="lead">시장가와 지정가는 서로 다른 비용을 부담합니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 1</span> 주문 선택의 경제성</caption><thead><tr><th>주문</th><th>얻는 것</th><th>부담하는 것</th></tr></thead><tbody><tr><td>시장성 주문</td><td>즉시성</td><td>스프레드·시장 충격</td></tr><tr><td>지정가 주문</td><td>가격 통제</td><td>미체결·큐 대기·역선택</td></tr><tr><td>숨은 주문</td><td>노출 축소</td><td>낮은 우선순위·관측 불가</td></tr></tbody></table><p class="explain-line">개장·장중·마감의 유동성 국면에 따라 같은 주문의 결과도 달라집니다.</p></div>
+      <p class="takeaway">실행 비용은 수수료가 아니라 체결 확률과 기회비용까지 포함합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#order-intent">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s32" aria-label="3.2 절 시작" data-report-refs="s3-2" data-section-divider="3.2" data-source-refs="section:3.2" data-source-title="section:3.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2</span></header><h1>현대 시장 데이터 피드의 구조</h1><p class="lead">피드 깊이가 달라지면 어떤 질문까지 답할 수 있는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">3.2</div></div><p class="takeaway">데이터 제품의 이름보다 관측 가능한 상태를 먼저 확인합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s3-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-feed-hierarchy" aria-label="시장 데이터 계층" data-report-refs="feed-hierarchy fig-feed-hierarchy table-feed-levels" data-source-refs="section:3.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2</span></header><h1>L1에서 L3로 내려갈수록 상태와 운영 부담이 함께 늘어납니다</h1><p class="lead">분석 질문에 필요한 최소 관측 수준을 선택합니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="시장 데이터 피드 계층"><img src="assets/figs/data-hierarchy.svg" alt="L1 최우량 호가, L2 가격대 심도, L3 개별 주문 이벤트의 계층"></figure><div class="teaching-rows"><article><h2>L1</h2><p>스프레드·중간가.</p></article><article><h2>L2</h2><p>가격대별 심도·불균형.</p></article><article><h2>L3</h2><p>주문 생애주기·큐.</p></article></div></div></div>
+      <p class="takeaway">L3도 한 거래 장소의 표시 주문만 보여 주며 시장 전체는 아닙니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-feed-hierarchy">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-price-time" aria-label="가격과 시간 의미" data-report-refs="price-conventions chapter-data-sources protocols-integrity" data-source-refs="section:3.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.2</span></header><h1>가격 열과 타임스탬프 열은 이름만 같을 뿐입니다</h1><p class="lead">중간가·체결가·종가, 이벤트·배포·도착 시각을 구분합니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>가격</h2><p>레이블은 중간가로 반등을 줄이고 손익은 체결 가능 가격으로 평가합니다.</p></article><article><h2>시간</h2><p>미래 호가가 과거 체결에 붙지 않도록 backward as-of 정렬을 사용합니다.</p></article><article><h2>피드</h2><p>직접 피드와 통합·웹 피드는 관측 범위와 지연 의미가 다릅니다.</p></article></div></div>
+      <p class="takeaway">열 이름보다 생성 시점과 경제적 의미가 선견 편향을 결정합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#price-conventions">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s33" aria-label="3.3 절 시작" data-report-refs="s3-3" data-section-divider="3.3" data-source-refs="section:3.3" data-source-title="section:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3</span></header><h1>원시 메시지에서 지정가 주문장으로</h1><p class="lead">이벤트 스트림을 어떤 상태 전이와 검증으로 재생하는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">3.3</div></div><p class="takeaway">주문장은 파일이 아니라 메시지를 순서대로 적용한 상태입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s3-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-itch-scale" aria-label="ITCH 처리 규모" data-report-refs="itch-case table-3-1" data-source-refs="table:3.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 표 3.1</span></header><h1>4억 2,300만 메시지는 스트리밍 설계를 요구합니다</h1><p class="lead">2020-01-30 NASDAQ TotalView-ITCH · 압축 해제 약 13GB.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 2</span> 원서 처리 근삿값</caption><thead><tr><th>지표</th><th>Python</th><th>Rust</th><th>차이</th></tr></thead><tbody><tr><td>벽시계 시간</td><td>약 23분</td><td>5분 미만</td><td>약 5–8배</td></tr><tr><td>최대 메모리</td><td>약 8GB</td><td>500MB 미만</td><td>약 16배</td></tr></tbody></table><p class="explain-line">하드웨어 의존 수치이며 두 구현의 스키마와 BBO 일치 검증이 우선입니다.</p></div>
+      <p class="takeaway">성능 최적화 전에 순차 처리·고정소수점·메시지 스키마를 고정합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-3-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-state-machine" aria-label="ITCH 주문 생애주기" data-report-refs="lob-state-machine fig-3-1" data-source-refs="figure:3.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.1</span></header><h1>A·F·X·D·U·E·C가 주문의 생애를 바꿉니다</h1><p class="lead">메시지 유형을 상태 전이로 읽으면 잔량 회계가 명확해집니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure" data-deck-figure-title="ITCH 주문 생애주기 상태 머신"><img src="assets/figs/itch-state-machine.svg" alt="추가, 취소, 삭제, 대체, 체결 메시지가 활성 주문 상태를 바꾸는 상태 머신"></figure><p class="figure-reading">U는 기존 주문을 끝내고 새 참조를 만들며 E와 C는 체결 가격 표현이 다릅니다.</p></div></div>
+      <p class="takeaway">메시지 한 글자는 단순 분류가 아니라 상태 회계 규칙입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-3-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-queue" aria-label="가격시간 우선순위" data-report-refs="queue-priority fig-queue" data-source-refs="section:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3</span></header><h1>총 심도와 내 앞의 수량은 다릅니다</h1><p class="lead">뒤에 온 주문은 총 심도를 늘려도 내 체결 순서를 늦추지 않습니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="큐 위치와 총 심도"><img src="assets/figs/queue-priority.svg" alt="100.10달러 매도 큐에서 내 주문 앞 수량과 뒤 주문의 차이"></figure><div class="teaching-rows"><article><h2>처음</h2><p>A1 200주 + A2 150주가 내 앞.</p></article><article><h2>변화</h2><p>앞 주문의 체결·취소만 내 앞 수량을 감소.</p></article><article><h2>뒤 주문</h2><p>A3 300주는 총 심도만 증가.</p></article></div></div></div>
+      <p class="takeaway">체결 확률에는 가격대 심도보다 큐 위치가 직접적입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-queue">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-invariants" aria-label="주문장 불변 조건" data-report-refs="book-invariants venue-local" data-source-refs="section:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3</span></header><h1>주문장 재생은 네 가지 불변 조건으로 감시합니다</h1><p class="lead">작은 회계 오류가 심도·불균형·체결 확률을 모두 오염시킵니다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>참조</h2><p>수정·체결·취소 전에 주문 ID가 존재해야 합니다.</p></article><article><h2>수량</h2><p>주문별·가격대별 잔량은 음수가 될 수 없습니다.</p></article><article><h2>집계</h2><p>가격대 합계는 활성 주문 수량 합과 같아야 합니다.</p></article><article><h2>범위</h2><p>재구성된 책은 해당 거래 장소의 표시 주문장입니다.</p></article></div></div>
+      <p class="takeaway">교차 호가가 보이면 시장보다 시계·필터·재생 버그를 먼저 확인합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#book-invariants">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-lob-depth" aria-label="재구성된 주문장 심도" data-report-refs="lob-snapshots fig-3-2" data-source-refs="figure:3.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.2</span></header><h1>스냅샷은 이벤트 상태를 사람이 검토하는 창입니다</h1><p class="lead">세 시점 모두 스프레드는 0.03달러지만 심도 모양은 다릅니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure deck-report-figure--tall" data-deck-figure-title="세 시점의 거래 장소 로컬 LOB"><img src="assets/figs/lob-depth.svg" alt="세 시점의 NVDA 매수와 매도 심도, 각 시점 0.03달러 스프레드"></figure><p class="figure-reading">원서 캡션의 정규 세션 설명과 UTC 라벨이 충돌해 시간대는 확정하지 않습니다.</p></div></div>
+      <p class="takeaway">시각화는 검증 도구이지만 캡션과 시간대도 데이터처럼 감사해야 합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-3-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-lifecycle" aria-label="주문 생애주기 통계" data-report-refs="order-lifecycle-evidence table-3-2" data-source-refs="table:3.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 표 3.2</span></header><h1>주문 대부분은 체결보다 삭제·대체로 끝납니다</h1><p class="lead">NASDAQ 2020-01-30 주문 이벤트.</p>
+      <div class="slide-body"><div class="kpi-grid"><div class="kpi"><strong>186.6M</strong><span>추가 이벤트</span></div><div class="kpi"><strong>180.3M</strong><span>삭제 이벤트</span></div><div class="kpi"><strong>8.56M</strong><span>체결 이벤트</span></div><div class="kpi"><strong>3.4%</strong><span>체결 주문 / 추가</span></div></div><p class="explain-line">96.6%는 삭제 이벤트/추가 이벤트입니다. 고유 삭제 주문/추가는 약 92.6%입니다.</p></div>
+      <p class="takeaway">이벤트 비율과 고유 주문 생애주기 비율을 섞지 않습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-3-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-imbalance" aria-label="순진한 주문 불균형" data-report-refs="lob-stylized-facts fig-3-3" data-source-refs="section:3.3 figure:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.3</span></header><h1>순진한 불균형의 평균 예측력은 거의 0입니다</h1><p class="lead">1초 뒤 수익률 상관은 종목별 편차가 크고 거래 비용을 포함하지 않습니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="불균형과 이후 수익률의 상관"><img src="assets/figs/imbalance-signal.svg" alt="대부분 종목이 상관 0 근처에 있고 일부 저활동 종목이 음의 상관을 보이는 산점도"></figure><div class="teaching-rows"><article><h2>평균</h2><p>ρ ≈ 0.01</p></article><article><h2>표준편차</h2><p>약 0.10</p></article><article><h2>범위</h2><p>−0.35 ~ 0.16</p></article></div></div></div>
+      <p class="takeaway">상관이 있어도 스프레드·큐·체결 가능성을 넘는 전략 증거는 아닙니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-3-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-notebook" aria-label="합성 이벤트 검증" data-report-refs="notebook-lob-demo notebook-lob-output" data-source-refs="section:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.3 · 실습</span></header><h1>최소 합성 이벤트로 회계와 바 경계를 검증합니다</h1><p class="lead">가이드 노트북의 저장 출력이며 실제 ITCH 전체 재현은 아닙니다.</p>
+      <div class="slide-body"><div class="code-layout"><pre data-code-language="Python"><code>orders[event.order_id] = event.shares
+displayed_shares = sum(orders.values())
+
+if cumulative_value &gt;= threshold:
+    bars.append(cumulative_value)
+    cumulative_value = 0.0</code></pre><table class="teaching-table"><caption><span data-deck-caption="table">표 3</span> 가이드 노트북 저장 출력</caption><thead><tr><th>환경</th><th>검증 결과</th></tr></thead><tbody><tr><td>Python 3.12.3 · 셀 16</td><td><code>PASS: order lifecycle quantities and reset-on-crossing bar boundaries</code></td></tr></tbody></table></div></div>
+      <p class="takeaway">최소 예제는 규칙을 검증하지만 4억 건 통계를 재현한 증거는 아닙니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#notebook-lob-output">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s34" aria-label="3.4 절 시작" data-report-refs="s3-4" data-section-divider="3.4" data-source-refs="section:3.4" data-source-title="section:3.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.4</span></header><h1>표본추출의 기술</h1><p class="lead">어떤 양을 일정하게 둘 때 모델 입력의 의미가 보존되는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">3.4</div></div><p class="takeaway">바는 저장 형식이 아니라 정보량을 배분하는 측정 설계입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s3-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-sampling" aria-label="바 샘플링 비교" data-report-refs="bar-clocks fig-3-4" data-source-refs="section:3.4 figure:3.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 그림 3.4</span></header><h1>같은 틱도 어떤 시계로 묶느냐에 따라 다른 표본이 됩니다</h1><p class="lead">활동과 정보 기반 바는 거래가 몰릴수록 더 촘촘해집니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure" data-deck-figure-title="바 샘플링 방법 비교"><img src="assets/figs/sampling-clocks.svg" alt="같은 가격 경로를 시간 바, 거래량 바, 틱 불균형 바로 다르게 표본추출"></figure><p class="figure-reading">예시 바 수: 1분 390개 · 거래량 96개 · 틱 불균형 139개.</p></div></div>
+      <p class="takeaway">예측 지평이 시계 시간인지 거래 활동인지 먼저 결정합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-3-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-lee-ready" aria-label="Lee-Ready 거래 분류" data-report-refs="trade-classification fig-lee-ready" data-source-refs="section:3.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.4</span></header><h1>정보 기반 바는 먼저 공격자 방향을 알아야 합니다</h1><p class="lead">Lee-Ready는 과거 호가에 정렬한 뒤 중간점 거래만 틱 테스트로 보완합니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure" data-deck-figure-title="Lee-Ready 분류 흐름"><img src="assets/figs/lee-ready-flow.svg" alt="체결을 과거 호가에 정렬하고 중간가 위는 매수, 아래는 매도, 같으면 틱 테스트로 분류"></figure><p class="figure-reading">핵심은 미래 호가를 쓰지 않는 backward as-of 정렬입니다.</p></div></div>
+      <p class="takeaway">방향 오분류는 불균형 바의 경계 자체를 바꿉니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-lee-ready">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-classification" aria-label="거래 분류 정확도" data-report-refs="table-3-3" data-source-refs="table:3.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 표 3.3</span></header><h1>호가를 쓰면 분류 정확도가 94.7%까지 올라갑니다</h1><p class="lead">NVDA · 2024-11-04~08 · 742,527건 거래.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 4</span> 거래 분류 정확도</caption><thead><tr><th>방법</th><th>적용 범위</th><th>정확도</th></tr></thead><tbody><tr><td>Lee-Ready</td><td>100%</td><td>94.7%</td></tr><tr><td>연속 틱 테스트</td><td>100%</td><td>80.0%</td></tr><tr><td>0이 아닌 틱만</td><td>19%</td><td>90.0%</td></tr></tbody></table><p class="explain-line">원서 본문의 약 78%와 표의 80.0%가 충돌해 표 값을 주값으로 사용합니다.</p></div>
+      <p class="takeaway">정확도와 적용 범위를 함께 비교해야 합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-3-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-information-bars" aria-label="정보 기반 바 문턱" data-report-refs="information-bars table-3-4" data-source-refs="section:3.4 table:3.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 표 3.4</span></header><h1>적응형 문턱은 자기 자신을 키울 수 있습니다</h1><p class="lead">최근 불균형을 너무 빠르게 학습하면 기대 바 길이가 폭주합니다.</p>
+      <div class="slide-body"><div class="formula-main">\[\theta_T=\sum_{t=1}^{T}b_t,\qquad E[|\theta_T|]\approx E[T]\,|2\Pr(b_t=+1)-1|\]</div><div class="teaching-columns"><article><h2>NVDA 매수 비율</h2><p>47%</p></article><article><h2>α = 0.1</h2><p>E[T] 17.5배 드리프트</p></article><article><h2>α = 0.001</h2><p>E[T] 0.98배</p></article></div></div>
+      <p class="takeaway">작은 α·준비 구간·드리프트 모니터링이 필요합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-3-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-bar-comparison" aria-label="바 유형 비교" data-report-refs="table-3-5 table-3-6 table-3-7 bar-comparison" data-source-refs="table:3.5 table:3.6 table:3.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 표 3.5 · 3.6 · 3.7</span></header><h1>더 낮은 Jarque-Bera가 더 좋은 전략을 뜻하지는 않습니다</h1><p class="lead">AAPL 14,184건 표본에서 활동 기반 바가 정규성에 더 가까웠습니다.</p>
+      <div class="slide-body"><table class="teaching-table compare-table--dense"><caption><span data-deck-caption="table">표 5</span> AAPL 바 통계</caption><thead><tr><th>바</th><th>개수</th><th>JB</th><th>시차 1 자기상관</th></tr></thead><tbody><tr><td>시간 1분</td><td>390</td><td>609.0</td><td>−0.023</td></tr><tr><td>거래량 1만 주</td><td>96</td><td>1.9</td><td>0.026</td></tr><tr><td>달러 300만 달러</td><td>102</td><td>2.2</td><td>−0.027</td></tr><tr><td>틱 불균형</td><td>139</td><td>22.6</td><td>0.057</td></tr></tbody></table></div>
+      <p class="takeaway">검증된 공격자 방향이 없다면 달러·거래량 바가 방어 가능한 출발점입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#bar-comparison">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s35" aria-label="3.5 절 시작" data-report-refs="s3-5" data-section-divider="3.5" data-source-refs="section:3.5" data-source-title="section:3.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.5</span></header><h1>일중 수익률에서 가격 점프 탐지하기</h1><p class="lead">연속적인 변동과 불연속 사건을 어떻게 분리하는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">3.5</div></div><p class="takeaway">같은 큰 수익률도 평소 변동성 국면에 따라 의미가 달라집니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s3-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-jump-decomposition" aria-label="점프 분산 분해" data-report-refs="rv-bv fig-jump-decomposition" data-source-refs="section:3.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.5</span></header><h1>RV에서 BV를 빼 사건성 점프 분산을 추정합니다</h1><p class="lead">이웃 절댓값의 곱은 큰 수익률 하나가 제곱합을 지배하는 효과를 줄입니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="연속 변동과 점프 분해"><img src="assets/figs/jump-decomposition.svg" alt="수익률 경로의 연속 움직임과 큰 점프, RV에서 BV를 빼는 분산 분해"></figure><div class="formula-main">\[RV_d=\sum r_i^2\]\[BV_d=\mu_1^{-2}\sum |r_i||r_{i-1}|\]\[J_d=\max(RV_d-BV_d,0)\]</div></div></div>
+      <p class="takeaway">분산 분해는 점프 크기를, 다음 검정은 점프 위치를 찾습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-jump-decomposition">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-lee-mykland" aria-label="Lee-Mykland 점프 검정" data-report-refs="lee-mykland" data-source-refs="section:3.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.5</span></header><h1>현재 바를 직전의 국소 변동성으로 표준화합니다</h1><p class="lead">“평소보다 몇 배 큰가”를 같은 세션의 직전 창으로 묻습니다.</p>
+      <div class="slide-body"><div class="formula-main">\[L_i=\frac{r_i}{\hat\sigma_i},\qquad \hat\sigma_i^2=\frac{1}{K-2}\sum_{j=i-K+2}^{i-1}|r_j||r_{j-1}|\]</div><div class="teaching-columns"><article><h2>K = 12</h2><p>곱 10개·수익률 11개.</p></article><article><h2>5분 바 78개</h2><p>α=0.01 임계값 ≈ 5.10.</p></article><article><h2>준비 구간</h2><p>첫 K−1개 바는 미검사.</p></article></div></div>
+      <p class="takeaway">창 길이의 자연어 설명보다 수식과 코드 인덱스를 대조합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#lee-mykland">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-jump-results" aria-label="점프 탐지 결과" data-report-refs="jump-results table-jump-results local-vs-daily table-jump-rule jump-features" data-source-refs="section:3.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.5</span></header><h1>점프는 드물지만 마감과 사건일에 몰렸습니다</h1><p class="lead">2020년 3월 혼란을 포함한 AlgoSeek 저장 출력입니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 6</span> 연속 변동성과 점프 비중</caption><thead><tr><th>종목</th><th>연속 변동성</th><th>점프 비중</th><th>점프 종목-일</th></tr></thead><tbody><tr><td>AMD</td><td>45%</td><td>6.8%</td><td>24%</td></tr><tr><td>AMZN</td><td>30%</td><td>10.4%</td><td>31%</td></tr><tr><td>FB</td><td>34%</td><td>6.2%</td><td>34%</td></tr></tbody></table><p class="explain-line">검사 가능한 점프의 27%가 마지막 30분에 발생했습니다.</p></div>
+      <p class="takeaway">개장 0건은 준비 창 때문에 미검사된 결과이며 무점프 증거가 아닙니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#jump-results">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s36" aria-label="3.6 절 시작" data-report-refs="s3-6" data-section-divider="3.6" data-source-refs="section:3.6" data-source-title="section:3.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.6</span></header><h1>미시구조 데이터 품질과 세션화</h1><p class="lead">값 검사보다 먼저 순서·시계·세션·기업행위를 어떻게 관리하는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">3.6</div></div><p class="takeaway">미시구조 QA는 모델 전처리가 아니라 연구 설계의 일부입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s3-6">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-quality" aria-label="데이터 품질 파이프라인" data-report-refs="qa-order qa-pipeline fig-quality qa-examples" data-source-refs="section:3.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.6</span></header><h1>품질 검사는 값보다 시간과 상태를 먼저 봅니다</h1><p class="lead">수신부터 특성 저장까지 단계별 불변 조건을 남깁니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure" data-deck-figure-title="미시구조 데이터 품질 파이프라인"><img src="assets/figs/data-quality-pipeline.svg" alt="원시 수신, 스키마, 순서와 중복, 세션, 상태 불변 조건, 특성 감사의 파이프라인"></figure><p class="figure-reading">시계·세션·기업행위·결측·중복 검사 결과와 제외 사유를 데이터 계보에 저장합니다.</p></div></div>
+      <p class="takeaway">늦은 메시지를 조용히 정렬하면 미래 정보가 과거 상태로 들어갈 수 있습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-quality">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s37" aria-label="3.7 절 시작" data-report-refs="s3-7" data-section-divider="3.7" data-source-refs="section:3.7" data-source-title="section:3.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §3.7</span></header><h1>요약</h1><p class="lead">모델에 넣기 전에 어떤 질문에 답할 수 있어야 하는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">3.7</div></div><p class="takeaway">시장 데이터의 의미는 규칙·피드·상태·표본·품질의 연쇄에서 생깁니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s3-7">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-checkpoints" aria-label="이해 확인 질문" data-report-refs="checkpoints glossary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 3 · 확인</span></header><h1>이 세 질문에 답하면 파이프라인을 설명할 수 있습니다</h1><p class="lead">숫자보다 가정과 관측 범위를 말해 보세요.</p>
+      <div class="slide-body"><div class="question-list"><article><h2>1</h2><p>L2 심도만으로 내 지정가 주문의 체결 순서를 알 수 없는 이유는?</p></article><article><h2>2</h2><p>Lee-Ready에서 backward as-of 정렬이 필요한 이유는?</p></article><article><h2>3</h2><p>낮은 Jarque-Bera만으로 바 유형을 선택하면 안 되는 이유는?</p></article></div></div>
+      <p class="takeaway">좋은 답은 보이는 것·숨은 것·검증 조건을 함께 말합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#checkpoints">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-closing" aria-label="정리와 질의응답" data-report-refs="summary references">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 3 · Q&amp;A</span></header><h1>시장 데이터는 기록이 아니라 측정 장치입니다</h1><p class="lead">어떤 장치를 선택했는지가 모델이 학습할 세계를 결정합니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>관측</h2><p>피드와 거래 장소가 보이는 시장의 범위를 정합니다.</p></article><article><h2>복원</h2><p>상태 전이와 불변 조건이 특성의 신뢰도를 정합니다.</p></article><article><h2>측정</h2><p>바 경계와 점프·세션 처리가 레이블의 의미를 정합니다.</p></article></div></div>
+      <p class="takeaway">상세 근거: <a href="report.html">리포트</a> · 회차: <a href="../../../../sessions/2026-10-03-ml4t-ch03/">세션 허브</a></p><footer class="slide-footer"><a class="report-ref" href="report.html#references">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어"><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck.js"></script><script src="assets/deck-lightbox.js"></script><script defer src="assets/katex/katex.min.js"></script><script defer src="assets/katex/auto-render.min.js"></script><script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>
