@@ -472,6 +472,30 @@ artifacts = [
             ):
                 build_site.load_model(*paths)
 
+    def test_public_video_can_precede_presentation_materials(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            paths = self.write_metadata(
+                Path(directory), "video-public",
+                'youtube_video_id = "123456789ab"',
+            )
+            path = paths[2]
+            path.write_text(path.read_text().replace(
+                'artifacts = [\n  { kind = "slides", label = "발표자료", url = "slides/ch02/" },\n]',
+                'artifacts = []',
+            ))
+            site, studies, sessions = build_site.load_model(*paths)
+            self.assertEqual(sessions[0]["artifacts"], [])
+            files = build_site.render_files(site, studies, sessions)
+            page = files[Path("sessions/2026-08-01-machine-trading-ch02/index.html")]
+            self.assertIn("교안 준비 중입니다.", page)
+            self.assertIn("https://www.youtube.com/embed/123456789ab", page)
+
+            path.write_text(path.read_text().replace(
+                'status = "video-public"', 'status = "materials-published"',
+            ).replace('youtube_video_id = "123456789ab"', ''))
+            with self.assertRaisesRegex(ValueError, "requires at least one artifact"):
+                build_site.load_model(*paths)
+
     def test_scheduled_session_rejects_published_artifacts(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             paths = self.write_metadata(

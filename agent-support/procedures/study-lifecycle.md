@@ -10,7 +10,7 @@ URL을 제거하고 `meeting_status = "ended"`로 바꾸어 오래된 접속 버
 
 - `scheduled`: 일정만 등록됨
 - `materials-published`: 회차 페이지와 하나 이상의 교안 산출물이 공개됨
-- `video-public`: 교안이 공개됐고 승인된 공개 YouTube 영상이 연결됨
+- `video-public`: 승인된 공개 YouTube 영상이 연결됨. 발표자료는 이후 추가할 수 있음
 - `cancelled`: 취소된 회차
 
 ## 1. 회차 URL을 먼저 확정
@@ -41,6 +41,9 @@ YouTube 설명의 관련 자료 링크는 위 회차 URL을 사용한다. 업로
 영상·제목·설명·자막·썸네일이 승인되고 YouTube 상태가 실제 `public`인지 확인한다.
 그 뒤 `youtube_video_id`를 추가하고 상태를 `video-public`으로 바꾼다. 사이트를 다시
 빌드하면 회차 페이지에 영상 플레이어와 YouTube 링크가 생긴다.
+
+발표자가 자료를 나중에 올리는 회차는 영상부터 연결할 수 있다. 아직 없는 자료의
+링크를 만들지 않고 `artifacts`를 비워 두며, `summary`에 자료 추가 예정임을 안내한다.
 
 ## 장별 참고 해설
 
