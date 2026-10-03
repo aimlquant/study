@@ -503,10 +503,7 @@ def load_model(
             raise ValueError(
                 f"available meeting requires meeting_url: {session_id}"
             )
-        if (
-            status in {"materials-published", "video-public"}
-            and not artifacts
-        ):
+        if status == "materials-published" and not artifacts:
             raise ValueError(
                 f"{status} requires at least one artifact for {session_id}"
             )

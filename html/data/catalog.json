@@ -667,8 +667,7 @@
       ],
       "date": "2026-10-03",
       "id": "2026-10-03-ml4t-ch03",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc09b913d4ab3cb36f79fdfab4c6305cd",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-03-ml4t-ch03/",
       "presenters": [
         "세훈"
@@ -681,9 +680,11 @@
           "youtube_video_id": "oMcUjKKcStw"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-learning-for-trading-3e-2026",
-      "title": "Chapter 3. 시장 미시구조"
+      "title": "Chapter 3. 시장 미시구조",
+      "youtube_url": "https://www.youtube.com/watch?v=QbIad_mkZfk",
+      "youtube_video_id": "QbIad_mkZfk"
     },
     {
       "artifacts": [],
@@ -692,8 +693,7 @@
       ],
       "date": "2026-10-03",
       "id": "2026-10-03-kg-llm-ch11",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mc09b913d4ab3cb36f79fdfab4c6305cd",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch11/",
       "presenters": [
         "수경"
@@ -706,9 +706,11 @@
           "youtube_video_id": "pi9jgvlS41w"
         }
       ],
-      "status": "scheduled",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 11. 그래프 표현 학습과 그래프 신경망"
+      "title": "Chapter 11. 그래프 표현 학습과 그래프 신경망",
+      "youtube_url": "https://www.youtube.com/watch?v=0qbejo5oEHA",
+      "youtube_video_id": "0qbejo5oEHA"
     },
     {
       "artifacts": [
