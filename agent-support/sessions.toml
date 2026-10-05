@@ -485,7 +485,7 @@ id = "2026-10-17-ml4t-ch05"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-10-17"
 title = "Chapter 5. 합성 금융 데이터"
-presenters = []
+presenters = ["태호"]
 chapters = ["Chapter 5"]
 status = "scheduled"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m12c94b867260501ba006a816f2e71a2e"
