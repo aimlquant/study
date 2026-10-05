@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">2023년 3분기 GDP 성장률의 빈티지 사다리</title><desc id="desc">같은 2023년 3분기 GDP 연율 성장률이 10월 26일 속보 4.9%, 11월 29일 2차 5.2%, 12월 21일 3차 4.9%, 2024년 3월 28일 연간 개정 5.2%로 바뀐다. 5.0% 문턱 규칙은 10월 31일 결정 시점에는 발동하지 않지만 최종값을 쓰면 발동한다.</desc>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.b{font-size:22px}.s{font-size:20px;fill:#475569}.num{font-size:23px;font-weight:800}.step{stroke:#0F2C59;stroke-width:5;fill:none}.thr{stroke:#B45309;stroke-width:3;stroke-dasharray:12 8}.thrl{fill:#B45309;font-size:21px;font-weight:800}.dec{stroke:#475569;stroke-width:3;stroke-dasharray:6 6}.axis{stroke:#475569;stroke-width:2}.grid{stroke:#E2E8F0;stroke-width:2}.dot{fill:#fff;stroke:#0F2C59;stroke-width:4}.an-s{text-anchor:start}.an-m{text-anchor:middle}.an-e{text-anchor:end}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <line class="grid" x1="160" y1="370" x2="1150" y2="370"/><line class="grid" x1="160" y1="170" x2="1150" y2="170"/>
+  <line class="axis" x1="160" y1="120" x2="160" y2="470"/>
+  <line class="axis" x1="160" y1="470" x2="1150" y2="470"/>
+  <text class="s an-e" x="148" y="177">5.2</text><text class="s an-e" x="148" y="277">5.0</text><text class="s an-e" x="148" y="377">4.8</text><text class="s an-e" x="148" y="477">4.6</text>
+  <text class="s an-s" x="40" y="100">연율 성장률 (%)</text>
+  <line class="thr" x1="160" y1="270" x2="1150" y2="270"/>
+  <text class="thrl an-e" x="1145" y="258">신호 문턱 5.0%</text>
+  <line class="dec" x1="310" y1="110" x2="310" y2="470"/>
+  <text class="b an-s" x="322" y="128">10/31 결정</text>
+  <path class="step" d="M285 320 H455 V170 H565 V320 H1055 V170 H1145"/>
+  <circle class="dot" cx="285" cy="320" r="10"/><circle class="dot" cx="455" cy="170" r="10"/><circle class="dot" cx="565" cy="320" r="10"/><circle class="dot" cx="1055" cy="170" r="10"/>
+  <text class="num an-e" x="275" y="362">속보 4.9</text>
+  <text class="num an-m" x="455" y="150">2차 5.2</text>
+  <text class="num an-m" x="600" y="360">3차 4.9</text>
+  <text class="num an-e" x="1040" y="150">연간 개정 5.2</text>
+  <line class="axis" x1="285" y1="470" x2="285" y2="480"/><line class="axis" x1="455" y1="470" x2="455" y2="480"/><line class="axis" x1="565" y1="470" x2="565" y2="480"/><line class="axis" x1="1055" y1="470" x2="1055" y2="480"/>
+  <text class="s an-m" x="285" y="506">2023-10-26</text><text class="s an-m" x="455" y="506">11-29</text><text class="s an-m" x="565" y="506">12-21</text><text class="s an-m" x="1055" y="506">2024-03-28</text>
+  <text class="s an-e" x="1150" y="550">발표일</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">공시 텍스트 데이터셋의 네 엔지니어링 단계</title><desc id="desc">문서 선택, 섹션 추출, 정제와 정규화, 특정 시점 저장의 네 단계가 왼쪽에서 오른쪽으로 이어진다. 마지막 저장 행은 cik, accession, section을 기본 키로, accepted_at을 지식 시간, period_end를 유효 시간으로 두며, 원본·정제 텍스트와 추출 메타데이터를 함께 보관한다.</desc>
+  <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="16" refX="16" refY="8" orient="auto"><path d="M0,0 L18,8 L0,16 Z" fill="#0F2C59"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:23px;font-weight:800}.b{font-size:20px}.c{font-size:19px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.w{fill:#fff}.box{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.store{fill:#0F2C59}.row{fill:#fff;stroke:#0F2C59;stroke-width:2}.key{fill:#CADCED;stroke:#0F2C59;stroke-width:2}.arrow{stroke:#0F2C59;stroke-width:4;fill:none;marker-end:url(#a)}.an-s{text-anchor:start}.an-m{text-anchor:middle}.an-e{text-anchor:end}</style>
+  <rect width="1200" height="560" fill="#FAFAF9"/>
+  <rect class="box" x="30" y="60" width="250" height="170" rx="12"/><text class="h an-m" x="155" y="104">1 문서 선택</text><text class="b an-m" x="155" y="148">주 문서 · 첨부 제외</text><text class="b an-m" x="155" y="184">accession · 양식</text>
+  <path class="arrow" d="M280 145 H316"/>
+  <rect class="box" x="320" y="60" width="250" height="170" rx="12"/><text class="h an-m" x="445" y="104">2 섹션 추출</text><text class="b an-m" x="445" y="148">Item 7 · Item 1A</text><text class="b an-m" x="445" y="184">누락·충돌·길이 QA</text>
+  <path class="arrow" d="M570 145 H606"/>
+  <rect class="box" x="610" y="60" width="250" height="170" rx="12"/><text class="h an-m" x="735" y="104">3 정제·정규화</text><text class="b an-m" x="735" y="148">마크업·표 처리</text><text class="b an-m" x="735" y="184">문단 경계 보존</text>
+  <path class="arrow" d="M860 145 H896"/>
+  <rect class="store" x="900" y="60" width="270" height="170" rx="12"/><text class="h w an-m" x="1035" y="104">4 특정 시점 저장</text><text class="b w an-m" x="1035" y="148">Parquet 행</text><text class="b w an-m" x="1035" y="184">→ 10장 NLP 특성</text>
+  <path class="arrow" d="M1035 230 V276"/>
+  <rect class="key" x="120" y="290" width="330" height="56" rx="6"/><text class="c an-m" x="285" y="326">cik + accession + section</text>
+  <rect class="row" x="450" y="290" width="240" height="56" rx="6"/><text class="c an-m" x="570" y="326">accepted_at</text>
+  <rect class="row" x="690" y="290" width="200" height="56" rx="6"/><text class="c an-m" x="790" y="326">period_end</text>
+  <rect class="row" x="890" y="290" width="270" height="56" rx="6"/><text class="c an-m" x="1025" y="326">text · raw / clean</text>
+  <rect class="key" x="120" y="356" width="330" height="56" rx="6"/><text class="b an-m" x="285" y="392">기본 키 · 수정 공시 구분</text>
+  <rect class="row" x="450" y="356" width="240" height="56" rx="6"/><text class="b an-m" x="570" y="392">지식 시간</text>
+  <rect class="row" x="690" y="356" width="200" height="56" rx="6"/><text class="b an-m" x="790" y="392">유효 시간</text>
+  <rect class="row" x="890" y="356" width="270" height="56" rx="6"/><text class="b an-m" x="1025" y="392">재추출용 원문</text>
+  <rect class="row" x="120" y="440" width="1040" height="56" rx="6"/><text class="c an-m" x="640" y="476">form_type · method · pattern_version · offsets</text>
+</svg>

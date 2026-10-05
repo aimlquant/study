@@ -1,0 +1,619 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "ec1c8541f2d15801d9e1693489a0a5e04519c2176b6c4f0ee851aa91a095472a",
+  "deck_sha256": "032f4cd1355b89eab64c6f45d7de9269ed5fc7866e9f33915511e59ec11f7f94",
+  "units": [
+    {
+      "question": "이 장은 어떤 문제를 어떤 순서로 푸는가?",
+      "explanation": "시간·대상·가치의 세 질문과 다섯 절이 각각 막는 누출을 제시한다.",
+      "evidence": "표 1 절별 질문과 실패",
+      "conditions": "새 수치나 실험을 추가하지 않는다.",
+      "report_refs": [
+        "summary",
+        "table-overview"
+      ],
+      "slide_ids": [
+        "slide-cover",
+        "slide-questions",
+        "slide-roadmap"
+      ]
+    },
+    {
+      "question": "재작성 공시는 왜 선견 편향을 만드는가?",
+      "explanation": "10월 결정에 나중의 1억 달러를 쓰는 예로 최신 값 테이블의 누출을 정의한다.",
+      "evidence": "9,500만→9,800만→1억 달러 재작성 예, Luo et al.",
+      "conditions": "원서의 가상 예이며 특정 기업 수치가 아니다.",
+      "report_refs": [
+        "s4-1",
+        "restatement-leak"
+      ],
+      "slide_ids": [
+        "slide-s41",
+        "slide-restatement"
+      ]
+    },
+    {
+      "question": "결정 시점에 쓸 수 있던 값은 어떻게 고르는가?",
+      "explanation": "유효 시간·지식 시간을 저장하고 기간을 먼저, 그 기간의 버전을 나중에 고르는 두 단계를 수식과 그림으로 설명한다.",
+      "evidence": "기준시점 수식의 기호 풀이, 그림 1의 101 대 108 비교",
+      "conditions": "가이드 노트북의 합성 숫자다. 8-K 대신 10-Q·10-K 접수 시각은 보수적 기준이다.",
+      "report_refs": [
+        "bitemporal-asof",
+        "fig-asof"
+      ],
+      "slide_ids": [
+        "slide-bitemporal",
+        "slide-asof-figure"
+      ]
+    },
+    {
+      "question": "공개 시각과 공시 원천은 어떻게 정하는가?",
+      "explanation": "양식별 권위 타임스탬프, EDGAR 세 경로와 FSN 테이블의 PIT 역할, XBRL 네 태그와 남는 불일치를 설명한다.",
+      "evidence": "표 2(표 4.1), 표 3(표 4.2), SalesRevenueNet 태그 교체, 3:1 분할",
+      "conditions": "FSN 표 세 번째 열은 발표가 덧붙인 읽기 안내임을 화면에 밝힌다. Frames API는 PIT 안전하지 않다.",
+      "report_refs": [
+        "table-4-1",
+        "timestamp-authority",
+        "table-4-2",
+        "edgar-sourcing",
+        "xbrl-structure",
+        "data-inconsistency"
+      ],
+      "slide_ids": [
+        "slide-timestamp-authority",
+        "slide-edgar",
+        "slide-xbrl"
+      ]
+    },
+    {
+      "question": "최신 값 DB와 특정 시점 값의 차이는 어디서 보이는가?",
+      "explanation": "그림 4.1의 두 줄 비교로 누출 구간을 읽고 벤더 이력 확인 원칙을 연결한다.",
+      "evidence": "재구성 그림 2의 빗금 구간",
+      "conditions": "그림 날짜와 본문 예의 양식 순서가 다르므로 원리만 연결한다고 화면에 밝힌다.",
+      "report_refs": [
+        "leak-visible",
+        "fig-4-1"
+      ],
+      "slide_ids": [
+        "slide-fig41"
+      ]
+    },
+    {
+      "question": "기간 말 조인은 실제로 며칠을 누출하는가?",
+      "explanation": "merge_asof 두 방식의 차이를 코드로 보이고 누출 거래일을 첫 발표 전과 이후 분기로 나눠 읽는다.",
+      "evidence": "표 4의 29·81·110거래일",
+      "conditions": "합성 일정의 교육용 진단이며 성과 차이 추정이 아니다.",
+      "report_refs": [
+        "notebook-release-join",
+        "notebook-release-output",
+        "table-release-join"
+      ],
+      "slide_ids": [
+        "slide-release-code",
+        "slide-release-result"
+      ]
+    },
+    {
+      "question": "수신 시각과 정정 공시가 섞이면 조회 결과는 어떻게 되는가?",
+      "explanation": "공개·수신·기간 조건 필터 코드와 결정 시점별 결과 표로 101 대신 108을 고르는 이유를 보인다.",
+      "evidence": "표 5의 결정 시점별 값",
+      "conditions": "합성 데이터, 과거 조회 불변성 PASS 출력",
+      "report_refs": [
+        "notebook-vintage-pit",
+        "notebook-vintage-output",
+        "table-vintage-pit"
+      ],
+      "slide_ids": [
+        "slide-vintage-pit"
+      ]
+    },
+    {
+      "question": "엔터티 해소는 왜 필요하고 1단계는 무엇을 확인하는가?",
+      "explanation": "거짓 양성의 비용과 식별자가 가리키는 층(엔터티·증권·계약)을 구분한다.",
+      "evidence": "ZOOM/ZTNO, IBM/Kyndryl, 표 6 식별자 층",
+      "conditions": "Apple 예처럼 질문에 따라 정당한 해소 층이 다르다.",
+      "report_refs": [
+        "s4-2",
+        "why-resolution",
+        "resolution-tiers",
+        "deterministic-matching",
+        "table-identifiers"
+      ],
+      "slide_ids": [
+        "slide-s42",
+        "slide-why-resolution",
+        "slide-identifiers"
+      ]
+    },
+    {
+      "question": "발행자 데이터를 티커로 바로 붙이면 무엇이 틀리는가?",
+      "explanation": "유효일 증권 마스터를 거치는 경로와 세 실패 경로를 그림으로 비교한다.",
+      "evidence": "그림 3의 실선·점선 경로",
+      "conditions": "유효일 필터는 옛 티커만 막고 주 증권 선택 규칙이 따로 필요하다.",
+      "report_refs": [
+        "wrong-join",
+        "fig-identity"
+      ],
+      "slide_ids": [
+        "slide-wrong-join"
+      ]
+    },
+    {
+      "question": "이름 유사도 매칭은 어떻게 쓰고 어디서 실패하는가?",
+      "explanation": "세 유사도와 계층형 문턱, 비대칭 비용을 설명하고 공식 노트북의 퍼지·임베딩 비교로 오매칭 사례를 보인다.",
+      "evidence": "표 7의 Google LLC→Microsoft 0.38, Facebook→Meta 0.35",
+      "conditions": "원서 레벤슈타인 예의 편집 횟수 정오를 화면에 밝힌다. 문턱 값은 보정 대상이다.",
+      "report_refs": [
+        "probabilistic-matching",
+        "table-fuzzy-embedding",
+        "manual-review"
+      ],
+      "slide_ids": [
+        "slide-fuzzy",
+        "slide-fuzzy-embedding"
+      ]
+    },
+    {
+      "question": "마스터와 시간적 매핑은 어떻게 저장하고 경계는 어떻게 처리하는가?",
+      "explanation": "마스터 entity_id, 유효 구간이 붙은 식별자 이력, end_date 경계, 반개구간 조회 코드와 결과를 연결한다.",
+      "evidence": "표 8(표 4.3), 표 9(표 4.4), 표 10 XYZ 조회 결과",
+      "conditions": "마스터 표의 LEI 열을 화면에서 생략했음을 밝힌다. 합성 마스터 예다.",
+      "report_refs": [
+        "master-db",
+        "table-4-3",
+        "temporal-mapping",
+        "table-4-4",
+        "notebook-ticker-reuse",
+        "notebook-ticker-output"
+      ],
+      "slide_ids": [
+        "slide-master",
+        "slide-temporal",
+        "slide-ticker-reuse"
+      ]
+    },
+    {
+      "question": "매핑 품질은 어떻게 감시하고 전체 파이프라인은 어떻게 흐르는가?",
+      "explanation": "배치·월·주 단위 QA와 그림 4.2의 단계별 흐름을 연결한다.",
+      "evidence": "표 11(표 4.5), 그림 4",
+      "conditions": "70/20/10%와 0.85는 그림의 예시 배분임을 화면에 밝힌다.",
+      "report_refs": [
+        "mapping-qa",
+        "table-4-5",
+        "fig-4-2"
+      ],
+      "slide_ids": [
+        "slide-mapping-qa",
+        "slide-fig42"
+      ]
+    },
+    {
+      "question": "거시 데이터의 공개 시각과 수정은 어떻게 다루는가?",
+      "explanation": "발표 주기·시각·시간대·수정 이력과 빈티지 개념, GDP 빈티지가 신호를 바꾸는 예를 보인다.",
+      "evidence": "역전 비율 15.5%·36%, 그림 5의 4.9/5.2 계단과 10/31 결정선",
+      "conditions": "역전 비율 분모 미명시, GDP 값은 노트북의 교육용 값, 평균 성과 차이 측정이 아님",
+      "report_refs": [
+        "s4-3",
+        "asset-spectrum",
+        "macro-rates",
+        "fig-macro-vintage",
+        "table-gdp-signal"
+      ],
+      "slide_ids": [
+        "slide-s43",
+        "slide-macro",
+        "slide-macro-vintage"
+      ]
+    },
+    {
+      "question": "원자재와 암호화폐는 무엇을 공개 시각과 거래 대상으로 보는가?",
+      "explanation": "COT·EIA·거시 발표 시각과 활성 계약 매핑, 온체인 지표의 대리 대상과 왜곡 요인, 최종성 정책을 설명한다.",
+      "evidence": "그림 6 주간 달력, 표 12 온체인 지표",
+      "conditions": "주간 달력은 특정 주의 실제 일정이 아니다. 휴일에는 발표가 늦어질 수 있다.",
+      "report_refs": [
+        "commodities",
+        "fig-release-calendar",
+        "crypto-onchain",
+        "table-onchain",
+        "table-asset-pit"
+      ],
+      "slide_ids": [
+        "slide-commodities",
+        "slide-crypto"
+      ]
+    },
+    {
+      "question": "대체 데이터는 어떤 순서로 평가하는가?",
+      "explanation": "네 범주를 소개하고 법적·PIT 탈락 관문을 먼저 적용한 뒤 신호·품질·비용 점수를 비교하는 규칙과 구축 대 구매를 설명한다.",
+      "evidence": "그림 7 관문 흐름, McLean and Pontiff 약 58%, ESG 등급 불일치",
+      "conditions": "A–D는 가상 후보이며 점수 값을 표시하지 않는다.",
+      "report_refs": [
+        "s4-4",
+        "alt-landscape",
+        "alt-sources",
+        "alt-evaluation",
+        "fig-altdata-gates",
+        "build-vs-buy"
+      ],
+      "slide_ids": [
+        "slide-s44",
+        "slide-alt-landscape",
+        "slide-alt-gates",
+        "slide-alt-dimensions"
+      ]
+    },
+    {
+      "question": "DeFi TVL 사례에서 네 차원은 어떤 숫자를 보였는가?",
+      "explanation": "입력·목표·IC 계산 코드, 신호별 IC와 이동 IC, 품질·법적·비용 기록과 필요 알파 계산을 이어서 보인다.",
+      "evidence": "표 13 IC(-0.278, 0.119, 이동 평균 -0.11), 표 14 네 차원과 270·54·5.4bp",
+      "conditions": "겹치는 수익률 창 때문에 선별 진단이다. PIT 빈티지가 없다. 재실행하지 않은 저장 출력이다.",
+      "report_refs": [
+        "alt-implementation",
+        "notebook-tvl",
+        "notebook-tvl-output",
+        "table-tvl-ic",
+        "table-tvl-scorecard"
+      ],
+      "slide_ids": [
+        "slide-tvl-code",
+        "slide-tvl-ic",
+        "slide-tvl-scorecard"
+      ]
+    },
+    {
+      "question": "공시 텍스트는 어떻게 PIT 데이터셋이 되는가?",
+      "explanation": "MD&A·위험 요인의 성격, 1–3단계의 함정, 4단계 저장 행의 열과 이중시간 대응을 설명한다.",
+      "evidence": "목차의 Item 7 중복 사례, 그림 8 저장 행",
+      "conditions": "상투문 처리 여부는 특성의 목적에 따라 다르다.",
+      "report_refs": [
+        "s4-5",
+        "mdna-risk",
+        "text-stages",
+        "text-pipeline",
+        "fig-text-pipeline",
+        "text-pit-storage",
+        "table-text-schema"
+      ],
+      "slide_ids": [
+        "slide-s45",
+        "slide-text-sections",
+        "slide-text-pipeline"
+      ]
+    },
+    {
+      "question": "원서의 Apple 10-K 수치는 무엇을 측정했는가?",
+      "explanation": "원서 인쇄값 네 개를 공식 노트북의 두 셀 출력과 대조하고 두 비율의 분모 차이를 설명한다.",
+      "evidence": "표 15의 실제 입력과 정의",
+      "conditions": "9,792단어만 실제 공시 값이다.",
+      "report_refs": [
+        "text-outputs",
+        "table-text-numbers"
+      ],
+      "slide_ids": [
+        "slide-text-numbers"
+      ]
+    },
+    {
+      "question": "이 장 전체를 어떻게 정리하고 확인하는가?",
+      "explanation": "두 타임스탬프 원칙으로 다섯 절을 요약하고, 앞 화면의 숫자로 답하는 세 질문과 토론 질문으로 마무리한다.",
+      "evidence": "그림 1·표 5, 그림 3, 표 13을 다시 쓰는 질문",
+      "conditions": "새 주장이나 수치를 추가하지 않는다.",
+      "report_refs": [
+        "s4-6",
+        "summary",
+        "checkpoints",
+        "glossary",
+        "references"
+      ],
+      "slide_ids": [
+        "slide-s46",
+        "slide-summary",
+        "slide-checkpoints",
+        "slide-closing"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "status": "stored-output",
+      "scope": "기간 말 조인과 발표일 조인의 누출 거래일",
+      "report_id": "notebook-release-join",
+      "code_slides": [
+        "slide-release-code"
+      ],
+      "result_slides": [
+        "slide-release-result"
+      ],
+      "interpretation_slides": [
+        "slide-release-result"
+      ],
+      "interpretation": "첫 발표 전 29일과 이후 분기 81일을 합친 110거래일. 합성 일정의 교육용 진단이다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "공개·수신 시각과 정정 버전이 섞인 기준시점 조회",
+      "report_id": "notebook-vintage-pit",
+      "code_slides": [
+        "slide-vintage-pit"
+      ],
+      "result_slides": [
+        "slide-vintage-pit"
+      ],
+      "interpretation_slides": [
+        "slide-vintage-pit",
+        "slide-asof-figure"
+      ],
+      "interpretation": "공개 순 마지막 101 대신 108을 돌려주고 수신 전에는 값을 주지 않는다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "재사용 티커의 반개구간 조회",
+      "report_id": "notebook-ticker-reuse",
+      "code_slides": [
+        "slide-ticker-reuse"
+      ],
+      "result_slides": [
+        "slide-ticker-reuse"
+      ],
+      "interpretation_slides": [
+        "slide-ticker-reuse"
+      ],
+      "interpretation": "경계 시각은 정확히 한 행에 속하고 겹친 구간은 거부한다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "DeFi TVL 네 차원 평가",
+      "report_id": "notebook-tvl",
+      "code_slides": [
+        "slide-tvl-code"
+      ],
+      "result_slides": [
+        "slide-tvl-ic",
+        "slide-tvl-scorecard"
+      ],
+      "interpretation_slides": [
+        "slide-tvl-ic",
+        "slide-tvl-scorecard"
+      ],
+      "interpretation": "원서의 최고 IC 0.12는 양수 최댓값이며 절댓값 최대는 -0.278, 이동 IC 평균은 음수다. PIT 빈티지가 없고 IC는 선별 진단이다."
+    }
+  ],
+  "report_asset_audit": [
+    {
+      "report_id": "table-overview",
+      "kind": "table",
+      "slide_ids": [
+        "slide-roadmap"
+      ],
+      "use": "condensed-table",
+      "reason": "절별 질문과 실패를 같은 열 구조로 압축"
+    },
+    {
+      "report_id": "fig-asof",
+      "kind": "figure",
+      "slide_ids": [
+        "slide-asof-figure"
+      ],
+      "use": "same-svg",
+      "reason": "두 단계 선택과 101 대 108 비교를 유지"
+    },
+    {
+      "report_id": "table-4-1",
+      "kind": "table",
+      "slide_ids": [
+        "slide-timestamp-authority"
+      ],
+      "use": "same-content-table",
+      "reason": "네 양식의 권위 타임스탬프를 모두 유지"
+    },
+    {
+      "report_id": "table-4-2",
+      "kind": "table",
+      "slide_ids": [
+        "slide-edgar"
+      ],
+      "use": "same-content-table",
+      "reason": "네 파일과 PIT 역할을 유지"
+    },
+    {
+      "report_id": "fig-4-1",
+      "kind": "figure",
+      "slide_ids": [
+        "slide-fig41"
+      ],
+      "use": "same-svg",
+      "reason": "두 줄 비교와 누출 구간을 전체 폭으로 유지"
+    },
+    {
+      "report_id": "table-release-join",
+      "kind": "table",
+      "slide_ids": [
+        "slide-release-result"
+      ],
+      "use": "same-content-table",
+      "reason": "누출 거래일 분해를 유지"
+    },
+    {
+      "report_id": "table-vintage-pit",
+      "kind": "table",
+      "slide_ids": [
+        "slide-vintage-pit"
+      ],
+      "use": "condensed-table",
+      "reason": "설명에 필요한 네 결정 시점만 남김"
+    },
+    {
+      "report_id": "table-identifiers",
+      "kind": "table",
+      "slide_ids": [
+        "slide-identifiers"
+      ],
+      "use": "same-content-table",
+      "reason": "식별자별 층을 유지"
+    },
+    {
+      "report_id": "fig-identity",
+      "kind": "figure",
+      "slide_ids": [
+        "slide-wrong-join"
+      ],
+      "use": "same-svg",
+      "reason": "실선·점선 경로 비교를 유지"
+    },
+    {
+      "report_id": "table-fuzzy-embedding",
+      "kind": "table",
+      "slide_ids": [
+        "slide-fuzzy-embedding"
+      ],
+      "use": "condensed-table",
+      "reason": "퍼지가 실패한 네 질의만 남겨 오매칭 사례에 집중"
+    },
+    {
+      "report_id": "table-4-3",
+      "kind": "table",
+      "slide_ids": [
+        "slide-master"
+      ],
+      "use": "condensed-table",
+      "reason": "LEI 열을 화면 폭 때문에 생략하고 화면에 생략을 밝힘"
+    },
+    {
+      "report_id": "table-4-4",
+      "kind": "table",
+      "slide_ids": [
+        "slide-temporal"
+      ],
+      "use": "condensed-table",
+      "reason": "identifier_type 열을 생략하고 값과 유효 구간 유지"
+    },
+    {
+      "report_id": "table-4-5",
+      "kind": "table",
+      "slide_ids": [
+        "slide-mapping-qa"
+      ],
+      "use": "same-content-table",
+      "reason": "세 점검과 빈도를 유지"
+    },
+    {
+      "report_id": "fig-4-2",
+      "kind": "figure",
+      "slide_ids": [
+        "slide-fig42"
+      ],
+      "use": "same-svg",
+      "reason": "단계 흐름과 예시 배분을 유지"
+    },
+    {
+      "report_id": "fig-macro-vintage",
+      "kind": "figure",
+      "slide_ids": [
+        "slide-macro-vintage"
+      ],
+      "use": "same-svg",
+      "reason": "빈티지 계단과 결정선을 유지"
+    },
+    {
+      "report_id": "table-gdp-signal",
+      "kind": "table",
+      "slide_ids": [
+        "slide-macro-vintage"
+      ],
+      "use": "summarized-in-slide-text",
+      "reason": "네 분기 중 3분기만 갈린다는 결과를 본문에 요약하고 그림을 크게 유지"
+    },
+    {
+      "report_id": "fig-release-calendar",
+      "kind": "figure",
+      "slide_ids": [
+        "slide-commodities"
+      ],
+      "use": "same-svg",
+      "reason": "COT 사용 불가 구간과 발표 시각을 유지"
+    },
+    {
+      "report_id": "table-onchain",
+      "kind": "table",
+      "slide_ids": [
+        "slide-crypto"
+      ],
+      "use": "condensed-table",
+      "reason": "예시 열을 생략하고 대리 대상과 왜곡 요인 유지"
+    },
+    {
+      "report_id": "table-asset-pit",
+      "kind": "table",
+      "slide_ids": [
+        "slide-crypto"
+      ],
+      "use": "summarized-in-slide-text",
+      "reason": "암호화폐 행의 요구를 takeaway로 요약하고 거시·원자재 요구는 앞 화면에서 설명"
+    },
+    {
+      "report_id": "fig-altdata-gates",
+      "kind": "figure",
+      "slide_ids": [
+        "slide-alt-gates"
+      ],
+      "use": "same-svg",
+      "reason": "관문과 점수 비교의 분리를 유지"
+    },
+    {
+      "report_id": "table-tvl-ic",
+      "kind": "table",
+      "slide_ids": [
+        "slide-tvl-ic"
+      ],
+      "use": "condensed-table",
+      "reason": "표본 수 열을 리드로 옮기고 IC와 읽는 법 유지"
+    },
+    {
+      "report_id": "table-tvl-scorecard",
+      "kind": "table",
+      "slide_ids": [
+        "slide-tvl-scorecard"
+      ],
+      "use": "condensed-table",
+      "reason": "네 차원과 필요 알파를 유지"
+    },
+    {
+      "report_id": "fig-text-pipeline",
+      "kind": "figure",
+      "slide_ids": [
+        "slide-text-pipeline"
+      ],
+      "use": "same-svg",
+      "reason": "네 단계와 저장 행을 유지"
+    },
+    {
+      "report_id": "table-text-schema",
+      "kind": "table",
+      "slide_ids": [
+        "slide-text-pipeline"
+      ],
+      "use": "summarized-in-figure",
+      "reason": "그림 8의 저장 행과 본문이 같은 열과 역할을 전달"
+    },
+    {
+      "report_id": "table-text-numbers",
+      "kind": "table",
+      "slide_ids": [
+        "slide-text-numbers"
+      ],
+      "use": "condensed-table",
+      "reason": "저장 출력 열을 정의 열로 합쳐 인쇄값·실제 입력·정의 유지"
+    },
+    {
+      "report_id": "table-glossary",
+      "kind": "table",
+      "slide_ids": [
+        "slide-checkpoints"
+      ],
+      "use": "omitted-with-reason",
+      "reason": "용어 정의는 각 화면 첫 사용 위치와 상세 리포트에서 제공"
+    }
+  ],
+  "figure_caption_policy": "No visible caption bands; every reused report figure keeps the same SVG source, descriptive alt text, report link, and visible interpretation boundary."
+}
