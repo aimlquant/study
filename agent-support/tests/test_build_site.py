@@ -423,6 +423,31 @@ artifacts = [
         )
         return site, studies, sessions
 
+    def test_rescheduled_session_keeps_url_and_renders_override(self):
+        with tempfile.TemporaryDirectory() as directory:
+            paths = self.write_metadata(Path(directory), "materials-published", 'url_date = "2026-08-01"\nstart_time = "10:30"\nend_time = "11:30"')
+            paths[2].write_text(paths[2].read_text().replace('date = "2026-08-01"\ntitle', 'date = "2026-08-02"\ntitle'))
+            site, studies, sessions = build_site.load_model(*paths)
+            files = build_site.render_files(site, studies, sessions)
+            page = files[Path("sessions/2026-08-01-machine-trading-ch02/index.html")]
+            self.assertIn("2026-08-02", page)
+            self.assertIn("10:30–11:30", page)
+            self.assertIn("10:30–11:30", files[Path("index.html")])
+
+    def test_invalid_time_override_is_rejected(self):
+        for override in ['start_time = "25:00"\nend_time = "26:00"', 'start_time = "09:00"', 'start_time = "10:00"\nend_time = "09:00"']:
+            with self.subTest(override=override), tempfile.TemporaryDirectory() as directory:
+                paths = self.write_metadata(Path(directory), "materials-published", override)
+                with self.assertRaisesRegex(ValueError, "time override"):
+                    build_site.load_model(*paths)
+
+    def test_cancelled_session_explicitly_renders_cancellation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            paths = self.write_metadata(Path(directory), "cancelled", '')
+            site, studies, sessions = build_site.load_model(*paths)
+            page = build_site.render_files(site, studies, sessions)[Path("sessions/2026-08-01-machine-trading-ch02/index.html")]
+            self.assertIn("휴강(취소)", page)
+
     def test_non_public_status_rejects_video_id(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             paths = self.write_metadata(
