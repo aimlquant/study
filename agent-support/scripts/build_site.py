@@ -362,7 +362,7 @@ def load_model(
                 f"invalid date for {session_id}: {session.get('date')}"
             ) from exc
         # 운영 자료는 이미 공개된 URL을 보존하면서 실제 대상 회차 날짜를 바로잡을 수 있다.
-        # 이 경우 기존 URL 날짜를 명시해야 하며 일반 스터디 회차에는 예외를 허용하지 않는다.
+        # 날짜 변경 시 기존 URL 날짜를 명시해 회차 링크를 보존한다.
         kind = session.get("kind", "study")
         if kind not in {"study", "operations"}:
             raise ValueError(
@@ -371,10 +371,6 @@ def load_model(
         session["kind"] = kind
         route_date = session_date
         if "url_date" in session:
-            if kind != "operations":
-                raise ValueError(
-                    f"url_date is only allowed for operations sessions: {session_id}"
-                )
             try:
                 route_date = date.fromisoformat(str(session["url_date"]))
             except ValueError as exc:
@@ -385,13 +381,17 @@ def load_model(
             raise ValueError(
                 f"session id must start with its date or url_date: {session_id}"
             )
+        if "start_time" in session or "end_time" in session:
+            times = [session.get(k, "") for k in ("start_time", "end_time")]
+            if any(not isinstance(t, str) or not re.fullmatch(r"(?:[01][0-9]|2[0-3]):[0-5][0-9]", t) for t in times) or times[0] >= times[1]:
+                raise ValueError(f"invalid session time override: {session_id}")
         study_start, study_end = study_dates[study_id]
         if not study_start <= session_date <= study_end:
             raise ValueError(
                 f"session date is outside its study range: {session_id}"
             )
         expected_weekday = WEEKDAYS[by_id[study_id]["weekday"]]
-        if session_date.weekday() != expected_weekday:
+        if session_date.weekday() != expected_weekday and route_date == session_date:
             raise ValueError(
                 f"session date does not match study weekday: {session_id}"
             )
@@ -531,7 +531,8 @@ def load_model(
 
     for study_id, chapters in planned_chapters.items():
         counts = covered_chapters[study_id]
-        missing = [chapter for chapter in chapters if counts[chapter] == 0]
+        cancelled_chapters = {chapter for row in sessions if row["study_id"] == study_id and row["status"] == "cancelled" for chapter in row["chapters"]}
+        missing = [chapter for chapter in chapters if counts[chapter] == 0 and chapter not in cancelled_chapters]
         duplicates = [
             chapter for chapter in chapters if counts[chapter] > 1
         ]
@@ -615,7 +616,7 @@ def render_session_card(
         f'<span>{html.escape(chapters)}</span>' if chapters else ""
     )
     time_and_venue = (
-        f"{study['start_time']}–{study['end_time']} · {study['venue']}"
+        f"{session.get('start_time', study['start_time'])}–{session.get('end_time', study['end_time'])} · {study['venue']}"
     )
     return (
         f'<a class="card" href="{prefix}sessions/{session["id"]}/">'
@@ -684,7 +685,7 @@ def render_schedule_row(
     return f"""        <div class="schedule-row">
           <div class="schedule-when">
             <strong>{html.escape(str(session["date"]))}</strong>
-            <span>{html.escape(study["start_time"])}–{html.escape(study["end_time"])}</span>
+            <span>{html.escape(session.get("start_time", study["start_time"]))}–{html.escape(session.get("end_time", study["end_time"]))}</span>
           </div>
           <div class="schedule-topic">
             <span class="badge badge--{session["status"]}">{status_label(session["status"])}</span>{chapter_label}
@@ -1188,13 +1189,15 @@ def render_files(
       <a class="button button--secondary" href="https://www.youtube.com/watch?v={ref_id}">YouTube에서 참고 해설 보기</a>
     </section>
 '''
+        if session["status"] == "cancelled":
+            meeting_access = '<p class="session-venue">휴강(취소)</p>'
         body = f"""    <header class="site-masthead">
       <a class="brand-name" href="../../">{html.escape(site["name"])}</a>
       <span class="brand-sub">SESSION ARCHIVE</span>
     </header>
     <a class="back" href="../../studies/{study["slug"]}/">← {html.escape(study["title_ko"])}</a>
     <header class="page-header">
-      <p class="eyebrow">{html.escape(str(session["date"]))} · {html.escape(study["start_time"])}–{html.escape(study["end_time"])} · {html.escape(study["track"].upper())}</p>
+      <p class="eyebrow">{html.escape(str(session["date"]))} · {html.escape(session.get("start_time", study["start_time"]))}–{html.escape(session.get("end_time", study["end_time"]))} · {html.escape(study["track"].upper())}</p>
       <h1>{html.escape(session["title"])}</h1>
       <p class="lead">발표: {html.escape(presenters)}</p>
       <p class="session-venue">장소: {html.escape(study["venue"])} · {html.escape(study["timezone"])}</p>
