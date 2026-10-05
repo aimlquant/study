@@ -80,7 +80,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-09-12 | 08:00–09:00 | Chapter 1 | 태영 | 종료 | [자료·영상](https://aimlquant.github.io/study/sessions/2026-09-12-ml4t-ch01/) |
 | 2026-09-19 | 08:00–09:00 | Chapter 2 | 핀조이 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-09-19-ml4t-ch02/) |
 | 2026-10-03 | 08:00–09:00 | Chapter 3 | 세훈 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-ml4t-ch03/) |
-| 2026-10-10 | 08:00–09:00 | Chapter 4 | Jaden | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m5db985146588207f7705d4601cd44e76) | [회차](https://aimlquant.github.io/study/sessions/2026-10-10-ml4t-ch04/) |
+| 2026-10-10 | 08:00–09:00 | Chapter 4 | 종훈(L) | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m5db985146588207f7705d4601cd44e76) | [회차](https://aimlquant.github.io/study/sessions/2026-10-10-ml4t-ch04/) |
 | 2026-10-17 | 08:00–09:00 | Chapter 5 | 미정 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m12c94b867260501ba006a816f2e71a2e) | [회차](https://aimlquant.github.io/study/sessions/2026-10-17-ml4t-ch05/) |
 | 2026-10-24 | 08:00–09:00 | Chapter 6 | 미정 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m16984fce24afd778955208650d80023c) | [회차](https://aimlquant.github.io/study/sessions/2026-10-24-ml4t-ch06/) |
 | 2026-10-31 | 08:00–09:00 | Chapter 7 | 미정 | [접속](https://lgehq.webex.com/lgehq/j.php?MTID=macf41df59efb9845bf8c6ecb4969a38b) | [회차](https://aimlquant.github.io/study/sessions/2026-10-31-ml4t-ch07/) |

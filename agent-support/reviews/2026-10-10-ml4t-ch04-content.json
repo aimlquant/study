@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "ec1c8541f2d15801d9e1693489a0a5e04519c2176b6c4f0ee851aa91a095472a",
+  "report_sha256": "a30bcef44e34dc1278cabea7d654461bb1fdc6e117adf49e3c64892078dc875d",
   "sources": [
     {
       "role": "original",
@@ -154,5 +154,6 @@
       ],
       "interpretation": "9,792단어만 실제 AAPL 10-K 값이고 나머지는 합성 예문 비교 결과다."
     }
-  ]
+  ],
+  "presenter_label_correction": "2026-10-06: 발표자 표지만 종훈(L)로 정정. 본문·교육 내용 변경 없음."
 }
