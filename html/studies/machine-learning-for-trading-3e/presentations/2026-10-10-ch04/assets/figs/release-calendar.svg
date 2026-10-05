@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">원자재·거시 발표의 주간 가용 시각</title><desc id="desc">월요일부터 금요일까지의 한 주에서 COT 보고서는 화요일 기준 포지션이 금요일 오후 3시 30분 동부시간에 발표되어 그 사이에는 쓸 수 없다. EIA 주간 석유 현황 보고서는 수요일 오전 10시 30분, 많은 미국 거시 지표는 오전 8시 30분 동부시간에 예정되어 있다.</desc>
+  <defs><pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="#B45309" stroke-width="3" opacity="0.35"/></pattern><marker id="a" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="16" refX="16" refY="8" orient="auto"><path d="M0,0 L18,8 L0,16 Z" fill="#0F2C59"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:24px;font-weight:800}.b{font-size:21px}.s{font-size:19px;fill:#475569}.day{fill:#EEF3F8}.dayalt{fill:#F4F7FA}.ev{fill:#0F2C59}.asof{fill:#fff;stroke:#0F2C59;stroke-width:4}.arrow{stroke:#0F2C59;stroke-width:4;fill:none;marker-end:url(#a)}.sep{stroke:#CBD5E1;stroke-width:2}.blk{fill:#B45309;font-size:21px;font-weight:800}.an-s{text-anchor:start}.an-m{text-anchor:middle}.an-e{text-anchor:end}</style>
+  <rect width="1200" height="560" fill="#FAFAF9"/>
+  <rect class="day" x="190" y="90" width="190" height="420"/><rect class="dayalt" x="380" y="90" width="190" height="420"/><rect class="day" x="570" y="90" width="190" height="420"/><rect class="dayalt" x="760" y="90" width="190" height="420"/><rect class="day" x="950" y="90" width="190" height="420"/>
+  <text class="h an-m" x="285" y="70">월</text><text class="h an-m" x="475" y="70">화</text><text class="h an-m" x="665" y="70">수</text><text class="h an-m" x="855" y="70">목</text><text class="h an-m" x="1045" y="70">금</text>
+  <text class="h an-e" x="170" y="200">COT</text>
+  <rect x="475" y="176" width="598" height="40" fill="url(#hatch)"/>
+  <circle class="asof" cx="475" cy="196" r="13"/>
+  <rect class="ev" x="1067" y="166" width="12" height="60"/>
+  <text class="b an-m" x="475" y="252">화요일 기준 포지션</text>
+  <text class="blk an-m" x="775" y="160">발표 전 사용 불가</text>
+  <text class="b an-m" x="1060" y="252">금 15:30 ET</text>
+  <path class="arrow" d="M1080 196 H1180"/>
+  <line class="sep" x1="40" y1="290" x2="1160" y2="290"/>
+  <text class="h an-e" x="170" y="350">EIA</text>
+  <text class="s an-e" x="170" y="376">주간 석유</text>
+  <rect class="ev" x="648" y="316" width="12" height="60"/>
+  <text class="b an-m" x="654" y="404">수 10:30 ET</text>
+  <line class="sep" x1="40" y1="420" x2="1160" y2="420"/>
+  <text class="h an-e" x="170" y="470">미국 거시</text>
+  <rect class="ev" x="826" y="442" width="12" height="56"/><rect class="ev" x="256" y="442" width="12" height="56"/>
+  <text class="b an-s" x="846" y="478">08:30 ET 예정</text>
+  <text class="b an-s" x="276" y="478">08:30 ET 예정</text>
+</svg>

@@ -602,7 +602,18 @@
       "title": "Chapter 13. 지식 그래프 기반 검색 증강 생성"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "4장 상세 리포트",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-10-10-ch04/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "4장 발표 슬라이드",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-10-10-ch04/"
+        }
+      ],
       "chapters": [
         "Chapter 4"
       ],
@@ -611,7 +622,9 @@
       "meeting_status": "available",
       "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m5db985146588207f7705d4601cd44e76",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-10-ml4t-ch04/",
-      "presenters": [],
+      "presenters": [
+        "Jaden"
+      ],
       "reference_videos": [
         {
           "description": "원서 4장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
@@ -620,7 +633,7 @@
           "youtube_video_id": "yiMEhbA-eGE"
         }
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 4. 펀더멘털·대체 데이터"
     },

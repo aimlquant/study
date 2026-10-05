@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">계층적 개체 해소 파이프라인</title><desc id="desc">미매칭 기록이 1단계 결정론적 매칭, 2단계 확률적 매칭, 3단계 수동 검토를 차례로 거친다. 1단계에서 일치하거나 2단계에서 신뢰도가 높으면 위쪽 경로로 매칭된 엔터티에 바로 가고, 미해소 기록은 다음 단계로 넘어간다. 단계별 약 70%, 20%, 10%와 점수 0.85 초과 문턱이 표시되어 있다.</desc>
+  <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="16" refX="16" refY="8" orient="auto"><path d="M0,0 L18,8 L0,16 Z" fill="#0F2C59"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:23px;font-weight:800}.b{font-size:20px}.s{font-size:17px;fill:#475569}.lab{font-size:19px;font-weight:700;fill:#0F2C59}.w{fill:#fff}.box{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.band{fill:#CADCED}.out{fill:#0F2C59}.arrow{stroke:#0F2C59;stroke-width:3.5;fill:none;marker-end:url(#a)}.line{stroke:#0F2C59;stroke-width:3.5;fill:none}.an-s{text-anchor:start}.an-m{text-anchor:middle}.an-e{text-anchor:end}</style>
+  <rect width="1200" height="560" fill="#FAFAF9"/>
+  <rect class="box" x="16" y="240" width="150" height="150" rx="10"/><text class="h an-m" x="91" y="276">미매칭</text><text class="h an-m" x="91" y="302">기록</text><text class="s an-m" x="91" y="332">INTL BUSINESS</text><text class="s an-m" x="91" y="354">MACHINES</text><text class="s an-m" x="91" y="376">+ 티커 IBM</text>
+  <path class="arrow" d="M166 315 H210"/>
+  <rect class="box" x="214" y="150" width="230" height="330" rx="10"/><text class="h an-m" x="329" y="188">1단계</text><text class="h an-m" x="329" y="218">결정론적</text>
+  <text class="b an-s" x="236" y="266">· 정확한 티커</text><text class="b an-s" x="236" y="302">· CUSIP·ISIN 조회</text><text class="b an-s" x="236" y="338">· LEI 식별자</text>
+  <rect class="band" x="217" y="420" width="224" height="57" rx="8"/><text class="h an-m" x="329" y="457">약 70% 해소</text>
+  <path class="arrow" d="M444 315 H508"/>
+  <text class="lab an-m" x="476" y="345">미해소</text>
+  <rect class="box" x="512" y="150" width="230" height="330" rx="10"/><text class="h an-m" x="627" y="188">2단계</text><text class="h an-m" x="627" y="218">확률적</text>
+  <text class="b an-s" x="534" y="266">· 자로-윙클러</text><text class="b an-s" x="534" y="302">· 주소 유사도</text><text class="b an-s" x="534" y="338">· 산업 + 지역</text><text class="b an-s" x="534" y="384">점수 &gt; 0.85</text>
+  <rect class="band" x="515" y="420" width="224" height="57" rx="8"/><text class="h an-m" x="627" y="457">약 20% 해소</text>
+  <path class="arrow" d="M742 315 H806"/>
+  <text class="lab an-m" x="774" y="345">저신뢰</text>
+  <rect class="box" x="810" y="150" width="230" height="330" rx="10"/><text class="h an-m" x="925" y="188">3단계</text><text class="h an-m" x="925" y="218">수동 검토</text>
+  <text class="b an-s" x="832" y="266">· 사람 확인</text><text class="b an-s" x="832" y="302">· 웹 검색 검증</text><text class="b an-s" x="832" y="338">· 새 엔터티 생성</text>
+  <rect class="band" x="813" y="420" width="224" height="57" rx="8"/><text class="h an-m" x="925" y="457">약 10% 잔여</text>
+  <path class="arrow" d="M1040 315 H1068"/>
+  <rect class="out" x="1072" y="235" width="118" height="160" rx="12"/><text class="h w an-m" x="1131" y="276">매칭된</text><text class="h w an-m" x="1131" y="304">엔터티</text><text class="b w an-m" x="1131" y="340">정본 ID</text><text class="b w an-m" x="1131" y="366">+ 별칭</text>
+  <path class="line" d="M329 150 V80 H1131"/>
+  <path class="arrow" d="M627 150 V80 H1131 V231"/>
+  <text class="lab an-s" x="341" y="120">일치</text>
+  <text class="lab an-s" x="639" y="120">고신뢰</text>
+</svg>

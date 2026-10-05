@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="트레이딩을 위한 머신러닝 3판 Chapter 4 펀더멘털 및 대체 데이터 발표자료">
+  <title>펀더멘털 및 대체 데이터 · Chapter 4</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg></button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a><a href="../../../../sessions/2026-10-10-ml4t-ch04/">회차</a></nav></div>
+    </div>
+  </div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html" data-caption-scope="deck" data-figure-captions="none">
+    <section class="slide slide--cover" id="slide-cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero"><p class="eyebrow">트레이딩을 위한 머신러닝 3판 · Chapter 4</p><h1>펀더멘털 및 대체 데이터</h1><p class="cover-subtitle">그날 알 수 있던 값을, 올바른 대상에 붙이는 파이프라인</p></div>
+      <dl class="cover-meta"><div><dt>발표자</dt><dd>Jaden</dd></div><div><dt>범위</dt><dd>Chapter 4</dd></div><div><dt>발표일</dt><dd>2026-10-10</dd></div></dl>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-questions" aria-label="핵심 질문" data-report-refs="summary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 4</span></header>
+      <h1>공시·거시·대체 데이터를 백테스트에 넣기 전에 답할 세 질문</h1><p class="lead">이 데이터들은 나중에 고쳐 쓰이고, 출처마다 같은 회사를 다르게 부릅니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>시간</h2><p>결정 시점 t에 실제로 공개되어 있던 버전은 무엇인가?</p></article><article><h2>대상</h2><p>발행자·증권·계약 중 어느 층에, 그날 유효한 어떤 식별자로 붙이는가?</p></article><article><h2>가치</h2><p>기존 특성 위에 거래 가능한 증분 정보가 있고, 법적 관문을 통과하는가?</p></article></div></div>
+      <p class="takeaway">가장 큰 실패 원인은 모델이 아니라 시간 일관성과 엔터티 일관성입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-roadmap" aria-label="절별로 막는 실패" data-report-refs="table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 4</span></header>
+      <h1>다섯 절은 각자 다른 종류의 미래 정보 누출을 막습니다</h1><p class="lead">4.1의 이중시간 모델이 뒤의 모든 절에 같은 방식으로 적용됩니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 1</span> 절별 핵심 질문과 실패</caption><thead><tr><th>절</th><th>확인할 것</th><th>지키지 않으면</th></tr></thead><tbody><tr><td>4.1 특정 시점</td><td>그날 공개된 버전</td><td>재작성 값이 과거로 누출</td></tr><tr><td>4.2 엔터티</td><td>올바른 층·유효 식별자</td><td>다른 회사 신호로 만든 알파</td></tr><tr><td>4.3 자산군</td><td>발표 시각·빈티지·롤</td><td>발표 전 수치·최종 수정치</td></tr><tr><td>4.4 대체 데이터</td><td>증분 신호·재구성·법적 위험</td><td>중복 대리변수·백필 성과</td></tr><tr><td>4.5 텍스트</td><td>섹션 경계·접수 시각</td><td>목차를 본문으로 저장</td></tr></tbody></table></div>
+      <p class="takeaway">질문은 셋이지만 저장 원칙은 하나, "무슨 기간의 값을 언제 알았는가"입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-overview">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s41" aria-label="4.1 절 시작" data-report-refs="s4-1" data-section-divider="4.1" data-source-refs="section:4.1" data-source-title="section:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1</span></header><h1>특정 시점 기준 파이프라인</h1><p class="lead">오늘 데이터베이스에 있는 값이 아니라, 과거 결정 시점에 쓸 수 있던 값을 어떻게 돌려주는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">4.1</div></div><p class="takeaway">재작성·분류체계 변경·기업행위가 같은 기간의 여러 버전을 만듭니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s4-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-restatement" aria-label="재작성 공시와 선견 편향" data-report-refs="restatement-leak" data-source-refs="section:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1</span></header><h1>10월 결정에 나중의 1억 달러를 쓰면 선견 편향입니다</h1><p class="lead">같은 3분기 매출이 공시를 거치며 세 번 바뀌는 원서의 예입니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>10월 최초 보고</h2><p>3분기 매출 9,500만 달러. 10월 결정에 쓸 수 있는 값은 이것뿐입니다.</p></article><article><h2>다음 10-Q · 10-K</h2><p>9,800만 달러, 다시 1억 달러로 재작성됩니다. 최신 값 DB에는 1억 달러만 남습니다.</p></article><article><h2>결과</h2><p>백테스트가 10월에 1억 달러로 P/E를 계산하면 그때 아무도 몰랐던 숫자로 매매합니다.</p></article></div></div>
+      <p class="takeaway">Luo et al. (2014)은 이런 데이터 처리 오류가 전략 성과를 뒤집을 수 있다고 보였습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#restatement-leak">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-bitemporal" aria-label="이중시간 저장과 기준시점 쿼리" data-report-refs="bitemporal-asof" data-source-refs="section:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1</span></header><h1>사실마다 두 시간을 저장하고, 기간을 먼저 버전을 나중에 고릅니다</h1><p class="lead">유효 시간은 "무슨 기간의 값인가", 지식 시간은 "그 버전을 언제 알 수 있었나"입니다.</p>
+      <div class="slide-body"><div class="formula-main">\[p^{*}(t)=\max\{\,p \mid \exists v:\ a(p,v)\le t\,\},\qquad v^{*}(t)=\arg\max_{v:\ a(p^{*},v)\le t}\ a(p^{*},v)\]</div><div class="teaching-rows"><article><h2>기호</h2><p>p 보고 기간 · v 그 기간의 버전 · a(p,v) 공개·수신 중 늦은 시각.</p></article><article><h2>두 단계</h2><p>t까지 공개된 가장 최근 기간 p*를 고르고, 그 기간에서 t 이전 최신 버전 v*를 고릅니다.</p></article><article><h2>보수적 기준</h2><p>8-K 실적 발표보다 늦은 10-Q·10-K 접수 시각을 쓰면 늦게 아는 쪽으로 기웁니다.</p></article></div></div>
+      <p class="takeaway">새 버전은 옛 행을 덮어쓰지 않고 새 행으로 쌓아야 이 조회가 가능합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#bitemporal-asof">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-asof-figure" aria-label="기준시점 쿼리 예시" data-report-refs="fig-asof notebook-vintage-pit" data-source-refs="section:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1</span></header><h1>6월 16일에는 4분기 정정 101이 아니라 1분기 108을 씁니다</h1><p class="lead">오래된 분기의 정정이 새 분기 발표보다 늦게 오는 경우입니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="기준시점 쿼리의 두 단계 선택"><img src="assets/figs/asof-query.svg" alt="2020년 4분기와 2021년 1분기의 네 버전을 공개 시각 축에 놓고 6월 16일 결정 시점에 1분기 108을 고르며 공개 순 마지막 101과 결정 뒤 107은 고르지 않음"></figure><div class="teaching-rows"><article><h2>읽는 순서</h2><p>가로축은 공개 시각, 두 줄은 보고 기간입니다.</p></article><article><h2>관찰</h2><p>공개 순 마지막 행은 101이지만 더 오래된 기간의 값입니다.</p></article><article><h2>경계</h2><p>가이드 노트북의 합성 숫자입니다.</p></article></div></div></div>
+      <p class="takeaway">"공개일이 t 이전인 마지막 행"과 기준시점 조회는 다른 값을 돌려줄 수 있습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-asof">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-timestamp-authority" aria-label="양식별 타임스탬프 기준" data-report-refs="timestamp-authority table-4-1 bitemporal-asof" data-source-refs="section:4.1 table:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1 · 표 4.1</span></header><h1>"공개 시각"의 기준은 데이터 양식마다 하나로 고정합니다</h1><p class="lead">출처마다 기준이 흔들리면 같은 파이프라인 안에서 누출 규칙이 달라집니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 2</span> 소스별 타임스탬프 권위 기준</caption><thead><tr><th>양식</th><th>권위 있는 타임스탬프</th><th>비고</th></tr></thead><tbody><tr><td>SEC</td><td><code>accepted_at</code> 공시 접수</td><td>필요하면 더 이른 실적 발표도 추적</td></tr><tr><td>거시</td><td>공식 발표 시각(시간대 정규화)</td><td>ALFRED 빈티지 사용</td></tr><tr><td>원자재</td><td>기관 발표 시각 + 계약 롤</td><td>EIA·USDA·CFTC 일정</td></tr><tr><td>암호화폐</td><td>블록 시간 + 최종성 + 수집 시간</td><td>N회 확인 뒤에만 가용</td></tr></tbody></table><p class="explain-line">XBRL Frames API의 "마지막 제출" 값은 스냅샷에는 편하지만 그 자체로는 PIT에 안전하지 않습니다.</p></div>
+      <p class="takeaway">재조직(최근 블록이 대체되는 사건) 전의 온체인 값은 확정된 사실이 아닙니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-4-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-edgar" aria-label="EDGAR 소싱과 FSN 테이블" data-report-refs="edgar-sourcing table-4-2 ch4-implementation" data-source-refs="section:4.1 table:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1 · 표 4.2</span></header><h1>FSN 대량 파일에서 SUB는 지식 시간을, NUM은 값을 줍니다</h1><p class="lead">EDGAR는 대량 파일·REST API·Python 래퍼의 세 경로로 공시를 제공합니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 3</span> 선택된 FSN 테이블</caption><thead><tr><th>파일</th><th>내용</th><th>PIT 재구성에서의 역할</th></tr></thead><tbody><tr><td>SUB</td><td>CIK·양식·제출일·접수 번호</td><td>지식 시간과 버전 키</td></tr><tr><td>NUM</td><td>XBRL 태그의 수치 값</td><td>유효 기간이 붙은 값</td></tr><tr><td>TAG</td><td>분류체계 태그 정의</td><td>같은 사실의 태그 대응</td></tr><tr><td>DIM</td><td>세그먼트·지역 세분화</td><td>합계와 부분 값 구분</td></tr></tbody></table><p class="explain-line">2009년 이후 10-K·10-Q·8-K를 여덟 테이블로 담으며, Parquet으로 풀어 이중시간 DB를 쌓는 방식이 대개 가장 효율적입니다.</p></div>
+      <p class="takeaway">세 번째 열은 원서 표에 이 발표가 덧붙인 읽기 안내입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-4-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-xbrl" aria-label="XBRL 태그와 데이터 불일치" data-report-refs="xbrl-structure data-inconsistency" data-source-refs="section:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1</span></header><h1>XBRL 값은 개념·기간·단위·차원이 함께 있어야 뜻이 정해집니다</h1><p class="lead">PIT를 지켜도 회계기준·기업 재량·재작성·기업행위의 불일치가 남습니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>네 태그</h2><p>분기 매출(구간)과 분기 말 현금(시점), 연결 합계와 부문 값을 섞으면 조용한 오류입니다.</p></article><article><h2>태그 변화</h2><p>시계열 중간에 <code>SalesRevenueNet</code>이 새 매출 태그로 바뀌어 분류체계 매핑이 필요합니다.</p></article><article><h2>기업행위</h2><p>3:1 분할 뒤 과거 EPS를 3으로 나눕니다. 합병·분사는 계수로 해결되지 않습니다.</p></article></div></div>
+      <p class="takeaway">공시일은 제출 메타데이터에서, 유효 기간은 XBRL 내용에서 가져와 짝짓습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#xbrl-structure">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-fig41" aria-label="재작성 공시의 누출 구간" data-report-refs="leak-visible fig-4-1" data-source-refs="section:4.1 figure:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1 · 그림 4.1</span></header><h1>최신 값 DB와 특정 시점 값의 차이가 곧 누출 구간입니다</h1><p class="lead">같은 전략을 두 데이터로 돌리면 최신 값 쪽이 더 좋아 보이는 경우가 많습니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure" data-deck-figure-title="재작성된 펀더멘털로 인한 선견 편향"><img src="assets/figs/restatement-lookahead.svg" alt="위 줄 최신 값 데이터베이스는 2월 15일부터 매출 1억 달러를 평평하게 쓰고, 아래 줄 특정 시점 값은 9,500만 달러에서 9,800만 달러, 1억 달러로 계단처럼 오르며 그 사이가 누출 구간"></figure><p class="figure-reading">위 줄은 재작성된 1억 달러를 2월 15일부터 쓰지만 시장은 8월 10일까지 9,500만–9,800만 달러를 알았습니다. 그림의 날짜는 본문 예와 양식 순서가 달라 원리만 연결합니다.</p></div></div>
+      <p class="takeaway">벤더가 수정·정정 이력을 설명하지 못하면, 반대로 입증될 때까지 PIT가 아니라고 간주합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-4-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-release-code" aria-label="누출 일수 실험의 계산" data-report-refs="notebook-release-join" data-source-refs="section:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1 · 실습</span></header><h1>같은 분기 값을 기간 말과 발표일에 각각 붙여 비교합니다</h1><p class="lead">2021년 거래일 252일 · 합성 분기 값 4개 · 발표 지연 39–46일 · 가이드 노트북 저장 출력</p>
+      <div class="slide-body"><pre data-code-language="Python"><code># timeline: 2021년 거래일 · wrong_rows/right_rows: 분기 값 표
+wrong = pd.merge_asof(timeline, wrong_rows, on="date")  # 기간 말 키
+right = pd.merge_asof(timeline, right_rows, on="date")  # 발표일 키
+joined = wrong.merge(right, on="date")
+joined["leaked"] = (joined.wrong_period.notna()
+                    &amp; joined.wrong_period.ne(joined.eligible_period))</code></pre><p class="explain-line"><code>merge_asof</code>는 각 거래일에 그 날짜 이전의 가장 최근 행을 붙입니다. 두 방식이 서로 다른 <em>기간</em>을 가리키는 날을 누출일로 셉니다.</p></div>
+      <p class="takeaway">다음 화면에서 누출이 첫 발표 전에만 생기는지 확인합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#notebook-release-join">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-release-result" aria-label="누출 일수 실험의 결과" data-report-refs="notebook-release-join notebook-release-output table-release-join" data-source-refs="section:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1 · 실습 결과</span></header><h1>누출은 첫 발표 전 29일이 아니라 매 분기 반복되어 110일입니다</h1><p class="lead">앞 화면과 같은 252거래일·합성 분기 값입니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 4</span> 기간 말 조인이 만든 누출 거래일</caption><thead><tr><th>지표</th><th>값</th><th>읽는 법</th></tr></thead><tbody><tr><td>발표 지연</td><td>39–46일, 평균 41.25일</td><td>기간 말 → 발표일 달력일</td></tr><tr><td>첫 발표 전 누출</td><td>29거래일</td><td>올바른 방식은 아직 값 없음</td></tr><tr><td>이후 분기 누출</td><td>81거래일</td><td>기간 말~발표일마다 반복</td></tr><tr><td>전체</td><td>110거래일</td><td>252일 중 약 44%</td></tr></tbody></table><p class="explain-line">합성 일정에서 나온 교육용 진단이며 실제 기업의 공시 지연이나 성과 차이를 추정한 값이 아닙니다.</p></div>
+      <p class="takeaway">첫 공시 전만 막는 지연 처리는 이후 분기의 누출을 그대로 남깁니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#notebook-release-output">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-vintage-pit" aria-label="정정 공시가 섞인 기준시점 조회" data-report-refs="notebook-vintage-pit notebook-vintage-output table-vintage-pit" data-source-refs="section:4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.1 · 실습</span></header><h1>공개됐어도 아직 받지 못한 값은 쓸 수 없습니다</h1><p class="lead">공개 시각과 수신 시각을 모두 통과한 행 중 최신 기간의 최신 버전을 고릅니다.</p>
+      <div class="slide-body"><div class="code-layout"><pre data-code-language="Python"><code># facts: 기간·공개·수신 시각·값 4행 · t: 결정 시각
+eligible = facts.loc[(facts.available_at &lt;= t)
+                     &amp; (facts.received_at &lt;= t)
+                     &amp; (facts.period_end &lt;= t)]
+pick = eligible.sort_values(
+    ["period_end", "available_at"]).iloc[-1]</code></pre><table class="teaching-table"><caption><span data-deck-caption="table">표 5</span> 결정 시점별 조회 결과</caption><thead><tr><th>결정(UTC)</th><th>값</th></tr></thead><tbody><tr><td>02-15 13:02</td><td>없음 · 13:05 수신 전</td></tr><tr><td>02-16 14:00</td><td>100</td></tr><tr><td>06-16 14:00</td><td>108 · 단순 방식은 101</td></tr><tr><td>07-02 14:00</td><td>107</td></tr></tbody></table></div></div>
+      <p class="takeaway">노트북은 7월 정정을 추가해도 6월 16일 조회가 바뀌지 않음을 함께 검사해 PASS를 출력했습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#notebook-vintage-output">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s42" aria-label="4.2 절 시작" data-report-refs="s4-2" data-section-divider="4.2" data-source-refs="section:4.2" data-source-title="section:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2</span></header><h1>엔터티 해소와 매핑</h1><p class="lead">서로 다른 출처가 다르게 부르는 같은 회사를 어떻게 같은 대상으로 알아보는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">4.2</div></div><p class="takeaway">결정론적 → 확률적 → 사람 검토로 단계를 올리고 모든 매핑에 유효 구간을 붙입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s4-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-why-resolution" aria-label="잘못된 매칭의 비용" data-report-refs="why-resolution resolution-tiers" data-source-refs="section:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2</span></header><h1>거짓 양성 하나가 이후의 모든 조인을 오염시킵니다</h1><p class="lead">CIK·UEI·가맹점 코드 중 어느 것도 크로스워크 없이는 티커로 이어지지 않습니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>이름 혼동</h2><p>ZOOM VIDEO(ZM)를 ZOOM TECHNOLOGIES(옛 ZOOM, 현 ZTNO)와 섞으면 그 "알파"는 잡음입니다.</p></article><article><h2>자회사</h2><p>IBM 계약은 수십 개 자회사 명의로 와도 IBM에 붙어야 합니다.</p></article><article><h2>분사</h2><p>분사해 독립한 Kyndryl의 계약은 IBM에 붙으면 안 됩니다.</p></article></div></div>
+      <p class="takeaway">정밀도를 우선하고, 불확실한 매칭은 자동 확정하지 않고 다음 단계로 넘깁니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#why-resolution">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-identifiers" aria-label="결정론적 매칭과 식별자 층" data-report-refs="deterministic-matching table-identifiers" data-source-refs="section:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2</span></header><h1>1단계: 식별자 조인 전에 그 식별자가 가리키는 층을 확인합니다</h1><p class="lead">"Apple"은 법적 엔터티·보통주·채권·선물 계약 중 무엇으로도 정당하게 해소됩니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 6</span> 표준 식별자와 가리키는 층</caption><thead><tr><th>식별자</th><th>층</th><th>메모</th></tr></thead><tbody><tr><td>LEI</td><td>법적 엔터티</td><td>20자, ISO 17442</td></tr><tr><td>CIK</td><td>EDGAR 신고 주체</td><td>상품까지 가려면 참조 테이블</td></tr><tr><td>FIGI</td><td>증권</td><td>OpenFIGI 조회 API</td></tr><tr><td>CUSIP · ISIN · SEDOL</td><td>증권</td><td>미국 · 글로벌 · 영국</td></tr></tbody></table><p class="explain-line">프로덕션은 엔터티·증권·계약의 세 마스터 테이블을 시간 유효 매핑으로 잇습니다.</p></div>
+      <p class="takeaway">층을 고르지 않은 "식별자 매칭 성공"은 "올바르게 해소됨"과 같지 않습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-identifiers">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-wrong-join" aria-label="잘못된 조인 예시" data-report-refs="wrong-join fig-identity" data-source-refs="section:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2</span></header><h1>발행자 데이터를 티커로 바로 붙이면 세 가지가 조용히 틀립니다</h1><p class="lead">웹 트래픽은 발행자 수준, 수익률은 증권 수준에서 측정됩니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="식별자 계층과 발행자-증권 조인"><img src="assets/figs/identity-layers.svg" alt="발행자 수준 데이터가 유효일 증권 마스터를 거쳐 주 증권에 연결되는 경로와, 티커로 바로 조인해 다른 주식 종류, ADR, 재사용된 옛 티커로 가는 점선 경로"></figure><div class="teaching-rows"><article><h2>실선</h2><p><code>effective ≤ t &lt; end</code>를 통과한 조인입니다.</p></article><article><h2>점선</h2><p>Class A·B, ADR, 옛 티커로 잘못 붙습니다.</p></article><article><h2>경계</h2><p>유효일은 옛 티커만 막고 주 증권 규칙이 더 필요합니다.</p></article></div></div></div>
+      <p class="takeaway">발행자→증권 매핑을 유효일과 함께 명시적으로 유지하는 것이 원서의 해결책입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-identity">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-fuzzy" aria-label="확률적 매칭과 문턱" data-report-refs="probabilistic-matching" data-source-refs="section:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2</span></header><h1>2단계: 이름 유사도 점수를 계층형 문턱으로 나눕니다</h1><p class="lead">누락은 커버리지를 줄이지만, 오매칭은 모든 하위 조인과 백테스트를 오염시킵니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>세 유사도</h2><p>레벤슈타인은 편집 횟수, 자로-윙클러는 앞부분 일치 가중, 자카드는 공통 토큰 비율입니다.</p></article><article><h2>계층형 문턱</h2><p>원서의 실무 예: 약 95% 이상 자동 승인, 85–95% 검토, 85% 미만은 주소·웹사이트로.</p></article><article><h2>보정</h2><p>숫자는 보편 상수가 아닙니다. 레이블된 표본의 점수 분포로 맞춥니다.</p></article></div><p class="explain-line">원서는 "TESLA INC"와 "TESLA, INC."를 1편집이라 적지만 표시된 그대로면 2편집, 구두점을 지우면 0입니다.</p></div>
+      <p class="takeaway">정밀도를 먼저 확보하고, 에스컬레이션과 후보 생성으로 재현율을 올립니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#probabilistic-matching">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-fuzzy-embedding" aria-label="퍼지와 임베딩 매칭 결과" data-report-refs="table-fuzzy-embedding manual-review" data-source-refs="section:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2 · 공식 실습 결과</span></header><h1>임베딩은 누락을 줄이지만 "Google LLC"를 Microsoft에 붙였습니다</h1><p class="lead">공식 <code>05_entity_resolution</code>의 같은 질의 비교 · 저장 출력 · 재실행하지 않음</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 7</span> 퍼지 매칭과 임베딩 매칭 비교</caption><thead><tr><th>질의</th><th>퍼지</th><th>임베딩 최근접</th><th>코사인</th></tr></thead><tbody><tr><td>msft</td><td>없음</td><td>Microsoft</td><td>0.53</td></tr><tr><td>Amazon Web Services</td><td>없음</td><td>Amazon.com</td><td>0.65</td></tr><tr><td>Facebook Inc</td><td>없음</td><td>Meta Platforms</td><td>0.35</td></tr><tr><td>Google LLC</td><td>없음</td><td><strong>Microsoft</strong></td><td>0.38</td></tr></tbody></table><p class="explain-line">정답 0.35와 오답 0.38이 거의 같습니다. 최근접 후보는 항상 나오므로 이 구간은 3단계 사람 검토로 보냅니다.</p></div>
+      <p class="takeaway">검토 결정은 별칭·거부로 마스터에 다시 쓰고 검토자·시각·근거를 남깁니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-fuzzy-embedding">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-master" aria-label="마스터 엔터티 테이블" data-report-refs="master-db table-4-3" data-source-refs="section:4.2 table:4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2 · 표 4.3</span></header><h1>모든 출처는 결합 전에 마스터 entity_id로 해석됩니다</h1><p class="lead">마스터 테이블은 이름 변형과 식별자 매핑을 쌓아 갈수록 정확해집니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 8</span> 마스터 엔터티 예시</caption><thead><tr><th>id</th><th>이름</th><th>티커</th><th>cik</th><th>figi</th></tr></thead><tbody><tr><td>1001</td><td>Tesla, Inc.</td><td>TSLA</td><td>1318605</td><td>BBG000N9MNX3</td></tr><tr><td>1002</td><td>Apple Inc.</td><td>AAPL</td><td>320193</td><td>BBG000B9XRY4</td></tr></tbody></table><p class="explain-line">원서 표에는 LEI 열도 있습니다(화면에서는 생략). 엔터티 식별자와 증권 식별자가 한 행에 있는 것은 단순화된 예라서, 주식 종류가 여럿이면 증권 행이 여럿 달립니다.</p></div>
+      <p class="takeaway">출처 식별자끼리 직접 조인하지 않고, 항상 마스터를 거칩니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-4-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-temporal" aria-label="시간적 매핑과 경계" data-report-refs="temporal-mapping table-4-4" data-source-refs="section:4.2 table:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2 · 표 4.4</span></header><h1>식별자마다 유효 구간을 저장해야 2015년 데이터가 2024년 티커에 붙지 않습니다</h1><p class="lead">티커는 재사용되고(ZOOM), 정체성은 리브랜딩(FB → META)으로 바뀝니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 9</span> 시간적 매핑 예시</caption><thead><tr><th>id</th><th>값</th><th>effective_date</th><th>end_date</th></tr></thead><tbody><tr><td>1095</td><td>FB</td><td>2012-05-18</td><td>2022-06-08</td></tr><tr><td>1095</td><td>META</td><td>2022-06-09</td><td>NULL</td></tr></tbody></table><p class="explain-line"><code>end_date</code>를 마지막 유효일로 읽고 <code>t &lt; end_date</code>를 쓰면 6월 8일이 어느 행에도 속하지 않습니다. 배타 종료점은 다음 날로 두고 NULL은 열린 구간입니다.</p></div>
+      <p class="takeaway">다음 화면에서 반개구간 조회가 경계 시각을 어떻게 처리하는지 봅니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-4-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-ticker-reuse" aria-label="재사용 티커 해소 실습" data-report-refs="notebook-ticker-reuse notebook-ticker-output" data-source-refs="section:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2 · 실습</span></header><h1>경계 시각은 정확히 한 행에 속하고, 겹친 구간은 오류로 거부합니다</h1><p class="lead">티커 XYZ가 2021-03-01 00:00 UTC에 issuer-A에서 issuer-B로 넘어가는 합성 마스터 · 저장 출력</p>
+      <div class="slide-body"><div class="code-layout"><pre data-code-language="Python"><code># master: ticker·issuer_id·valid_from·valid_to 표
+def resolve_ticker_at(master, ticker, t):
+    rows = master.loc[(master.ticker == ticker)
+    &amp; (master.valid_from &lt;= t)
+    &amp; (master.valid_to.isna() | (t &lt; master.valid_to))]
+    if len(rows) != 1:
+        raise ValueError("missing or ambiguous")
+    return rows.iloc[0].issuer_id</code></pre><table class="teaching-table"><caption><span data-deck-caption="table">표 10</span> 조회 결과</caption><thead><tr><th>조회 시각</th><th>결과</th></tr></thead><tbody><tr><td>02-28 23:59</td><td>issuer-A</td></tr><tr><td>03-01 00:00</td><td>issuer-B</td></tr><tr><td>겹친 구간</td><td>ValueError</td></tr></tbody></table></div></div>
+      <p class="takeaway">행이 0개나 2개 이상이면 하나를 조용히 고르지 않고 실패시키는 것이 핵심입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#notebook-ticker-reuse">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-mapping-qa" aria-label="매핑 품질 보증" data-report-refs="mapping-qa table-4-5" data-source-refs="section:4.2 table:4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2 · 표 4.5</span></header><h1>매핑 품질은 배치·월·주 단위로 계속 검사합니다</h1><p class="lead">매칭률 하락은 출처 변화를, 거짓 양성 상승은 문턱 드리프트를 알리는 경우가 많습니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 11</span> 품질 보증 예시</caption><thead><tr><th>점검</th><th>방법</th><th>빈도</th></tr></thead><tbody><tr><td>신뢰도 계층</td><td>보정된 문턱으로 자동 승인·검토·다른 방법 구분</td><td>배치별</td></tr><tr><td>표본 감사</td><td>자동 승인 매핑의 1–5%를 수동 검증</td><td>월별</td></tr><tr><td>드리프트</td><td>매칭률·신뢰도 분포 추적, 급변 조사</td><td>주별</td></tr></tbody></table><p class="explain-line">신뢰도 히스토그램이 쌍봉으로 갈라지면 문턱 설정을 다시 봅니다.</p></div>
+      <p class="takeaway">표본 감사의 오매칭 비율이 자동 승인 구간의 실제 거짓 양성 추정치입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-4-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-fig42" aria-label="계층적 해소 파이프라인" data-report-refs="fig-4-2" data-source-refs="section:4.2 figure:4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.2 · 그림 4.2</span></header><h1>해소된 기록은 위로 빠지고, 남은 기록만 다음 단계로 갑니다</h1><p class="lead">모든 경로가 정본 ID와 별칭을 가진 마스터 엔터티로 모입니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure" data-deck-figure-title="계층적 개체 해소 파이프라인"><img src="assets/figs/entity-pipeline.svg" alt="미매칭 기록이 1단계 결정론적 매칭 약 70%, 2단계 확률적 매칭 점수 0.85 초과 약 20%, 3단계 수동 검토 약 10%를 거쳐 매칭된 엔터티로 모임"></figure><p class="figure-reading">약 70·20·10%와 0.85는 원서 그림의 예시 배분입니다. 본문은 95%·85–95% 계층을 권하며 단계별 비율은 제시하지 않습니다.</p></div></div>
+      <p class="takeaway">모든 결정은 시간 유효 매핑과 함께 마스터 테이블에 다시 기록됩니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-4-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s43" aria-label="4.3 절 시작" data-report-refs="s4-3" data-section-divider="4.3" data-source-refs="section:4.3" data-source-title="section:4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.3</span></header><h1>자산군 스펙트럼 전반의 기본 요소</h1><p class="lead">거시·원자재·암호화폐에서는 무엇이 "공개 시각"이고 무엇이 거래 대상인가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">4.3</div></div><p class="takeaway">작동 방식은 달라도 실패 양상은 같은 선견 편향입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s4-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-macro" aria-label="거시 데이터 정렬 과제" data-report-refs="asset-spectrum macro-rates" data-source-refs="section:4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.3</span></header><h1>거시 지표는 발표 주기·시각·시간대·수정 이력을 함께 저장합니다</h1><p class="lead">빈티지는 특정 시점에 공개되어 있던 시계열 버전입니다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>주기와 시각</h2><p>GDP는 분기·여러 빈티지, 청구는 주간, CPI는 월간. "같은 날"은 "거래 전"이 아닙니다(많은 지표가 08:30 ET).</p></article><article><h2>수정 이력</h2><p>오늘의 최종 시계열 대신 ALFRED 빈티지로 "그때 무엇을 알았나"를 재구성합니다.</p></article><article><h2>원서의 수치</h2><p>10년–2년 곡선은 2000년 이후 15.5%, 2020년 이후 36%의 날에 역전. 분모는 명시되지 않습니다.</p></article></div></div>
+      <p class="takeaway">미래 값을 과거에 섞는 보간은 피하고, 발표를 사건으로 보고 공개 뒤에만 이월합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#macro-rates">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-macro-vintage" aria-label="GDP 빈티지와 신호" data-report-refs="fig-macro-vintage table-gdp-signal" data-source-refs="section:4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.3 · 공식 실습</span></header><h1>최종값 5.2%로 보면 10월에는 실행할 수 없었던 신호가 생깁니다</h1><p class="lead">"GDP 성장률 5% 초과" 규칙을 2023년 3분기 빈티지에 적용합니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="2023년 3분기 GDP 성장률의 빈티지 사다리"><img src="assets/figs/macro-vintage.svg" alt="2023년 3분기 GDP 연율 성장률이 속보 4.9%, 2차 5.2%, 3차 4.9%, 연간 개정 5.2%로 바뀌는 계단과 5.0% 문턱, 10월 31일 결정선"></figure><div class="teaching-rows"><article><h2>읽는 순서</h2><p>가로축 발표일, 점선 10/31 결정.</p></article><article><h2>관찰</h2><p>2023년 네 분기 중 3분기만 신호가 갈립니다.</p></article><article><h2>경계</h2><p>노트북이 직접 적은 교육용 값입니다.</p></article></div></div></div>
+      <p class="takeaway">수정이 신호를 바꾸는 메커니즘의 예이며, 평균 성과 차이를 측정한 결과는 아닙니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-macro-vintage">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-commodities" aria-label="원자재 발표 시각과 계약 매핑" data-report-refs="commodities fig-release-calendar" data-source-refs="section:4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.3</span></header><h1>COT는 화요일 기준 포지션이지만 금요일 15:30 ET 뒤에야 쓸 수 있습니다</h1><p class="lead">원자재는 발표 시각을 지키고, 그 시각에 활성이던 계약에 붙입니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure" data-deck-figure-title="원자재·거시 발표의 주간 가용 시각"><img src="assets/figs/release-calendar.svg" alt="주간 달력에서 COT 화요일 기준 포지션부터 금요일 15시 30분 발표까지 사용 불가, EIA 주간 석유 수요일 10시 30분, 미국 거시 08시 30분 예정"></figure><p class="figure-reading">빗금은 관측은 지났지만 공개되지 않은 구간입니다. WASDE는 예정일 정오 ET에 나옵니다. 사건은 가격과 같은 롤 규칙으로 근월물·유동성 높은 계약에 매핑합니다.</p></div></div>
+      <p class="takeaway">원서는 COT 포지셔닝 특성의 예측력도 발표 지연을 강제한 표본 외에서 평가하라고 강조합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-release-calendar">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-crypto" aria-label="온체인 지표와 해석" data-report-refs="crypto-onchain table-onchain table-asset-pit" data-source-refs="section:4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.3</span></header><h1>온체인 데이터는 접근보다 해석과 최종성 정책이 어렵습니다</h1><p class="lead">공개적으로 검증 가능하고 고빈도지만, 같은 지표도 체인마다 정의가 다를 수 있습니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 12</span> 온체인 지표와 왜곡 요인</caption><thead><tr><th>범주</th><th>대리하는 것</th><th>왜곡 요인</th></tr></thead><tbody><tr><td>네트워크 활동</td><td>사용·채택</td><td>봇·내부 이전·주소 재사용</td></tr><tr><td>보안</td><td>공격의 경제적 비용</td><td>프로토콜 설계에 따라 해석이 다름</td></tr><tr><td>경제학</td><td>희소성·희석</td><td>가치평가 내러티브와 섞임</td></tr><tr><td>DeFi TVL</td><td>투입 자본</td><td>중복 계산·레버리지·가격 변동</td></tr></tbody></table><p class="explain-line">집계 서비스는 유동성 높은 자산에서는 비슷하지만 비유동 토큰에서는 다를 수 있습니다(Alexander and Dakos, 2020).</p></div>
+      <p class="takeaway">최종성·재조직 정책, 지표 정의, 백필·재계산 이력을 함께 기록합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-onchain">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s44" aria-label="4.4 절 시작" data-report-refs="s4-4" data-section-divider="4.4" data-source-refs="section:4.4" data-source-title="section:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.4</span></header><h1>대체 데이터 이해하기</h1><p class="lead">흥미로운 데이터셋과 프로덕션에 넣을 입력을 무엇으로 가르는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">4.4</div></div><p class="takeaway">잡음·불안정한 커버리지·숨은 백필·법적 위험이 함께 오는 투자입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s4-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-alt-landscape" aria-label="대체 데이터의 네 범주" data-report-refs="alt-landscape alt-sources" data-source-refs="section:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.4</span></header><h1>대체 데이터는 텍스트·비즈니스 프로세스·센서·예측 시장으로 나뉩니다</h1><p class="lead">Green and Zhang (2024)의 분류입니다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>텍스트·주의 · 비즈니스 프로세스</h2><p>뉴스 논조의 단기 예측력은 누출·명세에 민감합니다. 채용·카드 데이터는 범위가 고르지 않습니다.</p></article><article><h2>센서·지리공간</h2><p>주차장·건설 현장 위성 이미지, 위치 추적, 선박 위치, 산업 센서입니다.</p></article><article><h2>예측 시장</h2><p>이진 사건 계약 가격이 확률 대용치입니다. 주요 계약 밖은 유동성이 얇습니다.</p></article></div></div>
+      <p class="takeaway">마켓플레이스가 조달을 쉽게 해도 PIT 검증과 방법론 감사는 사라지지 않습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#alt-landscape">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-alt-gates" aria-label="탈락 관문과 점수 비교" data-report-refs="alt-evaluation fig-altdata-gates" data-source-refs="section:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.4</span></header><h1>법적 위험과 PIT 재구성을 통과한 데이터셋끼리만 점수를 비교합니다</h1><p class="lead">미세한 점수 차이를 논쟁하기보다 엄격한 제약에서 일찍 멈춥니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure class="deck-report-figure" data-deck-figure-title="대체 데이터 평가의 탈락 관문과 점수 비교"><img src="assets/figs/altdata-gates.svg" alt="후보 A, B, C, D가 법적 위험 관문과 특정 시점 재구성 관문을 지나 D와 C가 탈락하고 A와 B만 신호, 품질, 상업, 운영 점수로 비교됨"></figure><div class="teaching-rows"><article><h2>관문 1</h2><p>권리·MNPI·개인정보는 성과로 상쇄되지 않습니다.</p></article><article><h2>관문 2</h2><p>최초 관측 시점을 말할 수 없으면 탈락입니다.</p></article><article><h2>경계</h2><p>A–D는 가상의 후보입니다.</p></article></div></div></div>
+      <p class="takeaway">MNPI는 중요 비공개 정보로, 좁은 패널이나 기업별 채널 체크에서 생길 수 있습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-altdata-gates">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-alt-dimensions" aria-label="신호·품질·비용과 구축 대 구매" data-report-refs="alt-evaluation build-vs-buy" data-source-refs="section:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.4</span></header><h1>관문을 통과하면 증분 신호·측정 안정성·총소유비용을 봅니다</h1><p class="lead">합리적인 통제 아래서 사라지는 개선은 대개 중복 대리변수입니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>신호</h2><p>기준선 대비 증분 가치. 공개된 예측 변수는 공개 뒤 성과의 약 58%를 잃었습니다(McLean and Pontiff).</p></article><article><h2>품질</h2><p>버전·수정 노출, 유니버스 커버리지, 공표 지연. ESG 등급의 불일치가 측정 안정성의 사례입니다.</p></article><article><h2>구축 대 구매</h2><p>원서는 주류는 구매, 고유 접근 신호만 직접 만드는 하이브리드를 권합니다.</p></article></div></div>
+      <p class="takeaway">흔한 실패는 비용·용량 뒤에 거래 불가능한 신호와, 수정·선견이 만든 겉보기 성과입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#alt-evaluation">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-tvl-code" aria-label="DeFi TVL 실습의 입력과 계산" data-report-refs="alt-implementation notebook-tvl" data-source-refs="section:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.4 · 공식 실습</span></header><h1>TVL 증가율과 ETH 미래 수익률의 상관을 지평별로 계산합니다</h1><p class="lead">DefiLlama 전체 TVL × CoinGecko ETH · 무료 가격이 365일뿐이라 분석 표본은 305행</p>
+      <div class="slide-body"><pre data-code-language="Python"><code># data: 일별 TVL(십억 달러) + ETH 가격 결합 표 (로드 생략)
+analysis = data.with_columns([
+    # 신호: 과거 30일 TVL 증가율
+    pl.col("tvl_bn").pct_change(30).alias("tvl_growth_30d"),
+    # 목표: 다음 14일 ETH 수익률
+    pl.col("eth_price").pct_change(14).shift(-14)
+      .alias("fwd_return_14d"),
+])
+# IC = 피어슨 상관
+ic = analysis.select(pl.corr("tvl_growth_30d", "fwd_return_14d"))</code></pre><p class="explain-line">신호는 7·30일 증가율과 90일 z-점수, 목표는 7·14·30·60일 미래 수익률입니다. <code>shift(-14)</code>가 목표를 미래에서 끌어오므로 신호 쪽에는 미래 값이 들어가지 않아야 합니다.</p></div>
+      <p class="takeaway">다음 화면에서 12개 조합의 IC가 어떤 방향과 크기를 보였는지 확인합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#notebook-tvl">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-tvl-ic" aria-label="DeFi TVL IC 결과" data-report-refs="alt-implementation notebook-tvl notebook-tvl-output table-tvl-ic" data-source-refs="section:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.4 · 공식 실습 결과</span></header><h1>원서의 "최고 IC 0.12"는 양수 최댓값이고, 절댓값 최대는 −0.28입니다</h1><p class="lead">TVL 신호 vs ETH 미래 수익률 · 305일(2025-05~2026-05) · IC = 피어슨 상관 · 저장 출력</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 13</span> TVL 신호별 IC와 안정성</caption><thead><tr><th>신호 → 목표</th><th>IC</th><th>읽는 법</th></tr></thead><tbody><tr><td>z-점수 → 60일</td><td>−0.278</td><td>절댓값 최대, 음수</td></tr><tr><td>z-점수 → 30일</td><td>−0.127</td><td>지평이 길면 부호 반전</td></tr><tr><td>30일 증가율 → 14일</td><td>0.119</td><td>원서의 "최고 IC 0.12"</td></tr><tr><td>180일 이동 IC</td><td>평균 −0.11</td><td>양수인 창 48.8%</td></tr></tbody></table><p class="explain-line">미래 수익률 창이 겹쳐 관측이 독립이 아니므로, 이 IC는 가설 검정이 아니라 선별 진단입니다.</p></div>
+      <p class="takeaway">양수 IC 하나만 보면 방향이 불안정한 신호를 쓸 만한 신호로 착각합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-tvl-ic">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-tvl-scorecard" aria-label="DeFi TVL 네 차원 평가" data-report-refs="notebook-tvl table-tvl-scorecard notebook-tvl-output" data-source-refs="section:4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.4 · 공식 실습 결과</span></header><h1>무료 데이터도 1,000만 달러 펀드에는 연 270bp를 요구합니다</h1><p class="lead">필요 알파 = 연간 총비용 × 목표 배수 3 ÷ 배분 자본 × 10,000 (1bp = 0.01%)</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 14</span> TVL 데이터셋의 네 차원 기록</caption><thead><tr><th>차원</th><th>기록된 값</th><th>묶는 단서</th></tr></thead><tbody><tr><td>신호</td><td>평균 |IC| 0.090</td><td>지평에 따라 부호 반전</td></tr><tr><td>품질</td><td>85/100, 결측 0%</td><td>PIT 빈티지 없음</td></tr><tr><td>법적</td><td>MNPI 위험 낮음</td><td>관할권별 준수 검토</td></tr><tr><td>상업</td><td>데이터 0달러 · 연 9,000달러</td><td>270 · 54 · 5.4bp</td></tr></tbody></table><p class="explain-line">배분 자본 100만 달러: 9,000 × 3 ÷ 1,000,000 × 10,000 = 270bp, 즉 연 2.7%. 5,000만·5억 달러 펀드는 54·5.4bp입니다.</p></div>
+      <p class="takeaway">품질 85점도 PIT 빈티지가 없으면 백필된 이력으로 부푼 백테스트를 막지 못합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-tvl-scorecard">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s45" aria-label="4.5 절 시작" data-report-refs="s4-5" data-section-divider="4.5" data-source-refs="section:4.5" data-source-title="section:4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.5</span></header><h1>NLP 특성에 텍스트 데이터 사용하기</h1><p class="lead">공시 안의 비정형 텍스트를 어떻게 PIT에 맞는 데이터셋으로 만드는가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">4.5</div></div><p class="takeaway">출처는 펀더멘털이지만 다루는 방식은 대체 데이터입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s4-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-text-sections" aria-label="MD&amp;A와 위험 요인, 추출 단계" data-report-refs="mdna-risk text-stages" data-source-refs="section:4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.5</span></header><h1>Item 7과 Item 1A는 목차와 상호 참조에도 나와 경계 추출이 핵심입니다</h1><p class="lead">MD&amp;A는 경영진 논의 및 분석, 위험 요인은 투자 위험의 필수 공시입니다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>1 문서 선택</h2><p>첨부가 아닌 주 문서. 접수 번호·양식·기간 종료일·접수 시각을 직접 포착합니다.</p></article><article><h2>2 섹션 추출</h2><p>첫 "Item 7"은 목차일 수 있습니다. 누락·충돌·길이 이상치를 측정합니다.</p></article><article><h2>3 정제</h2><p>HTML 잔여물·표·상투문을 처리하되 문단 경계는 보존합니다.</p></article></div></div>
+      <p class="takeaway">위험 요인은 상투적 수준보다 구조·강조·새 주제의 변화가 더 많은 정보를 주는 경우가 많습니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#text-stages">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-text-pipeline" aria-label="텍스트 PIT 저장 스키마" data-report-refs="text-pipeline fig-text-pipeline text-pit-storage table-text-schema" data-source-refs="section:4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.5</span></header><h1>섹션 한 행은 접수 번호·접수 시각·보고 기간을 함께 가집니다</h1><p class="lead">4단계 저장 행이 4.1의 이중시간 모델과 같은 구조입니다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure class="deck-report-figure" data-deck-figure-title="공시 텍스트 데이터셋의 네 엔지니어링 단계"><img src="assets/figs/text-pipeline.svg" alt="문서 선택, 섹션 추출, 정제와 정규화, 특정 시점 저장의 네 단계와 저장 행의 기본 키, 지식 시간 accepted_at, 유효 시간 period_end, 원본과 정제 텍스트, 추출 메타데이터"></figure><p class="figure-reading">기본 키 cik + accession + section이 정정 공시를 구분하고, accepted_at이 지식 시간, period_end가 유효 시간입니다. 원본 텍스트와 패턴 버전을 남겨 규칙을 바꾼 뒤 재추출합니다.</p></div></div>
+      <p class="takeaway">이 코퍼스가 10장의 감성·임베딩·뉴스 서프라이즈 특성의 입력이 됩니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#fig-text-pipeline">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-text-numbers" aria-label="Apple 10-K 수치의 출처 대조" data-report-refs="text-outputs table-text-numbers" data-source-refs="section:4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.5 · 공식 실습 대조</span></header><h1>원서의 Apple 10-K 수치 중 실제 공시 값은 9,792단어뿐입니다</h1><p class="lead">공식 <code>14_text_data_extraction</code>의 두 셀 출력이 한 문장에 합쳐졌습니다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 15</span> 원서 인쇄값과 노트북 출력</caption><thead><tr><th>인쇄값</th><th>실제 입력</th><th>정의</th></tr></thead><tbody><tr><td>9,792단어</td><td>실제 AAPL 10-K(2025-10-31)</td><td>위험 요인 섹션 단어 수</td></tr><tr><td>중복 92.9%</td><td>짧은 합성 예문 두 버전</td><td>공통 ÷ 이전 버전 단어</td></tr><tr><td>자카드 0.31</td><td>같은 합성 예문</td><td>공통 ÷ 합집합</td></tr><tr><td>새 용어 28개</td><td>같은 합성 예문</td><td>새 버전에만 있는 토큰</td></tr></tbody></table><p class="explain-line">92.9%와 0.31은 분모가 달라 함께 성립합니다. 이전 단어는 거의 남고 새 단어가 많이 늘었습니다.</p></div>
+      <p class="takeaway">나머지 세 값은 Apple의 실제 연도 비교가 아니라 변화 분석 함수의 동작 예입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#table-text-numbers">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching chapter-divider" id="slide-s46" aria-label="4.6 요약" data-report-refs="s4-6" data-section-divider="4.6" data-source-refs="section:4.6" data-source-title="section:4.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.6</span></header><h1>요약</h1><p class="lead">공시·거시·포지셔닝·블록체인 데이터에 공통으로 남겨야 할 것은 무엇인가?</p><div class="slide-body"><div class="section-number" aria-hidden="true">4.6</div></div><p class="takeaway">이용 가능해진 시각과 포괄하는 기간, 두 타임스탬프입니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s4-6">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-summary" aria-label="장 전체 정리" data-report-refs="s4-6 summary" data-source-refs="section:4.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §4.6</span></header><h1>이중시간 모델 하나가 다섯 절의 실패를 같은 방식으로 막습니다</h1><p class="lead">이 장의 PIT 산출물은 8장 특성 공학과 10장 NLP 특성의 입력이 됩니다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>시간</h2><p>재작성 공시·빈티지·COT 지연·블록 최종성 모두 "언제 알았나"를 저장합니다.</p></article><article><h2>대상</h2><p>층을 고르고 유효 구간으로 조인해 다른 회사의 신호가 섞이지 않게 합니다.</p></article><article><h2>가치</h2><p>법적·PIT 관문을 통과한 뒤 증분 신호와 비용으로 데이터를 고릅니다.</p></article></div></div>
+      <p class="takeaway">5장은 부족한 이력을 보강하는 합성 금융 데이터로 넘어갑니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#s4-6">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-checkpoints" aria-label="이해 확인 질문" data-report-refs="checkpoints glossary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 4 · 확인</span></header><h1>세 질문에 답하면 이 장의 파이프라인을 설명할 수 있습니다</h1><p class="lead">앞에서 본 그림과 표의 숫자로 답해 보세요.</p>
+      <div class="slide-body"><div class="question-list"><article><h2>1</h2><p>6월 16일 결정에 101이 아니라 108을 쓰는 이유와, 13:05에 받은 값을 13:02에 못 쓰는 이유는?</p></article><article><h2>2</h2><p>티커 직접 조인의 세 실패 중 유효일 필터가 막는 것은? 같은 날 유효한 주식 종류·ADR은 무엇으로 고르나?</p></article><article><h2>3</h2><p>"최고 IC 0.12"만으로 TVL을 도입하면 안 되는 이유를 부호·이동 IC·겹친 창·PIT로 말할 수 있나?</p></article></div></div>
+      <p class="takeaway">좋은 답은 값·시각·대상·조건을 함께 말합니다.</p><footer class="slide-footer"><a class="report-ref" href="report.html#checkpoints">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-closing" aria-label="정리와 질의응답" data-report-refs="summary references">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 4 · Q&amp;A</span></header><h1>좋은 펀더멘털 데이터는 값이 아니라 값의 이력과 주인을 저장합니다</h1><p class="lead">우리 데이터에서 먼저 확인할 것을 이야기해 봅시다.</p>
+      <div class="slide-body"><div class="teaching-columns"><article><h2>이력</h2><p>쓰는 벤더가 수정 공시를 덮어쓰는지, 새 행으로 남기는지 아는가?</p></article><article><h2>주인</h2><p>발행자 수준 데이터를 어떤 증권 마스터로 붙이고 있는가?</p></article><article><h2>관문</h2><p>새 대체 데이터의 최초 관측 시점과 사용 권리를 확인했는가?</p></article></div></div>
+      <p class="takeaway">상세 근거: <a href="report.html">리포트</a> · 회차: <a href="../../../../sessions/2026-10-10-ml4t-ch04/">세션 허브</a></p><footer class="slide-footer"><a class="report-ref" href="report.html#references">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어"><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck.js"></script><script src="assets/deck-lightbox.js"></script><script defer src="assets/katex/katex.min.js"></script><script defer src="assets/katex/auto-render.min.js"></script><script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

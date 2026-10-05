@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">기준시점 쿼리의 두 단계 선택</title><desc id="desc">두 보고 기간의 네 버전을 공개 시각 축에 놓고, 결정 시점 6월 16일에 최신 적격 기간 2021년 1분기를 먼저 고른 뒤 그 기간의 당시 최신 버전 108을 고른다. 공개 시각 순 마지막 행은 101이다.</desc>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:26px;font-weight:800}.b{font-size:22px}.s{font-size:20px;fill:#475569}.num{font-size:26px;font-weight:800}.w{fill:#fff}.mute{fill:#94A3B8}.lane{fill:#EEF3F8}.axis{stroke:#475569;stroke-width:2}.tick{stroke:#475569;stroke-width:2}.t{stroke:#B45309;stroke-width:3;stroke-dasharray:10 8}.tl{fill:#B45309;font-weight:800;font-size:22px}.dot{fill:#fff;stroke:#0F2C59;stroke-width:4}.pick{fill:#0F2C59}.fut{fill:#fff;stroke:#94A3B8;stroke-width:3;stroke-dasharray:5 4}.naive{fill:#fff;stroke:#B45309;stroke-width:4}.an-s{text-anchor:start}.an-m{text-anchor:middle}.an-e{text-anchor:end}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <rect class="lane" x="190" y="150" width="940" height="100" rx="10"/>
+  <rect class="lane" x="190" y="300" width="940" height="100" rx="10"/>
+  <text class="h an-e" x="170" y="210">2021 Q1</text>
+  <text class="h an-e" x="170" y="360">2020 Q4</text>
+  <text class="s an-e" x="170" y="120">보고 기간</text>
+  <line class="t" x1="895" y1="96" x2="895" y2="470"/>
+  <text class="tl an-m" x="895" y="84">결정 시점 t · 6/16</text>
+  <circle class="dot pick" cx="699" cy="200" r="20"/>
+  <text class="num an-m" x="699" y="150" dy="-12">108</text>
+  <circle class="fut" cx="975" cy="200" r="20"/>
+  <text class="num mute an-m" x="975" y="150" dy="-12">107</text>
+  <circle class="dot" cx="249" cy="350" r="20"/>
+  <text class="num an-m" x="249" y="300" dy="-12">100</text>
+  <circle class="naive" cx="880" cy="350" r="20"/>
+  <text class="num an-e" x="852" y="359">101</text>
+  <text class="b an-s" x="215" y="200" dy="8">① 최신 적격 기간</text>
+  <text class="b an-s" x="730" y="232">② 당시 최신 버전</text>
+  <text class="b an-e" x="852" y="392">공개 순 마지막 행</text>
+  <text class="s an-m" x="975" y="244">t 이후 공개</text>
+  <line class="axis" x1="190" y1="470" x2="1130" y2="470"/>
+  <line class="tick" x1="249" y1="462" x2="249" y2="478"/><text class="s an-m" x="249" y="506">2/15</text>
+  <line class="tick" x1="699" y1="462" x2="699" y2="478"/><text class="s an-m" x="699" y="506">5/10</text>
+  <line class="tick" x1="880" y1="462" x2="880" y2="478"/><text class="s an-e" x="872" y="506">6/15</text>
+  <line class="tick" x1="975" y1="462" x2="975" y2="478"/><text class="s an-m" x="985" y="506">7/1</text>
+  <text class="s an-e" x="1130" y="546">공개·수신 시각 (2021, UTC)</text>
+</svg>

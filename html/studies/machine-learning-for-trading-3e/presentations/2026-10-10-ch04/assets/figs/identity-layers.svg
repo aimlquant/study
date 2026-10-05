@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">식별자 계층과 발행자-증권 조인</title><desc id="desc">위쪽은 법적 엔터티, 증권, 파생상품 계약의 세 층과 각 층의 식별자다. 아래쪽에서 발행자 수준 데이터는 유효일 증권 마스터를 거치면 주 증권에 연결되고, 티커로 바로 조인하면 다른 주식 종류, ADR, 재사용된 옛 티커에 잘못 붙을 수 있다.</desc>
+  <defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="16" refX="16" refY="8" orient="auto"><path d="M0,0 L18,8 L0,16 Z" fill="#0F2C59"/></marker><marker id="g" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="16" refX="16" refY="8" orient="auto"><path d="M0,0 L18,8 L0,16 Z" fill="#B45309"/></marker></defs>
+  <style>text{font-family:"Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",NanumGothic,Inter,system-ui,sans-serif;fill:#0F172A}.h{font-size:25px;font-weight:800}.b{font-size:21px}.s{font-size:19px;fill:#475569}.w{fill:#fff}.layer{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.box{fill:#EEF3F8;stroke:#0F2C59;stroke-width:3}.gate{fill:#0F2C59}.ok{fill:#0F2C59}.bad{fill:#FFF7ED;stroke:#B45309;stroke-width:3}.badt{fill:#9A3412;font-size:21px;font-weight:700}.arrow{stroke:#0F2C59;stroke-width:4;fill:none;marker-end:url(#a)}.dash{stroke:#B45309;stroke-width:3;stroke-dasharray:9 7;fill:none;marker-end:url(#g)}.sep{stroke:#CBD5E1;stroke-width:2}.an-s{text-anchor:start}.an-m{text-anchor:middle}.an-e{text-anchor:end}</style>
+  <rect width="1200" height="600" fill="#FAFAF9"/>
+  <rect class="layer" x="40" y="40" width="340" height="130" rx="12"/><text class="h an-m" x="210" y="92">법적 엔터티</text><text class="b an-m" x="210" y="134">LEI · CIK</text>
+  <rect class="layer" x="430" y="40" width="340" height="130" rx="12"/><text class="h an-m" x="600" y="92">증권</text><text class="b an-m" x="600" y="134">FIGI · CUSIP · ISIN · SEDOL</text>
+  <rect class="layer" x="820" y="40" width="340" height="130" rx="12"/><text class="h an-m" x="990" y="92">파생상품 계약</text><text class="b an-m" x="990" y="134">거래소 상장 · 만기</text>
+  <line class="sep" x1="40" y1="225" x2="1160" y2="225"/>
+  <rect class="box" x="40" y="290" width="290" height="200" rx="12"/><text class="h an-m" x="185" y="370">발행자 수준</text><text class="h an-m" x="185" y="404">데이터</text><text class="s an-m" x="185" y="446">예: 웹 트래픽</text>
+  <rect class="gate" x="430" y="275" width="320" height="120" rx="12"/><text class="h w an-m" x="590" y="324">유효일 증권 마스터</text><text class="b w an-m" x="590" y="364">effective ≤ t &lt; end</text>
+  <path class="arrow" d="M330 335 H426"/>
+  <rect class="ok" x="850" y="290" width="310" height="90" rx="12"/><text class="h w an-m" x="1005" y="344">주 증권 · 보통주</text>
+  <path class="arrow" d="M750 335 H846"/>
+  <rect class="bad" x="850" y="415" width="310" height="48" rx="10"/><text class="badt an-m" x="1005" y="447">× 다른 주식 종류</text>
+  <rect class="bad" x="850" y="475" width="310" height="48" rx="10"/><text class="badt an-m" x="1005" y="507">× 보통주 대신 ADR</text>
+  <rect class="bad" x="850" y="535" width="310" height="48" rx="10"/><text class="badt an-m" x="1005" y="567">× 재사용된 옛 티커</text>
+  <path class="dash" d="M330 450 L846 439"/>
+  <path class="dash" d="M330 460 L846 499"/>
+  <path class="dash" d="M330 470 L846 559"/>
+  <text class="b an-m" x="520" y="566">티커 직접 조인</text>
+</svg>
