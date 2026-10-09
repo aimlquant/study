@@ -643,13 +643,18 @@
       "artifacts": [
         {
           "kind": "report",
-          "label": "12장 상세 리포트",
+          "label": "상세 리포트",
           "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-10-ch12/report.html"
         },
         {
           "kind": "slides",
-          "label": "12장 발표 슬라이드",
+          "label": "발표자료",
           "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-10-ch12/"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료2",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-10-ch12/kg_ch12_jishin.pdf"
         }
       ],
       "chapters": [

@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "7903e337ca67a6a832ea51903fc4cc62083c8683a7df107d80c8b9dc2782189d",
+  "deck_sha256": "ace52e2a697fd53c98ed9a766b8de71d55eb19c6084980e30384c93ce9175a38",
+  "reviewer": "Codex",
+  "review_date": "2026-10-10",
+  "review_scope": "기존 51개 슬라이드의 본문·수치·출처 표시와 리포트 앵커 연결을 대조했다. 코드 발췌는 교재 예시이고 재실행 결과로 인증하지 않는다.",
+  "units": [
+    {
+      "question": "서로 다른 두 과제는 어떤 공통 뼈대를 쓰는가?",
+      "explanation": "예측 단위, 그래프 유형, 디코더와 평가 기준을 먼저 비교한다.",
+      "evidence": "summary와 table-overview의 과제 비교.",
+      "conditions": "소개 슬라이드의 수치는 뒤 절에서 교재 보고값과 보충 계산으로 구분한다.",
+      "report_refs": [
+        "summary",
+        "table-overview"
+      ],
+      "slide_ids": [
+        "slide-cover",
+        "slide-opening",
+        "slide-roadmap"
+      ]
+    },
+    {
+      "question": "11장의 표현 학습 개념이 12장 코드에 어디서 나타나는가?",
+      "explanation": "인코더–디코더, 메시지 집계, 정규화, attention, shallow 임베딩을 코드 구조에 대응한다.",
+      "evidence": "bridge-ch11의 여섯 개 보충 항목과 table-bridge, fig-message-passing.",
+      "conditions": "11장 연결은 12장 원문과 구분한 보충이다. 신규 노드 처리나 실제 학습 성능을 새로 검증하지 않았다.",
+      "report_refs": [
+        "bridge-ch11",
+        "bridge-encoder-decoder",
+        "bridge-message-passing",
+        "fig-message-passing",
+        "bridge-normalization",
+        "bridge-attention",
+        "bridge-shallow",
+        "bridge-transductive",
+        "table-bridge"
+      ],
+      "slide_ids": [
+        "slide-bridge-ed-mp",
+        "slide-bridge-mp-figure",
+        "slide-bridge-norm-attn",
+        "slide-bridge-shallow",
+        "slide-bridge-table"
+      ]
+    },
+    {
+      "question": "거래 노드 분류는 어떤 입력·그래프·모델 단계로 이루어지는가?",
+      "explanation": "입력, 그래프 프로세서, 인코더, 디코더, 추론 모델의 공통 흐름을 AML 사례에 대응한다.",
+      "evidence": "교재 12.1의 다섯 단계와 fig-framework의 두 과제 비교.",
+      "conditions": "일반 금융 네트워크 설명과 Elliptic의 거래 노드 정의를 구분해 읽어야 한다. 이 검토에서 AML 모델을 실행하지 않았다.",
+      "report_refs": [
+        "source-12-1",
+        "fig-framework"
+      ],
+      "slide_ids": [
+        "slide-section-12-1",
+        "slide-framework"
+      ]
+    },
+    {
+      "question": "라벨이 있는 거래만 보면 불법 거래는 얼마나 적은가?",
+      "explanation": "203,769개 노드, 234,355개 엣지와 166개 특징을 소개하고 미상·합법·불법을 나눈다.",
+      "evidence": "교재 표 12.1과 table-classes: 미상 157,205, 합법 42,019, 불법 4,545. 합계 203,769과 라벨 보유 46,564를 대조했다.",
+      "conditions": "약 9.8%와 약 90% 기준 정확도는 표에서 도출한 산술이며 별도 실험이 아니다.",
+      "report_refs": [
+        "source-12-1-1",
+        "table-classes"
+      ],
+      "slide_ids": [
+        "slide-12-1-1-data",
+        "slide-12-1-1-imbalance"
+      ]
+    },
+    {
+      "question": "CSV의 거래 ID를 어떻게 GNN 텐서의 위치에 맞추는가?",
+      "explanation": "연속 ID 매핑, edge_index 전치, 특징 텐서와 숫자 라벨을 순서대로 설명한다.",
+      "evidence": "교재 Listing 12.1–12.5, table-edges, table-label-codes, source-listing-12-3의 출력 예시를 연결한다.",
+      "conditions": "교재 ID 표의 불일치와 라벨 설명의 방향 문제는 보충으로 표시되어 있다. LabelEncoder 실행 검증은 하지 않았다는 제한을 유지한다.",
+      "report_refs": [
+        "source-12-1-2",
+        "fig-node-pipeline",
+        "source-listing-12-1",
+        "table-edges",
+        "source-listing-12-2",
+        "source-listing-12-3",
+        "fig-edge-toy",
+        "source-listing-12-4",
+        "source-listing-12-5"
+      ],
+      "slide_ids": [
+        "slide-12-1-2-pipeline",
+        "slide-12-1-2-mapping",
+        "slide-12-1-2-mapping-table",
+        "slide-12-1-2-edge-index",
+        "slide-12-1-2-edge-toy",
+        "slide-12-1-2-features-labels"
+      ]
+    },
+    {
+      "question": "그래프를 유지하면서 학습·검증·테스트 노드를 어떻게 나누는가?",
+      "explanation": "Data에 세 텐서를 담고 알려진 노드의 무작위 순열을 80/10/10 마스크로 나눈다.",
+      "evidence": "Listing 12.6–12.9, table-split-size의 37,251/4,656/4,657, table-split-dist의 클래스 개수와 재계산 열.",
+      "conditions": "교재의 무작위 분할 설명이며 미래 거래에 대한 시간 분할 평가가 아니다. 인쇄된 비율과 재계산 비율을 구별한다.",
+      "report_refs": [
+        "source-12-1-3",
+        "fig-node-split",
+        "source-listing-12-7",
+        "source-listing-12-8",
+        "source-listing-12-9",
+        "table-split-size",
+        "table-split-dist"
+      ],
+      "slide_ids": [
+        "slide-12-1-3-mask",
+        "slide-12-1-3-code",
+        "slide-12-1-3-dist"
+      ]
+    },
+    {
+      "question": "GCN·GAT·SAGE를 바꾸어 끼우는 공통 모델은 무엇인가?",
+      "explanation": "두 합성곱 계층과 ReLU의 인코더 위에 log_softmax를 두고 모델별 인자를 설명한다.",
+      "evidence": "Listing 12.10–12.13의 NodeClassifier, BaseGraphModel, SAGE와 부분 GAT 예시.",
+      "conditions": "GAT 본문의 생략을 실행 가능한 전체 코드로 소개하지 않는다. loss 함수 짝 설명은 수식 해석이며 버전별 실행 검증은 하지 않았다.",
+      "report_refs": [
+        "source-12-1-4",
+        "fig-nc-arch",
+        "source-listing-12-10",
+        "source-12-1-4-encoder",
+        "source-listing-12-11",
+        "source-listing-12-12",
+        "source-listing-12-13",
+        "source-12-1-4-decoder"
+      ],
+      "slide_ids": [
+        "slide-12-1-4-arch",
+        "slide-12-1-4-base",
+        "slide-12-1-4-gat",
+        "slide-12-1-4-decoder"
+      ]
+    },
+    {
+      "question": "불균형 노드 분류의 모델 성능을 어떻게 비교하는가?",
+      "explanation": "학습 비용, 클래스 가중 지표와 테스트 혼동 행렬을 구분해 소수 클래스 성능을 읽는다.",
+      "evidence": "교재 표 12.6의 400 epoch T4 비용, 그림 12.5에 대한 본문 해설, 그림 12.6의 약 68/81/83% 정탐률 서술.",
+      "conditions": "검증 곡선은 재현하지 않았고 테스트 수치도 교재 보고값이다. SAGE 오분류 88개와 테스트 불법 476개의 산술 불일치가 본문에 표시되어 있다.",
+      "report_refs": [
+        "source-12-1-5",
+        "table-nc-cost",
+        "source-12-1-5-prf",
+        "fig-prf-toy",
+        "source-12-1-5-cm",
+        "fig-nc-confusion"
+      ],
+      "slide_ids": [
+        "slide-12-1-5-cost",
+        "slide-12-1-5-prf",
+        "slide-12-1-5-prf-toy",
+        "slide-12-1-5-cm"
+      ]
+    },
+    {
+      "question": "추천을 노드 쌍 사이 링크 예측으로 어떻게 표현하는가?",
+      "explanation": "사용자와 영화 두 노드 유형에 대해 연결 여부를 예측하며 이질 그래프와 내적 디코더로 전환한다.",
+      "evidence": "교재 12.2 도입과 source-12-2의 노드 분류/링크 예측 대비.",
+      "conditions": "연결 예측과 실제 선호도·추천 서비스 품질의 차이는 다음 입력 데이터 절에서 제한한다.",
+      "report_refs": [
+        "source-12-2"
+      ],
+      "slide_ids": [
+        "slide-section-12-2"
+      ]
+    },
+    {
+      "question": "MovieLens에서 이 실험이 예측하는 연결의 의미는 무엇인가?",
+      "explanation": "영화 9,742편과 평점 100,836건에서 ID·장르·평가 관계를 추출한다.",
+      "evidence": "교재 표 12.7–12.8, table-movies와 table-ratings. 사용자 610명은 HeteroData 예시에 근거한다.",
+      "conditions": "2025년 1월 교재 배포본의 규모다. 평점 값 자체를 쓰지 않으므로 평가 여부를 좋아함과 동일시하지 않는다.",
+      "report_refs": [
+        "source-12-2-1",
+        "table-movies",
+        "table-ratings"
+      ],
+      "slide_ids": [
+        "slide-12-2-1-data"
+      ]
+    },
+    {
+      "question": "영화 장르와 사용자–영화 관계를 어떤 텐서로 만드는가?",
+      "explanation": "장르를 20차원 다중 이진 특징으로 만들고 사용자와 영화에 독립적인 연속 ID를 부여한다.",
+      "evidence": "Listing 12.14–12.16의 (9742,20) 특징과 [2,100836] 엣지, table-genre와 table-edge-pairs.",
+      "conditions": "코드 및 출력은 교재 발췌다. 4개 장르 열만 보이는 표의 0이 모든 장르 부재를 뜻하지 않음을 설명한다.",
+      "report_refs": [
+        "source-12-2-2",
+        "table-genre",
+        "source-listing-12-14",
+        "source-listing-12-15",
+        "source-listing-12-16"
+      ],
+      "slide_ids": [
+        "slide-12-2-2-genre",
+        "slide-12-2-2-edges",
+        "slide-12-2-2-pairs"
+      ]
+    },
+    {
+      "question": "링크 예측에서 메시지 엣지와 감독 엣지를 왜 분리하는가?",
+      "explanation": "HeteroData, 역방향 관계, RandomLinkSplit, 음성 샘플과 이웃 로더를 연결한다.",
+      "evidence": "Listing 12.17–12.21과 table-link-split: 56,469+24,201=80,670; 검증·테스트 감독 10,083+20,166=30,249.",
+      "conditions": "원문 80,669와 출력 합의 한 개 차이를 표시한다. 로더의 전체 data 사용에 대한 누출 우려는 미실행 가설이며 확인된 실험 결과로 기록하지 않는다.",
+      "report_refs": [
+        "source-12-2-3",
+        "fig-hetero",
+        "source-listing-12-17",
+        "source-listing-12-18",
+        "fig-leakage",
+        "fig-link-split",
+        "table-link-split",
+        "source-listing-12-19",
+        "source-listing-12-20",
+        "source-listing-12-21"
+      ],
+      "slide_ids": [
+        "slide-12-2-3-hetero",
+        "slide-12-2-3-split-code",
+        "slide-12-2-3-leakage",
+        "slide-12-2-3-split-fig",
+        "slide-12-2-3-loader"
+      ]
+    },
+    {
+      "question": "사용자·영화 임베딩을 어떤 과정으로 링크 점수로 바꾸는가?",
+      "explanation": "사용자 ID 임베딩, 영화 장르 변환과 ID 임베딩의 합, to_hetero 인코더, 내적과 BCE를 설명한다.",
+      "evidence": "Listing 12.22–12.25와 fig-lp-arch. [1,2]·[2,1]=4, sigmoid 약 0.982는 이해용 계산이다.",
+      "conditions": "임베딩 코드는 미실행 발췌다. 장르 경로가 있어도 영화 ID lookup이 함께 필요하므로 신규 영화의 전체 모델 추론이 검증됐다는 뜻으로 읽을 수 없다.",
+      "report_refs": [
+        "source-12-2-4",
+        "fig-lp-arch",
+        "source-listing-12-22",
+        "source-12-2-4-encoder",
+        "source-listing-12-23",
+        "source-listing-12-24",
+        "source-listing-12-25",
+        "source-12-2-4-decoder",
+        "fig-dot-product"
+      ],
+      "slide_ids": [
+        "slide-12-2-4-arch",
+        "slide-12-2-4-embedding",
+        "slide-12-2-4-hetero-model",
+        "slide-12-2-4-decoder",
+        "slide-12-2-4-dot"
+      ]
+    },
+    {
+      "question": "추천에서는 정밀도와 재현율 중 무엇을 우선해야 하는가?",
+      "explanation": "55 epoch T4 비용, 검증 곡선 해설, 테스트 혼동 행렬 및 재계산 지표를 구분한다.",
+      "evidence": "교재 표 12.10, §12.2.5의 모델별 TN/FP/FN/TP, table-lp-cost와 table-lp-derived.",
+      "conditions": "검증에서의 SAGE F1 우위와 테스트에서의 GCN 가중 F1 우위를 구분한다. 단일 설정의 교재 결과로 일반적인 우열이나 서비스 성과를 단정하지 않는다.",
+      "report_refs": [
+        "source-12-2-5",
+        "table-lp-cost",
+        "source-12-2-5-prf",
+        "source-12-2-5-cm",
+        "fig-lp-confusion",
+        "table-lp-derived"
+      ],
+      "slide_ids": [
+        "slide-12-2-5-cost",
+        "slide-12-2-5-prf",
+        "slide-12-2-5-cm",
+        "slide-12-2-5-derived"
+      ]
+    },
+    {
+      "question": "두 실습의 조건을 비교하고 어떤 후속 질문을 남기는가?",
+      "explanation": "예측 단위·입력·분할·디코더를 비교하고 지표·오류 비용·신규 노드 가정을 토론한다.",
+      "evidence": "wrap-up, table-two-tasks, glossary, references의 정리.",
+      "conditions": "교재의 한 번의 설정을 보편적인 최고 모델 주장으로 확대하지 않고 실험하지 않은 로더·임계값·신규 노드 처리를 후속 질문으로 남긴다.",
+      "report_refs": [
+        "wrap-up",
+        "table-two-tasks",
+        "table-glossary",
+        "glossary",
+        "summary",
+        "references"
+      ],
+      "slide_ids": [
+        "slide-comparison",
+        "slide-checkpoint",
+        "slide-closing"
+      ]
+    }
+  ],
+  "experiments": [],
+  "visual_review": "이 작업에서는 설치된 보호 브라우저의 실행 경로 문제로 데스크톱·모바일 실제 화면 검증을 완료하지 못했다. 슬라이드의 전체 화면 가독성을 이 기록으로 인증하지 않는다."
+}

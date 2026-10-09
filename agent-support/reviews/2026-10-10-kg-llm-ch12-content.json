@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "7903e337ca67a6a832ea51903fc4cc62083c8683a7df107d80c8b9dc2782189d",
+  "reviewer": "Codex",
+  "review_date": "2026-10-10",
+  "review_scope": "기존 12장 자료의 발행 기록 보완: 원문 텍스트·해설 목차, 본문 절/리스팅/표 연결과 수치의 출처·실행 상태를 검토했다. 모델 재학습, 라이브러리 버전별 동작 및 전체 화면의 시각 검증을 수행했다는 기록이 아니다.",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_12_node_classification_and_link_prediction_with_gnns/12_node_classification_and_link_prediction_with_gnns.md",
+      "sha256": "a2cd898b42c8803e403c772ccf738a16303fd38afc1a4a21321b4294ec4db169",
+      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+    },
+    {
+      "role": "outline",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_12_node_classification_and_link_prediction_with_gnns/12_node_classification_and_link_prediction_with_gnns_ko_explained.md",
+      "sha256": "4d643caed8a3151d419a00950e78f3fdf8704f9aea2d7cd710d1975f74770e2f",
+      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+    }
+  ],
+  "sections": [
+    {
+      "ref": "12.1",
+      "report_id": "source-12-1",
+      "explanation": "입력, 그래프 프로세서, 인코더, 디코더, 추론 모델의 공통 흐름을 AML 사례에 대응한다.",
+      "evidence": "교재 12.1의 다섯 단계와 fig-framework의 두 과제 비교.",
+      "limits": "일반 금융 네트워크 설명과 Elliptic의 거래 노드 정의를 구분해 읽어야 한다. 이 검토에서 AML 모델을 실행하지 않았다.",
+      "visuals": "fig-framework는 성능 차트가 아니라 처리 단계의 재구성이다."
+    },
+    {
+      "ref": "12.1.1",
+      "report_id": "source-12-1-1",
+      "explanation": "203,769개 노드, 234,355개 엣지와 166개 특징을 소개하고 미상·합법·불법을 나눈다.",
+      "evidence": "교재 표 12.1과 table-classes: 미상 157,205, 합법 42,019, 불법 4,545. 합계 203,769과 라벨 보유 46,564를 대조했다.",
+      "limits": "약 9.8%와 약 90% 기준 정확도는 표에서 도출한 산술이며 별도 실험이 아니다.",
+      "visuals": "table-classes와 table-overview가 클래스 불균형을 설명한다."
+    },
+    {
+      "ref": "12.1.2",
+      "report_id": "source-12-1-2",
+      "explanation": "연속 ID 매핑, edge_index 전치, 특징 텐서와 숫자 라벨을 순서대로 설명한다.",
+      "evidence": "교재 Listing 12.1–12.5, table-edges, table-label-codes, source-listing-12-3의 출력 예시를 연결한다.",
+      "limits": "교재 ID 표의 불일치와 라벨 설명의 방향 문제는 보충으로 표시되어 있다. LabelEncoder 실행 검증은 하지 않았다는 제한을 유지한다.",
+      "visuals": "fig-node-pipeline은 세 CSV와 텐서를 대응하고 fig-edge-toy는 실제 데이터와 구분한 3노드 예다."
+    },
+    {
+      "ref": "12.1.3",
+      "report_id": "source-12-1-3",
+      "explanation": "Data에 세 텐서를 담고 알려진 노드의 무작위 순열을 80/10/10 마스크로 나눈다.",
+      "evidence": "Listing 12.6–12.9, table-split-size의 37,251/4,656/4,657, table-split-dist의 클래스 개수와 재계산 열.",
+      "limits": "교재의 무작위 분할 설명이며 미래 거래에 대한 시간 분할 평가가 아니다. 인쇄된 비율과 재계산 비율을 구별한다.",
+      "visuals": "fig-node-split은 전체 노드 막대와 라벨 보유 노드 막대의 축척이 다름을 명시한다."
+    },
+    {
+      "ref": "12.1.4",
+      "report_id": "source-12-1-4",
+      "explanation": "두 합성곱 계층과 ReLU의 인코더 위에 log_softmax를 두고 모델별 인자를 설명한다.",
+      "evidence": "Listing 12.10–12.13의 NodeClassifier, BaseGraphModel, SAGE와 부분 GAT 예시.",
+      "limits": "GAT 본문의 생략을 실행 가능한 전체 코드로 소개하지 않는다. loss 함수 짝 설명은 수식 해석이며 버전별 실행 검증은 하지 않았다.",
+      "visuals": "fig-nc-arch는 교체되는 인코더와 공유되는 디코더를 나누어 보여 준다."
+    },
+    {
+      "ref": "12.1.5",
+      "report_id": "source-12-1-5",
+      "explanation": "학습 비용, 클래스 가중 지표와 테스트 혼동 행렬을 구분해 소수 클래스 성능을 읽는다.",
+      "evidence": "교재 표 12.6의 400 epoch T4 비용, 그림 12.5에 대한 본문 해설, 그림 12.6의 약 68/81/83% 정탐률 서술.",
+      "limits": "검증 곡선은 재현하지 않았고 테스트 수치도 교재 보고값이다. SAGE 오분류 88개와 테스트 불법 476개의 산술 불일치가 본문에 표시되어 있다.",
+      "visuals": "fig-prf-toy는 가상의 100건 지표 예다. fig-nc-confusion은 교재의 개수·비율을 재구성하며 단위 혼용을 설명한다."
+    },
+    {
+      "ref": "12.2",
+      "report_id": "source-12-2",
+      "explanation": "사용자와 영화 두 노드 유형에 대해 연결 여부를 예측하며 이질 그래프와 내적 디코더로 전환한다.",
+      "evidence": "교재 12.2 도입과 source-12-2의 노드 분류/링크 예측 대비.",
+      "limits": "연결 예측과 실제 선호도·추천 서비스 품질의 차이는 다음 입력 데이터 절에서 제한한다.",
+      "visuals": "별도 그림 없이 fig-framework의 두 번째 과제를 본문으로 도입한다."
+    },
+    {
+      "ref": "12.2.1",
+      "report_id": "source-12-2-1",
+      "explanation": "영화 9,742편과 평점 100,836건에서 ID·장르·평가 관계를 추출한다.",
+      "evidence": "교재 표 12.7–12.8, table-movies와 table-ratings. 사용자 610명은 HeteroData 예시에 근거한다.",
+      "limits": "2025년 1월 교재 배포본의 규모다. 평점 값 자체를 쓰지 않으므로 평가 여부를 좋아함과 동일시하지 않는다.",
+      "visuals": "table-movies와 table-ratings가 사용할 열과 장르 문자열 모양을 보인다."
+    },
+    {
+      "ref": "12.2.2",
+      "report_id": "source-12-2-2",
+      "explanation": "장르를 20차원 다중 이진 특징으로 만들고 사용자와 영화에 독립적인 연속 ID를 부여한다.",
+      "evidence": "Listing 12.14–12.16의 (9742,20) 특징과 [2,100836] 엣지, table-genre와 table-edge-pairs.",
+      "limits": "코드 및 출력은 교재 발췌다. 4개 장르 열만 보이는 표의 0이 모든 장르 부재를 뜻하지 않음을 설명한다.",
+      "visuals": "table-genre는 장르 발췌, table-edge-pairs는 인쇄된 앞뒤 엣지 예시를 표로 옮긴 것이다."
+    },
+    {
+      "ref": "12.2.3",
+      "report_id": "source-12-2-3",
+      "explanation": "HeteroData, 역방향 관계, RandomLinkSplit, 음성 샘플과 이웃 로더를 연결한다.",
+      "evidence": "Listing 12.17–12.21과 table-link-split: 56,469+24,201=80,670; 검증·테스트 감독 10,083+20,166=30,249.",
+      "limits": "원문 80,669와 출력 합의 한 개 차이를 표시한다. 로더의 전체 data 사용에 대한 누출 우려는 미실행 가설이며 확인된 실험 결과로 기록하지 않는다.",
+      "visuals": "fig-hetero는 두 노드 유형, fig-leakage는 개념 예, fig-link-split은 메시지·감독의 단계별 구성을 설명한다."
+    },
+    {
+      "ref": "12.2.4",
+      "report_id": "source-12-2-4",
+      "explanation": "사용자 ID 임베딩, 영화 장르 변환과 ID 임베딩의 합, to_hetero 인코더, 내적과 BCE를 설명한다.",
+      "evidence": "Listing 12.22–12.25와 fig-lp-arch. [1,2]·[2,1]=4, sigmoid 약 0.982는 이해용 계산이다.",
+      "limits": "임베딩 코드는 미실행 발췌다. 장르 경로가 있어도 영화 ID lookup이 함께 필요하므로 신규 영화의 전체 모델 추론이 검증됐다는 뜻으로 읽을 수 없다.",
+      "visuals": "fig-lp-arch는 모듈 연결, fig-dot-product는 학습된 값과 구분한 가상 벡터 계산이다. 내적은 방향뿐 아니라 벡터 크기에도 의존한다."
+    },
+    {
+      "ref": "12.2.5",
+      "report_id": "source-12-2-5",
+      "explanation": "55 epoch T4 비용, 검증 곡선 해설, 테스트 혼동 행렬 및 재계산 지표를 구분한다.",
+      "evidence": "교재 표 12.10, §12.2.5의 모델별 TN/FP/FN/TP, table-lp-cost와 table-lp-derived.",
+      "limits": "검증에서의 SAGE F1 우위와 테스트에서의 GCN 가중 F1 우위를 구분한다. 단일 설정의 교재 결과로 일반적인 우열이나 서비스 성과를 단정하지 않는다.",
+      "visuals": "fig-lp-confusion은 행 기준 비율과 오류 개수를 함께 표시한다. table-lp-derived는 같은 개수에서 계산한 보충 표다."
+    }
+  ],
+  "experiments": [
+    {
+      "status": "book-only",
+      "scope": "Elliptic 노드 분류: 교재의 400 epoch T4 비용과 평가 결과.",
+      "source": "원문 §12.1.5, 표 12.6, 그림 12.5–12.6에 대한 본문 서술.",
+      "report_ids": [
+        "table-nc-cost",
+        "fig-nc-confusion"
+      ],
+      "interpretation": "교재 결과의 해설이다. 이 작업에서 학습·추론을 실행하지 않았고 개수와 비율의 불일치에 대한 본문 주의를 유지한다."
+    },
+    {
+      "status": "book-only",
+      "scope": "MovieLens 링크 예측: 교재의 55 epoch T4 비용과 테스트 혼동 행렬.",
+      "source": "원문 §12.2.5, 표 12.10, 그림 12.10–12.11에 대한 본문 서술.",
+      "report_ids": [
+        "table-lp-cost",
+        "fig-lp-confusion",
+        "table-lp-derived"
+      ],
+      "interpretation": "모델을 재실행한 결과가 아니다. 파생 지표는 인쇄된 테스트 행렬에서 계산한 것이며 검증 곡선과 구분한다."
+    },
+    {
+      "status": "not-run",
+      "scope": "Listing 12.1–12.25 코드와 이해용 예시.",
+      "source": "원문과 한국어 해설의 리스팅, 리포트의 AIML Quant 보충.",
+      "report_ids": [
+        "source-listing-12-1",
+        "source-listing-12-21",
+        "source-listing-12-23",
+        "fig-prf-toy",
+        "fig-dot-product"
+      ],
+      "interpretation": "학습 코드와 로더 누출 가설은 실행하지 않았다. 이해용 작은 숫자는 실제 학습 임베딩이나 데이터셋 측정값이 아니다."
+    }
+  ]
+}
