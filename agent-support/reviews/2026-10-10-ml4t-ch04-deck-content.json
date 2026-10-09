@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "a30bcef44e34dc1278cabea7d654461bb1fdc6e117adf49e3c64892078dc875d",
-  "deck_sha256": "d72e5a05a261931ae83804805c6941c521a4c781404503ac0944e23d0ca3496a",
+  "report_sha256": "208ce0f0384347fba3f079ad43f02500ddf0b2999c3bbe9b57cd50297a651c3b",
+  "deck_sha256": "5c343aee29304d8f1b6a41e6787335118d7859a46e9a8c2ccbcb46c5c4e9e88a",
   "units": [
     {
       "question": "이 장은 어떤 문제를 어떤 순서로 푸는가?",
-      "explanation": "시간·대상·가치의 세 질문과 다섯 절이 각각 막는 누출을 제시한다.",
+      "explanation": "시간·대상·가치의 세 질문과 다섯 절이 각각 막는 누출을 제시한다. 받아쓰기 시험 비유 슬라이드로 \"그날 알던 것만 쓴다\"를 먼저 보여 준다.",
       "evidence": "표 1 절별 질문과 실패",
       "conditions": "새 수치나 실험을 추가하지 않는다.",
       "report_refs": [
@@ -15,6 +15,7 @@
       ],
       "slide_ids": [
         "slide-cover",
+        "slide-analogy-summary",
         "slide-questions",
         "slide-roadmap"
       ]
@@ -30,6 +31,7 @@
       ],
       "slide_ids": [
         "slide-s41",
+        "slide-analogy-41",
         "slide-restatement"
       ]
     },
@@ -122,6 +124,7 @@
       ],
       "slide_ids": [
         "slide-s42",
+        "slide-analogy-42",
         "slide-why-resolution",
         "slide-identifiers"
       ]
@@ -202,6 +205,7 @@
       ],
       "slide_ids": [
         "slide-s43",
+        "slide-analogy-43",
         "slide-macro",
         "slide-macro-vintage"
       ]
@@ -238,6 +242,7 @@
       ],
       "slide_ids": [
         "slide-s44",
+        "slide-analogy-44",
         "slide-alt-landscape",
         "slide-alt-gates",
         "slide-alt-dimensions"
@@ -277,6 +282,7 @@
       ],
       "slide_ids": [
         "slide-s45",
+        "slide-analogy-45",
         "slide-text-sections",
         "slide-text-pipeline"
       ]
@@ -616,5 +622,6 @@
     }
   ],
   "figure_caption_policy": "No visible caption bands; every reused report figure keeps the same SVG source, descriptive alt text, report link, and visible interpretation boundary.",
-  "presenter_label_correction": "2026-10-06: 발표자 표지만 종훈(L)로 정정. 본문·교육 내용 변경 없음."
+  "presenter_label_correction": "2026-10-06: 발표자 표지만 종훈(L)로 정정. 본문·교육 내용 변경 없음.",
+  "plain_language_rewrite": "2026-10-09: 리포트와 발표자료 문장을 아주 쉬운 말로 다시 씀. 원본 좌표·그림/표 번호·앵커·실습 수치는 유지하고, 절마다 비유(이 리포트가 덧붙인 설명)를 추가."
 }
