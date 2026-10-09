@@ -14,8 +14,8 @@ source_fidelity = "source-structure-v1"
 source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_12_node_classification_and_link_prediction_with_gnns/12_node_classification_and_link_prediction_with_gnns_ko_explained.md"
 report_quality = "source-learning-v1"
 # 절별 설명·근거·실습 상태와 원본/산출물 해시를 남기는 제작자용 JSON.
-content_review = ""
+content_review = "agent-support/reviews/2026-10-10-kg-llm-ch12-content.json"
 
 # 덱 본문을 작성할 때 검토 기록을 채운다. 리포트 단독에는 적용하지 않는다.
 deck_quality = "report-teaching-v1"
-deck_review = ""
+deck_review = "agent-support/reviews/2026-10-10-kg-llm-ch12-deck-content.json"
