@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 310" role="img" aria-labelledby="title desc">
+  <title id="title">정답 엣지를 메시지 전달에도 쓰는 경우와 분리하는 경우</title>
+  <desc id="desc">왼쪽은 사용자 u와 영화 m을 잇는 정답 엣지가 실선이어서 메시지 전달 경로로도 쓰이는 경우다. 오른쪽은 같은 엣지가 점선이어서 정답으로만 쓰이고 메시지 전달에는 쓰이지 않으며, 사용자 u는 다른 영화 m2와 이은 실선 엣지로만 정보를 받는다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .pb{fill:#FFF3F0;stroke:#B42318;stroke-width:2}
+      .pg{fill:#F0FAF4;stroke:#1F7A5C;stroke-width:2}
+      .ph{fill:#B42318}
+      .phg{fill:#1F7A5C}
+      .node{fill:#D9E2EF;stroke:#0F2C59;stroke-width:2}
+      .msg{fill:none;stroke:#0F2C59;stroke-width:3}
+      .ans{fill:none;stroke:#C2410C;stroke-width:3}
+      .ansd{fill:none;stroke:#C2410C;stroke-width:3;stroke-dasharray:9 7}
+      .tag{fill:#fff;stroke:#C2410C;stroke-width:1.5}
+      .t{font-size:14px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .th{font-size:15px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="920" height="310" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="pb" x="10" y="10" width="440" height="290" rx="10"/>
+    <rect class="ph" x="10" y="10" width="440" height="40" rx="10"/><text class="th" x="230" y="36">겹치는 경우</text>
+    <path class="ans" d="M130 140H330"/>
+    <path class="msg" d="M95 162L205 228"/>
+    <rect class="node" x="40" y="118" width="90" height="44" rx="8"/><text class="t" x="85" y="146">사용자 u</text>
+    <rect class="node" x="330" y="118" width="90" height="44" rx="8"/><text class="t" x="375" y="146">영화 m</text>
+    <rect class="node" x="185" y="228" width="90" height="44" rx="8"/><text class="t" x="230" y="256">영화 m2</text>
+    <rect class="tag" x="170" y="124" width="120" height="32" rx="6"/><text class="t" x="230" y="145">정답 + 메시지</text>
+
+    <rect class="pg" x="470" y="10" width="440" height="290" rx="10"/>
+    <rect class="phg" x="470" y="10" width="440" height="40" rx="10"/><text class="th" x="690" y="36">분리한 경우</text>
+    <path class="ansd" d="M590 140H790"/>
+    <path class="msg" d="M555 162L665 228"/>
+    <rect class="node" x="500" y="118" width="90" height="44" rx="8"/><text class="t" x="545" y="146">사용자 u</text>
+    <rect class="node" x="790" y="118" width="90" height="44" rx="8"/><text class="t" x="835" y="146">영화 m</text>
+    <rect class="node" x="645" y="228" width="90" height="44" rx="8"/><text class="t" x="690" y="256">영화 m2</text>
+    <rect class="tag" x="630" y="124" width="120" height="32" rx="6"/><text class="t" x="690" y="145">정답만</text>
+  </g>
+</svg>

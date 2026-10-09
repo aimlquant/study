@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 310" role="img" aria-labelledby="title desc">
+  <title id="title">링크 예측 모델의 임베딩, 이질 GNN, 내적 디코더</title>
+  <desc id="desc">사용자 노드 ID는 임베딩 행렬을 거치고, 영화 장르 특징은 선형 변환을 거쳐 영화 노드 ID 임베딩과 더해진다. 두 입력은 이질 GNN으로 들어가 사용자 벡터와 영화 벡터가 되고, 감독 엣지의 각 쌍에 내적과 시그모이드를 적용해 확률을 만든 뒤 이진 교차 엔트로피로 평가한다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .gnn{fill:#D9E2EF;stroke:#0F2C59;stroke-width:2}
+      .dec{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .t{font-size:14px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:12px;text-anchor:middle;fill:#6B6B72}
+    </style>
+  </defs>
+  <rect width="1100" height="310" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="box" x="20" y="40" width="220" height="60" rx="8"/><text class="t" x="130" y="66">user node_id</text><text class="m" x="130" y="86">Embedding(610, d)</text>
+    <rect class="box" x="20" y="140" width="220" height="54" rx="8"/><text class="t" x="130" y="164">movie x (20차원)</text><text class="m" x="130" y="182">Linear(20, d)</text>
+    <rect class="box" x="20" y="210" width="220" height="54" rx="8"/><text class="t" x="130" y="234">movie node_id</text><text class="m" x="130" y="252">Embedding(9742, d)</text>
+    <rect class="box" x="270" y="165" width="60" height="70" rx="8"/><text class="t" x="300" y="206">합 +</text>
+    <rect class="gnn" x="380" y="30" width="190" height="250" rx="8"/><text class="t" x="475" y="130">이질 GNN</text><text class="m" x="475" y="152">to_hetero(기본 GNN)</text><text class="m" x="475" y="172">rates · rev_rates</text><text class="m" x="475" y="192">message passing</text>
+    <rect class="box" x="620" y="45" width="120" height="50" rx="8"/><text class="t" x="680" y="75">사용자 벡터</text>
+    <rect class="box" x="620" y="175" width="120" height="50" rx="8"/><text class="t" x="680" y="205">영화 벡터</text>
+    <rect class="dec" x="790" y="105" width="150" height="80" rx="8"/><text class="t" x="865" y="140">dot product →</text><text class="t" x="865" y="162">sigmoid</text>
+    <rect class="dec" x="970" y="105" width="110" height="80" rx="8"/><text class="t" x="1025" y="140">binary</text><text class="t" x="1025" y="162" style="font-size:13px">cross-entropy</text>
+    <path class="line" d="M240 70H380"/><path class="line" d="M240 167L270 185"/><path class="line" d="M240 237L270 215"/><path class="line" d="M330 200H380"/>
+    <path class="line" d="M570 70H620"/><path class="line" d="M570 200H620"/>
+    <path class="line" d="M740 70L790 125"/><path class="line" d="M740 200L790 165"/><path class="line" d="M940 145H970"/>
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+  <title id="title">메시지 전달 한 라운드의 집계와 갱신</title>
+  <desc id="desc">이웃 노드 세 개의 이전 표현이 AGGREGATE 상자로 모이고, 노드 u 자신의 이전 표현과 함께 UPDATE 상자로 들어가 새 표현을 만든다. 화살표는 왼쪽에서 오른쪽으로 흐른다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .self{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .op{fill:#D9E2EF;stroke:#0F2C59;stroke-width:2}
+      .out{fill:#0F2C59}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .t{font-size:14px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:12px;text-anchor:middle;fill:#6B6B72}
+      .w{font-size:15px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="900" height="300" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="box" x="20" y="25" width="150" height="55" rx="8"/><text class="t" x="95" y="50">이웃 v1</text><text class="m" x="95" y="68">h_v1^(k-1)</text>
+    <rect class="box" x="20" y="105" width="150" height="55" rx="8"/><text class="t" x="95" y="130">이웃 v2</text><text class="m" x="95" y="148">h_v2^(k-1)</text>
+    <rect class="box" x="20" y="185" width="150" height="55" rx="8"/><text class="t" x="95" y="210">이웃 v3</text><text class="m" x="95" y="228">h_v3^(k-1)</text>
+    <rect class="op" x="250" y="85" width="150" height="95" rx="8"/><text class="t" x="325" y="123">AGGREGATE</text><text class="m" x="325" y="146">합 또는 평균</text>
+    <rect class="self" x="250" y="215" width="150" height="55" rx="8"/><text class="t" x="325" y="240">노드 u 자신</text><text class="m" x="325" y="258">h_u^(k-1)</text>
+    <rect class="op" x="480" y="120" width="170" height="95" rx="8"/><text class="t" x="565" y="158">UPDATE</text><text class="m" x="565" y="181">σ(W_self·h_u + W_neigh·m)</text>
+    <rect class="out" x="730" y="135" width="150" height="65" rx="8"/><text class="w" x="805" y="163" style="font-size:13px">새 representation</text><text class="w" x="805" y="185" style="font-size:13px">h_u^(k)</text>
+    <path class="line" d="M170 52L250 105"/><path class="line" d="M170 132H250"/><path class="line" d="M170 212L250 160"/>
+    <path class="line" d="M400 132L480 150"/><path class="line" d="M400 242L480 200"/><path class="line" d="M650 167H730"/>
+  </g>
+</svg>

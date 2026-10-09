@@ -334,8 +334,13 @@ date = "2026-10-10"
 title = "Chapter 12. GNN 기반 노드 분류와 링크 예측"
 presenters = ["재익"]
 chapters = ["Chapter 12"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m5db985146588207f7705d4601cd44e76"
+
+artifacts = [
+  { kind = "report", label = "12장 상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-10-ch12/report.html" },
+  { kind = "slides", label = "12장 발표 슬라이드", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-10-ch12/" },
+]
 
 reference_videos = [
   { title = "Ch.12 GNN 기반 노드 분류와 링크 예측 · 한국어 참고 해설", youtube_video_id = "-NhnH6qOyhg", status = "public", description = "원서 12장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },

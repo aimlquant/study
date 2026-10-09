@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" role="img" aria-labelledby="title desc">
+  <title id="title">내적으로 재는 사용자와 영화 벡터의 궁합</title>
+  <desc id="desc">원점에서 뻗은 사용자 벡터 [1, 2]와 비슷한 방향의 영화 A [2, 1], 다소 다른 방향의 영화 B [-1, 1], 반대쪽 방향의 영화 C [-2, -1]가 있다. 내적은 각각 4, 1, -4이고 시그모이드를 거친 확률은 약 0.98, 0.73, 0.02다.</desc>
+  <defs>
+    <marker id="au" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#0F2C59"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#1F7A5C"/></marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#C2410C"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#B42318"/></marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .axis{fill:none;stroke:#B8BBC2;stroke-width:1.5}
+      .vu{fill:none;stroke:#0F2C59;stroke-width:4;marker-end:url(#au)}
+      .va{fill:none;stroke:#1F7A5C;stroke-width:4;marker-end:url(#ag)}
+      .vb{fill:none;stroke:#C2410C;stroke-width:4;marker-end:url(#ao)}
+      .vc{fill:none;stroke:#B42318;stroke-width:4;marker-end:url(#ar)}
+      .pu{fill:#D9E2EF;stroke:#0F2C59;stroke-width:1.5}
+      .pa{fill:#DDF0E6;stroke:#1F7A5C;stroke-width:1.5}
+      .pb{fill:#FBE3D4;stroke:#C2410C;stroke-width:1.5}
+      .pc{fill:#F9DAD6;stroke:#B42318;stroke-width:1.5}
+      .m{font-size:13px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .r{font-size:15px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+    </style>
+  </defs>
+  <rect width="900" height="320" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <path class="axis" d="M30 200H500"/><path class="axis" d="M260 15V305"/>
+    <path class="va" d="M260 200L420 120"/>
+    <path class="vb" d="M260 200L180 120"/>
+    <path class="vc" d="M260 200L100 280"/>
+    <path class="vu" d="M260 200L340 40"/>
+    <rect class="pu" x="352" y="22" width="130" height="28" rx="6"/><text class="m" x="417" y="41">사용자 [1, 2]</text>
+    <rect class="pa" x="430" y="104" width="120" height="28" rx="6"/><text class="m" x="490" y="123">영화 A [2, 1]</text>
+    <rect class="pb" x="22" y="104" width="148" height="28" rx="6"/><text class="m" x="96" y="123">영화 B [-1, 1]</text>
+    <rect class="pc" x="114" y="268" width="152" height="28" rx="6"/><text class="m" x="190" y="287">영화 C [-2, -1]</text>
+
+    <rect class="pa" x="590" y="40" width="290" height="62" rx="8"/><text class="r" x="735" y="66">영화 A — dot product 4</text><text class="r" x="735" y="88">확률 약 0.98</text>
+    <rect class="pb" x="590" y="125" width="290" height="62" rx="8"/><text class="r" x="735" y="151">영화 B — dot product 1</text><text class="r" x="735" y="173">확률 약 0.73</text>
+    <rect class="pc" x="590" y="210" width="290" height="62" rx="8"/><text class="r" x="735" y="236">영화 C — dot product -4</text><text class="r" x="735" y="258">확률 약 0.02</text>
+  </g>
+</svg>

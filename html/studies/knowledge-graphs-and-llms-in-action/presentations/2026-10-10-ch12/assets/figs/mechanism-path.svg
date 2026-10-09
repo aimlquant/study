@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 240" role="img" aria-labelledby="title desc">
+  <title id="title">노드 분류의 인코더–디코더 순전파</title>
+  <desc id="desc">노드 특징과 edge_index가 첫 번째 그래프 합성곱, ReLU, 두 번째 그래프 합성곱을 지나 노드 점수가 되고, log_softmax와 교차 엔트로피 손실로 이어진다. 앞의 세 단계는 인코더, 뒤의 두 단계는 디코더다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .head{fill:#0F2C59}
+      .headb{fill:#C2410C}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .boxb{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .swap{fill:#D9E2EF;stroke:#0F2C59;stroke-width:1.5;stroke-dasharray:6 4}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .t{font-size:14px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:12px;text-anchor:middle;fill:#6B6B72}
+      .th{font-size:14px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1000" height="240" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="head" x="190" y="12" width="460" height="32" rx="6"/><text class="th" x="420" y="33">인코더 (동질 GNN)</text>
+    <rect class="headb" x="680" y="12" width="300" height="32" rx="6"/><text class="th" x="830" y="33">디코더</text>
+    <rect class="box" x="20" y="64" width="140" height="80" rx="8"/><text class="t" x="90" y="98">x, edge_index</text><text class="m" x="90" y="120">특징 + 연결</text>
+    <rect class="box" x="190" y="64" width="150" height="80" rx="8"/><text class="t" x="265" y="98">conv1</text><text class="m" x="265" y="120">입력 → 은닉</text>
+    <rect class="box" x="370" y="64" width="100" height="80" rx="8"/><text class="t" x="420" y="109">ReLU</text>
+    <rect class="box" x="500" y="64" width="150" height="80" rx="8"/><text class="t" x="575" y="98">conv2</text><text class="m" x="575" y="120">은닉 → 출력</text>
+    <rect class="boxb" x="680" y="64" width="130" height="80" rx="8"/><text class="t" x="745" y="98">log_softmax</text><text class="m" x="745" y="120">클래스별 로그 확률</text>
+    <rect class="boxb" x="840" y="64" width="140" height="80" rx="8"/><text class="t" x="910" y="98">cross-entropy</text><text class="m" x="910" y="120">train_mask 노드만</text>
+    <path class="line" d="M160 104H190"/><path class="line" d="M340 104H370"/><path class="line" d="M470 104H500"/><path class="line" d="M650 104H680"/><path class="line" d="M810 104H840"/>
+    <rect class="swap" x="190" y="170" width="460" height="46" rx="8"/><text class="t" x="420" y="198">같은 골격에서 convolution layer만 GCN · GAT · SAGE로 교체</text>
+  </g>
+</svg>

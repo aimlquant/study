@@ -640,7 +640,18 @@
       "title": "Chapter 4. 펀더멘털·대체 데이터"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "12장 상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-10-ch12/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "12장 발표 슬라이드",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-10-ch12/"
+        }
+      ],
       "chapters": [
         "Chapter 12"
       ],
@@ -660,7 +671,7 @@
           "youtube_video_id": "-NhnH6qOyhg"
         }
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 12. GNN 기반 노드 분류와 링크 예측"
     },
