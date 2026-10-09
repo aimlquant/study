@@ -505,7 +505,7 @@ id = "2026-10-24-ml4t-ch06"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-10-24"
 title = "Chapter 6. 전략 연구 프레임워크"
-presenters = []
+presenters = ["종훈(S)"]
 chapters = ["Chapter 6"]
 status = "scheduled"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m16984fce24afd778955208650d80023c"
@@ -533,7 +533,7 @@ id = "2026-11-07-ml4t-ch08"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-11-07"
 title = "Chapter 8. 금융 특성 공학"
-presenters = []
+presenters = ["태영"]
 chapters = ["Chapter 8"]
 status = "scheduled"
 
