@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 250" role="img" aria-labelledby="title desc">
+  <title id="title">노드 분류 혼동 행렬에서 읽은 클래스별 정탐 비율</title>
+  <desc id="desc">GCN, GAT, SAGE 세 모델의 2×2 행렬이 나란히 있다. 행은 실제 불법과 실제 합법, 열은 예측 불법과 예측 합법이다. GCN은 불법의 약 68%, GAT는 약 81%, SAGE는 약 83%를 불법으로 맞히고, 합법은 세 모델 모두 약 99%를 맞힌다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .name{fill:#0F2C59}
+      .hd{fill:#D9E2EF;stroke:#0F2C59;stroke-width:1.5}
+      .ok{fill:#DDF0E6;stroke:#1F7A5C;stroke-width:2}
+      .bad{fill:#F9DAD6;stroke:#B42318;stroke-width:2}
+      .t{font-size:14px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:12px;text-anchor:middle;fill:#1b1b1f}
+      .th{font-size:14px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1000" height="250" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="name" x="10" y="10" width="310" height="30" rx="6"/><text class="th" x="165" y="31">GCN</text>
+    <rect class="hd" x="80" y="46" width="120" height="28"/><text class="m" x="140" y="65">예측 불법</text>
+    <rect class="hd" x="200" y="46" width="120" height="28"/><text class="m" x="260" y="65">예측 합법</text>
+    <rect class="hd" x="10" y="74" width="70" height="64"/><text class="m" x="45" y="110">실제 불법</text>
+    <rect class="hd" x="10" y="138" width="70" height="64"/><text class="m" x="45" y="174">실제 합법</text>
+    <rect class="ok" x="80" y="74" width="120" height="64"/><text class="t" x="140" y="112">약 68%</text>
+    <rect class="bad" x="200" y="74" width="120" height="64"/><text class="t" x="260" y="104">약 3분의 1</text><text class="m" x="260" y="124">합법으로 오분류</text>
+    <rect class="bad" x="80" y="138" width="120" height="64"/><text class="t" x="140" y="176">약 1%</text>
+    <rect class="ok" x="200" y="138" width="120" height="64"/><text class="t" x="260" y="176">약 99%</text>
+
+    <rect class="name" x="345" y="10" width="310" height="30" rx="6"/><text class="th" x="500" y="31">GAT</text>
+    <rect class="hd" x="415" y="46" width="120" height="28"/><text class="m" x="475" y="65">예측 불법</text>
+    <rect class="hd" x="535" y="46" width="120" height="28"/><text class="m" x="595" y="65">예측 합법</text>
+    <rect class="hd" x="345" y="74" width="70" height="64"/><text class="m" x="380" y="110">실제 불법</text>
+    <rect class="hd" x="345" y="138" width="70" height="64"/><text class="m" x="380" y="174">실제 합법</text>
+    <rect class="ok" x="415" y="74" width="120" height="64"/><text class="t" x="475" y="112">약 81%</text>
+    <rect class="bad" x="535" y="74" width="120" height="64"/><text class="t" x="595" y="104">약 5분의 1</text><text class="m" x="595" y="124">합법으로 오분류</text>
+    <rect class="bad" x="415" y="138" width="120" height="64"/><text class="t" x="475" y="170">40개</text><text class="m" x="475" y="188">불법으로 오분류</text>
+    <rect class="ok" x="535" y="138" width="120" height="64"/><text class="t" x="595" y="176">약 99.5%</text>
+
+    <rect class="name" x="680" y="10" width="310" height="30" rx="6"/><text class="th" x="835" y="31">SAGE</text>
+    <rect class="hd" x="750" y="46" width="120" height="28"/><text class="m" x="810" y="65">예측 불법</text>
+    <rect class="hd" x="870" y="46" width="120" height="28"/><text class="m" x="930" y="65">예측 합법</text>
+    <rect class="hd" x="680" y="74" width="70" height="64"/><text class="m" x="715" y="110">실제 불법</text>
+    <rect class="hd" x="680" y="138" width="70" height="64"/><text class="m" x="715" y="174">실제 합법</text>
+    <rect class="ok" x="750" y="74" width="120" height="64"/><text class="t" x="810" y="112">약 83%</text>
+    <rect class="bad" x="870" y="74" width="120" height="64"/><text class="t" x="930" y="104">88개</text><text class="m" x="930" y="124">합법으로 오분류</text>
+    <rect class="bad" x="750" y="138" width="120" height="64"/><text class="t" x="810" y="170">약 50개</text><text class="m" x="810" y="188">불법으로 오분류</text>
+    <rect class="ok" x="870" y="138" width="120" height="64"/><text class="t" x="930" y="176">약 99%</text>
+  </g>
+</svg>

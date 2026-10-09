@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 250" role="img" aria-labelledby="title desc">
+  <title id="title">Elliptic 노드의 라벨 유무와 80·10·10 마스크 분할</title>
+  <desc id="desc">위쪽 막대는 전체 203,769개 노드를 라벨 미상 157,205개와 라벨 있음 46,564개로 나눈다. 아래쪽 막대는 라벨 있는 46,564개를 학습 37,251개, 검증 4,656개, 테스트 4,657개로 나눈다. 아래 막대의 길이는 위쪽 라벨 있음 구간보다 확대되어 있다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .unk{fill:#E3E3E6;stroke:#6B6B72;stroke-width:2}
+      .kn{fill:#D9E2EF;stroke:#0F2C59;stroke-width:2}
+      .tr{fill:#0F2C59}
+      .va{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .te{fill:#DDF0E6;stroke:#1F7A5C;stroke-width:2}
+      .guide{fill:none;stroke:#6B6B72;stroke-width:1.5;stroke-dasharray:5 4}
+      .t{font-size:14px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .w{font-size:14px;font-weight:800;text-anchor:middle;fill:#fff}
+      .m{font-size:12px;text-anchor:middle;fill:#1b1b1f}
+    </style>
+  </defs>
+  <rect width="960" height="250" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="unk" x="30" y="25" width="700" height="60"/><text class="t" x="380" y="52">라벨 미상 157,205 (77.15%)</text><text class="m" x="380" y="72">정답은 없지만 특징은 이웃에게 전달된다</text>
+    <rect class="kn" x="730" y="25" width="200" height="60"/><text class="t" x="830" y="52">라벨 있음</text><text class="m" x="830" y="72">46,564 (22.85%)</text>
+    <path class="guide" d="M730 85L30 150"/><path class="guide" d="M930 85L930 150"/>
+    <rect class="tr" x="30" y="150" width="720" height="70"/><text class="w" x="390" y="180">학습 37,251 (80%)</text><text class="w" x="390" y="203" style="font-size:12px;font-weight:600">train_mask</text>
+    <rect class="va" x="750" y="150" width="90" height="70"/><text class="t" x="795" y="176">검증</text><text class="m" x="795" y="196">4,656</text><text class="m" x="795" y="212">val_mask</text>
+    <rect class="te" x="840" y="150" width="90" height="70"/><text class="t" x="885" y="176">테스트</text><text class="m" x="885" y="196">4,657</text><text class="m" x="885" y="212">test_mask</text>
+  </g>
+</svg>

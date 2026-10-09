@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 290" role="img" aria-labelledby="title desc">
+  <title id="title">노드 분류와 링크 예측이 공유하는 다섯 단계 뼈대</title>
+  <desc id="desc">입력 데이터, 그래프 프로세서, 인코더, 디코더, 출력의 다섯 열 아래에 노드 분류 행과 링크 예측 행이 있고, 각 행의 상자가 왼쪽에서 오른쪽 화살표로 이어진다. 노드 분류는 동질 그래프와 log_softmax, 링크 예측은 이질 그래프와 내적을 쓴다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#6B6B72"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .head{fill:#0F2C59}
+      .rowtag{fill:#D9E2EF;stroke:#0F2C59;stroke-width:1.5}
+      .box{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .boxb{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .line{fill:none;stroke:#6B6B72;stroke-width:2.5;marker-end:url(#arrow)}
+      .t{font-size:14px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .th{font-size:14px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1050" height="290" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="head" x="115" y="12" width="160" height="38" rx="6"/><text class="th" x="195" y="36">입력 데이터</text>
+    <rect class="head" x="305" y="12" width="160" height="38" rx="6"/><text class="th" x="385" y="36">그래프 프로세서</text>
+    <rect class="head" x="495" y="12" width="160" height="38" rx="6"/><text class="th" x="575" y="36">인코더</text>
+    <rect class="head" x="685" y="12" width="160" height="38" rx="6"/><text class="th" x="765" y="36">디코더</text>
+    <rect class="head" x="875" y="12" width="160" height="38" rx="6"/><text class="th" x="955" y="36">출력</text>
+
+    <rect class="rowtag" x="10" y="70" width="90" height="80" rx="6"/><text class="t" x="55" y="115">노드 분류</text>
+    <rect class="box" x="115" y="70" width="160" height="80" rx="8"/><text class="t" x="195" y="105">Elliptic</text><text class="t" x="195" y="127">CSV 3개</text>
+    <rect class="box" x="305" y="70" width="160" height="80" rx="8"/><text class="t" x="385" y="105">동질 Data</text><text class="t" x="385" y="127">노드 마스크</text>
+    <rect class="box" x="495" y="70" width="160" height="80" rx="8"/><text class="t" x="575" y="105">동질 GNN</text><text class="t" x="575" y="127">GCN·GAT·SAGE</text>
+    <rect class="box" x="685" y="70" width="160" height="80" rx="8"/><text class="t" x="765" y="105">log_softmax</text><text class="t" x="765" y="127">+ cross-entropy</text>
+    <rect class="box" x="875" y="70" width="160" height="80" rx="8"/><text class="t" x="955" y="105">합법·불법</text><text class="t" x="955" y="127">확률</text>
+    <path class="line" d="M275 110H305"/><path class="line" d="M465 110H495"/><path class="line" d="M655 110H685"/><path class="line" d="M845 110H875"/>
+
+    <rect class="rowtag" x="10" y="180" width="90" height="80" rx="6"/><text class="t" x="55" y="225">링크 예측</text>
+    <rect class="boxb" x="115" y="180" width="160" height="80" rx="8"/><text class="t" x="195" y="215">MovieLens</text><text class="t" x="195" y="237">CSV 2개</text>
+    <rect class="boxb" x="305" y="180" width="160" height="80" rx="8"/><text class="t" x="385" y="215">HeteroData</text><text class="t" x="385" y="237">엣지 분할</text>
+    <rect class="boxb" x="495" y="180" width="160" height="80" rx="8"/><text class="t" x="575" y="215">이질 GNN</text><text class="t" x="575" y="237">to_hetero</text>
+    <rect class="boxb" x="685" y="180" width="160" height="80" rx="8"/><text class="t" x="765" y="215">dot product +</text><text class="t" x="765" y="237" style="font-size:12px">binary cross-entropy</text>
+    <rect class="boxb" x="875" y="180" width="160" height="80" rx="8"/><text class="t" x="955" y="215">링크 존재</text><text class="t" x="955" y="237">확률</text>
+    <path class="line" d="M275 220H305"/><path class="line" d="M465 220H495"/><path class="line" d="M655 220H685"/><path class="line" d="M845 220H875"/>
+  </g>
+</svg>

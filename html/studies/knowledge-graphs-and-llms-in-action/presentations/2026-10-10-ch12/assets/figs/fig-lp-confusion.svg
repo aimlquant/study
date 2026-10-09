@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 250" role="img" aria-labelledby="title desc">
+  <title id="title">링크 예측 테스트 혼동 행렬의 개수와 실제 클래스 내 비율</title>
+  <desc id="desc">GCN, GAT, SAGE 세 모델의 2×2 행렬이 나란히 있다. 행은 실제 링크 없음과 있음, 열은 예측 없음과 있음이다. 각 칸에는 개수와 해당 실제 클래스 안의 비율이 있다. 실제 링크 없음은 모델마다 20,166개, 실제 링크 있음은 10,083개다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .name{fill:#0F2C59}
+      .hd{fill:#D9E2EF;stroke:#0F2C59;stroke-width:1.5}
+      .ok{fill:#DDF0E6;stroke:#1F7A5C;stroke-width:2}
+      .bad{fill:#F9DAD6;stroke:#B42318;stroke-width:2}
+      .t{font-size:14px;font-weight:700;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:12px;text-anchor:middle;fill:#1b1b1f}
+      .th{font-size:14px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1000" height="250" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="name" x="10" y="10" width="310" height="30" rx="6"/><text class="th" x="165" y="31">GCN</text>
+    <rect class="hd" x="80" y="46" width="120" height="28"/><text class="m" x="140" y="65">예측 없음</text>
+    <rect class="hd" x="200" y="46" width="120" height="28"/><text class="m" x="260" y="65">예측 있음</text>
+    <rect class="hd" x="10" y="74" width="70" height="64"/><text class="m" x="45" y="110">링크 없음</text>
+    <rect class="hd" x="10" y="138" width="70" height="64"/><text class="m" x="45" y="174">링크 있음</text>
+    <rect class="ok" x="80" y="74" width="120" height="64"/><text class="t" x="140" y="104">18,488</text><text class="m" x="140" y="124">91.7%</text>
+    <rect class="bad" x="200" y="74" width="120" height="64"/><text class="t" x="260" y="104">1,678</text><text class="m" x="260" y="124">8.3%</text>
+    <rect class="bad" x="80" y="138" width="120" height="64"/><text class="t" x="140" y="168">2,159</text><text class="m" x="140" y="188">21.4%</text>
+    <rect class="ok" x="200" y="138" width="120" height="64"/><text class="t" x="260" y="168">7,924</text><text class="m" x="260" y="188">78.6%</text>
+
+    <rect class="name" x="345" y="10" width="310" height="30" rx="6"/><text class="th" x="500" y="31">GAT</text>
+    <rect class="hd" x="415" y="46" width="120" height="28"/><text class="m" x="475" y="65">예측 없음</text>
+    <rect class="hd" x="535" y="46" width="120" height="28"/><text class="m" x="595" y="65">예측 있음</text>
+    <rect class="hd" x="345" y="74" width="70" height="64"/><text class="m" x="380" y="110">링크 없음</text>
+    <rect class="hd" x="345" y="138" width="70" height="64"/><text class="m" x="380" y="174">링크 있음</text>
+    <rect class="ok" x="415" y="74" width="120" height="64"/><text class="t" x="475" y="104">17,808</text><text class="m" x="475" y="124">88.3%</text>
+    <rect class="bad" x="535" y="74" width="120" height="64"/><text class="t" x="595" y="104">2,358</text><text class="m" x="595" y="124">11.7%</text>
+    <rect class="bad" x="415" y="138" width="120" height="64"/><text class="t" x="475" y="168">2,476</text><text class="m" x="475" y="188">24.6%</text>
+    <rect class="ok" x="535" y="138" width="120" height="64"/><text class="t" x="595" y="168">7,607</text><text class="m" x="595" y="188">75.4%</text>
+
+    <rect class="name" x="680" y="10" width="310" height="30" rx="6"/><text class="th" x="835" y="31">SAGE</text>
+    <rect class="hd" x="750" y="46" width="120" height="28"/><text class="m" x="810" y="65">예측 없음</text>
+    <rect class="hd" x="870" y="46" width="120" height="28"/><text class="m" x="930" y="65">예측 있음</text>
+    <rect class="hd" x="680" y="74" width="70" height="64"/><text class="m" x="715" y="110">링크 없음</text>
+    <rect class="hd" x="680" y="138" width="70" height="64"/><text class="m" x="715" y="174">링크 있음</text>
+    <rect class="ok" x="750" y="74" width="120" height="64"/><text class="t" x="810" y="104">19,084</text><text class="m" x="810" y="124">94.6%</text>
+    <rect class="bad" x="870" y="74" width="120" height="64"/><text class="t" x="930" y="104">1,082</text><text class="m" x="930" y="124">5.4%</text>
+    <rect class="bad" x="750" y="138" width="120" height="64"/><text class="t" x="810" y="168">2,872</text><text class="m" x="810" y="188">28.5%</text>
+    <rect class="ok" x="870" y="138" width="120" height="64"/><text class="t" x="930" y="168">7,211</text><text class="m" x="930" y="188">71.5%</text>
+  </g>
+</svg>

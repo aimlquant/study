@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 270" role="img" aria-labelledby="title desc">
+  <title id="title">작은 그래프와 edge_index 텐서의 대응</title>
+  <desc id="desc">노드 A, B, C에 번호 0, 1, 2를 붙이고 A에서 B, B에서 C로 가는 엣지 두 개가 있다. 이 그래프는 윗행이 출발 노드 0, 1이고 아랫행이 도착 노드 1, 2인 2행 2열 텐서로 표현되며, 열 하나가 엣지 하나다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#0F2C59"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .node{fill:#D9E2EF;stroke:#0F2C59;stroke-width:2}
+      .edge{fill:none;stroke:#0F2C59;stroke-width:2.5;marker-end:url(#arrow)}
+      .hd{fill:#0F2C59}
+      .rowh{fill:#D9E2EF;stroke:#0F2C59;stroke-width:1.5}
+      .c0{fill:#DDF0E6;stroke:#1F7A5C;stroke-width:2}
+      .c1{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .note{fill:#fff;stroke:#6B6B72;stroke-width:1.5}
+      .t{font-size:16px;font-weight:800;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:13px;font-weight:600;text-anchor:middle;fill:#1b1b1f}
+      .th{font-size:14px;font-weight:800;text-anchor:middle;fill:#fff}
+    </style>
+  </defs>
+  <rect width="900" height="270" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <circle class="node" cx="90" cy="110" r="42"/><text class="t" x="90" y="106">A</text><text class="m" x="90" y="126">번호 0</text>
+    <circle class="node" cx="260" cy="110" r="42"/><text class="t" x="260" y="106">B</text><text class="m" x="260" y="126">번호 1</text>
+    <circle class="node" cx="430" cy="110" r="42"/><text class="t" x="430" y="106">C</text><text class="m" x="430" y="126">번호 2</text>
+    <path class="edge" d="M132 110H218"/><path class="edge" d="M302 110H388"/>
+    <rect class="note" x="30" y="190" width="440" height="40" rx="6"/><text class="m" x="250" y="215">엣지 2개: A → B, B → C</text>
+
+    <rect class="hd" x="640" y="30" width="110" height="34"/><text class="th" x="695" y="52">엣지 0</text>
+    <rect class="hd" x="750" y="30" width="110" height="34"/><text class="th" x="805" y="52">엣지 1</text>
+    <rect class="rowh" x="530" y="64" width="110" height="64"/><text class="m" x="585" y="102">출발 행</text>
+    <rect class="rowh" x="530" y="128" width="110" height="64"/><text class="m" x="585" y="166">도착 행</text>
+    <rect class="c0" x="640" y="64" width="110" height="64"/><text class="t" x="695" y="104">0</text>
+    <rect class="c1" x="750" y="64" width="110" height="64"/><text class="t" x="805" y="104">1</text>
+    <rect class="c0" x="640" y="128" width="110" height="64"/><text class="t" x="695" y="168">1</text>
+    <rect class="c1" x="750" y="128" width="110" height="64"/><text class="t" x="805" y="168">2</text>
+    <rect class="note" x="530" y="210" width="330" height="40" rx="6"/><text class="m" x="695" y="235">열 하나 = 엣지 하나 ([2, 엣지 수])</text>
+  </g>
+</svg>
