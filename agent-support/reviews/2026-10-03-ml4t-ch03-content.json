@@ -6,25 +6,25 @@
     {
       "role": "original",
       "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_03_market_microstructure/03_chapter_03_market_microstructure.md",
-      "sha256": "5f64adaa5e8b72206705b11d2ec08aaafe4a41ea37e94c83562cdb4b1a4a0ac3",
+      "sha256": "c5295a48fef4591df26f018868e62edac560a7a47dbd91793ea0d14a96f85c52",
       "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
     },
     {
       "role": "outline",
       "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_03_market_microstructure/03_chapter_03_market_microstructure_ko.md",
-      "sha256": "cbd15bf419be40479249ff945acc57c21f258c71cd533d4a83908c63e137461a",
+      "sha256": "58e0715ba11e09041e8368e1a4c9ec430b9d7a324eeb937445e68f8f24017d0c",
       "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
     },
     {
       "role": "explainer",
       "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_03_market_microstructure/03_chapter_03_market_microstructure_ko_explained.md",
-      "sha256": "323be016c94f4bf6fe76d9f89b8c2a2a886adcde1397bb0ee71c3a3a95da04d6",
+      "sha256": "752d0646d4e6df1566eb9fec3b73094cb8d5ab82117628624e69ed6f873ae194",
       "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
     },
     {
       "role": "supporting-notebook",
       "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_03_market_microstructure/src/ch03/03_chapter_guide.ipynb",
-      "sha256": "5941b003ee8aac9e6e03677c80958479eb247f9eda990ec165eac0ea0bdd121e",
+      "sha256": "ebac273c712ffe5f1f67a8ebf3116fe0434f03e70a8531567cccdad9a7f3787a",
       "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
     }
   ],

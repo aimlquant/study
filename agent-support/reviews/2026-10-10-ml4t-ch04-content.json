@@ -18,13 +18,13 @@
     {
       "role": "explainer",
       "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_04_fundamental_and_alternative_data/04_chapter_04_fundamental_and_alternative_data_ko_explained.md",
-      "sha256": "1be837ef5ebb4d8bff9048083667ded92f35a735b940f671456ba4b91f7621fb",
+      "sha256": "921e8f74826b00994fcb84a0508ecf2a9d1b3872681ab8fddd78c48ea91bc5f0",
       "revision": "d666c97cb67939544aef453e1ac8a3df6195a65f"
     },
     {
       "role": "supporting-notebook",
       "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_04_fundamental_and_alternative_data/src/ch04/04_chapter_guide.ipynb",
-      "sha256": "86d536b19149d4e86be2dbdde25cc99effa04154018b8f5816e85ecf56149429",
+      "sha256": "9c60e2604fff8a03480a87396c055ad8b1dc8c42b3653d43a7cf4cd4b3ff348d",
       "revision": "d666c97cb67939544aef453e1ac8a3df6195a65f"
     }
   ],
