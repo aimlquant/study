@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>그래프 표현 학습과 그래프 신경망</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html">
+    <section class="slide slide--cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">ds4th study</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">지식 그래프와 LLM 실전 · Chapter 11</p>
+        <h1>그래프 표현 학습과 그래프 신경망</h1>
+        <p class="cover-subtitle">손으로 만든 특징에서 학습된 표현으로 — 임베딩, 인코더–디코더, 메시지 전달</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>수경</dd></div>
+        <div><dt>학습 범위</dt><dd>Chapter 11 · pp. 272–301</dd></div>
+        <div><dt>일시</dt><dd>2026-10-03</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide" aria-label="발표의 핵심 질문" data-report-refs="summary why-grl">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">OPENING</span></header>
+      <h1>특징을 사람이 고를 것인가, 그래프에서 배울 것인가</h1>
+      <p class="lead">9–10장은 차수·PageRank·공통 이웃을 손으로 설계했습니다. 11장은 그 벡터를 학습으로 만듭니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">MANUAL FEATURES · CH 9–10</p><h2>수작업 특징 공학</h2><ul><li>모델이 무엇을 보고 판단했는지 설명하기 쉽다</li><li>단순한 분류도 특징 설계·구현 노력이 크다</li><li>과제마다 재설계, 수백만 노드로 넓히기 어렵다</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">REPRESENTATION LEARNING · CH 11</p><h2>그래프 표현 학습(GRL)</h2><ul><li>딥러닝이 구조·속성에서 특징을 자동 학습</li><li>결과는 구조와 의미를 보존한 <strong>밀집 벡터(임베딩)</strong></li><li>표준 ML 알고리즘이 그대로 소비</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>오늘의 질문</strong> — “좋은 벡터”란 무엇이고, 노드마다 외울 것인가 이웃에서 만들 것인가? 저자들은 두 접근의 직관을 <em>결합</em>하라고 권합니다.</p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 문제 제기</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="오늘의 흐름" data-report-refs="summary table-chapter-logic">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">OVERVIEW</span></header>
+      <h1>무엇을 학습하고, 어떻게 학습하고, 어디에 쓰는가</h1>
+      <p class="lead">장의 7개 절을 세 질문으로 묶어 따라갑니다(리포트 표 1의 흐름).</p>
+      <div class="slide-body">
+        <div class="flow">
+          <article class="flow__step"><span>01</span><h2>무엇을 학습하나</h2><p>임베딩의 네 축과 인코더–디코더 틀. Node2Vec으로 확인한다. <small>§11.1–11.2</small></p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>02</span><h2>어떻게 학습하나</h2><p>얕은 임베딩 → KG 임베딩 → 메시지 전달 GNN과 두 슬롯의 부품. <small>§11.3–11.6</small></p></article>
+          <b class="flow__arrow" aria-hidden="true">→</b>
+          <article class="flow__step"><span>03</span><h2>어디에 쓰나</h2><p>GNN–LLM 세 경로, 근거의 강도, 코드 결함, 선택 기준. <small>§11.7 + 판단</small></p></article>
+        </div>
+        <p class="takeaway"><strong>발표의 약속</strong> — 기법 이름 목록이 아니라, 우리 그래프에 무엇부터 시도할지 고르는 기준을 가져갑니다. <a class="report-ref" href="report.html#table-chapter-logic">리포트 표 1</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 전체 흐름</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="문제와 임베딩 개념 섹션" data-report-refs="why-grl embedding-axes">
+      <p class="eyebrow">SECTION 01</p><h1>왜 표현을 학습하는가</h1><p>임베딩의 약속과 그것을 고르는 네 개의 축</p><span class="section-number">01</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="수작업 특징에서 표현 학습으로" data-report-refs="why-grl fig-grl-shift">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">THE SHIFT</span></header>
+      <h1>과제는 같다 — 벡터를 누가 만드느냐가 바뀐다</h1>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/grl-shift.svg" alt="위 줄은 사람이 설계한 특징을 ML 모델에 넣는 흐름, 아래 줄은 학습되는 인코더가 그래프와 노드 특징에서 임베딩을 만드는 흐름이며, 맨 아래 띠는 전통 임베딩, word2vec 계열, GNN의 세 세대를 보여 준다">
+          <figcaption><b>그림 1</b><span>임베딩: 구조·의미를 보존한 밀집 벡터 — 거리가 그래프 성질을 반영</span><span>세 세대: 차원 축소 → Node2Vec → GNN</span><a class="report-ref" href="report.html#fig-grl-shift">리포트 그림 1</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 표현 학습으로의 전환</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="임베딩 설계의 네 축" data-report-refs="embedding-axes table-embedding-axes">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">FOUR AXES</span></header>
+      <h1>임베딩의 성격은 네 가지 선택으로 정해진다</h1>
+      <p class="lead">도시를 지도 좌표로 옮기듯 그래프를 벡터로 옮길 때, 무엇을 보존할지 먼저 정합니다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>축</th><th>선택지</th><th>무엇을 보존·가정하나</th><th>먼저 물을 질문</th></tr></thead>
+          <tbody>
+            <tr><th>기하 공간</th><td>유클리드 / 쌍곡</td><td>균일한 직선 거리 / 지수적으로 넓어지는 계층</td><td>깊은 계층과 평면 임베딩의 왜곡이 관측되는가?</td></tr>
+            <tr><th>보존 대상</th><td>위치적 / 구조적</td><td>전역 위치·커뮤니티 / 지역 연결 패턴·역할</td><td>“같은 동네”인가 “같은 역할”인가?</td></tr>
+            <tr><th>학습 방식</th><td>전이적 / 귀납적</td><td>고정 노드의 벡터 값 / 특징→벡터 사상</td><td>운영 중 새 노드가 들어오는가?</td></tr>
+            <tr><th>감독</th><td>비지도 / 지도</td><td>구조 자체의 패턴 / 레이블이 정한 목표</td><td>신뢰할 레이블이 충분한가?</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>경향이지 규칙이 아니다</strong> — 저자들은 위치적=비지도·링크 예측, 구조적(GNN)=지도·노드 분류로 정리하지만, positional GNN 등이 경계를 흐린다고 덧붙입니다. <a class="report-ref" href="report.html#table-embedding-axes">리포트 표 2</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 임베딩의 네 축</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="유클리드와 쌍곡 공간" data-report-refs="embedding-axes fig-geometry">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">GEOMETRY</span></header>
+      <h1>계층은 지수적으로, 평면은 선형으로 넓어진다</h1>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/geometry-growth.svg" alt="유클리드 평면의 원둘레가 반지름에 선형으로 늘어나는 동안 분기 수 3인 트리의 노드 수는 3, 9, 27로 지수적으로 늘어나며, 깊이 10에서 원둘레 62.8과 노드 59,049를 비교한다">
+          <figcaption><b>그림 2</b><span>계층 그래프는 쌍곡 공간에서 더 충실히 보존될 수 있다</span><span>저자 권고: 강한 증거가 있을 때만 — 거리·시각화·해석까지 바뀐다</span><a class="report-ref" href="report.html#fig-geometry">리포트 그림 2</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 기하 공간</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="네 축이 결정되는 사례" data-report-refs="embedding-axes table-applications">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">CASES</span></header>
+      <h1>문제 구조가 축의 선택을 끌어낸다</h1>
+      <p class="lead">교재 §11.1.2의 사례와 본문 예를 같은 네 축으로 읽습니다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>사례</th><th>축의 선택(교재 서술)</th><th>실패 경계(리포트 보충)</th></tr></thead>
+          <tbody>
+            <tr><th>대규모 소셜 네트워크</th><td>구조적=비슷한 직무, 위치적=영향력·가교, 신규 사용자→귀납적, 직무·기술 레이블→지도</td><td>레이블 품질과 신규 사용자의 초기 정보량</td></tr>
+            <tr><th>단백질 상호작용</th><td>계층→쌍곡이 유리할 수 있음, 새 발견→귀납적, 실험 데이터→지도</td><td>많이 연구된 단백질 쏠림 편향</td></tr>
+            <tr><th>의료 KG</th><td>용어 계층→쌍곡 특히 적절, 분과 간 유사 개념→구조적, 전문가 레이블→지도</td><td>임베딩 유사도는 임상 판단이 아닌 검토 후보</td></tr>
+            <tr><th>전자상거래 추천</th><td>기존 사용자·상품→전이적으로 충분, 신규 가입·상품→귀납적</td><td>완전 신규는 프로필 특징 품질에 좌우</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>저자들의 결론</strong> — 임베딩 전략의 선택은 기술 결정이 아니라 문제 구조에 대한 이해를 반영하는 결정입니다. <a class="report-ref" href="report.html#table-applications">리포트 표 3</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 적용 사례</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="인코더–디코더 섹션" data-report-refs="encoder-decoder">
+      <p class="eyebrow">SECTION 02</p><h1>인코더–디코더</h1><p>모든 임베딩 방법을 읽는 하나의 틀</p><span class="section-number">02</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="인코더–디코더 틀" data-report-refs="encoder-decoder fig-encoder-decoder">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">FRAMEWORK</span></header>
+      <h1>좋은 벡터 = 그래프를 되살릴 수 있는 벡터</h1>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure deck-report-figure--tall">
+          <img src="assets/figs/encoder-decoder.svg" alt="노드 c가 인코더를 거쳐 d차원 벡터가 되고 디코더가 연결 여부, 이웃 겹침, 레이블을 복원하며 복원 오차가 점선으로 인코더에 되돌아간다. 아래 표는 Node2Vec, KG 임베딩, GNN의 인코더·디코더 칸을 비교한다">
+          <figcaption><b>그림 3</b><span>인코더: 인접 행렬 + 노드 특징 → 벡터</span><span>디코더가 무엇을 복원하도록 훈련됐는가 = 임베딩의 뜻</span><a class="report-ref" href="report.html#fig-encoder-decoder">리포트 그림 3</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 인코더–디코더</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="Node2Vec을 틀로 읽기" data-report-refs="encoder-decoder">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">NODE2VEC</span></header>
+      <h1>Node2Vec: 걸어 보고, 같이 나온 노드를 가깝게</h1>
+      <p class="lead">가라테 클럽 34명 — 강사(0)와 관리자(33)의 갈등으로 두 파벌. 파벌 레이블은 학습에 쓰지 않습니다(비지도).</p>
+      <div class="slide-body">
+        <div class="code-layout">
+          <pre class="code-block"><span class="code-comment"># Listing 11.1 핵심 설정(발췌)</span>
+node2vec = Node2Vec(G, dimensions=16,
+    walk_length=10, num_walks=20,
+    p=1, q=1, workers=4)
+model = node2vec.fit(window=5)
+<span class="code-comment"># 디코더 역할: 두 벡터의 유사도</span>
+model.wv.similarity("0", "33")</pre>
+          <article class="panel panel--accent"><p class="eyebrow">ENCODE → DECODE</p><ol><li><strong>랜덤 워크</strong> — 0 → 1 → 2 → 3, 넓게/깊게 탐색 조절</li><li><strong>벡터</strong> — 워크에서 자주 함께 나오면 비슷한 벡터</li><li><strong>디코더</strong> — “j가 i 근처에 나올 확률”을 소프트맥스로</li></ol><p class="source-note">저자들이 든 결과 패턴: 같은 파벌은 비슷하게, 가교 회원은 중간에, 두 리더는 뚜렷이 다르게.</p></article>
+        </div>
+        <p class="takeaway"><strong>틀로 읽으면</strong> — 인코더 = 랜덤 워크로 학습한 룩업 테이블, 디코더 = 동시 등장 확률입니다. <a class="report-ref" href="report.html#encoder-decoder">리포트 3절</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · Node2Vec</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="Node2Vec 실행 스냅샷" data-report-refs="encoder-decoder table-node2vec-snapshot">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">SNAPSHOT</span></header>
+      <h1>숫자는 절대값보다 방향으로 읽는다</h1>
+      <p class="lead">저장소 해설 노트북에 저장된 실행 출력입니다. 교재의 실행 결과가 아니며, <code>workers=4</code> 때문에 소수점 값은 실행마다 달라집니다.</p>
+      <div class="slide-body">
+        <div class="kpi-grid">
+          <article class="kpi"><strong>0.976 / 0.871</strong><h2>sim(0,1) / sim(0,33)</h2><p>둘 다 높다 — 작은 그래프에서 코사인 유사도는 상대 비교로만.</p></article>
+          <article class="kpi"><strong>93.8%</strong><h2>파벌 예측 30/32</h2><p>오분류 노드 8, 10 — 가교 위치와 겹치는 실제 모호함.</p></article>
+          <article class="kpi"><strong>0.057 → 0.236</strong><h2>q=1 → q=4 차수상관</h2><p>BFS 성향일수록 역할(구조적) 정보 쪽으로 기운다.</p></article>
+        </div>
+        <p class="source-note">출처: <code>src/ch11/11_chapter_guide.ipynb</code> 저장 출력(2026-07-30 이전 커밋, Python 3.10.18 · node2vec 0.5.0 · gensim 4.4.0). 34노드·지름 5 그래프라 일반적 우열의 근거가 아님.</p>
+        <p class="takeaway"><strong>주의</strong> — t-SNE 그림의 거리는 유사도가 아닙니다. 유사도는 원래 16차원에서 잽니다. <a class="report-ref" href="report.html#table-node2vec-snapshot">리포트 표 4</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 실행 스냅샷</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="얕은 임베딩과 KG 임베딩 섹션" data-report-refs="shallow kg-embeddings">
+      <p class="eyebrow">SECTION 03</p><h1>얕은 임베딩과 KG 임베딩</h1><p>노드마다 벡터를 외우는 방식과, 관계의 종류까지 담는 방식</p><span class="section-number">03</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="룩업 테이블과 공유 함수" data-report-refs="shallow fig-shallow-vs-gnn table-shallow-limits">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">SHALLOW vs GNN</span></header>
+      <h1>얕은 임베딩은 외우고, GNN은 만드는 법을 배운다</h1>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/shallow-vs-gnn.svg" alt="얕은 임베딩은 노드별 행을 저장해 새 노드 34 조회가 KeyError로 실패하고, GNN은 이웃 0, 1, 2와 특징을 공유 함수에 넣어 새 노드의 벡터를 재학습 없이 만든다">
+          <figcaption><b>그림 4</b><span>네 한계: 파라미터 비효율 · 공유 없음 · 특징 무시 · 전이적</span><span>원인은 하나 — 인코더가 값을 외우는 표. 그래도 작고 정적인 그래프의 좋은 기준선</span><a class="report-ref" href="report.html#fig-shallow-vs-gnn">리포트 그림 4</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 얕은 임베딩의 한계</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="부정 표본 교차 엔트로피 손실" data-report-refs="kg-embeddings">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">LOSS</span></header>
+      <h1>모든 쌍 대신, 정답과 소수의 오답만 본다</h1>
+      <p class="lead">KG에서는 “연결됐는가”가 아니라 “<strong>어떻게</strong> 연결됐는가”를 담아야 합니다 — (Aspirin, TREATS, Headache).</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel"><p class="eyebrow">WHY NOT ALL PAIRS</p><h2>평균 제곱 오차가 안 되는 이유</h2><ul><li><strong>계산</strong> — 사용자 100만 명이면 잠재 연결 약 1조 개</li><li><strong>희소성</strong> — 대부분의 쌍은 연결이 없어 정답이 극소수</li><li>해법: 부정 표본 추출 + 교차 엔트로피</li></ul></article>
+          <article class="panel panel--accent"><p class="eyebrow">HOW TO READ</p><h2>두 항의 줄다리기</h2><p>\( -\log\sigma(\mathrm{DEC}(z_u,\tau,z_v)) \) — 정답 트리플의 점수를 올린다</p><p>\( -\gamma\,\mathbb{E}\big[\log\sigma(-\mathrm{DEC}(z_u,\tau,z_{v_n}))\big] \) — 바꿔치기한 오답의 점수를 내린다</p><p class="source-note">저자 권고: 희소한 KG에서 \(\gamma &gt; 1\), 정답당 부정 표본 5–10개.</p></article>
+        </div>
+        <p class="takeaway"><strong>핵심</strong> — 손실이 싸지는 대신, <em>무엇을 오답으로 고르느냐</em>가 학습 품질을 좌우합니다. <a class="report-ref" href="report.html#kg-embeddings">리포트 5절</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · KG 손실 함수</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="부정 표본 추출 전략" data-report-refs="kg-embeddings fig-negative-sampling">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">NEGATIVE SAMPLING</span></header>
+      <h1>쉬운 오답, 어려운 오답, 그리고 사실은 참인 오답</h1>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/negative-sampling.svg" alt="정답 트리플 Aspirin TREATS Headache 아래에 무작위 교체, 유형 제약, 머리·꼬리 교체, 거짓 음성 위험 네 칸이 있고 마지막 칸은 Aspirin TREATS Inflammation이 실제로는 참일 수 있음을 경고한다">
+          <figcaption><b>그림 5</b><span>유형 제약·적대적 표본으로 미묘한 구분을, 머리·꼬리 교체로 방향 편향 완화</span><span>리포트의 관찰: 교재가 든 오답 예 Inflammation은 거짓 음성에 가깝다 — KG에 없음 ≠ 거짓</span><a class="report-ref" href="report.html#fig-negative-sampling">리포트 그림 5</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 부정 표본</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="다중 관계 디코더 비교" data-report-refs="kg-embeddings table-kg-decoders">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">DECODERS</span></header>
+      <h1>디코더가 표현할 수 있는 관계 패턴이 다르다</h1>
+      <p class="lead">대칭/비대칭, 합성, 역관계 — KG의 주요 관계가 어떤 패턴인지 먼저 봅니다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>디코더</th><th>관계 표현</th><th>교재가 든 강점·약점</th><th>리포트 보충</th></tr></thead>
+          <tbody>
+            <tr><th>TransE</th><td>벡터 이동 \(z_u + r \approx z_v\)</td><td>직관적, 합성에 강함 / 다대일에 약함</td><td>대칭 관계는 \(r \approx 0\)을 강요</td></tr>
+            <tr><th>RESCAL</th><td>관계별 d×d 행렬</td><td>표현력 큼 / 파라미터 많음</td><td>d=100, 관계 100종 → 관계만 100만 개</td></tr>
+            <tr><th>DistMult</th><td>대각 행렬(원소별 곱)</td><td>관계를 고려한 유사도</td><td>점수가 대칭 → 비대칭 관계 구분 불가</td></tr>
+            <tr><th>ComplEx</th><td>복소수 벡터</td><td>비대칭에 강함 / 합성은 덜 효과적일 수 있음</td><td>켤레 복소수가 방향을 구분</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>주의</strong> — “A가 B를 치료하고 B ⊂ C면 A가 C를 치료”라는 합성 예는 저자들도 “may”로 씁니다. 학습된 합성 점수는 사실이 아니라 <em>검토할 후보</em>입니다. <a class="report-ref" href="report.html#table-kg-decoders">리포트 표 6</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 관계 디코더</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="메시지 전달 GNN 섹션" data-report-refs="message-passing aggregate-update gnn-llm">
+      <p class="eyebrow">SECTION 04</p><h1>메시지 전달과 GNN</h1><p>이웃에게서 표현을 만들고, 두 슬롯을 강화하고, LLM과 결합한다</p><span class="section-number">04</span>
+    </section>
+
+    <section class="slide slide--visual" aria-label="메시지 전달 계산 트리" data-report-refs="message-passing fig-message-passing">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">MESSAGE PASSING</span></header>
+      <h1>층 하나 = 정보가 한 홉 더 멀리서 온다</h1>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/message-passing.svg" alt="A가 B, C, D와 연결되고 C가 E, F와 연결된 그래프에서 A의 두 층 계산 트리가 입력 특징을 B, C, D로, 다시 A로 집계해 2홉 이웃 E, F의 정보까지 담는다">
+          <figcaption><b>그림 6</b><span>매 반복: 이웃 메시지 모으기(AGGREGATE) → 자기 표현 고치기(UPDATE)</span><span>k번 반복 → k-홉의 구조·특징 정보. 너무 깊으면 과평활화</span><a class="report-ref" href="report.html#fig-message-passing">리포트 그림 6</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 메시지 전달</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="기본 GNN과 자기 루프" data-report-refs="message-passing">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">BASIC GNN</span></header>
+      <h1>공유 가중치 한 줄이 얕은 임베딩의 네 한계를 겨냥한다</h1>
+      <p class="lead">합 연산 덕분에 이웃 수가 노드마다 달라도 같은 층을 씁니다.</p>
+      <div class="slide-body">
+        <div class="two-col">
+          <article class="panel panel--accent"><p class="eyebrow">STANDARD</p><h2>기본 갱신</h2><p>\( h_u^{(k)} = \sigma\big(W_{\text{self}} h_u^{(k-1)} + W_{\text{neigh}} \textstyle\sum_{v\in\mathcal{N}(u)} h_v^{(k-1)}\big) \)</p><ul><li>W를 모든 노드가 공유 → 파라미터가 노드 수와 무관</li><li>\(h^{(0)}\)에 노드 특징 → 새 노드도 이웃만 있으면 계산</li></ul></article>
+          <article class="panel"><p class="eyebrow">SELF-LOOP</p><h2>자기 루프 변형</h2><p>\( h_u^{(k)} = \mathrm{AGGREGATE}\big(\{h_v : v\in\mathcal{N}(u)\cup\{u\}\}\big) \)</p><ul><li>구현이 단순, 과적합 억제에 <em>자주</em> 도움, 안정성을 높일 <em>수 있음</em></li><li>대가: 자기와 이웃을 다르게 섞을 유연성 상실</li><li>12장 예제가 이 방식을 사용</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>선택 기준</strong> — 노드 자신의 특징과 이웃 특징의 구분이 결정적이면 기본형, 아니면 더 단순한 자기 루프. <a class="report-ref" href="report.html#message-passing">리포트 6절</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 기본 GNN</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="두 슬롯과 부품 지도" data-report-refs="aggregate-update fig-gnn-slots">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">TWO SLOTS</span></header>
+      <h1>GNN 설계는 두 슬롯에 어떤 부품을 끼우느냐다</h1>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/gnn-slots.svg" alt="이웃 표현이 AGGREGATE 슬롯을 거쳐 메시지가 되고 자기 표현과 함께 UPDATE 슬롯을 거쳐 새 표현이 되며, 아래에 각 슬롯에 끼울 수 있는 정규화·어텐션과 스킵·게이트·점핑 놀리지가 나열된다">
+          <figcaption><b>그림 7</b><span>AGGREGATE: 무엇을 얼마나 모을까 — 정규화 · 어텐션</span><span>UPDATE: 무엇을 얼마나 바꿀까 — 스킵 · 게이트 · 점핑 놀리지</span><a class="report-ref" href="report.html#fig-gnn-slots">리포트 그림 7</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 두 슬롯</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="집계 부품 비교" data-report-refs="aggregate-update table-aggregation">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">AGGREGATE</span></header>
+      <h1>정규화는 이웃 수를, 어텐션은 이웃 중요도를 다룬다</h1>
+      <p class="lead">각 부품은 무언가를 해결하고 무언가를 잃습니다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>부품</th><th>해결하는 문제</th><th>대가·실패 경계</th></tr></thead>
+          <tbody>
+            <tr><th>합(기본)</th><td>가변 개수 이웃 → 고정 크기</td><td>이웃 3개와 3,000개의 메시지 크기 차이 → 불안정</td></tr>
+            <tr><th>평균 · 대칭 정규화(GCN)</th><td>차수 차이 보정, 허브(수천 번 인용된 논문) 영향 완화</td><td><strong>손실 연산</strong> — 차수가 다른 노드를 구별하기 어려워짐</td></tr>
+            <tr><th>어텐션(GAT)</th><td>이웃별 학습 가중치 \(\alpha_{u,v}\), 잡음 연결 억제</td><td>계산·메모리 증가. 높은 가중치 ≠ 예측의 원인</td></tr>
+            <tr><th>멀티헤드</th><td>여러 측면을 병렬로 — 트랜스포머 Q·K·V와 같은 계열</td><td>헤드 수로 차원을 나눠야 함(Listing 11.2 결함)</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>리포트의 확인</strong> — 교재는 GraphSAGE를 어텐션 예로 들지만, 원 논문의 집계는 평균·LSTM·풀링입니다. 어텐션 집계 = GAT, 표본 추출·연결 갱신 = GraphSAGE. <a class="report-ref" href="report.html#table-aggregation">리포트 표 7</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 집계 부품</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="갱신 부품 비교" data-report-refs="aggregate-update table-update">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">UPDATE</span></header>
+      <h1>갱신은 자기 정보를 얼마나 지킬지 정한다</h1>
+      <p class="lead">스킵 연결은 과평활화를 막는 데 <em>도움</em>을 주고, 더 깊은 GNN의 학습을 돕습니다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>부품</th><th>결합 방식</th><th>주된 효과</th><th>저자들의 예시·조건</th></tr></thead>
+          <tbody>
+            <tr><th>연결 스킵(GraphSAGE)</th><td>\([h \,\Vert\, m]\) → 선형 → ReLU</td><td>원 특징 보존, 특징 분리, 기울기 흐름</td><td>자기 특징과 이웃 정보를 함께 쓸 때</td></tr>
+            <tr><th>게이트</th><td>\((1-g)\,h + g\cdot\tilde{h}\)</td><td>바꿀 양을 노드별로 학습</td><td>내용과 인용 영향의 균형 — 인용 네트워크</td></tr>
+            <tr><th>점핑 놀리지</th><td>여러 층 표현을 LSTM 등으로 결합</td><td>노드별로 다른 정보 반경</td><td>다중 규모 구조 — 분자 그래프</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>저자들의 결론</strong> — 갱신 선택은 집계 선택만큼 중요할 수 있으며, 계산 효율·과제·그래프 성질로 두 슬롯을 함께 설계합니다. <a class="report-ref" href="report.html#table-update">리포트 표 8</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 갱신 부품</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--visual" aria-label="GNN과 LLM의 세 결합 경로" data-report-refs="gnn-llm fig-gnn-llm">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">GNN × LLM</span></header>
+      <h1>LLM을 어디에 두느냐로 세 가지 결합이 나온다</h1>
+      <div class="slide-body report-visual-body">
+        <figure class="deck-report-figure">
+          <img src="assets/figs/gnn-llm.svg" alt="예측자 경로는 GNN이 처리한 그래프 임베딩과 질문을 LLM이 받아 답하고, 인코더 경로는 LLM이 텍스트를 특징으로 바꿔 GNN에 넘기며, 정렬자 경로는 LLM과 GNN이 텍스트와 구조를 병렬 처리한 뒤 대조·상호 학습으로 정렬한다">
+          <figcaption><b>그림 8</b><span>저자들의 출발점: GNN은 텍스트에, LLM은 구조에 약하다(집필 시점의 일반화)</span><span>예: KG 질의응답 · 논문 초록 → 인용 예측 · 멀티모달 KG</span><a class="report-ref" href="report.html#fig-gnn-llm">리포트 그림 8</a></figcaption>
+        </figure>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · GNN과 LLM</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--section" aria-label="근거와 판단 섹션" data-report-refs="evidence-limits decision">
+      <p class="eyebrow">SECTION 05</p><h1>근거, 한계와 판단</h1><p>조건부 주장을 조건부로 읽고, 우리 그래프에서 무엇부터 시도할지 정한다</p><span class="section-number">05</span>
+    </section>
+
+    <section class="slide" aria-label="주장의 강도와 조건" data-report-refs="evidence-limits table-claims">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">CLAIM STRENGTH</span></header>
+      <h1>11장의 주장 대부분은 조건부 설계 지침이다</h1>
+      <p class="lead">정량 근거는 34노드 예제가 거의 전부입니다. 주어와 강도를 그대로 들고 갑니다.</p>
+      <div class="slide-body">
+        <div class="balance-grid">
+          <article><span>AS WRITTEN</span><h2>저자들의 표현</h2><ul><li>쌍곡 임베딩은 계층을 더 충실히 보존할 <em>수 있다</em></li><li>자기 루프는 과적합 억제에 <em>자주</em> 도움</li><li>스킵 연결은 과평활화를 막는 데 <em>도움</em></li><li>γ &gt; 1, 부정 표본 5–10개 — <em>실무 권고</em></li></ul></article>
+          <article><span>FAILURE SIGNAL</span><h2>반증·실패 신호</h2><ul><li>유클리드 대비 이득 없이 복잡도만 증가</li><li>자기 특징이 결정적인 과제에서 성능 저하</li><li>층을 늘릴수록 노드 표현의 분산 감소</li><li>거짓 음성 증가, 쉬운 오답만 학습</li></ul></article>
+        </div>
+        <p class="takeaway"><strong>Evidence Rule</strong> — 어느 부품이 “더 좋다”는 결론은 우리 그래프에서 기준선과 같은 분할로 비교한 뒤에만 내립니다. <a class="report-ref" href="report.html#table-claims">리포트 표 9</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 주장의 강도</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="리스팅 코드 감사" data-report-refs="evidence-limits table-code-audit">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">CODE AUDIT</span></header>
+      <h1>교재 지면 코드는 그대로 옮기면 돌지 않는다</h1>
+      <p class="lead">실습은 교재 지면이 아니라 저장소 <code>GNN_all_in_one.py</code>를 정본으로 씁니다(<code>errata.toml</code>·해설 노트북 확인).</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>위치</th><th>교재 지면의 문제</th><th>저장소의 처리</th></tr></thead>
+          <tbody>
+            <tr><th>Listing 11.2</th><td><code>head_dim = input_dim</code> — 헤드 수로 쪼갠 입력과 차원 불일치, 헬퍼 정의 누락</td><td><code>input_dim // num_heads</code> + 검사</td></tr>
+            <tr><th>Listing 11.3</th><td>Q [b, n, d] × K [b, n, neighbors, d] 모양 불일치</td><td><code>unsqueeze(2)</code>로 이웃 축 정렬</td></tr>
+            <tr><th>Listing 11.4</th><td>정의되지 않은 <code>max_degree</code> → NameError</td><td>생성자 인자 + <code>max_degree + 1</code></td></tr>
+            <tr><th>Listing 11.5 · 11.6</th><td><code>torch.cat(…, dim=1)</code> — 노드 축으로 연결</td><td><code>dim=-1</code>(특징 축)</td></tr>
+            <tr><th>FlexibleGNN(책에 없음)</th><td>—</td><td><code>'gat'</code>은 TypeError, 진짜 k-홉 전파 아님 → 교육용 조립대</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>같은 “한 층”도 다르다</strong> — 64차원에서 Listing 11.2는 파라미터 132개, 11.7은 33,280개. <a class="report-ref" href="report.html#table-code-audit">리포트 표 10</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 코드 감사</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="그래프 ML 접근 선택표" data-report-refs="decision table-decision">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">DECISION GUIDE</span></header>
+      <h1>상황 신호에서 출발점을 고른다</h1>
+      <p class="lead">교재가 직접 준 의사결정표가 아니라, 장의 내용을 묶은 <strong>리포트의 종합</strong>입니다.</p>
+      <div class="slide-body">
+        <table class="compare-table compare-table--dense">
+          <thead><tr><th>상황 신호</th><th>먼저 시도할 것</th><th>확인할 것</th></tr></thead>
+          <tbody>
+            <tr><th>작은 정적 그래프, 설명이 중요</th><td>수작업 특징(10장)</td><td>특징 설계 비용</td></tr>
+            <tr><th>정적, 노드 특징 없음, 링크 예측·군집</th><td>Node2Vec 같은 얕은 임베딩</td><td>p·q에 따른 성향 변화</td></tr>
+            <tr><th>새 노드 유입, 특징 풍부</th><td>귀납적 GNN(GraphSAGE 계열)</td><td>신규 노드의 특징·연결</td></tr>
+            <tr><th>관계 유형 많은 KG, 빠진 관계</th><td>TransE · DistMult · ComplEx</td><td>관계 패턴, 거짓 음성 필터</td></tr>
+            <tr><th>노드에 긴 텍스트가 핵심</th><td>LLM-인코더 + GNN</td><td>LLM 특징의 비용·갱신 주기</td></tr>
+          </tbody>
+        </table>
+        <p class="takeaway"><strong>작은 실험</strong> — 과제·분할 고정 → 기준선 측정 → 부품 하나씩 교체 → 실패 사례 확인 → 개선이 변동 폭보다 작으면 단순한 방법에 머문다. <a class="report-ref" href="report.html#table-decision">리포트 표 11</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · 선택 기준</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide" aria-label="발표 정리 질문" data-report-refs="decision table-discussion">
+      <header class="slide-header"><span class="brand-name">ds4th study</span><span class="section-tag">CHECKPOINT</span></header>
+      <h1>네 질문으로 우리 그래프에 옮겨 본다</h1>
+      <p class="lead">정답보다 판단 근거를 말할 수 있는지가 중요합니다.</p>
+      <div class="slide-body">
+        <div class="question-list">
+          <article><span>Q1</span><p>우리 그래프에서 “가깝다”는 같은 동네(위치)인가, 같은 역할(구조)인가?</p></article>
+          <article><span>Q2</span><p>새 노드는 얼마나 자주, 어떤 특징을 갖고 들어오는가 — 전이적으로 충분한가?</p></article>
+          <article><span>Q3</span><p>KG에 없는 트리플을 “거짓”으로 학습시켜도 되는 관계는 어느 것인가?</p></article>
+          <article><span>Q4</span><p>12장의 AML·추천 과제라면 어느 슬롯의 어떤 부품부터 바꿔 볼까?</p></article>
+        </div>
+        <p class="takeaway"><strong>토론</strong> — 어텐션 가중치를 사용자에게 “근거”로 보여 줘도 되는지도 함께 이야기해 봅니다. <a class="report-ref" href="report.html#table-discussion">리포트 표 12</a></p>
+      </div>
+      <footer class="slide-footer"><span>Chapter 11 · Checkpoint</span><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--closing" aria-label="정리와 질의응답" data-report-refs="summary decision">
+      <header class="cover-brand"><span class="brand-name">ds4th study</span><span class="brand-sub">WRAP UP</span></header>
+      <div class="closing-body">
+        <p class="eyebrow">KEY TAKEAWAYS</p>
+        <h1>무엇을 복원할지 정하고, 기준선 위에서 한 부품씩</h1>
+        <div class="card-grid">
+          <article class="card"><span>01</span><h2>표현 학습</h2><p>사람이 고르던 특징을, 그래프를 되살릴 수 있는 벡터로 학습한다.</p></article>
+          <article class="card"><span>02</span><h2>외우기 vs 만들기</h2><p>얕은 임베딩은 노드마다 벡터를 외우고, GNN은 이웃에서 벡터를 만드는 함수를 배운다.</p></article>
+          <article class="card"><span>03</span><h2>판단</h2><p>부품의 이득은 조건부 — 수작업 특징 기준선과 같은 분할로 비교한 뒤 고른다.</p></article>
+        </div>
+        <p class="closing-question">Q&amp;A</p>
+      </div>
+      <div class="closing-links"><a class="back-link" href="report.html">상세 리포트 읽기</a><a class="back-link" href="../../">회차 목록으로 돌아가기</a></div>
+    </section>
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어">
+    <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
+  </nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

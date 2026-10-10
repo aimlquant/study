@@ -1,0 +1,11 @@
+study_id = "kg-llm-in-action-2026"
+session_id = "2026-10-03-ch11"
+title = "그래프 표현 학습과 그래프 신경망"
+date = "2026-10-03"
+presenters = ["수경"]
+chapters = ["Chapter 11"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]

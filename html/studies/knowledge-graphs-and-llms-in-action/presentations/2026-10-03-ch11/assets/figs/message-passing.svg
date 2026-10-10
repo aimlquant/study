@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 80 960 346" role="img" aria-labelledby="title desc">
+  <title id="title">두 층 메시지 전달이 만드는 계산 트리</title>
+  <desc id="desc">왼쪽 그래프에서 노드 A는 B, C, D와 연결되고 C는 다시 E, F와 연결된다. 오른쪽은 A의 표현을 두 층 메시지 전달로 계산할 때 펼쳐지는 트리다. 맨 아래 k=0 층의 입력 특징이 B, C, D로 집계되고, 다시 A로 집계되어 A의 최종 표현에는 2홉 이웃 E, F의 정보까지 들어간다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#627084"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .title{font-size:22px;font-weight:900;fill:#0F0F10}
+      .sub{font-size:13px;font-weight:600;fill:#596371}
+      .label{font-size:15px;font-weight:900;fill:#0F0F10}
+      .small{font-size:12.5px;font-weight:600;fill:#596371}
+      .nl{font-size:14px;font-weight:900;fill:#0F0F10}
+      .wl{font-size:14px;font-weight:900;fill:#FFFFFF}
+      .panel{fill:#FFFFFF;stroke:#BAC6D6;stroke-width:1.6}
+      .node{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+      .hop2{fill:#FCE7C2;stroke:#D97706;stroke-width:2}
+      .target{fill:#0F2C59}
+      .edge{fill:none;stroke:#8EA0B6;stroke-width:2}
+      .up{fill:none;stroke:#627084;stroke-width:1.8;marker-end:url(#arrow)}
+      .agg{fill:#EEF2F7;stroke:#BAC6D6;stroke-width:1.2}
+      .tag{font-size:12px;font-weight:800;fill:#0F2C59}
+      .grid{stroke:#DCE3EC;stroke-width:1;stroke-dasharray:4 4}
+    </style>
+  </defs>
+  <rect x="0" y="80" width="960" height="346" rx="18" fill="#FAFAF9"/>
+  <g class="text">
+
+    <rect class="panel" x="40" y="92" width="320" height="320" rx="14"/>
+    <text class="label" x="60" y="120">입력 그래프</text>
+    <path class="edge" d="M170 260L100 180M170 260L250 180M170 260L110 340M100 180L250 180M250 180L320 140M250 180L320 250"/>
+    <circle class="target" cx="170" cy="260" r="17"/><text class="wl" x="170" y="265" text-anchor="middle">A</text>
+    <circle class="node" cx="100" cy="180" r="15"/><text class="nl" x="100" y="185" text-anchor="middle">B</text>
+    <circle class="node" cx="250" cy="180" r="15"/><text class="nl" x="250" y="185" text-anchor="middle">C</text>
+    <circle class="node" cx="110" cy="340" r="15"/><text class="nl" x="110" y="345" text-anchor="middle">D</text>
+    <circle class="hop2" cx="320" cy="140" r="14"/><text class="nl" x="320" y="145" text-anchor="middle">E</text>
+    <circle class="hop2" cx="320" cy="250" r="14"/><text class="nl" x="320" y="255" text-anchor="middle">F</text>
+    <text class="small" x="60" y="396">E·F는 A와 직접 연결되지 않은 2홉 이웃</text>
+
+    <rect class="panel" x="400" y="92" width="520" height="320" rx="14"/>
+    <text class="label" x="420" y="120">A의 계산 트리(2층)</text>
+    <line class="grid" x1="420" y1="205" x2="900" y2="205"/>
+    <line class="grid" x1="420" y1="305" x2="900" y2="305"/>
+    <text class="tag" x="420" y="160">k = 2 · 출력</text>
+    <text class="tag" x="420" y="260">k = 1</text>
+    <text class="tag" x="420" y="358">k = 0 · 입력 특징</text>
+
+    <path class="up" d="M556 236L645 172"/>
+    <path class="up" d="M660 234V176"/>
+    <path class="up" d="M784 236L675 172"/>
+    <path class="up" d="M538 344L553 268"/>
+    <path class="up" d="M582 344L567 268"/>
+    <path class="up" d="M612 346L650 270"/>
+    <path class="up" d="M650 345L656 268"/>
+    <path class="up" d="M690 345L664 268"/>
+    <path class="up" d="M728 346L670 270"/>
+    <path class="up" d="M800 344V268"/>
+
+    <circle class="target" cx="660" cy="158" r="17"/><text class="wl" x="660" y="163" text-anchor="middle">A</text>
+    <circle class="node" cx="560" cy="252" r="15"/><text class="nl" x="560" y="257" text-anchor="middle">B</text>
+    <circle class="node" cx="660" cy="252" r="15"/><text class="nl" x="660" y="257" text-anchor="middle">C</text>
+    <circle class="node" cx="800" cy="252" r="15"/><text class="nl" x="800" y="257" text-anchor="middle">D</text>
+    <circle class="node" cx="535" cy="358" r="13"/><text class="nl" x="535" y="363" text-anchor="middle">A</text>
+    <circle class="node" cx="585" cy="358" r="13"/><text class="nl" x="585" y="363" text-anchor="middle">C</text>
+    <circle class="node" cx="615" cy="358" r="13"/><text class="nl" x="615" y="363" text-anchor="middle">A</text>
+    <circle class="node" cx="650" cy="358" r="13"/><text class="nl" x="650" y="363" text-anchor="middle">B</text>
+    <circle class="hop2" cx="690" cy="358" r="13"/><text class="nl" x="690" y="363" text-anchor="middle">E</text>
+    <circle class="hop2" cx="728" cy="358" r="13"/><text class="nl" x="728" y="363" text-anchor="middle">F</text>
+    <circle class="node" cx="800" cy="358" r="13"/><text class="nl" x="800" y="363" text-anchor="middle">A</text>
+    <rect class="agg" x="740" y="140" width="160" height="40" rx="8"/>
+    <text class="tag" x="820" y="165" text-anchor="middle">AGGREGATE → UPDATE</text>
+    <text class="small" x="420" y="396">같은 노드(A·B·C)가 트리에 여러 번 나타난다 — 경로마다 다시 계산된다.</text>
+  </g>
+</svg>
