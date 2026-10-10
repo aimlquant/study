@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 76 960 386" role="img" aria-labelledby="title desc">
+  <title id="title">유클리드 공간의 다항식 증가와 트리의 지수 증가</title>
+  <desc id="desc">왼쪽은 유클리드 평면에서 반지름이 1, 2, 3으로 커질 때 원둘레가 선형으로만 늘어나는 모습이고, 오른쪽은 가지가 3개씩 갈라지는 트리에서 깊이 1, 2, 3의 노드 수가 3, 9, 27로 지수적으로 늘어나는 모습이다. 아래 표는 두 증가율을 깊이별로 비교한다.</desc>
+  <defs>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .title{font-size:22px;font-weight:900;fill:#0F0F10}
+      .sub{font-size:13px;font-weight:600;fill:#596371}
+      .label{font-size:15px;font-weight:800;fill:#0F0F10}
+      .small{font-size:12.5px;font-weight:600;fill:#596371}
+      .num{font-size:13px;font-weight:800;fill:#0F0F10}
+      .panel{fill:#FFFFFF;stroke:#BAC6D6;stroke-width:1.6}
+      .ring{fill:none;stroke:#0F2C59;stroke-width:2}
+      .ring2{fill:none;stroke:#0F2C59;stroke-width:2;stroke-dasharray:5 5}
+      .edge{fill:none;stroke:#8EA0B6;stroke-width:1.8}
+      .thin{stroke-width:1}
+      .node{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+      .root{fill:#0F2C59}
+      .tiny{fill:#0F2C59;stroke:none}
+      .hl{fill:#D97706}
+      .warn{font-size:12.5px;font-weight:800;fill:#B45309}
+      .grid{stroke:#DCE3EC;stroke-width:1}
+    </style>
+  </defs>
+  <rect x="0" y="76" width="960" height="386" rx="18" fill="#FAFAF9"/>
+  <g class="text">
+
+    <rect class="panel" x="40" y="88" width="420" height="232" rx="14"/>
+    <text class="label" x="60" y="114">유클리드 평면</text>
+    <circle class="ring" cx="250" cy="196" r="26"/>
+    <circle class="ring" cx="250" cy="196" r="52"/>
+    <circle class="ring" cx="250" cy="196" r="78"/>
+    <circle class="root" cx="250" cy="196" r="5"/>
+    <text class="small" x="279" y="192">r=1</text>
+    <text class="small" x="305" y="192">r=2</text>
+    <text class="small" x="331" y="192">r=3</text>
+    <text class="small" x="60" y="304">반지름 r의 원둘레 = 2πr → r에 비례해 선형 증가</text>
+
+    <rect class="panel" x="500" y="88" width="420" height="232" rx="14"/>
+    <text class="label" x="520" y="114">분기 수 3인 트리</text>
+    <path class="edge" d="M710 128L610 172"/>
+    <path class="edge" d="M710 128L710 172"/>
+    <path class="edge" d="M710 128L810 172"/>
+    <path class="edge" d="M610 188L577 232"/>
+    <path class="edge" d="M610 188L610 232"/>
+    <path class="edge" d="M610 188L643 232"/>
+    <path class="edge" d="M710 188L677 232"/>
+    <path class="edge" d="M710 188L710 232"/>
+    <path class="edge" d="M710 188L743 232"/>
+    <path class="edge" d="M810 188L777 232"/>
+    <path class="edge" d="M810 188L810 232"/>
+    <path class="edge" d="M810 188L843 232"/>
+    <path class="edge thin" d="M577 246L566 282"/>
+    <path class="edge thin" d="M577 246L577 282"/>
+    <path class="edge thin" d="M577 246L588 282"/>
+    <path class="edge thin" d="M610 246L599 282"/>
+    <path class="edge thin" d="M610 246L610 282"/>
+    <path class="edge thin" d="M610 246L621 282"/>
+    <path class="edge thin" d="M643 246L632 282"/>
+    <path class="edge thin" d="M643 246L643 282"/>
+    <path class="edge thin" d="M643 246L654 282"/>
+    <path class="edge thin" d="M677 246L666 282"/>
+    <path class="edge thin" d="M677 246L677 282"/>
+    <path class="edge thin" d="M677 246L688 282"/>
+    <path class="edge thin" d="M710 246L699 282"/>
+    <path class="edge thin" d="M710 246L710 282"/>
+    <path class="edge thin" d="M710 246L721 282"/>
+    <path class="edge thin" d="M743 246L732 282"/>
+    <path class="edge thin" d="M743 246L743 282"/>
+    <path class="edge thin" d="M743 246L754 282"/>
+    <path class="edge thin" d="M777 246L766 282"/>
+    <path class="edge thin" d="M777 246L777 282"/>
+    <path class="edge thin" d="M777 246L788 282"/>
+    <path class="edge thin" d="M810 246L799 282"/>
+    <path class="edge thin" d="M810 246L810 282"/>
+    <path class="edge thin" d="M810 246L821 282"/>
+    <path class="edge thin" d="M843 246L832 282"/>
+    <path class="edge thin" d="M843 246L843 282"/>
+    <path class="edge thin" d="M843 246L854 282"/>
+    <circle class="node root" cx="710" cy="120" r="9"/>
+    <circle class="node" cx="610" cy="180" r="8"/>
+    <circle class="node" cx="710" cy="180" r="8"/>
+    <circle class="node" cx="810" cy="180" r="8"/>
+    <circle class="node" cx="577" cy="240" r="6"/>
+    <circle class="node" cx="610" cy="240" r="6"/>
+    <circle class="node" cx="643" cy="240" r="6"/>
+    <circle class="node" cx="677" cy="240" r="6"/>
+    <circle class="node" cx="710" cy="240" r="6"/>
+    <circle class="node" cx="743" cy="240" r="6"/>
+    <circle class="node" cx="777" cy="240" r="6"/>
+    <circle class="node" cx="810" cy="240" r="6"/>
+    <circle class="node" cx="843" cy="240" r="6"/>
+    <circle class="node tiny" cx="566" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="577" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="588" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="599" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="610" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="621" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="632" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="643" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="654" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="666" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="677" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="688" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="699" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="710" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="721" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="732" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="743" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="754" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="766" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="777" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="788" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="799" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="810" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="821" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="832" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="843" cy="286" r="3.6"/>
+    <circle class="node tiny" cx="854" cy="286" r="3.6"/>
+    <text class="small" x="520" y="304">깊이 r의 노드 수 = 3ʳ → 지수 증가</text>
+
+    <line class="grid" x1="40" y1="340" x2="920" y2="340"/>
+    <text class="label" x="40" y="368">깊이(반지름) r</text>
+    <text class="num" x="330" y="368" text-anchor="middle">1</text>
+    <text class="num" x="470" y="368" text-anchor="middle">2</text>
+    <text class="num" x="610" y="368" text-anchor="middle">3</text>
+    <text class="num" x="750" y="368" text-anchor="middle">5</text>
+    <text class="num" x="880" y="368" text-anchor="middle">10</text>
+    <line class="grid" x1="40" y1="380" x2="920" y2="380"/>
+    <text class="label" x="40" y="406">평면 원둘레 2πr</text>
+    <text class="num" x="330" y="406" text-anchor="middle">6.3</text>
+    <text class="num" x="470" y="406" text-anchor="middle">12.6</text>
+    <text class="num" x="610" y="406" text-anchor="middle">18.8</text>
+    <text class="num" x="750" y="406" text-anchor="middle">31.4</text>
+    <text class="num" x="880" y="406" text-anchor="middle">62.8</text>
+    <text class="label" x="40" y="436">트리 노드 수 3ʳ</text>
+    <text class="num" x="330" y="436" text-anchor="middle">3</text>
+    <text class="num" x="470" y="436" text-anchor="middle">9</text>
+    <text class="num" x="610" y="436" text-anchor="middle">27</text>
+    <text class="num hl" x="750" y="436" text-anchor="middle">243</text>
+    <text class="num hl" x="880" y="436" text-anchor="middle">59,049</text>
+    <line class="grid" x1="40" y1="450" x2="920" y2="450"/>
+  </g>
+</svg>

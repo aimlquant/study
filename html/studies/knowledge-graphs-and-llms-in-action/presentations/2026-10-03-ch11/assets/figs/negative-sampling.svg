@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 84 960 416" role="img" aria-labelledby="title desc">
+  <title id="title">KG 임베딩의 부정 표본 추출 방식과 거짓 음성 위험</title>
+  <desc id="desc">위쪽의 정답 트리플 Aspirin TREATS Headache는 점수를 높이도록 학습된다. 아래 네 칸은 부정 표본을 만드는 방식이다. 무작위 교체는 Laptop처럼 너무 쉬운 표본을, 유형 제약은 질병 중에서만 골라 더 어려운 표본을 만든다. 머리·꼬리 교체는 방향 편향을 줄이고, 마지막 칸은 Aspirin TREATS Inflammation처럼 KG에 없을 뿐 실제로는 참일 수 있는 거짓 음성의 위험을 보여 준다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#0F2C59"/>
+    </marker>
+    <marker id="arrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#627084"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .title{font-size:22px;font-weight:900;fill:#0F0F10}
+      .sub{font-size:13px;font-weight:600;fill:#596371}
+      .label{font-size:15px;font-weight:900;fill:#0F0F10}
+      .small{font-size:12.5px;font-weight:600;fill:#596371}
+      .mono{font-family:Consolas,'D2Coding',monospace;font-size:12.5px;font-weight:700;fill:#0F0F10}
+      .wl{font-size:15px;font-weight:900;fill:#FFFFFF}
+      .panel{fill:#FFFFFF;stroke:#BAC6D6;stroke-width:1.6}
+      .risk{fill:#FFF7ED;stroke:#D97706;stroke-width:1.8}
+      .dark{fill:#0F2C59}
+      .rel{fill:none;stroke:#0F2C59;stroke-width:2.6;marker-end:url(#arrow)}
+      .line{fill:none;stroke:#627084;stroke-width:2;marker-end:url(#arrowG)}
+      .good{font-size:13px;font-weight:900;fill:#0F6B3A}
+      .warn{font-size:12.5px;font-weight:800;fill:#B45309}
+      .band{fill:#EEF2F7}
+      .sm{font-size:11.5px}
+    </style>
+  </defs>
+  <rect x="0" y="84" width="960" height="416" rx="18" fill="#FAFAF9"/>
+  <g class="text">
+
+    <rect class="dark" x="250" y="96" width="150" height="50" rx="10"/>
+    <text class="wl" x="325" y="127" text-anchor="middle">Aspirin</text>
+    <path class="rel" d="M400 121H558"/>
+    <text class="label" x="480" y="111" text-anchor="middle">TREATS</text>
+    <rect class="dark" x="560" y="96" width="150" height="50" rx="10"/>
+    <text class="wl" x="635" y="127" text-anchor="middle">Headache</text>
+    <text class="good" x="730" y="118">정답 트리플</text>
+    <text class="small" x="730" y="138">점수 DEC(z_u, τ, z_v) ↑</text>
+
+    <path class="line" d="M142 190V218"/>
+    <path class="line" d="M367 190V218"/>
+    <path class="line" d="M592 190V218"/>
+    <path class="line" d="M817 190V218"/>
+    <path fill="none" stroke="#627084" stroke-width="2" d="M480 146V190M142 190H817"/>
+
+    <rect class="panel" x="40" y="220" width="205" height="190" rx="12"/>
+    <text class="label" x="56" y="248">① 무작위 교체</text>
+    <text class="mono" x="56" y="280">Aspirin TREATS</text>
+    <text class="mono" x="56" y="298">  Laptop</text>
+    <text class="mono" x="56" y="322">Aspirin TREATS</text>
+    <text class="mono" x="56" y="340">  Mountain</text>
+    <text class="small" x="56" y="374">계산은 싸지만</text>
+    <text class="small" x="56" y="392">너무 쉬운 오답이 많다</text>
+
+    <rect class="panel" x="265" y="220" width="205" height="190" rx="12"/>
+    <text class="label" x="281" y="248">② 유형 제약</text>
+    <text class="mono" x="281" y="280">TREATS의 꼬리는</text>
+    <text class="mono" x="281" y="298">  질병 유형에서만</text>
+    <text class="small" x="281" y="326">적대적 표본: 정답과</text>
+    <text class="small" x="281" y="344">헷갈리는 후보를 고름</text>
+    <text class="small" x="281" y="374">더 미묘한 구분을</text>
+    <text class="small" x="281" y="392">학습하게 만든다</text>
+
+    <rect class="panel" x="490" y="220" width="205" height="190" rx="12"/>
+    <text class="label" x="506" y="248">③ 머리·꼬리 교체</text>
+    <text class="mono sm" x="504" y="280">Sunlight TREATS Headache</text>
+    <text class="mono sm" x="504" y="300">Aspirin TREATS Happiness</text>
+    <text class="mono sm" x="504" y="320">Sunlight TREATS Happiness</text>
+    <text class="small" x="506" y="374">방향이 중요한 관계에서</text>
+    <text class="small" x="506" y="392">한쪽 편향을 줄인다</text>
+
+    <rect class="risk" x="715" y="220" width="205" height="190" rx="12"/>
+    <text class="label" x="731" y="248">④ 거짓 음성 위험</text>
+    <text class="mono" x="731" y="280">Aspirin TREATS</text>
+    <text class="mono" x="731" y="298">  Inflammation</text>
+    <text class="warn" x="731" y="326">KG에 없을 뿐</text>
+    <text class="warn" x="731" y="344">실제로는 참일 수 있다</text>
+    <text class="small" x="731" y="374">기존 사실 필터링과</text>
+    <text class="small" x="731" y="392">도메인 검토가 필요</text>
+
+    <rect class="band" x="40" y="430" width="880" height="48" rx="10"/>
+    <text class="label" x="60" y="460">부정 항은 γ로 가중한다</text>
+    <text class="small" x="250" y="460">저자 권고: 희소한 KG에서는 γ &gt; 1 · 정답 하나당 부정 표본 5–10개를 흔히 사용</text>
+  </g>
+</svg>

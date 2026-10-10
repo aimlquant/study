@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 88 960 382" role="img" aria-labelledby="title desc">
+  <title id="title">GNN과 LLM을 결합하는 세 경로</title>
+  <desc id="desc">첫째 줄 예측자 경로에서는 GNN이 그래프를 처리한 뒤 임베딩과 질문을 받은 LLM이 마지막에 자연어 답을 만든다. 둘째 줄 인코더 경로에서는 LLM이 노드와 엣지의 텍스트를 특징 벡터로 바꾸고 GNN이 그 특징으로 구조를 처리해 예측한다. 셋째 줄 정렬자 경로에서는 LLM과 GNN이 텍스트와 구조를 각각 병렬로 처리하고 대조 학습이나 상호 학습으로 두 표현을 정렬한다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#627084"/>
+    </marker>
+    <marker id="arrowS" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M10 0L0 5L10 10Z" fill="#627084"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .title{font-size:22px;font-weight:900;fill:#0F0F10}
+      .sub{font-size:13px;font-weight:600;fill:#596371}
+      .label{font-size:15px;font-weight:900;fill:#0F0F10}
+      .bl{font-size:14px;font-weight:850;fill:#0F0F10}
+      .small{font-size:12px;font-weight:600;fill:#596371}
+      .wl{font-size:14px;font-weight:900;fill:#FFFFFF}
+      .ws{font-size:12px;font-weight:600;fill:#D9E2EF}
+      .lane{fill:#FFFFFF;stroke:#BAC6D6;stroke-width:1.6}
+      .box{fill:#F4F6F9;stroke:#BAC6D6;stroke-width:1.2}
+      .gnn{fill:#0F2C59}
+      .llm{fill:#5B4B8A}
+      .align{fill:#FCE7C2;stroke:#D97706;stroke-width:1.6}
+      .line{fill:none;stroke:#627084;stroke-width:2.2;marker-end:url(#arrow)}
+      .line2{fill:none;stroke:#627084;stroke-width:2.2;marker-end:url(#arrow);marker-start:url(#arrowS)}
+    </style>
+  </defs>
+  <rect x="0" y="88" width="960" height="382" rx="18" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="lane" x="40" y="100" width="880" height="96" rx="14"/>
+    <text class="label" x="58" y="142">① 예측자로서의 LLM</text><text class="small" x="58" y="164">LLM이 마지막</text>
+    <rect class="box" x="230" y="118" width="120" height="60" rx="10"/><text class="bl" x="290" y="144" text-anchor="middle">그래프</text><text class="small" x="290" y="164" text-anchor="middle">구조·특징</text>
+    <path class="line" d="M350 148H368"/>
+    <rect class="gnn" x="370" y="118" width="120" height="60" rx="10"/><text class="wl" x="430" y="144" text-anchor="middle">GNN</text><text class="ws" x="430" y="164" text-anchor="middle">구조 처리</text>
+    <path class="line" d="M490 148H508"/>
+    <rect class="box" x="510" y="118" width="120" height="60" rx="10"/><text class="bl" x="570" y="144" text-anchor="middle">임베딩 + 질문</text><text class="small" x="570" y="164" text-anchor="middle">결합 입력</text>
+    <path class="line" d="M630 148H648"/>
+    <rect class="llm" x="650" y="118" width="120" height="60" rx="10"/><text class="wl" x="710" y="144" text-anchor="middle">LLM</text><text class="ws" x="710" y="164" text-anchor="middle">추론·생성</text>
+    <path class="line" d="M770 148H788"/>
+    <rect class="box" x="790" y="118" width="120" height="60" rx="10"/><text class="bl" x="850" y="144" text-anchor="middle">자연어 답</text><text class="small" x="850" y="164" text-anchor="middle">KG 질의응답</text>
+    <rect class="lane" x="40" y="220" width="880" height="96" rx="14"/>
+    <text class="label" x="58" y="262">② 인코더로서의 LLM</text><text class="small" x="58" y="284">LLM이 앞단</text>
+    <rect class="box" x="230" y="238" width="120" height="60" rx="10"/><text class="bl" x="290" y="264" text-anchor="middle">노드·엣지 텍스트</text><text class="small" x="290" y="284" text-anchor="middle">논문 초록 등</text>
+    <path class="line" d="M350 268H368"/>
+    <rect class="llm" x="370" y="238" width="120" height="60" rx="10"/><text class="wl" x="430" y="264" text-anchor="middle">LLM</text><text class="ws" x="430" y="284" text-anchor="middle">텍스트 이해</text>
+    <path class="line" d="M490 268H508"/>
+    <rect class="box" x="510" y="238" width="120" height="60" rx="10"/><text class="bl" x="570" y="264" text-anchor="middle">텍스트 특징 벡터</text><text class="small" x="570" y="284" text-anchor="middle">노드 특징</text>
+    <path class="line" d="M630 268H648"/>
+    <rect class="gnn" x="650" y="238" width="120" height="60" rx="10"/><text class="wl" x="710" y="264" text-anchor="middle">GNN</text><text class="ws" x="710" y="284" text-anchor="middle">구조 처리</text>
+    <path class="line" d="M770 268H788"/>
+    <rect class="box" x="790" y="238" width="120" height="60" rx="10"/><text class="bl" x="850" y="264" text-anchor="middle">예측</text><text class="small" x="850" y="284" text-anchor="middle">향후 인용 등</text>
+    <rect class="lane" x="40" y="340" width="880" height="96" rx="14"/>
+    <text class="label" x="58" y="382">③ 정렬자로서의 LLM</text><text class="small" x="58" y="404">병렬 후 정렬</text>
+    <rect class="box" x="230" y="358" width="120" height="60" rx="10"/><text class="bl" x="290" y="384" text-anchor="middle">텍스트</text><text class="small" x="290" y="404" text-anchor="middle">내용</text>
+    <path class="line" d="M350 388H368"/>
+    <rect class="llm" x="370" y="358" width="120" height="60" rx="10"/><text class="wl" x="430" y="384" text-anchor="middle">LLM</text><text class="ws" x="430" y="404" text-anchor="middle">텍스트 표현</text>
+    <path class="line2" d="M492 388H508"/>
+    <rect class="align" x="510" y="358" width="120" height="60" rx="10"/><text class="bl" x="570" y="384" text-anchor="middle">정렬</text><text class="small" x="570" y="404" text-anchor="middle">대조·상호 학습</text>
+    <path class="line2" d="M632 388H648"/>
+    <rect class="gnn" x="650" y="358" width="120" height="60" rx="10"/><text class="wl" x="710" y="384" text-anchor="middle">GNN</text><text class="ws" x="710" y="404" text-anchor="middle">구조 표현</text>
+    <path class="line" d="M790 388H772"/>
+    <rect class="box" x="790" y="358" width="120" height="60" rx="10"/><text class="bl" x="850" y="384" text-anchor="middle">구조</text><text class="small" x="850" y="404" text-anchor="middle">연결 패턴</text>
+  </g>
+</svg>
