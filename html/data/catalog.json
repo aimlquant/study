@@ -625,8 +625,7 @@
       ],
       "date": "2026-10-10",
       "id": "2026-10-10-ml4t-ch04",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m5db985146588207f7705d4601cd44e76",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-10-ml4t-ch04/",
       "presenters": [
         "종훈(L)"
@@ -639,9 +638,11 @@
           "youtube_video_id": "yiMEhbA-eGE"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-learning-for-trading-3e-2026",
-      "title": "Chapter 4. 펀더멘털·대체 데이터"
+      "title": "Chapter 4. 펀더멘털·대체 데이터",
+      "youtube_url": "https://www.youtube.com/watch?v=ANdFz_yH2OI",
+      "youtube_video_id": "ANdFz_yH2OI"
     },
     {
       "artifacts": [
@@ -666,8 +667,7 @@
       ],
       "date": "2026-10-10",
       "id": "2026-10-10-kg-llm-ch12",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m5db985146588207f7705d4601cd44e76",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-10-kg-llm-ch12/",
       "presenters": [
         "재익"
@@ -680,9 +680,11 @@
           "youtube_video_id": "-NhnH6qOyhg"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 12. GNN 기반 노드 분류와 링크 예측"
+      "title": "Chapter 12. GNN 기반 노드 분류와 링크 예측",
+      "youtube_url": "https://www.youtube.com/watch?v=cMFUw8HKtXo",
+      "youtube_video_id": "cMFUw8HKtXo"
     },
     {
       "artifacts": [
