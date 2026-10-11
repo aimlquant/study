@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .h{font-size:17px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .lane{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.4}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-bad{stroke:#b91c1c;stroke-width:2.2;fill:none;marker-end:url(#ahb);stroke-dasharray:6 4}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+  <title id="figTitle">기술 스키마를 개념 스키마로 줄이고 텍스트로 옮기는 단계</title>
+  <desc id="figDesc">왼쪽에서 오른쪽으로 갈수록 담긴 항목이 줄어든다. APOC 원시 출력에서 관리용 요소를 걸러 개념 스키마를 남기고, 마지막에 인라인 주석이 붙은 텍스트로 옮긴다.</desc>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <rect class="fill-tint" x="30" y="96" width="214" height="300" rx="10"/>
+  <text class="t h an-m" x="137.0" y="128" fill="#0f2c59">기술 스키마</text>
+  <text class="t s an-m" x="137.0" y="170" fill="#0f172a">apoc.meta.schema 원시 출력</text>
+  <text class="t s an-m" x="137.0" y="214" fill="#0f172a">도메인 노드 · 관계</text>
+  <text class="t s an-m" x="137.0" y="258" fill="#0f172a">관리용 노드 (RAW 등)</text>
+  <text class="t s an-m" x="137.0" y="302" fill="#0f172a">기술 속성 (extractionId)</text>
+  <text class="t s an-m" x="137.0" y="346" fill="#0f172a">미사용 관계 · 속성</text>
+  <rect class="fill-warn" x="266" y="96" width="190" height="300" rx="10"/>
+  <text class="t h an-m" x="361.0" y="128" fill="#b45309">skip 목록</text>
+  <text class="t s an-m" x="361.0" y="170" fill="#0f172a">classes: 관리용 노드</text>
+  <text class="t s an-m" x="361.0" y="214" fill="#0f172a">relationships: 미사용</text>
+  <text class="t s an-m" x="361.0" y="258" fill="#0f172a">properties: 기술 필드</text>
+  <text class="t s an-m" x="361.0" y="302" fill="#0f172a">YAML 한 파일에서 관리</text>
+  <rect class="box" x="492" y="96" width="190" height="300" rx="10"/>
+  <text class="t h an-m" x="587.0" y="128" fill="#0f172a">개념 스키마</text>
+  <text class="t s an-m" x="587.0" y="170" fill="#0f172a">도메인 노드만 남는다</text>
+  <text class="t s an-m" x="587.0" y="214" fill="#0f172a">도메인 관계만 남는다</text>
+  <text class="t s an-m" x="587.0" y="258" fill="#0f172a">전문가가 쓰는 속성만</text>
+  <text class="t s an-m" x="587.0" y="302" fill="#0f172a">의미 있는 구조만 남음</text>
+  <rect class="fill-ok" x="718" y="96" width="212" height="300" rx="10"/>
+  <text class="t h an-m" x="824.0" y="128" fill="#0f172a">텍스트 표현</text>
+  <text class="t s an-m" x="824.0" y="170" fill="#0f172a">(:Vehicle { ... })</text>
+  <text class="t s an-m" x="824.0" y="214" fill="#0f172a">(:Vehicle)-[:OWNED_BY]-&gt;</text>
+  <text class="t s an-m" x="824.0" y="258" fill="#0f172a">/* 주석 */ 인라인 삽입</text>
+  <text class="t s an-m" x="824.0" y="302" fill="#0f172a">마크다운 머리말로 구획</text>
+  <path class="arw-navy" d="M244 246L262 246"/>
+  <path class="arw-navy" d="M456 246L488 246"/>
+  <path class="arw-navy" d="M682 246L714 246"/>
+  <rect class="box" x="30" y="424" width="444" height="76" rx="10"/>
+  <text class="t m an-m" x="252.0" y="458.5" fill="#0f172a">줄이는 이유</text>
+  <text class="t s an-m" x="252.0" y="475.5" fill="#0f172a">LLM이 군더더기에 주의를 나눠 쓰지 않게 한다</text>
+  <rect class="box" x="492" y="424" width="438" height="76" rx="10"/>
+  <text class="t m an-m" x="711.0" y="458.5" fill="#0f172a">주석을 붙이는 이유</text>
+  <text class="t s an-m" x="711.0" y="475.5" fill="#0f172a">약어와 비슷한 관계의 구분을 알려 준다</text>
+  <path class="tick" d="M252 396L252 420"/>
+  <path class="tick" d="M710 396L710 420"/>
+  <rect class="fill-mute" x="340" y="40" width="280" height="36" rx="7"/>
+  <text class="t s an-m" x="480.0" y="62.0" fill="#475569">사람 판단이 한 번은 반드시 들어간다</text>
+  <path class="tick" d="M398 78L366 94"/>
+</svg>

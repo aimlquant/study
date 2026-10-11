@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .h{font-size:17px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .lane{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.4}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-bad{stroke:#b91c1c;stroke-width:2.2;fill:none;marker-end:url(#ahb);stroke-dasharray:6 4}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+  <title id="figTitle">검색 1건 차이로 결론이 뒤집히는 RAG 경로</title>
+  <desc id="figDesc">같은 모델과 같은 프롬프트로 두 경로를 비교한다. 위 경로는 증인 진술 다섯 건을 모두 맥락에 넣어 왼손잡이로 판단하고, 아래 경로는 증인 C 한 건만 빠진 네 건으로 오른손잡이로 판단한다.</desc>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <rect class="box" x="40" y="100" width="190" height="130" rx="10"/>
+  <text class="t m an-m" x="135.0" y="126" fill="#0f2c59">사건 DB · 진술 5건</text>
+  <rect class="fill-tint" x="50" y="146" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="65.0" y="164.0" fill="#0f2c59">A</text>
+  <rect class="fill-tint" x="85" y="146" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="100.0" y="164.0" fill="#0f2c59">B</text>
+  <rect class="fill-tint" x="120" y="146" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="135.0" y="164.0" fill="#0f2c59">C</text>
+  <rect class="fill-tint" x="155" y="146" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="170.0" y="164.0" fill="#0f2c59">D</text>
+  <rect class="fill-tint" x="190" y="146" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="205.0" y="164.0" fill="#0f2c59">E</text>
+  <text class="t xs an-m" x="135.0" y="208" fill="#475569">검색기가 넘긴 패시지</text>
+  <rect class="box" x="262" y="130" width="110" height="70" rx="10"/>
+  <text class="t m an-m" x="317.0" y="161.5" fill="#0f172a">검색기</text>
+  <text class="t s an-m" x="317.0" y="178.5" fill="#0f172a">retriever</text>
+  <rect class="fill-tint" x="404" y="125" width="170" height="80" rx="10"/>
+  <text class="t m an-m" x="489.0" y="161.5" fill="#0f2c59">맥락 5건</text>
+  <text class="t s an-m" x="489.0" y="178.5" fill="#0f2c59">왼손 신호 포함</text>
+  <rect class="box" x="606" y="130" width="110" height="70" rx="10"/>
+  <text class="t m an-m" x="661.0" y="161.5" fill="#0f172a">LLM</text>
+  <text class="t s an-m" x="661.0" y="178.5" fill="#0f172a">동일 프롬프트</text>
+  <rect class="fill-ok" x="748" y="125" width="172" height="80" rx="10"/>
+  <text class="t m an-m" x="834.0" y="161.5" fill="#0f172a">왼손잡이 가능성 높다</text>
+  <text class="t s an-m" x="834.0" y="178.5" fill="#0f172a">근거: 증인 C</text>
+  <path class="arw" d="M230 165L258 165"/>
+  <path class="arw" d="M372 165L400 165"/>
+  <path class="arw" d="M574 165L602 165"/>
+  <path class="arw" d="M716 165L744 165"/>
+  <rect class="box" x="40" y="300" width="190" height="130" rx="10"/>
+  <text class="t m an-m" x="135.0" y="326" fill="#0f2c59">사건 DB · 진술 4건</text>
+  <rect class="fill-tint" x="50" y="346" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="65.0" y="364.0" fill="#0f2c59">A</text>
+  <rect class="fill-tint" x="85" y="346" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="100.0" y="364.0" fill="#0f2c59">B</text>
+  <rect class="fill-mute" x="120" y="346" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="135.0" y="364.0" fill="#94a3b8">—</text>
+  <rect class="fill-tint" x="155" y="346" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="170.0" y="364.0" fill="#0f2c59">D</text>
+  <rect class="fill-tint" x="190" y="346" width="30" height="28" rx="7"/>
+  <text class="t xs an-m" x="205.0" y="364.0" fill="#0f2c59">E</text>
+  <text class="t xs an-m" x="135.0" y="408" fill="#475569">검색기가 넘긴 패시지</text>
+  <rect class="box" x="262" y="330" width="110" height="70" rx="10"/>
+  <text class="t m an-m" x="317.0" y="361.5" fill="#0f172a">검색기</text>
+  <text class="t s an-m" x="317.0" y="378.5" fill="#0f172a">retriever</text>
+  <rect class="fill-tint" x="404" y="325" width="170" height="80" rx="10"/>
+  <text class="t m an-m" x="489.0" y="361.5" fill="#0f2c59">맥락 4건</text>
+  <text class="t s an-m" x="489.0" y="378.5" fill="#0f2c59">왼손 신호 없음</text>
+  <rect class="box" x="606" y="330" width="110" height="70" rx="10"/>
+  <text class="t m an-m" x="661.0" y="361.5" fill="#0f172a">LLM</text>
+  <text class="t s an-m" x="661.0" y="378.5" fill="#0f172a">동일 프롬프트</text>
+  <rect class="fill-bad" x="748" y="325" width="172" height="80" rx="10"/>
+  <text class="t m an-m" x="834.0" y="361.5" fill="#0f172a">오른손잡이로 보인다</text>
+  <text class="t s an-m" x="834.0" y="378.5" fill="#0f172a">근거: 증인 A·B</text>
+  <path class="arw" d="M230 365L258 365"/>
+  <path class="arw" d="M372 365L400 365"/>
+  <path class="arw" d="M574 365L602 365"/>
+  <path class="arw" d="M716 365L744 365"/>
+  <rect class="fill-warn" x="398" y="244" width="182" height="32" rx="7"/>
+  <text class="t s an-m" x="489.0" y="264.0" fill="#b45309">증인 C 진술 한 건만 제거</text>
+  <path class="arw-warn" d="M489.0 230L489.0 240"/>
+  <path class="arw-warn" d="M489.0 276L489.0 321"/>
+  <path class="tick" d="M834.0 180L834.0 212L934 212"/>
+  <path class="tick" d="M834.0 380L834.0 412L934 412"/>
+  <rect class="fill-mute" x="742" y="452" width="184" height="56" rx="10"/>
+  <text class="t m an-m" x="834.0" y="476.5" fill="#475569">같은 모델 · 같은 지시</text>
+  <text class="t s an-m" x="834.0" y="493.5" fill="#475569">맥락만 다르다</text>
+  <path class="arw" d="M834 448L834 420"/>
+</svg>
