@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .h{font-size:17px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .lane{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.4}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-bad{stroke:#b91c1c;stroke-width:2.2;fill:none;marker-end:url(#ahb);stroke-dasharray:6 4}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+  <title id="figTitle">질의 생성이 세 입력을 모으고 실행 오류를 되받는 수렴점</title>
+  <desc id="figDesc">질문, 의도, 주석 스키마가 한 프롬프트로 모여 Cypher가 나온다. 실행이 실패하면 오류 메시지가 information 필드로 되돌아와 같은 프롬프트를 한 번 더 채운다.</desc>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <rect class="fill-mute" x="36" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="103.0" y="84.0" fill="#475569">의도 탐지</text>
+  <rect class="fill-mute" x="185" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="252.0" y="84.0" fill="#475569">스키마 추출</text>
+  <path class="tick" d="M169 79.0L182 79.0"/>
+  <rect class="fill-navy" x="334" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="401.0" y="84.0" fill="#ffffff">질의 생성</text>
+  <path class="tick" d="M318 79.0L331 79.0"/>
+  <rect class="fill-mute" x="483" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="550.0" y="84.0" fill="#475569">질의 실행</text>
+  <path class="tick" d="M467 79.0L480 79.0"/>
+  <rect class="fill-mute" x="632" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="699.0" y="84.0" fill="#475569">시각화</text>
+  <path class="tick" d="M616 79.0L629 79.0"/>
+  <rect class="fill-mute" x="781" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="848.0" y="84.0" fill="#475569">요약 생성</text>
+  <path class="tick" d="M765 79.0L778 79.0"/>
+  <path class="arw-navy" d="M401.0 110L401.0 148"/>
+  <rect class="fill-tint" x="30" y="160" width="246" height="70" rx="10"/>
+  <text class="t m an-m" x="153.0" y="191.5" fill="#0f2c59">사용자 질문</text>
+  <text class="t xs mono an-m" x="153.0" y="208.5" fill="#0f2c59">&lt;QUESTION&gt; 태그로 감싼다</text>
+  <path class="arw-navy" d="M276 195L314 195L314 265L348 265"/>
+  <rect class="fill-tint" x="30" y="244" width="246" height="70" rx="10"/>
+  <text class="t m an-m" x="153.0" y="275.5" fill="#0f2c59">의도 output_type</text>
+  <text class="t xs mono an-m" x="153.0" y="292.5" fill="#0f2c59">graph · table · chart · map</text>
+  <path class="arw-navy" d="M276 279L314 279L314 265L348 265"/>
+  <rect class="fill-tint" x="30" y="328" width="246" height="70" rx="10"/>
+  <text class="t m an-m" x="153.0" y="359.5" fill="#0f2c59">주석 스키마</text>
+  <text class="t xs mono an-m" x="153.0" y="376.5" fill="#0f2c59">&lt;SCHEMA&gt; 태그로 감싼다</text>
+  <path class="arw-navy" d="M276 363L314 363L314 265L348 265"/>
+  <rect class="fill-navy" x="352" y="196" width="210" height="140" rx="10"/>
+  <text class="t m an-m" x="457.0" y="254.0" fill="#ffffff">질의 생성 프롬프트</text>
+  <text class="t s an-m" x="457.0" y="271.0" fill="#ffffff">아홉 블록을 순서대로</text>
+  <text class="t s an-m" x="457.0" y="288.0" fill="#ffffff">조립해 한 번 호출한다</text>
+  <rect class="box" x="606" y="156" width="200" height="92" rx="10"/>
+  <text class="t m an-m" x="706.0" y="190.0" fill="#0f172a">생성 결과 JSON</text>
+  <text class="t xs mono an-m" x="706.0" y="207.0" fill="#0f172a">relationships · reasoning</text>
+  <text class="t xs mono an-m" x="706.0" y="224.0" fill="#0f172a">query · success</text>
+  <rect class="box" x="606" y="284" width="200" height="92" rx="10"/>
+  <text class="t m an-m" x="706.0" y="318.0" fill="#0f172a">질의 실행</text>
+  <text class="t s an-m" x="706.0" y="335.0" fill="#0f172a">Neo4j에 query 전달</text>
+  <text class="t s an-m" x="706.0" y="352.0" fill="#0f172a">성공 또는 오류</text>
+  <path class="arw-navy" d="M562 236L602 202"/>
+  <path class="arw-navy" d="M706 248L706 280"/>
+  <rect class="fill-ok" x="830" y="284" width="100" height="92" rx="10"/>
+  <text class="t m an-m" x="880.0" y="326.5" fill="#0f172a">레코드</text>
+  <text class="t s an-m" x="880.0" y="343.5" fill="#0f172a">결과</text>
+  <path class="arw-navy" d="M806 330L826 330"/>
+  <rect class="fill-warn" x="352" y="400" width="454" height="38" rx="7"/>
+  <text class="t m an-m" x="579.0" y="423.0" fill="#b45309">오류 메시지를 information 필드로 되돌린다</text>
+  <path class="tick" d="M656 376L656 419L810 419"/>
+  <path class="tick" d="M668 419L656 419"/>
+  <path class="arw-bad" d="M348 419L318 419L318 300L348 300"/>
+</svg>

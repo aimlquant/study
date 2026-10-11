@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .h{font-size:17px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .lane{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.4}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-bad{stroke:#b91c1c;stroke-width:2.2;fill:none;marker-end:url(#ahb);stroke-dasharray:6 4}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+  <title id="figTitle">시스템 관련 질문이 문서와 스키마로 갈라지는 경로</title>
+  <desc id="figDesc">데이터 질문만 지식 그래프로 가고, 시스템 질문은 문서 관련과 스키마 관련으로 한 번 더 갈라진다. 피드백과 불평은 어느 질의 경로도 타지 않고 별도 범주로 남는다.</desc>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <rect class="fill-tint" x="36" y="232" width="148" height="96" rx="10"/>
+  <text class="t m an-m" x="110.0" y="268.0" fill="#0f2c59">사용자 질문</text>
+  <text class="t s an-m" x="110.0" y="285.0" fill="#0f2c59">예상 밖 질문도</text>
+  <text class="t s an-m" x="110.0" y="302.0" fill="#0f2c59">함께 들어온다</text>
+  <rect class="fill-navy" x="214" y="232" width="152" height="96" rx="10"/>
+  <text class="t m an-m" x="290.0" y="276.5" fill="#ffffff">범주 분류</text>
+  <text class="t s an-m" x="290.0" y="293.5" fill="#ffffff">세 갈래</text>
+  <path class="arw-navy" d="M184 280L210 280"/>
+  <rect class="fill-ok" x="404" y="48" width="208" height="80" rx="10"/>
+  <text class="t m mono an-m" x="508.0" y="84.5" fill="#0f172a">Data-Related</text>
+  <text class="t xs an-m" x="508.0" y="101.5" fill="#0f172a">그래프 내용 자체를 묻는다</text>
+  <rect class="box" x="404" y="200" width="208" height="160" rx="10"/>
+  <text class="t m mono an-m" x="508.0" y="259.5" fill="#0f172a">System-Related</text>
+  <text class="t xs an-m" x="508.0" y="276.5" fill="#0f172a">시스템의 기능 · 구조 · 설계</text>
+  <text class="t xs an-m" x="508.0" y="293.5" fill="#0f172a">데이터가 아니라 문서에</text>
+  <text class="t xs an-m" x="508.0" y="310.5" fill="#0f172a">적혀 있어야 할 정보</text>
+  <rect class="fill-warn" x="404" y="432" width="208" height="80" rx="10"/>
+  <text class="t m mono an-m" x="508.0" y="468.5" fill="#b45309">Feedback/Complaints</text>
+  <text class="t xs an-m" x="508.0" y="485.5" fill="#b45309">시스템이 답할 수 없는 요청</text>
+  <path class="arw" d="M366 280L386 280L386 88L400 88"/>
+  <path class="arw" d="M366 280L386 280L386 280L400 280"/>
+  <path class="arw" d="M366 280L386 280L386 472L400 472"/>
+  <rect class="box" x="656" y="176" width="268" height="76" rx="10"/>
+  <text class="t m mono an-m" x="790.0" y="210.5" fill="#0f172a">Documentation-Related</text>
+  <text class="t xs an-m" x="790.0" y="227.5" fill="#0f172a">사용자 매뉴얼 · 도움말로 답한다</text>
+  <rect class="box" x="656" y="284" width="268" height="76" rx="10"/>
+  <text class="t m mono an-m" x="790.0" y="318.5" fill="#0f172a">Schema-Related</text>
+  <text class="t xs an-m" x="790.0" y="335.5" fill="#0f172a">그래프 구조 · 모델링 결정을 묻는다</text>
+  <path class="arw" d="M612 280L632 280L632 214L652 214"/>
+  <path class="arw" d="M612 280L632 280L632 322L652 322"/>
+  <rect class="fill-ok" x="656" y="48" width="268" height="80" rx="10"/>
+  <text class="t m an-m" x="790.0" y="84.5" fill="#0f172a">Cypher 생성 경로로</text>
+  <text class="t xs an-m" x="790.0" y="101.5" fill="#0f172a">이 장의 나머지가 다루는 갈래</text>
+  <path class="arw-navy" d="M612 88L652 88"/>
+  <rect class="fill-mute" x="656" y="432" width="268" height="80" rx="10"/>
+  <text class="t m an-m" x="790.0" y="468.5" fill="#475569">질의 경로를 타지 않는다</text>
+  <text class="t xs an-m" x="790.0" y="485.5" fill="#475569">개선 요청으로 적재한다</text>
+  <path class="arw" d="M612 472L652 472"/>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .h{font-size:17px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .lane{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.4}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-bad{stroke:#b91c1c;stroke-width:2.2;fill:none;marker-end:url(#ahb);stroke-dasharray:6 4}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+  <title id="figTitle">질문을 네 시각화 형식으로 보내는 판정 조건</title>
+  <desc id="figDesc">왼쪽 질문이 분류 프롬프트를 지나 네 형식 중 하나로 간다. 위 세 형식은 각자 명시적 조건을 만족할 때만 선택되고, 조건이 걸리지 않은 질문은 모두 graph로 떨어진다.</desc>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <rect class="fill-tint" x="36" y="236" width="150" height="84" rx="10"/>
+  <text class="t m an-m" x="111.0" y="274.5" fill="#0f2c59">사용자 질문</text>
+  <text class="t s an-m" x="111.0" y="291.5" fill="#0f2c59">자연어 한 문장</text>
+  <rect class="fill-navy" x="216" y="218" width="166" height="120" rx="10"/>
+  <text class="t m an-m" x="299.0" y="266.0" fill="#ffffff">분류 프롬프트</text>
+  <text class="t s an-m" x="299.0" y="283.0" fill="#ffffff">작업 정의 · 퓨샷</text>
+  <text class="t xs mono an-m" x="299.0" y="300.0" fill="#ffffff">JSON 한 줄 출력</text>
+  <path class="arw-navy" d="M186 278L212 278"/>
+  <rect class="box" x="432" y="44" width="226" height="76" rx="10"/>
+  <text class="t m mono an-m" x="545.0" y="78.5" fill="#0f172a">table</text>
+  <text class="t xs an-m" x="545.0" y="95.5" fill="#0f172a">집계 · 정렬 · 통계를 물을 때</text>
+  <path class="arw" d="M382 278L406 278L406 82L428 82"/>
+  <rect class="box" x="432" y="140" width="226" height="76" rx="10"/>
+  <text class="t m mono an-m" x="545.0" y="174.5" fill="#0f172a">chart</text>
+  <text class="t xs an-m" x="545.0" y="191.5" fill="#0f172a">분포를 그려 달라고 할 때</text>
+  <path class="arw" d="M382 278L406 278L406 178L428 178"/>
+  <rect class="box" x="432" y="236" width="226" height="76" rx="10"/>
+  <text class="t m mono an-m" x="545.0" y="270.5" fill="#0f172a">map</text>
+  <text class="t xs an-m" x="545.0" y="287.5" fill="#0f172a">위치 · 장소를 보여 달라 할 때</text>
+  <path class="arw" d="M382 278L406 278L406 274L428 274"/>
+  <rect class="fill-ok" x="432" y="352" width="226" height="76" rx="10"/>
+  <text class="t m mono an-m" x="545.0" y="386.5" fill="#0f172a">graph</text>
+  <text class="t xs an-m" x="545.0" y="403.5" fill="#0f172a">노드 · 관계 · 경로를 물을 때</text>
+  <path class="arw" d="M382 278L406 278L406 390L428 390"/>
+  <rect class="fill-warn" x="700" y="344" width="224" height="92" rx="10"/>
+  <text class="t m an-m" x="812.0" y="378.0" fill="#b45309">포괄 클래스</text>
+  <text class="t s an-m" x="812.0" y="395.0" fill="#b45309">조건이 걸리지 않은 질문</text>
+  <text class="t s an-m" x="812.0" y="412.0" fill="#b45309">전부 graph로 떨어진다</text>
+  <path class="arw-warn" d="M658 390L696 390"/>
+  <rect class="fill-tint" x="700" y="120" width="224" height="96" rx="10"/>
+  <text class="t m an-m" x="812.0" y="156.0" fill="#0f2c59">출력 형식</text>
+  <text class="t xs mono an-m" x="812.0" y="173.0" fill="#0f2c59">{&quot;type&quot;: ..., &quot;reason&quot;: ...}</text>
+  <text class="t xs an-m" x="812.0" y="190.0" fill="#0f2c59">뒤 프롬프트의 분기 조건</text>
+  <path class="tick" d="M658 82L678 82L678 168L696 168"/>
+  <path class="arw" d="M684 168L696 168"/>
+</svg>

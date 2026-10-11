@@ -533,7 +533,13 @@
       "title": "Chapter 6. 전략 연구 프레임워크"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-24-ch14/report.html"
+        }
+      ],
       "chapters": [
         "Chapter 14"
       ],
@@ -553,7 +559,7 @@
           "youtube_video_id": "cdqXKR73uLc"
         }
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 14. 자연어로 지식 그래프에 질문하기"
     },

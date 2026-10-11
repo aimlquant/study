@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .h{font-size:17px;font-weight:900}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .lane{fill:#f1f5f9;stroke:#cbd5e1;stroke-width:1.4}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-bad{stroke:#b91c1c;stroke-width:2.2;fill:none;marker-end:url(#ahb);stroke-dasharray:6 4}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+  <title id="figTitle">질의 결과가 캔버스와 텍스트 요약 두 갈래로 제시된다</title>
+  <desc id="figDesc">실행 결과 레코드가 두 갈래로 갈린다. 위쪽은 그대로 캔버스에 그려지고, 아래쪽은 요약 프롬프트를 지나 세 필드 JSON이 되어 텍스트 요약으로 붙는다. 두 갈래가 같은 화면에 나란히 놓인다.</desc>
+  <rect width="960" height="540" fill="#fafaf9"/>
+  <rect class="fill-mute" x="36" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="103.0" y="84.0" fill="#475569">의도 탐지</text>
+  <rect class="fill-mute" x="185" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="252.0" y="84.0" fill="#475569">스키마 추출</text>
+  <path class="tick" d="M169 79.0L182 79.0"/>
+  <rect class="fill-mute" x="334" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="401.0" y="84.0" fill="#475569">질의 생성</text>
+  <path class="tick" d="M318 79.0L331 79.0"/>
+  <rect class="fill-mute" x="483" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="550.0" y="84.0" fill="#475569">질의 실행</text>
+  <path class="tick" d="M467 79.0L480 79.0"/>
+  <rect class="fill-mute" x="632" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="699.0" y="84.0" fill="#475569">시각화</text>
+  <path class="tick" d="M616 79.0L629 79.0"/>
+  <rect class="fill-navy" x="781" y="48" width="134" height="62" rx="10"/>
+  <text class="t m an-m" x="848.0" y="84.0" fill="#ffffff">요약 생성</text>
+  <path class="tick" d="M765 79.0L778 79.0"/>
+  <path class="arw-navy" d="M848.0 110L848.0 146"/>
+  <rect class="fill-tint" x="30" y="218" width="190" height="96" rx="10"/>
+  <text class="t m an-m" x="125.0" y="254.0" fill="#0f2c59">실행 결과 레코드</text>
+  <text class="t s an-m" x="125.0" y="271.0" fill="#0f2c59">완전한 경로를 담아</text>
+  <text class="t xs an-m" x="125.0" y="288.0" fill="#0f2c59">무관한 데이터도 함께</text>
+  <rect class="box" x="268" y="146" width="250" height="80" rx="10"/>
+  <text class="t m an-m" x="393.0" y="182.5" fill="#0f172a">시각화 경로</text>
+  <text class="t s an-m" x="393.0" y="199.5" fill="#0f172a">노드 · 관계를 그대로 그린다</text>
+  <rect class="fill-navy" x="268" y="258" width="250" height="122" rx="10"/>
+  <text class="t m an-m" x="393.0" y="298.5" fill="#ffffff">요약 경로</text>
+  <text class="t s an-m" x="393.0" y="315.5" fill="#ffffff">질문 · 질의 · 결과 · 선택을</text>
+  <text class="t s an-m" x="393.0" y="332.5" fill="#ffffff">태그로 감싸 맥락 사슬을</text>
+  <text class="t s an-m" x="393.0" y="349.5" fill="#ffffff">다시 세운다</text>
+  <path class="arw-navy" d="M220 240L264 190"/>
+  <path class="arw-navy" d="M220 274L264 300"/>
+  <rect class="box" x="560" y="258" width="226" height="122" rx="10"/>
+  <text class="t m an-m" x="673.0" y="298.5" fill="#0f172a">출력 JSON</text>
+  <text class="t s mono an-m" x="673.0" y="315.5" fill="#0f172a">results_analysis</text>
+  <text class="t s mono an-m" x="673.0" y="332.5" fill="#0f172a">reasoning</text>
+  <text class="t s mono an-m" x="673.0" y="349.5" fill="#0f172a">summary</text>
+  <path class="arw-navy" d="M518 318L556 318"/>
+  <rect class="fill-ok" x="560" y="146" width="226" height="80" rx="10"/>
+  <text class="t m an-m" x="673.0" y="182.5" fill="#0f172a">대화형 캔버스</text>
+  <text class="t s an-m" x="673.0" y="199.5" fill="#0f172a">관계와 구조를 탐색한다</text>
+  <path class="arw-navy" d="M518 186L556 186"/>
+  <rect class="fill-ok" x="826" y="146" width="104" height="234" rx="10"/>
+  <text class="t m an-m" x="878.0" y="242.5" fill="#0f172a">분석가</text>
+  <text class="t m an-m" x="878.0" y="259.5" fill="#0f172a">화면</text>
+  <text class="t s an-m" x="878.0" y="276.5" fill="#0f172a">나란히</text>
+  <text class="t s an-m" x="878.0" y="293.5" fill="#0f172a">제시</text>
+  <path class="arw" d="M786 186L822 210"/>
+  <path class="arw" d="M786 318L822 300"/>
+  <rect class="fill-warn" x="268" y="414" width="518" height="38" rx="7"/>
+  <text class="t m an-m" x="527.0" y="437.0" fill="#b45309">요약이 캔버스에 보이는 것을 되풀이하지 않게 한다</text>
+  <path class="tick" d="M527 384L527 410"/>
+</svg>
