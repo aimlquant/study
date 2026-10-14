@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "97175a7c34e6bc5aab05b23e851c4b743795362387dcdfb4ab2609bd1672f9ba",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_05_synthetic_financial_data/05_chapter_05_synthetic_financial_data.md",
+      "sha256": "f0ed9478d2fca2053f896d10a2ab59f12f4b4acfe00fd3b1c4de7c56b6706fb5"
+    },
+    {
+      "role": "outline",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_05_synthetic_financial_data/05_chapter_05_synthetic_financial_data_ko_explained_update_codex_simplified.md",
+      "sha256": "ebee8496d69e2153ea409d511e4835de2481a8e8a1db6d23b560a42905baea49"
+    }
+  ],
+  "sections": [
+    {
+      "ref": "5.1",
+      "report_id": "source-5-1",
+      "explanation": "한 번 실현된 역사와 선택 인플레이션을 세우고, 베이즈 사후분포·디플레이티드 샤프의 한계, 네 정형화된 사실, 합성 데이터의 세 역할과 생성기 과적합 방어를 설명한다. 💡 상자의 급락 직전 매도·규칙 반복 시험·손절 기준 조정 예시를 본문에 통합했다.",
+      "evidence": "그림 2(10회 1.57, 100회 2.5 초과), Primer 노트의 Beta(10,10)→Beta(29,21) 사후 평균 58%, 표 3의 네 정형화된 사실.",
+      "limits": "Bailey 수치는 독립성·정규오차 근사다. 통계적 보정은 새 시장 이력을 만들지 못하고 합성 데이터도 선택 편향을 없애지 않는다.",
+      "visuals": "그림 2(선택 인플레이션), 표 3(정형화된 사실). 그림 1은 장 도입부에 둔다."
+    },
+    {
+      "ref": "5.2",
+      "report_id": "source-5-2",
+      "explanation": "충실도·효용·프라이버시 세 축과 TSTR/TRTR 비율 해석, 누출 진단과 DP-SGD, 고유 실패 셋, 최소 보고 항목 넷을 원문 소절 순서로 설명한다.",
+      "evidence": "그림 3(세 축), TSTR 오차 비율 수식과 12÷10=1.2 계산 예, 표 4(고유 실패), 표 5(최소 보고 항목), 정형화된 사실 Primer 노트.",
+      "limits": "1보다 작은 비율은 누출·목표 단순화·좁은 평가 설계일 수 있다. 오차 비율과 점수 비율의 방향을 밝혀야 한다. 단일 점수는 없다.",
+      "visuals": "그림 3, 표 4, 표 5."
+    },
+    {
+      "ref": "5.3",
+      "report_id": "source-5-3",
+      "explanation": "부트스트랩 세 기법과 다섯 모수적 모델(GBM, 점프-확산, OU, Heston, GARCH)의 식과 기호를 풀고, 두 계열의 반대 방향 한계와 기준선 사용법을 설명한다.",
+      "evidence": "그림 4(세 부트스트랩), 그림 5(원문 그림 5.1 재구성), 표 6(모델 비교), 공동 재표집·ACF/PACF Primer 노트, 블록 길이 약 22거래일.",
+      "limits": "부트스트랩은 관측하지 않은 값을 만들지 못하고 모수적 모델은 가정한 동학 밖을 만들지 못한다. 그림 5의 곡선은 개념적 모양이다.",
+      "visuals": "그림 4, 그림 5, 표 6."
+    },
+    {
+      "ref": "5.4",
+      "report_id": "source-5-4",
+      "explanation": "판별 모델과 생성 모델의 차이, 조용한 실패, 네 생성 계열의 학습 목적·표본추출·강점·실패, 목적함수 정렬과 선택 질문 셋을 설명한다.",
+      "evidence": "그림 6(원문 그림 5.2와 비교표 재구성).",
+      "limits": "어떤 생성기도 보편적으로 최고가 아니며 후속 의사결정·기준선 대비 경쟁력·프라이버시 제약으로 고른다.",
+      "visuals": "그림 6."
+    },
+    {
+      "ref": "5.5",
+      "report_id": "source-5-5",
+      "explanation": "GAN 공통 루프와 바닐라 GAN의 꼬리 과소 생성, TimeGAN·Tail-GAN·Sig-CWGAN·GT-GAN의 구조와 구현 실험 결과, 공통 운영 위험을 설명한다.",
+      "evidence": "그림 7(원문 그림 5.3), 그림 8(원문 그림 5.4), 그림 9(Sig-W1 0.054/0.42, TSTR 0.954, 제곱 ACF 0.49→0.05), 표 7, TimeGAN 68%·AUC 0.87·TSTR 1.76, Tail-GAN VaR 13%·ES 11%·-10.33 대 -9.13, GT-GAN MSE 0.026·평활도 0.02, 꼬리 추정 Primer 노트.",
+      "limits": "구현 수치는 각 실험 조건에 한정된다. Tail-GAN 제약은 학습 포트폴리오에, GT-GAN 결과는 446개 바 시연에 한정된다. 주변분포 통과는 필요조건일 뿐이다.",
+      "visuals": "그림 7, 그림 8, 그림 9, 표 7."
+    },
+    {
+      "ref": "5.6",
+      "report_id": "source-5-6",
+      "explanation": "DDPM 순방향·역방향 식, 잡음 예측 목적함수, 금융 수익률 적합성, 국면 조건부 생성과 유도 강도, 국면 레이블 오류와 인과 해석 경계, Diffusion-TS 분해와 공통 과제, GAN과의 선택 기준을 설명한다.",
+      "evidence": "그림 10(원문 그림 5.5), 그림 11(원문 그림 5.6, 0.0111/0.0203 대 0.0104/0.0220, 2.1배), Diffusion-TS KS 0.06·상관 0.04·ACF 0.05·0.93배/1.08배, 분산 약 1/3 과소, DDIM 50–100단계, 인과 Primer 노트.",
+      "limits": "조건부 경로는 모델 기반 시나리오이며 인과적 스트레스 효과의 증명이 아니다. 분해는 경제적 의미를 자동 부여하지 않는다. 장난감 수치로 모델 순위를 매기지 않는다.",
+      "visuals": "그림 10, 그림 11."
+    },
+    {
+      "ref": "5.7",
+      "report_id": "source-5-7",
+      "explanation": "직렬화와 파싱, GReaT 세 단계, 금융 응용과 point-in-time 조건, 네 가지 실패와 유형·범위·논리 제약 계층, 거부율, ETF 실험의 효용·충실도 간극을 설명한다.",
+      "evidence": "표 8(원문 표 5.1), 표 9(AUC 0.70 대 0.74·원문 92%, KS 0.10과 0.30–0.59, 범주 비중 94/45·69/36·10/28·1/7), distilgpt2·RTX 3090 약 13분·600개 시험 표본.",
+      "limits": "두 AUC의 단순 비는 약 0.95로 원문 92%와 다르므로 둘 다 기록했다. 효용이 보존돼도 분포 충실도는 크게 왜곡될 수 있다.",
+      "visuals": "표 8, 표 9."
+    },
+    {
+      "ref": "5.8",
+      "report_id": "source-5-8",
+      "explanation": "Diffusion-TS 결과를 충실도·효용·프라이버시로 나눠 읽고, 차등 프라이버시와 DP-GAN 예산 절충, 외관으로 프라이버시를 추론할 수 없다는 교훈을 설명한다.",
+      "evidence": "표 10(원문 표 5.2), 그림 12(평균 절대 차이 8.02·2.40·2.67·1.68), Diffusion-TS 세 충실도 수치.",
+      "limits": "ε 5–10은 이 예시의 절충 구간이며 실제 임계값은 데이터 민감도·규제·용도가 정한다. 충실도·효용은 프라이버시를 증명하지 않는다.",
+      "visuals": "표 10, 그림 12."
+    },
+    {
+      "ref": "5.9",
+      "report_id": "source-5-9",
+      "explanation": "근본 제약, 엄격한 벤치마킹과 고전적 기준선, 세 축 평가·고유 실패 점검·실제 홀드아웃 확인의 순서를 정리한다.",
+      "evidence": "앞 절의 표·그림을 요약 문장으로 다시 연결한다.",
+      "limits": "합성 데이터는 실제 홀드아웃을 대신하지 않는다.",
+      "visuals": "새 시각자료 없음 — 요약 절이므로 앞 절 자산을 참조한다."
+    }
+  ]
+}

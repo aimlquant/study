@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 50 1010 236" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+  </style>
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker></defs>
+  <title id="t">네 생성 계열의 학습 목적 표본추출 강점 대표 실패 비교</title>
+  <desc id="d">GAN은 적대적 미니맥스를 한 번의 순전파로, VAE는 재구성과 잠재 정규화를, 확산 모델은 잡음 제거를 반복으로, LLM은 다음 토큰 예측을 자기회귀로 푼다. 각자 실패 방식이 다르다.</desc>
+  <rect x="0" y="0" width="960" height="350" fill="#FAFAF9"/>
+  <rect class="box" x="36" y="64" width="212" height="208"/>
+  <rect class="chip" x="56" y="80" width="172" height="26"/>
+  <text class="t s an-m inv" x="142" y="99">GAN</text>
+  <text class="t xs an-m" x="142" y="134">적대적 미니맥스 게임</text>
+  <text class="t xs an-m" x="142" y="160">한 번의 순전파</text>
+  <text class="t xs an-m" x="142" y="196">선명하고 충실한 표본</text>
+  <text class="t xs an-m" x="142" y="240">모드 붕괴, 불안정성</text>
+
+  <rect class="box" x="264" y="64" width="212" height="208"/>
+  <rect class="chip" x="284" y="80" width="172" height="26"/>
+  <text class="t s an-m inv" x="370" y="99">VAE</text>
+  <text class="t xs an-m" x="370" y="134">재구성 + 잠재 정규화</text>
+  <text class="t xs an-m" x="370" y="160">잠재변수에서 한 번에</text>
+  <text class="t xs an-m" x="370" y="196">구조화된 잠재공간</text>
+  <text class="t xs an-m" x="370" y="240">과도한 평활화</text>
+
+  <rect class="boxa" x="492" y="64" width="212" height="208"/>
+  <rect class="chip" x="512" y="80" width="172" height="26"/>
+  <text class="t s an-m inv" x="598" y="99">확산 모델</text>
+  <text class="t xs an-m" x="598" y="134">잡음 제거</text>
+  <text class="t xs an-m" x="598" y="160">여러 단계 반복 개선</text>
+  <text class="t xs an-m" x="598" y="196">모드 포괄, 안정적 학습</text>
+  <text class="t xs an-m" x="598" y="240">느린 표본추출</text>
+
+  <rect class="boxw" x="720" y="64" width="212" height="208"/>
+  <rect class="chipw" x="740" y="80" width="172" height="26"/>
+  <text class="t s an-m inv" x="826" y="99">LLM</text>
+  <text class="t xs an-m" x="826" y="134">다음 토큰 예측</text>
+  <text class="t xs an-m" x="826" y="160">자기회귀적 디코딩</text>
+  <text class="t xs an-m" x="826" y="196">혼합 데이터 처리</text>
+  <text class="t xs an-m" x="826" y="240">직렬화 부담</text>
+
+  <text class="t xs an-e" x="30" y="138">학습 목적</text>
+  <text class="t xs an-e" x="30" y="164">표본추출</text>
+  <text class="t xs an-e" x="30" y="200">강점</text>
+  <text class="t xs an-e" x="30" y="244">대표 실패</text>
+
+</svg>

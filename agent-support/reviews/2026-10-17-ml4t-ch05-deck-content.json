@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "97175a7c34e6bc5aab05b23e851c4b743795362387dcdfb4ab2609bd1672f9ba",
+  "deck_sha256": "b1ae912b7d1db4c36a1c2b220740c18420e14bc953b6df84a5547a48565fa538",
+  "units": [
+    {
+      "question": "이 장은 한 경로뿐인 역사를 무엇으로 보완하고, 무엇으로 판단하며, 무엇을 대신하지 못하는가?",
+      "explanation": "표지·핵심 질문·전체 논리·확인 질문·마무리가 리포트 핵심 요약과 표 1의 질문 구조를 따른다.",
+      "evidence": "핵심 요약, 표 1, 각 절 요약.",
+      "conditions": "합성 데이터는 의사결정 지원 도구이며 실제 홀드아웃을 대신하지 않는다는 경계를 마무리까지 유지한다.",
+      "report_refs": [
+        "source-5-2",
+        "source-5-5",
+        "source-5-8",
+        "source-5-9",
+        "summary",
+        "table-overview"
+      ],
+      "slide_ids": [
+        "s-cover",
+        "s-question",
+        "s-map",
+        "s-check",
+        "s-closing"
+      ]
+    },
+    {
+      "question": "합성·시뮬레이션·생성 시나리오는 어떻게 다르고 왜 강건성 평가가 목적인가?",
+      "explanation": "그림 1과 표 2로 세 종류의 인공 표본을 구분하고 학습 목표 다섯을 제시한다.",
+      "evidence": "그림 1, 표 2, 장 도입 본문.",
+      "conditions": "그림 1의 경로는 설명용이며 최종 평가는 실제 표본외 데이터에서 한다.",
+      "report_refs": [
+        "chapter-intro",
+        "fig-one-path",
+        "intro-objectives",
+        "table-data-kinds"
+      ],
+      "slide_ids": [
+        "s-intro-divider",
+        "s-intro-path",
+        "s-intro-kinds",
+        "s-intro-goal",
+        "s-intro-objectives"
+      ]
+    },
+    {
+      "question": "한 번 실현된 역사로 전략을 검증하면 무엇이 과장되는가?",
+      "explanation": "탐색 공간과 선택 인플레이션, 베이즈 사후분포, 디플레이티드 샤프의 한계, 정형화된 사실, 세 역할과 생성기 과적합 방어를 차례로 다룬다.",
+      "evidence": "그림 2, 표 3, Primer 노트.",
+      "conditions": "Bailey 수치는 근사이며 통계적 보정은 새 시장 이력을 만들지 못한다.",
+      "report_refs": [
+        "fig-selection-inflation",
+        "primer-bayes",
+        "s51-multiple-testing",
+        "s51-simulation-infra",
+        "source-5-1",
+        "table-stylized-facts"
+      ],
+      "slide_ids": [
+        "s-51-divider",
+        "s-51-history",
+        "s-51-search",
+        "s-51-inflation",
+        "s-51-bayes",
+        "s-51-dsr",
+        "s-51-stylized",
+        "s-51-structures",
+        "s-51-roles",
+        "s-51-guard"
+      ]
+    },
+    {
+      "question": "합성 데이터를 어떤 세 축과 보고 항목으로 평가하는가?",
+      "explanation": "충실도 세 층, TSTR 절차와 비율 해석, 누출 진단과 DP-SGD, 고유 실패, 최소 보고 항목을 원문 소절 순서로 다룬다.",
+      "evidence": "그림 3, 표 4, 표 5, TSTR 수식.",
+      "conditions": "1보다 작은 TSTR 비율은 누출을 먼저 의심한다. 단일 점수는 없다.",
+      "report_refs": [
+        "fig-fup-axes",
+        "primer-stylized-facts",
+        "s52-checklist",
+        "s52-failures",
+        "s52-fidelity",
+        "s52-privacy",
+        "s52-utility",
+        "source-5-2",
+        "table-checklist",
+        "table-unique-failures"
+      ],
+      "slide_ids": [
+        "s-52-divider",
+        "s-52-axes",
+        "s-52-why",
+        "s-52-fidelity",
+        "s-52-primer-sf",
+        "s-52-tstr",
+        "s-52-ratio",
+        "s-52-privacy",
+        "s-52-failures",
+        "s-52-checklist"
+      ]
+    },
+    {
+      "question": "복잡한 생성기를 판단할 고전적 기준선은 무엇이고 어떤 한계가 있는가?",
+      "explanation": "부트스트랩 세 기법과 다섯 모수적 모델의 식·기호·한계를 다룬다.",
+      "evidence": "그림 4, 그림 5, 표 6, Primer 노트.",
+      "conditions": "그림 5는 개념적 재구성이며 실제 시뮬레이션 값이 아니다.",
+      "report_refs": [
+        "fig-bootstrap-three",
+        "fig-parametric-models",
+        "primer-acf",
+        "primer-bootstrap",
+        "s53-bootstrap",
+        "s53-garch",
+        "s53-gbm",
+        "s53-heston",
+        "s53-jump",
+        "s53-limits",
+        "s53-ou",
+        "s53-parametric",
+        "source-5-3",
+        "table-parametric"
+      ],
+      "slide_ids": [
+        "s-53-divider",
+        "s-53-families",
+        "s-53-bootstrap-core",
+        "s-53-bootstrap-fig",
+        "s-53-bootstrap-three",
+        "s-53-bootstrap-primer",
+        "s-53-sde",
+        "s-53-fig51",
+        "s-53-gbm-jump",
+        "s-53-ou-heston",
+        "s-53-garch",
+        "s-53-table",
+        "s-53-limits"
+      ]
+    },
+    {
+      "question": "학습된 생성기는 무엇을 학습하고 어떻게 실패하는가?",
+      "explanation": "판별·생성 모델 구분과 네 계열 비교, 선택 질문을 다룬다.",
+      "evidence": "그림 6.",
+      "conditions": "보편적 최고 모델은 없다.",
+      "report_refs": [
+        "fig-generator-families",
+        "source-5-4"
+      ],
+      "slide_ids": [
+        "s-54-divider",
+        "s-54-generative",
+        "s-54-fig52",
+        "s-54-four",
+        "s-54-choose"
+      ]
+    },
+    {
+      "question": "GAN을 금융 시계열의 어떤 결함에 맞춰 변형하는가?",
+      "explanation": "공통 루프, 네 변형의 구조와 실험 수치, 공통 운영 위험을 다룬다.",
+      "evidence": "그림 7, 그림 8, 그림 9, 표 7, 꼬리 추정 Primer.",
+      "conditions": "각 수치는 해당 구현 실험 조건에 한정된다. Sig-CWGAN은 효용이 좋아도 변동성 군집을 잃었다.",
+      "report_refs": [
+        "fig-gan-loop",
+        "fig-sigcwgan-paradox",
+        "fig-timegan-overlap",
+        "primer-tail-risk",
+        "s55-challenges",
+        "s55-gtgan",
+        "s55-sigcwgan",
+        "s55-tailgan",
+        "s55-tailgan-portfolio",
+        "s55-tailgan-when",
+        "s55-timegan",
+        "s55-timegan-arch",
+        "s55-timegan-data",
+        "s55-timegan-train",
+        "s55-timegan-when",
+        "source-5-5",
+        "table-gan-variants"
+      ],
+      "slide_ids": [
+        "s-55-divider",
+        "s-55-basics",
+        "s-55-fig53",
+        "s-55-variants",
+        "s-55-timegan",
+        "s-55-timegan-use",
+        "s-55-fig54",
+        "s-55-timegan-read",
+        "s-55-tailgan",
+        "s-55-tailgan-result",
+        "s-55-tail-primer",
+        "s-55-signature",
+        "s-55-sig-cost",
+        "s-55-sig-fig",
+        "s-55-gtgan",
+        "s-55-gtgan-result",
+        "s-55-challenges",
+        "s-55-table"
+      ]
+    },
+    {
+      "question": "확산 모델은 어떻게 학습·생성하며 조건부 생성의 경계는 무엇인가?",
+      "explanation": "순방향·역방향 식, DDPM 목적함수, 국면 조건부 생성, Diffusion-TS 분해·과제·결과, GAN과의 선택을 다룬다.",
+      "evidence": "그림 10, 그림 11, Diffusion-TS 수치, 인과 Primer.",
+      "conditions": "조건부 경로는 인과적 스트레스 효과의 증명이 아니다.",
+      "report_refs": [
+        "fig-diffusion-loop",
+        "fig-regime-paths",
+        "primer-causality",
+        "s56-conditional",
+        "s56-diffusion-ts",
+        "s56-framework",
+        "s56-gan-vs-diffusion",
+        "s56-why",
+        "source-5-6"
+      ],
+      "slide_ids": [
+        "s-56-divider",
+        "s-56-fig55",
+        "s-56-steps",
+        "s-56-framework",
+        "s-56-ddpm",
+        "s-56-conditional",
+        "s-56-fig56",
+        "s-56-regime-caveat",
+        "s-56-diffts",
+        "s-56-diffts-issues",
+        "s-56-gan-vs-diff"
+      ]
+    },
+    {
+      "question": "표 형식 금융 데이터를 LLM으로 만들 때 무엇을 검사해야 하는가?",
+      "explanation": "직렬화, GReaT 세 단계, 금융 응용, 실패와 제약 계층, 실험 결과와 간극을 다룬다.",
+      "evidence": "표 8, 표 9.",
+      "conditions": "원문 92%와 AUC 단순 비 0.95의 차이를 함께 적는다.",
+      "report_refs": [
+        "s57-applications",
+        "s57-great",
+        "s57-risks",
+        "source-5-7",
+        "table-credit-row",
+        "table-llm-results"
+      ],
+      "slide_ids": [
+        "s-57-divider",
+        "s-57-serialize",
+        "s-57-great",
+        "s-57-apps",
+        "s-57-risks",
+        "s-57-result",
+        "s-57-gap"
+      ]
+    },
+    {
+      "question": "충실도·효용 결과를 프라이버시와 어떻게 분리해 읽는가?",
+      "explanation": "Diffusion-TS 결과 읽기, DP 예산 표와 그림, 외관 기반 추론의 위험을 다룬다.",
+      "evidence": "표 10, 그림 12.",
+      "conditions": "ε 5–10은 예시의 절충 구간일 뿐이다.",
+      "report_refs": [
+        "fig-dp-tradeoff",
+        "s58-diffusion-ts",
+        "s58-dp-gan",
+        "source-5-8",
+        "table-dp-tradeoff"
+      ],
+      "slide_ids": [
+        "s-58-divider",
+        "s-58-diffts",
+        "s-58-dp",
+        "s-58-dp-fig",
+        "s-58-lesson"
+      ]
+    },
+    {
+      "question": "이 장의 결론은 무엇인가?",
+      "explanation": "근본 제약, 벤치마킹, 세 축 평가와 실제 홀드아웃 확인을 정리한다.",
+      "evidence": "5.9절 본문.",
+      "conditions": "실제 홀드아웃이 최종 판단 근거다.",
+      "report_refs": [
+        "source-5-9"
+      ],
+      "slide_ids": [
+        "s-59-divider",
+        "s-59-summary"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-report-template="study-report-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="머신러닝 트레이딩 Chapter 5 합성 금융 데이터 상세 스터디 리포트">
+  <title>합성 금융 데이터 &middot; 상세 리포트</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/report.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#summary">리포트 본문으로 건너뛰기</a>
+  <button id="tocToggle" class="report-nav-toggle" type="button" aria-label="목차 열기" aria-controls="tocDrawer" aria-expanded="false" title="목차"><span aria-hidden="true">&#9776;</span></button>
+  <div class="report-settings" aria-label="설정">
+    <button id="settingsToggle" class="report-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="report-settings-panel" aria-hidden="true">
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">화면</span><button id="themeToggle" type="button" onclick="cycleTheme()" aria-label="나이트 모드 전환">&#9728;</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">출력</span><button class="report-settings-action" type="button" onclick="window.print()">Print / PDF</button></div>
+      <div class="report-settings-panel__group"><span class="report-settings-panel__label">이동</span><nav class="report-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="report.html">Report</a><a href="./">Slides</a></nav></div>
+    </div>
+  </div>
+  <div id="tocBackdrop" class="report-toc-backdrop" hidden></div>
+  <nav id="tocDrawer" class="report-toc-drawer" aria-label="문서 목차" aria-hidden="true">
+    <div class="report-toc-drawer__head"><span>목차</span><button id="tocClose" type="button" aria-label="목차 닫기">&times;</button></div>
+    <ol id="tocDrawerList" class="report-toc-drawer__list"></ol>
+  </nav>
+
+  <article class="report continuous-mode">
+    <section class="report-cover">
+      <div class="report-cover__wordmark"><span class="report-cover__wordmark-name">AIML Quant</span><span class="report-cover__wordmark-sub">머신러닝 트레이딩</span></div>
+      <span class="report-cover__kicker">Study Report &middot; Chapter 5</span>
+      <h1 class="report-cover__title">합성 금융 데이터</h1>
+      <p class="report-cover__subtitle">한 번뿐인 시장 역사를 여러 대안 경로로 넓히고, 그 경로를 충실도·효용·프라이버시로 검증하기</p>
+      <dl class="report-cover__meta">
+        <div><dt>발표자</dt><dd>태호</dd></div>
+        <div><dt>범위</dt><dd>Chapter 5</dd></div>
+        <div><dt>발행</dt><dd>2026-10-17</dd></div>
+      </dl>
+    </section>
+
+    <section class="report-section s0 page-break" id="summary">
+      <div class="report-section__kicker">Section 00 &middot; Executive Summary</div>
+      <h1>0. 핵심 요약</h1>
+      <div class="callout--hero"><span class="callout__kicker">One Sentence</span><span class="callout__body">실제로 관측한 시장 기록은 하나뿐이므로, 그 기록의 핵심 특징을 보존하는 생성 모델로 대안 경로를 만들어 전략의 <strong>강건성</strong>을 넓게 시험한다. 다만 생성기 자체도 <strong>충실도·효용·프라이버시</strong>로 따로 검증해야 하고, 최종 판단은 여전히 <strong>실제 홀드아웃</strong>에서 내린다.</span></div>
+      <p>이 장의 출발점은 단순하다. 백테스트에 쓰는 과거 기록은 가능한 시장 결과 가운데 한 경로일 뿐이고, 그 경로에 위기나 국면 전환이 몇 번밖에 없으면 전략 평가도 그 몇 번에 묶인다. 연구자가 결과를 보며 규칙을 계속 바꾸면 문제가 커진다. 실제 샤프 비율이 모두 0인 구성 10개를 검정해도 기대 최대 표본 내 샤프 비율은 1.57이고, 100회 시행하면 2.5를 넘는다. 디플레이티드 샤프 비율 같은 통계적 보정은 이 선택 효과를 추론에 반영하지만, 전략을 더 시험할 새로운 시장 이력을 만들어 주지는 못한다.</p>
+      <p>합성 데이터는 그 빈자리를 채우는 도구다. 관측 데이터에 생성 모델을 적합해 통계적으로 일관된 대안 경로를 뽑으면, 전략 성과를 점추정치 하나가 아니라 분포로 볼 수 있다. 대신 생성기의 귀납적 편향이 모델링 스택에 새로 들어온다. 그래서 이 장은 생성기를 소개하기 전에 평가 틀을 먼저 세우고, 고전적 시뮬레이션을 기준선으로 둔 뒤, GAN·확산 모델·LLM 표 생성기를 같은 틀로 평가한다.</p>
+      <div class="section-summary"><div class="section-summary__kicker">핵심 질문</div><div class="section-summary__body"><ul>
+        <li><strong>무엇을 보완하는가</strong> &mdash; 한 경로뿐인 역사의 검정력 부족이다. 목적은 미래 예측이 아니라 강건성 평가다.</li>
+        <li><strong>무엇으로 판단하는가</strong> &mdash; 충실도(실제처럼 만들었는가), 효용(실제 업무에 도움이 되는가), 프라이버시(원본의 민감한 정보가 새지 않는가)를 따로 묻는다.</li>
+        <li><strong>무엇을 대신하지 못하는가</strong> &mdash; 실제 홀드아웃이다. 생성기는 대체로 학습 분포 안을 보간하므로 학습 국면 밖 사건의 증거가 되지 못한다.</li>
+      </ul></div></div>
+      <table class="cmp-table" id="table-overview">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 1</span><span class="asset-caption__title">장의 전체 논리 &mdash; 절마다 답하는 질문</span></div></caption>
+        <thead><tr><th>절</th><th>답하는 질문</th><th>핵심 장치</th><th>남는 판단</th></tr></thead>
+        <tbody>
+          <tr><td>5.1</td><td>한 경로로 검증하면 무엇이 문제인가</td><td>선택 인플레이션, 정형화된 사실, 합성 데이터의 세 역할</td><td>통계적 보정은 새 시장 이력을 만들지 못한다</td></tr>
+          <tr><td>5.2</td><td>합성 데이터를 무엇으로 평가하는가</td><td>충실도·효용·프라이버시, TSTR 대 TRTR, 최소 보고 항목</td><td>검증 프로토콜이 아키텍처보다 중요할 때가 많다</td></tr>
+          <tr><td>5.3</td><td>복잡한 생성기를 무엇과 비교하는가</td><td>부트스트랩 세 기법, 모수적 모델 다섯</td><td>한계가 눈에 보이는 기준선이 비교 기준이 된다</td></tr>
+          <tr><td>5.4</td><td>학습된 생성기는 무엇이 다른가</td><td>GAN·VAE·확산 모델·LLM의 학습 목적과 표본추출</td><td>유연한 만큼 조용히 실패할 수 있다</td></tr>
+          <tr><td>5.5</td><td>GAN을 금융 시계열에 어떻게 맞추는가</td><td>TimeGAN, Tail-GAN, Sig-CWGAN, GT-GAN</td><td>변형마다 겨냥한 결함과 평가 대상이 다르다</td></tr>
+          <tr><td>5.6</td><td>확산 모델은 무엇을 더하는가</td><td>DDPM, 조건부 생성, Diffusion-TS</td><td>학습 안정성과 조건부 생성을 생성 속도와 맞바꾼다</td></tr>
+          <tr><td>5.7</td><td>표 형식 금융 데이터는 어떻게 만드는가</td><td>직렬화, GReaT, 제약 계층</td><td>문장으로 그럴듯한 행이 유효한 금융 레코드는 아니다</td></tr>
+          <tr><td>5.8</td><td>결과를 어떻게 읽는가</td><td>Diffusion-TS 기준 실행, DP-GAN 예산 절충</td><td>충실도와 효용은 프라이버시를 증명하지 않는다</td></tr>
+          <tr><td>5.9</td><td>무엇을 남기는가</td><td>세 축 평가, 고유 실패 점검, 실제 홀드아웃</td><td>결론은 보류한 실제 데이터에서 확인한다</td></tr>
+        </tbody>
+      </table>
+      <p class="source-note">이 요약과 <a class="asset-ref" href="#table-overview">표 1</a>은 원문 5장의 절 구성을 바탕으로 이 리포트가 정리한 학습 지도다.</p>
+    </section>
+
+    <section class="report-section s0b page-break" id="chapter-intro">
+      <div class="report-section__kicker">Introduction &middot; 장 도입</div>
+      <h1>장 도입 &mdash; 한 경로뿐인 역사를 보강하는 세 종류의 인공 표본</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 부분이 남기는 것</div><div class="section-summary__body"><ul>
+        <li>관측한 역사는 가능한 시장 결과 가운데 <strong>단 하나의 경로</strong>다</li>
+        <li>합성 데이터·시뮬레이션 데이터·생성 시나리오는 만드는 방식이 다르지만 강건성 평가라는 목적은 같다</li>
+        <li>합성 데이터는 역사적 증거의 대체물이 아니라 <strong>의사결정 지원 도구</strong>다</li>
+      </ul></div></div>
+      <p>정량 전략은 모두 과거 데이터에 기대지만, 우리가 실제로 관측한 역사는 가능한 시장 결과 가운데 단 하나의 경로다. 여기서 <strong>경로</strong>는 날짜순으로 이어진 가격이나 수익률 기록을 말한다. 2010–2025년 표본에서 백테스트가 안정적인 관계를 보여도, 그 시기의 경로가 전략 가정과 매개변수 선택에 우연히 유리해서 강해 보였을 수 있다. ETF를 사서 보유하는 전략이 지난 급락을 잘 넘겼다고 해 보자. 급락이 매수 직후에 왔다면 결과가 달랐을 수 있다. 이처럼 기록의 진행 순서가 달라져도 전략이 크게 무너지지 않는 성질이 <strong>강건성</strong>이다.</p>
+      <p>이를 보완하는 한 방법은 관측 데이터에 적합한 생성 모델에서 통계적으로 일관된 시장 경로를 추가로 표본추출하는 것이다. <a class="asset-ref" href="#fig-one-path">그림 1</a>은 이 확장을 한 장으로 보여 준다.</p>
+      <figure class="report-figure" id="fig-one-path" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">관측한 한 경로를 생성 모델의 경로 분포로 넓히기</span></figcaption>
+        <img src="assets/figs/fig-one-path.svg" alt="왼쪽 상자에 실제로 관측한 가격 경로 하나와 그 아래 성과 점추정치 하나가 있고, 적합 화살표를 지나 오른쪽 상자에 같은 생성 모델에서 뽑은 여러 대안 경로와 성과의 분포가 놓인 개념도">
+        <small class="asset-note">왼쪽이 실제로 가진 기록 전부이고, 오른쪽이 그 기록에 적합한 생성 모델에서 추가로 뽑은 궤적이다. 경로 모양은 설명용이며 실제 데이터가 아니다. 원문 장 도입부와 &sect;5.1의 서술을 바탕으로 다시 그린 개념도다.</small>
+      </figure>
+      <p>이렇게 얻은 데이터를 부르는 이름은 만드는 방식에 따라 세 가지로 나뉜다. <a class="asset-ref" href="#table-data-kinds">표 2</a>처럼 구분하되, 세 종류 모두 한 번만 실현된 역사를 추가 표본으로 보강해 강건성을 평가한다는 목적을 공유한다.</p>
+      <table class="cmp-table" id="table-data-kinds">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 2</span><span class="asset-caption__title">합성 데이터·시뮬레이션 데이터·생성 시나리오의 구분</span></div></caption>
+        <thead><tr><th>이름</th><th>만드는 방식</th><th>투자 현장의 예</th></tr></thead>
+        <tbody>
+          <tr><td>합성 데이터 (synthetic data)</td><td>관측 데이터의 경험적 결합분포를 학습한 모델에서 뽑되, 시간·자산·시장 국면에 걸친 주변 행동과 의존 구조를 보존하도록 만든다</td><td>실제 주가의 특징을 배운 모델로 새 가격 기록을 만든다</td></tr>
+          <tr><td>시뮬레이션 데이터 (simulated data)</td><td>가정한 확률 과정에 따른 모수적 몬테카를로 결과다</td><td>정해 놓은 가격 변화 공식을 반복 계산해 기록을 만든다</td></tr>
+          <tr><td>생성 시나리오 (generated scenarios)</td><td>특정 국면이나 상태를 조건으로 뽑은 표본이다</td><td>&lsquo;등락이 큰 장세&rsquo;라는 조건을 붙여 기록을 만든다</td></tr>
+        </tbody>
+      </table>
+      <p>목표는 미래를 맞히는 것이 아니라 <strong>강건성을 평가하는 것</strong>이다. 생성 경로가 금융 시계열의 핵심 특성을 재현한다면 전략 성과를 하나의 점추정치가 아니라 학습된 모델 아래의 분포로 살펴볼 수 있고, 실제 학습 표본을 보강해 모델 개발에도 쓸 수 있다. 같은 매매 규칙을 서로 다른 모의 주가 기록에 적용해 수익이 나는 경우뿐 아니라 큰 손실이 나는 경우도 살펴보는 식이다. 이렇게 얻는 여러 성과가 곧 성과의 분포다. 다만 최종 성과 평가는 모델이 보지 못한 실제 시장 기록, 즉 표본외 데이터에서 해야 하며, 생성기 자체도 잠재적 편향의 원천으로 간주해야 한다.</p>
+      <p>따라서 이 장은 합성 데이터를 역사적 증거의 대체물이 아닌 <strong>의사결정 지원 도구</strong>로 다룬다. 그 가치는 후속 과제의 성능을 개선하는지에 달려 있고, 금융에서 유용성의 기준은 엄격하다. 생성 데이터가 꼬리 행동, 자산 간 의존성, 변동성 군집, 국면 동학을 보존하지 못하면 전체 분포가 비슷해 보인다는 사실만으로는 부족하다. 실제 시장에서는 두 ETF가 급락일에 같이 떨어졌는데 만든 기록에서는 늘 하나가 오른다면, 두 ETF를 나눠 사는 효과가 실제보다 좋아 보인다. 이렇게 같이 움직이는 관계가 <strong>자산 간 의존성</strong>이고, 이 관계를 놓친 데이터로 투자 비중을 정하면 위험을 작게 보게 된다.</p>
+      <h3 id="intro-objectives">이 장을 읽고 할 수 있게 되는 일</h3>
+      <ul>
+        <li>과거 백테스트의 검정력이 부족한 상황과 합성 생성이 합리적 보완책인 상황을 구분한다.</li>
+        <li>데이터 유형과 표본추출 빈도에 맞는 생성 아키텍처를 고른다.</li>
+        <li>생성 수익률에 <strong>정형화된 사실(stylized facts)</strong> 진단을 적용한다. 정형화된 사실은 금융 시계열에서 반복적으로 관찰되는 경험적 규칙성이다.</li>
+        <li>충실도-효용-프라이버시 기준과 TSTR(Train-on-Synthetic-Test-on-Real) 검증으로 합성 데이터를 평가한다.</li>
+        <li>편향 증폭, 생성기 과적합, 새로운 시나리오 누락처럼 생성기마다 나타나는 위험을 찾아낸다.</li>
+      </ul>
+      <p>목표를 투자 업무로 옮기면 이렇다. 하루 단위 ETF 기록을 만들 모델을 고른 뒤(생성 아키텍처 선택), 만든 기록에 큰 손실과 연속 급락이 나타나는지 확인하고(정형화된 사실 검사), 그 자료로 학습한 예측 모델을 실제 기록에서 시험한다(TSTR). 전개 순서도 이 목표를 따른다. 합성 금융 데이터가 왜 필요하고 무엇을 재현해야 하는지 살핀 뒤 실무 평가 프레임워크를 세우고, 고전적 시뮬레이션을 기준선으로 검토한 다음 GAN, 확산 모델, 표 형식 금융 데이터를 만드는 LLM 기반 생성기로 넘어가며, 마지막에 모든 방법을 같은 평가 틀에 놓고 비교한다.</p>
+    </section>
+
+    <section class="report-section s1 page-break" id="source-5-1" data-source-kind="section" data-source-ref="5.1">
+      <div class="report-section__kicker">Section 01 &middot; 교재 &sect;5.1</div>
+      <h1>5.1 퀀트의 딜레마 &mdash; 한 번뿐인 역사로 전략을 검증하는 문제</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li>재량 규칙이든 머신러닝 파이프라인이든 정량 전략은 <strong>한 번 실현된 역사</strong>에서 개발·검증된다</li>
+        <li>결과를 보며 선택을 반복하면 <strong>선택 인플레이션</strong>이 생긴다. 실제 성과가 0인 후보만 있어도 최고 표본 내 성과는 오른다</li>
+        <li>합성 데이터는 파라미터 선택·국면 스트레스 테스트·개인정보 보호형 개발을 돕지만 <strong>선택 편향을 없애 주지는 않는다</strong></li>
+      </ul></div></div>
+      <p>재량적 규칙 기반 시스템이든, 예측 모델을 적합한 뒤 거래 규칙을 뽑는 머신러닝 파이프라인이든, 정량 전략은 한 번 실현된 역사에서 개발되고 검증된다. 그 기록에 위기, 국면 전환, 상관관계 붕괴가 몇 번밖에 없다면 추론도 소수 경로에 묶이고, 겉으로 좋은 성과가 앞으로 반복될 관계보다 특정 사건 하나에 크게 좌우되었을 수 있다. 한 전략이 급락 직전에 우연히 주식을 팔았다면, 매도 신호가 며칠만 늦었어도 손실이 컸을 수 있다. 그래서 관측한 성공이 시장 상태가 바뀌는 국면 전환의 시점에 우연히 잘 맞은 결과인지 따로 확인해야 한다.</p>
+
+      <h3 id="s51-multiple-testing">다중 검정의 과제 &mdash; 많이 시도할수록 우연한 승자가 커집니다</h3>
+      <p>연구자가 결과를 보며 전략을 계속 바꾸면 경로 제약은 성과 과장으로 이어진다. 전략 개발에서는 투자 가능 종목군과 필터, 신호와 특성 정의, 레이블 기간과 표본추출 방식, 모델 종류와 정규화, 교차검증 설계, 하이퍼파라미터, 위험 통제, 실행 가정, 포트폴리오 구성까지 서로 얽힌 선택을 반복한다. 선택이 하나 늘 때마다 시험한 조합의 범위인 <strong>탐색 공간</strong>이 넓어지므로, 지속 가능한 우위가 아니라 잡음·데이터 특이성·우호적 국면을 잡은 <strong>표본 내 승자</strong>를 고를 가능성이 커진다. 매수 기준을 바꾸고, 보유일을 바꾸고, 거래 종목을 바꾸며 같은 과거 기록을 계속 시험한 뒤 가장 잘된 조합만 남기는 과정이 정확히 이 상황이다.</p>
+      <p>이것이 적응적 연구가 만드는 <strong>선택 인플레이션(selection inflation)</strong>이다. 실제 성과가 0인 후보들만 있어도 시행 횟수가 많아지면 가장 좋은 표본 내 성과는 기계적으로 상승한다. Bailey et al. (2015)는 백테스트 과적합 확률이 50%를 넘을 수 있다고 정식화했다. 독립성과 정규오차를 가정한 근사에서 실제 샤프 비율이 모두 0인 구성 10개를 검정하면 기대 최대 표본 내 샤프 비율이 1.57이고, 100회 시행하면 기대 최대값이 2.5를 넘는다(<a class="asset-ref" href="#fig-selection-inflation">그림 2</a>).</p>
+      <figure class="report-figure" id="fig-selection-inflation" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 2</span><span class="asset-caption__title">시행 횟수에 따른 기대 최대 표본 내 샤프 비율</span></figcaption>
+        <img src="assets/figs/fig-selection-inflation.svg" alt="모든 후보의 실제 샤프가 0인 조건에서 10회 시행의 기대 최대 표본 내 샤프 1.57 막대와 100회 시행의 2.5 초과 막대를 0부터 2.5까지의 세로축 위에 비교한 막대그래프">
+        <small class="asset-note">막대 높이는 실제 샤프가 모두 0인 후보만 두고 시행 횟수만 늘렸을 때의 기대 최대값이다. 독립성과 정규오차를 가정한 근사이므로 실제 연구의 상관된 시행에 그대로 옮기면 안 된다. 원문 &sect;5.1이 인용한 Bailey et al. (2015)의 근사 수치로 그린 막대그래프다.</small>
+      </figure>
+      <p>이 수치는 특정 통계 가정 아래의 계산이지만, 높은 샤프 비율 하나만 보고 우위를 확신하기 어려운 이유를 보여 준다. 실력 차이가 없는 전략도 여러 번 시험하면 우연히 성과가 높은 전략이 나오고, 그 하나만 보고 투자하면 운을 실력으로 착각하게 된다.</p>
+      <div class="callout--insight" id="primer-bayes"><span class="callout__kicker">참고 · 공식 Primer &mdash; 표본 승률과 사후분포</span><span class="callout__body">
+        <p>베이즈 갱신은 $p(\theta\mid D)\propto p(D\mid\theta)\,p(\theta)$로 사전분포 $p(\theta)$에 데이터의 우도 $p(D\mid\theta)$를 반영해, 모수 $\theta$(여기서는 승률)의 불확실성을 분포로 남긴다. 일정한 승률의 독립 시행을 가정하고 $\mathrm{Beta}(10,10)$ 사전분포에서 30회 중 19회 승리를 관측하면 사후분포는 $\mathrm{Beta}(29,21)$이고 평균은 58%다. 표본 승률 63.3%보다 낮다. 거래 수가 30번뿐이므로 실제 실력이 관측 승률보다 낮거나 높을 가능성이 함께 남는다는 뜻이다. 사전분포는 결과를 보기 전의 승률 가정이고, 사후분포는 결과를 보고 수정한 승률의 가능성 범위다.</p>
+        <p>MAP는 사후분포의 최빈값 하나이고, 미래 결과의 <strong>사후 예측분포</strong>는 가능한 모수값 전체를 평균하므로 소표본의 불확실성까지 반영한다. 이 해석은 정한 모형과 사전분포에 조건부다. 100개 전략 중 승률이 가장 높은 전략을 골라 그 승률만 정밀하게 계산해도 나머지 99개를 시험한 탐색 과정은 사라지지 않는다. 최고를 골랐기 때문에 생긴 선택 효과와 잘못된 우도는 베이즈 갱신만으로 교정되지 않는다.</p>
+      </span></div>
+      <p class="source-note">출처: 공식 Primer &ldquo;Bayes' theorem and posterior distributions&rdquo;(<a href="https://ml4trading.io/primer/bayes-theorem-and-posterior-distributions/">ml4trading.io/primer</a>). 원문 해설판이 &sect;5.1에 붙인 참고 노트를 요약했다.</p>
+      <p>더 넓게 보면 보고된 성과는 제한된 데이터에 작동하도록 선택된 <strong>종단 간 연구 절차의 결과</strong>다. 그렇다고 백테스트나 예측 모델이 무용하다는 말은 아니다. 성과 추정치를 지금까지 밟아 온 연구 경로에 조건부인 값으로 해석해야 한다는 뜻이다. 보고서에 샤프 비율 하나를 적기 전에 매수 규칙과 종목을 몇 번 바꿨는지 함께 적어야 하는 이유다. Bailey and Lopez de Prado (2014)가 제안한 <strong>디플레이티드 샤프 비율(Deflated Sharpe Ratio)</strong>은 비정규성과 시행 횟수를 반영해 성과 추론을 조정하며, 자세한 내용은 17장에서 다룬다. 다른 다중 검정 보정도 이어지는 장에서 나오지만, 통계적 보정은 선택 효과를 추론에 반영할 뿐 강건성 검정에 쓸 새로운 시장 이력을 만들어 주지는 못한다.</p>
+
+      <h3 id="s51-simulation-infra">시뮬레이션 인프라로서의 합성 데이터 (Synthetic data) &mdash; 한 경로를 경로 분포로 넓히기</h3>
+      <p>합성 생성은 하나의 실현 이력을 그럴듯한 여러 이력의 분포로 확장한다. Cetingoz and Lehalle (2025)의 설명처럼, 추정한 분포에서 추가 궤적을 뽑아 단일 경로 밖에서도 강건성을 시험하는 접근이다. 실제 워크플로에서는 관측 데이터에 생성 모델(generative model)을 적합하고, 금융 시계열의 핵심 정형화된 사실을 포착하도록 만든다. 여러 ETF의 실제 일별 수익률을 날짜별로 모은 표, 즉 <strong>패널</strong>을 학습시킨 뒤 만든 기록에서도 큰 손실이 생기고 큰 등락이 며칠 이어지는지 확인하는 식이다. <a class="asset-ref" href="#table-stylized-facts">표 3</a>이 생성기가 재현해야 할 네 가지 규칙성이다.</p>
+      <table class="cmp-table" id="table-stylized-facts">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 3</span><span class="asset-caption__title">생성기가 재현해야 할 금융 시계열의 네 가지 정형화된 사실</span></div></caption>
+        <thead><tr><th>정형화된 사실</th><th>관찰되는 현상</th><th>투자 현장에서 보이는 모습</th></tr></thead>
+        <tbody>
+          <tr><td>두꺼운 꼬리 (heavy tails)</td><td>극단적인 수익률이 가우시안 모델의 예측보다 자주 나타난다</td><td>드문 큰 상승·하락이 정규분포가 말하는 것보다 자주 온다</td></tr>
+          <tr><td>변동성 군집 (volatility clustering)</td><td>큰 절대수익률이 시간적으로 몰리며, 제곱·절대수익률의 자기상관이 천천히 감소한다</td><td>오늘 크게 흔들렸다면 내일도 크게 흔들릴 수 있다</td></tr>
+          <tr><td>레버리지 효과 (leverage effect)</td><td>특히 주식시장에서 음의 수익률 뒤에 더 높은 변동성이 나타난다</td><td>하락한 뒤 등락 폭이 커진다</td></tr>
+          <tr><td>약한 수익률 자기상관 (weak return autocorrelation)</td><td>일별 수익률의 선형 자기상관은 대체로 작다</td><td>오늘 많이 올랐다고 내일도 오른다고 말하기 어렵다</td></tr>
+        </tbody>
+      </table>
+      <p>두 번째와 네 번째 행을 함께 읽어야 한다. 수익률의 <em>방향</em>은 다음 날과 거의 연결되지 않지만, 수익률의 <em>크기</em>는 다음 날과 연결된다. 큰 손실의 빈도(두꺼운 꼬리)와 큰 등락의 연속성(변동성 군집)도 서로 다른 특징이므로 따로 확인한다. 적어도 생성 모델은 <strong>주변분포</strong>(각 ETF를 따로 본 수익률 분포), <strong>시간 의존성</strong>(날짜 사이의 연결), <strong>자산 간 관계</strong>(같은 날 여러 ETF 사이의 연결)를 함께 포착해야 학습된 구조와 일치하는 대안 궤적을 만들 수 있다. 각 ETF의 상승일·하락일 수를 똑같이 맞춰도 급락 날짜를 바꾸면 두 ETF를 함께 보유한 결과는 달라진다.</p>
+      <p>합성 수익률 생성기는 후속 의사결정(downstream decisions)에 중요한 경험적 규칙성을 재현할 때만 쓸모가 있다(Takahashi and Mizuno, 2024). 금융에서는 리스크 관리, 레버리지, 포트폴리오 구성이 드물고 불안정한 꼬리 결과·상관관계 붕괴·국면 전환에 좌우되므로 이 조건이 특히 엄격하다. 분포 중심에서는 현실적으로 보이는 표본도 낙폭을 줄여 보이게 하거나, 변동성 군집을 놓치거나, 스트레스 시기의 의존성을 재현하지 못하면 의사결정을 오도한다. 만든 기록에 잔잔한 등락만 있고 며칠 연속 급락이 없다면, 이를 보고 빌린 돈까지 투자해도 괜찮다고 판단하는 것은 위험하다. 연속된 큰 움직임과 큰 손실 구간을 놓치면 고점에서 얼마나 떨어지는지를 나타내는 <strong>낙폭</strong>이 실제보다 작아 보인다.</p>
+      <p>그래서 생성기는 독립된 장난감이 아니라 <strong>모델링 스택</strong>, 즉 자료를 투자 판단에 쓰는 전체 과정의 일부로 평가해야 한다. 역사 수익률과 눈으로 보아 비슷한지, 주변분포만 비슷한지가 아니라 표본이 실제 후속 의사결정을 지지하는지가 중심 기준이다. 합성 주가 차트가 실제와 비슷해 보여도, 그 차트로 정한 투자 규모가 실제 급락에서 버틸 수 있는지를 따로 시험해야 한다.</p>
+      <p>신중하게 운영하면 합성 데이터는 세 가지 역할을 맡는다.</p>
+      <ol>
+        <li><strong>강건한 파라미터 선택</strong>: 후보 파라미터를 한 이력이 아니라 여러 표본 궤적에 걸쳐 평가한다. 매주 투자 비중을 바꿀지 매달 바꿀지를 여러 모의 기록에서 비교하는 일이 여기에 해당한다.</li>
+        <li><strong>국면 스트레스 테스트(regime stress testing)</strong>: 관측된 변동성과 의존성에 맞는 스트레스 유사 경로를 추가로 만들어 낙폭, 상관관계 붕괴, 위험 통제의 안정성을 살핀다.</li>
+        <li><strong>개인정보 보호형 개발(privacy-preserving development)</strong>: 거래 수준 자료를 공유할 수 없을 때, 5.8절의 명시적 프라이버시 평가를 통과한 합성 데이터로 개발과 협업을 지원한다. 고객 거래를 그대로 공개하지 않는 개발용 자료라도 실제 누출 검사를 통과해야 한다.</li>
+      </ol>
+      <p>그렇지만 합성 데이터가 선택 편향을 없애 주지는 않는다. 전략을 합성 경로에 맞춰 계속 조정하면 실제 시장 대신 생성기의 귀납적 편향과 실패 방식에 과적합될 수 있다. 만든 주가 기록을 보며 손절 기준을 계속 바꾸다 보면 그 모델이 자주 만드는 패턴에만 유리한 규칙이 남는다. 방어는 세 가지다. 가능하면 전략을 선택하기 전에 생성기를 고정하고, 생성기 학습에 쓰지 않은 실제 데이터로 검증하며, 합성 데이터가 모델 선택에 영향을 주는 경우에는 외부 검증 루프를 둔다.</p>
+      <p>구체적인 생성기를 보기 전에 장 전체에 적용할 검증 프레임워크가 필요하다. 핵심 질문은 표본 하나하나가 고립해서 현실적으로 보이는지가 아니라, <strong>프라이버시와 누출 위험을 통제하면서 목적에 필요한 구조를 보존하는가</strong>다. 합성 거래 표를 동료에게 넘긴다면, 분석에 필요한 관계는 남아 있어야 하지만 특정 고객의 실제 거래가 드러나서는 안 된다.</p>
+    </section>
+
+    <section class="report-section s2 page-break" id="source-5-2" data-source-kind="section" data-source-ref="5.2">
+      <div class="report-section__kicker">Section 02 &middot; 교재 &sect;5.2</div>
+      <h1>5.2 합성 금융 데이터 평가 &mdash; 충실도&middot;효용&middot;프라이버시를 분리해 보기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li><strong>검증 프로토콜이 생성 아키텍처보다 더 중요할 때도 많다</strong></li>
+        <li>충실도·효용·프라이버시는 서로 충돌할 수 있어 하나의 점수로 합치지 않는다</li>
+        <li>세 축을 통과해도 편향 증폭·생성기 과적합·제한된 참신성이라는 고유 실패가 남는다</li>
+        <li>실험 보고에는 충실도·효용·프라이버시·실제 홀드아웃 결과 네 항목이 필요하다</li>
+      </ul></div></div>
+      <p>합성 데이터는 그럴듯한 외관과 실제 적합성이 다를 수 있다. 금융에서 중요한 구조는 분포 중심보다 희귀 사건, 의존성 변화, 조건부 동학에 놓인 경우가 많다. 주변 수익률을 잘 맞춰도 낙폭을 작게 만들고 변동성 군집을 약화시키거나 스트레스 기간의 상관관계를 놓친다면 생성기는 잘못된 결론을 유도한다. 실제로는 두 ETF가 같은 날 떨어지는데 합성 자료에서는 번갈아 떨어진다면, 반씩 투자했을 때 손실이 거의 없는 것처럼 보인다. 각 ETF를 따로 본 등락(주변 수익률)은 맞아도 함께 급락하는 관계(스트레스 기간의 상관관계)가 틀리면 분산투자 효과가 과장된다.</p>
+      <p>따라서 <strong>검증 프로토콜이 생성 아키텍처보다 더 중요할 때도 많다</strong>. 이 장은 합성 데이터를 충실도, 효용, 프라이버시라는 세 축으로 평가한다(<a class="asset-ref" href="#fig-fup-axes">그림 3</a>). 세 목표는 서로 충돌할 수 있다. 프라이버시를 강화하면 충실도가 떨어질 수 있고, 분포 충실도를 높여도 후속 과제 성능이 반드시 좋아지지는 않으며, 한 사용 사례에서 우수한 생성기가 다른 사례에서는 실패할 수 있다. 실제처럼 생겼는가, 실제 예측에 도움이 되는가, 원래 고객을 알아볼 수 없는가를 각각 묻고, 하나가 좋다고 나머지 둘도 좋다고 보지 않는다.</p>
+      <figure class="report-figure" id="fig-fup-axes" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 3</span><span class="asset-caption__title">충실도·효용·프라이버시 세 축과 각 축의 대표 진단</span></figcaption>
+        <img src="assets/figs/fig-fup-axes.svg" alt="충실도, 효용, 프라이버시 세 상자가 나란히 놓이고 각 상자에 묻는 질문 세 줄과 대표 지표가 적힌 도식. 충실도는 KS·상관 거리·ACF 오차, 효용은 TSTR 대 TRTR, 프라이버시는 중복·최근접 이웃·멤버십 추론·DP 예산">
+        <small class="asset-note">세 상자는 각각 다른 질문에 답하며 한 상자의 결과가 다른 상자를 대신하지 않는다. 지표 목록은 대표 예시이고 과제마다 달라진다. 원문 &sect;5.2의 평가 틀을 바탕으로 다시 그린 도식이다.</small>
+      </figure>
+
+      <h3 id="s52-fidelity">관련 데이터 구조를 보존하는가? &mdash; 충실도 검증</h3>
+      <p><strong>충실도(fidelity)</strong>는 합성 표본이 애플리케이션에 필요한 <strong>해상도</strong>에서 실제 데이터의 경험적 구조를 재현하는지 묻는다. 점검 대상은 주변부 행동, 변수 사이의 의존성, 시계열 동학이다. 해상도는 하루·분 같은 시간 단위다. 하루 종가 기록을 잘 만드는 모델이라도 분 단위 매매 주문을 시험하려면 분 단위 움직임과 간격을 따로 확인해야 한다.</p>
+      <p>표 형식 또는 횡단면 데이터라면 먼저 특성별 분포를 비교한다. Kolmogorov-Smirnov 통계량이나 Wasserstein 거리처럼 분포 차이를 수치로 재는 방법과 함께 히스토그램, 경험적 CDF, QQ 플롯을 본다. QQ 플롯은 작은 값부터 큰 값까지 실제와 합성을 나란히 놓아 비교하는 그림이다. 평균 같은 요약 통계만 쓰면 특히 꼬리의 인공물이 가려진다. 두 자료의 평균 수익률이 같아도 실제 자료에는 큰 하락일이 있고 합성 자료에는 작은 등락만 있을 수 있다.</p>
+      <p>의존성은 별도로 검정한다. 생성기가 특성별 주변분포를 맞추면서도 특성 사이 관계는 잃을 수 있기 때문이다. 다변량 금융 데이터에서는 상관행렬·공분산행렬, 순위상관, 섹터 또는 국면 수준 관계를 비롯해 사용 사례에 맞는 의존성 척도를 비교한다. 주식 ETF와 채권 ETF의 등락 폭을 각각 맞췄다면, 이제 같은 날짜에 두 자산이 함께 오르는지 반대로 움직이는지를 본다. 상관행렬은 여러 자산 쌍의 이런 관계를 모아 놓은 표다.</p>
+      <p>금융 시계열에는 정형화된 사실 진단도 필요하다. 생성 시계열이 두꺼운 꼬리, 약한 원수익률 자기상관, 변동성 군집, 해당되는 경우 레버리지 효과, 자산 간 의존성을 보존하는지 확인한다. ACF(자기상관 함수)는 며칠 떨어진 두 값이 얼마나 연결되는지 보여 주는 도구다. 원수익률 ACF로 오늘 상승이 내일 상승과 연결되는지 보고, 별도로 절대·제곱수익률 ACF로 오늘의 큰 움직임이 내일의 큰 움직임과 연결되는지 본다. 제곱·절대수익률 ACF는 변동성 지속성을 압축해 보여 주지만, 꼬리와 의존성 점검을 함께 해야 진단이 완성된다.</p>
+      <div class="callout--insight" id="primer-stylized-facts"><span class="callout__kicker">참고 · 공식 Primer &mdash; 생성기가 보존할 위험 구조</span><span class="callout__body">
+        <p>원수익률 ACF는 생성기가 가짜 방향 예측력을 만들었는지, 절대·제곱수익률 ACF는 변동성의 기억을 남겼는지, 가우시안 QQ 비교는 큰 손실을 지나치게 드물게 만들었는지를 확인한다. 합성 자료에서는 상승 다음 날 늘 상승하는데 실제 자료에는 그런 규칙이 없다면, 그 자료로 학습한 모델은 실제 매매에서 통하지 않는 신호를 배운다. 너무 쉽게 예측되는 모의 시장은 잘못 만든 시장일 수 있다. 음의 충격 뒤 변동성이 커지는 비대칭, 거래량과 변동성의 관계, 스트레스 기간 자산들의 동시 극단 움직임도 사용 목적에 맞게 따로 검사한다.</p>
+        <p>단변량 GARCH가 변동성 군집을 재현해도 여러 자산의 위기 동조화는 공동으로 모델링하지 않으면 복원되지 않는다. 두 ETF를 각각 GARCH로 만들었다면, 둘이 같은 날 크게 떨어지는지는 아직 맞췄다고 할 수 없다. 진단값은 표본 빈도·기간·국면 구성에 따라 다르게 반응하므로, 일별 적합이 좋아도 실제 보유기간으로 합친 경로와 포트폴리오 수준에서 다시 확인한다.</p>
+      </span></div>
+      <p class="source-note">출처: 공식 Primer &ldquo;Stylized facts of financial time series for simulation and validation&rdquo;(<a href="https://ml4trading.io/primer/stylized-facts-of-financial-time-series-for-simulation-and-validation/">ml4trading.io/primer</a>). 원문 해설판이 &sect;5.2에 붙인 참고 노트를 요약했다.</p>
+
+      <h3 id="s52-utility">의도한 사용 사례를 지원합니까? &mdash; 효용을 실제 과제로 시험하기</h3>
+      <p><strong>효용(utility)</strong>은 합성 데이터가 후속 과제 성능을 보존하거나 향상시키는지 평가한다. 충실도는 대개 필요조건이지만 충분조건은 아니다. 생성 데이터가 넓은 분포 특성을 맞추면서도 예측·분류·위험 추정·전략 평가에 필요한 신호를 놓칠 수 있다. 합성 자료로 급락 경보 모델을 학습한다면 효용은 실제 시장의 급락을 잘 찾아내는지로 판정한다. 자료 모양이 실제와 비슷해도(높은 충실도) 경보에 필요한 정보를 잃으면 효용은 낮다.</p>
+      <p>대표적인 벤치마크가 <strong>TSTR(train-on-synthetic, test-on-real)</strong>이다.</p>
+      <ol>
+        <li>합성 데이터만으로 모델을 학습한다.</li>
+        <li>학습에 쓰지 않은 실제 데이터에서 평가한다.</li>
+        <li>같은 모델 클래스·특성·목표값·평가 기간을 유지한 채 <strong>TRTR(train-on-real, test-on-real)</strong>, 즉 실제 데이터로 학습하고 실제 데이터로 시험한 결과와 비교한다.</li>
+      </ol>
+      <p>핵심은 학습 자료만 다르게 하고 시험은 같게 하는 것이다. 같은 종류의 모델 두 개 중 하나는 합성 자료로, 하나는 실제 자료로 학습한 뒤 둘 다 동일한 새 실제 기간에서 시험해야 합성 학습 자료의 가치만 공정하게 비교할 수 있다. MSE나 MAE처럼 낮을수록 좋은 오차 지표는 다음 비율로 요약한다.</p>
+      <p style="text-align:center;">$$\mathrm{TSTR\text{-}error\text{-}ratio} = \frac{Error_{TSTR}}{Error_{TRTR}}$$</p>
+      <p>$Error_{TSTR}$은 합성 데이터로 학습한 모델을 실제 데이터에서 평가한 오차이고, $Error_{TRTR}$은 실제 데이터로 학습하고 실제 데이터에서 평가한 기준 오차다. 실제 학습 모델의 오차가 10, 합성 학습 모델의 오차가 12라면 비율은 $12 \div 10 = 1.2$이고, 합성 학습의 오차가 20% 더 크다는 뜻이다. 이 숫자는 오차의 비율이지 수익률이 아니다.</p>
+      <p>비율이 1에 가까우면 합성 데이터가 과제 관련 정보를 보존했다는 신호이고, 1보다 크면 효용 손실을 뜻한다. 1보다 작은 결과는 합성 데이터가 표본 특유의 잡음을 억제해서 나올 수 있지만, <strong>정보 누출</strong>·목표값 단순화·지나치게 좁은 평가 설계의 결과일 수도 있다. 실제 시험 기간이 생성기 학습 자료에 섞였다면 생성기가 그 기간의 특징을 이미 배웠을 수 있다. 1보다 작은 좋은 결과도 누출을 제거한 뒤에야 합성 자료의 효용으로 해석할 수 있다.</p>
+      <p>AUC나 정확도처럼 높을수록 좋은 점수는 TSTR과 TRTR을 직접 보고하거나, 어느 방향이 좋은지 명시한 점수 비율을 쓴다. 관례를 밝히지 않고 오차 비율과 점수 비율을 섞으면 같은 숫자가 반대 의미를 가진다. MSE는 얼마나 틀렸는지 재는 오차 지표이고, AUC는 두 집단을 구별하는 능력을 재는 점수다. 오차가 줄었다는 보고와 AUC가 올랐다는 보고는 모두 좋은 변화일 수 있으므로 지표마다 좋은 방향을 표시해야 한다.</p>
+      <p>효용 검정은 사용 사례마다 달라야 한다. Tail-GAN은 VaR와 <strong>기대부족분(Expected Shortfall, ES)</strong> 같은 꼬리위험 지표로, Sig-CWGAN은 경로 단위 기준으로 평가한다. 확산 모델에는 시간 구조와 의존성 진단이 필요하고, 표 형식 LLM 생성기에는 스키마 유효성·분포 점검·후속 예측 검정이 필요하다. 큰 손실을 평가할 자료라면 큰 손실을 검사하고, 고객 표를 만들 자료라면 빠진 칸이나 말이 안 되는 값을 검사한다. 하나의 점수로 이 검사들을 모두 대신할 수 없다.</p>
+
+      <h3 id="s52-privacy">학습 정보가 누출되는가? &mdash; 프라이버시를 별도 축으로 검증하기</h3>
+      <p><strong>프라이버시 검증(privacy validation)</strong>은 합성 표본이 생성기 학습에 쓴 레코드의 정보를 드러내는지 시험한다. 거래·고객·독점 기관 데이터처럼 레코드 자체가 민감할 때 특히 중요하다. 합성이라는 이름만으로 고객 정보가 숨겨지지는 않는다. 실제 고객의 드문 거래가 합성 표에 거의 그대로 나왔다면, 이름을 지웠어도 거래 내용이 그 고객을 가리킨다.</p>
+      <p>최소 점검은 합성 레코드와 학습 레코드 사이의 정확한 중복 또는 거의 같은 항목을 찾는 것이다. 더 강한 진단은 합성 레코드에서 학습한 실제 레코드까지의 <strong>최근접 이웃 거리</strong>와, 보류한 실제 레코드까지의 거리를 비교한다. 만든 주문 기록들이 유독 학습에 넣은 주문과 닮고 학습하지 않은 주문과는 덜 닮았다면 원본 암기를 의심한다. <strong>멤버십 추론 검정(membership-inference test)</strong>은 공격자가 특정 레코드의 학습 집합 포함 여부를 추론할 수 있는지 직접 시험한다.</p>
+      <p>공식 보장이 필요하면 생성기 학습 자체에 차등 프라이버시 메커니즘을 넣어야 한다. <strong>DP-SGD(Differentially Private Stochastic Gradient Descent)</strong>(Abadi et al., 2016)는 학습 중 표본별 그래디언트를 <strong>클리핑</strong>하고 보정한 <strong>잡음</strong>을 더하며, 프라이버시 손실을 예산 $(\varepsilon, \delta)$로 나타낸다. 고객 한 명의 거래 때문에 모델이 크게 바뀌지 않도록 기여 크기를 제한하고(클리핑) 계산에 무작위 흔들림을 넣는(잡음) 방식이다. $\varepsilon$이 작을수록 프라이버시는 강하지만 보통 충실도와 효용은 낮아진다. 프라이버시는 완성된 합성 데이터에 나중에 붙이는 레이블이 아니라 처음부터 반영할 설계 제약이다.</p>
+
+      <h3 id="s52-failures">합성 데이터 특유의 실패 양상 &mdash; 생성기가 추가하는 세 가지 위험</h3>
+      <p>충실도-효용-프라이버시 세 축은 필수지만 이것만으로 완전하지는 않다. 합성 표본에는 <a class="asset-ref" href="#table-unique-failures">표 4</a>의 고유 실패가 생긴다.</p>
+      <table class="cmp-table" id="table-unique-failures">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 4</span><span class="asset-caption__title">세 축을 통과해도 남는 합성 데이터 고유의 세 가지 실패</span></div></caption>
+        <thead><tr><th>실패</th><th>어떻게 나타나는가</th><th>투자 현장의 예</th></tr></thead>
+        <tbody>
+          <tr><td>학습 데이터 편향 증폭</td><td>과거 표본이 특정 국면·섹터·시장 상태를 과대표현하면 생성기가 그 불균형을 더 강하게 되풀이한다</td><td>상승장만 배운 모델이 상승장 기록을 반복해 만든다</td></tr>
+          <tr><td>생성기에 대한 전략 과적합</td><td>많은 합성 경로에서 좋다는 이유로 고른 전략이 실제 시장이 아닌 생성기 가정에 맞춰진다. 최종 후보는 생성기 학습에 쓰지 않은 실제 홀드아웃에서 평가해야 한다</td><td>그 자료에서 최고인 전략을 고른 뒤 급락도 잘 버틴다고 주장한다</td></tr>
+          <tr><td>제한된 참신성</td><td>생성기는 학습 분포의 지지집합 안을 보간하는 데 강하고 전례 없는 시나리오를 만드는 데는 약하다</td><td>배우지 않은 위기를 놓친다</td></tr>
+        </tbody>
+      </table>
+      <p>그러므로 합성 데이터는 강건성 점검, 스트레스 테스트, 모델 개발에는 유용하지만, 생성기가 그 목적에 맞게 설계되고 검증되지 않았다면 학습 국면 밖 사건의 증거로 간주해서는 안 된다. 위기 없는 5년을 학습한 모델로 주가 기록을 아주 많이 만들어도 실제 위기 데이터를 학습한 것은 아니다. 새 기록은 모델이 배운 범위, 즉 학습 분포에서 나오며, 배우지 못한 시장 상태는 별도의 가정과 시험이 필요하다.</p>
+
+      <h3 id="s52-checklist">실무적 검증 체크리스트 &mdash; 최소 보고 항목</h3>
+      <p>금융 합성 데이터 실험은 적어도 <a class="asset-ref" href="#table-checklist">표 5</a>의 네 항목을 보고해야 한다.</p>
+      <table class="cmp-table" id="table-checklist">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 5</span><span class="asset-caption__title">금융 합성 데이터 실험의 최소 보고 항목</span></div></caption>
+        <thead><tr><th>항목</th><th>보고할 내용</th><th>답하는 질문</th></tr></thead>
+        <tbody>
+          <tr><td>충실도 진단</td><td>주변분포 오차, 상관행렬 거리, 꼬리 통계량, 변동성 지속성 오차 등</td><td>자료가 얼마나 실제 같은가</td></tr>
+          <tr><td>효용 벤치마크</td><td>TSTR 대 TRTR 또는 과제별 위험 지표</td><td>급락 예측 같은 업무가 잘되는가</td></tr>
+          <tr><td>프라이버시 점검</td><td>중복 탐지, 최근접 이웃 분석, 구성원 추론(membership inference), 공식 DP 예산 등</td><td>고객 거래가 새는가</td></tr>
+          <tr><td>실제 데이터 홀드아웃 결과</td><td>합성 데이터가 모델 선택이나 전략 개발에 관여했다면 특히 필수</td><td>학습과 선택에 쓰지 않은 새 실제 기간에서도 전략이 버티는가</td></tr>
+        </tbody>
+      </table>
+      <p>판정 임계값은 데이터 빈도, 표본 크기, 자산군, 후속 목표에 맞게 보정해야 한다. 모든 상황을 대표하는 하나의 합성 데이터 점수는 없다. 초 단위 주문 시험에 필요한 시간 정확도와 월별 투자 비중 조정에 필요한 시간 정확도는 다르다. 최종 질문은 생성 데이터가 <strong>해당 의사결정이 의존하는 구조</strong>를 보존하는지이며, 그 업무에 중요한 특징이 남는지를 기준으로 허용 오차를 정한다.</p>
+    </section>
+
+    <section class="report-section s3 page-break" id="source-5-3" data-source-kind="section" data-source-ref="5.3">
+      <div class="report-section__kicker">Section 03 &middot; 교재 &sect;5.3</div>
+      <h1>5.3 고전적 시뮬레이션 기준선 &mdash; 복잡한 생성기를 판단할 출발점</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li>고전적 기준선은 보정·진단·거버넌스가 쉬워 복잡한 모델의 추가 가치를 확인하는 비교 대상이 된다</li>
+        <li>부트스트랩은 관측 수익률을 다시 조립하고, 세 기법의 차이는 <strong>시간 의존성을 어떻게 다루는가</strong>에 있다</li>
+        <li>모수적 모델은 역사 밖 경로를 만들지만 <strong>가정한 동학의 범위 안</strong>에서만 가능하다</li>
+      </ul></div></div>
+      <p>학습 기반 생성기를 쓰기 전에 고전적 시뮬레이션부터 적용하면 평가 프레임워크의 첫 기준점을 얻는다. 이 방법들은 보정·진단·거버넌스가 더 쉬우므로, 더 복잡한 모델이 실제로 추가 가치를 내는지 확인하는 투명한 비교 대상이 된다. 어려운 생성 모델을 도입하기 전에 과거 수익률 구간을 다시 뽑는 방법으로 같은 위험 시험을 먼저 해 보고, 같은 검사에서 개선이 있을 때 복잡한 모델을 쓸 이유가 생긴다.</p>
+      <p>고전적 기준선은 크게 두 계열이다. <strong>부트스트랩(bootstrap)</strong>은 과거 데이터를 재표본추출하고, 확률 과정(stochastic process)의 <strong>모수적 모델</strong>은 명시한 가정에서 새 데이터를 생성한다. 관측한 일별 수익률을 다시 뽑아 이어 붙이는 쪽과 정해 놓은 가격 변화식을 반복 계산하는 쪽이다. 전자는 과거 값에, 후자는 정한 가정에 제한된다. 두 계열 모두 한계가 있지만 그 한계가 눈에 보인다는 점이 학습 기반 생성기를 평가할 때 오히려 유용하다.</p>
+
+      <h3 id="s53-bootstrap">부트스트랩 방법 &mdash; 관측 수익률을 다시 조립하기</h3>
+      <p>부트스트랩은 관측 수익률을 다시 뽑아 새로운 경로를 구성한다. 가장 큰 장점은 <strong>경험적 주변분포</strong>에 충실하다는 것이다. 표본 안의 두꺼운 꼬리와 비가우시안 특성은 재표본추출 과정에서도 그대로 남는다. 관측한 상승일과 하락일을 다시 뽑아 날짜순 기록을 만들면 원래 있던 큰 손실도 다시 나올 수 있다. 새로운 날의 진행은 만들지만 재료 자체는 관측 기록에서 가져오는 셈이다.</p>
+      <p>반대로 역사적 기록 밖의 근본적으로 새로운 사건은 만들 수 없다. 원래 표본에 위기 규모의 움직임이나 상관관계 붕괴가 없다면 부트스트랩으로 새로 발명할 수 없다. 원래 기록의 가장 큰 하락보다 더 큰 단일 하락을 시험하려 해도 기존 수익률을 다시 뽑는 것만으로는 그 값이 생기지 않는다. 연속된 값의 조합은 달라져도 관측하지 않은 개별 수익률은 나오지 않는다. 이 공통 한계 안에서 세 기법의 차이는 시간 의존성을 어떻게 다루는가에 있다(<a class="asset-ref" href="#fig-bootstrap-three">그림 4</a>).</p>
+      <figure class="report-figure" id="fig-bootstrap-three" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">세 부트스트랩이 연속한 고변동 구간을 재표본추출하는 방식</span></figcaption>
+        <img src="assets/figs/fig-bootstrap-three.svg" alt="원본, IID, 블록, 정상의 네 줄에 거래일 칸 12개씩이 놓인 도식. 원본은 짙은 고변동 칸 네 개가 연속하고, IID는 짙은 칸이 흩어지며, 블록은 짙은 칸이 두 개씩 덩어리로 남고 고정 길이 경계선이 그어지며, 정상은 짙은 칸 덩어리와 무작위 길이 경계선이 놓인다">
+        <small class="asset-note">짙은 칸은 변동성이 높았던 거래일이고 세로선은 블록 경계다. 줄마다 고변동 칸이 연속해 남는지를 보면 시간 의존성 보존 정도가 보인다. 칸 배치는 설명용이며, 원문 &sect;5.3의 세 기법 서술을 바탕으로 다시 그린 도식이다.</small>
+      </figure>
+      <ul>
+        <li><strong>IID 부트스트랩</strong>은 개별 수익률을 복원추출한다. IID는 독립 동일 분포를 뜻한다. 주변분포는 보존하지만 변동성 군집을 비롯한 시간 의존성을 파괴하므로, 시간가변 변동성이 중요한 위험 분석이나 포지션 규모 결정에는 보통 맞지 않는다. 하루씩 뽑으면 급락 다음 날이 잔잔한 날로 바뀔 수 있다.</li>
+        <li><strong>블록 부트스트랩</strong>은 고정 길이의 연속 구간을 뽑아 블록 내부 의존성을 유지한다. 급락이 이어진 며칠을 통째로 뽑으면 그 연속성이 남는다. 단기 자기상관은 살리지만 블록 경계에 인위적 단절이 생길 수 있고, 블록이 너무 짧으면 장기 지속성이 약해진다. 긴 블록은 의존성을 더 잘 보존하는 대신 표본 다양성을 낮추므로 길이 선택은 편향-분산 절충이다. 흔한 출발점은 1개월, 약 22거래일이며 진단에 따라 조정한다.</li>
+        <li><strong>정상 부트스트랩</strong>(Politis and Romano, 1994)은 기하분포를 따르는 무작위 블록 길이를 쓴다. 기대값 관점에서 의존성을 유지하면서 고정 경계의 인공물을 줄이므로, 모수적 변동성 모델 없이 변동성 군집을 살리고 싶을 때 고정 블록보다 나은 기본값이 되기도 한다.</li>
+      </ul>
+      <div class="callout--insight" id="primer-bootstrap"><span class="callout__kicker">참고 · 공식 Primer &mdash; 여러 자산의 공동 재표집</span><span class="callout__body">
+        <p>가격 수준을 직접 이어 붙이면 경제적으로 불가능한 점프가 생길 수 있으므로, 수익률을 재표집한 뒤 복리로 가격 경로를 복원한다. 여러 자산의 공동 하락과 공분산을 보존하려면 자산마다 따로 블록을 뽑지 말고 같은 시간 블록의 <strong>수익률 벡터</strong>(같은 날 여러 자산 값의 묶음)를 함께 뽑는다. 월요일의 주식 ETF 수익률을 뽑았다면 채권 ETF도 그 월요일 값으로 가져온다.</p>
+        <p>정상 부트스트랩은 매 단계 확률 $p$로 새 블록을 시작하므로 기대 블록 길이가 $1/p$가 되지만, 무작위 경계에서도 장기 의존성이 모두 보존되지는 않는다. 블록 길이는 한 달 같은 기본값으로 확정하지 말고 제곱수익률 ACF, 낙폭의 깊이·기간, 변동성 급등의 지속성이 유지되는지로 점검한다. 실제 급락 장세가 오래 이어지는데 하루 이틀짜리 묶음만 뽑으면 그 지속성이 끊긴다.</p>
+      </span></div>
+      <p class="source-note">출처: 공식 Primer &ldquo;Bootstrap methods for dependent financial time series&rdquo;(<a href="https://ml4trading.io/primer/bootstrap-methods-for-dependent-financial-time-series/">ml4trading.io/primer</a>). 원문 해설판이 &sect;5.3에 붙인 참고 노트를 요약했다.</p>
+      <p>세 방법을 가르는 값비싼 정보는 제곱수익률 또는 절대수익률의 자기상관 함수(ACF)다. IID 부트스트랩에서는 이 구조가 0에 가깝게 무너지고, 블록 부트스트랩과 정상 부트스트랩은 적어도 방향 면에서 변동성 군집과 일치하는 완만한 감소 패턴을 유지한다. 원래는 큰 등락이 며칠 몰려 있었는데 하루씩 다시 뽑은 기록에서는 그런 날들이 여기저기 흩어진다면, 변동성 군집을 재현하지 못한 것이다.</p>
+      <div class="callout--insight" id="primer-acf"><span class="callout__kicker">참고 · 공식 Primer &mdash; ACF와 표본 독립성</span><span class="callout__body">
+        <p>ACF는 중간 시차를 거쳐 전해진 관계까지 포함한 총 선형 의존성을 재고, PACF(편자기상관 함수)는 짧은 시차들을 통제한 뒤 해당 시차가 추가하는 선형 기여를 잰다. 원수익률의 ACF가 거의 0이어도 제곱·절대수익률에 의존성이 남으면 IID 재표집은 그 구조를 없앤다. 오늘 많이 떨어졌다면 내일 방향은 맞히기 어렵지만 내일도 평소보다 크게 움직일 가능성은 있다.</p>
+        <p>ACF 도표의 $\pm1.96/\sqrt{T}$ 밴드($T$는 표본 길이)는 IID 백색잡음 아래 개별 시차의 근사 기준이며, 여러 시차를 한꺼번에 본 유의성을 보장하지 않는다. 느린 감쇠는 비정상성이나 계절성 때문일 수도 있다. 1일·2일·3일처럼 여러 간격을 검사하다 한 간격만 유난히 커도 우연인지 다른 간격에서도 반복되는지 확인하고, 시차 하나의 돌출보다 원자료·제곱값의 패턴과 여러 시차를 함께 보는 Ljung&ndash;Box 검정을 진단 근거로 삼는다.</p>
+      </span></div>
+      <p class="source-note">출처: 공식 Primer &ldquo;ACF and PACF interpretation&rdquo;(<a href="https://ml4trading.io/primer/acf-and-pacf-interpretation/">ml4trading.io/primer</a>). 원문 해설판이 &sect;5.3에 붙인 참고 노트를 요약했다.</p>
+
+      <h3 id="s53-parametric">모수적 가격 및 변동성 모델 &mdash; 가정을 세우고 역사 밖 경로 만들기</h3>
+      <p>모수적 모델은 가격이나 수익률의 확률 과정을 먼저 지정한 뒤 그 과정에서 경로를 표본추출한다. 연속시간 모델은 <strong>확률미분방정식(stochastic differential equation, SDE)</strong>으로 쓴다. $dt$는 작은 시간 간격, $dW$는 $\sqrt{dt}$에 비례해 크기가 조정되는 브라운(위너) 잡음 증분, $dN$은 포아송 점프-카운트 증분이다. 하루를 한 번에 계산하는 대신 더 작은 시간 간격으로 여러 번 계산하면, 간격을 줄인 만큼 한 번의 무작위 움직임 크기도 시간 간격의 제곱근에 맞춰 줄인다.</p>
+      <p>이 방법은 역사에 없던 경로도 만들 수 있어 스트레스 테스트와 시나리오 확장에 적합하지만, 결과는 전적으로 가정의 품질에 달려 있다. 필요한 현상을 표현하지 못하는 가정, 즉 <strong>잘못된 명세</strong>는 특히 꼬리와 국면 전환에서 드러난다. 가격이 일정한 위험으로만 움직인다는 공식을 썼다면 위기 때 위험이 갑자기 커지는 모습이 빠진다.</p>
+      <figure class="report-figure" id="fig-parametric-models" data-deck-use="required" data-source-kind="figure" data-source-ref="5.1">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">그림 5.1 모수적 가격 및 변동성 모델</span></figcaption>
+        <img src="assets/figs/fig-parametric-models.svg" alt="위 패널 A에 시작 가격을 100으로 정규화한 가격 궤적들이 거래일 1-504에 걸쳐 비슷하게 그려지고, 아래 패널 B에 20일 이동 변동성이 GBM은 일정한 선, 점프-확산은 간헐적으로 솟는 선, Heston·평균회귀는 완만하게 오르내리는 곡선, GARCH는 몰려서 높아지는 선으로 서로 다르게 그려진 개념도">
+        <small class="asset-note">위 패널의 가격만 보면 모델들이 비슷해 보이지만 아래 패널의 변동성 모양에서 가정이 갈린다. 곡선은 모델별 특징을 보여 주는 개념적 모양이며 실제 시뮬레이션 값이 아니다. 원문 그림 5.1의 두 패널 구성과 모델별 변동성 특징을 바탕으로 다시 그렸다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-parametric-models">그림 5</a>는 2년, 즉 거래일 1–504에 걸친 다섯 모델의 시뮬레이션 비교를 재구성한 것이다. 위 패널 A는 시작 가격을 모두 100으로 정규화한 GBM, 점프-확산, 평균회귀, Heston, GARCH의 가격 궤적이고, 아래 패널 B는 최근 20일의 흔들림 크기인 20일 이동 변동성이다. 일정한 변동성, 간헐적 점프, 완만한 변동성 상태, 지속적 군집이 모델별 가정의 차이다. 두 모의 ETF가 같은 가격으로 끝나도 하나는 잔잔하게 움직였고 다른 하나는 급락과 회복을 거쳤을 수 있다. 끝 가격이 같아도 중간 위험은 다르다.</p>
+      <h4 id="s53-gbm">기하 브라운 운동 (GBM)</h4>
+      <p><strong>기하 브라운 운동(Geometric Brownian Motion, GBM)</strong>은 가장 기본적인 기준선이다. 가격 $S$의 경로는 다음 식을 따른다.</p>
+      <p style="text-align:center;">$$dS = \mu S\,dt + \sigma S\,dW$$</p>
+      <p>$\mu$는 가격의 평균적인 변화 방향인 드리프트, $\sigma$는 일정한 변동성, $dW$는 브라운 운동의 무작위 증분이다. 모의 ETF 가격에 평균적인 방향을 주고 매번 무작위 등락을 더하되, 장세가 바뀌어도 설정한 위험 크기는 같다. 로그 가격 증분은 가우시안이고 변동성은 일정하다. GBM은 블랙-숄즈처럼 해석적으로 다루기 쉽지만, 변동성 군집을 만들지 못하고 초과첨도가 없는 얇은 꼬리를 갖기 때문에 핵심 정형화된 사실을 놓친다. 실제로는 조용한 달과 급락이 이어지는 달이 다른데 GBM은 같은 변동성을 계속 적용하고, 극단 움직임도 실제보다 드물게 만든다.</p>
+      <h4 id="s53-jump">점프-확산 (Merton)</h4>
+      <p><strong>점프-확산(Jump-Diffusion, Merton model)</strong>은 복합 포아송 과정으로 불연속적 움직임을 더한다.</p>
+      <p style="text-align:center;">$$dS = \mu S\,dt + \sigma S\,dW + S(e^{Y} - 1)\,dN$$</p>
+      <p>$dN$은 강도 $\lambda$를 갖는 포아송 증분(사건 도착), $Y \sim N(\mu_{J}, \sigma_{J}^{2})$는 로그 점프 크기의 분포이며, $S(e^{Y}-1)dN$이 점프가 발생했을 때의 불연속 가격 변화를 더한다. 평소에는 작은 등락을 이어 가다가 특정 사건 때 가격이 한 번에 크게 떨어지는 기록을 만드는 셈이다. 실무에서는 보통 기대 점프 기여분만큼 드리프트를 조정한다. 그렇지 않으면 큰 하락 점프 때문에 무조건 평균 자체가 의도와 달라진다. 점프-확산은 두꺼운 꼬리와 폭락 유사 움직임을 명시적으로 만들지만, 기본형에서는 점프 도착과 변동성 상태가 독립이다. 스트레스 국면에 점프가 모이는 실제 시장의 성질과 다른 지점이다.</p>
+      <h4 id="s53-ou">평균회귀 (Ornstein-Uhlenbeck)</h4>
+      <p><strong>평균회귀(Mean-Reversion, Ornstein-Uhlenbeck)</strong>는 로그 가격이나 스프레드가 장기 균형으로 끌려가는 동학을 표현한다.</p>
+      <p style="text-align:center;">$$d(\log S) = \kappa(\theta - \log S)\,dt + \sigma\,dW$$</p>
+      <p>$\kappa$는 평균으로 돌아가는 속도, $\theta$는 장기 수준이며, 반감기 $\ln(2)/\kappa$는 현재 편차가 절반으로 줄어드는 대표 시간이다. 두 자산의 가격 차이(스프레드)가 평소보다 벌어졌다가 시간이 지나며 좁혀지는 기록을 만들 때 맞는 모델이다. 이 과정은 스프레드와 일부 금리·원자재 환경에는 맞지만 추세가 형성될 수 있는 일반 자산 수익률을 모두 설명하지는 않는다. 가격 차이를 다루는 규칙을 계속 상승하는 주식 가격에 그대로 적용하면 성장을 잘못 표현한다.</p>
+      <h4 id="s53-heston">확률적 변동성 (Heston)</h4>
+      <p><strong>확률적 변동성(Stochastic volatility, Heston)</strong>은 가격과 별도로 움직이는 분산 과정 $v$를 도입한다.</p>
+      <p style="text-align:center;">$$dS = \mu S\,dt + \sqrt{v}\,S\,dW_{S}, \qquad dv = \kappa(\theta - v)\,dt + \xi\sqrt{v}\,dW_{v}, \qquad \mathrm{Corr}(dW_{S}, dW_{v}) = \rho$$</p>
+      <p>첫 식의 순간 변동성은 $\sqrt{v}$이고, 둘째 식의 $\kappa$와 $\theta$는 분산의 평균회귀 속도와 장기 수준, $\xi$는 분산 과정의 변동 크기다. 셋째 식의 $\rho$는 가격 충격과 분산 충격의 상관이며, 음의 $\rho$는 가격 하락 뒤 변동성이 높아지는 레버리지 효과를 만든다. 가격이 떨어지는 날 위험 크기가 커지는 상황을 만들고 싶다면 두 충격을 음의 상관으로 연결하면 된다. Heston 모델은 두꺼운 꼬리와 변동성 군집을 생성할 수 있다. 다만 분산은 음수일 수 없으므로, 연속시간 공식을 작은 시간 간격의 계산으로 바꾸는 <strong>이산화</strong> 단계에서 분산이 음수가 되지 않도록 전체 절단 오일러나 Andersen의 QE 같은 기법을 신중하게 골라야 한다.</p>
+      <h4 id="s53-garch">GARCH</h4>
+      <p><strong>일반화 자기회귀 조건부 이분산성(Generalized Autoregressive Conditional Heteroskedasticity)</strong>, $\mathrm{GARCH}(p, q)$는 이산시간 수익률의 분산을 모델링한다. $p$는 지연된 제곱 충격의 개수, $q$는 지연된 조건부 분산의 개수이며, 가장 흔한 GARCH(1,1)은 각각 하나의 지연항을 쓴다. 관련 내용은 9장에서도 다룬다.</p>
+      <p style="text-align:center;">$$r_{t} = \mu + \sigma_{t}\varepsilon_{t},\quad \varepsilon_{t} \sim N(0, 1), \qquad \sigma_{t}^{2} = \omega + \alpha (r_{t-1} - \mu)^{2} + \beta \sigma_{t-1}^{2}$$</p>
+      <p>$r_t$는 시점 $t$의 수익률, $\mu$는 조건부 평균이다. $\alpha$는 직전 수익률 충격에 분산이 얼마나 반응하는지, $\beta$는 직전 조건부 분산의 지속성을 나타내며, 일반적인 정상성 조건은 $\alpha + \beta < 1$이다. 어제 큰 손실이 났고(지연된 제곱 충격) 시장도 거칠었다면(지연된 조건부 분산) 오늘의 위험을 그 두 정보로 계산한다. 급락 직후 위험이 크게 오르는 정도가 $\alpha$이고, 그 높아진 위험이 다음 날부터 얼마나 천천히 줄어드는지가 $\beta$다. $\alpha+\beta<1$은 위험이 계속 누적되는 상황을 제한한다. GARCH는 대개 관측 자료를 가장 잘 설명하는 값을 찾는 최대우도법으로 보정할 수 있어 이론과 데이터 사이의 실용적인 연결고리가 되고, 기본 GARCH(1,1)도 실제 변동성 군집을 잘 재현하는 경우가 많다. ETF의 실제 수익률로 GARCH 설정값을 추정한 뒤 만든 기록의 큰 등락이 얼마나 이어지는지 보면 그 성능을 확인할 수 있다.</p>
+      <table class="cmp-table" id="table-parametric">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 6</span><span class="asset-caption__title">다섯 모수적 모델이 표현하는 것과 놓치는 것</span></div></caption>
+        <thead><tr><th>모델</th><th>표현하는 것</th><th>놓치거나 주의할 것</th></tr></thead>
+        <tbody>
+          <tr><td>GBM</td><td>드리프트와 일정한 변동성, 해석적 편의</td><td>변동성 군집, 초과첨도(얇은 꼬리)</td></tr>
+          <tr><td>점프-확산 (Merton)</td><td>두꺼운 꼬리, 폭락 유사 움직임</td><td>드리프트 보정 필요, 점프 도착과 변동성 상태가 독립</td></tr>
+          <tr><td>평균회귀 (OU)</td><td>스프레드와 일부 금리·원자재의 장기 균형 회귀, 반감기</td><td>추세가 형성되는 일반 자산 수익률</td></tr>
+          <tr><td>Heston</td><td>두꺼운 꼬리, 변동성 군집, 음의 $\rho$로 레버리지 효과</td><td>분산이 음수가 되지 않는 이산화 기법 선택</td></tr>
+          <tr><td>GARCH(1,1)</td><td>이산시간 변동성 군집, 최대우도 보정</td><td>정상성 조건 $\alpha+\beta<1$, 단변량이면 자산 간 위기 동조화는 따로 모델링해야 함</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="s53-limits">한계와 이러한 기준선을 사용하는 방법 &mdash; 투명한 실패를 비교 기준으로 삼기</h3>
+      <p>고전적 기준선의 절충은 명확하다. 부트스트랩은 경험적 분포를 보존하지만 역사 기록에 묶여 새로운 극단값이나 구조적 단절을 만들지 못한다. 모수적 모델은 역사 밖 경로를 만들 수 있지만 자신이 가정한 동학의 범위 안에서만 가능하다. 부트스트랩에는 관측하지 않은 값이 없고, 공식에는 작성자가 넣지 않은 시장 특징이 없다. 어느 쪽이든 모형 오지정은 금융에서 가장 중요한 꼬리, 스트레스 의존성, 국면 전환에 집중되어 나타난다.</p>
+      <p>이 장은 이 방법들을 학습 생성기의 건전성 점검으로 쓴다. 딥 생성 모델이라면 적어도 중요한 진단에서 적절한 고전적 기준선보다 나아야 한다. 해석 가능성, 소표본 강건성, 거버넌스가 우선인 환경에서는 고전적 모델 자체가 여전히 유력한 선택이다. 새 모델이 단순 모델보다 위험 시험에서 낫지 않다면, 작동 이유를 설명하기 쉽고 검토와 관리가 쉬운 단순 모델을 유지하는 것이 합리적이다.</p>
+      <p>구현 자료 <code>00_classical_simulation.py</code>는 보정 진단과 함께 이 절의 모든 방법을 구현한다. 같은 ETF 자료로 여러 방법을 돌린 뒤, 설정값을 맞춘 결과가 큰 손실과 연속 등락 같은 실제 특징을 재현하는지 비교하는 절차가 보정 진단이다.</p>
+    </section>
+
+    <section class="report-section s4 page-break" id="source-5-4" data-source-kind="section" data-source-ref="5.4">
+      <div class="report-section__kicker">Section 04 &middot; 교재 &sect;5.4</div>
+      <h1>5.4 생성 모델 분류 &mdash; 무엇을 학습하고 어떻게 표본을 만드는가</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li>판별 모델은 $p(y \mid X)$를, 생성 모델은 $p(X)$ 또는 $p(X, y)$를 학습해 표본 자체를 만든다</li>
+        <li>생성기는 꼬리 평활화·모드 붕괴·거짓 국면 구조로 <strong>조용히 실패</strong>할 수 있다</li>
+        <li>GAN·VAE·확산 모델·LLM은 학습 목적과 표본추출 방식, 실패 방식이 서로 다르다</li>
+      </ul></div></div>
+      <p>이제 모수적 과정이나 재표본추출 규칙을 직접 지정하지 않고, 학습 목표를 최적화해 관심 변수의 결합분포를 근사하는 <strong>학습된 생성기(learned generator)</strong>로 넘어간다. 여러 자산의 수익률 결합분포를 학습한다면 목표는 그럴듯한 외관이 아니라 후속 강건성 분석과 모델 개발에 필요한 시간 구조·의존성·꼬리 행동을 보존하는 것이다. 여러 ETF의 같은 날짜 수익률을 함께 보여 주고 비슷한 새 날짜 기록을 만들게 하는 것이 결합분포 학습이며, 값만 비슷하고 날짜 순서나 큰 손실이 빠졌다면 필요한 구조를 다 배운 것이 아니다.</p>
+      <p>판별 모델(discriminative model)은 $p(y \mid X)$를 학습해 주어진 입력 $X$에서 답 $y$를 예측한다. 생성 모델은 $p(X)$ 또는 $p(X, y)$를 학습해 새로운 표본 자체를 만든다. 예측 모델은 &lsquo;내일 급락할 가능성&rsquo;을 출력하고, 생성 모델은 가상의 일별 수익률 기록 자체를 출력한다. 복잡한 금융 의존 구조를 모수식 하나로 쓰기 어려울 때 이 유연성이 매력적이지만, 생성기는 꼬리를 지나치게 매끈하게 만들거나 모드를 붕괴시키거나 거짓 국면 구조를 학습하면서도 조용히 실패할 수 있다.</p>
+      <figure class="report-figure" id="fig-generator-families" data-deck-use="required" data-source-kind="figure" data-source-ref="5.2">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">그림 5.2 다양한 심층 생성 모델 비교</span></figcaption>
+        <img src="assets/figs/fig-generator-families.svg" alt="GAN, VAE, 확산 모델, LLM 네 열이 학습 목적, 표본추출, 강점, 대표 실패의 네 행으로 정렬된 비교 도식. GAN은 적대적 미니맥스·한 번의 순전파·선명한 표본·모드 붕괴, VAE는 재구성과 잠재 정규화·잠재변수에서 한 번에·구조화된 잠재공간·과도한 평활화, 확산 모델은 잡음 제거·여러 단계 반복 개선·모드 포괄과 안정적 학습·느린 표본추출, LLM은 다음 토큰 예측·자기회귀적 디코딩·혼합 데이터 처리·직렬화 부담">
+        <small class="asset-note">행 방향으로 읽으면 같은 질문에 대한 네 계열의 답이 된다. 원문 그림 5.2와 그 아래 비교표의 네 항목을 같은 격자로 다시 그렸다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-generator-families">그림 6</a>은 네 계열을 학습 목적·표본추출·강점·대표 실패로 나눈다. GAN은 적대적 손실의 미니맥스 게임을 학습하고 한 번의 순전파로 표본을 만들어 충실도가 높고 선명하지만 모드 붕괴와 불안정성이 대표 실패다. VAE는 재구성과 잠재공간 정규화를 학습해 잠재변수에서 한 번에 생성하며, 구조화된 잠재공간과 보간이 강점이고 과도한 평활화와 세부 손실이 약점이다. 확산 모델은 잡음 예측으로 학습해 여러 단계의 반복 개선으로 표본을 만들며, 모드 포괄성과 안정적 학습을 얻는 대신 표본추출이 느리고 계산량이 크다. LLM은 다음 토큰 예측으로 학습해 자기회귀적으로 디코딩하며, 텍스트 표현으로 혼합 데이터를 처리하지만 직렬화 부담과 컨텍스트 한계가 있다. 빠르게 기록을 뽑는 모델과 여러 번 수정해 기록을 완성하는 모델을 비교할 때, 빠르다는 이유만으로 큰 손실을 잘 만든다고 볼 수는 없다.</p>
+      <p>이 장에서 다루는 학습 생성기를 조금 더 풀면 다음과 같다.</p>
+      <ul>
+        <li><strong>변분 오토인코더(Variational Autoencoder, VAE)</strong>는 입력을 재구성하면서 잠재변수가 정해진 분포 가정을 따르도록 학습한다. 적대적 모델보다 학습이 안정적인 경우가 많고 혼합형 구조 데이터의 강한 기준선이 될 수 있지만, 희귀 범주와 꼬리를 과소표현할 수 있어 보정이나 더 표현력 있는 가능도(likelihood)가 필요하다.</li>
+        <li><strong>생성적 적대 신경망(Generative Adversarial Network, GAN)</strong>은 생성기와 판별기의 경쟁으로 학습한다. 복잡한 의존성을 포착하고 선명한 표본을 만들 수 있지만 학습이 불안정하다. 5.5절에서 붕괴를 줄이고 시간·꼬리·경로 충실도를 겨냥한 변형을 본다.</li>
+        <li><strong>확산 모델(diffusion model)</strong>은 잡음을 반복해서 제거하는 생성 절차를 학습한다. 학습이 대체로 안정적이고 조건부 생성도 지원하지만 표본추출이 느리다. 5.6절은 국면 조건부 시계열 생성을 포함해 이 계열을 다룬다.</li>
+        <li><strong>표 형식 데이터용 LLM 생성기</strong>는 각 레코드를 텍스트로 직렬화해 행을 자기회귀적으로 만든다. 이질적인 혼합형 데이터와 조건부 생성에 유용하지만 엄격한 스키마 검증과 프라이버시 점검이 필요하며, 5.7절에서 더 빠른 특화 대안과 함께 살펴본다.</li>
+      </ul>
+      <p>먼저 만들려는 자료가 가격 기록인지 표인지 구분해야 한다. 날짜별 수익률을 만드는 일에는 시간·꼬리·경로 충실도가 중요하고, 고객 나이·계좌 유형·거래액을 한 행으로 만드는 일에는 여러 종류의 필드가 맞는지와 개인정보가 새는지가 중요하다.</p>
+      <p>이 모델들은 그럴듯한 궤적 공간을 넓히는 동시에 각자의 귀납적 편향을 모델링 스택에 추가한다. 따라서 5.2절의 기준을 그대로 적용해야 한다. GAN의 목적함수는 시간 구조·꼬리위험·경로 유사성처럼 원하는 충실도와 맞아야 하고, 확산 모델은 느린 샘플링과 맞바꾼 안정성 및 조건부 생성의 이점을 입증해야 하며, LLM 표 생성기는 이질적 스키마를 다루면서 유효성과 누출 위험을 통과해야 한다. 학습에서 줄이려는 오류인 <strong>목적함수</strong>가 시험하려는 구조와 이어져야 한다는 뜻이다. 큰 손실을 시험하려면 그 손실을 잘 만들도록 학습시키고 결과도 큰 손실 기준으로 본다.</p>
+      <p>어떤 생성기가 보편적으로 최고인지 묻는 대신, 후속 의사결정에 필요한 구조를 보존하는지, 고전적 기준선과 비교해 경쟁력 있는지, 적용되는 프라이버시 제약을 충족하는지를 물어야 한다. 위험팀은 급락 손실을 잘 만드는 모델을, 고객 자료팀은 잘못된 행과 정보 노출이 적은 모델을 찾는다. 두 팀의 후속 의사결정이 다르므로 고르는 모델도 다르다.</p>
+    </section>
+
+    <section class="report-section s5 page-break" id="source-5-5" data-source-kind="section" data-source-ref="5.5">
+      <div class="report-section__kicker">Section 05 &middot; 교재 &sect;5.5</div>
+      <h1>5.5 금융 시계열을 위한 GANs &mdash; 목적에 맞게 적대적 학습을 바꾸기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li>바닐라 GAN은 고밀도인 분포 중심을 우선해 드물지만 경제적으로 중요한 <strong>꼬리 사건을 덜 만든다</strong></li>
+        <li>TimeGAN은 시간 의존성, Tail-GAN은 꼬리위험, Sig-CWGAN은 경로 유사성, GT-GAN은 불규칙 관측 시간을 겨냥한다</li>
+        <li>Sig-CWGAN 실험은 <strong>경로 거리와 효용이 좋아도 변동성 군집이 사라질 수 있음</strong>을 보여 준다</li>
+      </ul></div></div>
+      <p>GAN은 생성기와 판별기의 적대적 게임으로 합성 표본을 만든다. <strong>생성기</strong>는 무작위 입력을 후보 표본으로 바꾸고, <strong>판별기</strong>는 실제 표본과 생성 표본을 보고 각각 실제인지 가짜인지 점수를 매긴다. 한 모델이 가상 ETF 수익률을 만들고, 다른 모델이 실제와 가상을 섞어 놓고 어느 쪽인지 맞히는 구조다.</p>
+      <p>학습할 때는 판별기를 더 잘 구별하도록 강화하는 단계와, 생성기가 그 판별기를 속이도록 업데이트하는 단계를 번갈아 수행한다. 판별기가 가짜의 약점을 찾으면 다음에는 생성기가 그 약점을 줄이도록 학습한다. 둘이 동시에 같은 일을 하는 것이 아니라 각자의 업데이트 순서를 반복한다. 명시적인 데이터 가능도(likelihood)를 쓰기 어려울 때도 이 경쟁 자체가 학습 신호를 준다는 점이 핵심이다.</p>
+      <figure class="report-figure" id="fig-gan-loop" data-deck-use="required" data-source-kind="figure" data-source-ref="5.3">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 7</span><span class="asset-caption__title">그림 5.3 GAN 학습 워크플로</span></figcaption>
+        <img src="assets/figs/fig-gan-loop.svg" alt="실제 데이터 상자에서 나온 실선이 판별기 D로 바로 들어가고, 무작위 잡음 상자에서 나온 실선이 생성기 G를 거쳐 같은 판별기 D로 들어가며, 판별기는 실제·가짜 점수를 출력하고 점선 두 개가 판별기와 생성기로 되돌아가 두 업데이트가 교대로 진행되는 흐름도">
+        <small class="asset-note">실선은 표본 흐름, 점선은 매개변수 업데이트다. 실제 표본과 합성 표본이 같은 판별기로 들어간다는 점을 먼저 확인한다. 원문 그림 5.3의 공통 루프를 다시 그렸다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-gan-loop">그림 7</a>에서 실제 데이터는 판별기로 바로 들어가고, 무작위 잡음은 생성기를 거쳐 합성 표본이 된 뒤 같은 판별기로 들어간다. 공유 판별기 $D$는 두 입력을 실제/가짜 점수로 바꾸고, 판별 결과를 이용해 한 차례는 판별기를, 다음 차례는 생성기 $G$를 고친다. 이 그림은 특정 시퀀스 모델, 손실함수, 안정화 기법과 무관한 공통 루프다. 다만 금융에서 바닐라 GAN은 고밀도인 분포 중심을 우선해 드물지만 경제적으로 중요한 꼬리 사건을 덜 만들기 쉽다. 뒤의 변형들은 적대적 루프를 유지하면서 서로 다른 결함을 겨냥한다. 시간 순서가 중요하면 TimeGAN, 드문 큰 손실이 중요하면 Tail-GAN, 경로의 움직임 순서가 중요하면 Sig-CWGAN, 불규칙한 관측 시간이 중요하면 GT-GAN이다.</p>
+
+      <h3 id="s55-timegan">순차 데이터에 TimeGAN 사용하기 &mdash; 잠재공간에 시간 순서를 심기</h3>
+      <p>TimeGAN(Yoon, Jarrett, and van der Schaar, 2019)은 원시 시퀀스에 바로 적대적 손실을 적용하지 않는다. 먼저 <strong>임베딩 공간</strong>을 만들고, 다음 시점의 <strong>잠재 상태</strong>를 예측하는 지도 목적을 더해 GAN을 시계열에 맞게 조정한다. 하루하루의 ETF 정보를 작은 숫자 묶음(잠재 상태)으로 압축하고, 오늘 묶음으로 내일 묶음을 예측하는 연습을 시켜 압축한 기록 안에서도 다음 시점이 자연스럽게 이어지게 하는 구조다.</p>
+      <h4 id="s55-timegan-arch">아키텍처 &mdash; 다섯 네트워크의 역할</h4>
+      <ol>
+        <li><strong>임베딩 네트워크($e$)</strong>: 원시 시퀀스 $x$를 잠재 표현 $h$로 바꾼다.</li>
+        <li><strong>복원 네트워크($r$)</strong>: $h$에서 $x$를 재구성한다. $(e, r)$은 재구성 오차를 최소화하는 오토인코더(autoencoder)를 이룬다.</li>
+        <li><strong>감독 네트워크($s$)</strong>: $h_{t+1}$을 $h_t$에서 예측하는 지도 손실로 잠재공간의 시간 일관성을 강화한다.</li>
+        <li><strong>생성기($g$)</strong>: 잡음에서 합성 잠재 경로를 만든다.</li>
+        <li><strong>판별기($d$)</strong>: 실제 잠재 궤적과 합성 잠재 궤적을 구별한다.</li>
+      </ol>
+      <p>주식 기록을 압축하고, 원래 크기로 되돌리고, 다음 상태를 예측하고, 새 기록을 만들고, 진짜인지 검사하는 일을 다섯 네트워크가 나눠 맡는다. $e$와 $r$은 정보를 잃지 않도록 압축과 복원을 함께 배운다.</p>
+      <h4 id="s55-timegan-train">학습 &mdash; 사전학습에서 공동 최적화까지</h4>
+      <p>학습은 보통 세 단계다. 먼저 임베딩 네트워크와 복원 네트워크를 오토인코더로 사전학습하고, 다음으로 실제 임베딩을 사용해 감독 네트워크를 학습하며, 마지막으로 재구성 손실·지도 손실·적대적 손실 아래에서 전체 시스템을 공동 최적화한다. 압축했다가 원래 주식 기록으로 되돌리는 연습과 다음 상태 예측을 먼저 익힌 뒤, 생성과 판별까지 연결해 복원·시간 예측·진짜 구별 오류를 함께 줄이는 순서다.</p>
+      <h4 id="s55-timegan-data">데이터 요구사항 &mdash; 출력 범위가 수익률 지지집합과 맞아야 합니다</h4>
+      <p>여러 참조 구현은 복원 네트워크 끝에 <strong>시그모이드 활성화(sigmoid activation)</strong>를 두어 출력을 $[0,1]$ 범위로 제한한다. 3장에서 본 정규화 OHLCV에는 편리하지만, 상하한이 없는 수익률에는 그대로 쓸 수 없다. 수익률에는 음수가 있는데 모델이 0부터 1 사이만 출력하기 때문이다. 수익률을 유계 구간에 매핑했다면 다시 수익률로 되돌리는 절차를 관리하거나, 범위를 제한하지 않는 선형 출력층으로 바꿔 목표 변수의 전체 실수 지지집합을 유지해야 한다.</p>
+      <h4 id="s55-timegan-when">TimeGAN을 사용해야 하는 경우 &mdash; 다변량 시퀀스의 비교 기준</h4>
+      <p>TimeGAN은 참조 구현과 문서가 잘 갖춰진 다변량 시퀀스 생성 기준선이며, 새 아키텍처를 비교하는 데 유용하다. 그러나 꼬리 충실도(tail fidelity)를 목적함수에서 직접 겨냥하지 않고, 일별처럼 일정한 간격인 규칙적인 표본추출 격자를 가정한다. 규칙적인 일별 주가를 만드는 첫 모델로 쓰더라도 매우 큰 급락과 들쭉날쭉한 틱 간격은 따로 검사해야 한다.</p>
+      <p>노트북 <code>01_timegan.py</code>는 24단계 윈도(window)로 6개 주식 BA, CAT, DIS, GE, IBM, KO의 TimeGAN을 학습한다. 판별 정확도는 68%, ROC AUC는 0.87이므로 실제 시퀀스와 합성 시퀀스 사이에 아직 구별 가능한 정보가 남아 있다. 이 AUC는 판별 성능이지 생성기 품질 점수가 아니다. 판별기가 실제와 합성을 꽤 잘 맞힌다는 것은 만든 자료가 아직 실제와 구별된다는 뜻이다.</p>
+      <p>1단계 예측의 TSTR 오차 비율은 1.76이다. TimeGAN이 만든 다중 주식 조정 종가로 학습하면 실제 데이터로 학습했을 때보다 예측 오차가 76% 높다. 실제 학습 오차를 100으로 놓으면 합성 학습 오차가 176인 셈이고, 수익률이 76% 늘었다는 말이 아니다. 5.2절 프레임워크로 보면 <strong>효용은 부분적으로 보존됐지만 충실도는 불완전</strong>하다. 생성 데이터에는 약한 후속 예측 과제를 수행할 정도의 구조가 있지만, 판별기와 의존성 진단을 보면 실제·합성 시퀀스가 실질적으로 분리된다. 만든 주가로 학습한 모델이 어느 정도 예측해도, 자산들이 함께 움직이는 모습은 실제보다 약할 수 있다.</p>
+      <figure class="report-figure" id="fig-timegan-overlap" data-deck-use="required" data-source-kind="figure" data-source-ref="5.4">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 8</span><span class="asset-caption__title">그림 5.4 PCA와 t-SNE가 어떻게 중첩되는지를 보여주는 TimeGAN 충실도</span></figcaption>
+        <img src="assets/figs/fig-timegan-overlap.svg" alt="왼쪽 PCA 투영과 오른쪽 t-SNE 투영 상자에 검은 점인 실제 표본과 주황색 x인 합성 표본이 흩어진 도식. 가운데에서는 두 표시가 겹치고, PCA의 오른쪽 끝단과 t-SNE의 위쪽 일부 구간에서는 합성 표본만 따로 놓인다">
+        <small class="asset-note">점과 x가 겹치는 부분은 공유하는 구조이고, 한쪽 표시만 있는 끝단과 국소 구간은 분리된 부분이다. 겹침이 많다고 모든 관계가 같다는 보장은 아니다. 점 배치는 설명용이며, 원문 그림 5.4의 두 투영과 겹침 양상을 바탕으로 다시 그렸다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-timegan-overlap">그림 8</a>의 PCA와 t-SNE는 복잡한 자료를 낮은 차원의 그림으로 펼치는 도구다. 원문 그림에서는 실제 표본이 검은 점, 합성 표본이 회색 ×로 표시된다. 두 집합이 큰 궤적과 군집은 공유하지만 일부 끝단과 국소 구간에서 분리되며, 겹침이 완전하지 않다는 판별 결과와 일치한다. 점들이 많이 겹쳐도 바깥쪽 점이나 일부 모임이 따로 떨어졌는지를 봐야 한다.</p>
+      <p>분석 결과 TimeGAN 합성 시퀀스는 실제 데이터보다 시간 의존성과 자산 간 의존성을 약하게 표현했다. 전체 분포에 더 초점을 두고 세밀한 동학을 놓치는 특성과 맞닿은 결과다. 같은 성격의 입력에서 5.6절의 Diffusion-TS는 이 실험의 TSTR 비율을 TimeGAN의 1.76에서 1.00으로 낮췄다. 두 생성기를 같은 성격의 자료에 적용해 예측 오차를 보면서, 큰 움직임이 이어지는지와 ETF들이 같이 움직이는지도 함께 확인하는 비교다. 이 두 수치는 해당 실험의 비교이므로 다른 자료에서도 같은 순위가 나온다는 뜻은 아니다.</p>
+
+      <h3 id="s55-tailgan">위험 제약 생성을 위한 Tail-GAN 사용 &mdash; 분포 중심보다 꼬리를 직접 맞추기</h3>
+      <p>Tail-GAN(Cont et al., 2025) 계열은 평균적인 분포 충실도를 최적화하면 드물지만 중대한 꼬리 사건의 가중치가 작아지는 표준 GAN의 문제를 겨냥한다. 위험 관리에서는 분포 중심보다 <strong>위험가치(Value-at-Risk, VaR)</strong>와 <strong>기대부족분(Expected Shortfall, ES)</strong> 같은 꼬리위험 측도를 정확히 맞추는 일이 더 중요할 수 있다. VaR는 정한 꼬리 확률에서의 손실 경계이고, ES는 그보다 나쁜 손실들의 평균이다. 대부분의 평범한 거래일을 잘 만들어도 극단적인 손실일을 못 만들면 위험 한도 계산에는 부족하다.</p>
+      <p>Tail-GAN은 실제 데이터와 합성 데이터의 꼬리위험 측도 차이에 벌점을 주도록 생성기 손실을 확장한다.</p>
+      <p style="text-align:center;">$$L_{tail} = \lambda_{1} \big| VaR_{\alpha}^{real} - VaR_{\alpha}^{synth} \big| + \lambda_{2} \big| ES_{\alpha}^{real} - ES_{\alpha}^{synth} \big|$$</p>
+      <p>$\alpha$는 보통 1% 또는 5%로 정하는 꼬리 확률, $VaR_{\alpha}^{real}$과 $VaR_{\alpha}^{synth}$는 실제·합성 표본의 같은 꼬리 수준 VaR, $ES_{\alpha}^{real}$과 $ES_{\alpha}^{synth}$는 같은 수준의 실제·합성 ES다. $(\lambda_{1}, \lambda_{2})$는 VaR·ES 차이를 얼마나 중요하게 줄일지 정해 꼬리 일치와 전체 분포 적합 사이의 균형을 잡는다. 같은 투자 비중으로 실제 수익률과 합성 수익률을 계산한 뒤 같은 꼬리 기준에서 VaR와 ES를 비교하고, 그 차이에 벌점을 주는 셈이다.</p>
+      <h4 id="s55-tailgan-portfolio">포트폴리오 초점 &mdash; 공동 의존성이 손실을 키우는 단위</h4>
+      <p>이 꼬리 제약은 보통 개별 자산이 아닌 포트폴리오 수익률에서 계산한다. 실제 위험 한도가 포트폴리오 수준에 놓이고, 자산 사이의 <strong>공동 의존성</strong>이 손실 확대를 결정하는 리스크 관리 관행에 목적함수를 맞춘 것이다. 두 ETF가 따로는 안전해 보여도 같은 날 떨어지면 합산 손실이 크다. 같이 보유할 자산들의 합산 손실을 맞춰야 하는 이유다.</p>
+      <h4 id="s55-tailgan-when">Tail-GAN을 사용할 때 &mdash; 위험 측정이 후속 과제인 경우</h4>
+      <p>후속 과제가 위험 측정이고 꼬리 정확도가 다른 충실도보다 중요할 때 Tail-GAN이 적합하다. VaR와 ES를 더 잘 맞추는 대가로 분포 중심의 적합도가 낮아질 수 있다. 위험 한도용 자료에서는 급락을 잘 만드는 일이 우선이지만, 평범한 날의 수익률이 얼마나 달라졌는지도 함께 보고해 두 목표 사이의 절충을 목적에 맞춰 판단한다.</p>
+      <p>구현 파일 <code>02_tailgan_tail_risk.py</code>는 5개 ETF와 32개의 무작위 롱-숏 포트폴리오 전략으로 Tail-GAN을 학습한다. 롱-숏 포트폴리오는 매수 포지션과 반대 포지션을 섞은 구성이다. 이 32개 조합은 학습에 쓴 벤치마크 포트폴리오이므로, 실제 운용 비중을 넣어 위험을 다시 계산해 보기 전에는 다른 비중의 성능을 보장하지 않는다.</p>
+      <p>원문이 $\alpha=5$로 표기한 설정에서 VaR 상대 오차는 13%, ES 오차는 11%다. 명시적 꼬리 페널티가 사용할 만한 위험 추정치를 만들었다는 결과다. 합성 VaR는 약 -10.33, 실제 VaR는 약 -9.13이므로, 학습된 Tail-GAN은 손실 규모를 과소평가하지 않고 다소 과대평가한다. 수익률을 음수로 적은 VaR에서는 더 큰 음수가 더 큰 손실이므로, -10.33은 손실을 작게 만든 결과가 아니라 더 크게 잡은 결과로 읽는다. 원문의 숫자 단위를 임의로 퍼센트나 금액으로 바꾸어 읽으면 안 된다.</p>
+      <p>Tail-GAN이 선택한 꼬리 통계를 개선해도 제약은 특정 벤치마크 포트폴리오와 위험 수준에 정의된다. 그 포트폴리오의 VaR와 ES가 맞는다고 해서 다른 포트폴리오, 개별 자산, 낙폭처럼 날짜 순서에 영향을 받는 경로 의존적 위험 측도의 꼬리 의존성까지 정확하다는 보장은 없다. 학습한 비중에서 큰 손실이 잘 맞아도, 비중을 크게 바꾼 실제 계좌에서는 다시 검사해야 한다.</p>
+      <p>VaR와 ES 자체도 꼬리의 일부만 요약한다. 두 모델이 이 값들을 똑같이 맞추면서 꼬리 모양·군집·시간 동학은 다를 수 있다. 큰 손실이 며칠 연속된 기록과 여기저기 흩어진 기록은 VaR·ES가 같아도 손절 규칙에서 다르게 작동한다. 성능은 꼬리 확률 $\alpha$, 학습에 사용한 벤치마크 포트폴리오, 데이터에 포함된 국면에 실질적으로 의존한다.</p>
+      <div class="callout--insight" id="primer-tail-risk"><span class="callout__kicker">참고 · 공식 Primer &mdash; 꼬리 추정의 표본 불확실성</span><span class="callout__body">
+        <p>250개 일별 관측에서 99% 손실 VaR를 정하는 상위 1%는 2–3개 정도에 불과하고, ES는 그 불안정한 경계 밖의 손실들을 평균하므로 더 많은 근거가 필요하다. 가장 나쁜 2–3일이 바뀌면 위험 추정도 크게 달라진다. 합성 경로를 많이 뽑아도 원래 표본에 없던 위기의 실증 근거가 늘어나는 것은 아니므로, Tail-GAN의 꼬리 일치는 학습 표본과 생성 모형에 조건부인 결과다.</p>
+        <p>평가에는 표본 기간·보유기간·꼬리 확률과 함께 다른 창·방법에서의 민감도와 의존성을 고려한 재표집 불확실성을 남긴다. 일별 값을 여러 날 위험으로 옮길 때도 제곱근 시간 배율을 자동 적용하지 말고, 이분산성·두꺼운 꼬리·스트레스 의존성이 그 근사를 허용하는지 확인한다. 급락이 며칠 이어질 수 있다면 하루 손실만 확대해 보유기간 위험을 계산하는 방식이 충분한지 실제 경로로 따져 봐야 한다.</p>
+      </span></div>
+      <p class="source-note">출처: 공식 Primer &ldquo;Tail risk estimation under finite samples&rdquo;(<a href="https://ml4trading.io/primer/tail-risk-estimation-under-finite-samples/">ml4trading.io/primer</a>). 원문 해설판이 &sect;5.5에 붙인 참고 노트를 요약했다.</p>
+
+      <h3 id="s55-sigcwgan">시간적 충실도를 위한 경로 시그니처에 Sig-CWGAN 사용하기 &mdash; 판별기 대신 경로의 기하를 비교하기</h3>
+      <p>Sig-CWGAN(Ni et al., 2020)은 학습된 판별기 대신 거친 경로 이론(rough path theory)의 <strong>경로 시그니처(path signature)</strong>에 기반한 해석적 기준을 쓴다. 적응형 판별기에 덜 의존하면서 실제 경로 분포와 합성 경로 분포 사이에 구조화된 거리 개념을 준다. 실제 기록과 합성 기록에서 얼마나, 어떤 순서로 움직였는지를 숫자 묶음으로 바꾸고, 그 요약의 차이로 학습하는 방식이다.</p>
+      <p>경로 시그니처는 경로 모양을 요약하는 반복적분의 열이다. 출발점과 도착점만 기록하지 않고, 각 좌표를 따라 어떻게 움직였는지, 움직임이 어떤 순서로 일어났는지, 방향 사이에 어떤 상호작용이 있었는지를 담는다. 한 기록은 급락 후 회복했고 다른 기록은 상승 후 하락했다면, 끝 수익이 같아도 중간 손실은 다르다. 시작·끝 차이만 보는 순증분으로는 이 차이를 놓친다.</p>
+      <ul>
+        <li>첫 번째 수준은 경로의 순증분을 기록한다. 두 ETF의 총 이동이다.</li>
+        <li>두 번째 수준은 좌표 쌍 사이의 상호작용과 이동 순서를 기록한다. 어느 ETF가 먼저 움직였는지가 여기에 들어간다.</li>
+        <li>더 높은 수준은 갈수록 풍부한 기하 구조를 포착한다.</li>
+      </ul>
+      <p>중요한 수학적 성질은 시그니처가 이동 속도가 아니라 그려진 경로 모양에 의존해 <strong>시간 재매개변수화(time reparameterization)</strong>에 불변이라는 점이다. 금융에서는 유용할 수 있지만, 경과 시간과 관측 간격이 정보인 경우에는 이 불변성이 오히려 정보를 지운다. 같은 하락이 몇 분 만에 일어난 경우와 하루에 걸친 경우는 주문 대응이 다르다. 그래서 구현에서 경로 $X$에 시간을 별도 숫자 열(시간 채널)로 붙이는 경우가 많다.</p>
+      <p>경로 $X \colon [0,T] \to \mathbb{R}^{d}$의 수준-$k$ 항은 다음과 같다.</p>
+      <p style="text-align:center;">$$S(X)^{i_{1},\dots,i_{k}} = \int_{0&lt;t_{1}&lt;\dots&lt;t_{k}&lt;T} dX_{t_{1}}^{i_{1}} \cdots dX_{t_{k}}^{i_{k}}$$</p>
+      <p>$i_1,\dots,i_k$는 경로의 어느 좌표를 따라 적분하는지 나타내고, $0&lt;t_1&lt;\dots&lt;t_k&lt;T$라는 순서 제약이 이동의 순서를 보존하며, 수준 $k$가 높아질수록 더 복잡한 좌표 상호작용을 담는다. 자산이 수식의 좌표이고 $t_1&lt;t_2$는 앞 사건이 먼저라는 뜻이다. 주식 ETF가 먼저 오르고 채권 ETF가 뒤따른 기록과 반대 순서 기록은 이 항에서 다른 값을 갖는다.</p>
+      <p>깊이-$n$ 시그니처는 차수 $n$까지의 항을 모두 모은다. 무한한 열 전체 대신 <strong>절단된 시그니처(truncated signature)</strong>를 쓰면 순차 경로의 기하를 서로 다른 세밀도로 설명하는 유한 특성 맵을 얻는다. 계산을 줄이려고 기본 이동과 두 자산의 관계까지만 남기면 더 복잡한 순서는 빠진다. 자세함과 계산비용을 맞바꾸는 선택이다. Sig-CWGAN은 실제·합성 경로 분포 사이의 시그니처 커널 <strong>최대 평균 불일치(maximum mean discrepancy, MMD)</strong>를 최소화해, 학습된 적대적 분류기 없이도 비교적 안정적인 학습 신호를 얻는다. 하나의 기록을 맞추기보다 실제 여러 기록의 움직임 요약과 합성 여러 기록의 요약을 비교하는 것이며, 이것이 모든 금융 특징을 자동으로 보장하지는 않는다.</p>
+      <p>대가는 차원의 폭발이다. 시그니처 항 수는 경로 차원 $d$와 절단 깊이 $n$에 대해 $O(d^{n})$으로 늘어난다. 두 자산에 시간을 더해 $d=3$이고 깊이가 3이면 마지막 차수의 항 27개를 포함해 $1 + 3 + 9 + 27 = 40$개다. 자산 50개에서 깊이 3이면 125,000개가 넘어 차원 축소 없이 직접 계산하기 어렵다. ETF 두 개로 시험하던 설정을 50개 자산으로 늘리려면 메모리와 계산 시간부터 확인해야 한다. 따라서 경로 의존적 가격결정이나 순차 의사결정처럼 경로별 충실도가 중요하고 차원이 충분히 낮을 때 Sig-CWGAN이 적합하다. 소수 ETF의 급락 후 회복 순서가 중요한 분석이 그 예다. 해석적 목적함수는 판별기 과적합에 따른 실패를 줄일 수 있지만, 확장성이 강한 제약이다.</p>
+      <p>구현 파일 <code>03_sigcwgan_signatures.py</code>는 논문 설정을 그대로 재현한다. 단일 자산인 S&amp;P 500 지수 로그 수익률 2005–2020을 16일 창으로 자르고, 시그니처 깊이 4와 생성기 학습 2,500단계를 쓴다. 같은 S&amp;P 500 자료라도 16일씩 자른 기록과 더 긴 기록은 다른 시험이므로, 결과를 비교하려면 기간·창 길이·깊이·학습 단계를 함께 기록해야 한다.</p>
+      <figure class="report-figure" id="fig-sigcwgan-paradox" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 9</span><span class="asset-caption__title">Sig-CWGAN 실험의 경로 거리·효용 지표와 제곱수익률 자기상관</span></figcaption>
+        <img src="assets/figs/fig-sigcwgan-paradox.svg" alt="왼쪽 상자에 Sig-W1 학습 0.054, Sig-W1 홀드아웃 0.42, TSTR 비율 0.954 세 수치가 놓이고, 오른쪽 상자에 제곱수익률 자기상관이 실제 0.49 막대와 합성 0.05 막대로 비교된 도식">
+        <small class="asset-note">왼쪽은 경로 거리와 후속 효용, 오른쪽은 정형화된 사실 진단이다. 같은 합성 데이터에서 두 결과가 다른 방향을 가리킨다는 점을 읽는다. 원문 &sect;5.5에 보고된 Sig-CWGAN 실험 수치로 그린 도식이다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-sigcwgan-paradox">그림 9</a>의 왼쪽에서 Sig-W1 거리, 즉 기대 시그니처의 RMSE는 학습 중 0.054이고 홀드아웃 윈도에서 0.42다. TSTR 비율은 0.954로 실제 데이터 학습과 거의 같은 수준이다. 배운 기록에서 잘 맞았는지(0.054)와 처음 보는 기록에서 잘 맞았는지(0.42)를 나눠 봐야 하고, TSTR 0.954는 실제 예측 효용을 본 별도 결과다.</p>
+      <p>그러나 정형화된 사실은 일부만 살아남는다. 합성 데이터의 왜도와 초과첨도는 경험적 값보다 훨씬 작고, 제곱수익률 자기상관은 실제 데이터의 0.49에서 합성 데이터의 0.05로 붕괴한다. 합성 기록으로 학습한 예측기는 잘 작동하지만, 큰 등락이 며칠 이어지는 모습은 거의 없다. 경로 거리와 후속 효용이 좋아도 변동성 군집은 보존되지 않았다는 중요한 반례다.</p>
+      <p>Sig-CWGAN의 매력은 저차원에서 가장 크다. 얕게 절단하면 고차 경로 정보를 버리고, 깊이를 늘리면 계산비용과 통계적 추정 난도가 빠르게 증가한다. 시그니처 깊이를 늘려 기록 구분이 세밀해져도 실행 시간이 늘고 추정이 흔들릴 수 있으므로, 깊이를 높이는 것만으로 성능이 좋아지지는 않는다. 광범위한 다변량 시장 패널의 범용 해법보다는 구조화된 저차원 생성기로 보는 편이 정확하다.</p>
+
+      <h3 id="s55-gtgan">불규칙 시계열에 GT-GAN 사용하기 &mdash; 관측 시간 자체를 모델에 넣기</h3>
+      <p>GT-GAN(Jeon et al., 2022)은 틱 데이터, 이벤트 기반 바, 통합 피드처럼 관측값이 균일하지 않은 간격으로 발생하는 <strong>불규칙 시계열</strong>에 적대적 생성을 확장한다. 거래가 어떤 때는 초마다 생기고 다른 때는 한참 뒤에 생기는데, 이 들쭉날쭉한 간격 자체가 시장 활동의 정보를 담을 수 있다.</p>
+      <p>연속시간 동학은 다음 <strong>신경 상미분방정식(neural ordinary differential equation, neural ODE)</strong>으로 매개변수화한다.</p>
+      <p style="text-align:center;">$$\frac{dx}{dt} = f_{\theta}(x,t)$$</p>
+      <p>$x$는 연속시간 상태, $t$는 실제 관측 시간이고, $f_\theta$는 상태 변화율을 출력하는 학습된 함수다. 이 변화 속도를 시간에 따라 누적(적분)하면 임의의 타임스탬프에서 값을 생성할 수 있다. 마지막 거래 이후 다음 거래까지 얼마가 지났는지에 맞춰 중간 상태를 계산하는 셈이다. 판별기는 표본값뿐 아니라 연결된 타임스탬프도 함께 평가하고, TimeGAN의 감독 네트워크와 비슷한 지도 요소가 시간적 일관성을 돕는다. 가격이 같은 폭으로 움직였어도 한 번은 몇 초, 다른 한 번은 몇 분 걸렸다면 판별기에 둘의 시간도 알려 줘야 관측 시간에 담긴 정보를 평가할 수 있다.</p>
+      <p>GT-GAN은 거래 도착이나 정보 이벤트처럼 <strong>관측 시간이 곧 정보인 불규칙 데이터</strong>를 위해 설계됐다. 규칙적인 시계열을 무작위 부분표본추출해 인위적으로 불규칙하게 만든 뒤 적용하면 더 단순한 이산시간 생성기보다 나을 가능성이 작다. 매일 있던 기록에서 몇 날을 무작위로 지운 것은 거래가 몰리거나 뜸해서 생긴 틱 간격과 의미가 다르다. 관측 시간이 정보를 담을 때 GT-GAN을 선택하고, 규칙적인 일별·분봉 바에는 더 단순하고 효율적인 이산시간 생성기를 우선하는 것이 이 절의 선택 기준이다.</p>
+      <p><code>04_gtgan_irregular.py</code>는 3장의 NVDA 달러 바에 GT-GAN을 학습한다. 재구성 MSE는 0.026, 보간/실제 평활도 비율은 0.02이므로 ODE 경로가 실제 바보다 훨씬 매끄럽다. 실험 데이터도 한 거래일의 446개 바뿐이라, 결과는 경쟁력 있는 분포 충실도 벤치마크가 아니라 연속시간 학습 절차의 시연으로 해석해야 한다. 하루치 NVDA 기록을 부드럽게 연결했어도 실제의 짧고 큰 움직임이 사라졌다면 주문 시험에는 쓸 수 없다.</p>
+      <p>GT-GAN은 이산시간 모델보다 모델링과 최적화가 훨씬 복잡하다. 데이터가 적으면 실제 이벤트 시간 분포·의존 구조·국면 행동은 놓치면서 눈으로만 매끄러운 경로를 만들 수 있다. 불규칙한 시간 간격에 경제적 의미가 있을 때는 이 복잡성이 정당화되지만, 불규칙성이 표본추출 선택이나 미시구조 잡음에서 왔다면 충실도 개선 없이 장치만 늘어난다. 거래가 없어서 기록이 뜸한 것은 실제 이벤트 시간의 정보일 수 있지만, 데이터 피드가 늦어서 기록이 뜸한 것은 수집 과정의 문제다. 왜 시간 간격이 불규칙한지를 먼저 구분해야 한다.</p>
+
+      <h3 id="s55-challenges">GAN 학습의 과제 &mdash; 변형들이 공유하는 운영 위험</h3>
+      <p>서로 다른 목적을 가진 GAN 변형에도 반복해서 나타나는 구현 위험이 있다.</p>
+      <ul>
+        <li><strong>모드 붕괴(mode collapse)</strong>: 생성기가 일부 국면만 포괄해 위험상 중요한 희귀 상태를 덜 만든다.</li>
+        <li><strong>학습 불안정성(training instability)</strong>: 최적화가 진동하거나 발산한다. 스펙트럼 정규화(spectral normalization), 그래디언트 페널티(WGAN-GP), TimeGAN의 단계적 학습이 대표 안정화 기법이다.</li>
+        <li><strong>하이퍼파라미터 민감성(hyperparameter sensitivity)</strong>: 학습률, 아키텍처, 정규화 가중치를 데이터셋마다 다시 조정해야 하는 경우가 많다.</li>
+        <li><strong>평가의 모호성(evaluation ambiguity)</strong>: 생성에는 정답 레이블이 없으므로 보류 분포 검정, 후속 효용(TSTR), 시간 구조와 횡단면 의존성 진단을 결합해야 한다.</li>
+      </ul>
+      <p>매번 잔잔한 장세만 나오거나(모드 붕괴) 실행할 때마다 결과가 크게 달라진다면(학습 불안정성), 학습 손실이 낮아도 점검 대상이다. <a class="asset-ref" href="#table-gan-variants">표 7</a>은 네 변형이 겨냥한 결함과 이 장의 구현 실험 수치를 함께 정리한 것이다.</p>
+      <table class="cmp-table" id="table-gan-variants">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">네 GAN 변형이 겨냥한 결함과 구현 실험 수치</span></div></caption>
+        <thead><tr><th>변형</th><th>겨냥한 결함</th><th>핵심 장치</th><th>구현 실험에서 보고된 값</th></tr></thead>
+        <tbody>
+          <tr><td>TimeGAN</td><td>시간 의존성</td><td>임베딩 공간 + 다음 잠재 상태를 예측하는 감독 네트워크</td><td>판별 정확도 68%, ROC AUC 0.87, TSTR 오차 비율 1.76</td></tr>
+          <tr><td>Tail-GAN</td><td>꼬리 사건의 과소 가중</td><td>VaR·ES 차이를 생성기 손실에 벌점으로 추가</td><td>VaR 상대 오차 13%, ES 오차 11%</td></tr>
+          <tr><td>Sig-CWGAN</td><td>경로별 유사성</td><td>판별기 대신 시그니처 커널 MMD</td><td>TSTR 0.954, 제곱수익률 자기상관 0.49&rarr;0.05</td></tr>
+          <tr><td>GT-GAN</td><td>불규칙 관측 시간</td><td>신경 ODE로 연속시간 동학 매개변수화</td><td>재구성 MSE 0.026, 평활도 비율 0.02 (446개 바)</td></tr>
+        </tbody>
+      </table>
+      <p>Kwon and Lee (2024)는 GAN이 주변 수익률 분포는 근사할 수 있어도 세밀한 시간 구조와 다변량 의존성에는 자주 어려움을 겪는다고 보고한다. 성능은 아키텍처마다 다르고, 다변량 생성이 저차원 의존 구조로 붕괴할 수도 있다. 각 ETF의 등락 폭은 잘 맞는데 모든 ETF가 언제나 같은 방향으로만 움직인다면 다변량 의존성이 지나치게 단순해진 경우다. 그러므로 주변분포 검정 통과는 필요조건에 불과하며, 시간 동학과 횡단면 관계를 따로 검증해야 한다. 다음 5.6절은 이와 다른 학습·샘플링 방식을 쓰는 확산 모델로 이어진다.</p>
+    </section>
+
+    <section class="report-section s6 page-break" id="source-5-6" data-source-kind="section" data-source-ref="5.6">
+      <div class="report-section__kicker">Section 06 &middot; 교재 &sect;5.6</div>
+      <h1>5.6 금융 시계열을 위한 확산 모델 (Diffusion models) &mdash; 잡음에서 시장 경로를 복원하기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li>순방향 과정은 데이터에 잡음을 더하고, 학습된 역방향 과정이 잡음을 단계적으로 제거해 표본을 만든다</li>
+        <li>DDPM은 <strong>순방향에서 실제로 넣은 잡음을 예측</strong>하는 평균제곱오차로 학습한다</li>
+        <li>조건부 생성은 국면 스트레스 테스트를 지원하지만 <strong>국면 탐지기의 오류도 물려받는다</strong></li>
+        <li>Diffusion-TS는 출력을 추세+계절성으로 제약해 진단 실패의 위치를 찾기 쉽게 한다</li>
+      </ul></div></div>
+      <p>확산 모델은 이미지뿐 아니라 금융 시계열 합성에서도 강한 경험적 성능을 보여 왔다. 다만 다른 실험에서 잘됐다는 경험적 성능이 내 업무의 검증을 대신하지는 않는다. ETF 자료를 만드는 후보에 확산 모델을 추가한다면 기존 모델과 같은 실제 시험 기간에서 비교해야 한다.</p>
+      <figure class="report-figure" id="fig-diffusion-loop" data-deck-use="required" data-source-kind="figure" data-source-ref="5.5">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 10</span><span class="asset-caption__title">그림 5.5 DDPM 순방향/역방향 개략도</span></figcaption>
+        <img src="assets/figs/fig-diffusion-loop.svg" alt="위 줄 순방향에서 실제 데이터가 1단계, 2단계, 3단계 잡음을 거쳐 거의 순수 잡음이 되고, 아래 줄 역방향에서 순수 잡음이 3단계, 2단계, 1단계 잡음 제거를 거쳐 깨끗한 표본이 되며, 두 줄 사이에 공유 잡음 제거 네트워크가 놓인 흐름도">
+        <small class="asset-note">위 줄은 왼쪽에서 오른쪽으로, 아래 줄은 오른쪽에서 왼쪽으로 읽는다. 역방향의 모든 단계는 같은 가중치의 잡음 제거 네트워크를 반복 적용한다. 원문 그림 5.5의 두 흐름과 단계 구성을 다시 그렸다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-diffusion-loop">그림 10</a>의 위쪽 순방향은 실제 데이터에 1단계 잡음, 더 큰 2단계 잡음, 심한 3단계 잡음을 차례로 더해 거의 순수한 잡음으로 만든다. 학습 때는 임의의 시간 단계 $t$를 뽑고 깨끗한 데이터로부터 그 단계의 잡음 표본을 만든 다음, 잡음 표본과 시간을 입력받는 하나의 공유 <strong>잡음 제거 네트워크</strong>가 더해진 잡음을 예측하게 한다. 실제 수익률 숫자에 크고 작은 무작위 값을 더하고, 모델에게 추가된 값이 무엇이었는지 맞히게 하는 연습이다.</p>
+      <p>아래쪽 <strong>역방향 샘플링</strong>은 순수 잡음에서 출발해 같은 가중치의 네트워크를 반복 적용하며 잡음 제거 3단계, 2단계, 1단계를 지나 깨끗한 표본에 도달한다. 마지막 단계를 제외한 중간 전이에 새 잡음이 들어가는 확률적 연쇄이므로, 같은 모델을 쓰더라도 시작값과 중간 잡음이 달라 실행할 때마다 다른 표본이 나온다. 무작위 숫자 묶음으로 시작해 모델을 여러 번 적용하면서, 단계마다 잡음을 줄여 수익률 기록처럼 보이게 만드는 과정이다.</p>
+      <p>반복적인 잡음 제거는 단순한 생성기가 놓치기 쉬운 시장 데이터의 비가우시안 특성을 재현할 가능성을 높여, 표본 충실도가 핵심인 상황에서 유용하다(Takahashi and Mizuno, 2024). 대신 학습과 생성 모두 한 번의 순전파로 끝나는 생성기보다 대체로 느리다. 매일 밤 많은 모의 시장 기록을 만들어야 한다면 품질과 함께 다음 아침까지 생성이 끝나는지도 따져야 한다.</p>
+
+      <h3 id="s56-framework">잡음 제거 확산 프레임워크 &mdash; 훼손 과정과 복원 과정을 함께 정의하기</h3>
+      <p>확산 모델은 관측 시퀀스를 차츰 잡음으로 바꾸는 <strong>순방향 과정(forward process)</strong>과, 그 훼손을 되돌리는 <strong>역방향 과정(reverse process)</strong>을 정의한다. 새 표본을 만들 때는 잡음에서 출발해 학습된 역방향 전이를 거듭 적용한다. 이미 아는 실제 기록 하나를 복사하는 절차가 아니라 배운 복원 규칙으로 새 표본을 만든다는 점이 중요하다.</p>
+      <p>순방향 과정은 확산 단계 $t = 1, \dots, T$에 걸쳐 가우스 잡음을 추가하는 마르코프 연쇄다. 한 단계 진행하는 분포는 다음과 같다.</p>
+      <p style="text-align:center;">$$q(x_{t} \mid x_{t-1}) = N\big(x_{t};\, \sqrt{\alpha_{t}}\, x_{t-1},\, (1 - \alpha_{t}) I\big)$$</p>
+      <p>$x_{t-1}$과 $x_t$는 연속한 두 확산 단계의 상태이고, $\alpha_{t} = 1 - \beta_{t}$이며 $\beta_t$가 단계별 <strong>잡음 스케줄(noise schedule)</strong>을 정한다. $I$는 등방성 가우스 잡음의 공분산 구조다. $\alpha_t$는 남기는 신호, $\beta_t$는 더하는 잡음의 정도이며, 여기의 $t$는 거래일이 아니라 생성 모델의 처리 단계다. 처음에는 조금 흐트러뜨리고 뒤로 갈수록 원래 수익률을 알아보기 어려울 만큼 흐트러뜨린다.</p>
+      <p>단계가 충분히 많으면 $x_T$는 등방성 가우스 분포에 가까워진다. 잡음 스케줄은 각 타임스텝에서 원래 정보가 잡음에 비해 얼마나 남았는지, 즉 <strong>신호 대 잡음비(signal-to-noise ratio)</strong>를 결정하므로 모델이 단계별로 얼마나 어려운 복원 문제를 풀게 되는지도 좌우한다. 수익률 모양이 남은 자료와 원래 모양이 거의 사라진 자료를 모두 보여 주며 학습시키는 셈이다.</p>
+      <p>역방향 과정은 $x_t$가 주어졌을 때 이전 상태 $x_{t-1}$의 조건부 분포를 학습한다.</p>
+      <p style="text-align:center;">$$p_{\theta}(x_{t-1} \mid x_{t}) = N\big(x_{t-1};\, \mu_{\theta}(x_{t}, t),\, \Sigma_{\theta}(x_{t}, t)\big)$$</p>
+      <p>$\mu_\theta(x_t,t)$는 복원할 이전 상태의 조건부 평균(예상 중심), $\Sigma_\theta(x_t,t)$는 조건부 공분산(남는 불확실성)이다. 잡음 제거기는 $x_t$와 $t$의 임베딩(embedding)을 받아 이 두 모수 또는 잡음 $\varepsilon$처럼 동등한 양을 출력한다. 한 번에 완성하는 대신, 잡음이 많은 숫자 묶음과 현재 훼손 수준을 넣어 한 단계 덜 흐트러진 상태가 어디쯤 있어야 할지 계산하고, 이런 작은 수정을 이어 최종 기록을 만든다.</p>
+      <p>학습은 확산 단계를 무작위로 뽑아 여러 잡음 수준에 대한 기대 손실을 줄인다. <strong>잡음 제거 확산 확률 모델(Denoising Diffusion Probabilistic Model, DDPM)</strong>(Ho et al., 2020)은 순방향에서 실제로 넣은 잡음 $\varepsilon$와 네트워크 예측 $\varepsilon_{\theta}(x_{t}, t)$ 사이의 평균제곱오차를 쓰는 목적함수를 널리 알렸다. 학습 담당자는 수익률에 어떤 무작위 값을 더했는지 알고 있으므로 모델의 예상과 정답을 비교해 고칠 수 있다. 이 방식은 $x_0$를 학습 중에 직접 재구성하지 않으면서 안정적인 목적함수와 반복 샘플링 절차를 연결한다.</p>
+
+      <h3 id="s56-why">확산 모델이 금융 수익률에 적합한 이유 &mdash; 주변분포와 조건부 동학을 함께 겨냥하기</h3>
+      <p>5.1절의 두꺼운 꼬리, 변동성 군집, 레버리지 효과, 약한 수익률 자기상관은 수익률 생성기에 구체적인 제약을 준다. 쓸 만한 생성기는 주변분포뿐 아니라 지속적 변동성과 시간가변 꼬리위험 같은 조건부 동학도 맞춰야 한다. 확산 모델의 잡음 제거기는 저차 모멘트만 맞추는 대신 여러 잡음 수준에서 학습하므로 이런 복합 구조를 포착할 여지가 있다. 그래도 만든 ETF 기록에 큰 하락이 나타났다고 끝내지 말고, 그 뒤 며칠의 흔들림(변동성 군집)과 하락 뒤 위험 증가(레버리지 효과)까지 실제와 비교해야 한다.</p>
+      <p>세 생성 계열의 실패는 서로 다르다. VAE는 불확실성을 평균화해 지나치게 매끄러운 표본을 디코딩할 수 있고, GAN은 학습이 불안정하며 꼬리나 소수 모드를 놓칠 수 있다. 확산 모델의 학습은 대체로 안정적이지만 표본마다 역방향 단계를 여러 번 거쳐야 하므로 생성이 느리다. 학습이 잘 끝났어도 하루에 필요한 수의 모의 기록을 제시간에 못 만들 수 있으므로, 학습 안정성과 생성 속도는 따로 평가하고 운영 시간도 성능 비교에 넣는다.</p>
+
+      <h3 id="s56-conditional">국면 스트레스 테스트를 위한 조건부 생성 (conditional generation) &mdash; 원하는 시장 상태로 유도하기</h3>
+      <p><strong>조건부 생성(conditional generation)</strong>은 지정한 속성에 맞는 표본을 만드는 방식이다. 대표적인 두 접근은 다음과 같다.</p>
+      <ul>
+        <li><strong>분류기 유도(classifier guidance)</strong>: 잡음이 섞인 데이터에 별도 분류기를 학습하고, 그 분류기의 기울기로 샘플링 방향을 바꾼다.</li>
+        <li><strong>분류기 없는 유도(classifier-free guidance)</strong>: 학습 과정 자체에 조건 정보를 임베딩한다.</li>
+      </ul>
+      <p>&lsquo;등락이 큰 장세&rsquo; 여부를 판별하는 별도 모델로 생성을 이끌 수도 있고, 처음부터 그 조건을 입력해 학습할 수도 있다. 두 방식 모두 생성을 &lsquo;낮은 변동성&rsquo; 또는 &lsquo;위기&rsquo; 같은 상태로 유도할 수 있어 국면별 시나리오와 스트레스 테스트를 지원한다. 9장에서 더 자세히 다룰 국면 탐지와 결합하면 워크플로는 다음 순서를 따른다.</p>
+      <ol>
+        <li>과거 기간에 국면 레이블을 붙이도록 HMM 같은 국면 모델을 적합한다.</li>
+        <li>확산 타임스텝별 잡음 시퀀스에서 국면 레이블을 예측하는 분류기를 학습한다.</li>
+        <li>생성할 때 현재 잡음 표본 $x_t$에서 목표 국면의 로그확률 기울기 $\nabla_{x_{t}} \log p(\mathrm{regime} \mid x_{t})$를 계산해 잡음 제거 업데이트를 조정한다.</li>
+      </ol>
+      <p>과거 기록에 저변동성·고변동성 표시(국면 레이블)를 붙이고, 흐트러진 기록에서도 그 표시를 맞히게 학습한 뒤, 목표 국면의 확률을 높이는 방향(기울기)으로 잡음 제거를 조정해 고변동성 쪽 기록을 만드는 흐름이다.</p>
+      <p>분류기 유도(Dhariwal and Nichol, 2021)는 강도를 세심하게 조절해야 한다. 유도가 너무 강하면 다양성이 줄고 희귀 국면이 과장돼 비현실적인 극단값이 생긴다. 고변동성을 강하게 요구했더니 모든 모의 기록이 거의 같은 급락을 보인다면 유도 강도가 다양성을 줄인 경우다. 온도 스케일링과 $\eta > 0$인 잡음 제거 확산 암묵 모델(Denoising Diffusion Implicit Model, DDIM)의 확률적 샘플링은 목표 국면으로 향하는 힘과 표본 다양성의 균형을 잡는 데 도움을 준다.</p>
+      <figure class="report-figure" id="fig-regime-paths" data-deck-use="required" data-source-kind="figure" data-source-ref="5.6">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 11</span><span class="asset-caption__title">그림 5.6 Diffusion-TS 국면 조건부 샘플 경로</span></figcaption>
+        <img src="assets/figs/fig-regime-paths.svg" alt="60개 시간 단계의 일별 수익률 경로를 위아래 두 줄로 나눈 도식. 위 줄 저변동성 국면 경로는 기준선 근처에서 작게 오르내리고 실제 0.0111·생성 0.0104로 표기되며, 아래 줄 고변동성 국면 경로는 크게 오르내리고 실제 0.0203·생성 0.0220으로 표기된다">
+        <small class="asset-note">두 줄의 진폭 차이가 국면 조건이 만든 변동성 차이이고, 오른쪽 수치는 각 국면의 실제·생성 변동성이다. 경로 모양은 설명용이며, 원문 그림 5.6의 국면 구분과 보고된 변동성 수치로 다시 그렸다.</small>
+      </figure>
+      <p><a class="asset-ref" href="#fig-regime-paths">그림 11</a>은 60개 시간 단계에 걸친 일별 수익률 경로를 저변동성과 고변동성으로 나눈다. 원문 그림은 실제와 생성 경로를 함께 그린다. 실제 변동성은 저국면 0.0111, 고국면 0.0203이고 생성 변동성은 각각 0.0104와 0.0220이다. 생성된 저·고변동성 경로는 눈으로도 분리되며, 원문이 보고한 국면 변동성 비율은 2.1배다. 저변동성 모의 기록이 정말 잔잔한지, 고변동성 기록이 실제처럼 크게 흔들리는지를 실제 해당 장세와 각각 비교하는 그림이다.</p>
+      <p>국면 레이블 자체가 모델의 산출물이므로 조건부 생성기는 <strong>국면 탐지기의 오류</strong>도 물려받는다. 잘못 분류한 과거 기간이 잘못된 레이블의 학습 표본이 되고, 그 결과 조건부 경로도 왜곡된다. 평범한 기간을 위기로 표시해 학습했다면 &lsquo;위기&rsquo;라고 요청한 기록도 실제 위기와 다를 수 있다. 따라서 이 경로들은 모델 기반 시나리오로 다루고, 실제 의사결정에 넣기 전에 국면별 진단을 통과시켜야 한다.</p>
+      <div class="callout--insight" id="primer-causality"><span class="callout__kicker">참고 · 공식 Primer &mdash; 국면 조건화와 인과 개입</span><span class="callout__body">
+        <p>관측된 위기 국면을 조건으로 경로를 만드는 $P(Y\mid C=c)$는 시장에 개입해 그 국면을 발생시켰을 때의 $P(Y\mid do(C=c))$를 자동으로 알려 주지 않는다. 과거 위기의 ETF 손실을 만들었다고 해서 특정 정책이 그 손실을 일으켰다고 말할 수는 없다. 국면이 신호와 수익률의 공통 원인이면 전체 표본의 관계가 국면별로 사라지거나 뒤집힐 수 있으므로, 생성기의 조건부 관계도 이 구조를 물려받는지 확인한다.</p>
+        <p>통제 변수를 늘리는 것만으로 해결되지는 않는다. 인과 경로의 매개변수를 통제하면 총효과 일부가 사라지고, 생존 여부 같은 공통 결과로 표본을 고르면 새로운 선택 편향이 생긴다. 상장폐지된 종목을 빼고 남은 종목만 학습시키면 만든 기록도 사라진 종목의 손실을 놓친다. 조건부 합성 경로는 가정한 관측 구조의 시나리오로 읽고, 인과적 스트레스 효과의 증명으로 해석하지 않는다.</p>
+      </span></div>
+      <p class="source-note">출처: 공식 Primer &ldquo;Causality, confounding, and why good signals can be misleading&rdquo;(<a href="https://ml4trading.io/primer/causality-confounding-and-why-good-signals-can-be-misleading/">ml4trading.io/primer</a>). 원문 해설판이 &sect;5.6에 붙인 참고 노트를 요약했다.</p>
+
+      <h3 id="s56-diffusion-ts">해석 가능한 분해를 적용한 Diffusion-TS &mdash; 추세와 계절성으로 잡음 제거 출력을 구성하기</h3>
+      <p>시계열 생성기는 주변분포와 함께 시퀀스 내 의존성을 표현해야 한다. Diffusion-TS(Yuan and Qiao, 2024)는 인코더-디코더 Transformer를 쓰고 복원 시퀀스를 저주파와 중주파 성분으로 명시적으로 나눠 확산 잡음 제거기를 순차 데이터에 맞춘다. ETF 기록에서 완만하게 바뀌는 부분과 반복해서 출렁이는 부분을 따로 만들어 합치는 구조다.</p>
+      <p>잡음 제거기는 잡음이 추가된 $x_t$와 타임스텝 임베딩 $t$를 입력으로 받는다. 인코더는 $x_t$의 문맥 표현을 만들고, 디코더는 필요한 정보를 골라 읽는 교차 어텐션으로 깨끗한 시퀀스 $\widehat{x}_{0}$를 예측한다. 어떤 날의 수익률만 따로 고치지 않고 같은 구간의 다른 날짜 값도 참고해 깨끗한 기록을 예상하는 것이다. Diffusion-TS는 $\widehat{x}_0$를 제한 없이 직접 예측하지 않고 두 성분의 합으로 제약한다.</p>
+      <p style="text-align:center;">$$\hat{x}_{0} = trend + season$$</p>
+      <p>$trend$는 생성 구간의 완만한 드리프트를 포착하려는 저차 다항식 성분이고, $season$은 주기 또는 준주기 구조를 표현하는 절단 푸리에 기저의 top-$k$ 모드다. 이름이 추세·계절성이어도 실제 경제 원인을 밝혔다는 뜻은 아니며, 출력 모양을 제한하는 설계다. 푸리에 영역 손실은 주파수 표현의 불일치에 벌점을 주어 시간 영역 손실을 보완하고, 스펙트럼 충실도를 높여 자기상관 관련 패턴을 유지하도록 돕는다. 실제 기록은 며칠 간격으로 출렁이는데 만든 기록은 하루마다 출렁인다면, 평균이 같아도 움직임이 다르고 푸리에 손실이 그 차이에 벌점을 준다.</p>
+      <p>이 분해가 추세와 계절성에 경제적 의미를 자동으로 부여하지는 않는다. 다만 진단에 실패했을 때 오류를 느린 추세 성분, 주기적 계절 성분, 또는 두 성분이 잘 표현하지 못한 잔차 고주파 변동으로 나눠 찾을 수 있는 운영상의 단서를 준다. 느린 움직임은 맞는데 짧고 큰 급락이 사라졌다면, 어떤 부분이 지나치게 매끈해졌는지 성분별로 찾아볼 수 있다.</p>
+      <p>Diffusion-TS도 다른 DDPM과 다음 과제를 공유한다.</p>
+      <ul>
+        <li><strong>분산 보정</strong>: 추세-계절 출력이 고주파 변동을 약하게 만들어 실현 수익률 분산을 줄일 수 있다. 참조 구현의 원시 무조건부 표본은 사후 재조정 전 정규화 공간에서 분산을 약 3분의 1 과소평가한다. 변동성 일치가 중요한 과제라면 학습 손실에 명시적 분산 보정 항을 둘 수 있다.</li>
+        <li><strong>계산량과 지연 시간</strong>: DDPM 샘플링은 표본마다 많은 역방향 단계가 필요하다. DDIM과 증류 방법은 속도와 맞바꾸며 단계 수를 줄인다.</li>
+        <li><strong>시간적 일관성</strong>: Sig-CWGAN처럼 시그니처를 목적함수에 넣는 대안은 재매개변수화에 안정적인 경로 요약으로 순차 구조를 부과한다(5.5절). 확산 모델에는 주변분포 검정 외에도 ACF, 변동성 지속성, 레버리지 프록시를 적용해야 한다.</li>
+        <li><strong>검증</strong>: 정형화된 사실과 일치해도 과제 관련 구조가 보존됐다고 단정할 수 없다. 의도한 응용에 맞춘 검증은 5.8절에서 이어진다.</li>
+      </ul>
+      <p>만든 기록이 너무 잔잔하지 않은지, 제시간에 만들어지는지, 큰 움직임의 연결이 남았는지, 실제 급락 분류에 도움이 되는지를 각각 확인해야 한다는 뜻이다. 구현 자료 <code>05_diffusion_ts.py</code>는 해석 가능한 분해, 푸리에 손실(Fourier loss), 분류기 유도 국면 조건부 생성을 포함해 Diffusion-TS를 엔드투엔드로 구현한다. ETF 자료로 복원한 기록을 보고, 이어서 저변동성·고변동성 기록을 따로 만드는 흐름이며, 실행 성공뿐 아니라 각 단계가 목표 특징을 만들었는지를 봐야 한다.</p>
+      <p>20개 ETF의 2018–2025년 일별 수익률에서 KS 통계량은 0.06, 상관 오차는 0.04, ACF 오차는 0.05다. 국면 조건부 생성은 역사적 변동성의 0.93배인 저변동성 표본과 1.08배인 고변동성 표본을 만든다. KS·상관·ACF 오차는 각각 분포·동시 움직임·시간 연결을 검사한 값이고, 0.93배와 1.08배는 해당 국면의 역사적 변동성과 비교한 비율이므로 따로 읽는다.</p>
+
+      <h3 id="s56-gan-vs-diffusion">GAN과 확산 모델 중 선택하기 &mdash; 생성 속도와 학습 안정성의 절충</h3>
+      <p>확산 모델은 학습 안정성을 얻는 대신 생성 속도를 내준다. GAN은 한 차례 계산으로 출력하는 한 번의 순전파로 표본을 만들지만, 확산 모델은 반복해서 잡음을 제거한다. DDIM을 쓰면 이 비용을 50–100단계로 줄일 수 있다. 많은 모의 기록이 필요한 팀이라면 두 방식의 총 실행 시간과 결과 품질을 함께 측정해야 한다.</p>
+      <p>특화 GAN은 자신의 설계 목표와 평가 대상이 맞을 때 여전히 적절하다. Tail-GAN은 위험 측도, Sig-CWGAN은 경로 충실도, GT-GAN은 불규칙 타임스탬프에 최적화되어 있고, Diffusion-TS는 조건부 생성을 내장한 더 범용적인 대안이다. 급락 손실이 필요한지, 중간 가격 순서가 필요한지, 거래 시간 간격이 필요한지를 먼저 정하면 후보가 좁혀진다.</p>
+      <p>다만 이 장의 장난감 구현 수치만으로 모델을 일렬로 세우면 안 된다. TimeGAN은 유계 데이터, Tail-GAN은 포트폴리오 꼬리 지표, Sig-CWGAN은 낮은 차원, GT-GAN은 자연스러운 불규칙 타임스탬프를 필요로 하며 각자 과제와 데이터가 다르다. 한 모델은 가격 예측을, 다른 모델은 큰 손실 계산을 시험했다면 숫자의 크고 작음만으로 순위를 매길 수 없다. 선택 질문은 &lsquo;누가 최고인가&rsquo;가 아니라 <strong>&lsquo;내 사용 사례의 구조와 제약에 누가 맞는가&rsquo;</strong>다. 표 형식 데이터에는 다음 절의 LLM이 또 다른 후보가 된다.</p>
+    </section>
+
+    <section class="report-section s7 page-break" id="source-5-7" data-source-kind="section" data-source-ref="5.7">
+      <div class="report-section__kicker">Section 07 &middot; 교재 &sect;5.7</div>
+      <h1>5.7 구조화된 금융 데이터를 위한 LLM &mdash; 표의 한 행을 문장처럼 생성하기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li><strong>직렬화</strong>는 표의 한 행을 열-값 쌍이 담긴 텍스트로 바꿔, 다음 토큰 예측이 필드 사이 조건부 구조를 배우게 한다</li>
+        <li>GReaT는 직렬화 &rarr; 미세조정 &rarr; 생성·파싱의 세 단계이며, 파싱된 모든 행을 검사하는 제약 계층이 필요하다</li>
+        <li>구현 실험에서 효용은 대체로 보존됐지만 <strong>분포 충실도는 크게 왜곡</strong>됐다</li>
+      </ul></div></div>
+      <p>대규모 언어 모델(LLM)은 표를 텍스트로 표현하면 표 형식 데이터셋에서도 현실적인 합성 표본을 만들 수 있다. 자연어로 학습된 모델이지만 수치형·범주형·때로는 자유 텍스트 필드가 섞인 금융 표에서 복잡한 열 사이 의존성을 학습하고 재현할 수 있다. ETF 한 행에 수익률, 거래량 비율(수치형 필드), &lsquo;고변동성&rsquo; 표시(범주형 필드)가 있다면, 이를 열 이름과 값이 있는 문장으로 바꿔 값들의 연결을 배우고 새로운 행을 만든다.</p>
+      <p><strong>직렬화(serialization)</strong>는 표의 각 행을 열-값 쌍이 명시된 텍스트 레코드로 바꾸는 과정이다. 이렇게 바꾼 여러 행은 자기회귀 모델이 다음 토큰을 예측하며 재현할 수 있는 짧은 레코드 말뭉치가 된다. 신용 신청 행 하나를 예로 들면 원문 표는 <a class="asset-ref" href="#table-credit-row">표 8</a>과 같다.</p>
+      <table class="cmp-table" id="table-credit-row" data-source-kind="table" data-source-ref="5.1">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 8</span><span class="asset-caption__title">표 5.1 신용 신청 레코드를 보여 주는 표</span></div></caption>
+        <thead><tr><th>income</th><th>debt_ratio</th><th>emp_length</th><th>home_status</th><th>approved</th></tr></thead>
+        <tbody>
+          <tr><td>85000</td><td>0.32</td><td>7</td><td>MORTGAGE</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <p>같은 행을 텍스트로 직렬화하면 &ldquo;income은 85000, <code>debt_ratio</code>는 0.32, <code>emp_length</code>는 7, <code>home_status</code>는 MORTGAGE, approved는 1&rdquo;이라는 한 문장이 된다. 열 이름과 값을 문장에 남기는 것이 핵심이다. ETF 행이라면 &lsquo;수익률은 -1%, 거래량 비율은 1.2, 장세는 고변동성&rsquo;처럼 적는다. 거꾸로 모델이 쓴 문장은 다시 표의 칸으로 읽어야 한다. &lsquo;거래량 비율은 1.2&rsquo;에서 숫자 1.2를 해당 열에 넣는 작업이 <strong>파싱</strong>이고, 원래 한 행의 필드가 모두 있고 자료형도 맞아야 유효한 생성 레코드다.</p>
+      <p>이런 레코드를 많이 학습하면 모델은 필드의 <strong>조건부 구조</strong>를 포착한다. 고용 상태와 주거 상태가 주어졌을 때 소득과 부채 비율이 승인 여부와 어떻게 연결되는지를 토큰 사이 관계로 학습하는 것이다. &lsquo;고변동성&rsquo; ETF 행에서 거래량 비율이 보통 어떤 범위인지를 함께 배우므로, 열마다 따로 값을 뽑는 방식과 다르다.</p>
+
+      <h3 id="s57-great">GReaT 프레임워크 &mdash; 직렬화·미세조정·역파싱의 세 단계</h3>
+      <p>Generate Realistic Tabular Data(GReaT)는 다음 워크플로를 정식화한다(Borisov et al., 2023).</p>
+      <ol>
+        <li><strong>학습 데이터 직렬화</strong>: 각 행을 열-값 쌍의 텍스트 레코드로 바꾼다. 고정 열 순서에 대한 민감도를 줄이려고 학습 중 열 순서를 무작위로 바꾸는 경우가 많다.</li>
+        <li><strong>자기회귀적 LLM(autoregressive LLM) 미세조정(fine-tune)</strong>: GPT-2 규모 같은 사전학습 언어 모델을 직렬화 말뭉치에 미세조정한다. 앞선 토큰에서 다음 토큰을 예측하면서 필드들의 결합분포(joint distribution)를 암묵적으로 모델링한다.</li>
+        <li><strong>새 표본 생성</strong>: 새 텍스트 레코드를 뽑아 다시 표의 행으로 파싱한다. 형식이 깨졌거나 필드가 빠졌거나 값이 범위를 벗어난 출력은 걸러 낸다.</li>
+      </ol>
+      <p>ETF 행을 문장으로 바꾸고(직렬화), 기존 언어 모델을 그 문장들로 추가 학습한 뒤(미세조정), 새 문장을 생성해 표로 읽으며(파싱) 빠진 값이나 잘못된 값을 마지막 단계에서 걸러 내는 흐름이다. 이 단순한 틀은 다음의 한계와 위험을 관리한다는 조건에서 금융에도 적용할 수 있다.</p>
+
+      <h3 id="s57-applications">금융 응용 &mdash; 혼합 필드와 복잡한 조건부 관계가 있는 표</h3>
+      <p>LLM 기반 표 생성은 서로 다른 자료형과 복잡한 조건부 의존성을 함께 가진 데이터셋에 잘 맞는다. 기업 행에 부채 비율, 산업 코드, 회계 표시가 함께 있다면 숫자만 따로 만들지 않고 한 행의 조합으로 만들며, 그 조합이 실제로 가능한지도 검사해야 한다.</p>
+      <ul>
+        <li><strong>신용 및 대출 데이터</strong>: 인구통계 변수, 재무 비율, 범주형 필드가 섞인 신청 기록이다. 합성 데이터셋은 민감한 고객 데이터 노출을 줄이면서 모델 개발을 지원할 수 있다.</li>
+        <li><strong>고객 프로필</strong>: 소매금융과 자산관리 자료에는 거래 집계, 계좌 속성, 간헐적 텍스트 필드가 함께 들어간다. 직렬화는 이 이질성을 하나의 생성 인터페이스로 바꾼다.</li>
+        <li><strong>기업 펀더멘털</strong>: 재무제표와 파생 비율을 산업 코드·회계 플래그와 함께 생성하거나 익명화할 수 있다. 단, 엄격한 시점 기준(point-in-time)과 회계 관행 검사가 전제다.</li>
+      </ul>
+      <p>마지막 조건은 백테스트에서 특히 중요하다. 어떤 날의 투자 판단을 시험하면서 그날 이후에 정정된 실적을 넣으면 결과가 과장된다. 당시 알 수 있던 값만 쓰는 point-in-time 기준과 재무제표의 계산 규칙을 합성 기업 자료도 똑같이 지켜야 한다.</p>
+
+      <h3 id="s57-risks">한계와 위험 &mdash; 문법적으로 그럴듯한 행이 유효한 금융 레코드는 아닙니다</h3>
+      <p>LLM 기반 생성에는 명시적인 완화가 필요한 실패 방식이 있다.</p>
+      <ul>
+        <li><strong>유효하지 않은 레코드</strong>: 자기회귀적 생성은 나이와 양립하지 않는 고용 이력처럼 내부 모순이 있는 조합을 만들 수 있어 사후 검증이 필요하다.</li>
+        <li><strong>수치 충실도</strong>: LLM의 목적은 분포 정확도가 아니라 토큰 가능도다. 정밀한 숫자 문자열을 안정적으로 표현하기 어려우므로 직렬화 전에 수치를 이산화·구간화·스케일링·정규화하기도 한다. 그래도 주변분포(marginal distribution)와 꼬리 행동(tail behavior)이 학습 데이터와 달라질 수 있다.</li>
+        <li><strong>계산 비용</strong>: 미세조정과 추론에 추가 연산이 든다. 표 형식 작업에는 중간 규모 모델로 충분할 수 있지만, 더 단순한 전용 생성기와 고전적 기준선에 비해 비용이 정당한지 확인해야 한다.</li>
+        <li><strong>프라이버시 누출</strong>: 모델이 드문 학습 사례를 외워 그대로 재현할 수 있다. 통제된 환경 밖에서 쓰기 전에 5.8절의 프라이버시 평가가 필요하다.</li>
+      </ul>
+      <p>잘 읽히는 문장도 틀린 금융 자료일 수 있다. 표로 잘 변환됐어도 말이 안 되는 값이 섞이거나(유효하지 않은 레코드, 수치 충실도), 드문 원본 고객 행을 그대로 복사했을 수 있다(프라이버시 누출). 뒤의 문제는 문장 형식 검사만으로는 찾을 수 없다. 그래서 직렬화된 생성기에는 파싱된 모든 행을 검사하는 제약 계층을 둔다.</p>
+      <ul>
+        <li><strong>유형 제약</strong>: 나이는 정수이고 비율은 음수가 아니어야 한다.</li>
+        <li><strong>범위 제약</strong>: 고용 연수 $&lt;$ 나이 $-\,16$이어야 한다.</li>
+        <li><strong>논리 제약</strong>: <code>home_status = "RENT"</code>이면 <code>mortgage_balance = 0</code>이어야 한다.</li>
+      </ul>
+      <p>나이가 소수로 나왔는지, 고용 기간이 나이에 비해 가능한지, 임차인인데 주택담보 잔액이 있는지를 확인하는 식이며, 문장이 자연스러워도 규칙에 어긋나면 거부한다. 버린 행의 비중인 <strong>거부율</strong>도 진단 지표로 계속 관찰한다. 10–15%를 지속적으로 넘는다면 직렬화 형식, 전처리, 학습 프로토콜 가운데 하나를 조정할 신호다. 생성할 때마다 많은 행이 검사를 통과하지 못하면 더 뽑기 전에 어떤 열에서 가장 많이 틀리는지부터 본다.</p>
+      <p>구현 자료 <code>06_1lm_tabular_great.py</code>는 ETF에서 파생한 수익률·변동성·거래량 비율·범주형 국면 레이블을 직렬화하고 distilgpt2를 미세조정한다. RTX 3090에서 50에포크 학습에 약 13분이 걸려, 전용 표 형식 생성기를 처음부터 학습하는 것과 비교하면 적당한 수준이다. 이 시간은 해당 환경의 학습 시간이므로 다른 환경에서 같다는 뜻은 아니며, 표 생성 비용에는 행을 읽고 거르는 작업도 들어간다.</p>
+      <p>보류 테스트 세트는 600개 표본이며, 극단 움직임을 선행 5일 수익률의 절댓값 $|fwd\_ret\_5d|$가 90번째 백분위수(대략 상위 10% 경계)를 넘는 경우로 정의한다. 이 분류에서 TSTR AUC-ROC는 0.70, TRTR 기준선은 0.74이고, 원문은 TSTR 비율을 92%로 보고한다. 합성 학습 데이터가 이 과제의 후속 효용을 대체로 보존했다는 결과다. 두 AUC를 단순히 나누면 약 0.95가 나와 원문의 92%와 차이가 있으므로, 이 리포트는 원문 값을 그대로 기록하고 두 AUC를 함께 적는다.</p>
+      <table class="cmp-table" id="table-llm-results">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 9</span><span class="asset-caption__title">LLM 표 생성 실험의 효용과 분포 충실도</span></div></caption>
+        <thead><tr><th>축</th><th>측정</th><th>보고된 결과</th><th>읽는 법</th></tr></thead>
+        <tbody>
+          <tr><td>효용</td><td>극단 움직임 분류의 AUC-ROC, TSTR 대 TRTR</td><td>0.70 대 0.74, 원문 보고 TSTR 비율 92%</td><td>이 분류 과제의 효용은 대체로 보존</td></tr>
+          <tr><td>충실도 (수치형)</td><td>열별 KS 통계량</td><td><code>volume_ratio</code>만 0.10, 1일·5일·20일·선행 5일 특성 넷은 0.30–0.59 (p &lt; 0.001)</td><td>수익률·변동성 열은 실제·합성 주변분포가 통계적으로 구별됨</td></tr>
+          <tr><td>충실도 (범주형, 과잉)</td><td>합성 대 실제 비중</td><td><code>direction = down</code> 94% 대 45%, <code>momentum = flat</code> 69% 대 36%</td><td>흔한 범주로 몰리는 최빈값 붕괴</td></tr>
+          <tr><td>충실도 (범주형, 과소)</td><td>합성 대 실제 비중</td><td><code>momentum = strong</code> 10% 대 28%, <code>vol_regime = high</code> 1% 대 7%</td><td>강한 추세·고변동성 행이 드물게 생성됨</td></tr>
+        </tbody>
+      </table>
+      <p>그러나 분포 충실도는 효용보다 약하다. <a class="asset-ref" href="#table-llm-results">표 9</a>처럼 수치형 열에서는 <code>volume_ratio</code>만 KS = 0.10으로 잘 맞고, 변동성과 수익률 특성 네 개는 모두 0.30–0.59 범위이며 p-값이 0.001 미만이라 실제·합성 주변분포를 통계적으로 구별할 수 있다. 급락 분류 성능은 쓸 만한데 합성 수익률의 크기와 빈도는 실제와 다르다는 뜻이다. 범주형 분포에는 심한 <strong>최빈값 붕괴</strong>가 나타난다. 음의 수익률 국면 <code>direction = down</code>은 합성 94% 대 실제 45%, 무추세 국면 <code>momentum = flat</code>은 69% 대 36%로 과잉 생성되고, 강한 추세 <code>momentum = strong</code>은 10% 대 28%, 고변동성 <code>vol_regime = high</code>는 1% 대 7%로 과소 생성된다. 합성 표 대부분이 하락·무추세이고 강한 추세나 고변동성 행은 드문 셈이다.</p>
+      <p>높은 과제 효용과 제한된 분포 충실도의 간극은 소규모 표 데이터셋에 짧게 LLM 미세조정을 적용할 때의 실질적 한계다. 더 긴 미세조정, 더 큰 기반 모델, 스키마 제약을 이용한 <strong>거부 샘플링(rejection sampling)</strong>으로 간극을 줄일 수 있지만 계산비용이 늘어난다. 바로 5.2절에서 정식화한 절충이다. 더 오래 학습한 뒤 수익률과 장세 비중이 실제에 가까워졌는지, 필요한 행을 얻기 위해 너무 많이 버리지는 않는지를 함께 본다.</p>
+      <p>이 사례는 효용과 충실도를 따로 재야 하는 이유를 분명히 보여 준다. 극단 움직임 분류에 필요한 구조는 충분히 남았지만 주변분포와 범주 진단에서는 큰 왜곡이 드러났다. 큰 움직임 구별에는 좋은 표라도 실제 손익 분포를 계산하는 데는 부적합할 수 있으므로, 한 업무에 쓸 만한 자료를 다른 목적에 쓰려면 다시 검사해야 한다. 다음 절에서는 실제 사용 사례에 적용할 종합 평가 틀로 돌아간다.</p>
+    </section>
+
+    <section class="report-section s8 page-break" id="source-5-8" data-source-kind="section" data-source-ref="5.8">
+      <div class="report-section__kicker">Section 08 &middot; 교재 &sect;5.8</div>
+      <h1>5.8 충실도-효용-프라이버시 프레임워크의 적용 &mdash; 하나의 점수 대신 목적별 증거 읽기</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li>충실도·효용·프라이버시·차원성·계산비용을 모두 지배하는 <strong>단일 생성기는 없다</strong></li>
+        <li>좋은 충실도와 효용은 <strong>프라이버시의 증명이 아니다</strong></li>
+        <li>DP 예산 $\varepsilon$이 작을수록 보호는 강하고 왜곡은 커지며, 실용적인 구간은 데이터와 규제 맥락이 정한다</li>
+      </ul></div></div>
+      <p>앞선 사례에서 확인했듯 합성 데이터의 품질은 사용 사례에 따라 달라진다. 충실도, 효용, 프라이버시, 차원성, 계산비용을 모두 지배하는 단일 생성기는 없다. 5.2절의 충실도-효용-프라이버시 프레임워크는 방법을 하나의 종합 점수로 뭉개지 않고 같은 언어로 비교하게 해 준다. 실제처럼 생겼는지, 예측에 도움이 되는지, 고객이 드러나는지, 필요한 시간 안에 만들어지는지, 몇 개의 자산을 다룰 수 있는지를 항목별로 나눠 표로 정리하는 방식이다.</p>
+
+      <h3 id="s58-diffusion-ts">Diffusion-TS 결과 읽기 &mdash; 좋은 충실도와 효용이 프라이버시 증명은 아닙니다</h3>
+      <p>20개 ETF의 일별 수익률을 쓴 Diffusion-TS 기준 실행을 이 틀에 놓아 본다. 주변분포의 KS 통계량은 0.06, 자산 간 의존성의 상관 오차는 0.04, 변동성 지속성의 ACF 오차는 0.05다. 세 값은 각각 &lsquo;값의 분포&rsquo;, &lsquo;함께 움직임&rsquo;, &lsquo;큰 등락의 지속&rsquo;을 검사한 충실도 진단이며, 이 설정에서 합성 표본이 전반적인 분포 구조와 시간 구조를 보존한다는 증거다.</p>
+      <p>효용은 별도의 질문이다. 극단 움직임 분류에서 TSTR이 TRTR 벤치마크와 대략 같은 수준이므로, 합성 학습 데이터가 이 특정 예측 과제에 필요한 신호를 보존했다고 해석할 수 있다. 합성 자료로 학습한 급락 분류기와 실제 자료로 학습한 분류기를 같은 시험 자료에 적용한 결과가 비슷하다는 뜻이며, 매매 수익이나 모든 위험 계산까지 보장하지는 않는다.</p>
+      <p>그러나 이 두 결과만으로 프라이버시는 입증되지 않는다. 공식 프라이버시 메커니즘으로 학습했거나 별도 누출 검정을 통과하지 않았다면 높은 충실도와 효용은 프라이버시를 뜻하지 않는다. 생성기가 유용한 구조를 잘 재현하면서 희귀 레코드를 암기하거나 독점 정보를 흘릴 수도 있다. 예측에 도움이 되는 합성 표에서 드문 기관 거래가 거의 그대로 나왔다면, 자료 품질이 좋다는 이유로 공유해서는 안 된다.</p>
+      <p>따라서 결론은 용도에 조건부다. 이 실험의 Diffusion-TS는 전반적 충실도와 과제 효용이 강한 범용 생성기다. 꼬리 중심 위험 응용에는 Tail-GAN처럼 명시적 꼬리 페널티가 더 필요할 수 있고, 저차원 경로 의존적 응용에는 Sig-CWGAN의 시그니처 목적함수가 유리할 수 있다. 프라이버시에 민감한 응용은 이와 별도로 프라이버시 메커니즘과 누출 평가를 갖춰야 한다. 큰 손실 시험에는 꼬리 특화 모델을 검토하고, 고객 자료라면 선택한 모델의 원본 누출도 검사한다. 모델 선택만으로 프라이버시 요건이 충족되지는 않는다.</p>
+
+      <h3 id="s58-dp-gan">DP-GAN의 프라이버시-효용 상충관계 &mdash; ε가 바꾸는 보호와 왜곡</h3>
+      <p>공식 프라이버시 보장이 필요할 때 <strong>차등 프라이버시(differential privacy, DP)</strong>는 개별 학습 레코드가 학습 결과에 미칠 수 있는 영향에 수학적 한계를 둔다. 어떤 고객의 거래 한 건을 넣고 빼는 차이가 학습 결과를 크게 바꾸지 않도록 계산을 설계하는 것이며, 이름만 지우는 익명화와는 다른 보호다.</p>
+      <p>노트북 <code>07_dp_gan.py</code>는 Opacus의 DP-SGD로 GAN을 학습하고 프라이버시 예산(privacy budget)을 바꾸며 <a class="asset-ref" href="#table-dp-tradeoff">표 10</a>의 절충을 측정한다.</p>
+      <table class="cmp-table" id="table-dp-tradeoff" data-source-kind="table" data-source-ref="5.2">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 10</span><span class="asset-caption__title">표 5.2 프라이버시-효용 상충관계 예시</span></div></caption>
+        <thead><tr><th>프라이버시 예산</th><th>평균 절대 차이</th><th>상관 거리</th><th>해석</th></tr></thead>
+        <tbody>
+          <tr><td>1.0</td><td>8.02</td><td>0.12</td><td>강한 프라이버시, 낮은 효용</td></tr>
+          <tr><td>5.0</td><td>2.40</td><td>0.15</td><td>좋은 균형</td></tr>
+          <tr><td>10.0</td><td>2.67</td><td>0.06</td><td>좋은 효용</td></tr>
+          <tr><td>50.0</td><td>1.68</td><td>0.11</td><td>최고의 효용, 약한 프라이버시</td></tr>
+        </tbody>
+      </table>
+      <figure class="report-figure" id="fig-dp-tradeoff" data-deck-use="required">
+        <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 12</span><span class="asset-caption__title">프라이버시 예산별 평균 절대 차이</span></figcaption>
+        <img src="assets/figs/fig-dp-tradeoff.svg" alt="가로축 프라이버시 예산 ε 1.0, 5.0, 10.0, 50.0에 대해 평균 절대 차이 막대가 8.02, 2.40, 2.67, 1.68로 그려지고, 5.0과 10.0 막대 위에 ε 5–10 중간 구간 표시가 놓인 막대그래프">
+        <small class="asset-note">막대가 낮을수록 합성 자료와 실제 자료의 평균 차이가 작다. 상관 거리는 막대에 넣지 않았으므로 <a class="asset-ref" href="#table-dp-tradeoff">표 10</a>과 함께 읽는다. 원문 표 5.2의 평균 절대 차이 열로 그린 막대그래프다.</small>
+      </figure>
+      <p>표 5.2의 평균 절대 차이와 상관 거리는 자료 차이를 검사한 값이며, 실제 업무 효용은 추가로 확인해야 한다. 서로 다른 보호 설정으로 고객 자료를 만들고 실제 분포와 공동 움직임의 차이를 비교하는 실험이다. <a class="asset-ref" href="#fig-dp-tradeoff">그림 12</a>에서 보듯 $\varepsilon = 1$에서는 강한 프라이버시를 만들기 위해 넣은 잡음이 분포 충실도를 크게 떨어뜨린다(평균 절대 차이 8.02). 예산이 커질수록 효용은 대체로 개선되지만 공식 보호는 약해진다. 다만 평균 절대 차이는 5.0에서 2.40, 10.0에서 2.67이고 상관 거리는 0.12·0.15·0.06·0.11로, 예산이 커진다고 두 값이 한 방향으로만 움직이지는 않는다. 이 예에서는 $\varepsilon \in [5,10]$ 부근의 중간 구간이 더 실용적인 절충을 보이지만, 실제 임계값은 데이터 민감도·규제 맥락·사용 목적에 따라 정해야 한다. 공유용 자료의 보호를 강화했더니 예측 성능이 떨어졌다면, 보호와 분석 품질을 함께 놓고 판단한다.</p>
+      <p>여기서 얻을 핵심 교훈은 사실적인 외관으로 프라이버시를 추론할 수 없다는 점이다. 합성 데이터가 학습 데이터와 다르게 보여도 정보를 누출할 수 있고, 프라이버시 제약을 충족하면서 후속 모델링에는 지나치게 왜곡될 수도 있다. 합성 주문의 숫자가 조금 바뀌었어도 특정 실제 주문이 학습에 쓰였는지 맞힐 수 있다면 문제다. 민감 데이터 워크플로에는 충실도와 효용 평가 외에 명시적 누출 검정 또는 학습 과정의 보호 손실을 계산해 관리하는 공식 DP 회계가 반드시 필요하다.</p>
+    </section>
+
+    <section class="report-section s9 page-break" id="source-5-9" data-source-kind="section" data-source-ref="5.9">
+      <div class="report-section__kicker">Section 09 &middot; 교재 &sect;5.9</div>
+      <h1>5.9 요약 &mdash; 대안적 역사는 검증을 넓히지만 실제 홀드아웃을 대신하지 않습니다</h1>
+      <div class="section-summary"><div class="section-summary__kicker">이 절이 남기는 것</div><div class="section-summary__body"><ul>
+        <li>합성 데이터는 &ldquo;시장 경로는 하나만 실현되지만 전략은 여러 대안에서도 버텨야 한다&rdquo;는 제약을 다룬다</li>
+        <li>가치는 엄격한 벤치마킹과 검증에 달려 있고, 고전적 모델은 여전히 해석 가능한 기준선이다</li>
+        <li>모든 방법을 세 축과 고유 실패로 점검한 뒤 결론은 <strong>보류한 실제 데이터</strong>에서 확인한다</li>
+      </ul></div></div>
+      <p>합성 데이터 생성은 정량금융의 근본 제약, 즉 시장 경로는 하나만 실현되지만 전략은 그럴듯한 여러 대안에서도 버텨야 한다는 문제를 다룬다. 현대 생성 모델이 핵심 통계 구조를 보존하는 대안적 역사를 만들면, 단일 백테스트보다 엄밀하게 강건성을 점검하고 스트레스 테스트와 매개변수 선택을 수행할 수 있다. 주간·월간 투자 비중 조정 규칙(리밸런싱)을 각각 여러 주가 기록에 적용해 수익과 큰 손실을 비교하는 것이 그 예다.</p>
+      <p>그 가치는 엄격한 벤치마킹과 검증에 달려 있다. 생성기는 핵심 정형화된 사실을 재현해야 하며, 투명성과 데이터 제약이 중요한 환경에서는 고전적 모델이 여전히 강하고 해석 가능한 기준선이다. 새 생성기가 단순한 블록 부트스트랩보다 급락의 지속성을 못 만든다면 채택 이유를 다시 봐야 한다.</p>
+      <p>GAN 변형, 확산 모델, 직렬화된 표 데이터를 위한 LLM은 각각 꼬리위험, 경로 충실도, 불규칙 시간 표본추출, 이질적 스키마 생성 같은 목표를 겨냥한다. 모든 방법을 충실도-효용-프라이버시의 세 축에서 평가하고, 편향 증폭·제한된 새로움·생성기 과적합이라는 고유 실패에 대해 스트레스 테스트한 뒤, 결론을 보류한 실제 데이터에서 확인해야 한다. 새 자료가 실제 같은지, 업무에 도움이 되는지, 정보가 새는지를 확인하고, 선택한 전략은 따로 남긴 실제 시장 기간에서도 시험한다. 이 실제 홀드아웃이 합성 자료로 고른 전략의 최종 판단 근거다.</p>
+      <p>6장에서는 ML4T 워크플로와 아홉 가지 사례 연구를 이끄는 전략 연구 프레임워크를 제시한다.</p>
+    </section>
+
+    <section class="report-appendix s-glossary page-break" id="glossary">
+      <div class="report-section__kicker">Appendix A &middot; Glossary</div>
+      <h1>용어 정리</h1>
+      <table class="cmp-table" id="table-glossary">
+        <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 11</span><span class="asset-caption__title">이 장에서 쓰인 핵심 용어</span></div></caption>
+        <thead><tr><th>용어</th><th>뜻</th></tr></thead>
+        <tbody>
+          <tr><td>합성 데이터</td><td>관측 자료의 통계 구조를 학습한 모델에서 새로 뽑은 인공 표본</td></tr>
+          <tr><td>정형화된 사실</td><td>두꺼운 꼬리와 변동성 군집처럼 금융 시계열에서 반복 관찰되는 경험적 성질</td></tr>
+          <tr><td>선택 인플레이션</td><td>많은 후보를 시험할수록 우연히 가장 좋아 보이는 표본 내 성과가 커지는 현상</td></tr>
+          <tr><td>디플레이티드 샤프 비율</td><td>비정규성과 시행 횟수를 반영해 성과 추론을 조정하는 보정</td></tr>
+          <tr><td>충실도</td><td>합성 표본이 실제 자료의 분포·의존성·시간 동학을 얼마나 보존하는지 나타내는 축</td></tr>
+          <tr><td>효용</td><td>합성 데이터가 예측·분류·위험 측정 같은 실제 후속 과제를 얼마나 지원하는지 나타내는 축</td></tr>
+          <tr><td>TSTR / TRTR</td><td>합성 학습-실제 시험 성능을 실제 학습-실제 시험 기준과 비교하는 검증 방식</td></tr>
+          <tr><td>멤버십 추론 검정</td><td>특정 레코드가 학습 집합에 포함됐는지 공격자가 추론할 수 있는지 시험하는 진단</td></tr>
+          <tr><td>부트스트랩</td><td>관측값이나 연속 블록을 복원추출해 대안 경로를 만드는 재표본추출법</td></tr>
+          <tr><td>생성적 적대 신경망(GAN)</td><td>생성기와 판별기의 경쟁을 통해 데이터 분포를 학습하는 생성 모델</td></tr>
+          <tr><td>모드 붕괴</td><td>생성기가 몇몇 흔한 상태에 몰려 희귀한 상태와 표본 다양성을 잃는 실패</td></tr>
+          <tr><td>경로 시그니처</td><td>반복적분으로 이동 순서와 좌표 상호작용을 요약하는 경로 특성</td></tr>
+          <tr><td>확산 모델</td><td>데이터에 잡음을 더하는 과정의 역방향을 학습해 잡음에서 표본을 복원하는 모델</td></tr>
+          <tr><td>조건부 생성</td><td>국면처럼 지정한 속성에 맞춰 표본추출 방향을 제어하는 생성 방식</td></tr>
+          <tr><td>직렬화</td><td>표의 한 행을 열 이름과 값이 포함된 텍스트 레코드로 변환하는 절차</td></tr>
+          <tr><td>차등 프라이버시(DP)</td><td>개별 학습 레코드의 영향에 수학적 한계를 두는 프라이버시 체계</td></tr>
+          <tr><td>DP-SGD</td><td>표본별 그래디언트를 자르고 잡음을 더해 차등 프라이버시를 구현하는 확률적 경사하강법</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="report-appendix s-references page-break" id="references">
+      <div class="report-section__kicker">Appendix B &middot; References</div>
+      <h1>참고 문헌과 그림 출처</h1>
+      <ol style="list-style:none;padding:0;margin:0;">
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[1]</span><span>원서 5장 &#12300;Synthetic Financial Data&#12301; &mdash; 이 리포트의 절·그림·표 좌표와 수치의 출처. 원자료는 통합 해설판 <code>05_chapter_05_synthetic_financial_data_ko_explained_update_codex_simplified.md</code>다.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[2]</span><span>Bailey et al. (2015), Bailey and Lopez de Prado (2014) &mdash; &sect;5.1 백테스트 과적합 확률과 디플레이티드 샤프 비율.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[3]</span><span>Cetingoz and Lehalle (2025), Takahashi and Mizuno (2024) &mdash; &sect;5.1 합성 생성의 역할, &sect;5.1·&sect;5.6 후속 의사결정 기준과 확산 모델의 비가우시안 재현.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[4]</span><span>Abadi et al. (2016) &mdash; &sect;5.2 DP-SGD. Politis and Romano (1994) &mdash; &sect;5.3 정상 부트스트랩.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[5]</span><span>Yoon, Jarrett, and van der Schaar (2019) TimeGAN, Cont et al. (2025) Tail-GAN, Ni et al. (2020) Sig-CWGAN, Jeon et al. (2022) GT-GAN, Kwon and Lee (2024) &mdash; &sect;5.5.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[6]</span><span>Ho et al. (2020) DDPM, Dhariwal and Nichol (2021) 분류기 유도, Yuan and Qiao (2024) Diffusion-TS &mdash; &sect;5.6.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[7]</span><span>Borisov et al. (2023) GReaT &mdash; &sect;5.7.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[8]</span><span>공식 Primer(<a href="https://ml4trading.io/primer/">ml4trading.io/primer</a>) &mdash; 표본 승률과 사후분포, 정형화된 사실, 의존 시계열 부트스트랩, ACF와 PACF, 꼬리 추정의 표본 불확실성, 인과와 교란의 참고 노트.</span></li>
+        <li style="display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);"><span style="min-width:36px;font-weight:800;color:var(--brand-primary);">[F]</span><span>그림 1–12는 원문 장 도입부와 &sect;5.1–&sect;5.8의 서술, 원문 그림 5.1–5.6과 표 5.2의 구성을 바탕으로 이 리포트가 다시 그린 도식이다. 원문 도표와 프라이머 이미지는 복제하지 않았다.</span></li>
+      </ol>
+      <div class="report-jump-links"><a href="./">발표자료</a><a href="../../">회차 목록</a><a href="#summary">문서 처음</a></div>
+    </section>
+  </article>
+  <script src="assets/report.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>
