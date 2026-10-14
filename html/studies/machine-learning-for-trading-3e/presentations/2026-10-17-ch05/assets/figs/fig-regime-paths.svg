@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 40 960 264" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+  </style>
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker></defs>
+  <title id="t">국면 조건부로 생성한 저변동성 경로와 고변동성 경로의 분리</title>
+  <desc id="d">60개 시간 단계 일별 수익률 경로를 실제와 생성, 저변동성과 고변동성으로 나눈 대비다. 실제 변동성은 저국면 0.0111 고국면 0.0203이고 생성 변동성은 각각 0.0104와 0.0220으로 국면 변동성 비율은 2.1배다.</desc>
+  <rect x="0" y="0" width="960" height="350" fill="#FAFAF9"/>
+  <text class="t xs an-m" x="480" y="58">60개 시간 단계의 일별 수익률 경로</text>
+
+  <text class="t s an-s" x="60" y="92">저변동성 국면</text>
+  <path class="axis" d="M70 130 H900"/>
+  <path class="conn" d="M70 130 L110 124 L150 136 L190 126 L230 134 L270 122 L310 132 L350 128 L390 136 L430 124 L470 132 L510 126 L550 134 L590 128 L630 124 L670 134 L710 128 L750 130 L790 126 L830 134 L870 128 L900 130"/>
+  <text class="t xs an-e" x="898" y="106">실제 0.0111 · 생성 0.0104</text>
+
+  <text class="t s an-s" x="60" y="200">고변동성 국면</text>
+  <path class="axis" d="M70 250 H900"/>
+  <path class="connw" d="M70 250 L110 214 L150 282 L190 226 L230 290 L270 218 L310 276 L350 238 L390 292 L430 212 L470 272 L510 230 L550 286 L590 220 L630 278 L670 234 L710 288 L750 216 L790 274 L830 236 L870 284 L900 244"/>
+  <text class="t xs an-e" x="898" y="214">실제 0.0203 · 생성 0.0220</text>
+
+</svg>

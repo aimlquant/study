@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 44 960 306" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+  </style>
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker></defs>
+  <title id="t">다섯 모수적 모델의 가격 경로와 20일 이동 변동성 대비</title>
+  <desc id="d">위 패널은 시작 가격을 100으로 정규화한 다섯 모델의 가격 궤적이고 아래 패널은 20일 이동 변동성이다. 가격만 보면 비슷하지만 변동성 경로에서 일정한 변동성, 간헐적 점프, 완만한 상태 변화, 지속적 군집이 서로 다른 모양으로 갈린다.</desc>
+  <rect x="0" y="0" width="960" height="360" fill="#FAFAF9"/>
+  <text class="t xs an-s" x="60" y="60">패널 A — 가격, 시작 100으로 정규화, 거래일 1-504</text>
+  <path class="axis" d="M70 170 H900"/>
+  <path class="thin" d="M70 150 L180 142 L290 134 L400 126 L510 118 L620 110 L730 102 L840 96 L900 92"/>
+  <path class="conn" d="M70 152 L160 146 L250 152 L300 110 L390 116 L480 108 L560 136 L660 128 L760 112 L860 104 L900 100"/>
+  <path class="connw" d="M70 148 L170 128 L270 150 L370 124 L470 146 L570 122 L670 148 L770 126 L870 142 L900 134"/>
+  <text class="t xs an-s" x="60" y="196">패널 B — 20일 이동 변동성</text>
+  <path class="axis" d="M70 300 H900"/>
+  <path class="dash" d="M70 282 H900"/>
+  <text class="t xs an-s" x="74" y="276">GBM — 일정한 변동성</text>
+  <path class="conn" d="M70 294 L240 294 L250 232 L262 292 L470 292 L480 226 L492 290 L720 290 L730 238 L742 290 L900 290"/>
+  <text class="t xs an-s" x="250" y="222">점프-확산 — 간헐적 점프</text>
+  <path class="connw" d="M70 268 C 180 226, 300 276, 420 244 C 540 212, 660 272, 780 240 C 850 222, 880 258, 900 250"/>
+  <text class="t xs an-e" x="896" y="222">Heston·평균회귀 — 완만한 변동성 상태</text>
+  <path class="thin" d="M70 286 L120 284 L170 262 L220 254 L270 258 L320 282 L370 286 L420 284 L470 250 L520 238 L570 246 L620 276 L670 284 L720 286 L770 256 L820 244 L870 252 L900 268"/>
+  <rect class="chip" x="330" y="316" width="300" height="26"/>
+  <text class="t xs an-m inv" x="480" y="334">GARCH — 지속적 군집</text>
+</svg>

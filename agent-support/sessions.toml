@@ -504,7 +504,11 @@ date = "2026-10-17"
 title = "Chapter 5. 합성 금융 데이터"
 presenters = ["태호"]
 chapters = ["Chapter 5"]
-status = "scheduled"
+status = "materials-published"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/machine-learning-for-trading-3e/presentations/2026-10-17-ch05/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-learning-for-trading-3e/presentations/2026-10-17-ch05/" },
+]
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m12c94b867260501ba006a816f2e71a2e"
 
 reference_videos = [

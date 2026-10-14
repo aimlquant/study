@@ -564,7 +564,18 @@
       "title": "Chapter 14. 자연어로 지식 그래프에 질문하기"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-10-17-ch05/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-10-17-ch05/"
+        }
+      ],
       "chapters": [
         "Chapter 5"
       ],
@@ -584,7 +595,7 @@
           "youtube_video_id": "f530zub8VZA"
         }
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "Chapter 5. 합성 금융 데이터"
     },
