@@ -2,7 +2,7 @@
   "schema_version": 1,
   "verdict": "reviewed",
   "report_sha256": "d762878554986aa45e0123853b6aae2c69875872fcc569559313beee63500a33",
-  "deck_sha256": "48dcdf3c70db2d68a536ebdcb3de089b02b32448519f8a04494defc5503bb088",
+  "deck_sha256": "55a9b9f7533b885eb704e6146f9a9ef16e1d95bbfc833be5a9da4942fa7b959e",
   "units": [
     {
       "question": "이 장은 한 경로뿐인 역사를 무엇으로 보완하고, 무엇으로 판단하며, 무엇을 대신하지 못하는가?",
