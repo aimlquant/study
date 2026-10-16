@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 350" role="img" aria-labelledby="title desc">
+  <title id="title">과거 자료 학습·가상 시장 흐름 생성·전략 성과 분포 확인</title>
+  <desc id="desc">과거 자료로 생성 모델을 학습하고 가상 시장 흐름을 생성한 뒤, 각 흐름에서 같은 전략을 시험해 성과 분포를 확인하는 설명용 개념도. 선과 막대는 실제 실험 결과가 아니다.</desc>
+  <style>
+    text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif;fill:#102c51;font-size:14px}
+    .heading{font-size:17px;font-weight:700}.note{font-size:13px;fill:#475569}
+    .axis{fill:none;stroke:#94a3b8;stroke-width:1.5}.path{fill:none;stroke:#36628c;stroke-width:2}
+    .arrow{stroke:#102c51;stroke-width:2;fill:none;marker-end:url(#arrow)}
+  </style>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#102c51"/></marker></defs>
+  <rect width="1080" height="350" fill="#fafaf9"/>
+  <g text-anchor="middle">
+    <rect x="20" y="32" width="310" height="260" rx="14" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="175" y="64" class="heading">① 과거 시장 자료 학습</text>
+    <text x="175" y="92" class="note">실제로 관측한 과거 시장 흐름</text>
+    <path class="axis" d="M55 120 V232 H300"/>
+    <path class="path" d="M60 215 L85 203 L110 214 L135 177 L160 185 L185 151 L210 163 L235 139 L260 147 L290 125"/>
+    <text x="175" y="261">시장 특성을 학습한 생성 모델</text>
+    <path class="arrow" d="M337 166 H377"/>
+    <rect x="385" y="32" width="310" height="260" rx="14" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="540" y="64" class="heading">② 가상 시장 흐름 생성</text>
+    <text x="540" y="92" class="note">각 선 = 하나의 가상 시장 흐름</text>
+    <path class="axis" d="M420 120 V232 H665"/>
+    <g class="path">
+      <path d="M425 210 L450 195 L475 204 L500 173 L525 185 L550 156 L575 167 L600 135 L625 146 L655 123"/>
+      <path d="M425 210 L450 207 L475 188 L500 200 L525 177 L550 189 L575 163 L600 180 L625 153 L655 168"/>
+      <path d="M425 210 L450 186 L475 198 L500 160 L525 188 L550 161 L575 180 L600 151 L625 172 L655 151"/>
+      <path d="M425 210 L450 199 L475 219 L500 188 L525 172 L550 194 L575 150 L600 169 L625 155 L655 136"/>
+    </g>
+    <text x="540" y="261">학습한 시장 특성을 반영한 흐름</text>
+    <path class="arrow" d="M702 166 H742"/>
+    <rect x="750" y="32" width="310" height="260" rx="14" fill="#e8edf5" stroke="#b8c8db"/>
+    <text x="905" y="64" class="heading">③ 각 흐름에서 같은 전략 시험</text>
+    <text x="905" y="92" class="note">예: 각 가상 흐름에서 얻은 최종 수익률</text>
+    <path class="axis" d="M785 120 V232 H1030"/>
+    <g fill="#36628c">
+      <rect x="798" y="212" width="23" height="20"/><rect x="828" y="189" width="23" height="43"/>
+      <rect x="858" y="159" width="23" height="73"/><rect x="888" y="135" width="23" height="97"/>
+      <rect x="918" y="151" width="23" height="81"/><rect x="948" y="181" width="23" height="51"/>
+      <rect x="978" y="209" width="23" height="23"/>
+    </g>
+    <text x="777" y="175" class="note" transform="rotate(-90 777 175)">빈도(횟수)</text>
+    <text x="800" y="249" class="note">낮음</text>
+    <text x="1010" y="249" class="note">높음</text>
+    <text x="905" y="270">최종 수익률 구간 →</text>
+    <text x="905" y="287" class="note">막대 높이 = 해당 구간에 속한 흐름 수</text>
+    
+  </g>
+</svg>

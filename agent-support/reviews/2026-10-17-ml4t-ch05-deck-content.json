@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "97175a7c34e6bc5aab05b23e851c4b743795362387dcdfb4ab2609bd1672f9ba",
-  "deck_sha256": "3190736143ffc4ccecb14e15ef5fda2c29f737a446a339a764dcf9c28129300d",
+  "report_sha256": "d762878554986aa45e0123853b6aae2c69875872fcc569559313beee63500a33",
+  "deck_sha256": "48dcdf3c70db2d68a536ebdcb3de089b02b32448519f8a04494defc5503bb088",
   "units": [
     {
       "question": "이 장은 한 경로뿐인 역사를 무엇으로 보완하고, 무엇으로 판단하며, 무엇을 대신하지 못하는가?",
@@ -92,8 +92,10 @@
         "s-52-axes",
         "s-52-why",
         "s-52-fidelity",
+        "s-52-fidelity-2",
         "s-52-primer-sf",
         "s-52-tstr",
+        "s-52-tstr-2",
         "s-52-ratio",
         "s-52-privacy",
         "s-52-failures",
@@ -126,8 +128,8 @@
         "s-53-families",
         "s-53-bootstrap-core",
         "s-53-bootstrap-fig",
-        "s-53-bootstrap-three",
         "s-53-bootstrap-primer",
+        "s-53-bootstrap-primer-2",
         "s-53-sde",
         "s-53-fig51",
         "s-53-gbm-jump",
@@ -185,12 +187,14 @@
         "s-55-variants",
         "s-55-timegan",
         "s-55-timegan-use",
+        "s-55-timegan-use-2",
         "s-55-fig54",
         "s-55-timegan-read",
         "s-55-tailgan",
         "s-55-tailgan-result",
         "s-55-tail-primer",
         "s-55-signature",
+        "s-55-signature-2",
         "s-55-sig-cost",
         "s-55-sig-fig",
         "s-55-gtgan",
@@ -201,13 +205,12 @@
     },
     {
       "question": "확산 모델은 어떻게 학습·생성하며 조건부 생성의 경계는 무엇인가?",
-      "explanation": "순방향·역방향 식, DDPM 목적함수, 국면 조건부 생성, Diffusion-TS 분해·과제·결과, GAN과의 선택을 다룬다.",
-      "evidence": "그림 10, 그림 11, Diffusion-TS 수치, 인과 Primer.",
-      "conditions": "조건부 경로는 인과적 스트레스 효과의 증명이 아니다.",
+      "explanation": "DDPM의 학습·생성 구분, 조건부 생성과 국면 분류 오류, Diffusion-TS 구조·분산 문제·실험 결과, GAN과의 선택을 다룬다.",
+      "evidence": "교재 §5.6의 그림 5.5·5.6, 20개 ETF 구현 결과와 관련 부록.",
+      "conditions": "시장 국면은 모델 추정 결과이며 조건별 진단이 필요하다. 서로 다른 구현의 수치만으로 모델 순위를 정하지 않는다.",
       "report_refs": [
         "fig-diffusion-loop",
         "fig-regime-paths",
-        "primer-causality",
         "s56-conditional",
         "s56-diffusion-ts",
         "s56-framework",
@@ -225,15 +228,17 @@
         "s-56-fig56",
         "s-56-regime-caveat",
         "s-56-diffts",
+        "s-56-diffts-2",
         "s-56-diffts-issues",
+        "s-56-diffts-issues-2",
         "s-56-gan-vs-diff"
       ]
     },
     {
       "question": "표 형식 금융 데이터를 LLM으로 만들 때 무엇을 검사해야 하는가?",
-      "explanation": "직렬화, GReaT 세 단계, 금융 응용, 실패와 제약 계층, 실험 결과와 간극을 다룬다.",
-      "evidence": "표 8, 표 9.",
-      "conditions": "원문 92%와 AUC 단순 비 0.95의 차이를 함께 적는다.",
+      "explanation": "표의 텍스트 변환, GReaT의 세 단계, 값과 규칙 검사, 거부율, ETF 실험의 예측 효용과 분포 차이를 설명한다.",
+      "evidence": "교재 표 5.1 및 §5.7 구현 실험의 AUC·KS·시장 상황 비중.",
+      "conditions": "교재 예시와 설명용 예시를 구분한다. 원문 비율 92%와 제시된 AUC 단순 비 약 95%의 차이를 명시한다.",
       "report_refs": [
         "s57-applications",
         "s57-great",
@@ -248,15 +253,16 @@
         "s-57-great",
         "s-57-apps",
         "s-57-risks",
+        "s-57-risks-2",
         "s-57-result",
         "s-57-gap"
       ]
     },
     {
       "question": "충실도·효용 결과를 프라이버시와 어떻게 분리해 읽는가?",
-      "explanation": "Diffusion-TS 결과 읽기, DP 예산 표와 그림, 외관 기반 추론의 위험을 다룬다.",
-      "evidence": "표 10, 그림 12.",
-      "conditions": "ε 5–10은 예시의 절충 구간일 뿐이다.",
+      "explanation": "평가 항목별 증거 범위, Diffusion-TS의 충실도·예측 효용, 비공개 자료의 정보 보호, DP-GAN의 보호 수준별 결과를 해석한다.",
+      "evidence": "교재 §5.8의 Diffusion-TS 결과와 표 5.2.",
+      "conditions": "공개 ETF와 비공개 고객 자료의 맥락을 구분한다. ε는 잡음이 아니며 5~10은 이 실험의 절충 구간이다. 누출 검사와 정식 DP 보장은 구분한다.",
       "report_refs": [
         "fig-dp-tradeoff",
         "s58-diffusion-ts",
@@ -267,6 +273,7 @@
       "slide_ids": [
         "s-58-divider",
         "s-58-diffts",
+        "s-58-diffts-2",
         "s-58-dp",
         "s-58-dp-fig",
         "s-58-lesson"
@@ -274,9 +281,9 @@
     },
     {
       "question": "이 장의 결론은 무엇인가?",
-      "explanation": "근본 제약, 벤치마킹, 세 축 평가와 실제 홀드아웃 확인을 정리한다.",
-      "evidence": "5.9절 본문.",
-      "conditions": "실제 홀드아웃이 최종 판단 근거다.",
+      "explanation": "합성 자료로 검증 범위를 넓히는 목적, 고전적 방법과의 비교, 생성 모델 과적합 위험과 독립적인 실제 최종 평가를 정리한다.",
+      "evidence": "교재 §5.9 요약과 §5.1·5.2의 생성 모델 고정·평가 절차.",
+      "conditions": "최종 실제 평가 자료는 생성 모델 학습과 전략·예측 모델의 개발·조정에 사용하지 않는다.",
       "report_refs": [
         "source-5-9"
       ],
@@ -287,7 +294,7 @@
     },
     {
       "question": "각 단계의 결론이 다음 질문과 실제 검증으로 어떻게 이어지는가?",
-      "explanation": "과거 성과 보정 → 다른 경로의 필요성 → 세 축 평가 → 방법 비교 → 점수의 해석 범위 → 실제 시험으로 이어지는 이유를 설명한다. 두 ETF의 공동 급락, Sig-CWGAN의 군집 손실, 표 LLM의 장세 왜곡을 반복 근거로 사용한다.",
+      "explanation": "?? ??? ??? ?? ??? ??? ??? ????, ? ??? ??? ?? ??? ????. ??? ???? ??? ?? ???? ??? ???? ????.",
       "evidence": "리포트 5.1·5.3·5.8·5.9와 기존 실험의 보고값.",
       "conditions": "모델 순위로 확대하지 않고 실제 홀드아웃의 독립성과 생성기 고정 조건을 유지한다.",
       "report_refs": [
@@ -303,6 +310,31 @@
         "s-evidence-compare",
         "s-decision-workflow",
         "s-appendix-divider"
+      ]
+    },
+    {
+      "question": "VAE는 입력 복원과 새 자료 생성을 어떻게 구분하는가?",
+      "explanation": "교재 5.4절의 잠재변수 생성 모델 설명을 표준 정규 VAE의 인코더·디코더·학습 손실·사전분포 추출 흐름으로 보충한다.",
+      "evidence": "교재 5.4절 VAE 설명과 Kingma & Welling의 Auto-Encoding Variational Bayes 3절.",
+      "conditions": "정규 잠재분포를 사용하는 표준 구조의 설명용 개념도이다. 교재 직접 그림이나 금융 성능 실험으로 주장하지 않는다.",
+      "report_refs": [
+        "source-5-4",
+        "fig-generator-families"
+      ],
+      "slide_ids": [
+        "s-54-vae-flow"
+      ]
+    },
+    {
+      "question": "인코더와 디코더는 입력을 어떻게 압축하고 복원하는가?",
+      "explanation": "사용자가 지정한 손글씨 숫자 6의 인코더·압축 표현·디코더 복원 그림을 제공한다.",
+      "evidence": "https://umchfmvtzkdyefrumhol.supabase.co/storage/v1/object/public/content-assets/content/newsletter/a80ec2db1ff0/image-001.png?v=33802227096a",
+      "conditions": "입력 압축·복원 구조 그림이며, VAE 원논문 그림이나 잠재분포 추출 과정으로 표시하지 않는다.",
+      "report_refs": [
+        "source-5-4"
+      ],
+      "slide_ids": [
+        "s-54-vae-mnist"
       ]
     }
   ]
