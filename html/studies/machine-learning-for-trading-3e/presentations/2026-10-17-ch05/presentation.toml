@@ -9,9 +9,9 @@ report_template = "study-report-v1"
 workflow = "raw-report-deck-v1"
 report_source = "report.html"
 artifacts = ["report", "slides"]
-# 원자료는 통합 해설판이다. 원본 좌표와 순서를 보존하며 제목은 이 파일이 정본이다.
+# 원자료는 정식 해설판이다. 원본 좌표와 순서를 보존하며 제목은 이 파일이 정본이다.
 source_fidelity = "source-structure-v1"
-source_material = "materials/quant/active/machine-learning-for-trading-3e/chapter_05_synthetic_financial_data/05_chapter_05_synthetic_financial_data_ko_explained_update_codex_simplified.md"
+source_material = "materials/quant/active/machine-learning-for-trading-3e/chapter_05_synthetic_financial_data/05_chapter_05_synthetic_financial_data_ko_explained.md"
 report_quality = "source-learning-v1"
 # 절별 설명·근거·실습 상태와 원본/산출물 해시를 남기는 제작자용 JSON.
 content_review = "agent-support/reviews/2026-10-17-ml4t-ch05-content.json"

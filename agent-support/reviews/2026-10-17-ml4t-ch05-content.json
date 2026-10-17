@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "d762878554986aa45e0123853b6aae2c69875872fcc569559313beee63500a33",
+  "report_sha256": "94c6a999fb52c92c2152d29606fc8d8d89a9d76083d13a825c8ee7d2dc6e4320",
   "sources": [
     {
       "role": "original",
@@ -10,8 +10,8 @@
     },
     {
       "role": "outline",
-      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_05_synthetic_financial_data/05_chapter_05_synthetic_financial_data_ko_explained_update_codex_simplified.md",
-      "sha256": "ebee8496d69e2153ea409d511e4835de2481a8e8a1db6d23b560a42905baea49"
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_05_synthetic_financial_data/05_chapter_05_synthetic_financial_data_ko_explained.md",
+      "sha256": "d89cfc623b5929661d541a7d864cf8c7d9d6f13c390dc1465f137148b986f28d"
     }
   ],
   "sections": [
