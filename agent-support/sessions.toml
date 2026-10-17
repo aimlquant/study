@@ -360,8 +360,9 @@ date = "2026-10-17"
 title = "Chapter 13. 지식 그래프 기반 검색 증강 생성"
 presenters = ["정훈"]
 chapters = ["Chapter 13"]
-status = "scheduled"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m12c94b867260501ba006a816f2e71a2e"
+status = "video-public"
+youtube_video_id = "JJgtcpXHQrk"
+meeting_status = "ended"
 
 reference_videos = [
   { title = "Ch.13 지식 그래프 기반 검색 증강 생성 · 한국어 참고 해설", youtube_video_id = "cJwlJViaIRI", status = "public", description = "원서 13장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },
@@ -504,12 +505,13 @@ date = "2026-10-17"
 title = "Chapter 5. 합성 금융 데이터"
 presenters = ["태호"]
 chapters = ["Chapter 5"]
-status = "materials-published"
+status = "video-public"
+youtube_video_id = "qMP-mvkVqwY"
+meeting_status = "ended"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/machine-learning-for-trading-3e/presentations/2026-10-17-ch05/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/machine-learning-for-trading-3e/presentations/2026-10-17-ch05/" },
 ]
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m12c94b867260501ba006a816f2e71a2e"
 
 reference_videos = [
   { title = "Ch.5 합성 금융 데이터 · 한국어 참고 해설", youtube_video_id = "f530zub8VZA", status = "public", description = "원서 5장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
