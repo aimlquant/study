@@ -469,7 +469,9 @@
       "meeting_status": "available",
       "meeting_url": "https://lgehq.webex.com/lgehq/j.php?MTID=macf41df59efb9845bf8c6ecb4969a38b",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-31-ml4t-ch07/",
-      "presenters": [],
+      "presenters": [
+        "정훈"
+      ],
       "reference_videos": [
         {
           "description": "원서 7장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
