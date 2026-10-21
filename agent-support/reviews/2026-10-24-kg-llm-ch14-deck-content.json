@@ -1,0 +1,385 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "c32d4d3950bbf61e70d5693f9409f0de3a999237119bb826dca7cab80a54591b",
+  "deck_sha256": "257bb624cc5eeead4b03a2ba1743cceaa49ba93116f5e0e3243f3564d7539fa7",
+  "reviewer": "Claude",
+  "review_date": "2026-10-21",
+  "review_scope": "76개 슬라이드의 주장·용어·표·코드 발췌를 report.html의 해당 절과 대조했다. 코드는 원문 Listing과 저자 공개 15장 애플리케이션 템플릿 발췌이며 재실행하지 않았다. 14장에는 실행 노트북이 없어 experiments는 비어 있다.",
+  "units": [
+    {
+      "question": "이 장은 어떤 문제를 무엇으로 대체하는가?",
+      "explanation": "답을 생성하는 RAG 대신 LLM이 질의를 정식화하게 하는 전문가 모방 접근과 여섯 단계를 예고한다.",
+      "evidence": "빨간 카마로 요청, 세 핵심 질문, 절별 질문·답 표(표 1).",
+      "conditions": "절별 답은 뒤 슬라이드에서 근거와 함께 다시 설명한다.",
+      "report_refs": [
+        "summary",
+        "table-1-overview"
+      ],
+      "slide_ids": [
+        "slide-cover",
+        "slide-opening",
+        "slide-roadmap"
+      ]
+    },
+    {
+      "question": "분석 부서는 왜 지식 그래프를 단일 진실 공급원으로 두는가?",
+      "explanation": "역할별 조각, 업무 사슬의 생성·소비, 질의만 다루는 범위를 설명한다.",
+      "evidence": "경찰관·형사·법의학·분석가 역할과 신고→인터뷰→검색 사슬.",
+      "conditions": "읽기 전용 경계와 재시도 안전성은 AIML Quant 보충으로 표시했다.",
+      "report_refs": [
+        "source-14-1"
+      ],
+      "slide_ids": [
+        "slide-section-14-1",
+        "slide-14-1-context"
+      ]
+    },
+    {
+      "question": "기술 장벽을 없애면 시스템은 어떤 성질을 갖춰야 하는가?",
+      "explanation": "전문가 역량과 질의 기술의 어긋남, 열 가지 기대 효과를 다섯 시스템 성질로 환원한다.",
+      "evidence": "저자들의 열 가지 목록과 표 2의 대응 절.",
+      "conditions": "가운데·오른쪽 열은 리포트 보충임을 lead에 밝혔다.",
+      "report_refs": [
+        "source-14-1-1",
+        "table-2-expert-need"
+      ],
+      "slide_ids": [
+        "slide-14-1-1-title",
+        "slide-14-1-1-needs"
+      ]
+    },
+    {
+      "question": "RAG는 무엇이고 이 절의 실험은 무엇을 비교하는가?",
+      "explanation": "RAG 정의, 넣지 않으면 기초 질문에 머무는 이유, 변수 하나만 바꾸는 설계.",
+      "evidence": "상당한 이유·증거 보존 질문 예, 완전/불완전 두 실행.",
+      "conditions": "실험은 저자들이 보고한 프롬프트 실행이며 이 리포트가 재실행하지 않았다.",
+      "report_refs": [
+        "source-14-2"
+      ],
+      "slide_ids": [
+        "slide-section-14-2",
+        "slide-14-2-why-rag"
+      ]
+    },
+    {
+      "question": "완전한 맥락에서 RAG는 무엇을 잘하는가?",
+      "explanation": "진술을 넣으면 과제가 요약으로 바뀌고, 손잡이 질문에 증인 C를 강한 근거로 든다.",
+      "evidence": "Listing 14.1 다섯 진술 요지 표, 템플릿 코드, 두 질문의 응답 요약.",
+      "conditions": "진술은 손잡이 단서만 남긴 요지다. 템플릿 슬롯 보충은 AIML Quant 표시.",
+      "report_refs": [
+        "source-14-2-1",
+        "source-listing-14-1"
+      ],
+      "slide_ids": [
+        "slide-14-2-1-title",
+        "slide-14-2-1-template"
+      ]
+    },
+    {
+      "question": "증인 C 한 건이 빠지면 무엇이 바뀌고 어디를 고쳐야 하는가?",
+      "explanation": "결론이 오른손잡이로 뒤집히며 품질 상한이 검색 단계임을 보이고, 고칠 자리가 검색기임을 설명한다.",
+      "evidence": "그림 14.1 재구성, 패시지 세밀도 조건, MATCH 예시.",
+      "conditions": "프롬프트로 막히지 않는다는 판단과 MATCH 예시는 AIML Quant 보충.",
+      "report_refs": [
+        "fig-1-rag-context-break",
+        "source-14-2-2"
+      ],
+      "slide_ids": [
+        "slide-14-2-2-title",
+        "slide-14-2-2-fix"
+      ]
+    },
+    {
+      "question": "전문가는 RAG식 제약 없이 무엇을 하는가?",
+      "explanation": "사람 RAG 사고 실험의 한계와 스키마를 먼저 읽고 순회·제약을 짜는 절차.",
+      "evidence": "Person→Car→ANPR 순회, 빨강·카마로·지역 조건.",
+      "conditions": "추측 vs 지정 비교는 AIML Quant 보충.",
+      "report_refs": [
+        "source-14-3"
+      ],
+      "slide_ids": [
+        "slide-section-14-3",
+        "slide-14-3-expert"
+      ]
+    },
+    {
+      "question": "자연어 요청을 어떻게 제약 순회로 옮기는가?",
+      "explanation": "지도 비유와 그 한계, 엔티티·관계·제약 식별, 분해→대응→조립, MATCH/WHERE 대응.",
+      "evidence": "표 3 의미 조각 매핑, 그림 14.2 재구성, 라벨 표기 차이.",
+      "conditions": "CAMARO 표기는 §14.6.2에서 교정된다고 명시했다. 오른쪽 열은 보충.",
+      "report_refs": [
+        "fig-2-nl-to-cypher-stages",
+        "source-14-3-1",
+        "table-3-camaro-mapping"
+      ],
+      "slide_ids": [
+        "slide-14-3-1-title",
+        "slide-14-3-1-mapping",
+        "slide-14-3-1-figure",
+        "slide-14-3-1-building"
+      ]
+    },
+    {
+      "question": "전문가 절차를 어떤 구성 요소로 나누고 어떻게 연결하는가?",
+      "explanation": "네 단계 로드맵, 답 생성→질문 정식화 전환, 여섯 구성 요소와 단일 되돌림 경로.",
+      "evidence": "그림 14.3 재구성, 구성 요소별 출력·증상 표.",
+      "conditions": "증상 열과 재시도 상한·success 구분은 AIML Quant 보충.",
+      "report_refs": [
+        "fig-3-system-overview",
+        "source-14-4",
+        "table-4-components"
+      ],
+      "slide_ids": [
+        "slide-section-14-4",
+        "slide-14-4-plan",
+        "slide-14-4-figure",
+        "slide-14-4-components",
+        "slide-14-4-retry"
+      ]
+    },
+    {
+      "question": "왜 의도 탐지가 첫 단계인가?",
+      "explanation": "세 제시 방법이 서로 다른 질의를 요구하므로 output_type이 질의 생성의 입력이다.",
+      "evidence": "그래프·표·지도 비교, 그림 14.4 두 층 분류.",
+      "conditions": "2층 구조 설명은 그림 14.4와 §14.5.2를 연결한 리포트 해석이다.",
+      "report_refs": [
+        "fig-4-intent-component",
+        "source-14-5"
+      ],
+      "slide_ids": [
+        "slide-section-14-5",
+        "slide-14-5-forms",
+        "slide-14-5-figure"
+      ]
+    },
+    {
+      "question": "네 시각화 형식 분류 프롬프트는 어떻게 설계하는가?",
+      "explanation": "클래스 집합, 여섯 요건, graph 기본값 규칙, 세 부분 구성, 경계 사례와 폴백.",
+      "evidence": "그림 14.5, 표 5, 공개 템플릿 판정 규칙 코드, 네 질문 분류 표, 인신매매 경계 사례.",
+      "conditions": "저자들은 경계 사례 판정을 정답으로 주장하지 않는다. 코드 블록 금지는 공개 구현 메모.",
+      "report_refs": [
+        "fig-5-visual-intent-routing",
+        "source-14-5-1",
+        "table-5-prompt-criteria",
+        "table-6-intent-examples"
+      ],
+      "slide_ids": [
+        "slide-14-5-1-title",
+        "slide-14-5-1-criteria",
+        "slide-14-5-1-rule",
+        "slide-14-5-1-examples",
+        "slide-14-5-1-edge"
+      ]
+    },
+    {
+      "question": "데이터 질문이 아닌 질문은 어떻게 다루는가?",
+      "explanation": "세 범주·두 하위 범주의 판정과 라우팅, reason 필드로 본 오분류, 넓은 프롬프트 vs 다단계.",
+      "evidence": "표 7, 그림 14.6, 갱신 빈도 질문의 두 모델 분류, 표 8.",
+      "conditions": "공개 구현에는 이 분류기가 없어 설계 확장 제안으로 읽는다고 명시.",
+      "report_refs": [
+        "fig-6-question-category-routing",
+        "source-14-5-2",
+        "table-7-category-rule",
+        "table-8-prompt-split"
+      ],
+      "slide_ids": [
+        "slide-14-5-2-title",
+        "slide-14-5-2-figure",
+        "slide-14-5-2-reason",
+        "slide-14-5-2-split"
+      ]
+    },
+    {
+      "question": "스키마 추출 단계는 무엇을 하는가?",
+      "explanation": "원시 스키마를 LLM이 처리할 형식으로 바꾸고 메타데이터를 얹는다.",
+      "evidence": "그림 14.7, 풍부화 기준.",
+      "conditions": "구조만 읽는다는 구분은 그림 14.7 재구성의 축이다.",
+      "report_refs": [
+        "fig-7-schema-stage",
+        "source-14-6"
+      ],
+      "slide_ids": [
+        "slide-section-14-6",
+        "slide-14-6-figure"
+      ]
+    },
+    {
+      "question": "기술 스키마를 어떻게 개념 스키마로 줄이고 어떤 형식으로 표현하는가?",
+      "explanation": "APOC 응답 구조와 교정, 요소별 처리, 사람 개입, 네 이유, 서사형 vs LLM 친화형.",
+      "evidence": "Listing 14.2–14.4, 표 9, 그림 14.8.",
+      "conditions": "Listing 14.2 교정과 YAML 키 이름은 공개 구현에서 확인한 것으로 표시.",
+      "report_refs": [
+        "fig-8-schema-refinement",
+        "source-14-6-1",
+        "source-listing-14-2",
+        "source-listing-14-3",
+        "source-listing-14-4",
+        "table-9-apoc-elements"
+      ],
+      "slide_ids": [
+        "slide-14-6-1-title",
+        "slide-14-6-1-elements",
+        "slide-14-6-1-figure",
+        "slide-14-6-1-why",
+        "slide-14-6-1-formats"
+      ]
+    },
+    {
+      "question": "구조만으로 막지 못하는 실패를 무엇으로 막는가?",
+      "explanation": "BLK 약어와 관계 모호성 두 실패, 치트 시트를 옮긴 주석 스키마, 세 형식 비교.",
+      "evidence": "Listing 14.5, 세 형식 표, 공개 설정 파일의 실제 유효 값.",
+      "conditions": "CAMARO 불일치와 운영 규칙은 구현 메모·AIML Quant 보충.",
+      "report_refs": [
+        "source-14-6-2",
+        "source-listing-14-5",
+        "table-10-schema-forms"
+      ],
+      "slide_ids": [
+        "slide-14-6-2-title",
+        "slide-14-6-2-listing",
+        "slide-14-6-2-compare",
+        "slide-14-6-2-camaro"
+      ]
+    },
+    {
+      "question": "정제와 주석을 실무에서 어떻게 관리하는가?",
+      "explanation": "YAML skip·descriptions 두 섹션과 이점, 렌더 출력, 공개 구현과의 네 차이.",
+      "evidence": "표 11, Listing 14.7–14.8, 스키마 도구 대조.",
+      "conditions": "관계 서술 누락은 공개 구현 대조 결과이며 원문 주장이 아니다.",
+      "report_refs": [
+        "source-14-6-3",
+        "source-listing-14-7",
+        "source-listing-14-8",
+        "table-11-yaml-sections"
+      ],
+      "slide_ids": [
+        "slide-14-6-3-title",
+        "slide-14-6-3-listing",
+        "slide-14-6-3-impl"
+      ]
+    },
+    {
+      "question": "질의 생성 단계는 왜 추론 기법이 필요한가?",
+      "explanation": "세 입력의 수렴점, 결론으로 서두르는 경향, 생각의 사슬·스크래치패드와 공통 기제.",
+      "evidence": "그림 14.9, reasoning 필드 구현 메모.",
+      "conditions": "원 논문 실험 조건은 확인하지 않았고 원문 인용 범위 안에서만 다룬다.",
+      "report_refs": [
+        "fig-9-query-generation-stage",
+        "source-14-7"
+      ],
+      "slide_ids": [
+        "slide-section-14-7",
+        "slide-14-7-figure",
+        "slide-14-7-cot"
+      ]
+    },
+    {
+      "question": "출력 필드 순서가 왜 중요한가?",
+      "explanation": "답 먼저면 처음 답에 매이고 추론 먼저면 균형 있게 탐색한다. 의미 일관성·누적 맥락·오류 전파와 분류 예외.",
+      "evidence": "그림 14.10, 두 순서 공존 구현 메모.",
+      "conditions": "분류 예외는 진단 목적일 때에 한정된다.",
+      "report_refs": [
+        "fig-10-answer-first-vs-reason-first",
+        "source-14-7-1"
+      ],
+      "slide_ids": [
+        "slide-14-7-1-title",
+        "slide-14-7-1-consistency"
+      ]
+    },
+    {
+      "question": "텍스트 → Cypher 프롬프트는 어떻게 조립되고 각 블록은 무엇을 막는가?",
+      "explanation": "아홉 블록 구성, 태그 경계, 의도별 요구의 화면 영향, 빈 선택 처리, 재환기와 information, 출력 명세.",
+      "evidence": "그림 14.11, 블록 표 두 장, 공개 템플릿 코드 세 개, 공개 템플릿 대조 네 항목.",
+      "conditions": "‘막는 실패’ 열과 대조 결과는 보충·구현 메모로 표시. 원문 오타는 그대로 옮겼다.",
+      "report_refs": [
+        "fig-11-prompt-assembly",
+        "source-14-7-2",
+        "table-12-prompt-blocks"
+      ],
+      "slide_ids": [
+        "slide-14-7-2-title",
+        "slide-14-7-2-blocks-a",
+        "slide-14-7-2-blocks-b",
+        "slide-14-7-2-intent-block",
+        "slide-14-7-2-intent-why",
+        "slide-14-7-2-selection",
+        "slide-14-7-2-output",
+        "slide-14-7-2-impl"
+      ]
+    },
+    {
+      "question": "출력 필드를 왜 relationships→reasoning→query→success 순서로 두는가?",
+      "explanation": "관계를 먼저 나열해 환각을 줄이고, 추론 뒤 질의를 쓰게 하며, 예시도 같은 형식을 따라야 한다.",
+      "evidence": "필드 순서 표, 예시 매크로 코드, 조율 절차.",
+      "conditions": "예시 순서 충돌은 측정하지 않은 가설로 남긴다.",
+      "report_refs": [
+        "source-14-7-3",
+        "table-13-field-order"
+      ],
+      "slide_ids": [
+        "slide-14-7-3-title",
+        "slide-14-7-3-examples"
+      ]
+    },
+    {
+      "question": "찾아온 결과를 어떻게 요약하는가?",
+      "explanation": "요약은 실제 데이터에 접근하는 유일한 구성 요소이며 맥락 사슬 재구성·무관 데이터 필터·분석 요청 판정을 쓴다.",
+      "evidence": "그림 14.12, 맥락 사슬 표, 출력 세 필드 설명.",
+      "conditions": "RESULTS 태그 미종결과 머리말 제한은 구현 메모.",
+      "report_refs": [
+        "fig-12-output-generation",
+        "source-14-8",
+        "table-14-summary-chain"
+      ],
+      "slide_ids": [
+        "slide-section-14-8",
+        "slide-14-8-figure",
+        "slide-14-8-chain",
+        "slide-14-8-json"
+      ]
+    },
+    {
+      "question": "흩어진 방어 장치를 실패 모드와 구현 순서로 어떻게 묶는가?",
+      "explanation": "드러나는 실패와 조용한 실패를 구분하고 아홉 단계 구현 순서를 제시한다.",
+      "evidence": "실패 모드 표 두 장, 구현 순서 두 장.",
+      "conditions": "전체가 AIML Quant 보충이며 원문의 주장이 아니다.",
+      "report_refs": [
+        "supplement",
+        "table-15-failure-defense"
+      ],
+      "slide_ids": [
+        "slide-supp-failures-a",
+        "slide-supp-failures-b",
+        "slide-supp-order-a",
+        "slide-supp-order-b"
+      ]
+    },
+    {
+      "question": "이 장의 논증을 스스로 설명할 수 있는가?",
+      "explanation": "리포트의 여섯 확인 질문과 핵심 원리·근거·토론으로 정리한다.",
+      "evidence": "증인 C 실험, output_type, BLK, 필드 순서, 스킵 연쇄 근거.",
+      "conditions": "질문 전제는 모두 앞 슬라이드에 나온 근거로 답할 수 있다. 토론 질문은 측정하지 않은 가설.",
+      "report_refs": [
+        "glossary",
+        "references",
+        "source-14-2-2",
+        "source-14-5",
+        "source-14-6-2",
+        "source-14-6-3",
+        "source-14-7-1",
+        "source-14-7-3",
+        "summary",
+        "supplement"
+      ],
+      "slide_ids": [
+        "slide-checkpoint-a",
+        "slide-checkpoint-b",
+        "slide-closing"
+      ]
+    }
+  ],
+  "experiments": [],
+  "visual_review": "보호 스크린샷 러너가 Linux 전용(flock·systemd-run·cgroup v2)이라 macOS에서 실행되지 않아, 사용자 승인 아래 로컬 Chrome에서 확인했다. 76장 전체를 stage 좌표로 넘침 검사(slide-body·pre 가로/세로·slide 경계)해 0건을 확인했고, 구분 장·표·그림 좌우형·전체 폭 코드·두 코드 창 레이아웃의 대표 화면과 ?qa-width=390 모바일 화면을 육안 확인했다. 1600×900·1366×768 정확한 창 크기 캡처는 하지 못했다."
+}

@@ -540,6 +540,11 @@
           "kind": "report",
           "label": "상세 리포트",
           "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-24-ch14/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-24-ch14/"
         }
       ],
       "chapters": [
