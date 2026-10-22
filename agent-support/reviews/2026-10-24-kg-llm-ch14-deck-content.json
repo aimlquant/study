@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "c32d4d3950bbf61e70d5693f9409f0de3a999237119bb826dca7cab80a54591b",
-  "deck_sha256": "257bb624cc5eeead4b03a2ba1743cceaa49ba93116f5e0e3243f3564d7539fa7",
+  "report_sha256": "ffea972866f16de82fa0f03c272322600c6488f89bff8d0a40cfb31720440c49",
+  "deck_sha256": "e08d0c1a5b5142ba8cea33741d6b0e8e5893bf3862ba667920cc7a3a07ff0f5a",
   "reviewer": "Claude",
   "review_date": "2026-10-21",
   "review_scope": "76개 슬라이드의 주장·용어·표·코드 발췌를 report.html의 해당 절과 대조했다. 코드는 원문 Listing과 저자 공개 15장 애플리케이션 템플릿 발췌이며 재실행하지 않았다. 14장에는 실행 노트북이 없어 experiments는 비어 있다.",
