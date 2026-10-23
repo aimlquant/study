@@ -20,6 +20,7 @@
     .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
     .zoom{stroke:#0f2c59;stroke-width:1.2;fill:none;stroke-dasharray:4 3}
     .panel{fill:#ffffff;fill-opacity:.6;stroke:#0f2c59;stroke-width:1.4;stroke-dasharray:6 4}
+    .frame{fill:#ffffff;stroke:#94a3b8;stroke-width:1.2}
     .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
     .an-s{text-anchor:start}
     .an-m{text-anchor:middle}
@@ -33,67 +34,72 @@
     <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">의도 탐지가 두 층으로 질문을 분류해 라우팅한다</title>
-  <desc id="figDesc">위쪽 띠는 그림 3의 여섯 구성 요소이고, 강조된 의도 탐지가 아래 상자로 확대된다. 첫 층은 질문을 데이터·시스템·피드백 범주로 나누고, 데이터 범주만 두 번째 층으로 내려가 출력 유형을 정한다. 오른쪽은 다음 단계로 넘기는 필드다.</desc>
+  <desc id="figDesc">위쪽 띠는 그림 3의 여섯 구성 요소이고, 강조된 의도 탐지가 아래 상자로 확대된다. 1층 분류가 질문을 데이터·시스템·피드백 세 범주로 나누고, 데이터 범주만 2층 분류로 출력 형식을 정하며, 시스템 범주는 하위 범주를 정한다. 세 갈래 모두 결과를 다음 단계로 넘기는 필드에 담는다. category와 reason은 모든 갈래에, subcategory는 시스템 갈래에, output_type은 데이터 갈래에만 채워진다.</desc>
   <rect width="960" height="540" fill="#fafaf9"/>
-  <path d="M36 66L170 66L944 92L16 92Z" fill="#0f2c59" fill-opacity=".06"/>
-  <path class="zoom" d="M36 66L16 92"/>
-  <path class="zoom" d="M170 66L944 92"/>
-  <rect class="panel" x="16" y="92" width="928" height="438" rx="14"/>
-  <rect class="fill-navy" x="36" y="16" width="134" height="50" rx="10"/>
-  <text class="t m an-m" x="103.0" y="46.0" fill="#ffffff">의도 탐지</text>
-  <rect class="fill-mute" x="185" y="16" width="134" height="50" rx="10"/>
-  <text class="t m an-m" x="252.0" y="46.0" fill="#475569">스키마 추출</text>
-  <path class="tick" d="M169 41.0L182 41.0"/>
-  <rect class="fill-mute" x="334" y="16" width="134" height="50" rx="10"/>
-  <text class="t m an-m" x="401.0" y="46.0" fill="#475569">질의 생성</text>
-  <path class="tick" d="M318 41.0L331 41.0"/>
-  <rect class="fill-mute" x="483" y="16" width="134" height="50" rx="10"/>
-  <text class="t m an-m" x="550.0" y="46.0" fill="#475569">질의 실행</text>
-  <path class="tick" d="M467 41.0L480 41.0"/>
-  <rect class="fill-mute" x="632" y="16" width="134" height="50" rx="10"/>
-  <text class="t m an-m" x="699.0" y="46.0" fill="#475569">시각화</text>
-  <path class="tick" d="M616 41.0L629 41.0"/>
-  <rect class="fill-mute" x="781" y="16" width="134" height="50" rx="10"/>
-  <text class="t m an-m" x="848.0" y="46.0" fill="#475569">요약 생성</text>
-  <path class="tick" d="M765 41.0L778 41.0"/>
-  <g transform="translate(0 64)">
-  <rect class="fill-tint" x="36" y="232" width="148" height="96" rx="10"/>
-  <text class="t m an-m" x="110.0" y="268.0" fill="#0f2c59">입력</text>
-  <text class="t s an-m" x="110.0" y="285.0" fill="#0f2c59">질문 텍스트</text>
-  <text class="t s an-m" x="110.0" y="302.0" fill="#0f2c59">현재 선택 목록</text>
-  <rect class="fill-navy" x="216" y="214" width="168" height="132" rx="10"/>
-  <text class="t m an-m" x="300.0" y="268.0" fill="#ffffff">1층 분류</text>
-  <text class="t s an-m" x="300.0" y="285.0" fill="#ffffff">질문 범주</text>
-  <text class="t xs an-m" x="300.0" y="302.0" fill="#ffffff">세 갈래 + 하위 두 갈래</text>
-  <path class="arw-navy" d="M184 280L212 280"/>
-  <rect class="fill-ok" x="424" y="60" width="200" height="74" rx="10"/>
-  <text class="t m an-m" x="524.0" y="93.5" fill="#0f172a">Data-Related</text>
-  <text class="t xs an-m" x="524.0" y="110.5" fill="#0f172a">지식 그래프 질의</text>
-  <path class="arw" d="M384 280L404 280L404 97L420 97"/>
-  <rect class="box" x="424" y="196" width="200" height="74" rx="10"/>
-  <text class="t m an-m" x="524.0" y="229.5" fill="#0f172a">System-Related</text>
-  <text class="t xs an-m" x="524.0" y="246.5" fill="#0f172a">문서 또는 스키마 안내</text>
-  <path class="arw" d="M384 280L404 280L404 233L420 233"/>
-  <rect class="fill-warn" x="424" y="332" width="200" height="74" rx="10"/>
-  <text class="t m an-m" x="524.0" y="365.5" fill="#0f172a">Feedback/Complaints</text>
-  <text class="t xs an-m" x="524.0" y="382.5" fill="#0f172a">피드백 큐로 적재</text>
-  <path class="arw" d="M384 280L404 280L404 369L420 369"/>
-  <rect class="fill-navy" x="668" y="44" width="256" height="106" rx="10"/>
-  <text class="t m an-m" x="796.0" y="85.0" fill="#ffffff">2층 분류 · 출력 유형</text>
-  <text class="t s mono an-m" x="796.0" y="102.0" fill="#ffffff">graph / table / chart / map</text>
-  <text class="t xs an-m" x="796.0" y="119.0" fill="#ffffff">데이터 범주에서만 수행한다</text>
-  <path class="arw-navy" d="M624 97L664 97"/>
-  <rect class="box" x="668" y="196" width="256" height="74" rx="10"/>
-  <text class="t m an-m" x="796.0" y="229.5" fill="#0f172a">하위 범주</text>
-  <text class="t s mono an-m" x="796.0" y="246.5" fill="#0f172a">Documentation / Schema</text>
-  <path class="arw" d="M624 233L664 233"/>
-  <rect class="fill-tint" x="668" y="312" width="256" height="84" rx="10"/>
-  <text class="t m an-m" x="796.0" y="342.0" fill="#0f2c59">다음 단계로 넘기는 필드</text>
-  <text class="t xs mono an-m" x="796.0" y="359.0" fill="#0f2c59">category · subcategory</text>
-  <text class="t xs mono an-m" x="796.0" y="376.0" fill="#0f2c59">output_type · reason</text>
-  <path class="arw" d="M796 150L796 174L648 174L648 292L796 292L796 310"/>
-  <rect class="fill-mute" x="216" y="420" width="408" height="34" rx="7"/>
-  <text class="t s an-m" x="420.0" y="441.0" fill="#475569">reason 필드는 오분류 진단용으로만 쓴다</text>
-  <path class="tick" d="M300 350L300 416"/>
-  </g>
+  <rect class="frame" x="16" y="8" width="928" height="66" rx="12"/>
+  <rect class="fill-tint" x="26" y="20" width="122" height="42" rx="8"/>
+  <text class="t s an-m" x="87" y="38" fill="#0f2c59">그림 3</text>
+  <text class="t xs an-m" x="87" y="53" fill="#0f2c59">전체 여섯 단계</text>
+  <rect class="fill-navy" x="160" y="16" width="118" height="50" rx="10"/>
+  <text class="t m an-m" x="219.0" y="46.0" fill="#ffffff">의도 탐지</text>
+  <rect class="fill-mute" x="290" y="16" width="118" height="50" rx="10"/>
+  <text class="t m an-m" x="349.0" y="46.0" fill="#475569">스키마 추출</text>
+  <path class="tick" d="M279 41L289 41"/>
+  <rect class="fill-mute" x="420" y="16" width="118" height="50" rx="10"/>
+  <text class="t m an-m" x="479.0" y="46.0" fill="#475569">질의 생성</text>
+  <path class="tick" d="M409 41L419 41"/>
+  <rect class="fill-mute" x="550" y="16" width="118" height="50" rx="10"/>
+  <text class="t m an-m" x="609.0" y="46.0" fill="#475569">질의 실행</text>
+  <path class="tick" d="M539 41L549 41"/>
+  <rect class="fill-mute" x="680" y="16" width="118" height="50" rx="10"/>
+  <text class="t m an-m" x="739.0" y="46.0" fill="#475569">시각화</text>
+  <path class="tick" d="M669 41L679 41"/>
+  <rect class="fill-mute" x="810" y="16" width="118" height="50" rx="10"/>
+  <text class="t m an-m" x="869.0" y="46.0" fill="#475569">요약 생성</text>
+  <path class="tick" d="M799 41L809 41"/>
+  <path d="M160 74L278 74L944 92L16 92Z" fill="#0f2c59" fill-opacity=".06"/>
+  <path class="zoom" d="M160 66L16 92"/>
+  <path class="zoom" d="M278 66L944 92"/>
+  <rect class="panel" x="16" y="92" width="928" height="440" rx="14"/>
+  <rect class="fill-navy" x="28" y="102" width="176" height="26" rx="7"/>
+  <text class="t xs an-m" x="116" y="119" fill="#ffffff">의도 탐지 확대 · 두 층 분류</text>
+  <rect class="fill-tint" x="36" y="244" width="148" height="96" rx="10"/>
+  <text class="t m an-m" x="110.0" y="280.0" fill="#0f2c59">입력</text>
+  <text class="t s an-m" x="110.0" y="297.0" fill="#0f2c59">질문 텍스트</text>
+  <text class="t s an-m" x="110.0" y="314.0" fill="#0f2c59">현재 선택 목록</text>
+  <rect class="fill-navy" x="216" y="226" width="168" height="132" rx="10"/>
+  <text class="t m an-m" x="300.0" y="280.0" fill="#ffffff">1층 분류</text>
+  <text class="t s an-m" x="300.0" y="297.0" fill="#ffffff">질문 범주</text>
+  <text class="t xs an-m" x="300.0" y="314.0" fill="#ffffff">세 갈래 + 하위 두 갈래</text>
+  <rect class="fill-ok" x="424" y="158" width="200" height="70" rx="10"/>
+  <text class="t m an-m" x="524.0" y="189.5" fill="#0f172a">Data-Related</text>
+  <text class="t xs an-m" x="524.0" y="206.5" fill="#0f172a">지식 그래프 질의</text>
+  <rect class="box" x="424" y="257" width="200" height="70" rx="10"/>
+  <text class="t m an-m" x="524.0" y="288.5" fill="#0f172a">System-Related</text>
+  <text class="t xs an-m" x="524.0" y="305.5" fill="#0f172a">문서 또는 스키마 안내</text>
+  <rect class="fill-warn" x="424" y="356" width="200" height="70" rx="10"/>
+  <text class="t m an-m" x="524.0" y="387.5" fill="#0f172a">Feedback/Complaints</text>
+  <text class="t xs an-m" x="524.0" y="404.5" fill="#0f172a">피드백 큐로 적재</text>
+  <rect class="fill-navy" x="668" y="148" width="232" height="90" rx="10"/>
+  <text class="t m an-m" x="784.0" y="181.0" fill="#ffffff">2층 분류 · 출력 유형</text>
+  <text class="t s mono an-m" x="784.0" y="198.0" fill="#ffffff">graph / table / chart / map</text>
+  <text class="t xs an-m" x="784.0" y="215.0" fill="#ffffff">데이터 범주에서만 수행한다</text>
+  <rect class="box" x="668" y="257" width="232" height="70" rx="10"/>
+  <text class="t m an-m" x="784.0" y="288.5" fill="#0f172a">하위 범주</text>
+  <text class="t s mono an-m" x="784.0" y="305.5" fill="#0f172a">Documentation / Schema</text>
+  <rect class="fill-tint" x="424" y="456" width="476" height="50" rx="10"/>
+  <text class="t m an-m" x="662.0" y="477.5" fill="#0f2c59">다음 단계로 넘기는 필드</text>
+  <text class="t xs an-m" x="662.0" y="494.5" fill="#0f2c59">category · reason은 모든 갈래, subcategory · output_type은 해당 갈래만</text>
+  <rect class="fill-mute" x="36" y="456" width="348" height="50" rx="10"/>
+  <text class="t s an-m" x="210.0" y="486.0" fill="#475569">reason 필드는 오분류 진단용으로만 쓴다</text>
+  <path class="arw-navy" d="M184 292L212 292"/>
+  <path class="arw" d="M384 292L404 292L404 193L420 193"/>
+  <path class="arw" d="M384 292L420 292"/>
+  <path class="arw" d="M384 292L404 292L404 391L420 391"/>
+  <path class="arw-navy" d="M624 193L664 193"/>
+  <path class="arw" d="M624 292L664 292"/>
+  <path class="arw" d="M900 193L918 193L918 481L904 481"/>
+  <path class="arw" d="M784 327L784 452"/>
+  <path class="arw" d="M524 426L524 452"/>
+  <path class="tick" d="M300 358L300 456"/>
 </svg>
