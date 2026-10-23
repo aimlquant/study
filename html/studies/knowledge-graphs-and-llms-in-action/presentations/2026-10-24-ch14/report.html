@@ -255,7 +255,7 @@
       <p>적절한 제시 유형과 올바른 파이프라인을 고르려면 사용자의 의도를 이해해야 한다(<a class="asset-ref" href="#fig-4-intent-component">그림 4</a>).</p>
       <figure class="report-figure" id="fig-4-intent-component" data-source-kind="figure" data-source-ref="14.4">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 4</span><span class="asset-caption__title">두 층으로 분류해 질문을 경로에 태우는 의도 탐지 구성 요소</span></figcaption>
-        <img src="assets/figs/fig-14-4-intent-component.svg" alt="위쪽 띠는 그림 3의 여섯 구성 요소이고, 강조된 의도 탐지가 점선을 따라 아래 상자로 확대된다. 상자 안에서는 왼쪽 입력이 1층 분류로 들어가 데이터·시스템·피드백 세 갈래로 갈린다. 데이터 갈래만 오른쪽 위의 2층 분류로 올라가 네 출력 형식 중 하나를 고르고, 시스템 갈래는 하위 두 범주로 갈린다. 오른쪽 아래 상자가 다음 단계로 넘기는 네 필드를 모아 놓았다.">
+        <img src="assets/figs/fig-14-4-intent-component.svg" alt="위쪽 띠는 그림 3의 여섯 구성 요소이고, 강조된 의도 탐지가 점선을 따라 아래 상자로 확대된다. 상자 안에서는 왼쪽 입력이 1층 분류로 들어가 데이터·시스템·피드백 세 갈래로 갈린다. 데이터 갈래만 오른쪽 위의 2층 분류로 올라가 네 출력 형식 중 하나를 고르고, 시스템 갈래는 하위 두 범주로 갈린다. 세 갈래가 모두 아래쪽 상자로 모여 다음 단계로 넘기는 필드에 담긴다. category와 reason은 모든 갈래에, subcategory와 output_type은 해당 갈래에서만 채워진다.">
         <small class="asset-note">위쪽 띠에서 그림 3의 어느 구성 요소를 확대했는지 확인하고, 아래 상자를 왼쪽에서 오른쪽으로 읽되, 2층 분류로 올라가는 화살표가 데이터 갈래 하나에서만 나온다는 점을 본다. 원본 좌표 14.4 「의도 탐지 구성 요소는 사용자 입력을 분석해 사용자의 질문을 어떻게 적절히 다루고 분류할지 결정합니다.」의 논리를 다시 배치했다.</small>
       </figure>
       <p>이 단계를 맨 처음에 수행하는 데는 몇 가지 이유가 있다. 첫째, 질문 뒤에 숨은 의도를 이해하는 것은 모든 전문가가 만족스러운 답을 주기 위해 밟는 근본적인 첫걸음이다. 전문가의 추론을 흉내 내려는 것이니 순서도 따라야 한다. 둘째, 이 분류 단계는 의미 이해에 기대는데, 이는 LLM이 아주 잘하는 작업이다. 셋째, 비교적 간단한 작업이라서 따라가고 디버깅하기 쉽고, 그래서 시스템의 탄탄한 토대가 되어 준다.</p>
