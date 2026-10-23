@@ -18,6 +18,9 @@
     .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
     .arw-bad{stroke:#b91c1c;stroke-width:2.2;fill:none;marker-end:url(#ahb);stroke-dasharray:6 4}
     .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .frame{fill:#ffffff;stroke:#94a3b8;stroke-width:1.2}
+    .zoom{stroke:#0f2c59;stroke-width:1.2;fill:none;stroke-dasharray:4 3}
+    .panel{fill:#ffffff;fill-opacity:.6;stroke:#0f2c59;stroke-width:1.4;stroke-dasharray:6 4}
     .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
     .an-s{text-anchor:start}
     .an-m{text-anchor:middle}
@@ -31,44 +34,67 @@
     <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">시스템 관련 질문이 문서와 스키마로 갈라지는 경로</title>
-  <desc id="figDesc">데이터 질문만 지식 그래프로 가고, 시스템 질문은 문서 관련과 스키마 관련으로 한 번 더 갈라진다. 피드백과 불평은 어느 질의 경로도 타지 않고 별도 범주로 남는다.</desc>
+  <desc id="figDesc">위쪽 띠는 그림 4의 의도 탐지 흐름이고, 강조된 1층 분류가 아래 상자로 확대된다. 데이터 질문만 지식 그래프로 가고, 시스템 질문은 문서 관련과 스키마 관련으로 한 번 더 갈라진다. 피드백과 불평은 어느 질의 경로도 타지 않고 별도 범주로 남는다.</desc>
   <rect width="960" height="540" fill="#fafaf9"/>
-  <rect class="fill-tint" x="36" y="232" width="148" height="96" rx="10"/>
-  <text class="t m an-m" x="110.0" y="268.0" fill="#0f2c59">사용자 질문</text>
-  <text class="t s an-m" x="110.0" y="285.0" fill="#0f2c59">예상 밖 질문도</text>
-  <text class="t s an-m" x="110.0" y="302.0" fill="#0f2c59">함께 들어온다</text>
-  <rect class="fill-navy" x="214" y="232" width="152" height="96" rx="10"/>
-  <text class="t m an-m" x="290.0" y="276.5" fill="#ffffff">범주 분류</text>
-  <text class="t s an-m" x="290.0" y="293.5" fill="#ffffff">세 갈래</text>
-  <path class="arw-navy" d="M184 280L210 280"/>
-  <rect class="fill-ok" x="404" y="48" width="208" height="80" rx="10"/>
-  <text class="t m mono an-m" x="508.0" y="84.5" fill="#0f172a">Data-Related</text>
-  <text class="t xs an-m" x="508.0" y="101.5" fill="#0f172a">그래프 내용 자체를 묻는다</text>
-  <rect class="box" x="404" y="200" width="208" height="160" rx="10"/>
-  <text class="t m mono an-m" x="508.0" y="259.5" fill="#0f172a">System-Related</text>
-  <text class="t xs an-m" x="508.0" y="276.5" fill="#0f172a">시스템의 기능 · 구조 · 설계</text>
-  <text class="t xs an-m" x="508.0" y="293.5" fill="#0f172a">데이터가 아니라 문서에</text>
-  <text class="t xs an-m" x="508.0" y="310.5" fill="#0f172a">적혀 있어야 할 정보</text>
-  <rect class="fill-warn" x="404" y="432" width="208" height="80" rx="10"/>
-  <text class="t m mono an-m" x="508.0" y="468.5" fill="#b45309">Feedback/Complaints</text>
-  <text class="t xs an-m" x="508.0" y="485.5" fill="#b45309">시스템이 답할 수 없는 요청</text>
-  <path class="arw" d="M366 280L380 280L380 88L400 88"/>
-  <path class="arw" d="M366 280L400 280"/>
-  <path class="arw" d="M366 280L380 280L380 472L400 472"/>
-  <rect class="box" x="656" y="176" width="268" height="76" rx="10"/>
-  <text class="t m mono an-m" x="790.0" y="210.5" fill="#0f172a">Documentation-Related</text>
-  <text class="t xs an-m" x="790.0" y="227.5" fill="#0f172a">사용자 매뉴얼 · 도움말로 답한다</text>
-  <rect class="box" x="656" y="284" width="268" height="76" rx="10"/>
-  <text class="t m mono an-m" x="790.0" y="318.5" fill="#0f172a">Schema-Related</text>
-  <text class="t xs an-m" x="790.0" y="335.5" fill="#0f172a">그래프 구조 · 모델링 결정을 묻는다</text>
-  <path class="arw" d="M612 280L632 280L632 214L652 214"/>
-  <path class="arw" d="M612 280L632 280L632 322L652 322"/>
-  <rect class="fill-ok" x="656" y="48" width="268" height="80" rx="10"/>
-  <text class="t m an-m" x="790.0" y="84.5" fill="#0f172a">Cypher 생성 경로로</text>
-  <text class="t xs an-m" x="790.0" y="101.5" fill="#0f172a">이 장의 나머지가 다루는 갈래</text>
-  <path class="arw-navy" d="M612 88L652 88"/>
-  <rect class="fill-mute" x="656" y="432" width="268" height="80" rx="10"/>
-  <text class="t m an-m" x="790.0" y="468.5" fill="#475569">질의 경로를 타지 않는다</text>
-  <text class="t xs an-m" x="790.0" y="485.5" fill="#475569">개선 요청으로 적재한다</text>
-  <path class="arw" d="M612 472L652 472"/>
+  <rect class="frame" x="16" y="8" width="928" height="66" rx="12"/>
+  <rect class="fill-tint" x="26" y="20" width="122" height="42" rx="8"/>
+  <text class="t s an-m" x="87" y="38" fill="#0f2c59">그림 4</text>
+  <text class="t xs an-m" x="87" y="53" fill="#0f2c59">의도 탐지의 두 층</text>
+  <rect class="fill-mute" x="160" y="16" width="183" height="50" rx="10"/>
+  <text class="t m an-m" x="251.5" y="46.0" fill="#475569">입력</text>
+  <rect class="fill-navy" x="357" y="16" width="183" height="50" rx="10"/>
+  <text class="t m an-m" x="448.5" y="46.0" fill="#ffffff">1층 분류 · 질문 범주</text>
+  <path class="tick" d="M344 41L356 41"/>
+  <rect class="fill-mute" x="554" y="16" width="183" height="50" rx="10"/>
+  <text class="t m an-m" x="645.5" y="46.0" fill="#475569">2층 분류 · 출력 유형</text>
+  <path class="tick" d="M541 41L553 41"/>
+  <rect class="fill-mute" x="751" y="16" width="183" height="50" rx="10"/>
+  <text class="t m an-m" x="842.5" y="46.0" fill="#475569">다음 단계 필드</text>
+  <path class="tick" d="M738 41L750 41"/>
+  <path d="M357 74L540 74L944 92L16 92Z" fill="#0f2c59" fill-opacity=".06"/>
+  <path class="zoom" d="M357 66L16 92"/>
+  <path class="zoom" d="M540 66L944 92"/>
+  <rect class="panel" x="16" y="92" width="928" height="440" rx="14"/>
+  <rect class="fill-navy" x="28" y="102" width="208" height="26" rx="7"/>
+  <text class="t xs an-m" x="132" y="119" fill="#ffffff">1층 분류 확대 · 질문 범주</text>
+  <g transform="translate(0 124)">
+  <rect class="fill-tint" x="36" y="150" width="148" height="96" rx="10"/>
+  <text class="t m an-m" x="110.0" y="186.0" fill="#0f2c59">사용자 질문</text>
+  <text class="t s an-m" x="110.0" y="203.0" fill="#0f2c59">예상 밖 질문도</text>
+  <text class="t s an-m" x="110.0" y="220.0" fill="#0f2c59">함께 들어온다</text>
+  <rect class="fill-navy" x="214" y="150" width="152" height="96" rx="10"/>
+  <text class="t m an-m" x="290.0" y="194.5" fill="#ffffff">범주 분류</text>
+  <text class="t s an-m" x="290.0" y="211.5" fill="#ffffff">세 갈래</text>
+  <rect class="fill-ok" x="404" y="10" width="208" height="66" rx="10"/>
+  <text class="t m mono an-m" x="508.0" y="39.5" fill="#0f172a">Data-Related</text>
+  <text class="t xs an-m" x="508.0" y="56.5" fill="#0f172a">그래프 내용 자체를 묻는다</text>
+  <rect class="box" x="404" y="130" width="208" height="136" rx="10"/>
+  <text class="t m mono an-m" x="508.0" y="177.5" fill="#0f172a">System-Related</text>
+  <text class="t xs an-m" x="508.0" y="194.5" fill="#0f172a">시스템의 기능 · 구조 · 설계</text>
+  <text class="t xs an-m" x="508.0" y="211.5" fill="#0f172a">데이터가 아니라 문서에</text>
+  <text class="t xs an-m" x="508.0" y="228.5" fill="#0f172a">적혀 있어야 할 정보</text>
+  <rect class="fill-warn" x="404" y="320" width="208" height="66" rx="10"/>
+  <text class="t m mono an-m" x="508.0" y="349.5" fill="#b45309">Feedback/Complaints</text>
+  <text class="t xs an-m" x="508.0" y="366.5" fill="#b45309">시스템이 답할 수 없는 요청</text>
+  <rect class="fill-ok" x="656" y="10" width="268" height="66" rx="10"/>
+  <text class="t m an-m" x="790.0" y="39.5" fill="#0f172a">Cypher 생성 경로로</text>
+  <text class="t xs an-m" x="790.0" y="56.5" fill="#0f172a">이 장의 나머지가 다루는 갈래</text>
+  <rect class="box" x="656" y="130" width="268" height="62" rx="10"/>
+  <text class="t m mono an-m" x="790.0" y="157.5" fill="#0f172a">Documentation-Related</text>
+  <text class="t xs an-m" x="790.0" y="174.5" fill="#0f172a">사용자 매뉴얼 · 도움말로 답한다</text>
+  <rect class="box" x="656" y="204" width="268" height="62" rx="10"/>
+  <text class="t m mono an-m" x="790.0" y="231.5" fill="#0f172a">Schema-Related</text>
+  <text class="t xs an-m" x="790.0" y="248.5" fill="#0f172a">그래프 구조 · 모델링 결정을 묻는다</text>
+  <rect class="fill-mute" x="656" y="320" width="268" height="66" rx="10"/>
+  <text class="t m an-m" x="790.0" y="349.5" fill="#475569">질의 경로를 타지 않는다</text>
+  <text class="t xs an-m" x="790.0" y="366.5" fill="#475569">개선 요청으로 적재한다</text>
+  <path class="arw-navy" d="M184 198L210 198"/>
+  <path class="arw" d="M366 198L384 198L384 43L400 43"/>
+  <path class="arw" d="M366 198L400 198"/>
+  <path class="arw" d="M366 198L384 198L384 353L400 353"/>
+  <path class="arw-navy" d="M612 43L652 43"/>
+  <path class="arw" d="M612 198L632 198L632 161L652 161"/>
+  <path class="arw" d="M632 198L632 235L652 235"/>
+  <path class="arw" d="M612 353L652 353"/>
+  </g>
 </svg>

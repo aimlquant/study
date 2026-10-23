@@ -275,8 +275,8 @@
       <p>질의 응답 시스템이 데이터를 공급하는 프런트엔드가 네 가지를 제시할 수 있다고 하자. 노드와 관계가 배치된 대화형 캔버스로서의 <strong>그래프</strong>, 기본 정렬과 검색 기능을 갖춘 <strong>표</strong>, <strong>차트</strong>나 플롯, 그리고 <strong>GIS(지리 정보 시스템, geographic information system)</strong> 같은 환경의 대화형 <strong>지도</strong>다. 이 네 가지가 사용자 의도와 시스템의 시각화 역량 사이에 명확한 매핑을 만들고, 그 매핑이 의도 탐지 접근의 토대가 된다(<a class="asset-ref" href="#fig-5-visual-intent-routing">그림 5</a>).</p>
       <figure class="report-figure" id="fig-5-visual-intent-routing" data-source-kind="figure" data-source-ref="14.5" data-deck-use="required">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 5</span><span class="asset-caption__title">네 시각화 형식으로 보내는 판정 조건과 포괄 클래스</span></figcaption>
-        <img src="assets/figs/fig-14-5-visual-intent-routing.svg" alt="왼쪽 질문이 분류 프롬프트를 지나 table, chart, map, graph 네 갈래로 갈린다. 위 세 갈래에는 각각 집계·분포·위치라는 선택 조건이 붙어 있고, 맨 아래 graph 갈래에는 조건이 걸리지 않은 질문이 전부 떨어진다는 표시가 붙어 있다.">
-        <small class="asset-note">네 갈래의 선택 조건을 위에서 아래로 읽고, 맨 아래 갈래가 나머지 전부를 받는다는 점을 본다. 원본 좌표 14.5 「데이터 시각화 요청을 위한 의도 탐지 시스템 아키텍처.」의 논리를 다시 배치했다.</small>
+        <img src="assets/figs/fig-14-5-visual-intent-routing.svg" alt="위쪽 띠는 그림 4의 의도 탐지 흐름이고, 강조된 2층 분류가 아래 상자로 확대된다. 상자 안에서 왼쪽 질문이 분류 프롬프트를 지나 table, chart, map, graph 네 갈래로 갈린다. 위 세 갈래에는 각각 집계·분포·위치라는 선택 조건이 붙어 있고, 맨 아래 graph 갈래에는 조건이 걸리지 않은 질문이 전부 떨어진다는 표시가 붙어 있다. 네 갈래는 모두 오른쪽의 같은 출력 형식으로 모인다.">
+        <small class="asset-note">위쪽 띠에서 그림 4의 2층 분류를 확대한 것임을 확인하고, 네 갈래의 선택 조건을 위에서 아래로 읽는다. 맨 아래 갈래가 나머지 전부를 받고, 네 갈래 모두 같은 출력 형식으로 모인다. 원본 좌표 14.5 「데이터 시각화 요청을 위한 의도 탐지 시스템 아키텍처.」의 논리를 다시 배치했다.</small>
       </figure>
       <p>클래스 집합이 &ldquo;돌에 새긴 듯 고정된 것이 아니&rdquo;라는 단서는 그냥 하는 말이 아니다. 운영하면서 클래스를 추가하거나 합치며 다시 손볼 수 있다는 전제가 있어야, 뒤에 나오는 &ldquo;오분류를 관찰해 퓨샷을 채운다&rdquo;는 방법이 성립한다.</p>
       <p>좋은 분류 프롬프트가 갖춰야 할 성질을 저자들은 여섯 가지로 든다. 명확한 지시, 정의된 범주, 예시, 경계 사례, 기대 출력 형식, 폴백 옵션이다. 각각이 이 프롬프트의 어디에 놓였는지 대조하면 <a class="asset-ref" href="#table-5-prompt-criteria">표 5</a>가 된다.</p>
@@ -328,8 +328,8 @@ If you do not understand the output from previous cases the output should be "gr
       <p>범주를 이렇게 나누면 라우팅이 정해진다(<a class="asset-ref" href="#fig-6-question-category-routing">그림 6</a>).</p>
       <figure class="report-figure" id="fig-6-question-category-routing" data-source-kind="figure" data-source-ref="14.6">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">시스템 관련 질문이 문서와 스키마로 한 번 더 갈라지는 경로</span></figcaption>
-        <img src="assets/figs/fig-14-6-question-category-routing.svg" alt="왼쪽 질문이 범주 분류를 지나 세 갈래로 갈린다. 데이터 갈래는 Cypher 생성 경로로 가고, 시스템 갈래는 문서 관련과 스키마 관련으로 다시 갈라지며, 피드백 갈래는 질의 경로를 타지 않고 개선 요청으로 적재된다.">
-        <small class="asset-note">세 갈래를 먼저 보고, 가운데 갈래에서만 한 번 더 갈라지는 두 화살표를 본다. 원본 좌표 14.6 「의도 탐지 시스템에서 시스템 관련 질문의 분류.」의 논리를 다시 배치했다.</small>
+        <img src="assets/figs/fig-14-6-question-category-routing.svg" alt="위쪽 띠는 그림 4의 의도 탐지 흐름이고, 강조된 1층 분류가 아래 상자로 확대된다. 상자 안에서 왼쪽 질문이 범주 분류를 지나 세 갈래로 갈린다. 데이터 갈래는 Cypher 생성 경로로 가고, 시스템 갈래는 문서 관련과 스키마 관련으로 다시 갈라지며, 피드백 갈래는 질의 경로를 타지 않고 개선 요청으로 적재된다.">
+        <small class="asset-note">위쪽 띠에서 그림 4의 1층 분류를 확대한 것임을 확인하고, 세 갈래를 먼저 본 뒤 가운데 갈래에서만 한 번 더 갈라지는 두 화살표를 본다. 원본 좌표 14.6 「의도 탐지 시스템에서 시스템 관련 질문의 분류.」의 논리를 다시 배치했다.</small>
       </figure>
       <p>이 분류 프롬프트도 작업 정의, 퓨샷, 실제 질문의 세 부분이다. 작업 정의는 세 범주를 번호 붙여 정의하고, &ldquo;System-Related로 분류하면 다음 하위 범주 중 하나로 더 분류하라&rdquo;는 조건을 덧붙인다. 퓨샷은 질문마다 <code>question</code>, <code>category</code>, 필요하면 <code>subcategory</code>, 그리고 <code>reason</code>을 담은 JSON을 짝지어 보인다. 시각화 분류와 다른 점은 <strong>출력 형식에 <code>reason</code> 필드가 명시적으로 들어간다</strong>는 것이다. 잠재적 오분류를 식별하고 모델의 추론을 이해하는 데 이 필드가 쓰인다.</p>
       <p>그 쓸모를 보여 주는 사례가 하나 실려 있다. &ldquo;지식 그래프는 최신 정보를 반영하기 위해 얼마나 자주 갱신되나요?&rdquo;를 물었을 때, 더 작거나 양자화된 LLM은 <code>Data-Related</code>로 분류하며 &ldquo;데이터 자체 내에서의 갱신 빈도에 관한 것&rdquo;이라고 이유를 댔다. 완전한 규모의 LLM은 <code>System-Related</code> 아래 <code>Documentation-Related</code>로 분류하며 &ldquo;문서화될 시스템 관련 기능&rdquo;이라고 했다.</p>
