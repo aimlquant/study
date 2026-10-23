@@ -25,10 +25,10 @@
   </style>
 
   <defs>
-    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
-    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
-    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
-    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">의도 탐지가 두 층으로 질문을 분류해 라우팅한다</title>
   <desc id="figDesc">첫 층은 질문을 데이터·시스템·피드백 범주로 나누고, 데이터 범주만 두 번째 층으로 내려가 출력 유형을 정한다. 오른쪽은 다음 단계로 넘기는 필드다.</desc>
@@ -67,7 +67,7 @@
   <text class="t m an-m" x="796.0" y="342.0" fill="#0f2c59">다음 단계로 넘기는 필드</text>
   <text class="t xs mono an-m" x="796.0" y="359.0" fill="#0f2c59">category · subcategory</text>
   <text class="t xs mono an-m" x="796.0" y="376.0" fill="#0f2c59">output_type · reason</text>
-  <path class="tick" d="M796 150L796 174L648 174L648 292L796 292L796 308"/>
+  <path class="arw" d="M796 150L796 174L648 174L648 292L796 292L796 310"/>
   <rect class="fill-mute" x="216" y="420" width="408" height="34" rx="7"/>
   <text class="t s an-m" x="420.0" y="441.0" fill="#475569">reason 필드는 오분류 진단용으로만 쓴다</text>
   <path class="tick" d="M300 350L300 416"/>

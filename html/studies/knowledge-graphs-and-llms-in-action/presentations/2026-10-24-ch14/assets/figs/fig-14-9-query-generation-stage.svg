@@ -25,10 +25,10 @@
   </style>
 
   <defs>
-    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
-    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
-    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
-    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">질의 생성이 세 입력을 모으고 실행 오류를 되받는 수렴점</title>
   <desc id="figDesc">질문, 의도, 주석 스키마가 한 프롬프트로 모여 Cypher가 나온다. 실행이 실패하면 오류 메시지가 information 필드로 되돌아와 같은 프롬프트를 한 번 더 채운다.</desc>
@@ -50,7 +50,7 @@
   <rect class="fill-mute" x="781" y="48" width="134" height="62" rx="10"/>
   <text class="t m an-m" x="848.0" y="84.0" fill="#475569">요약 생성</text>
   <path class="tick" d="M765 79.0L778 79.0"/>
-  <path class="arw-navy" d="M401.0 110L401.0 148"/>
+  <path class="arw-navy" d="M401.0 110L401.0 192"/>
   <rect class="fill-tint" x="30" y="160" width="246" height="70" rx="10"/>
   <text class="t m an-m" x="153.0" y="191.5" fill="#0f2c59">사용자 질문</text>
   <text class="t xs mono an-m" x="153.0" y="208.5" fill="#0f2c59">&lt;QUESTION&gt; 태그로 감싼다</text>
@@ -83,7 +83,6 @@
   <path class="arw-navy" d="M806 330L826 330"/>
   <rect class="fill-warn" x="352" y="400" width="454" height="38" rx="7"/>
   <text class="t m an-m" x="579.0" y="423.0" fill="#b45309">오류 메시지를 information 필드로 되돌린다</text>
-  <path class="tick" d="M656 376L656 419L810 419"/>
-  <path class="tick" d="M668 419L656 419"/>
+  <path class="arw-bad" d="M656 376L656 396"/>
   <path class="arw-bad" d="M348 419L318 419L318 300L348 300"/>
 </svg>
