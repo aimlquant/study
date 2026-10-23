@@ -361,16 +361,16 @@
     <section class="slide slide--teaching" id="slide-14-4-figure" aria-label="시스템 개요와 되돌림 경로" data-report-refs="source-14-4 fig-3-system-overview" data-source-refs="section:14.4 figure:14.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §14.4 · 그림 14.3</span></header>
       <h1>그래프에 닿는 구성 요소는 둘, 되돌아오는 화살표는 하나다</h1>
-      <p class="lead">여섯 구성 요소가 왼쪽에서 오른쪽으로 이어지고, 실행 오류만 질의 생성으로 되돌아간다.</p>
+      <p class="lead">질의 생성이 만든 질의는 아래의 질의 실행으로 내려가고, 실행 오류만 질의 생성으로 되돌아간다.</p>
       <div class="slide-body">
         <div class="teaching-visual">
           <figure data-deck-figure-title="여섯 구성 요소의 연결과 실행 오류가 되돌아오는 경로" class="deck-report-figure">
-            <img src="assets/figs/fig-14-3-system-overview.svg" alt="의도 탐지, 스키마 추출, 질의 생성, 질의 실행, 시각화, 요약 생성 여섯 구성 요소와 그래프를 읽는 두 화살표, 실행 오류가 되돌아가는 점선.">
+            <img src="assets/figs/fig-14-3-system-overview.svg" alt="위 줄에서 사용자 질문은 의도 탐지로, 현재 선택은 질의 생성으로 들어간다. 아래 줄에서 지식 그래프가 스키마 추출과 질의 실행에 연결되고, 스키마 추출 결과가 질의 생성으로 올라간다. 질의 생성에서 질의 실행으로 내려간 뒤, 실행이 실패하면 붉은 점선이 질의 생성으로 되돌아간다. 성공한 결과는 시각화와 요약 생성으로 갈라져 분석가 화면에서 합쳐지고, 의도 탐지의 출력 형식은 위쪽 선을 따라 시각화로 간다.">
           </figure>
         <div class="teaching-rows">
-          <article><h2>읽는 순서</h2><p>왼쪽에서 오른쪽으로 한 번 읽고, 아래에서 올라오는 두 화살표와 되돌아가는 점선을 본다.</p></article>
+          <article><h2>읽는 순서</h2><p>위 줄은 질문이 의도 탐지를 거쳐 질의 생성으로 가는 길, 아래 줄은 지식 그래프에서 출발하는 길이다.</p></article>
           <article><h2>그래프 접근</h2><p>스키마 추출은 구조를, 질의 실행은 데이터를 읽는다. 나머지 넷은 그래프에 닿지 않는다.</p></article>
-          <article><h2>되돌림</h2><p>질의 실행이 실패하면 오류가 질의 생성으로 돌아간다. 그 외는 모두 한 방향이다.</p></article>
+          <article><h2>되돌림</h2><p>질의 실행이 실패하면 오류가 붉은 점선을 따라 질의 생성으로 돌아간다. 그 외는 모두 한 방향이다.</p></article>
         </div>
         </div>
       </div>

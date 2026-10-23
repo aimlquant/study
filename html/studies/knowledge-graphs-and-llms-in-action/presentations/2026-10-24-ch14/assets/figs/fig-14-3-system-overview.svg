@@ -31,52 +31,51 @@
     <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">질의 응답 시스템의 여섯 구성 요소와 오류 피드백</title>
-  <desc id="figDesc">왼쪽 입력에서 오른쪽 제시까지 한 방향으로 흐르고, 스키마 추출과 지식 그래프가 아래에서 붙는다. 질의 실행이 실패하면 오류 메시지가 질의 생성으로 되돌아가 한 번 더 시도한다.</desc>
-  <rect width="960" height="540" fill="#fafaf9"/>
-  <rect class="fill-tint" x="36" y="84" width="132" height="54" rx="10"/>
-  <text class="t m an-m" x="102.0" y="116.0" fill="#0f2c59">사용자 질문</text>
-  <rect class="fill-tint" x="36" y="150" width="132" height="54" rx="10"/>
-  <text class="t m an-m" x="102.0" y="182.0" fill="#0f2c59">현재 선택</text>
-  <rect class="box" x="204" y="100" width="140" height="88" rx="10"/>
-  <text class="t m an-m" x="274.0" y="132.0" fill="#0f172a">의도 탐지</text>
-  <text class="t xs mono an-m" x="274.0" y="149.0" fill="#0f172a">category</text>
-  <text class="t xs mono an-m" x="274.0" y="166.0" fill="#0f172a">output_type</text>
-  <rect class="fill-navy" x="380" y="100" width="152" height="88" rx="10"/>
-  <text class="t m an-m" x="456.0" y="140.5" fill="#ffffff">질의 생성</text>
-  <text class="t xs an-m" x="456.0" y="157.5" fill="#ffffff">text → Cypher</text>
-  <rect class="box" x="568" y="100" width="140" height="88" rx="10"/>
-  <text class="t m an-m" x="638.0" y="140.5" fill="#0f172a">질의 실행</text>
-  <text class="t xs an-m" x="638.0" y="157.5" fill="#0f172a">Neo4j driver</text>
-  <rect class="box" x="744" y="62" width="180" height="72" rx="10"/>
-  <text class="t m an-m" x="834.0" y="94.5" fill="#0f172a">시각화</text>
-  <text class="t xs an-m" x="834.0" y="111.5" fill="#0f172a">그래프 · 표 · 차트 · 지도</text>
-  <rect class="box" x="744" y="154" width="180" height="72" rx="10"/>
-  <text class="t m an-m" x="834.0" y="186.5" fill="#0f172a">요약 생성</text>
-  <text class="t xs an-m" x="834.0" y="203.5" fill="#0f172a">텍스트 요약 JSON</text>
-  <rect class="box" x="204" y="300" width="140" height="84" rx="10"/>
-  <text class="t m an-m" x="274.0" y="338.5" fill="#0f172a">스키마 추출</text>
-  <text class="t xs an-m" x="274.0" y="355.5" fill="#0f172a">개념 스키마</text>
-  <rect class="fill-tint" x="410" y="300" width="170" height="84" rx="10"/>
-  <text class="t m an-m" x="495.0" y="338.5" fill="#0f2c59">지식 그래프</text>
-  <text class="t xs an-m" x="495.0" y="355.5" fill="#0f2c59">Neo4j + APOC</text>
+  <desc id="figDesc">사용자 질문은 의도 탐지로, 현재 선택과 스키마 추출 결과는 질의 생성으로 들어간다. 질의 생성이 만든 질의를 질의 실행이 돌리고, 실패하면 오류가 점선을 따라 질의 생성으로 되돌아간다. 성공한 결과는 시각화와 요약 생성으로 갈라져 분석가 화면에서 합쳐진다.</desc>
+    <rect width="960" height="540" fill="#fafaf9"/>
+  <rect class="fill-tint" x="30" y="104" width="130" height="46" rx="10"/>
+  <text class="t m an-m" x="95.0" y="132.0" fill="#0f2c59">사용자 질문</text>
+  <rect class="fill-tint" x="30" y="196" width="130" height="46" rx="10"/>
+  <text class="t m an-m" x="95.0" y="224.0" fill="#0f2c59">현재 선택</text>
+  <rect class="fill-tint" x="30" y="300" width="130" height="84" rx="10"/>
+  <text class="t m an-m" x="95.0" y="338.0" fill="#0f2c59">지식 그래프</text>
+  <text class="t xs an-m" x="95.0" y="355.0" fill="#0f2c59">Neo4j + APOC</text>
+  <rect class="box" x="200" y="100" width="140" height="88" rx="10"/>
+  <text class="t m an-m" x="270.0" y="132.0" fill="#0f172a">의도 탐지</text>
+  <text class="t xs mono an-m" x="270.0" y="149.0" fill="#0f172a">category</text>
+  <text class="t xs mono an-m" x="270.0" y="166.0" fill="#0f172a">output_type</text>
+  <rect class="box" x="200" y="300" width="140" height="84" rx="10"/>
+  <text class="t m an-m" x="270.0" y="338.0" fill="#0f172a">스키마 추출</text>
+  <text class="t xs an-m" x="270.0" y="355.0" fill="#0f172a">개념 스키마</text>
+  <rect class="fill-navy" x="380" y="100" width="140" height="88" rx="10"/>
+  <text class="t m an-m" x="450.0" y="140.0" fill="#ffffff">질의 생성</text>
+  <text class="t xs an-m" x="450.0" y="157.0" fill="#ffffff">text → Cypher</text>
+  <rect class="box" x="380" y="300" width="140" height="84" rx="10"/>
+  <text class="t m an-m" x="450.0" y="338.0" fill="#0f172a">질의 실행</text>
+  <text class="t xs an-m" x="450.0" y="355.0" fill="#0f172a">Neo4j driver</text>
+  <rect class="box" x="744" y="66" width="180" height="72" rx="10"/>
+  <text class="t m an-m" x="834.0" y="98.0" fill="#0f172a">시각화</text>
+  <text class="t xs an-m" x="834.0" y="115.0" fill="#0f172a">그래프 · 표 · 차트 · 지도</text>
+  <rect class="box" x="744" y="176" width="180" height="72" rx="10"/>
+  <text class="t m an-m" x="834.0" y="208.0" fill="#0f172a">요약 생성</text>
+  <text class="t xs an-m" x="834.0" y="225.0" fill="#0f172a">텍스트 요약 JSON</text>
   <rect class="fill-ok" x="744" y="300" width="180" height="84" rx="10"/>
-  <text class="t m an-m" x="834.0" y="338.5" fill="#0f172a">분석가 화면</text>
-  <text class="t xs an-m" x="834.0" y="355.5" fill="#0f172a">캔버스 + 요약</text>
-  <path class="arw" d="M168 111L200 126"/>
-  <path class="arw" d="M168 177L200 160"/>
-  <path class="arw-navy" d="M344 144L376 144"/>
-  <path class="arw-navy" d="M532 144L564 144"/>
-  <path class="arw" d="M708 128L720 128L720 98L740 98"/>
-  <path class="arw" d="M708 160L720 160L720 190L740 190"/>
-  <path class="arw" d="M924 98L942 98L942 342L928 342"/>
-  <path class="arw" d="M834 226L834 296"/>
-  <path class="arw" d="M406 342L348 342"/>
-  <path class="arw" d="M274 300L274 192"/>
-  <path class="arw-navy" d="M344 330L362 330L362 206L420 206L420 192"/>
-  <path class="arw" d="M580 330L638 330L638 192"/>
-  <rect class="fill-warn" x="352" y="396" width="258" height="30" rx="7"/>
-  <text class="t s an-m" x="481.0" y="415.0" fill="#b45309">실행 오류 → information 필드</text>
-  <path class="arw-bad" d="M620 411L664 411L664 232L456 232L456 192"/>
-  <path class="tick" d="M620 192L620 232L620 232"/>
-  <path class="tick" d="M608 411L614 411"/>
+  <text class="t m an-m" x="834.0" y="338.0" fill="#0f172a">분석가 화면</text>
+  <text class="t xs an-m" x="834.0" y="355.0" fill="#0f172a">캔버스 + 요약</text>
+  <path class="arw" d="M160 127L196 127"/>
+  <path class="arw" d="M160 219L360 219L360 170L376 170"/>
+  <path class="arw-navy" d="M340 128L376 128"/>
+  <path class="arw" d="M160 342L196 342"/>
+  <path class="arw" d="M340 330L366 330L366 262L410 262L410 192"/>
+  <path class="arw-navy" d="M450 188L450 296"/>
+  <path class="arw" d="M95 384L95 440L450 440L450 388"/>
+  <path class="arw-bad" d="M520 322L556 322L556 144L524 144"/>
+  <path class="arw" d="M270 100L270 40L834 40L834 62"/>
+  <path class="arw" d="M520 362L724 362L724 102L740 102"/>
+  <path class="arw" d="M724 212L740 212"/>
+  <path class="arw" d="M834 248L834 296"/>
+  <path class="arw" d="M924 102L942 102L942 342L928 342"/>
+  <rect class="fill-bad" x="500" y="210" width="112" height="48" rx="7"/>
+  <text class="t s an-m" x="556" y="230" fill="#b91c1c">실행 오류</text>
+  <text class="t xs mono an-m" x="556" y="247" fill="#b91c1c">information</text>
 </svg>
