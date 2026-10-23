@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>지식 그래프 기반 검색 증강 생성(Graph RAG)</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+  <style>.teaching-table.is-dense{font-size:18px;line-height:1.35}.teaching-table.is-dense th,.teaching-table.is-dense td{padding:7px 14px}</style>
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+
+<main class="stage" id="deck" aria-live="polite" data-report-source="report.html" data-caption-scope="deck" data-figure-captions="none">
+    <section class="slide slide--cover" id="slide-cover" aria-label="표지" data-report-refs="summary">
+      <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+      <div class="cover-hero">
+        <p class="eyebrow">지식 그래프와 LLM 실전</p>
+        <h1>지식 그래프 기반 검색 증강 생성(Graph RAG)</h1>
+        <p class="cover-subtitle">Chapter 13</p>
+      </div>
+      <dl class="cover-meta">
+        <div><dt>발표자</dt><dd>정훈</dd></div>
+        <div><dt>범위</dt><dd>Chapter 13</dd></div>
+        <div><dt>발표일</dt><dd>2026-10-17</dd></div>
+      </dl>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-opening" aria-label="이 장의 핵심 질문" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 13</span></header>
+      <h1>9~12장은 KG를 머신러닝의 입력으로 썼고, 13장은 사람의 질문에 답하는 근거로 쓴다</h1>
+      <!-- <p class="lead">13장은 5~6장에서 만든 록펠러 아카이브 센터 KG를 사람의 질문에 답하는 근거로 쓴다.</p> -->
+      <div class="slide-body"><div class="teaching-columns"><article><h2>문제</h2><p>단순 벡터 검색만으로는 질문 속 인물과 관계를 파악해 정확한 맥락을 찾기 어렵고, AI 에이전트도 어떤 검색 도구를 써야 할지 제대로 판단하지 못한다.</p></article><article><h2>메커니즘 (작동 원리)</h2><p>원본 문서와 지식 그래프(KG)를 하나로 연결한 뒤, ReAct 에이전트가 질문에 맞춰 '관계를 단서로 문서를 찾는 도구'와 '쿼리(Cypher)로 그래프를 직접 조회하는 도구' 중 알맞은 것을 골라 사용한다.</p></article><article><h2>판단 (도구 선택 기준)</h2><p>질문에 두 대상이 명확히 주어지면 '문서 선택기'를, 지식 그래프만으로 답할 수 있으면 'KG 리더'를 쓴다. 만약 두 도구로 답을 찾지 못하면 '벡터 검색'을 보조 수단으로 활용하고, 최종 근거는 사람이 직접 검증한다.</p></article></div></div>
+      <p class="takeaway">같은 문서 위에 KG를 얹으면 관계를 먼저 특정하고 그 관계를 언급한 문서를 골라 줄 수 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-intro-part4" aria-label="4부 소개" data-report-refs="chapter-intro intro-part4 intro-scope">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 13</span></header>
+      <h1>KG를 정답의 근거로 삼아 환각을 막는다</h1>
+      <p class="lead">13장은 KG와 LLM을 RAG로 결합한다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>13장</h2><p>LLM을 스스로 판단하는 AI 에이전트로 발전시키고, 지식 그래프(KG)를 결합해 정확한 근거와 맥락을 바탕으로 답변하는 RAG를 구현</p></article><article><h2>14장</h2><p>사용자의 질문 의도를 정확히 파악하고, 실무 지식을 더해 전문가 수준으로 추론하는 질의응답 시스템</p></article><article><h2>15장</h2><p>LangGraph와 Streamlit을 활용해 여러 AI 에이전트가 역할을 분담하여 질문을 처리하는 협업 파이프라인과 웹 화면 완성</p></article></div></div>
+      <!-- <p class="takeaway">이 장이 만드는 것은 다중 에이전트가 아니라 도구를 여러 개 가진 에이전트 하나다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#chapter-intro">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-roadmap" aria-label="오늘의 학습 흐름" data-report-refs="table-overview summary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 13</span></header>
+      <h1>에이전트에서 벡터 RAG의 한계, 그래프 RAG, 실전 테스트로</h1>
+      <p class="lead">교재 순서 : 에이전트 → 기억 → 운영 과제 → RAG → 한계 → 그래프 RAG → ReAct → 실전</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>13.1–13.3</h2><p>에이전트는 LLM·프롬프트·도구의 조합이고, 기억만 가진 에이전트는 우리 데이터를 모르므로 일반론만 낸다. 운영의 벽 여섯 가지 중 앞의 넷은 검색으로 겨냥할 수 있다.</p></article><article><h2>13.4.1–13.4.2</h2><p>RAG는 외부 맥락으로 답의 범위를 제한하는 근거화 기법이다. 벡터 RAG는 질문의 고유명사가 상위 문서에 있다는 보장조차 없다.</p></article><article><h2>13.4.3–13.4.5</h2><p>텍스트 짝지음 KG가 관계로 문서를 특정하고, ReAct 에이전트가 도구를 고른다. 같은 질문도 단계 수가 달라지므로 사람이 근거를 확인한다.</p></article></div></div>
+      <p class="takeaway">각 절의 실습은 노트북에 저장된 출력으로 확인하고, 모두 재실행하지 않았다는 점을 함께 적는다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-overview">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-evidence" aria-label="증거 표기" data-report-refs="summary">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 13</span></header>
+      <h1>교재 인쇄값, 노트북 저장 출력, 이해용 재구성을 구분한다</h1>
+      <p class="lead">이번 준비에서는 Neo4j·채팅 모델·임베딩 서비스를 다시 띄우지 못해 어떤 실험도 새로 실행하지 않았다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>교재 인쇄값</h2><p>원서와 해설판에 적힌 수치와 출력이다.</p></article><article><h2>노트북 저장 출력</h2><p>교재 폴더의 노트북에 남은 실행 결과다. 임베딩은 Ollama nomic-embed-text 768차원, 채팅 모델은 gpt-5.4-mini여서 책의 1536차원 계열·gpt-4o와 점수·문장이 다르다.</p></article><article><h2>이해용 재구성</h2><p>도해와 작은 예처럼 AIML Quant가 덧붙인 것이다. Cypher 결과는 결정적이고, LLM 응답·도구 선택·임베딩 점수는 실행마다 달라진다.</p></article></div></div>
+      <p class="takeaway">저장 출력은 재실행한 값이 아니다. 이유와 재실행 조건은 부록 슬라이드에 둔다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <section class="slide slide--teaching" id="slide-intro-map" aria-label="개념 지도" data-report-refs="chapter-intro fig-concept">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 13</span></header>
+      <h1>한 문서에서 두 갈래: 벡터 색인과 KG</h1>
+      <p class="lead">맨 위의 비공개 데이터에서 벡터 데이터베이스 갈래와 KG 갈래가 갈라지고 에이전트가 도구를 고른다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="KG 기반 질의응답을 위한 AI 에이전트 설계" class="deck-report-figure"><img src="assets/figs/concept-flow.svg" alt="비공개 데이터가 임베딩된 벡터 색인과 엔티티·관계로 추출된 KG로 갈라지고, 사용자 질문이 AI 에이전트를 거쳐 도구를 고르는 흐름"></figure><p class="figure-reading">왼쪽 갈래는 벡터 검색, 오른쪽 갈래는 KG 검색이다. 에이전트의 점선 상자 안에서 도구 선택과 맥락 충분성 판단이 반복된다. 교재 그림 13.1을 한국어 라벨로 다시 그린 재구성이다.</p></div></div>
+      <!-- <p class="takeaway">이 그림이 이후 모든 절의 지도다. 13.4.2는 KG 갈래를 지운 구성이 어디서 막히는지, 13.4.3은 되살려 도구 세 개를 쥔 에이전트를 만든다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#chapter-intro">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-section-13-1" aria-label="13.1 절의 시작" data-report-refs="source-13-1" data-source-refs="section:13.1" data-section-divider="13.1" data-source-title="section:13.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.1</span></header>
+      <h1>AI 에이전트 — 스스로 판단하는 자율 시스템</h1>
+      <p class="lead">AI 에이전트는 일반 프로그램과 무엇이 다르고, 어떤 질문이 그 비용을 정당화하는가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.1</div></div>
+      <p class="takeaway">먼저 에이전트가 무엇이고 어떤 질문이 에이전트를 요구하는지 정한다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-1-def" aria-label="에이전트와 값어치 있는 질문" data-report-refs="source-13-1 table-agent-demands s131-def" data-source-refs="section:13.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.1</span></header>
+      <h1>"프랑스의 수도는?"은 에이전트가 필요 없다</h1>
+      <p class="lead">정말 값어치 있는 질문은 다음 세 가지 가운데 최소한 하나를 요구한다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 1</span> 값어치 있는 질문이 요구하는 것</caption><thead><tr><th>요구</th><th>이 장에서 나타나는 곳</th></tr></thead><tbody><tr><td>고급 다단계 추론</td><td>ReAct 에이전트가 KG 리더의 결과를 보고 다음 도구를 고른다(13.4.5)</td></tr><tr><td>개념 사이의 깊은 관계 패턴</td><td>"사이클로트론 연구비의 인플루언서는 누구인가"에 6장 KG가 답한다</td></tr><tr><td>최신·외부·비공개 데이터</td><td>록펠러 아카이브 센터 일기 150쪽, 모델이 학습 중에 본 적 없는 자료</td></tr></tbody></table></div>
+      <p class="takeaway">에이전트는 환경과 상호작용하며 스스로 결정하는 주체이고, 이런 질문에서 비용이 정당화된다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-13-1-multi" aria-label="여러 에이전트와 이 장의 범위" data-report-refs="source-13-1 s131-multi" data-source-refs="section:13.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.1</span></header>
+      <h1>여러 에이전트는 역할극이고, 이 장은 에이전트 하나를 만든다</h1>
+      <p class="lead">리서처·라이터·리뷰어로 나누면 서로 다른 에이전트가 전문화된 역할을 맡아 하나의 목표를 위해 소통하는 롤플레잉이 된다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>콘텐츠 작성 예</h2><p>사람이 주제를 조사하고 초안을 쓰고 검토를 받고 다듬는 과정이 그대로 시스템 설계가 된다.</p></article><article><h2>이 장이 만드는 것</h2><p>LLM 한 개, 프롬프트, 도구 집합으로 이루어진 에이전트 하나다.</p></article><article><h2>다중 에이전트</h2><p>4부 소개가 15장(LangGraph)의 몫으로 예고한다.</p></article></div></div>
+      <p class="takeaway">교재 그림 13.1의 "AI 에이전트"는 두뇌 하나에 프롬프트와 도구 집합이 붙은 것이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <section class="slide slide--teaching chapter-divider" id="slide-section-13-2" aria-label="13.2 절의 시작" data-report-refs="source-13-2" data-source-refs="section:13.2" data-section-divider="13.2" data-source-title="section:13.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.2</span></header>
+      <h1>LLM과 대화하기 — 기억을 가진 챗봇 만들기</h1>
+      <p class="lead">사용자와 자유롭게 대화하는 챗봇에는 무엇이 필요하고, 기억만 가진 에이전트가 우리 데이터에 답할 수 있는가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.2</div></div>
+      <p class="takeaway">먼저 클래스 하나로 만든 기억 에이전트의 답이 어떤 성격인지 본다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-2-listing" aria-label="리스트 13.1 기억을 갖춘 에이전트" data-report-refs="source-13-2 listing-13-1 s132-memory" data-source-refs="section:13.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.2 · 리스트 13.1</span></header>
+      <h1>사용자가 LLM과 자유롭게 대화하고, 첫 질문 뒤에도 후속 질문을 이어 간다</h1>
+      <p class="lead">사전 학습된 LLM + 지금까지 오간 질문과 답을 기억하는 메모리</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:13px"><code>class Agent:
+    def __init__(self, model: str = "gpt-4o-mini", system: str = None):
+        self.model = model
+        self.messages = list()
+        self.client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
+        self.messages.append({"role": "system", "content": self.system})
+
+    def __call__(self, message: str) -&gt; str:
+        self.messages.append({"role": "user", "content": message})
+        answer = self.execute()
+        self.messages.append({"role": "assistant", "content": answer})
+        return answer</code></pre><p class="explain-line"><code>self.messages</code>가 메모리다. 호출마다 전체 이력을 다시 보내므로 "기억"은 클라이언트가 만든다.</p></div>
+      <!-- <p class="takeaway">이 에이전트는 모델 접근과 메시지 리스트만 갖고, 우리 데이터를 읽는 도구는 없다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-13-2-compare" aria-label="교재 출력과 저장 출력" data-report-refs="source-13-2 listing-13-2 table-agent-compare" data-source-refs="section:13.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.2 · 리스트 13.2</span></header>
+      <h1>두 질문에 돌아온 답은 일반론과 사전 지식이다</h1>
+      <p class="lead">첫 질문에는 기관 중심의 일반론이, 맥락을 좁힌 둘째 질문에는 사람 이름이 돌아온다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 2</span> 기억만 가진 에이전트의 답: 교재 인쇄값과 노트북 저장 출력</caption><thead><tr><th>질문</th><th>gpt-4o-mini (교재 인쇄값)</th><th>gpt-5.4-mini (노트북 저장 출력)</th></tr></thead><tbody><tr><td>① 인플루언서</td><td>기관 6종: NIH·DOE·NSF·민간 재단·대학·제약사</td><td>기관 중심의 일반론(정부 기관, 대학·국립연구소 등)</td></tr><tr><td>② 1930년대·록펠러 재단</td><td>존 D. 록펠러 주니어, 배니바 부시, 어니스트 O. 로런스</td><td>어니스트 O. 로런스, 워런 위버, 캘리포니아대 지도부 등</td></tr><tr><td>일기에만 있는 이름</td><td>—</td><td>Wrinch·Krogh·Lauritsen·Lark-Horovitz·Scholander 중 등장 없음</td></tr></tbody></table></div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-agent-memory-code" aria-label="실습: 기억만 가진 에이전트" data-report-refs="nb-agent-memory source-13-2" data-source-refs="section:13.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.2 · 실습</span></header>
+      <h1>같은 두 질문을 프록시 모델에 던지고 일기에만 있는 이름을 센다</h1>
+      <p class="lead">입력은 리스트 13.1의 두 질문이고, 모델은 gpt-5.4-mini로 바꿨다. 노트북 셀 6의 저장 출력이며 재실행하지 않았다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>agent = agent_module.Agent(model=CHAT_MODEL)   # 기본값 gpt-4o-mini를 대체
+for q in ["Who are the top influencers of cyclotron funding?",
+          "And in the context of 1930s, related to the Rockefeller Foundation?"]:
+    answer = agent(q)
+roles = [m["role"] for m in agent.messages]   # system + (user+assistant) x 2
+diary_only = ["Wrinch", "Krogh", "Lauritsen", "Lark-Horovitz", "Scholander"]
+hits = [name for name in diary_only if name in " ".join(answers)]</code></pre><p class="explain-line">확인할 것은 코드의 정교함이 아니라 답의 성격이다. <code>roles</code>는 메모리의 길이를, <code>hits</code>는 일기 고유의 이름이 답에 들어갔는지를 보여 준다.</p></div>
+      <p class="takeaway">다음 슬라이드에서 메시지 수와 일기 고유 이름의 등장 여부를 읽는다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-agent-memory">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-agent-memory-result" aria-label="실습 결과: 기억만 가진 에이전트" data-report-refs="nb-agent-memory table-nb-agent-obs source-13-2" data-source-refs="section:13.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.2 · 실습 결과</span></header>
+      <h1>메시지는 다섯 개이고 일기에만 있는 이름은 없다</h1>
+      <p class="lead">저장된 출력이며 모델 하나·질문 둘의 관측이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 3</span> 기억만 가진 에이전트의 관측(저장 출력)</caption><thead><tr><th>관측</th><th>저장된 값</th></tr></thead><tbody><tr><td>메모리에 쌓인 메시지</td><td>5개: system, user, assistant, user, assistant</td></tr><tr><td>일기에만 있는 이름의 등장</td><td>없음</td></tr><tr><td>둘째 답의 인물</td><td>Ernest O. Lawrence, Warren Weaver, Robert Gordon Sproul 등(모델의 사전 지식)</td></tr></tbody></table><p class="explain-line">메시지가 다섯 개라는 것은 둘째 호출이 첫 질문과 첫 답을 함께 보냈다는 뜻이다. 사람 이름이 나왔다고 우리 데이터에서 온 것은 아니며, 일기 고유 이름이 하나도 없다는 검사가 그 증거다.</p></div>
+      <p class="takeaway">이 실험은 일반 법칙이 아니라 한 모델의 두 질문에 대한 관측이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-agent-memory">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <section class="slide slide--teaching chapter-divider" id="slide-section-13-3" aria-label="13.3 절의 시작" data-report-refs="source-13-3" data-source-refs="section:13.3" data-section-divider="13.3" data-source-title="section:13.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.3</span></header>
+      <h1>운영 환경의 도전 과제 — 실무 배포의 벽</h1>
+      <p class="lead">실제로 쓸 만한 에이전트를 만들 때 무엇이 걸림돌이고, 그 가운데 무엇이 검색으로 풀리는가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.3</div></div>
+      <!-- <p class="takeaway">목록보다 어느 것이 RAG로 풀리고 어느 것이 풀리지 않는지가 중요하다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-3-table" aria-label="여섯 가지 도전 과제" data-report-refs="source-13-3 table-challenges" data-source-refs="section:13.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.3</span></header>
+      <h1>운영 환경의 도전 과제(6ea)</h1>
+      <!-- <p class="lead">실제로 쓸모 있는 에이전트를 개발하는 일은 복잡하며, LLM과 관련된 여러 도전 과제와 우려 사항을 반드시 고려해야 한다.</p> -->
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 2</span> 운영 환경의 여섯 도전 과제와 이 장의 대응</caption><thead><tr><th>도전 과제</th><th>무슨 문제인가</th><th>RAG가 다루나</th></tr></thead><tbody><tr><td>환각</td><td>지식이 없어도 가장 그럴듯한 출력을 만든다</td><td>다룬다 — 답을 제공된 맥락으로 제한</td></tr><tr><td>최신성</td><td>재학습이 1년에 한두 번이라 최근 동향에 답하지 못한다</td><td>다룬다 — 도구가 최신 소스를 읽는다</td></tr><tr><td>투명성</td><td>출처·추론 과정·확신 수준을 알 수 없다</td><td>다룬다 — 어느 문서·Cypher에서 왔는지 추적</td></tr><tr><td>데이터 프라이버시</td><td>민감한 데이터를 유출 없이 쓰고 싶다</td><td>다룬다 — 데이터는 우리 DB에 남는다</td></tr><tr><td>비용</td><td>최고 성능 모델의 학습·배포·유지가 비싸다</td><td>부분적 — 맥락을 좁히면 토큰이 준다</td></tr><tr><td>윤리적 우려와 편향</td><td>편견·유해 내용을 재생산·증폭할 수 있다</td><td>다루지 않는다</td></tr></tbody></table></div>
+      <p class="takeaway">환각·최신성·투명성·프라이버시는 맥락을 주는 도구로, 편향은 다른 수단으로 다뤄야 한다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-13-3-hallu" aria-label="환각과 도구" data-report-refs="source-13-3 table-challenges" data-source-refs="section:13.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.3</span></header>
+      <h1>환각은 달변가가 지식 없이도 말을 이어 가는 것이다</h1>
+      <p class="lead">모델은 학습 데이터에 없던 주제를 물어도 학습한 일, 곧 가장 그럴듯한 출력을 만드는 일을 그대로 수행한다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>최신성</h2><p>학습 비용에서 나온다. 대화형 에이전트에게 외부 소스를 읽는 도구를 쥐여 주어 다룬다.</p></article><article><h2>도구의 예</h2><p>날씨 예보 데이터를 내려받고, 뉴스 기사를 가져오고, KG처럼 항상 최신으로 유지되는 지식 베이스에서 콘텐츠를 끌어온다.</p></article><article><h2>이 장의 몫</h2><p>"질문을 넣으면 답이 나온다"는 단순한 시나리오를 넘어 도구를 쥔 에이전트를 만드는 것이 나머지 절의 주제다.</p></article></div></div>
+      <p class="takeaway">프라이버시와 투명성은 기업용 솔루션이라면 반드시 신경 써야 하는 문제다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>  -->
+    <!-- <section class="slide slide--teaching chapter-divider" id="slide-section-13-4" aria-label="13.4 절의 시작" data-report-refs="source-13-4" data-source-refs="section:13.4" data-section-divider="13.4" data-source-title="section:13.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4</span></header>
+      <h1>비공개 데이터에 대해 AI와 대화하기 — 우리 도메인 전문가로 만들기</h1>
+      <p class="lead">LLM의 언어 능력은 그대로 두고 우리 비공개 데이터의 전문가로 만들려면 어떻게 하는가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.4</div></div>
+      <p class="takeaway">돌아갈 곳은 5~6장의 록펠러 아카이브 센터 KG다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+     <!-- <section class="slide slide--teaching" id="slide-13-4-kg" aria-label="6장 KG 위에서 돈다" data-report-refs="source-13-4 table-kg-size" data-source-refs="section:13.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4</span></header>
+      <h1>13장에는 데이터를 적재하는 코드가 한 줄도 없다</h1>
+      <p class="lead">Page·Entity·Person이 모두 6장 산출물이므로 6장 노트북을 먼저 끝까지 돌려야 이 장의 실험이 성립한다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 5</span> 6장이 적재한 KG의 규모(노트북 점검 셀의 저장 출력)</caption><thead><tr><th>노드 라벨</th><th>개수</th><th>관계</th><th>개수</th></tr></thead><tbody><tr><td>Page</td><td>150</td><td>MENTIONS_ENTITY</td><td>2197</td></tr><tr><td>Entity</td><td>2197</td><td>RELATED_TO_ENTITY</td><td>2123</td></tr><tr><td>Person</td><td>461</td><td>TALKED_ABOUT</td><td>237</td></tr><tr><td>Occupation</td><td>328</td><td>WORKS_ON</td><td>467</td></tr><tr><td>Title</td><td>0</td><td>HAS_TITLE</td><td>0</td></tr></tbody></table><p class="explain-line">Neo4j 5.26.28 enterprise에서 읽은 값이다. Title과 HAS_TITLE이 0인 것은 6장 임포터의 결함이며 13.4.3에서 재현 질의를 본다.</p></div>
+      <p class="takeaway">이 KG는 일기 한 쪽이라는 문서 층과 거기서 추출한 사람·조직·관계라는 KG 층을 함께 가진다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>  -->
+     <section class="slide slide--teaching" id="slide-13-4-question" aria-label="이 장의 질문" data-report-refs="source-13-4 table-kg-size" data-source-refs="section:13.4" data-source-title="section:13.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4</span></header>
+      <h1>사용자가 쿼리 언어(Cypher)를 몰라도 지식 그래프를 똑같이 활용할 수 있을까?</h1>
+      <p class="lead"><strong>13.4 비공개 데이터에 대해 AI와 대화하기 — 우리 도메인 전문가로 만들기</strong></p>
+      <p class="lead">이어지는 세 파트에서는 RAG의 개념과 기존 벡터 RAG의 한계, 그리고 지식 그래프(KG)를 통한 해결책을 차례로 살펴본다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>전제(요구)</h2><p>AI(LLM)가 원래 가지고 있는 똑똑한 대화 능력과 기본 지식은 그대로 둔다.</p></article><article><h2>목표</h2><p>외부에 공개할 수 없는 민감한 사내 데이터와 우리 업무 지식을 잘 아는 '맞춤형 전문가'로 업그레이드</p></article><article><h2>방법</h2><p>AI 에이전트에게 여러 검색 도구를 주어 필요한 정보를 직접 찾아 답하게 만듬 (RAG)</p></article></div></div>
+      <!-- <p class="takeaway">이후 세 절은 RAG가 무엇인지, 벡터 RAG가 어디서 막히는지, KG가 어떻게 푸는지를 차례로 본다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-section-13-4-1" aria-label="13.4.1 절의 시작" data-report-refs="source-13-4-1" data-source-refs="section:13.4.1" data-section-divider="13.4.1" data-source-title="section:13.4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.1</span></header>
+      <h1>검색 증강 생성(RAG) — 근거로 붙잡아 두기</h1>
+      <p class="lead">RAG는 무엇을 하는 기법이고, 벡터 검색 기반 RAG는 실제로 무엇을 돌려주는가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.4.1</div></div>
+      <p class="takeaway">RAG는 모델이 제멋대로 날뛰지 못하게 답의 범위를 맥락으로 제한한다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-1-grounding" aria-label="RAG는 근거화 기법" data-report-refs="source-13-4-1 s1341-grounding" data-source-refs="section:13.4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.1</span></header>
+      <h1>RAG는 환각·최신성·투명성·데이터 프라이버시 문제를 다루려고 개발된 기법</h1>
+      <p class="lead">사전 학습된 LLM의 지식과 언어 이해 능력에, 질문과 관련해 외부 데이터 소스에서 검색해 온 추가 맥락을 결합해 답을 생성한다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>하는 일</h2><p>질문과 외부에서 검색한 맥락을 함께 받아 답을 생성한다. </p></article><article><h2>효과</h2><p>답 생성의 범위를 제공된 맥락으로 제한하므로 사실을 지어낼 가능성이 크게 줄어든다.</p></article><article><h2>NOTE</h2><p>모델은 확률적이어서 RAG를 써도 엉뚱한 방향으로 갈 수 있다. 시스템은 사람을 대체하는 것이 아니라 보강해야 하며, 사람을 루프 안에 두는 것(human in the loop)이 필수다.</p></article></div></div>
+      <p class="takeaway">근거화는 환각을 없애는 것이 아니라 줄이는 것이고, 마지막 확인은 사람의 몫이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-1-figure" aria-label="벡터 RAG 흐름" data-report-refs="source-13-4-1 fig-vector-rag s1341-vector" data-source-refs="section:13.4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.1</span></header>
+      <h1>문서를 잘게 쪼개어 벡터로 변환한 뒤, 질문과 가장 비슷한 조각을 에이전트에게 전달한다</h1>
+      <p class="lead">전체 아키텍처(그림 13.1)에서 지식 그래프(KG) 경로를 제외한 기본 구조입니다. 에이전트가 쓸 수 있는 검색 도구가 3개에서 1개(벡터 검색)로 줄어들었다는 점이 핵심입니다. </p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="벡터 검색 기반 검색 증강 생성" class="deck-report-figure"><img src="assets/figs/fig-vector-rag.svg" alt="문서를 청크로 쪼개 임베딩하여 벡터 데이터베이스에 색인하고, 질문 임베딩과의 유사도로 가장 가까운 조각을 꺼내 에이전트에게 주는 흐름"></figure><p class="figure-reading">위쪽 줄은 문서를 잘라 숫자로 변환해 저장하는 준비 과정이고, 아래쪽 줄은 질문과 비슷한 문서 조각을 찾아 답변하는 검색 과정</p></div></div>
+      <p class="takeaway">이 방식은 문서를 서로 독립된 조각으로 다룬다.(문서를 낱개로 쪼개서 따로따로 다루기 때문에, 문서와 문서 사이의 관계나 전체 맥락은 파악이 어렵다.)</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-13-4-1-listing" aria-label="리스트 13.3 임베딩 만들기" data-report-refs="source-13-4-1 listing-13-3 listing-13-4" data-source-refs="section:13.4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.1 · 리스트 13.3</span></header>
+      <h1>Neo4j를 벡터 데이터베이스로 겸용한다</h1>
+      <p class="lead">이미 그래프 안에 있는 Page 노드의 text 속성을 읽어 벡터로 만들고 같은 노드에 다시 저장한다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:15px"><code>vector_index = Neo4jVector.from_existing_graph(
+    embedding=OpenAIEmbeddings(),
+    url=os.environ['NEO4J_URL'], username=os.environ['NEO4J_USER'],
+    password=os.environ['NEO4J_PWD'], database=os.environ['NEO4J_DB'],
+    index_name='embeddings',
+    node_label="Page",
+    text_node_properties=['text'],
+    embedding_node_property='embedding'
+)
+q = "What is known about cyclotron research?"
+resp = vector_index.similarity_search_with_score(q, k=2)</code></pre><p class="explain-line">벡터가 <code>Page</code> 노드의 <code>embedding</code> 속성에 쓰이고 <code>embeddings</code> 인덱스가 만들어진다. 마지막 두 줄이 질문을 같은 모델로 임베딩해 가장 유사한 두 조각을 찾는다.</p></div>
+      <p class="takeaway">문서와 그래프가 이미 한 곳에 있다는 점이 13.4.3에서 결정적으로 작용한다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-vector-index-code" aria-label="실습: 임베딩 모델을 바꿔 돌린 리스트 13.3" data-report-refs="nb-vector-index source-13-4-1" data-source-refs="section:13.4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.1 · 실습</span></header>
+      <h1>같은 리스팅을 파일 수정 없이 Ollama 임베딩으로 돌렸다</h1>
+      <p class="lead">프록시에 임베딩 엔드포인트가 없어 노트북은 OpenAIEmbeddings를 Ollama 임베딩으로 갈아끼운다. 이 리스팅은 데이터베이스에 쓴다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>show("13.3")
+with in_listings():
+    namespace = runpy.run_path(str(chunk("13.3").path), run_name="__main__")
+VECTOR_INDEX = namespace["vector_index"]
+# 임베딩이 노드에 실제로 쓰였는지, 차원이 몇인지 확인한다.
+with cypher.driver() as drv, drv.session(database=NEO4J_DB) as s:
+    embedded = s.run("MATCH (p:Page) WHERE p.embedding IS NOT NULL "
+                     "RETURN count(p) AS n, size(head(collect(p.embedding))) AS dim").single()</code></pre></div>
+        <p class="takeaway">쓰기 부작용이 있으므로 6장 노트북과 동시에 돌리지 않는다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-vector-index">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-vector-index-result" aria-label="실습 결과: 벡터 인덱스와 상위 2개 청크" data-report-refs="nb-vector-index table-nb-vector-index source-13-4-1" data-source-refs="section:13.4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.1 · 실습 결과</span></header>
+      <h1>점수 절대값은 달라도 1위 문서는 같다</h1>
+      <p class="lead">노트북 저장 출력과 교재 인쇄값을 같은 항목으로 비교한다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 5</span> 벡터 인덱스와 상위 2개 청크</caption><thead><tr><th>항목</th><th>노트북 저장 출력</th><th>교재 인쇄값</th></tr></thead><tbody><tr><td>임베딩이 붙은 Page</td><td>150 / 150</td><td>—</td></tr><tr><td>벡터 차원</td><td>768 (Ollama nomic-embed-text)</td><td>1536 계열(OpenAI)</td></tr><tr><td>1위 점수 · 문서</td><td>0.8241 · 1939-01-31 대형 사이클로트론 재현 비용</td><td>0.9181 · 같은 문서</td></tr><tr><td>2위 점수 · 문서</td><td>0.8230 · 1939-01-03 라크-호로비츠(퍼듀)</td><td>0.9157 · 판 데 그라프(MIT)</td></tr></tbody></table><p class="explain-line">첫 번째 문서는 질문과 매우 관련이 높다. 두 번째 순위 문서도 사이클로트론을 언급하지만, 질문의 맥락(Lauritsen과의 관계)과는 거리가 있다.</p></div>
+      <p class="takeaway">최초 실행은 13.2초, 저장된 재실행은 0.7초라고 노트북이 적는다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-vector-index">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <section class="slide slide--teaching chapter-divider" id="slide-section-13-4-2" aria-label="13.4.2 절의 시작" data-report-refs="source-13-4-2" data-source-refs="section:13.4.2" data-section-divider="13.4.2" data-source-title="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2</span></header>
+      <h1>벡터 기반 RAG의 한계 — 임베딩만으로는 부족하다</h1>
+      <p class="lead">벡터 검색 RAG의 한계는 무엇이고 실제 질문에서 어떻게 나타나며, 한계를 풀려면 무엇을 끌어들이는가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.4.2</div></div>
+      <!-- <p class="takeaway">한계는 목록이 아니라 질문의 고유명사가 상위 문서에 있느냐로 확인한다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-2-limits" aria-label="다섯 가지 한계" data-report-refs="source-13-4-2 table-limits s1342-limits" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2</span></header>
+      <h1>벡터 기반 RAG의 5가지 한계</h1>
+      <!-- <p class="lead">벡터 검색 형태의 RAG는 유용하지만 몇 가지 단점이 있다. 교재 13.4.2의 다섯 한계를 노트북이 확인한 곳과 함께 본다.</p> -->
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 3</span> 벡터 기반 RAG의 한계와 확인한 곳</caption><thead><tr><th>한계</th><th>무슨 말인가</th><th>비고</th></tr></thead><tbody><tr><td>흐름 끊김 (맥락 파편화)</td><td>문서를 낱개로 쪼개 놓아서, 여러 문서를 연결해야만 알 수 있는 관계를 놓칩니다.</td><td>13.4.5의 집계 질문</td></tr><tr><td>대용량 처리 한계 (확장성)</td><td>데이터(말뭉치)가 방대해질수록 정확한 검색 대신 대략적인 근사치 검색에 의존하게 됨</td><td> </td></tr><tr><td>의미 손실 (임베딩의 한계)</td><td>긴 문장을 하나의 벡터로 압축하다 보니 세밀한 의미나 뉘앙스가 손실됨</td><td>질문의 고유명사가 상위 문서에 없는 사례</td></tr><tr><td>엉뚱한 정보 섞임 (잡음)</td><td>상관없는 문서가 같이 검색되어 AI가 헷갈리게 만듭니다</td><td>1위와 3위의 점수 차가 0.005 수준</td></tr><tr><td>중요 문서 빠짐 (검색 누락)</td><td>가장 관련 높은 문서를 못 가져온다</td><td>실습 13-A가 질문 네 개로 포함률을 본다</td></tr></tbody></table></div>
+      <p class="takeaway">AI가 "질문과 가장 비슷하다"며 찾아온 문서 안에, 정작 질문의 주인공(핵심 단어)이 아예 없을 수도 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-2-book" aria-label="교재 표 13.1" data-report-refs="source-13-4-2 table-book-lauritsen" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2</span></header>
+      <h1>상위 세 문서 중 Lauritsen을 언급하는 것은 하나뿐이다</h1>
+      <p class="lead">질문은 "How is Lauritsen related to cyclotron research?"이고 점수는 교재 인쇄값이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 4</span> 상위 3개 문서(교재 인쇄값)</caption><thead><tr><th>순위</th><th>문서(요지)</th><th>코사인</th><th>Lauritsen</th><th>cyclotron</th></tr></thead><tbody><tr><td>1</td><td>1939-01-03 퍼듀 라크-호로비츠 — 판 데 그라프 장치와 중성자 발생</td><td>0.906</td><td>있음</td><td>있음</td></tr><tr><td>2</td><td>1939-05-02 GE 어빙 랭뮤어 — Wrinch 지원을 강하게 옹호</td><td>0.903</td><td>없음</td><td>없음</td></tr><tr><td>3</td><td>1939-04-03 도로시 M. Wrinch — X선 구조 문제와 연구비 출처</td><td>0.902</td><td>없음</td><td>있음</td></tr></tbody></table><p class="explain-line">1위와 3위의 점수 차는 0.004에 불과하다. 이름이 없는 문서도 있는 문서와 거의 같은 자격으로 맥락에 들어간다.</p></div>
+      <!-- <p class="takeaway">Wrinch의 한국어 표기가 해설판과 번역본에서 다르므로 이 자료는 원어를 쓴다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-nb-table-13-1-code" aria-label="실습: 교재 표 13.1 재현" data-report-refs="nb-table-13-1 source-13-4-2" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2 · 실습</span></header>
+      <h1>상위 3건만 보면 맞힌 것 같고 10건을 보면 아니다</h1>
+      <p class="lead">질문은 같고 임베딩 모델만 다르다. 교재는 상위 3건을 싣지만 노트북은 10건을 펼친다.</p>
+      <div class="slide-body"><pre data-code-language="Python"><code>QUESTION_13_1 = "How is Lauritsen related to cyclotron research?"
+hits = VECTOR_INDEX.similarity_search_with_score(QUESTION_13_1, k=10)
+for rank, (document, score) in enumerate(hits, 1):
+    body = document.page_content
+    has_name = "Lauritsen" in body
+    has_topic = "cyclotron" in body.lower()</code></pre><p class="explain-line">상위 문서를 꺼내 Lauritsen과 cyclotron 문자열이 들어 있는지 센다. 셀 12의 저장 출력이며 재실행하지 않았다.</p></div>
+      <p class="takeaway">비교 범위는 질문 1개, 임베딩 모델 1개다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-table-13-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-table-13-1-result" aria-label="실습 결과: 상위 10건" data-report-refs="nb-table-13-1 table-nb-top10 table-nb-bookrank source-13-4-2" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2 · 실습 결과</span></header>
+      <h1>이름이 나오는 문서는 10건 중 1건뿐이다</h1>
+      <p class="lead">nomic-embed-text로 같은 질문의 상위 10건을 확인한 저장 출력이다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 9</span> 상위 10건의 이름·주제 포함(저장 출력)</caption><thead><tr><th>순위</th><th>점수</th><th>Lauritsen</th><th>cyclotron</th></tr></thead><tbody><tr><td>1</td><td>0.8169</td><td>없음</td><td>있음</td></tr><tr><td>2</td><td>0.8135</td><td>없음</td><td>있음</td></tr><tr><td>3</td><td>0.8123</td><td>있음</td><td>있음</td></tr><tr><td>4–9</td><td>0.8067–0.7930</td><td>없음</td><td>있음</td></tr><tr><td>10</td><td>0.7894</td><td>없음</td><td>없음</td></tr></tbody></table><p class="explain-line">교재 1위(퍼듀) 문서가 3위로 내려오고, 2위(랭뮤어) 문서는 10위 밖으로 나간다. 점수가 낮다고 나쁜 것이 아니며 임베딩 모델이 다르면 스케일이 다르다. 순위가 모델에 따라 달라진다는 점을 읽는다.</p></div>
+      <p class="takeaway">무관한 문서가 관련 문서와 거의 같은 자격으로 맥락에 들어간다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-table-13-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-probe-13a-code" aria-label="실습 13-A: 질문 네 개로 재 보기" data-report-refs="nb-probe-13a source-13-4-2" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2 · 실습</span></header>
+      <h1>하나는 우연일 수 있으니 질문마다 포함률을 센다</h1>
+      <p class="lead">마지막 질문은 인물이 아니라 주제를 묻는 대조군이다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:15px"><code>PROBES = [
+    ("How is Lauritsen related to cyclotron research?", "Lauritsen"),
+    ("What did August Krogh say about Irving?",         "Krogh"),
+    ("What did her fellow researchers say about Dorothy M. Wrinch?", "Wrinch"),
+    ("What is known about cyclotron research?",         "cyclotron"),   # 대조군
+]
+for question, keyword in PROBES:
+    hits = VECTOR_INDEX.similarity_search_with_score(question, k=10)
+    found = [rank for rank, (doc, _) in enumerate(hits, 1)
+             if keyword.lower() in doc.page_content.lower()]</code></pre><p class="explain-line">질문마다 상위 3건과 10건을 가져와 핵심 고유명사가 본문에 실제로 들어 있는지 센다. 셀 23의 저장 출력이다.</p></div>
+      <p class="takeaway">질문 네 개·임베딩 모델 하나의 관측이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-probe-13a">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <section class="slide slide--teaching" id="slide-nb-probe-13a-result" aria-label="실습 13-A 결과: 포함 비율" data-report-refs="nb-probe-13a table-nb-probe source-13-4-2" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2 · 실습 결과</span></header>
+      <h1>주제 질문은 잘 맞고 인물 질문은 이름이 상위에 잘 안 나온다</h1>
+      <p class="lead">키워드가 상위 3건·10건 안에 들어 있는 비율이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 5</span> 질문의 고유명사가 상위 문서에 들어 있는 비율</caption><thead><tr><th>키워드</th><th>상위 3건</th><th>상위 10건</th><th>포함된 순위</th></tr></thead><tbody><tr><td>Lauritsen</td><td>1/3</td><td>1/10</td><td>3</td></tr><tr><td>Krogh</td><td>0/3</td><td>0/10</td><td>—</td></tr><tr><td>Wrinch</td><td>0/3</td><td>2/10</td><td>4, 9</td></tr><tr><td>cyclotron(대조군)</td><td>3/3</td><td>9/10</td><td>1–8, 10</td></tr></tbody></table><p class="explain-line">임베딩은 문서 전체 의미의 압축 요약이라 한 문서에 한 번 나오는 이름은 희석된다. 다만 비율을 일반화할 수 없고, 교재의 "보장이 없다"는 주장의 구체적 예로 읽는다.</p></div>
+      <!-- <p class="takeaway">KG 문서 선택기로 같은 관계(August Krogh–Irving)를 지목하면 1건이 나오고 그 1건이 Irving을 언급한다(1/1).</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-probe-13a">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-2-kg" aria-label="KG를 끌어들인다" data-report-refs="source-13-4-2 s1342-kg" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2</span></header>
+      <h1>GraphRAG는 기존 한계를 극복하고 추가적인 이점을 제공한다</h1>
+      <p class="lead">기존 구조에 지식 그래프(KG)를 결합하는 것</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>중앙 지식 저장소</h2><p>원본 텍스트 뿐만 아니라 문서의 부가 정보(메타데이터)와 신뢰도 높은 정형 데이터(표, CSV, 온톨로지)까지 한곳에 통합한다.</p></article><article><h2>최신 유지</h2><p>지식이 사람이 이해할 수 있는 직관적인 구조로 저장되어 있어, 데이터를 수정하거나 업데이트하기 쉽습니다.</p></article><article><h2>전문가 개입</h2><p>도메인 전문가가 기존 지식을 검증하거나 새 지식을 입력해 출력 품질 향상 가능</p></article><article><h2>투명성</h2><p>AI가 어떤 근거로 답했는지 명확히 확인할 수 있어 결과에 대한 사용자의 신뢰도가 높아집니다.</p></article></div></div>
+      <p class="takeaway">이어서 KG가 구체적으로 무엇을 할 수 있는지 본다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-section-13-4-3" aria-label="13.4.3 절의 시작" data-report-refs="source-13-4-3" data-source-refs="section:13.4.3" data-section-divider="13.4.3" data-source-title="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3</span></header>
+      <h1>그래프 RAG — 지식 그래프를 끌어들이다</h1>
+      <p class="lead">KG를 RAG에 끌어들이면 구체적으로 무엇을 할 수 있고, 관계로 문서를 특정하는 도구는 어떻게 동작하는가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.4.3</div></div>
+      <p class="takeaway">핵심은 텍스트 짝지음이다. 관계를 먼저 그래프에서 특정하고 그 관계를 언급한 문서만 꺼낸다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-3-paired" aria-label="텍스트 속성 그래프와 텍스트 짝지음 그래프" data-report-refs="source-13-4-3 fig-text-paired s1343-kg" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3</span></header>
+      <h1>LLM과 결합된 지식 그래프(KG)의 두가지 핵심 특성</h1>
+      <p class="lead">GraphRAG의 그래프는 두 가지 특징을 동시에 가집니다. 하나는 노드와 화살표 자체에 텍스트 정보를 담는 것<strong>(텍스트 속성 그래프)</strong>이고, 다른 하나는 그 정보의 출처가 된 원본 문서를 줄로 묶어두는 것<strong>(텍스트 연결 그래프)</strong></p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="문서 층과 KG 층이 이어진 구조" class="deck-report-figure"><img src="assets/figs/fig-text-paired.svg" alt="Page 문서 층의 노드가 MENTIONS_ENTITY로 Entity에 이어지고, Entity가 Person·Organization 등 KG 층의 노드와 관계로 이어지며 관계에서 원문 쪽으로 되짚어 갈 수 있는 구조"></figure><p class="figure-reading">위 그림을 보면 맨 위 '원본 문서(일기 한 쪽)'에서 중간의 '등장 키워드(Entity)'를 뽑아내고, 이를 맨 아래 '지식 그래프의 인물(Person) 관계도'와 연결했다.</p></div></div>
+      <p class="takeaway">맨 아래 지식 그래프만 보면 "누가 누구에 대해 말했다"는 사실은 알 수 있지만, "그게 일기장 몇 페이지에 적혀 있는지"는 알 수 없습니다. 문서와 그래프를 이어 두어야만, 인물 관계를 단서로 삼아 원본 일기장(근거 문장)을 정확히 역추적해 찾아낼 수 있습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-3-ways" aria-label="그래프 RAG의 네 가지 방식" data-report-refs="source-13-4-3 table-graphrag-ways s1343-ways" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3</span></header>
+      <h1>지식 그래프(KG)를 질문에 답하는 데 쓰는 네 가지 방법</h1>
+      <p class="lead">지식 그래프(KG)를 일종의 '똑똑한 관계도 수첩'이라고 생각해 봅시다. 이번 장에서는 'KG 검색기'(kg_reader)와 'KG 기반 문서 검색기'를 직접 구현하며, '결합 검색'은 에이전트가 이 두 도구를 순차적으로 호출하는 방식으로 작동한다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 6</span> 그래프 RAG를 구현하는 네 가지 방식</caption><thead><tr><th>방식</th><th>쉽게 말하면</th><th>이 장에서</th></tr></thead><tbody><tr><td>메타데이터</td><td>본문 내용뿐만 아니라 작성일·작성자·출처 같은 부가 정보(메타데이터)까지 그래프에 함께 연결</td><td>구현하지 않는다</td></tr><tr><td>KG 검색기</td><td>방대한 원본 문서를 일일이 읽는 대신, 핵심만 요약된 관계도(KG)에서 바로 답을 검색</td><td>tools.py의 kg_reader</td></tr><tr><td>KG 강화 문서 검색기</td><td>관계도의 요약 정보만으로 부족할 때, 해당 관계와 연결된 원본 문서만 정확히 골라 가져옴</td><td>리스트 13.5 — 핵심 도구</td></tr><tr><td>결합 검색</td><td>KG에서 1차 단서를 먼저 찾은 뒤, 그 단서와 관련된 원본 문서를 추가로 찾아 두 맥락을 종합해 분석</td><td>교재 그림 13.5의 에이전트</td></tr></tbody></table></div>
+      <p class="takeaway">결합 검색 : "범죄조직A의 우두머리" 같은 직함은 금융 문서에 없으므로 KG에서 이름을 먼저 얻고 그 이름으로 문서를 검색</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-3-routing" aria-label="도구 셋을 쥔 에이전트" data-report-refs="source-13-4-3 fig-tool-routing s1343-agent" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3</span></header>
+      <h1>질문의 유형에 따라 3가지 검색 도구 중 사용할 도구가 결정된다</h1>
+      <p class="lead">관계도를 바로 읽는 'KG 리더', 관계를 단서로 원본 문서를 찾는 '문서 선택기', 그리고 앞의 두 도구가 실패했을 때 쓰는 비상용 '벡터 검색기'.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="질문 유형에 따라 갈리는 세 도구" class="deck-report-figure"><img src="assets/figs/fig-tool-routing.svg" alt="질문 유형에 따라 KG 리더, 문서 선택기, 벡터 검색의 세 도구로 갈라지는 라우팅"></figure><p class="figure-reading">관계나 집계만 필요하면 KG 리더, 두 대상 사이의 상호작용 내용이 필요하면 문서 선택기, 앞의 둘이 맥락을 못 주면 벡터 검색으로 간다. 세 도구의 호출 조건은 13.4.4의 도구 설명문에서 읽어 다시 그린 재구성이다.</p></div></div>
+      <p class="takeaway">질문의 성격이 도구를 가르고, 도구를 고르는 기준은 도구 설명문이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-13-4-3-listing" aria-label="리스트 13.5 KG 강화 문서 검색기" data-report-refs="source-13-4-3 listing-13-5 s1343-agent" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 리스트 13.5</span></header>
+      <h1>미리 준비된 Cypher 템플릿을 채워 문서를 최대 3건 돌려준다</h1>
+      <p class="lead">입력은 질문에 언급된 두 개체, 그 클래스, 관계 유형이며 값은 에이전트가 채운다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:15px"><code>def kg_doc_selector(entity_source: str, entity_source_class: str, entity_target: str,
+                    entity_target_class: str, relationship: str) -&gt; List[AnyStr]:
+    query = RE_SELECTOR_QUERY.format(e1=entity_source, e1_class=entity_source_class,
+                             e2=entity_target, e2_class=entity_target_class,
+                             rel_class=relationship)
+    try:
+        res = graph.query(query)
+    except Exception as e:
+        print(f"Cypher execution exception: {e}")
+        return []
+    return [x['text'] for x in res[:3]]</code></pre><p class="explain-line">핵심은 템플릿 <code>RE_SELECTOR_QUERY</code>다. 질의가 실패하면 빈 리스트를 돌려 에이전트가 다른 도구로 넘어가게 한다.</p></div>
+      <p class="takeaway">질문에 따라 Cypher를 자동 생성하는 범용 도구는 또 하나의 실패 지점을 들여오므로, 운영 시스템은 자주 반복되는 질문에 미리 준비한 Cypher를 쓰는 경우가 많다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-13-4-3-cypher" aria-label="질의가 따라가는 경로" data-report-refs="source-13-4-3 fig-cypher-path listing-13-5" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 리스트 13.5</span></header>
+      <h1>같은 쪽이 두 개체를 언급하고, 그 둘이 요청한 관계로 연결되어야 한다</h1>
+      <p class="lead">"KG에서 이 관계가 있다"와 "바로 이 쪽에서 그 관계가 추출되었다"를 모두 만족하는 쪽만 남는다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="문서 선택기 질의가 따라가는 경로" class="deck-report-figure"><img src="assets/figs/fig-cypher-path.svg" alt="Page가 두 Entity를 MENTIONS_ENTITY로 언급하고 각각 Person으로 이어져 요청한 관계로 연결되며 두 Entity 사이 RELATED_TO_ENTITY의 type이 같은 관계 클래스인 경로"></figure><p class="figure-reading">왼쪽에서 오른쪽으로 Page → Entity(m1) → e1, Page → Entity(m2) → e2, e1과 e2 사이의 요청 관계, 마지막으로 m1과 m2 사이 RELATED_TO_ENTITY의 type 순으로 읽는다. 중괄호 자리의 값은 에이전트가 채우며, RE_SELECTOR_QUERY를 풀어 그린 재구성이다.</p></div></div>
+      <p class="takeaway">이 경로 조건이 관계에서 원문 쪽으로 되짚는 일을 질의 한 번으로 만든다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-doc-selector-code" aria-label="실습: 책의 예시 호출은 왜 0건인가" data-report-refs="nb-doc-selector source-13-4-3" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 실습</span></header>
+      <h1>책 그대로의 호출과 데이터의 이름으로 고친 호출을 나란히 실행한다</h1>
+      <p class="lead">교재의 예시는 ("August Krogh", "Person", "Lawrence Irving", "Person", "TALKED_ABOUT")다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>CALLS = [
+    ("책에 인쇄된 그대로",   ("August Krogh", "Person", "Lawrence Irving", "Person", "TALKED_ABOUT")),
+    ("데이터에 있는 이름으로", ("August Krogh", "Person", "Irving",          "Person", "TALKED_ABOUT")),
+]
+for label, args in CALLS:
+    documents = DOC_SELECTOR.kg_doc_selector(*args)
+    print(f"-&gt; {len(documents)}건")</code></pre><p class="explain-line">두 번의 호출 차이는 대상 이름뿐이다. 노트북 셀 15의 저장 출력이며 재실행하지 않았다.</p></div>
+      <p class="takeaway">결과의 차이가 도구의 오류인지 재현 절차의 문제인지 다음 슬라이드에서 가른다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-doc-selector">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-doc-selector-result" aria-label="실습 결과: 문서 선택기 호출 두 번" data-report-refs="nb-doc-selector table-nb-selector-calls source-13-4-3" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 실습 결과</span></header>
+      <h1>도구가 틀린 것이 아니라 재현 절차의 문제다</h1>
+      <p class="lead">같은 도구에 이름만 다르게 넣었다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 12</span> 문서 선택기 호출 두 번</caption><thead><tr><th>호출</th><th>대상 이름</th><th>결과</th></tr></thead><tbody><tr><td>책 그대로</td><td>Lawrence Irving</td><td>0건</td></tr><tr><td>정정</td><td>Irving</td><td>1건 — 1939-05-08 August Krogh 면담 기록</td></tr></tbody></table><p class="explain-line">일기 원문 표기는 Laurence Irving(132·133·135쪽)이고 그 쪽들은 6장 임포터의 LIMIT 100 밖이다. 정정 호출의 1건은 교재 표 13.2의 답과 부합하지만, 이 Irving 노드는 Irving Langmuir·Irving Roberts와 합쳐지지 않은 별개 노드다.</p></div>
+      <p class="takeaway">메커니즘은 확인되지만 도구의 성능은 KG가 어떻게 만들어졌는가에 묶여 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-doc-selector">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-title-defect-code" aria-label="실습: 스키마가 광고하는 조합" data-report-refs="nb-title-defect source-13-4-3" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 실습</span></header>
+      <h1>스키마가 광고하는 조합을 실제로 불러 본다</h1>
+      <p class="lead">입력 스키마는 Title을 대상 클래스로, HAS_TITLE을 관계로 선택지에 올린다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>empty = DOC_SELECTOR.kg_doc_selector("N. Bohr", "Person", "Professor", "Title", "HAS_TITLE")
+print(f"   -&gt; {len(empty)}건")</code></pre><p class="explain-line">Neo4j 경고는 UnknownRelationshipTypeWarning(HAS_TITLE)이고 도구가 만든 질의는 <code>(e1:Person)-[:HAS_TITLE]-(e2:Title)</code> 패턴이다. 셀 17의 저장 출력이다.</p></div>
+      <p class="takeaway">이 조합을 에이전트가 고르면 언제나 빈손이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-title-defect">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-title-defect-result" aria-label="실습 결과: Title 결함" data-report-refs="nb-title-defect table-defects source-13-4-3" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 실습 결과</span></header>
+      <h1>문서 층에는 직함 관계가 있고 KG 층에는 없다</h1>
+      <p class="lead">모두 Cypher 질의 결과여서 같은 그래프에서는 재실행해도 같은 값이다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 13</span> 노트북이 재현한 Title 스키마 결함</caption><thead><tr><th>관측</th><th>값</th></tr></thead><tbody><tr><td>label 속성이 없는 Entity</td><td>214</td></tr><tr><td>문서 층 RELATED_TO_ENTITY {type: HAS_TITLE}</td><td>214</td></tr><tr><td>KG 층 Title 노드 · HAS_TITLE 관계</td><td>0 · 0</td></tr><tr><td>titles 속성이 비어 있지 않은 Person</td><td>132</td></tr><tr><td>Title/HAS_TITLE 조합으로 호출</td><td>0건</td></tr></tbody></table><p class="explain-line">직함 정보는 Person.titles 배열로 살아남았다. 원인 분석(6장 임포터)은 노트북 기록을 따랐고 이번 준비에서 6장 코드를 다시 읽어 검증하지는 않았다.</p></div>
+      <p class="takeaway">에이전트가 아니라 데이터·스키마 쪽을 먼저 의심하는 것이 순서다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-title-defect">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <section class="slide slide--teaching chapter-divider" id="slide-section-13-4-4" aria-label="13.4.4 절의 시작" data-report-refs="source-13-4-4" data-source-refs="section:13.4.4" data-section-divider="13.4.4" data-source-title="section:13.4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.4</span></header>
+      <h1>추론 에이전트 — ReAct로 생각하고 행동하기</h1>
+      <p class="lead">도구가 여러 개일 때 누가 언제 무엇을 쓸지 어떻게 정하고, 그 선택을 안정적으로 만들려면 무엇을 조정하는가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.4.4</div></div>
+      <!-- <p class="takeaway">도구의 이름과 설명이 곧 라우팅 규칙이다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-4-react" aria-label="ReAct" data-report-refs="source-13-4-4 s1344-react" data-source-refs="section:13.4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.4</span></header>
+      <h1>생각하고 행동하고 관찰하는 루프로 도구들을 에이전트 하나에 통합한다</h1>
+      <p class="lead">명확한 실행 순서가 없는 여러 도구가 있으므로 ReAct(Reason and Act) 에이전트를 쓴다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>Thought</h2><p>무엇을 할지 추론한다.</p></article><article><h2>Action</h2><p>도구를 호출하는 행동을 한다.</p></article><article><h2>Observation</h2><p>그 결과를 관찰하고 접근을 다듬는다. 원래 질문에 답하기에 충분한 맥락을 얻었다고 판단하면 루프를 끝낸다.</p></article></div></div>
+      <p class="takeaway">얻은 정보가 만족스럽지 않으면 에이전트는 다른 도구를 쓴다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-4-listing" aria-label="리스트 13.6 ReAct 에이전트" data-report-refs="source-13-4-4 listing-13-6 s1344-react" data-source-refs="section:13.4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.4 · 리스트 13.6</span></header>
+      <h1>도구 세 개를 묶어 구조화된 ReAct 에이전트를 만든다</h1>
+      <p class="lead">저장소 파일 15.6에서 도구 설명 문자열을 줄이고 보조 함수를 생략해 발췌한 것이다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:13px"><code>tools = [
+    StructuredTool.from_function(func=vector_search, name="Diaries-vector-search", ...),
+    StructuredTool.from_function(func=kg_reader, name="KnowledgeGraph-reader", ...),
+    StructuredTool.from_function(func=kg_doc_selector, name="KG-based-document-selector", ...),
+]
+llm = ChatOpenAI(model=MODEL, temperature=0)
+prompt = load_custom_prompt("../prompts/prompt_structured.txt")   # 교재 본문은 hub.pull(...)
+agent = create_structured_chat_agent(llm, tools, prompt)
+agent_executor = AgentExecutor(agent=agent, tools=tools, max_iterations=5,
+                               return_intermediate_steps=True, verbose=True)
+
+question = "What did her fellow researchers say about Dorothy M. Wrinch?"
+response = agent_executor.invoke({"input": question})</code></pre><p class="explain-line"><code>max_iterations=5</code>가 반복 상한이다. 각 도구의 설명에는 KG 스키마가 들어 있어 에이전트가 어떤 도구를 쓸지 판단하도록 돕는다.</p></div>
+      <!-- <p class="takeaway">교재 본문은 프롬프트를 허브에서 받지만 저장소 코드는 로컬 파일을 읽는다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-4-tools" aria-label="도구 세 개와 설명" data-report-refs="source-13-4-4 table-tools" data-source-refs="section:13.4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.4</span></header>
+      <h1>설명문이 도구를 고르는 기준을 정한다</h1>
+      <p class="lead">도구는 모델이 어떤 상황에서 어떤 도구를 부를지 판단하도록 돕는 이름과 설명을 가진다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 7</span> 도구 세 개와 설명이 지시하는 것</caption><thead><tr><th>도구</th><th>구현</th><th>설명이 지시하는 것</th></tr></thead><tbody><tr><td>Diaries-vector-search</td><td>vector_search — 벡터 인덱스 k=3</td><td>백업 도구다. 다른 도구를 먼저 써 보고 최후에만 쓴다</td></tr><tr><td>KnowledgeGraph-reader</td><td>kg_reader — 질문과 스키마로 Cypher 생성·실행</td><td>KG만으로 충분한 질문(관계, 직업별 인원 수 같은 집계)과 다른 도구의 입력을 얻는 중간 단계</td></tr><tr><td>KG-based-document-selector</td><td>kg_doc_selector — 리스트 13.5</td><td>두 엔티티 사이의 상호작용에 대한 상세 정보. 구체적 엔티티 목록이 필요하면 KG 리더를 먼저</td></tr></tbody></table><p class="explain-line">세 설명 모두에 KG_SCHEMA 문자열이 통째로 들어간다.</p></div>
+      <!-- <p class="takeaway">저자들은 "테스트하고, 테스트하고, 또 테스트하라"고 말한다. 같은 설정과 같은 질문으로 반복해서.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-13-4-4-reader" aria-label="KG 리더의 Cypher 생성 지시" data-report-refs="source-13-4-4 table-kg-reader-rules" data-source-refs="section:13.4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.4</span></header>
+      <h1>스키마가 권위이고 성만 주어지면 CONTAINS를 쓴다</h1>
+      <p class="lead">kg_reader가 모델에 주는 지시를 저장소의 tools.py에서 요약했다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 15</span> kg_reader가 모델에 주는 Cypher 생성 지시(요지)</caption><thead><tr><th>지시</th><th>의미</th></tr></thead><tbody><tr><td>스키마가 권위다</td><td>스키마에 없는 엔티티·관계·속성은 쓰지 않는다</td></tr><tr><td>성만 주어지면 CONTAINS</td><td>p.name CONTAINS "&lt;surname&gt;"로 부분 일치를 쓴다</td></tr><tr><td>연결 관계를 물으면 3홉</td><td>(...)-[*1..3]-(...)를 방향 없이 탐색한다</td></tr><tr><td>Cypher만 출력</td><td>못 만들면 빈 문자열로 실패를 알린다</td></tr></tbody></table><p class="explain-line">모델이 이 지시를 따라 만드는 Cypher는 실행마다 달라질 수 있다. 개선 여지로 저자들은 재순위, Cypher 자가 교정 루프, 도구 추가를 든다.</p></div>
+      <p class="takeaway">설명이 사실상 라우팅 규칙이므로 설명을 설계하고 반복해서 테스트한다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-13-4-4-failures" aria-label="도구 실패의 모양" data-report-refs="source-13-4-4 table-tool-failures" data-source-refs="section:13.4.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.4</span></header>
+      <h1>실패가 "결과 없음"과 같은 모양으로 돌아온다</h1>
+      <p class="lead">저장소 tools.py가 실패할 때 에이전트에게 돌려주는 값을 정리했다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 16</span> 도구가 실패하거나 비어 있을 때 에이전트가 보는 것</caption><thead><tr><th>도구</th><th>조건</th><th>돌아가는 값</th></tr></thead><tbody><tr><td>KG 검색기</td><td>Cypher가 빈 문자열</td><td>빈 문자열</td></tr><tr><td>KG 검색기</td><td>실행 중 예외</td><td>"No results found."</td></tr><tr><td>KG 강화 문서 검색기</td><td>실행 중 예외</td><td>빈 리스트 []</td></tr><tr><td>벡터 검색</td><td>정상</td><td>상위 3개(k=3) 조각</td></tr></tbody></table><p class="explain-line">문법 오류와 진짜 빈 결과를 에이전트가 구분하지 못한다. 반복 횟수 제한(max_iterations)도 실무에서 둔다.</p></div>
+      <p class="takeaway">실패 신호가 정상 빈 결과와 같으면 에이전트는 틀린 쿼리를 알아채지 못한다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <section class="slide slide--teaching chapter-divider" id="slide-section-13-4-5" aria-label="13.4.5 절의 시작" data-report-refs="source-13-4-5" data-source-refs="section:13.4.5" data-section-divider="13.4.5" data-source-title="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5</span></header>
+      <h1>우리 KG와 대화해 보자 — 실전 테스트</h1>
+      <p class="lead">Wrinch에 대한 동료의 평가를 에이전트가 어떻게 찾고, 집계 질문에서 KG는 벡터 검색과 무엇이 다르며, 같은 질문의 답과 단계 수는 얼마나 안정적인가?</p>
+      <div class="slide-body"><div class="section-number" aria-hidden="true">13.4.5</div></div>
+      <p class="takeaway">질문을 던져 보고 같은 질문을 반복해 본다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-13-4-5-trace" aria-label="에이전트의 내부 단계" data-report-refs="source-13-4-5 fig-react-trace s1345-wrinch" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5</span></header>
+      <h1>KG 리더로 사람을 얻고 문서 선택기로 대화를 읽는다</h1>
+      <p class="lead">123</p>
+      <div class="slide-body"><p class="explain-line"> 먼저 KG에서 링크에 대해 이야기한 사람들의 목록을 가져온 다음, 특화된 KG 강화 문서 검색기를 사용해 무슨 말이 오갔는지 세부 정보를 담은 관련 문서를 얻는 것임을 정확히 파악한다. <br>에이전트는 총 네 번의 생각(Thought)/행동(Action)/관찰(Observation) 단계를 거친다.</p></div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <section class="slide slide--teaching" id="slide-13-4-5-trace" aria-label="에이전트의 내부 단계" data-report-refs="source-13-4-5 fig-react-trace s1345-wrinch" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5</span></header>
+      <h1>KG 검색기로 사람을 얻고 문서 선택기로 대화를 읽는다</h1>
+      <p class="lead">(예시) 연구자가 특정 인물A에 대한 동료들의 인식을 알고 싶어은 경우, 에이전트는 KG 검색기를 사용해 관련 인물 목록을 얻고, 문서 선택기를 통해 세부 대화를 확인한다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="그래프 RAG 에이전트의 내부 단계 예시" class="deck-report-figure"><img src="assets/figs/fig-react-trace.svg" alt="질문과 첫 Thought에서 시작해 KG 리더를 부르는 Action, 이름 목록 Observation, 문서 선택기를 부르는 Action, 관련 문서 Observation, 최종 답까지 두 줄로 이어지는 흐름"></figure><p class="figure-reading">위 줄은 KG 리더로 사람 목록을 얻는 단계, 아래 줄은 문서 선택기로 세부 문서를 얻어 답을 만드는 단계다. 교재는 이 실행이 Thought·Action·Observation을 네 번 거쳤다고 적는다. </p></div></div>
+      <!-- <p class="takeaway">교재 첫 Observation에는 Eric Ponder, Pascu, Irving Langmuir가 담겨 있다. 직접 시도하면 모델에 따라 출력이 다를 수 있다.</p> -->
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-5-book" aria-label="교재 표 13.2" data-report-refs="source-13-4-5 table-book-qa" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5</span></header>
+      <h1>두 질문은 서로 다른 도구를 쓴다</h1>
+      <p class="lead">첫째는 두 인물이 정해져 문서 선택기를, 둘째는 KG만으로 충분해 KG 리더만 쓴다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 8</span> 그래프 RAG 질의응답 예시</caption><thead><tr><th>질문</th><th>답변(요지)</th><th>쓴 도구</th></tr></thead><tbody><tr><td>"어거스트 크로그는 로런스 어빙에 대해 무엇이라고 말했는가?"</td><td>크로그는 어빙이 훌륭한 연구를 해 왔고, 노르웨이에서는 구할 수 없는 미국의 시설을 숄란데르에게 제공해 줄 수 있다고 언급했다.</td><td>KG 강화 문서 검색기</td></tr><tr><td>하버드와 존스 홉킨스 사이에 공유된 연구 주제가 있는가?</td><td>천문학과 기후학(astronomy and climatology)</td><td>KG 리더만 사용</td></tr></tbody></table><p class="explain-line">두 번째 질문은 어느 한 문서에도 답이 통째로 없는 집계 질문이다. 순수 벡터 검색은 방대한 문서를 맥락으로 주고 그 안에 완전한 답이 들어 있기를 바라야 한다. </p></div>
+      <p class="takeaway">저자들은 Cypher 자가 교정 루프와 문서 재순위 단계로 정확성·신뢰성·안정성을 높일 수 있다고 제안한다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-wrap-summary" aria-label="이 장의 핵심 정리" data-report-refs="summary-discussion wrap-takeaways">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 13 · 요약</span></header>
+      <h1>요약 — 이 장의 핵심 정리</h1>
+      <p class="lead">에이전트 → RAG → 벡터 RAG의 한계 → 그래프 RAG → KG 통합 설계. 이 순서가 13장의 논리다.</p>
+      <div class="slide-body"><div class="teaching-rows" style="gap:6px"><article><h2>AI 에이전트</h2><p style="font-size:19px;line-height:1.5">모든 AI 에이전트의 핵심에는, 에이전트의 두뇌 역할을 하는 LLM 모델, 그 모델을 안내하는 프롬프트, 그리고 에이전트가 바깥세상과 상호작용할 수 있게 해 주는 도구 집합의 조합이 자리합니다.</p></article><article><h2>RAG</h2><p style="font-size:19px;line-height:1.5">검색 증강 생성(RAG)은 생성 모델과 정보 검색을 결합하여, AI 에이전트 같은 지능형 시스템을 만드는 프레임워크입니다. 그렇게 함으로써 환각·최신성·투명성·데이터 프라이버시 같은 LLM 고유의 문제들을 다룹니다.</p></article><article><h2>벡터 RAG의 한계</h2><p style="font-size:19px;line-height:1.5">벡터 기반 RAG 시스템은 여러 단점을 겪습니다. 제한된 추론 능력, 확장성 문제, 그리고 잡음과 관련 정보 누락을 포함한 검색의 부정확성이 그것입니다.</p></article><article><h2>그래프 RAG</h2><p style="font-size:19px;line-height:1.5">그래프 RAG는 KG를 LLM과 통합하여, KG 안의 구조화된 관계적 다중 홉 패턴을 활용함으로써 추론 능력과 정보 검색의 정밀도를 강화합니다. 또한 KG는 질의응답 과정에 더 많은 통제와 투명성을 제공합니다.</p></article><article><h2>KG 통합 방법</h2><p style="font-size:19px;line-height:1.5">KG를 RAG 시스템에 통합하는 방법은 그래프 설계에 따라 결정됩니다. 가장 유용한 KG는 텍스트 속성 그래프와 텍스트 짝지음 그래프를 결합한 것으로, 이를 통해 잘 정제된 구조화 지식과, 문서 및 그 메타데이터를 함께 활용할 수 있습니다.</p></article></div></div>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary-discussion">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <!-- <section class="slide slide--teaching" id="slide-appx-notebook" aria-label="부록 노트북 실습 근거" data-report-refs="coverage table-coverage">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">부록 · 실습 근거</span></header>
+      <h1>부록 — 발표 본문에서 뺀 노트북 실습</h1>
+      <p class="lead">질문이 나오면 꺼내 보는 슬라이드다. 모두 노트북에 저장된 출력이며 이번 준비에서 다시 실행하지 않았다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>13.4.1–13.4.2</h2><p>임베딩 인덱스 만들기, 교재 표 13.1 재현, 질문 네 개로 재 본 벡터 검색</p></article><article><h2>13.4.3</h2><p>KG 강화 문서 선택기 호출 두 번, 스키마가 광고하는 조합과 Title 결함</p></article><article><h2>13.4.5</h2><p>Wrinch 질문의 결정적 기준선과 실제 실행, 같은 질문의 반복 실행, 집계 질문</p></article></div></div>
+      <p class="takeaway">Cypher 결과는 같은 데이터에서 같고, LLM 답변·도구 선택·임베딩 점수는 실행마다 다를 수 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#coverage">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-vector-index-code" aria-label="실습: 임베딩 모델을 바꿔 돌린 리스트 13.3" data-report-refs="nb-vector-index source-13-4-1" data-source-refs="section:13.4.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.1 · 실습</span></header>
+      <h1>같은 리스팅을 파일 수정 없이 Ollama 임베딩으로 돌렸다</h1>
+      <p class="lead">프록시에 임베딩 엔드포인트가 없어 노트북은 OpenAIEmbeddings를 Ollama 임베딩으로 갈아끼운다. 이 리스팅은 데이터베이스에 쓴다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>show("13.3")
+with in_listings():
+    namespace = runpy.run_path(str(chunk("13.3").path), run_name="__main__")
+VECTOR_INDEX = namespace["vector_index"]
+# 임베딩이 노드에 실제로 쓰였는지, 차원이 몇인지 확인한다.
+with cypher.driver() as drv, drv.session(database=NEO4J_DB) as s:
+    embedded = s.run("MATCH (p:Page) WHERE p.embedding IS NOT NULL "
+                     "RETURN count(p) AS n, size(head(collect(p.embedding))) AS dim").single()</code></pre><p class="explain-line">셀 10의 저장 출력이며 재실행하지 않았다. 리스팅 파일은 한 글자도 고치지 않고, 임베딩 클래스만 바꿨다.</p></div>
+      <p class="takeaway">쓰기 부작용이 있으므로 6장 노트북과 동시에 돌리지 않는다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-vector-index">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-table-13-1-code" aria-label="실습: 교재 표 13.1 재현" data-report-refs="nb-table-13-1 source-13-4-2" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2 · 실습</span></header>
+      <h1>상위 3건만 보면 맞힌 것 같고 10건을 보면 아니다</h1>
+      <p class="lead">질문은 같고 임베딩 모델만 다르다. 교재는 상위 3건을 싣지만 노트북은 10건을 펼친다.</p>
+      <div class="slide-body"><pre data-code-language="Python"><code>QUESTION_13_1 = "How is Lauritsen related to cyclotron research?"
+hits = VECTOR_INDEX.similarity_search_with_score(QUESTION_13_1, k=10)
+for rank, (document, score) in enumerate(hits, 1):
+    body = document.page_content
+    has_name = "Lauritsen" in body
+    has_topic = "cyclotron" in body.lower()</code></pre><p class="explain-line">상위 문서를 꺼내 Lauritsen과 cyclotron 문자열이 들어 있는지 센다. 셀 12의 저장 출력이며 재실행하지 않았다.</p></div>
+      <p class="takeaway">비교 범위는 질문 1개, 임베딩 모델 1개다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-table-13-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-table-13-1-result" aria-label="실습 결과: 상위 10건" data-report-refs="nb-table-13-1 table-nb-top10 table-nb-bookrank source-13-4-2" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2 · 실습 결과</span></header>
+      <h1>이름이 나오는 문서는 10건 중 1건뿐이다</h1>
+      <p class="lead">nomic-embed-text로 같은 질문의 상위 10건을 확인한 저장 출력이다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 12</span> 상위 10건의 이름·주제 포함(저장 출력)</caption><thead><tr><th>순위</th><th>점수</th><th>Lauritsen</th><th>cyclotron</th></tr></thead><tbody><tr><td>1</td><td>0.8169</td><td>없음</td><td>있음</td></tr><tr><td>2</td><td>0.8135</td><td>없음</td><td>있음</td></tr><tr><td>3</td><td>0.8123</td><td>있음</td><td>있음</td></tr><tr><td>4–9</td><td>0.8067–0.7930</td><td>없음</td><td>있음</td></tr><tr><td>10</td><td>0.7894</td><td>없음</td><td>없음</td></tr></tbody></table><p class="explain-line">교재 1위(퍼듀) 문서가 3위로 내려오고, 2위(랭뮤어) 문서는 10위 밖으로 나간다. 점수가 낮다고 나쁜 것이 아니며 임베딩 모델이 다르면 스케일이 다르다. 순위가 모델에 따라 달라진다는 점을 읽는다.</p></div>
+      <p class="takeaway">무관한 문서가 관련 문서와 거의 같은 자격으로 맥락에 들어간다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-table-13-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-probe-13a-code" aria-label="실습 13-A: 질문 네 개로 재 보기" data-report-refs="nb-probe-13a source-13-4-2" data-source-refs="section:13.4.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.2 · 실습</span></header>
+      <h1>하나는 우연일 수 있으니 질문마다 포함률을 센다</h1>
+      <p class="lead">마지막 질문은 인물이 아니라 주제를 묻는 대조군이다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:15px"><code>PROBES = [
+    ("How is Lauritsen related to cyclotron research?", "Lauritsen"),
+    ("What did August Krogh say about Irving?",         "Krogh"),
+    ("What did her fellow researchers say about Dorothy M. Wrinch?", "Wrinch"),
+    ("What is known about cyclotron research?",         "cyclotron"),   # 대조군
+]
+for question, keyword in PROBES:
+    hits = VECTOR_INDEX.similarity_search_with_score(question, k=10)
+    found = [rank for rank, (doc, _) in enumerate(hits, 1)
+             if keyword.lower() in doc.page_content.lower()]</code></pre><p class="explain-line">질문마다 상위 3건과 10건을 가져와 핵심 고유명사가 본문에 실제로 들어 있는지 센다. 셀 23의 저장 출력이다.</p></div>
+      <p class="takeaway">질문 네 개·임베딩 모델 하나의 관측이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-probe-13a">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-doc-selector-code" aria-label="실습: 책의 예시 호출은 왜 0건인가" data-report-refs="nb-doc-selector source-13-4-3" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 실습</span></header>
+      <h1>책 그대로의 호출과 데이터의 이름으로 고친 호출을 나란히 실행한다</h1>
+      <p class="lead">교재의 예시는 ("August Krogh", "Person", "Lawrence Irving", "Person", "TALKED_ABOUT")다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>CALLS = [
+    ("책에 인쇄된 그대로",   ("August Krogh", "Person", "Lawrence Irving", "Person", "TALKED_ABOUT")),
+    ("데이터에 있는 이름으로", ("August Krogh", "Person", "Irving",          "Person", "TALKED_ABOUT")),
+]
+for label, args in CALLS:
+    documents = DOC_SELECTOR.kg_doc_selector(*args)
+    print(f"-&gt; {len(documents)}건")</code></pre><p class="explain-line">두 번의 호출 차이는 대상 이름뿐이다. 노트북 셀 15의 저장 출력이며 재실행하지 않았다.</p></div>
+      <p class="takeaway">결과의 차이가 도구의 오류인지 재현 절차의 문제인지 다음 슬라이드에서 가른다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-doc-selector">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-doc-selector-result" aria-label="실습 결과: 문서 선택기 호출 두 번" data-report-refs="nb-doc-selector table-nb-selector-calls source-13-4-3" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 실습 결과</span></header>
+      <h1>도구가 틀린 것이 아니라 재현 절차의 문제다</h1>
+      <p class="lead">같은 도구에 이름만 다르게 넣었다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 13</span> 문서 선택기 호출 두 번</caption><thead><tr><th>호출</th><th>대상 이름</th><th>결과</th></tr></thead><tbody><tr><td>책 그대로</td><td>Lawrence Irving</td><td>0건</td></tr><tr><td>정정</td><td>Irving</td><td>1건 — 1939-05-08 August Krogh 면담 기록</td></tr></tbody></table><p class="explain-line">일기 원문 표기는 Laurence Irving(132·133·135쪽)이고 그 쪽들은 6장 임포터의 LIMIT 100 밖이다. 정정 호출의 1건은 교재 표 13.2의 답과 부합하지만, 이 Irving 노드는 Irving Langmuir·Irving Roberts와 합쳐지지 않은 별개 노드다.</p></div>
+      <p class="takeaway">메커니즘은 확인되지만 도구의 성능은 KG가 어떻게 만들어졌는가에 묶여 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-doc-selector">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-title-defect-code" aria-label="실습: 스키마가 광고하는 조합" data-report-refs="nb-title-defect source-13-4-3" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 실습</span></header>
+      <h1>스키마가 광고하는 조합을 실제로 불러 본다</h1>
+      <p class="lead">입력 스키마는 Title을 대상 클래스로, HAS_TITLE을 관계로 선택지에 올린다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>empty = DOC_SELECTOR.kg_doc_selector("N. Bohr", "Person", "Professor", "Title", "HAS_TITLE")
+print(f"   -&gt; {len(empty)}건")</code></pre><p class="explain-line">Neo4j 경고는 UnknownRelationshipTypeWarning(HAS_TITLE)이고 도구가 만든 질의는 <code>(e1:Person)-[:HAS_TITLE]-(e2:Title)</code> 패턴이다. 셀 17의 저장 출력이다.</p></div>
+      <p class="takeaway">이 조합을 에이전트가 고르면 언제나 빈손이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-title-defect">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-title-defect-result" aria-label="실습 결과: Title 결함" data-report-refs="nb-title-defect table-defects source-13-4-3" data-source-refs="section:13.4.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.3 · 실습 결과</span></header>
+      <h1>문서 층에는 직함 관계가 있고 KG 층에는 없다</h1>
+      <p class="lead">모두 Cypher 질의 결과여서 같은 그래프에서는 재실행해도 같은 값이다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 14</span> 노트북이 재현한 Title 스키마 결함</caption><thead><tr><th>관측</th><th>값</th></tr></thead><tbody><tr><td>label 속성이 없는 Entity</td><td>214</td></tr><tr><td>문서 층 RELATED_TO_ENTITY {type: HAS_TITLE}</td><td>214</td></tr><tr><td>KG 층 Title 노드 · HAS_TITLE 관계</td><td>0 · 0</td></tr><tr><td>titles 속성이 비어 있지 않은 Person</td><td>132</td></tr><tr><td>Title/HAS_TITLE 조합으로 호출</td><td>0건</td></tr></tbody></table><p class="explain-line">직함 정보는 Person.titles 배열로 살아남았다. 원인 분석(6장 임포터)은 노트북 기록을 따랐고 이번 준비에서 6장 코드를 다시 읽어 검증하지는 않았다.</p></div>
+      <p class="takeaway">에이전트가 아니라 데이터·스키마 쪽을 먼저 의심하는 것이 순서다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-title-defect">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-wrinch-baseline-code" aria-label="실습 13-B: 결정적 기준선" data-report-refs="nb-wrinch-baseline source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습</span></header>
+      <h1>LLM 없이 Cypher로 직접 Wrinch를 말한 사람을 찾는다</h1>
+      <p class="lead">에이전트가 "찾지 못했다"고 답할 때 그것이 데이터 부재인지 도구 선택 실패인지 구분하려면 기준선이 필요하다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>talkers = [r["name"] for r in s.run(
+    'MATCH (p:Person)-[:TALKED_ABOUT]-&gt;(w:Person) WHERE w.name CONTAINS "Wrinch" '
+    "RETURN DISTINCT p.name AS name ORDER BY name")]
+# 그 관계가 어느 문서에서 추출됐는지도 되짚을 수 있다 — 텍스트 짝지음 그래프의 힘.
+pages = [r["id"] for r in s.run(
+    'MATCH (p:Page)-[:MENTIONS_ENTITY]-&gt;(m:Entity)--&gt;(w:Person) '
+    'WHERE w.name CONTAINS "Wrinch" RETURN DISTINCT p.id AS id ORDER BY id')]</code></pre><p class="explain-line">두 번째 질의는 관계에서 원문 쪽으로 되짚는 일이 Cypher 한 번으로 된다는 점을 보인다. 셀 25의 저장 출력이다.</p></div>
+      <p class="takeaway">이 값은 LLM을 거치지 않아 같은 그래프에서는 재실행해도 같다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-wrinch-baseline">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-wrinch-baseline-result" aria-label="실습 13-B 결과" data-report-refs="nb-wrinch-baseline table-nb-wrinch-names source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습 결과</span></header>
+      <h1>교재와 우리의 이름이 다른 것은 추출 결과가 다르기 때문이다</h1>
+      <p class="lead">Cypher로 직접 질의한 결정적 값이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 15</span> Wrinch에 대해 이야기한 사람</caption><thead><tr><th>구분</th><th>이름</th></tr></thead><tbody><tr><td>우리 KG에서 TALKED_ABOUT으로 그녀를 말한 사람</td><td>Irving Langmuir, WW</td></tr><tr><td>교재 그림 13.5의 첫 Observation</td><td>Eric Ponder, Pascu, Irving Langmuir</td></tr><tr><td>교집합</td><td>Irving Langmuir</td></tr><tr><td>그녀를 언급하는 Page</td><td>5쪽</td></tr></tbody></table><p class="explain-line">에이전트의 문제가 아니라 6장 추출 결과가 다르다는 뜻이다. WW는 일기 저자의 약칭으로 읽히며 노트북은 별도 해소하지 않는다.</p></div>
+      <p class="takeaway">이 기준선이 있어야 다음 두 실험의 "찾지 못했다"를 해석할 수 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-wrinch-baseline">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-wrinch-run-code" aria-label="실습: 같은 질문을 에이전트에게" data-report-refs="nb-wrinch-run source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습</span></header>
+      <h1>리스트 13.6의 에이전트를 교재 그림 13.5와 같은 질문으로 한 번 실행한다</h1>
+      <p class="lead">모델은 파일의 gpt-4o 대신 gpt-5.4-mini로 갈아끼웠다. 실행은 1회다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>def ask_agent(question: str, label: str = ""):
+    with in_listings():
+        response = REACT.agent_executor.invoke({"input": question})
+    steps = response.get("intermediate_steps", [])
+    used = [step[0].tool for step in steps]
+    ...
+ask_agent("What did her fellow researchers say about Dorothy M. Wrinch?", "교재 그림 13.5와 같은 질문")</code></pre><p class="explain-line"><code>intermediate_steps</code>에서 사용한 도구를 꺼내 기록한다. 노트북 셀 19의 저장 출력이며 재실행하지 않았다.</p></div>
+      <p class="takeaway">단계와 도구를 함께 기록해야 답의 근거를 대조할 수 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-wrinch-run">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-wrinch-run-result" aria-label="실습 결과: 에이전트 실행 1회" data-report-refs="nb-wrinch-run table-nb-wrinch-run source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습 결과</span></header>
+      <h1>흐름의 모양은 교재와 같고 내용은 다르다</h1>
+      <p class="lead">총 2 steps, 184.6초의 저장 출력이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 16</span> 교재 그림 13.5와 같은 질문의 에이전트 실행(1회)</caption><thead><tr><th>단계</th><th>행동</th><th>관찰</th></tr></thead><tbody><tr><td>1</td><td>KnowledgeGraph-reader: "Who talked about Dorothy M. Wrinch?"</td><td>생성된 Cypher로 2행: WW, Irving Langmuir</td></tr><tr><td>2</td><td>KG-based-document-selector(WW, Person, Dorothy M. Wrinch, Person, TALKED_ABOUT)</td><td>1건: 1939-04-03 Wrinch 면담(계속) — 연구비와 Oxford 지원 조건</td></tr><tr><td>답</td><td>Final Answer</td><td>"직접적인 평가는 못 찾았다. WW와 Langmuir는 주로 그녀의 연구비 지원을 이야기했다"</td></tr></tbody></table><p class="explain-line">선택기는 WW에 대해서만 호출되었고 Irving Langmuir에 대해서는 호출되지 않았다. 그 문서가 동료의 평가가 아니라 연구비 대화여서 답이 "평가는 못 찾았다"로 끝났다. 모델 차이와 비결정성이 함께 작용한 n=1 관측이다.</p></div>
+      <p class="takeaway">같은 목록의 다른 사람에 대해서도 선택기를 불렀다면 다른 쪽이 나왔을 수 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-wrinch-run">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-agent-repeat-code" aria-label="실습 13-C: 도구 선택은 얼마나 흔들리나" data-report-refs="nb-agent-repeat source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습</span></header>
+      <h1>같은 질문을 세 번 던져 steps와 사용한 도구를 기록한다</h1>
+      <p class="lead">교재의 조언, 같은 설정과 같은 입력 질문으로도 반복해서 테스트하라를 그대로 해 본다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>PROBE_RUNS = 3
+PROBE_QUESTION = "What did her fellow researchers say about Dorothy M. Wrinch?"
+trials = [ask_agent(PROBE_QUESTION, f"반복 {run}/{PROBE_RUNS}") for run in range(1, PROBE_RUNS + 1)]
+step_counts = sorted(t["steps"] for t in trials if t)   # -&gt; [0, 1, 2]</code></pre><p class="explain-line">Cypher로 답이 있는데 에이전트가 찾지 못했다고 하면 도구 선택 실패이고, Cypher로도 비어 있으면 데이터가 없는 것이다. 셀 27의 저장 출력이다.</p></div>
+      <p class="takeaway">n=3의 관측으로 분포를 말할 수는 없다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-agent-repeat">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-agent-repeat-result" aria-label="실습 13-C 결과: 같은 질문 3회" data-report-refs="nb-agent-repeat table-nb-repeat source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습 결과</span></header>
+      <h1>steps가 0·1·2로 갈렸고 도구를 쓰지 않은 답도 그럴듯했다</h1>
+      <p class="lead">같은 질문·같은 모델(gpt-5.4-mini)의 3회 관측이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 17</span> 같은 질문 3회 반복</caption><thead><tr><th>회차</th><th>steps</th><th>사용한 도구</th><th>답의 성격</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>KnowledgeGraph-reader</td><td>sentiment 값을 읽어 "엇갈렸다"고 답함</td></tr><tr><td>2</td><td>0</td><td>없음</td><td>도구 없이 사전 지식으로 "총명하고 독창적이지만 논쟁적"이라고 답함</td></tr><tr><td>3</td><td>2</td><td>KnowledgeGraph-reader, Diaries-vector-search</td><td>벡터 검색으로 Langmuir 면담을 찾아 평가를 인용</td></tr></tbody></table><p class="explain-line">두 번째 회차가 더 위험하다. 도구를 쓰지 않았는데도 그럴듯한 평가를 내놓았고, 프롬프트의 "Respond directly if appropriate" 허용과 맞물린 결과다. 답의 문장만 보면 근거가 있는 것처럼 보이므로 사용한 도구와 단계를 함께 기록해야 한다.</p></div>
+      <p class="takeaway">"흔들린다"는 사실만 확인되고 분포는 말할 수 없다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-agent-repeat">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-aggregate-code" aria-label="집계 질문: 교재 결론을 실행으로 확인" data-report-refs="nb-aggregate source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습</span></header>
+      <h1>공동 언급 수와 두 홉 교집합을 Cypher로 센다</h1>
+      <p class="lead">"하버드와 존스 홉킨스 사이에 공유된 연구 주제가 있는가"는 어느 한 문서에도 통째로 없는 질문이다.</p>
+      <div class="slide-body"><pre data-code-language="Cypher" style="font-size:16px"><code>MATCH (p:Page)
+WHERE toLower(p.text) CONTAINS "harvard"
+  AND (toLower(p.text) CONTAINS "johns hopkins" OR toLower(p.text) CONTAINS "hopkins")
+RETURN count(p) AS n
+
+MATCH (o1:Organization)&lt;-[:WORKS_FOR]-(:Person)-[:WORKS_ON]-&gt;(t:Occupation)
+      &lt;-[:WORKS_ON]-(:Person)-[:WORKS_FOR]-&gt;(o2:Organization)
+WHERE toLower(o1.name) CONTAINS "harvard" AND toLower(o2.name) CONTAINS "hopkins"
+RETURN DISTINCT t.name AS topic ORDER BY topic</code></pre><p class="explain-line">첫 질의는 두 대학을 동시에 언급하는 쪽의 수, 둘째는 서로 다른 두 사람이 같은 직업 노드를 공유하는 두 홉 교집합이다. 셀 21의 저장 출력이다.</p></div>
+      <p class="takeaway">세 번째 비교 대상은 비결정적인 에이전트의 답이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-aggregate">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-aggregate-result" aria-label="집계 질문 결과" data-report-refs="nb-aggregate table-nb-aggregate source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습 결과</span></header>
+      <h1>KG 질의는 결정적으로 교집합을 내고 에이전트는 놓쳤다</h1>
+      <p class="lead">앞의 네 값은 Cypher 결과로 결정적이고, 마지막 줄은 LLM 답으로 비결정적이다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 18</span> Harvard와 Johns Hopkins</caption><thead><tr><th>관측</th><th>값</th></tr></thead><tbody><tr><td>Harvard를 언급하는 Page</td><td>31쪽</td></tr><tr><td>Hopkins를 언급하는 Page</td><td>15쪽</td></tr><tr><td>두 대학을 모두 언급하는 Page</td><td>3쪽</td></tr><tr><td>KG 두 홉으로 낸 공통 직업·주제</td><td>biochemistry, biology (교재 표 13.2는 astronomy and climatology)</td></tr><tr><td>에이전트의 답</td><td>"그래프 데이터만으로는 공통 주제를 확인할 수 없다" (steps 1, KG 리더만)</td></tr></tbody></table><p class="explain-line">에이전트는 같은 의도를 다른 Cypher(같은 사람이 두 대학에 모두 소속)로 옮겨 0행을 받았다. LLM이 만든 질의가 의도와 어긋나면 KG가 답을 가지고 있어도 찾지 못한다. 3쪽은 공동 언급 수일 뿐 공통 주제를 논하는지는 확인되지 않는다.</p></div>
+      <p class="takeaway">"KG는 여러 문서에 걸쳐 점을 잇는다"는 주장의 실체는 결정적 질의이고, 에이전트의 질의 번역은 별개의 위험이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-aggregate">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section> -->
+    <!-- <section class="slide slide--teaching" id="slide-nb-wrinch-baseline-code" aria-label="실습 13-B: 결정적 기준선" data-report-refs="nb-wrinch-baseline source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습</span></header>
+      <h1>LLM 없이 Cypher로 직접 Wrinch를 말한 사람을 찾는다</h1>
+      <p class="lead">에이전트가 "찾지 못했다"고 답할 때 그것이 데이터 부재인지 도구 선택 실패인지 구분하려면 기준선이 필요하다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>talkers = [r["name"] for r in s.run(
+    'MATCH (p:Person)-[:TALKED_ABOUT]-&gt;(w:Person) WHERE w.name CONTAINS "Wrinch" '
+    "RETURN DISTINCT p.name AS name ORDER BY name")]
+# 그 관계가 어느 문서에서 추출됐는지도 되짚을 수 있다 — 텍스트 짝지음 그래프의 힘.
+pages = [r["id"] for r in s.run(
+    'MATCH (p:Page)-[:MENTIONS_ENTITY]-&gt;(m:Entity)--&gt;(w:Person) '
+    'WHERE w.name CONTAINS "Wrinch" RETURN DISTINCT p.id AS id ORDER BY id')]
+      <p class="takeaway">이 값은 LLM을 거치지 않아 같은 그래프에서는 재실행해도 같다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-wrinch-baseline">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-wrinch-baseline-result" aria-label="실습 13-B 결과" data-report-refs="nb-wrinch-baseline table-nb-wrinch-names source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습 결과</span></header>
+      <h1>교재와 우리의 이름이 다른 것은 추출 결과가 다르기 때문이다</h1>
+      <p class="lead">Cypher로 직접 질의한 결정적 값이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 18</span> Wrinch에 대해 이야기한 사람</caption><thead><tr><th>구분</th><th>이름</th></tr></thead><tbody><tr><td>우리 KG에서 TALKED_ABOUT으로 그녀를 말한 사람</td><td>Irving Langmuir, WW</td></tr><tr><td>교재 그림 13.5의 첫 Observation</td><td>Eric Ponder, Pascu, Irving Langmuir</td></tr><tr><td>교집합</td><td>Irving Langmuir</td></tr><tr><td>그녀를 언급하는 Page</td><td>5쪽</td></tr></tbody></table><p class="explain-line">에이전트의 문제가 아니라 6장 추출 결과가 다르다는 뜻이다. WW는 일기 저자의 약칭으로 읽히며 노트북은 별도 해소하지 않는다.</p></div>
+      <p class="takeaway">이 기준선이 있어야 다음 두 실험의 "찾지 못했다"를 해석할 수 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-wrinch-baseline">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-wrinch-run-code" aria-label="실습: 같은 질문을 에이전트에게" data-report-refs="nb-wrinch-run source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습</span></header>
+      <h1>리스트 13.6의 에이전트를 교재 그림 13.5와 같은 질문으로 한 번 실행한다</h1>
+      <p class="lead">모델은 파일의 gpt-4o 대신 gpt-5.4-mini로 갈아끼웠다. 실행은 1회다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>def ask_agent(question: str, label: str = ""):
+    with in_listings():
+        response = REACT.agent_executor.invoke({"input": question})
+    steps = response.get("intermediate_steps", [])
+    used = [step[0].tool for step in steps]
+    ...
+ask_agent("What did her fellow researchers say about Dorothy M. Wrinch?", "교재 그림 13.5와 같은 질문")</code></pre><p class="explain-line"><code>intermediate_steps</code>에서 사용한 도구를 꺼내 기록한다. 노트북 셀 19의 저장 출력이며 재실행하지 않았다.</p></div>
+      <p class="takeaway">단계와 도구를 함께 기록해야 답의 근거를 대조할 수 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-wrinch-run">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-wrinch-run-result" aria-label="실습 결과: 에이전트 실행 1회" data-report-refs="nb-wrinch-run table-nb-wrinch-run source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습 결과</span></header>
+      <h1>흐름의 모양은 교재와 같고 내용은 다르다</h1>
+      <p class="lead">총 2 steps, 184.6초의 저장 출력이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 19</span> 교재 그림 13.5와 같은 질문의 에이전트 실행(1회)</caption><thead><tr><th>단계</th><th>행동</th><th>관찰</th></tr></thead><tbody><tr><td>1</td><td>KnowledgeGraph-reader: "Who talked about Dorothy M. Wrinch?"</td><td>생성된 Cypher로 2행: WW, Irving Langmuir</td></tr><tr><td>2</td><td>KG-based-document-selector(WW, Person, Dorothy M. Wrinch, Person, TALKED_ABOUT)</td><td>1건: 1939-04-03 Wrinch 면담(계속) — 연구비와 Oxford 지원 조건</td></tr><tr><td>답</td><td>Final Answer</td><td>"직접적인 평가는 못 찾았다. WW와 Langmuir는 주로 그녀의 연구비 지원을 이야기했다"</td></tr></tbody></table><p class="explain-line">선택기는 WW에 대해서만 호출되었고 Irving Langmuir에 대해서는 호출되지 않았다. 그 문서가 동료의 평가가 아니라 연구비 대화여서 답이 "평가는 못 찾았다"로 끝났다. 모델 차이와 비결정성이 함께 작용한 n=1 관측이다.</p></div>
+      <p class="takeaway">같은 목록의 다른 사람에 대해서도 선택기를 불렀다면 다른 쪽이 나왔을 수 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-wrinch-run">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-agent-repeat-code" aria-label="실습 13-C: 도구 선택은 얼마나 흔들리나" data-report-refs="nb-agent-repeat source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습</span></header>
+      <h1>같은 질문을 세 번 던져 steps와 사용한 도구를 기록한다</h1>
+      <p class="lead">교재의 조언, 같은 설정과 같은 입력 질문으로도 반복해서 테스트하라를 그대로 해 본다.</p>
+      <div class="slide-body"><pre data-code-language="Python" style="font-size:16px"><code>PROBE_RUNS = 3
+PROBE_QUESTION = "What did her fellow researchers say about Dorothy M. Wrinch?"
+trials = [ask_agent(PROBE_QUESTION, f"반복 {run}/{PROBE_RUNS}") for run in range(1, PROBE_RUNS + 1)]
+step_counts = sorted(t["steps"] for t in trials if t)   # -&gt; [0, 1, 2]</code></pre><p class="explain-line">Cypher로 답이 있는데 에이전트가 찾지 못했다고 하면 도구 선택 실패이고, Cypher로도 비어 있으면 데이터가 없는 것이다. 셀 27의 저장 출력이다.</p></div>
+      <p class="takeaway">n=3의 관측으로 분포를 말할 수는 없다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-agent-repeat">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-agent-repeat-result" aria-label="실습 13-C 결과: 같은 질문 3회" data-report-refs="nb-agent-repeat table-nb-repeat source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습 결과</span></header>
+      <h1>steps가 0·1·2로 갈렸고 도구를 쓰지 않은 답도 그럴듯했다</h1>
+      <p class="lead">같은 질문·같은 모델(gpt-5.4-mini)의 3회 관측이다.</p>
+      <div class="slide-body"><table class="teaching-table"><caption><span data-deck-caption="table">표 20</span> 같은 질문 3회 반복</caption><thead><tr><th>회차</th><th>steps</th><th>사용한 도구</th><th>답의 성격</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>KnowledgeGraph-reader</td><td>sentiment 값을 읽어 "엇갈렸다"고 답함</td></tr><tr><td>2</td><td>0</td><td>없음</td><td>도구 없이 사전 지식으로 "총명하고 독창적이지만 논쟁적"이라고 답함</td></tr><tr><td>3</td><td>2</td><td>KnowledgeGraph-reader, Diaries-vector-search</td><td>벡터 검색으로 Langmuir 면담을 찾아 평가를 인용</td></tr></tbody></table><p class="explain-line">두 번째 회차가 더 위험하다. 도구를 쓰지 않았는데도 그럴듯한 평가를 내놓았고, 프롬프트의 "Respond directly if appropriate" 허용과 맞물린 결과다. 답의 문장만 보면 근거가 있는 것처럼 보이므로 사용한 도구와 단계를 함께 기록해야 한다.</p></div>
+      <p class="takeaway">"흔들린다"는 사실만 확인되고 분포는 말할 수 없다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-agent-repeat">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-aggregate-code" aria-label="집계 질문: 교재 결론을 실행으로 확인" data-report-refs="nb-aggregate source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습</span></header>
+      <h1>공동 언급 수와 두 홉 교집합을 Cypher로 센다</h1>
+      <p class="lead">"하버드와 존스 홉킨스 사이에 공유된 연구 주제가 있는가"는 어느 한 문서에도 통째로 없는 질문이다.</p>
+      <div class="slide-body"><pre data-code-language="Cypher" style="font-size:16px"><code>MATCH (p:Page)
+WHERE toLower(p.text) CONTAINS "harvard"
+  AND (toLower(p.text) CONTAINS "johns hopkins" OR toLower(p.text) CONTAINS "hopkins")
+RETURN count(p) AS n
+
+MATCH (o1:Organization)&lt;-[:WORKS_FOR]-(:Person)-[:WORKS_ON]-&gt;(t:Occupation)
+      &lt;-[:WORKS_ON]-(:Person)-[:WORKS_FOR]-&gt;(o2:Organization)
+WHERE toLower(o1.name) CONTAINS "harvard" AND toLower(o2.name) CONTAINS "hopkins"
+RETURN DISTINCT t.name AS topic ORDER BY topic</code></pre><p class="explain-line">첫 질의는 두 대학을 동시에 언급하는 쪽의 수, 둘째는 서로 다른 두 사람이 같은 직업 노드를 공유하는 두 홉 교집합이다. 셀 21의 저장 출력이다.</p></div>
+      <p class="takeaway">세 번째 비교 대상은 비결정적인 에이전트의 답이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-aggregate">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-nb-aggregate-result" aria-label="집계 질문 결과" data-report-refs="nb-aggregate table-nb-aggregate source-13-4-5" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5 · 실습 결과</span></header>
+      <h1>KG 질의는 결정적으로 교집합을 내고 에이전트는 놓쳤다</h1>
+      <p class="lead">앞의 네 값은 Cypher 결과로 결정적이고, 마지막 줄은 LLM 답으로 비결정적이다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 21</span> Harvard와 Johns Hopkins</caption><thead><tr><th>관측</th><th>값</th></tr></thead><tbody><tr><td>Harvard를 언급하는 Page</td><td>31쪽</td></tr><tr><td>Hopkins를 언급하는 Page</td><td>15쪽</td></tr><tr><td>두 대학을 모두 언급하는 Page</td><td>3쪽</td></tr><tr><td>KG 두 홉으로 낸 공통 직업·주제</td><td>biochemistry, biology (교재 표 13.2는 astronomy and climatology)</td></tr><tr><td>에이전트의 답</td><td>"그래프 데이터만으로는 공통 주제를 확인할 수 없다" (steps 1, KG 리더만)</td></tr></tbody></table><p class="explain-line">에이전트는 같은 의도를 다른 Cypher(같은 사람이 두 대학에 모두 소속)로 옮겨 0행을 받았다. LLM이 만든 질의가 의도와 어긋나면 KG가 답을 가지고 있어도 찾지 못한다. 3쪽은 공동 언급 수일 뿐 공통 주제를 논하는지는 확인되지 않는다.</p></div>
+      <p class="takeaway">"KG는 여러 문서에 걸쳐 점을 잇는다"는 주장의 실체는 결정적 질의이고, 에이전트의 질의 번역은 별개의 위험이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#nb-aggregate">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-13-4-5-hitl" aria-label="운영 고리" data-report-refs="source-13-4-5 fig-hitl-loop s1345-notebook" data-source-refs="section:13.4.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §13.4.5</span></header>
+      <h1>답과 함께 사용한 도구, Cypher, 문서를 남기고 사람이 대조한다</h1>
+      <p class="lead">교재의 human in the loop NOTE와 반복 테스트 권고를 하나의 고리로 묶은 이해용 재구성이다.</p>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="근거를 기록하고 사람이 검토하는 운영 고리" class="deck-report-figure"><img src="assets/figs/fig-hitl-loop.svg" alt="질문에 대한 답과 사용한 도구·생성된 Cypher·검색된 문서를 함께 기록하고 사람이 검토해 도구 설명과 스키마를 고치는 순환"></figure><p class="figure-reading">답과 근거를 함께 기록하고, 사람이 대조하며, 어긋난 도구 설명이나 스키마를 고쳐 다시 반복 테스트하는 순환으로 읽는다. 교재에는 이 도해가 없고 AIML Quant가 덧붙였다.</p></div></div>
+      <p class="takeaway">교재가 말한 투명성은 KG와 도구의 근거를 추적할 수 있을 때에만 의미가 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-13-4-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-wrap-summary" aria-label="교재 요약" data-report-refs="summary-discussion wrap-takeaways">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 13 · 정리</span></header>
+      <h1>에이전트, RAG, 벡터의 한계, 그래프 RAG, 그래프 설계</h1>
+      <p class="lead">교재의 요약을 다섯 줄로 줄였다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>에이전트</h2><p>핵심에는 두뇌 역할의 LLM, 그것을 안내하는 프롬프트, 바깥세상과 상호작용하게 하는 도구 집합이 있다.</p></article><article><h2>RAG</h2><p>생성 모델과 정보 검색을 결합해 환각·최신성·투명성·프라이버시 문제를 다룬다.</p></article><article><h2>벡터 RAG</h2><p>제한된 추론, 확장성, 잡음과 누락을 포함한 검색 부정확성을 겪는다.</p></article><article><h2>그래프 RAG</h2><p>KG의 구조화된 관계적 다중 홉 패턴으로 추론과 검색 정밀도를 강화하고 통제와 투명성을 더한다.</p></article><article><h2>그래프 설계</h2><p>가장 유용한 KG는 텍스트 속성 그래프와 텍스트 짝지음 그래프를 결합한 것이다.</p></article></div></div>
+      <p class="takeaway">이 장의 실습이 보인 것은 KG의 가능성과 함께, 도구 선택이 흔들린다는 사실이다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary-discussion">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-wrap-discussion" aria-label="토론" data-report-refs="summary-discussion wrap-discussion">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 13 · Q&amp;A</span></header>
+      <h1>발표 뒤에 토론할 다섯 가지 질문</h1>
+      <p class="lead">AIML Quant가 제안하는 질문이다.</p>
+      <div class="slide-body"><div class="teaching-rows"><article><h2>측정</h2><p>우리 조직의 비공개 문서에서 "질문의 고유명사가 상위 문서에 없다"는 실패는 얼마나 자주 일어날까? 어떤 질문 열 개로 측정하겠는가?</p></article><article><h2>엔티티 해소</h2><p>엔티티 해소가 틀린 경우(Irving 사례)를 운영에서 어떻게 감지하겠는가?</p></article><article><h2>스키마</h2><p>스키마와 데이터가 어긋나면(Title 사례) 누가 언제 알아차리는가?</p></article><article><h2>비결정성</h2><p>steps가 0·1·2로 갈릴 때 "도구를 쓰지 않은 답"을 어떻게 걸러 내겠는가?</p></article><article><h2>사람의 검토</h2><p>사람의 검토를 어느 질문 유형에 의무로 두고 어느 것은 면제하겠는가?</p></article></div></div>
+      <p class="takeaway">자료: <a href="report.html">상세 리포트</a> · <a href="../../">회차 목록</a></p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary-discussion">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-appx-coverage" aria-label="실행 범위와 재실행 조건" data-report-refs="coverage table-coverage table-env">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">부록 A</span></header>
+      <h1>어떤 실험도 이번 준비에서 다시 돌리지 않았다</h1>
+      <p class="lead">6장 KG, Neo4j, 두 개의 모델 엔드포인트에 모두 기대는 장이라 해당 서비스와 키를 갖춘 환경이 없었다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 22</span> 교재 리스트의 코드 커버리지와 실행 상태</caption><thead><tr><th>리스트</th><th>저장소 위치</th><th>이번 준비의 상태</th><th>재실행에 필요한 것</th></tr></thead><tbody><tr><td>13.1</td><td>listings/15.1</td><td>저장 출력만 확인, 미실행</td><td>채팅 모델 엔드포인트와 API 키</td></tr><tr><td>13.2 · 13.4</td><td>교재 출력 예시</td><td>교재 인쇄값과 저장 출력 대조</td><td>13.1 · 13.3 실행</td></tr><tr><td>13.3</td><td>listings/15.3</td><td>저장 출력만 확인, 미실행 · DB에 씀</td><td>Neo4j(6장 KG) · 임베딩 엔드포인트</td></tr><tr><td>13.5</td><td>listings/15.5</td><td>저장 출력만 확인, 미실행</td><td>Neo4j Enterprise와 APOC · 6장 KG</td></tr><tr><td>13.6</td><td>listings/15.6 + code/</td><td>저장 출력만 확인, 미실행</td><td>위 전부 + 채팅·임베딩 엔드포인트</td></tr></tbody></table><p class="explain-line">저장소 파일은 MEAP 번호(15.N)를 쓰며 minor 번호만 책(13.N)과 같다. 노트북 환경은 Neo4j 5.26.28 + APOC, langchain 0.3.x이고 langchain 1.x에서는 ImportError가 난다.</p></div>
+      <p class="takeaway">Cypher 결과는 같은 그래프에서 재현되지만 LLM 응답·도구 선택·임베딩 점수는 달라진다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#coverage">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-appx-issues" aria-label="사람이 판단할 항목" data-report-refs="source-issues table-issues references">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">부록 C</span></header>
+      <h1>원본 대조에서 발견한 불일치</h1>
+      <p class="lead">표시한 세 항목(Wrinch 표기, 집계 질문의 근거, 참고문헌)은 발표자의 판단이 필요하다.</p>
+      <div class="slide-body"><table class="teaching-table is-dense"><caption><span data-deck-caption="table">표 23</span> 원본 불일치와 처리</caption><thead><tr><th>항목</th><th>관측</th><th>처리</th></tr></thead><tbody><tr><td>Wrinch 한국어 표기</td><td>해설판 "링크", 번역본 "린치"</td><td>원어 Wrinch로 적고 확정은 발표자에게 맡긴다</td></tr><tr><td>표 13.1 재현의 요약 문장</td><td>노트북 요약은 모두 cyclotron이라 적지만 출력은 9/10</td><td>출력 값을 따랐다</td></tr><tr><td>"Lawrence Irving"</td><td>일기 표기는 Laurence Irving, 해당 쪽은 LIMIT 100 밖</td><td>인쇄 호출과 정정 호출을 모두 적었다</td></tr><tr><td>집계 질문의 근거</td><td>3쪽은 공동 언급 수일 뿐 공통 주제 논의는 미확인</td><td>한계로 적었다</td></tr><tr><td>참고문헌 [1]–[7]</td><td>제공된 자료에 서지 목록이 없다</td><td>서지를 지어내지 않았다</td></tr></tbody></table></div>
+      <p class="takeaway">그 밖에 OCR 손상 코드는 저장소 파일을 인용했고 리스트 번호 대응은 부록 A에 있다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-issues">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+ -->
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어">
+    <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
+  </nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck.js"></script>
+  <script src="assets/deck-lightbox.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>

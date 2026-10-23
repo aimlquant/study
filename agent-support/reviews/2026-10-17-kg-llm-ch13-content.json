@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "e5b717d07b195d8ee820b4afea4527852a59c44f2605490c32b51be705334457",
+  "reviewer": "Claude",
+  "review_date": "2026-10-17",
+  "review_scope": "13장 해설판과 원문의 절 구조, 노트북 저장 출력, 저장소 코드 파일을 리포트와 대조했다. Neo4j·채팅 모델·임베딩 서비스를 갖추지 못해 어떤 리스팅이나 실험도 재실행하지 않았으며 저장 출력을 읽었다는 기록이다. 모델 차이로 달라지는 점수와 문장의 정확성은 인증하지 않는다.",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_13_knowledge_graph_powered_retrieval_augmented_generation/13_knowledge_graph_powered_retrieval_augmented_generation.md",
+      "sha256": "73621a96aebf18029b214e791b9763d20220c05f1e7c9e8b33aa8b577a1ef622",
+      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+    },
+    {
+      "role": "outline",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_13_knowledge_graph_powered_retrieval_augmented_generation/13_knowledge_graph_powered_retrieval_augmented_generation_ko_explained.md",
+      "sha256": "0c9b56e1f5a2c290431bb210e631fb8e9c6890d162464b19433e13bb71184cad",
+      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+    }
+  ],
+  "sections": [
+    {
+      "ref": "13.1",
+      "report_id": "source-13-1",
+      "explanation": "에이전트의 정의, 값어치 있는 질문의 세 조건, 다중 에이전트는 역할극이라는 설명을 이 장이 만드는 단일 에이전트와 구분한다.",
+      "evidence": "교재 13.1 본문과 table-agent-demands(노트북 안내문의 대응).",
+      "limits": "다중 에이전트 구성은 15장 몫이다. 이 검토에서 에이전트를 실행하지 않았다.",
+      "visuals": "표만 사용했고 도형은 없다."
+    },
+    {
+      "ref": "13.2",
+      "report_id": "source-13-2",
+      "explanation": "메시지 리스트가 곧 메모리인 에이전트가 일반론만 내놓는 이유를 교재 출력과 저장 출력으로 보인다.",
+      "evidence": "리스트 13.1·13.2, table-agent-compare, 노트북 셀 6의 저장 출력(table-nb-agent-obs).",
+      "limits": "저장 출력은 gpt-5.4-mini, 질문 둘의 관측이며 재실행하지 않았다. 리스트 13.2 출력은 교재 인쇄값이다.",
+      "visuals": "표만 사용했고 도형은 없다."
+    },
+    {
+      "ref": "13.3",
+      "report_id": "source-13-3",
+      "explanation": "여섯 도전 과제를 표로 정리하고 어느 것이 검색으로 풀리는지 구분한다.",
+      "evidence": "교재 13.3 목록과 table-challenges.",
+      "limits": "RAG 효과 열은 노트북 안내문의 판단이며 저자가 과제별로 명시한 것이 아니다.",
+      "visuals": "표만 사용했고 도형은 없다."
+    },
+    {
+      "ref": "13.4",
+      "report_id": "source-13-4",
+      "explanation": "6장 KG 위에서 도는 장이라는 점과 KG 규모를 제시한다.",
+      "evidence": "교재 13.4 본문과 table-kg-size(노트북 점검 셀 저장 출력).",
+      "limits": "Title 0건은 6장 임포터 결함이라는 노트북 기록을 따랐고 6장 코드를 다시 읽어 검증하지 않았다.",
+      "visuals": "표만 사용했다."
+    },
+    {
+      "ref": "13.4.1",
+      "report_id": "source-13-4-1",
+      "explanation": "RAG를 근거화 기법으로 설명하고 벡터 RAG 흐름과 임베딩 실습을 연결한다.",
+      "evidence": "리스트 13.3·13.4, fig-vector-rag, 노트북 셀 10(table-nb-vector-index).",
+      "limits": "임베딩 모델이 책과 달라(768차원 대 1536차원 계열) 점수 절대값은 비교하지 않는다. 재실행하지 않았다.",
+      "visuals": "fig-vector-rag는 교재 그림 13.2의 단계 재구성이다."
+    },
+    {
+      "ref": "13.4.2",
+      "report_id": "source-13-4-2",
+      "explanation": "벡터 RAG의 다섯 한계를 교재 표 13.1과 노트북의 10건 확장, 질문 네 개 탐침으로 확인한다.",
+      "evidence": "교재 표 13.1, 노트북 셀 12·23(table-nb-top10, table-nb-bookrank, table-nb-probe).",
+      "limits": "질문 1개와 4개, 임베딩 모델 1개의 관측이며 일반화하지 않는다. 노트북 요약의 '모두 cyclotron'은 출력(9/10)과 달라 출력을 따랐다.",
+      "visuals": "도형 없음. 표로 순위와 포함률을 보인다."
+    },
+    {
+      "ref": "13.4.3",
+      "report_id": "source-13-4-3",
+      "explanation": "텍스트 속성·짝지음 그래프, 네 가지 방식, 문서 선택기의 Cypher 경로와 두 가지 재현 결함을 설명한다.",
+      "evidence": "리스트 13.5, fig-text-paired, fig-tool-routing, fig-cypher-path, 노트북 셀 15·17(table-nb-selector-calls, table-defects).",
+      "limits": "Lawrence Irving 0건의 원인은 노트북 기록과 errata를 따랐고 6장 코드로 검증하지 않았다. 재실행하지 않았다.",
+      "visuals": "fig-text-paired는 교재 그림 13.3 재구성, fig-tool-routing·fig-cypher-path는 AIML Quant 해설 도해다."
+    },
+    {
+      "ref": "13.4.4",
+      "report_id": "source-13-4-4",
+      "explanation": "ReAct 루프, 리스트 13.6, 도구 설명이 라우팅 규칙이라는 점과 kg_reader 지시를 정리한다.",
+      "evidence": "리스트 13.6(저장소 파일 발췌), table-tools, table-kg-reader-rules(tools.py 요약).",
+      "limits": "리스팅 번호는 저장소가 MEAP 15.N이다. 해설판의 OCR 손상 코드 대신 저장소 파일을 인용했다. 에이전트를 실행하지 않았다.",
+      "visuals": "도형 없음. 표 두 개를 사용했다."
+    },
+    {
+      "ref": "13.4.5",
+      "report_id": "source-13-4-5",
+      "explanation": "Wrinch 사례, 집계 질문, 반복 실행의 변동을 결정적 값과 비결정적 값으로 나누어 보인다.",
+      "evidence": "교재 표 13.2, fig-react-trace, 노트북 셀 19·21·25·27(table-nb-wrinch-names, table-nb-wrinch-run, table-nb-repeat, table-nb-aggregate).",
+      "limits": "에이전트 실행은 n=1, n=3 관측이며 저장 출력이다. 두 대학 공동 언급 3쪽은 공통 주제의 증거가 아니다.",
+      "visuals": "fig-react-trace는 교재 그림 13.5의 흐름 재구성, fig-hitl-loop은 AIML Quant 해설 도해다."
+    }
+  ],
+  "experiments": [
+    {
+      "status": "stored-output",
+      "scope": "기억만 가진 에이전트의 두 질문(gpt-5.4-mini).",
+      "source": "노트북 셀 6, 리스트 13.1.",
+      "report_ids": [
+        "nb-agent-memory",
+        "table-nb-agent-obs"
+      ],
+      "interpretation": "저장 출력이며 재실행하지 않았다. 일기 고유 이름이 없다는 관측이지 일반 법칙이 아니다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "벡터 인덱스 생성과 상위 2개 청크(Ollama 768차원).",
+      "source": "노트북 셀 10, 리스트 13.3.",
+      "report_ids": [
+        "nb-vector-index",
+        "table-nb-vector-index"
+      ],
+      "interpretation": "저장 출력이며 DB에 쓰는 리스팅이다. 교재 점수와 절대값을 비교하지 않는다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "교재 표 13.1 질문의 상위 10건.",
+      "source": "노트북 셀 12.",
+      "report_ids": [
+        "nb-table-13-1",
+        "table-nb-top10",
+        "table-nb-bookrank"
+      ],
+      "interpretation": "질문 1개·임베딩 1개의 저장 출력이다. 순위가 모델에 따라 달라진다는 관측이다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "질문 네 개의 고유명사 포함률.",
+      "source": "노트북 셀 23(실습 13-A).",
+      "report_ids": [
+        "nb-probe-13a",
+        "table-nb-probe"
+      ],
+      "interpretation": "n=4 저장 출력이다. 교재의 보장이 없다는 주장의 예로만 읽는다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "책 그대로와 정정한 문서 선택기 호출.",
+      "source": "노트북 셀 15, 리스트 13.5, errata 13장 첫 항목.",
+      "report_ids": [
+        "nb-doc-selector",
+        "table-nb-selector-calls"
+      ],
+      "interpretation": "Cypher 질의 결과로 같은 그래프에서는 같은 값이다. 원인(표기 오식과 LIMIT 100)은 노트북 기록이고 6장 코드로 검증하지 않았다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "Title/HAS_TITLE 스키마 결함 재현.",
+      "source": "노트북 셀 17, errata KG_SCHEMA 항목.",
+      "report_ids": [
+        "nb-title-defect",
+        "table-defects"
+      ],
+      "interpretation": "Cypher 질의 결과이며 결정적이다. 재실행하지 않았다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "Wrinch를 말한 사람의 Cypher 기준선.",
+      "source": "노트북 셀 25(실습 13-B).",
+      "report_ids": [
+        "nb-wrinch-baseline",
+        "table-nb-wrinch-names"
+      ],
+      "interpretation": "LLM을 거치지 않은 결정적 값이다. 재실행하지 않았다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "교재 그림 13.5의 질문을 에이전트로 1회 실행.",
+      "source": "노트북 셀 19, 리스트 13.6.",
+      "report_ids": [
+        "nb-wrinch-run",
+        "table-nb-wrinch-run"
+      ],
+      "interpretation": "n=1 저장 출력이며 모델이 달라 교재와 내용이 다르다. 재실행하지 않았다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "같은 질문 3회 반복.",
+      "source": "노트북 셀 27(실습 13-C).",
+      "report_ids": [
+        "nb-agent-repeat",
+        "table-nb-repeat"
+      ],
+      "interpretation": "n=3 저장 출력이다. steps 0·1·2가 관측되었을 뿐 분포는 말할 수 없다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "Harvard와 Johns Hopkins 집계 질문.",
+      "source": "노트북 셀 21.",
+      "report_ids": [
+        "nb-aggregate",
+        "table-nb-aggregate"
+      ],
+      "interpretation": "Cypher 값은 결정적이고 에이전트 답은 비결정적이다. 공동 언급 3쪽은 공통 주제의 증거가 아니다."
+    }
+  ]
+}
