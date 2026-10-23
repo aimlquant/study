@@ -18,6 +18,8 @@
     .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
     .arw-bad{stroke:#b91c1c;stroke-width:2.2;fill:none;marker-end:url(#ahb);stroke-dasharray:6 4}
     .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .zoom{stroke:#0f2c59;stroke-width:1.2;fill:none;stroke-dasharray:4 3}
+    .panel{fill:#ffffff;fill-opacity:.6;stroke:#0f2c59;stroke-width:1.4;stroke-dasharray:6 4}
     .tick{stroke:#94a3b8;stroke-width:1.4;fill:none}
     .an-s{text-anchor:start}
     .an-m{text-anchor:middle}
@@ -31,8 +33,30 @@
     <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">의도 탐지가 두 층으로 질문을 분류해 라우팅한다</title>
-  <desc id="figDesc">첫 층은 질문을 데이터·시스템·피드백 범주로 나누고, 데이터 범주만 두 번째 층으로 내려가 출력 유형을 정한다. 오른쪽은 다음 단계로 넘기는 필드다.</desc>
+  <desc id="figDesc">위쪽 띠는 그림 3의 여섯 구성 요소이고, 강조된 의도 탐지가 아래 상자로 확대된다. 첫 층은 질문을 데이터·시스템·피드백 범주로 나누고, 데이터 범주만 두 번째 층으로 내려가 출력 유형을 정한다. 오른쪽은 다음 단계로 넘기는 필드다.</desc>
   <rect width="960" height="540" fill="#fafaf9"/>
+  <path d="M36 66L170 66L944 92L16 92Z" fill="#0f2c59" fill-opacity=".06"/>
+  <path class="zoom" d="M36 66L16 92"/>
+  <path class="zoom" d="M170 66L944 92"/>
+  <rect class="panel" x="16" y="92" width="928" height="438" rx="14"/>
+  <rect class="fill-navy" x="36" y="16" width="134" height="50" rx="10"/>
+  <text class="t m an-m" x="103.0" y="46.0" fill="#ffffff">의도 탐지</text>
+  <rect class="fill-mute" x="185" y="16" width="134" height="50" rx="10"/>
+  <text class="t m an-m" x="252.0" y="46.0" fill="#475569">스키마 추출</text>
+  <path class="tick" d="M169 41.0L182 41.0"/>
+  <rect class="fill-mute" x="334" y="16" width="134" height="50" rx="10"/>
+  <text class="t m an-m" x="401.0" y="46.0" fill="#475569">질의 생성</text>
+  <path class="tick" d="M318 41.0L331 41.0"/>
+  <rect class="fill-mute" x="483" y="16" width="134" height="50" rx="10"/>
+  <text class="t m an-m" x="550.0" y="46.0" fill="#475569">질의 실행</text>
+  <path class="tick" d="M467 41.0L480 41.0"/>
+  <rect class="fill-mute" x="632" y="16" width="134" height="50" rx="10"/>
+  <text class="t m an-m" x="699.0" y="46.0" fill="#475569">시각화</text>
+  <path class="tick" d="M616 41.0L629 41.0"/>
+  <rect class="fill-mute" x="781" y="16" width="134" height="50" rx="10"/>
+  <text class="t m an-m" x="848.0" y="46.0" fill="#475569">요약 생성</text>
+  <path class="tick" d="M765 41.0L778 41.0"/>
+  <g transform="translate(0 64)">
   <rect class="fill-tint" x="36" y="232" width="148" height="96" rx="10"/>
   <text class="t m an-m" x="110.0" y="268.0" fill="#0f2c59">입력</text>
   <text class="t s an-m" x="110.0" y="285.0" fill="#0f2c59">질문 텍스트</text>
@@ -71,4 +95,5 @@
   <rect class="fill-mute" x="216" y="420" width="408" height="34" rx="7"/>
   <text class="t s an-m" x="420.0" y="441.0" fill="#475569">reason 필드는 오분류 진단용으로만 쓴다</text>
   <path class="tick" d="M300 350L300 416"/>
+  </g>
 </svg>
