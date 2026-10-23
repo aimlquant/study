@@ -608,7 +608,18 @@
       "youtube_video_id": "qMP-mvkVqwY"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-17-ch13/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-17-ch13/"
+        }
+      ],
       "chapters": [
         "Chapter 13"
       ],

@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "e5b717d07b195d8ee820b4afea4527852a59c44f2605490c32b51be705334457",
+  "deck_sha256": "ed5f34c4dffe5f99527df9dd961dd5bfecbbf261b8e74dcd61d0a6ba410ff197",
+  "reviewer": "Claude",
+  "review_date": "2026-10-17",
+  "review_scope": "승인된 리포트와 31개 슬라이드의 본문·수치·출처 표시·리포트 앵커 연결을 대조했다. 사용자가 직접 줄인 본문(요약 슬라이드 포함)을 기준으로 삼았다. 노트북 실습의 저장 출력은 리포트에 근거로 남기고, 발표 본문에는 확률·비율을 일반화하지 않는 한 슬라이드(실습 13-A)만 남겼다. 노트북 코드는 재실행하지 않았다.",
+  "units": [
+    {
+      "question": "이 장은 어떤 질문과 순서로 진행되는가?",
+      "explanation": "벡터 RAG의 한계에서 그래프 RAG와 실전 테스트까지 흐름과 증거 표기를 먼저 정한다.",
+      "evidence": "summary와 table-overview.",
+      "conditions": "저장 출력과 재구성을 구분한다. 어떤 실험도 재실행하지 않았다.",
+      "report_refs": [
+        "summary",
+        "table-overview"
+      ],
+      "slide_ids": [
+        "slide-cover",
+        "slide-opening"
+      ]
+    },
+    {
+      "question": "개념 지도와 4부는 무엇을 약속하는가?",
+      "explanation": "한 문서에서 벡터와 KG 두 갈래로 갈라지는 지도를 제시한다.",
+      "evidence": "chapter-intro와 fig-concept.",
+      "conditions": "교재 그림 13.1의 재구성이며 측정 결과가 아니다.",
+      "report_refs": [
+        "chapter-intro",
+        "fig-concept",
+        "intro-part4",
+        "intro-scope"
+      ],
+      "slide_ids": [
+        "slide-intro-map",
+        "slide-intro-part4"
+      ]
+    },
+    {
+      "question": "에이전트는 무엇이고 어떤 질문이 필요로 하는가?",
+      "explanation": "에이전트 정의, 값어치 있는 질문의 세 조건, 단일 에이전트의 범위.",
+      "evidence": "교재 13.1과 table-agent-demands.",
+      "conditions": "다중 에이전트는 15장 몫이다.",
+      "report_refs": [
+        "source-13-1",
+        "table-agent-demands",
+        "s131-def"
+      ],
+      "slide_ids": [
+        "slide-section-13-1",
+        "slide-13-1-def"
+      ]
+    },
+    {
+      "question": "기억만 가진 에이전트는 우리 데이터에 답하는가?",
+      "explanation": "리스트 13.1·13.2와 저장 출력으로 일반론의 성격을 보인다.",
+      "evidence": "리스트 13.1·13.2, 노트북 셀 6.",
+      "conditions": "저장 출력이며 질문 둘의 관측이다.",
+      "report_refs": [
+        "source-13-2",
+        "listing-13-1",
+        "s132-memory"
+      ],
+      "slide_ids": [
+        "slide-section-13-2",
+        "slide-13-2-listing"
+      ]
+    },
+    {
+      "question": "운영의 벽 중 무엇이 검색으로 풀리는가?",
+      "explanation": "여섯 도전 과제와 RAG의 대응.",
+      "evidence": "table-challenges.",
+      "conditions": "RAG 효과 열은 노트북 안내문의 판단이다.",
+      "report_refs": [
+        "source-13-3",
+        "table-challenges"
+      ],
+      "slide_ids": [
+        "slide-section-13-3",
+        "slide-13-3-table"
+      ]
+    },
+    {
+      "question": "사용자가 Cypher를 몰라도 KG를 활용하려면 이 장은 무엇을 전제하고 어떻게 풀겠다고 하는가?",
+      "explanation": "13.4절 도입 질문. 전제(LLM의 대화 능력과 기본 지식 유지), 목표(비공개 사내 데이터에 맞는 맞춤형 전문가), 방법(검색 도구를 가진 AI 에이전트, RAG)의 세 줄로 이어지는 세 파트를 예고한다.",
+      "evidence": "교재 13.4절 도입 문장과 절 제목. 리포트 source-13-4와 table-kg-size에서 6장 KG의 규모를 확인한다.",
+      "conditions": "질문은 교재 13.4절 도입을 쉬운 말로 옮긴 것이다. 방법의 RAG는 이어지는 13.4.1~13.4.5에서 정의·검증한다.",
+      "report_refs": [
+        "source-13-4",
+        "table-kg-size"
+      ],
+      "slide_ids": [
+        "slide-13-4-question"
+      ]
+    },
+    {
+      "question": "RAG는 무엇이고 벡터 RAG는 무엇을 돌려주는가?",
+      "explanation": "근거화, 벡터 RAG 흐름, 임베딩 실습.",
+      "evidence": "리스트 13.3, fig-vector-rag, 노트북 셀 10.",
+      "conditions": "임베딩 모델이 책과 달라 점수 절대값은 비교하지 않는다.",
+      "report_refs": [
+        "source-13-4-1",
+        "s1341-grounding",
+        "fig-vector-rag",
+        "s1341-vector"
+      ],
+      "slide_ids": [
+        "slide-section-13-4-1",
+        "slide-13-4-1-grounding",
+        "slide-13-4-1-figure"
+      ]
+    },
+    {
+      "question": "벡터 RAG는 질문의 고유명사를 상위 문서에 담는가?",
+      "explanation": "다섯 한계, 교재 표 13.1, 10건 확장, 네 질문 탐침, KG 도입.",
+      "evidence": "table-limits, table-book-lauritsen, 노트북 셀 12·23.",
+      "conditions": "질문 1·4개와 임베딩 1개의 관측이다.",
+      "report_refs": [
+        "source-13-4-2",
+        "table-limits",
+        "s1342-limits",
+        "table-book-lauritsen",
+        "nb-probe-13a",
+        "table-nb-probe",
+        "s1342-kg"
+      ],
+      "slide_ids": [
+        "slide-section-13-4-2",
+        "slide-13-4-2-limits",
+        "slide-13-4-2-book",
+        "slide-nb-probe-13a-result",
+        "slide-13-4-2-kg"
+      ]
+    },
+    {
+      "question": "KG는 관계로 문서를 어떻게 특정하는가?",
+      "explanation": "텍스트 짝지음 그래프, 네 방식, 라우팅, 문서 선택기의 경로와 두 결함.",
+      "evidence": "리스트 13.5, fig-text-paired, fig-tool-routing, fig-cypher-path, 노트북 셀 15·17.",
+      "conditions": "결함의 원인은 노트북 기록을 따랐고 6장 코드로 검증하지 않았다.",
+      "report_refs": [
+        "source-13-4-3",
+        "fig-text-paired",
+        "s1343-kg",
+        "table-graphrag-ways",
+        "s1343-ways",
+        "fig-tool-routing",
+        "s1343-agent"
+      ],
+      "slide_ids": [
+        "slide-section-13-4-3",
+        "slide-13-4-3-paired",
+        "slide-13-4-3-ways",
+        "slide-13-4-3-routing"
+      ]
+    },
+    {
+      "question": "도구가 여럿일 때 누가 어떻게 고르는가?",
+      "explanation": "ReAct 루프, 리스트 13.6, 도구 설명과 kg_reader 지시.",
+      "evidence": "리스트 13.6, table-tools, table-kg-reader-rules.",
+      "conditions": "저장소 파일 발췌이며 도구 선택은 실행마다 달라진다.",
+      "report_refs": [
+        "source-13-4-4",
+        "s1344-react",
+        "listing-13-6",
+        "table-tools"
+      ],
+      "slide_ids": [
+        "slide-section-13-4-4",
+        "slide-13-4-4-react",
+        "slide-13-4-4-listing",
+        "slide-13-4-4-tools"
+      ]
+    },
+    {
+      "question": "실전에서 에이전트는 얼마나 안정적인가?",
+      "explanation": "Wrinch 사례, 집계 질문, 반복 변동, 운영 고리.",
+      "evidence": "교재 표 13.2, 노트북 셀 19·21·25·27, fig-react-trace, fig-hitl-loop.",
+      "conditions": "n=1·3 저장 출력이며 분포를 말하지 않는다.",
+      "report_refs": [
+        "source-13-4-5",
+        "fig-react-trace",
+        "s1345-wrinch",
+        "table-book-qa"
+      ],
+      "slide_ids": [
+        "slide-section-13-4-5",
+        "slide-13-4-5-trace",
+        "slide-13-4-5-book"
+      ]
+    },
+    {
+      "question": "발표 뒤 무엇을 토론하는가?",
+      "explanation": "교재 요약과 토론 질문.",
+      "evidence": "summary-discussion.",
+      "conditions": "토론 질문은 AIML Quant의 제안이다.",
+      "report_refs": [
+        "summary-discussion",
+        "wrap-takeaways"
+      ],
+      "slide_ids": [
+        "slide-wrap-summary"
+      ]
+    }
+  ],
+  "experiments": [],
+  "visual_review": "클라우드 Chromium(Playwright)으로 1600×900, 1366×768, 390×844 세 크기를 검사했다: 전 31장 넘침 0건. 22번(네 가지 방법) 슬라이드는 사용자 컴퓨터의 Windows Chrome에서도 수정 전 리드·캡션 겹침이 재현되어, 표를 촘촘한 형식으로 줄이고 따옴표 오타를 고친 뒤 클라우드 Chromium으로 다시 확인했다. 390px에서는 16:9 캔버스가 축소 표시되어 글자가 작다."
+}

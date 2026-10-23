@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" role="img" aria-labelledby="title desc">
+  <title id="title">벡터 검색 기반 RAG의 색인 단계와 질의 단계</title>
+  <desc id="desc">위쪽 색인 단계에서는 문서를 조각으로 나누고 임베딩 벡터로 바꿔 벡터 데이터베이스에 저장한다. 아래쪽 질의 단계에서는 사용자 질문을 같은 방식으로 임베딩하고, 벡터 데이터베이스에서 가장 가까운 상위 k개 문서를 찾아 에이전트에게 맥락으로 주며, 에이전트가 답변을 만든다. KG 검색기와 KG 문서 검색기는 이 구성에 없다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#0F2C59"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#D9E2EF;stroke:#0F2C59;stroke-width:2}
+      .store{fill:#DDF0E6;stroke:#1F7A5C;stroke-width:2}
+      .tool{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .lane{fill:#0F2C59}
+      .off{fill:#F1F1F3;stroke:#8A8A93;stroke-width:2;stroke-dasharray:7 5}
+      .edge{fill:none;stroke:#0F2C59;stroke-width:2.5;marker-end:url(#arrow)}
+      .t{font-size:16px;font-weight:800;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:13px;font-weight:600;text-anchor:middle;fill:#1b1b1f}
+      .th{font-size:15px;font-weight:800;text-anchor:middle;fill:#fff}
+      .g{font-size:13px;font-weight:700;text-anchor:middle;fill:#6B6B72}
+      .s{font-size:13px;font-weight:700;text-anchor:middle;fill:#0F2C59}
+    </style>
+  </defs>
+  <rect width="900" height="380" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="lane" x="20" y="50" width="64" height="60" rx="8"/><text class="th" x="52" y="86">색인</text>
+    <rect class="box" x="110" y="50" width="130" height="60" rx="8"/><text class="t" x="175" y="86">문서</text>
+    <path class="edge" d="M242 80H288"/>
+    <rect class="box" x="290" y="50" width="150" height="60" rx="8"/><text class="t" x="365" y="80">조각 나누기</text><text class="m" x="365" y="99">청킹</text>
+    <path class="edge" d="M442 80H488"/>
+    <rect class="box" x="490" y="50" width="160" height="60" rx="8"/><text class="t" x="570" y="80">임베딩 벡터</text><text class="m" x="570" y="99">고정 길이</text>
+    <path class="edge" d="M652 80H698"/>
+    <rect class="store" x="700" y="50" width="170" height="60" rx="8"/><text class="t" x="785" y="86">벡터 데이터베이스</text>
+
+    <rect class="off" x="110" y="152" width="330" height="44" rx="8"/><text class="g" x="275" y="179">KG 검색기 · KG 문서 검색기 (없음)</text>
+    <path class="edge" d="M785 112V150H500V248"/><text class="s" x="640" y="142">가까운 벡터 조회</text>
+
+    <rect class="lane" x="20" y="250" width="64" height="60" rx="8"/><text class="th" x="52" y="286">질의</text>
+    <rect class="box" x="110" y="250" width="110" height="60" rx="8"/><text class="t" x="165" y="286">질문</text>
+    <path class="edge" d="M222 280H258"/>
+    <rect class="box" x="260" y="250" width="130" height="60" rx="8"/><text class="t" x="325" y="280">질문 임베딩</text><text class="m" x="325" y="299">같은 모델</text>
+    <path class="edge" d="M392 280H428"/>
+    <rect class="tool" x="430" y="250" width="150" height="60" rx="8"/><text class="t" x="505" y="280">유사도 검색</text><text class="m" x="505" y="299">상위 k개</text>
+    <path class="edge" d="M582 280H618"/>
+    <rect class="box" x="620" y="250" width="120" height="60" rx="8"/><text class="t" x="680" y="286">에이전트</text>
+    <path class="edge" d="M742 280H778"/>
+    <rect class="box" x="780" y="250" width="90" height="60" rx="8"/><text class="t" x="825" y="286">답변</text>
+  </g>
+</svg>

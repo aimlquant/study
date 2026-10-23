@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" role="img" aria-labelledby="title desc">
+  <title id="title">KG 기반 질의응답 에이전트의 개념 지도</title>
+  <desc id="desc">비공개 데이터가 두 갈래로 나뉜다. 한 갈래는 임베딩되어 벡터 데이터베이스에 색인되고 다른 갈래는 엔티티와 관계로 추출되어 지식 그래프가 된다. 사용자 질문은 AI 에이전트의 두뇌로 들어가고, 두뇌는 의미 기반 검색기, KG 검색기, KG 문서 검색기 중 어떤 도구를 쓸지 정한다. 의미 기반 검색기는 벡터 데이터베이스를, 나머지 둘은 지식 그래프를 읽는다. 맥락이 충분해지면 답변을 만든다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#0F2C59"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#D9E2EF;stroke:#0F2C59;stroke-width:2}
+      .store{fill:#DDF0E6;stroke:#1F7A5C;stroke-width:2}
+      .tool{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .agent{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .zone{fill:none;stroke:#6B6B72;stroke-width:2;stroke-dasharray:8 6}
+      .edge{fill:none;stroke:#0F2C59;stroke-width:2.5;marker-end:url(#arrow)}
+      .edge2{fill:none;stroke:#0F2C59;stroke-width:2.5;marker-end:url(#arrow);marker-start:url(#arrow)}
+      .t{font-size:17px;font-weight:800;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:13px;font-weight:600;text-anchor:middle;fill:#1b1b1f}
+      .s{font-size:13px;font-weight:700;text-anchor:middle;fill:#0F2C59}
+    </style>
+  </defs>
+  <rect width="900" height="440" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <rect class="box" x="340" y="16" width="220" height="44" rx="8"/><text class="t" x="450" y="44">비공개 데이터</text>
+    <path class="edge" d="M380 60V90H180V118"/><text class="s" x="280" y="82">임베딩 → 색인</text>
+    <path class="edge" d="M520 60V90H720V118"/><text class="s" x="620" y="82">추출 → 모델링</text>
+    <rect class="store" x="70" y="120" width="220" height="52" rx="8"/><text class="t" x="180" y="152">벡터 데이터베이스</text>
+    <rect class="store" x="610" y="120" width="220" height="52" rx="8"/><text class="t" x="720" y="152">지식 그래프 (KG)</text>
+    <path class="edge2" d="M180 230V174"/>
+    <path class="edge2" d="M450 230V200H660V174"/>
+    <path class="edge2" d="M780 230V174"/>
+    <rect class="tool" x="70" y="232" width="220" height="50" rx="8"/><text class="t" x="180" y="263">의미 기반 검색기</text>
+    <rect class="tool" x="340" y="232" width="220" height="50" rx="8"/><text class="t" x="450" y="263">KG 검색기</text>
+    <rect class="tool" x="670" y="232" width="220" height="50" rx="8"/><text class="t" x="780" y="263">KG 문서 검색기</text>
+    <rect class="zone" x="30" y="326" width="840" height="98" rx="14"/>
+    <path class="edge" d="M450 350V320H180V286"/>
+    <path class="edge" d="M450 350V286"/>
+    <path class="edge" d="M450 350V320H780V286"/>
+    <text class="s" x="300" y="314">어떤 도구를 쓸까?</text>
+    <rect class="box" x="50" y="348" width="170" height="50" rx="8"/><text class="t" x="135" y="379">사용자 질문</text>
+    <path class="edge" d="M222 373H328"/>
+    <rect class="agent" x="330" y="348" width="240" height="56" rx="8"/><text class="t" x="450" y="371">AI 에이전트 두뇌</text><text class="m" x="450" y="391">도구 선택 · 맥락 충분성 판단</text>
+    <path class="edge" d="M572 376H678"/>
+    <rect class="box" x="680" y="348" width="170" height="50" rx="8"/><text class="t" x="765" y="379">답변</text>
+  </g>
+</svg>

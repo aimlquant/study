@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" role="img" aria-labelledby="title desc">
+  <title id="title">KG 리더에서 문서 선택기로 이어지는 ReAct 단계</title>
+  <desc id="desc">위쪽 줄은 왼쪽에서 오른쪽으로 질문과 첫 생각, KG 리더를 부르는 행동, 이름 목록을 얻는 관찰, 사람마다 문서를 찾겠다는 생각 순서다. 오른쪽 끝에서 아래로 내려와 아래쪽 줄이 오른쪽에서 왼쪽으로 진행된다. KG 강화 문서 검색기를 부르는 행동, 관련 문서를 얻는 관찰, 맥락이 충분하다는 생각, 문서에 근거한 최종 답이 이어진다. 아래 띠는 같은 질문에서도 단계 수가 실행마다 달라졌음을 알린다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#0F2C59"/>
+    </marker>
+    <style>
+      .text{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+      .box{fill:#D9E2EF;stroke:#0F2C59;stroke-width:2}
+      .store{fill:#DDF0E6;stroke:#1F7A5C;stroke-width:2}
+      .tool{fill:#FBE3D4;stroke:#C2410C;stroke-width:2}
+      .agent{fill:#fff;stroke:#0F2C59;stroke-width:2}
+      .weak{fill:#F1F1F3;stroke:#6B6B72;stroke-width:2;stroke-dasharray:8 6}
+      .zone{fill:none;stroke:#6B6B72;stroke-width:2;stroke-dasharray:8 6}
+      .edge{fill:none;stroke:#0F2C59;stroke-width:2.5;marker-end:url(#arrow)}
+      .edge2{fill:none;stroke:#0F2C59;stroke-width:2.5;marker-end:url(#arrow);marker-start:url(#arrow)}
+      .dash{fill:none;stroke:#C2410C;stroke-width:2.5;stroke-dasharray:7 5;marker-end:url(#arrow)}
+      .t{font-size:16px;font-weight:800;text-anchor:middle;fill:#1b1b1f}
+      .m{font-size:13px;font-weight:600;text-anchor:middle;fill:#1b1b1f}
+      .s{font-size:12.5px;font-weight:700;text-anchor:middle;fill:#0F2C59}
+      .l{font-size:13px;font-weight:700;text-anchor:start;fill:#4a4a52}
+      .r{font-size:12.5px;font-weight:700;text-anchor:end;fill:#0F2C59}
+    </style>
+  </defs>
+  <rect width="900" height="340" rx="12" fill="#FAFAF9"/>
+  <g class="text">
+    <text class="s" x="450" y="22">교재 그림 13.5의 흐름</text>
+    <rect class="box" x="16" y="44" width="190" height="72" rx="8"/><text class="t" x="111" y="72">질문 + Thought</text><text class="m" x="111" y="96">누가 말했는지 먼저</text>
+    <rect class="tool" x="242" y="44" width="190" height="72" rx="8"/><text class="t" x="337" y="72">Action</text><text class="m" x="337" y="96" style="font-size:12px">KnowledgeGraph-reader</text>
+    <rect class="store" x="468" y="44" width="190" height="72" rx="8"/><text class="t" x="563" y="72">Observation</text><text class="m" x="563" y="96">이름 목록을 얻는다</text>
+    <rect class="box" x="694" y="44" width="190" height="72" rx="8"/><text class="t" x="789" y="72">Thought</text><text class="m" x="789" y="96">사람마다 문서를 찾자</text>
+<path class="edge" d="M209 80H238"/>
+<path class="edge" d="M435 80H464"/>
+<path class="edge" d="M661 80H690"/>
+    <path class="edge" d="M789 118V176"/>
+    <rect class="tool" x="694" y="180" width="190" height="72" rx="8"/><text class="t" x="789" y="208">Action</text><text class="m" x="789" y="232" style="font-size:12px">KG-based-document-selector</text>
+    <rect class="store" x="468" y="180" width="190" height="72" rx="8"/><text class="t" x="563" y="208">Observation</text><text class="m" x="563" y="232">관련 문서를 얻는다</text>
+    <rect class="box" x="242" y="180" width="190" height="72" rx="8"/><text class="t" x="337" y="208">Thought</text><text class="m" x="337" y="232">맥락이 충분하다</text>
+    <rect class="agent" x="16" y="180" width="190" height="72" rx="8"/><text class="t" x="111" y="208">Final Answer</text><text class="m" x="111" y="232">문서에 근거한 답</text>
+    <path class="edge" d="M691 216H662"/>
+    <path class="edge" d="M465 216H436"/>
+    <path class="edge" d="M239 216H210"/>
+    <rect class="zone" x="16" y="276" width="868" height="48" rx="10"/><text class="m" x="450" y="306">같은 질문도 steps 0 · 1 · 2가 모두 관측되었다 (3회 반복, 노트북 저장 출력)</text>
+  </g>
+</svg>
