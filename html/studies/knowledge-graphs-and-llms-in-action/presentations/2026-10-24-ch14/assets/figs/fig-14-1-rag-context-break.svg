@@ -25,10 +25,10 @@
   </style>
 
   <defs>
-    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
-    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
-    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
-    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">검색 1건 차이로 결론이 뒤집히는 RAG 경로</title>
   <desc id="figDesc">같은 모델과 같은 프롬프트로 두 경로를 비교한다. 위 경로는 증인 진술 다섯 건을 모두 맥락에 넣어 왼손잡이로 판단하고, 아래 경로는 증인 C 한 건만 빠진 네 건으로 오른손잡이로 판단한다.</desc>
@@ -95,10 +95,8 @@
   <text class="t s an-m" x="489.0" y="264.0" fill="#b45309">증인 C 진술 한 건만 제거</text>
   <path class="arw-warn" d="M489.0 230L489.0 240"/>
   <path class="arw-warn" d="M489.0 276L489.0 321"/>
-  <path class="tick" d="M834.0 180L834.0 212L934 212"/>
-  <path class="tick" d="M834.0 380L834.0 412L934 412"/>
   <rect class="fill-mute" x="742" y="452" width="184" height="56" rx="10"/>
   <text class="t m an-m" x="834.0" y="476.5" fill="#475569">같은 모델 · 같은 지시</text>
   <text class="t s an-m" x="834.0" y="493.5" fill="#475569">맥락만 다르다</text>
-  <path class="arw" d="M834 448L834 420"/>
+  <path class="arw" d="M834 450L834 409"/>
 </svg>

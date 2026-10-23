@@ -25,10 +25,10 @@
   </style>
 
   <defs>
-    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
-    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
-    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
-    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">자연어 요청을 제약 순회 Cypher로 옮기는 세 단계</title>
   <desc id="figDesc">위에서 아래로 읽는다. 1단계는 요청을 의미 조각으로 쪼개고, 2단계는 각 조각을 스키마의 라벨과 속성에 대응시키며, 3단계는 순회 패턴과 WHERE 제약으로 Cypher를 조립한다. 2단계의 속성 값 표기는 스키마만 읽어 얻은 형태다.</desc>
@@ -53,8 +53,8 @@
   <text class="t m an-m" x="812.0" y="163.5" fill="#0f172a">시각</text>
   <text class="t s an-m" x="812.0" y="180.5" fill="#0f172a">그 시간</text>
   <path class="arw" d="M812 112L812 136"/>
-  <rect class="fill-navy" x="52" y="208" width="128" height="26" rx="7"/>
-  <text class="t xs an-m" x="116.0" y="225.0" fill="#ffffff">2단계 · 스키마 매핑</text>
+  <rect class="fill-navy" x="170" y="208" width="128" height="26" rx="7"/>
+  <text class="t xs an-m" x="234.0" y="225.0" fill="#ffffff">2단계 · 스키마 매핑</text>
   <rect class="fill-tint" x="60" y="244" width="196" height="54" rx="10"/>
   <text class="t s mono an-m" x="158.0" y="267.5" fill="#0f2c59">Vehicle.color</text>
   <text class="t xs mono an-m" x="158.0" y="284.5" fill="#0f2c59">= &#x27;RED&#x27;</text>
@@ -75,10 +75,10 @@
   <text class="t xs mono an-m" x="812.0" y="284.5" fill="#0f2c59">STARTS WITH 날짜</text>
   <path class="arw" d="M812 198L812 240"/>
   <path class="arw" d="M812 302L812 340"/>
-  <rect class="fill-warn" x="280" y="208" width="340" height="26" rx="7"/>
-  <text class="t xs an-m" x="450.0" y="225.0" fill="#b45309">값 표기는 §14.6.2에서 교정한다</text>
-  <rect class="fill-navy" x="52" y="312" width="148" height="26" rx="7"/>
-  <text class="t xs an-m" x="126.0" y="329.0" fill="#ffffff">3단계 · 제약 순회 조립</text>
+  <rect class="fill-warn" x="388" y="312" width="194" height="26" rx="7"/>
+  <text class="t xs an-m" x="485.0" y="329.0" fill="#b45309">값 표기는 §14.6.2에서 교정한다</text>
+  <rect class="fill-navy" x="170" y="312" width="148" height="26" rx="7"/>
+  <text class="t xs an-m" x="244.0" y="329.0" fill="#ffffff">3단계 · 제약 순회 조립</text>
   <rect class="box" x="60" y="346" width="840" height="162" rx="10"/>
   <text class="t s mono an-s" x="72" y="384" fill="#0f2c59">MATCH path = (v:Vehicle)&lt;-[read:PLATE_READ_EVENT]-(e:ANPRCameraEvent)</text>
   <text class="t s mono an-s" x="72" y="406" fill="#0f2c59">              &lt;-[has:HAS_EVENT]-(cam:ANPRCamera)</text>

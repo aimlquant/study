@@ -25,10 +25,10 @@
   </style>
 
   <defs>
-    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
-    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
-    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
-    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b91c1c"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
   </defs>
   <title id="figTitle">스키마 추출 단계만 그래프의 구조를 읽는다</title>
   <desc id="figDesc">위 띠는 여섯 단계 중 이번 절이 다루는 스키마 추출을 진청으로 표시한다. 아래는 그 단계의 내부로, 그래프에서 구조만 뽑아 텍스트 한 덩어리로 만들어 질의 생성 프롬프트에 끼운다.</desc>
@@ -50,7 +50,7 @@
   <rect class="fill-mute" x="781" y="48" width="134" height="62" rx="10"/>
   <text class="t m an-m" x="848.0" y="84.0" fill="#475569">요약 생성</text>
   <path class="tick" d="M765 79.0L778 79.0"/>
-  <path class="arw-navy" d="M252.0 110L252.0 150"/>
+  <path class="arw-navy" d="M252.0 110L252.0 158"/>
   <rect class="fill-tint" x="36" y="162" width="194" height="92" rx="10"/>
   <text class="t m an-m" x="133.0" y="196.0" fill="#0f2c59">지식 그래프</text>
   <text class="t s an-m" x="133.0" y="213.0" fill="#0f2c59">노드 · 관계 · 속성</text>
