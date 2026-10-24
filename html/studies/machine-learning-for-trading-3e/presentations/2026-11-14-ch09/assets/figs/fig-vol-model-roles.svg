@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .chipl{fill:#E8EDF5;stroke:#0F2C59;stroke-width:1.5;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .dashw{fill:none;stroke:#C2703A;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .grid{fill:none;stroke:#E2E8F0;stroke-width:1}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+    .barl{fill:#9DB2CE}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker>
+  </defs>
+  <title id="t">GARCH, EGARCH, HAR의 입력과 출력 대상 비교</title>
+  <desc id="d">세 열이 각각 입력, 모델이 다루는 대상, 출력 특성을 차례로 보이고 맨 아래 공통 띠에서만 평가 손실로 비교 가능하다는 구조다.</desc>
+  <rect x="0" y="0" width="960" height="400" fill="#FAFAF9"/>
+
+  <rect class="chip" x="24" y="30" width="146" height="28"/>
+  <text class="t xs an-m inv" x="97" y="49">입력</text>
+  <rect class="chip" x="24" y="110" width="146" height="28"/>
+  <text class="t xs an-m inv" x="97" y="129">다루는 대상</text>
+  <rect class="chip" x="24" y="200" width="146" height="28"/>
+  <text class="t xs an-m inv" x="97" y="219">출력 특성</text>
+  <rect class="chipw" x="24" y="306" width="146" height="28"/>
+  <text class="t xs an-m inv" x="97" y="325">비교 가능 지점</text>
+
+  <rect class="band" x="190" y="22" width="230" height="266"/>
+  <rect class="chip" x="202" y="30" width="206" height="28"/>
+  <text class="t xs an-m inv" x="305" y="49">GARCH(1,1)</text>
+  <rect class="box" x="204" y="70" width="202" height="34"/>
+  <text class="t s an-m" x="305" y="92">수익률</text>
+  <rect class="boxa" x="204" y="112" width="202" height="76"/>
+  <text class="t s an-m" x="305" y="136">조건부 분산의</text>
+  <text class="t s an-m" x="305" y="156">재귀적 진화</text>
+  <text class="t xs an-m" x="305" y="177">부호를 구별하지 않음</text>
+  <rect class="boxd" x="204" y="196" width="202" height="82"/>
+  <text class="t xs an-m inv" x="305" y="218">cond_vol</text>
+  <text class="t xs an-m inv" x="305" y="240">shock_impact</text>
+  <text class="t xs an-m inv" x="305" y="262">vol_persistence</text>
+
+  <rect class="band" x="438" y="22" width="230" height="266"/>
+  <rect class="chip" x="450" y="30" width="206" height="28"/>
+  <text class="t xs an-m inv" x="553" y="49">EGARCH</text>
+  <rect class="box" x="452" y="70" width="202" height="34"/>
+  <text class="t s an-m" x="553" y="92">수익률</text>
+  <rect class="boxa" x="452" y="112" width="202" height="76"/>
+  <text class="t s an-m" x="553" y="136">로그 분산에서</text>
+  <text class="t s an-m" x="553" y="156">크기와 부호 분리</text>
+  <text class="t xs an-m" x="553" y="177">비음 제약 불필요</text>
+  <rect class="boxd" x="452" y="196" width="202" height="82"/>
+  <text class="t xs an-m inv" x="553" y="218">cond_vol</text>
+  <text class="t xs an-m inv" x="553" y="240">leverage_effect (γ)</text>
+  <text class="t xs an-m inv" x="553" y="262">γ &lt; 0 이면 하락 비대칭</text>
+
+  <rect class="band" x="686" y="22" width="250" height="266"/>
+  <rect class="chip" x="698" y="30" width="226" height="28"/>
+  <text class="t xs an-m inv" x="811" y="49">HAR</text>
+  <rect class="boxw" x="700" y="70" width="222" height="34"/>
+  <text class="t s an-m" x="811" y="92">일별 실현 변동성</text>
+  <rect class="boxa" x="700" y="112" width="222" height="76"/>
+  <text class="t s an-m" x="811" y="136">실현 변동성을</text>
+  <text class="t s an-m" x="811" y="156">앞으로 투영</text>
+  <text class="t xs an-m" x="811" y="177">필터링이 아니라 회귀</text>
+  <rect class="boxd" x="700" y="196" width="222" height="82"/>
+  <text class="t xs an-m inv" x="811" y="218">βd · βw · βm</text>
+  <text class="t xs an-m inv" x="811" y="240">적합 RV</text>
+  <text class="t xs an-m inv" x="811" y="262">기간 스프레드가 더 견고</text>
+
+  <rect class="bandw" x="190" y="300" width="746" height="76"/>
+  <rect class="boxw" x="212" y="318" width="702" height="42"/>
+  <text class="t s an-m" x="563" y="336">QLIKE 손실 · 실현 분산 대용치에 강건</text>
+  <text class="t xs an-m" x="563" y="354">세 출력은 같은 척도의 경쟁 예측이 아니다</text>
+  <path class="conn" marker-end="url(#ar)" d="M305 288 V318"/>
+  <path class="conn" marker-end="url(#ar)" d="M553 288 V318"/>
+  <path class="conn" marker-end="url(#ar)" d="M811 288 V318"/>
+</svg>

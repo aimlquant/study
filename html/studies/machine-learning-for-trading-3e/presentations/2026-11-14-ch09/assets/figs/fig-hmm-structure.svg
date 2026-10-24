@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .chipl{fill:#E8EDF5;stroke:#0F2C59;stroke-width:1.5;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .dashw{fill:none;stroke:#C2703A;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .grid{fill:none;stroke:#E2E8F0;stroke-width:1}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+    .barl{fill:#9DB2CE}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker>
+  </defs>
+  <title id="t">두 상태 은닉 마르코프 모델의 전이·방출 구조와 과거·미래 경계</title>
+  <desc id="d">위층의 저변동성 상태와 고변동성 상태가 자기 고리와 교차 화살표로 연결되고, 아래층의 관측 수익률로 점선 방출이 내려오며, 가운데 세로 점선이 이용 가능한 과거와 이용 불가능한 미래를 가른다.</desc>
+  <rect x="0" y="0" width="960" height="440" fill="#FAFAF9"/>
+
+  <rect x="536" y="20" width="400" height="382" style="fill:#EDEFF2;stroke:none"/>
+  <path class="dash" d="M536 20 V402"/>
+  <rect class="chip" x="236" y="26" width="200" height="26"/>
+  <text class="t xs an-m inv" x="336" y="44">이용 가능한 과거</text>
+  <rect class="chipl" x="640" y="26" width="212" height="26"/>
+  <text class="t xs an-m" x="746" y="44">이용 불가능한 미래</text>
+
+  <rect class="boxa" x="124" y="96" width="256" height="72"/>
+  <text class="t b an-m" x="252" y="122">상태 1 · 저변동성</text>
+  <text class="t xs an-m" x="252" y="144">μ +0.05% · σ 8%</text>
+  <text class="t xs an-m" x="252" y="161">관측되지 않음</text>
+  <rect class="boxa" x="580" y="96" width="256" height="72"/>
+  <text class="t b an-m" x="708" y="122">상태 2 · 고변동성</text>
+  <text class="t xs an-m" x="708" y="144">μ −0.02% · σ 25%</text>
+  <text class="t xs an-m" x="708" y="161">관측되지 않음</text>
+
+  <path class="conn" marker-end="url(#ar)" d="M200 96 C200 48 304 48 304 94"/>
+  <rect class="chip" x="200" y="56" width="104" height="24"/>
+  <text class="t xs an-m inv" x="252" y="73">유지 0.97</text>
+  <path class="conn" marker-end="url(#ar)" d="M656 96 C656 48 760 48 760 94"/>
+  <rect class="chip" x="656" y="56" width="104" height="24"/>
+  <text class="t xs an-m inv" x="708" y="73">유지 0.95</text>
+
+  <path class="conn" marker-end="url(#ar)" d="M380 118 H578"/>
+  <rect class="chip" x="426" y="96" width="104" height="22"/>
+  <text class="t xs an-m inv" x="478" y="112">1→2  0.03</text>
+  <path class="conn" marker-end="url(#ar)" d="M580 150 H382"/>
+  <rect class="chipw" x="426" y="150" width="104" height="22"/>
+  <text class="t xs an-m inv" x="478" y="166">2→1  0.05</text>
+
+  <path class="thin" stroke-dasharray="4 4" d="M200 168 L116 272"/>
+  <path class="thin" stroke-dasharray="4 4" d="M232 168 L256 272"/>
+  <path class="thin" stroke-dasharray="4 4" d="M300 168 L396 272"/>
+  <path class="thin" stroke-dasharray="4 4" d="M640 168 L540 272"/>
+  <path class="thin" stroke-dasharray="4 4" d="M700 168 L676 272"/>
+  <path class="thin" stroke-dasharray="4 4" d="M760 168 L812 272"/>
+
+  <circle class="nd" cx="110" cy="286" r="22"/>
+  <text class="t s an-m" x="110" y="292">r1</text>
+  <circle class="nd" cx="250" cy="286" r="22"/>
+  <text class="t s an-m" x="250" y="292">r2</text>
+  <circle class="nd" cx="390" cy="286" r="22"/>
+  <text class="t s an-m" x="390" y="292">r3</text>
+  <circle class="nd" cx="534" cy="286" r="22"/>
+  <text class="t s an-m" x="534" y="292">r4</text>
+  <circle class="nd" cx="674" cy="286" r="22"/>
+  <text class="t s an-m" x="674" y="292">r5</text>
+  <circle class="nd" cx="814" cy="286" r="22"/>
+  <text class="t s an-m" x="814" y="292">r6</text>
+  <rect class="chipl" x="124" y="328" width="256" height="26"/>
+  <text class="t xs an-m" x="252" y="346">관측 수익률 · 방출</text>
+
+  <rect class="box" x="124" y="366" width="256" height="48"/>
+  <text class="t s an-m" x="252" y="386">필터링 확률</text>
+  <text class="t xs an-m" x="252" y="405">왼쪽 관측만 사용</text>
+  <rect class="boxw" x="580" y="366" width="256" height="48"/>
+  <text class="t s an-m" x="708" y="386">평활 확률</text>
+  <text class="t xs an-m" x="708" y="405">양쪽 관측을 모두 사용</text>
+</svg>

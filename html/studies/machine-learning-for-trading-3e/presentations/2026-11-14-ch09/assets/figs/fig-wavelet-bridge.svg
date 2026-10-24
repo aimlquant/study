@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .chipl{fill:#E8EDF5;stroke:#0F2C59;stroke-width:1.5;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .dashw{fill:none;stroke:#C2703A;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .grid{fill:none;stroke:#E2E8F0;stroke-width:1}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+    .barl{fill:#9DB2CE}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker>
+  </defs>
+  <title id="t">웨이블릿 연구 진단과 배포 안전 후행 대리값 사이의 경계</title>
+  <desc id="d">왼쪽 연구 영역에서 계열이 근사 대역과 네 세부 대역으로 분해되고 폭발 에너지가 짧은 대역에 몰리며, 오른쪽 배포 영역에서는 같은 기간 질문이 세 개의 후행 대리값으로 바뀐다. 가운데 경계선은 오프라인 계수의 통과를 차단한다.</desc>
+  <rect x="0" y="0" width="960" height="400" fill="#FAFAF9"/>
+
+  <rect class="band" x="20" y="30" width="430" height="340"/>
+  <rect class="chip" x="32" y="38" width="150" height="24"/>
+  <text class="t xs an-m inv" x="107" y="55">연구 진단</text>
+  <path class="thin" d="M44 96 L80 92 L116 100 L152 88 L188 82 L224 78 L260 74 L296 70 L332 66 L368 62 L440 56"/>
+  <path class="connw" d="M224 96 L232 70 L240 118 L248 76 L256 112 L264 84"/>
+  <rect class="chipl" x="44" y="74" width="120" height="22"/>
+  <text class="t xs an-m" x="104" y="90">원계열</text>
+
+  <rect class="boxa" x="44" y="128" width="396" height="34"/>
+  <text class="t s an-s" x="56" y="150">근사 A4 · 느린 표류</text>
+  <rect class="box" x="44" y="170" width="396" height="30"/>
+  <text class="t s an-s" x="56" y="190">세부 D4 · 32–64일</text>
+  <rect class="box" x="44" y="208" width="396" height="30"/>
+  <text class="t s an-s" x="56" y="228">세부 D3 · 16–32일</text>
+  <rect class="boxw" x="44" y="246" width="396" height="30"/>
+  <text class="t s an-s" x="56" y="266">세부 D2 · 4–8일</text>
+  <rect class="boxw" x="44" y="284" width="396" height="30"/>
+  <text class="t s an-s" x="56" y="304">세부 D1 · 2–4일</text>
+  <rect class="chipw" x="300" y="248" width="132" height="26"/>
+  <text class="t xs an-m inv" x="366" y="266">폭발 에너지</text>
+  <rect class="chipw" x="300" y="286" width="132" height="26"/>
+  <text class="t xs an-m inv" x="366" y="304">폭발 에너지</text>
+  <rect class="chipl" x="44" y="330" width="396" height="28"/>
+  <text class="t xs an-m" x="242" y="349">오른쪽 끝 계수는 패딩에 의존</text>
+
+  <path class="dash" d="M470 40 V360"/>
+  <circle class="ndw" cx="470" cy="200" r="16"/>
+  <text class="t b an-m inv" x="470" y="206">✕</text>
+  <path class="connw" d="M452 200 H440"/>
+
+  <rect class="band" x="490" y="30" width="446" height="340"/>
+  <rect class="chip" x="502" y="38" width="150" height="24"/>
+  <text class="t xs an-m inv" x="577" y="55">배포 안전</text>
+  <rect class="box" x="514" y="92" width="402" height="68"/>
+  <text class="t s an-m" x="715" y="116">후행 저역 상태</text>
+  <text class="t xs an-m" x="715" y="138">과거만 쓰는 이동평균 수준</text>
+  <rect class="box" x="514" y="176" width="402" height="68"/>
+  <text class="t s an-m" x="715" y="200">단기 폭발 탐지기</text>
+  <text class="t xs an-m" x="715" y="222">후행 창의 절대 변화 집계</text>
+  <rect class="boxd" x="514" y="260" width="402" height="86"/>
+  <text class="t s an-m inv" x="715" y="284">최근 대 직전 대비</text>
+  <text class="t xs an-m inv" x="715" y="306">c(t) = 최근 16일 평균</text>
+  <text class="t xs an-m inv" x="715" y="326">− 직전 16일 평균</text>
+  <path class="conn" marker-end="url(#ar)" d="M490 126 H514"/>
+  <path class="conn" marker-end="url(#ar)" d="M490 210 H514"/>
+  <path class="conn" marker-end="url(#ar)" d="M490 300 H514"/>
+  <rect class="chip" x="676" y="38" width="248" height="24"/>
+  <text class="t xs an-m inv" x="800" y="55">넘어가는 것은 질문뿐</text>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .chipl{fill:#E8EDF5;stroke:#0F2C59;stroke-width:1.5;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .dashw{fill:none;stroke:#C2703A;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .grid{fill:none;stroke:#E2E8F0;stroke-width:1}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+    .barl{fill:#9DB2CE}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker>
+  </defs>
+  <title id="t">SPY에 적용한 칼만 필터의 수준·혁신·기울기 세 칸</title>
+  <desc id="d">2018년부터 2024년까지 같은 시간축에 가격과 칼만 수준 및 불확실성 띠, 혁신, 칼만 기울기를 세 칸으로 겹쳐 배치했다.</desc>
+  <rect x="0" y="0" width="960" height="470" fill="#FAFAF9"/>
+
+  <rect class="band" x="24" y="22" width="912" height="134"/>
+  <rect class="chip" x="36" y="30" width="238" height="24"/>
+  <text class="t xs an-m inv" x="155" y="47">(a) 가격과 칼만 수준 · USD</text>
+  <rect class="chipl" x="284" y="30" width="150" height="24"/>
+  <text class="t xs an-m" x="359" y="47">불확실성 띠</text>
+  <path class="axis" d="M96 142 H922 M96 142 V66"/>
+  <text class="t xs an-e" x="90" y="72">520</text>
+  <text class="t xs an-e" x="90" y="140">220</text>
+  <path d="M100 128 L160 122 L200 134 L240 116 L280 106 L320 118 L360 100 L400 92 L440 104 L480 88 L520 78 L560 92 L600 84 L640 76 L680 72 L720 80 L760 70 L800 66 L840 72 L880 68 L915 64 L915 80 L880 84 L840 88 L800 82 L760 86 L720 96 L680 88 L640 92 L600 100 L560 108 L520 94 L480 104 L440 120 L400 108 L360 116 L320 134 L280 122 L240 132 L200 150 L160 138 L100 144 Z" style="fill:#E8EDF5;stroke:none"/>
+  <path class="thin" d="M100 136 L160 130 L200 142 L240 124 L280 114 L320 126 L360 108 L400 100 L440 112 L480 96 L520 86 L560 100 L600 92 L640 84 L680 80 L720 88 L760 78 L800 74 L840 80 L880 76 L915 72"/>
+  <path class="conn" d="M100 134 L160 128 L200 140 L240 122 L280 112 L320 124 L360 106 L400 98 L440 110 L480 94 L520 84 L560 98 L600 90 L640 82 L680 78 L720 86 L760 76 L800 72 L840 78 L880 74 L915 70"/>
+
+  <rect class="band" x="24" y="168" width="912" height="134"/>
+  <rect class="chip" x="36" y="176" width="174" height="24"/>
+  <text class="t xs an-m inv" x="123" y="193">(b) 혁신 · USD</text>
+  <path class="axis" d="M96 288 H922 M96 240 H922"/>
+  <path class="dash" d="M96 212 H922 M96 268 H922"/>
+  <text class="t xs an-e" x="90" y="216">+12.7</text>
+  <text class="t xs an-e" x="90" y="244">0</text>
+  <text class="t xs an-e" x="90" y="272">−12.7</text>
+  <path class="thin" d="M100 240 L120 234 L140 246 L160 236 L180 244 L200 238 L220 243 L240 237 L260 244 L280 239 L300 242 L320 237 L340 244 L360 240"/>
+  <path class="connw" d="M372 240 L380 204 L388 280 L396 210 L404 274 L412 216 L420 268 L428 224"/>
+  <path class="thin" d="M436 240 L460 236 L484 244 L508 238 L532 243 L556 237 L580 244 L604 239"/>
+  <path class="connw" d="M616 240 L624 214 L632 266 L640 218 L648 262 L656 222 L664 258 L672 228"/>
+  <path class="thin" d="M684 240 L710 237 L736 243 L762 238 L788 242 L814 239 L840 242 L866 240 L892 241 L915 240"/>
+
+  <rect class="band" x="24" y="314" width="912" height="134"/>
+  <rect class="chip" x="36" y="322" width="234" height="24"/>
+  <text class="t xs an-m inv" x="153" y="339">(c) 칼만 기울기 · USD/일</text>
+  <path class="axis" d="M96 434 H922 M96 386 H922"/>
+  <text class="t xs an-e" x="90" y="364">+2</text>
+  <text class="t xs an-e" x="90" y="390">0</text>
+  <text class="t xs an-e" x="90" y="428">−4</text>
+  <path class="conn" d="M100 382 L140 376 L180 390 L220 374 L260 368 L300 384 L340 372 L368 378"/>
+  <path class="connw" d="M368 378 L380 420 L392 428 L404 396 L416 374 L428 366"/>
+  <path class="conn" d="M428 366 L470 374 L512 364 L554 380 L596 372 L616 378"/>
+  <path class="connw" d="M616 378 L634 398 L652 380 L670 400 L688 382 L706 398 L724 384"/>
+  <path class="conn" d="M724 384 L766 374 L808 380 L850 372 L892 378 L915 374"/>
+  <rect class="chipw" x="344" y="438" width="104" height="22"/>
+  <text class="t xs an-m inv" x="396" y="454">2020-03</text>
+  <rect class="chipw" x="596" y="438" width="104" height="22"/>
+  <text class="t xs an-m inv" x="648" y="454">2022</text>
+  <text class="t xs an-m" x="110" y="456">2018</text>
+  <text class="t xs an-m" x="905" y="456">2024</text>
+</svg>

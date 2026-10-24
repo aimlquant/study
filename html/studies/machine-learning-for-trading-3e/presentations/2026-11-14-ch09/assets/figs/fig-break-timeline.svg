@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .chipl{fill:#E8EDF5;stroke:#0F2C59;stroke-width:1.5;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .dashw{fill:none;stroke:#C2703A;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .grid{fill:none;stroke:#E2E8F0;stroke-width:1}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+    .barl{fill:#9DB2CE}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker>
+  </defs>
+  <title id="t">실제 구조 변화, 온라인 경보, 회고적 단절일의 세 시각과 파생 특성</title>
+  <desc id="d">한 시간선 위에 실제 구조 변화 시점, 뒤늦은 온라인 경보 시점, 전체 표본을 본 뒤 추정한 회고적 단절일이 각각 다른 위치에 놓이고, 각각에서 파생되는 특성이 아래로 연결된다.</desc>
+  <rect x="0" y="0" width="960" height="330" fill="#FAFAF9"/>
+
+  <path class="axis" marker-end="url(#arg)" d="M60 120 H912"/>
+  <text class="t xs an-s" x="60" y="146">과거</text>
+  <text class="t xs an-e" x="906" y="146">현재</text>
+
+  <path class="dash" d="M330 92 V148"/>
+  <circle class="nda" cx="330" cy="120" r="7"/>
+  <rect class="boxa" x="236" y="48" width="188" height="40"/>
+  <text class="t s an-m" x="330" y="73">실제 구조 변화</text>
+
+  <path class="dash" d="M560 92 V148"/>
+  <circle class="ndw" cx="560" cy="120" r="7"/>
+  <rect class="boxw" x="466" y="48" width="188" height="40"/>
+  <text class="t s an-m" x="560" y="73">온라인 경보</text>
+
+  <path class="dash" d="M392 92 V148"/>
+  <circle class="nd" cx="392" cy="120" r="7"/>
+  <rect class="box" x="672" y="48" width="236" height="40"/>
+  <text class="t s an-m" x="790" y="73">회고적 추정 단절일</text>
+  <path class="thin" marker-end="url(#arg)" d="M672 68 H410 L396 92"/>
+
+  <path class="conn" marker-end="url(#ar)" d="M560 148 V196"/>
+  <rect class="boxw" x="446" y="200" width="228" height="62"/>
+  <text class="t s an-m" x="560" y="224">days_since_last_alert</text>
+  <text class="t xs an-m" x="560" y="246">그 시각에 실제로 알았다</text>
+
+  <path class="connw" marker-end="url(#arw)" d="M392 148 V196"/>
+  <rect class="box" x="92" y="200" width="228" height="62"/>
+  <text class="t s an-m" x="206" y="224">time_since_last_break</text>
+  <text class="t xs an-m" x="206" y="246">추정에 미래 관측이 들어감</text>
+  <path class="connw" marker-end="url(#arw)" d="M392 160 H330 V200"/>
+  <rect class="chipw" x="92" y="276" width="228" height="26"/>
+  <text class="t xs an-m inv" x="206" y="294">과거 시점에 쓰면 누출</text>
+  <rect class="chip" x="446" y="276" width="228" height="26"/>
+  <text class="t xs an-m inv" x="560" y="294">탐지 지연은 대상의 일부</text>
+</svg>

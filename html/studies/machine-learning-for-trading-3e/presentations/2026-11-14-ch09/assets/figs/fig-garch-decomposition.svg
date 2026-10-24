@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .chipl{fill:#E8EDF5;stroke:#0F2C59;stroke-width:1.5;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .dashw{fill:none;stroke:#C2703A;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .grid{fill:none;stroke:#E2E8F0;stroke-width:1}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+    .barl{fill:#9DB2CE}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker>
+  </defs>
+  <title id="t">GARCH 재귀의 세 항과 지속성 합이 장기 분산의 유효성을 가르는 축</title>
+  <desc id="d">위쪽은 GARCH(1,1) 재귀의 바닥 수준, 충격 항, 이월 항이 각각 어떤 특성 이름으로 나가는지 보이고, 아래쪽은 알파 더하기 베타 축에서 1보다 작은 영역에만 반감기와 장기 분산이 정의된다는 것을 보인다.</desc>
+  <rect x="0" y="0" width="960" height="420" fill="#FAFAF9"/>
+
+  <rect class="band" x="24" y="26" width="912" height="166"/>
+  <rect class="chip" x="36" y="34" width="248" height="24"/>
+  <text class="t xs an-m inv" x="160" y="51">오늘의 조건부 분산 σ²</text>
+  <rect class="box" x="52" y="74" width="256" height="60"/>
+  <text class="t s an-m" x="180" y="98">ω · 바닥 수준</text>
+  <text class="t xs an-m" x="180" y="119">분산이 내려갈 수 있는 하한</text>
+  <rect class="boxa" x="340" y="74" width="256" height="60"/>
+  <text class="t s an-m" x="468" y="98">α · 어제 충격의 크기</text>
+  <text class="t xs an-m" x="468" y="119">제곱 혁신에 반응</text>
+  <rect class="boxa" x="628" y="74" width="256" height="60"/>
+  <text class="t s an-m" x="756" y="98">β · 어제 분산의 이월</text>
+  <text class="t xs an-m" x="756" y="119">상태가 오늘로 넘어옴</text>
+  <rect class="chipl" x="340" y="148" width="256" height="28"/>
+  <text class="t xs an-m" x="468" y="167">shock_impact</text>
+  <rect class="chipl" x="628" y="148" width="256" height="28"/>
+  <text class="t xs an-m" x="756" y="167">vol_persistence</text>
+  <path class="conn" marker-end="url(#ar)" d="M468 134 V148"/>
+  <path class="conn" marker-end="url(#ar)" d="M756 134 V148"/>
+  <rect class="chipl" x="52" y="148" width="256" height="28"/>
+  <text class="t xs an-m" x="180" y="167">cond_vol 의 수준 고정</text>
+
+  <rect class="band" x="24" y="212" width="912" height="186"/>
+  <rect class="chip" x="36" y="220" width="200" height="24"/>
+  <text class="t xs an-m inv" x="136" y="237">반감기 · 거래일</text>
+  <rect x="740" y="256" width="182" height="104" style="fill:#FBEAE0;stroke:none"/>
+  <path class="axis" d="M96 348 H922 M96 348 V262"/>
+  <text class="t xs an-e" x="90" y="268">60</text>
+  <text class="t xs an-e" x="90" y="312">23</text>
+  <text class="t xs an-e" x="90" y="346">7</text>
+  <path class="conn" d="M110 342 L220 338 L330 330 L440 320 L550 308 L630 296 L690 282 L730 266"/>
+  <path class="dash" d="M96 312 H660 M660 312 V348"/>
+  <circle class="nda" cx="660" cy="312" r="7"/>
+  <text class="t xs an-m" x="130" y="366">0.80</text>
+  <text class="t xs an-m" x="440" y="366">0.90</text>
+  <text class="t xs an-m" x="660" y="366">0.97</text>
+  <text class="t xs an-m" x="744" y="366">1.00</text>
+  <text class="t xs an-m" x="500" y="388">α + β</text>
+  <rect class="chip" x="528" y="286" width="126" height="24"/>
+  <text class="t xs an-m inv" x="591" y="303">SPY 0.97</text>
+  <rect class="chipw" x="748" y="286" width="166" height="48"/>
+  <text class="t xs an-m inv" x="831" y="304">long_run_vol 무효</text>
+  <text class="t xs an-m inv" x="831" y="324">무조건 분산 없음</text>
+  <path class="dashw" d="M740 256 V360"/>
+</svg>
