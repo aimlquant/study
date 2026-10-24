@@ -82,7 +82,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-10-03 | 08:00–09:00 | Chapter 3 | 세훈 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-ml4t-ch03/) |
 | 2026-10-10 | 08:00–09:00 | Chapter 4 | 종훈(L) | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-10-ml4t-ch04/) |
 | 2026-10-17 | 08:00–09:00 | Chapter 5 | 태호 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-17-ml4t-ch05/) |
-| 2026-10-24 | 08:00–09:00 | Chapter 6 | 종훈(S) | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m16984fce24afd778955208650d80023c) | [회차](https://aimlquant.github.io/study/sessions/2026-10-24-ml4t-ch06/) |
+| 2026-10-24 | 08:00–09:00 | Chapter 6 | 종훈(S) | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-24-ml4t-ch06/) |
 | 2026-10-31 | 08:00–09:00 | Chapter 7 | 정훈 | [접속](https://lgehq.webex.com/lgehq/j.php?MTID=macf41df59efb9845bf8c6ecb4969a38b) | [회차](https://aimlquant.github.io/study/sessions/2026-10-31-ml4t-ch07/) |
 | 2026-11-07 | 08:00–09:00 | Chapter 8 | 태영 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-11-07-ml4t-ch08/) |
 | 2026-11-14 | 08:00–09:00 | Chapter 9 | 원미 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-11-14-ml4t-ch09/) |
