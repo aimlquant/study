@@ -564,8 +564,7 @@
       ],
       "date": "2026-10-24",
       "id": "2026-10-24-kg-llm-ch14",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m16984fce24afd778955208650d80023c",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-24-kg-llm-ch14/",
       "presenters": [
         "종훈(L)"
@@ -578,9 +577,11 @@
           "youtube_video_id": "cdqXKR73uLc"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 14. 자연어로 지식 그래프에 질문하기"
+      "title": "Chapter 14. 자연어로 지식 그래프에 질문하기",
+      "youtube_url": "https://www.youtube.com/watch?v=zRylm2zSYJM",
+      "youtube_video_id": "zRylm2zSYJM"
     },
     {
       "artifacts": [
