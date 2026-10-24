@@ -527,8 +527,7 @@
       ],
       "date": "2026-10-24",
       "id": "2026-10-24-ml4t-ch06",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m16984fce24afd778955208650d80023c",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-24-ml4t-ch06/",
       "presenters": [
         "종훈(S)"
@@ -541,9 +540,11 @@
           "youtube_video_id": "M5hQ1bJ4ucI"
         }
       ],
-      "status": "scheduled",
+      "status": "video-public",
       "study_id": "machine-learning-for-trading-3e-2026",
-      "title": "Chapter 6. 전략 연구 프레임워크"
+      "title": "Chapter 6. 전략 연구 프레임워크",
+      "youtube_url": "https://www.youtube.com/watch?v=l6ilgEG15HA",
+      "youtube_video_id": "l6ilgEG15HA"
     },
     {
       "artifacts": [

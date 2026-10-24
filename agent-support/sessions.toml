@@ -530,8 +530,9 @@ date = "2026-10-24"
 title = "Chapter 6. 전략 연구 프레임워크"
 presenters = ["종훈(S)"]
 chapters = ["Chapter 6"]
-status = "scheduled"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m16984fce24afd778955208650d80023c"
+status = "video-public"
+youtube_video_id = "l6ilgEG15HA"
+meeting_status = "ended"
 
 reference_videos = [
   { title = "Ch.6 전략 연구 프레임워크 · 한국어 참고 해설", youtube_video_id = "M5hQ1bJ4ucI", status = "public", description = "원서 6장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
