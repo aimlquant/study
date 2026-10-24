@@ -132,7 +132,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-10-03 | 09:00–10:00 | Chapter 11 | 수경 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-03-kg-llm-ch11/) |
 | 2026-10-10 | 09:00–10:00 | Chapter 12 | 재익 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-10-kg-llm-ch12/) |
 | 2026-10-17 | 09:00–10:00 | Chapter 13 | 정훈 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-17-kg-llm-ch13/) |
-| 2026-10-24 | 09:00–10:00 | Chapter 14 | 종훈(L) | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m16984fce24afd778955208650d80023c) | [회차](https://aimlquant.github.io/study/sessions/2026-10-24-kg-llm-ch14/) |
+| 2026-10-24 | 09:00–10:00 | Chapter 14 | 종훈(L) | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-10-24-kg-llm-ch14/) |
 | 2026-10-31 | 09:00–10:00 | Chapter 15 | 태영 | [접속](https://lgehq.webex.com/lgehq/j.php?MTID=macf41df59efb9845bf8c6ecb4969a38b) | [회차](https://aimlquant.github.io/study/sessions/2026-10-31-kg-llm-ch15/) |
 
 날짜·챕터·발표자·Webex 링크·발행 상태의 정본은
