@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .chipl{fill:#E8EDF5;stroke:#0F2C59;stroke-width:1.5;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .dashw{fill:none;stroke:#C2703A;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .grid{fill:none;stroke:#E2E8F0;stroke-width:1}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+    .barl{fill:#9DB2CE}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker>
+  </defs>
+  <title id="t">패널 특성의 세 단계 작업 순서와 각 단계의 가용성 조건</title>
+  <desc id="d">자산별 시간 특성 계산, 의사결정일 정렬, 횡단면 구성의 세 단계가 왼쪽에서 오른쪽으로 이어지고 각 단계 아래에 공개 시각이 의사결정 시각보다 앞서야 한다는 조건이 붙으며, 3단계에서 1단계로 되돌아가는 역방향 경로는 차단된다.</desc>
+  <rect x="0" y="0" width="960" height="390" fill="#FAFAF9"/>
+
+  <rect class="band" x="24" y="36" width="282" height="166"/>
+  <rect class="chip" x="36" y="44" width="112" height="26"/>
+  <text class="t xs an-m inv" x="92" y="62">1단계</text>
+  <rect class="box" x="40" y="82" width="250" height="104"/>
+  <text class="t b an-m" x="165" y="108">자산별 시간 특성</text>
+  <text class="t xs an-m" x="165" y="130">각자의 후행 역사에서</text>
+  <text class="t xs an-m" x="165" y="150">칼만 · GARCH · 국면</text>
+  <text class="t xs an-m" x="165" y="172">자산 사이 정보 없음</text>
+
+  <path class="conn" marker-end="url(#ar)" d="M306 119 H338"/>
+
+  <rect class="band" x="344" y="36" width="282" height="166"/>
+  <rect class="chip" x="356" y="44" width="112" height="26"/>
+  <text class="t xs an-m inv" x="412" y="62">2단계</text>
+  <rect class="box" x="360" y="82" width="250" height="104"/>
+  <text class="t b an-m" x="485" y="108">의사결정일 정렬</text>
+  <text class="t xs an-m" x="485" y="130">as-of 조회로 최신 판</text>
+  <text class="t xs an-m" x="485" y="150">시스템 가용 시각 확인</text>
+  <text class="t xs an-m" x="485" y="172">종가 시차가 다른 시장</text>
+
+  <path class="conn" marker-end="url(#ar)" d="M626 119 H658"/>
+
+  <rect class="band" x="664" y="36" width="272" height="166"/>
+  <rect class="chip" x="676" y="44" width="112" height="26"/>
+  <text class="t xs an-m inv" x="732" y="62">3단계</text>
+  <rect class="boxd" x="680" y="82" width="240" height="104"/>
+  <text class="t b an-m inv" x="800" y="108">횡단면 구성</text>
+  <text class="t xs an-m inv" x="800" y="130">순위 · 벤치마크 조정</text>
+  <text class="t xs an-m inv" x="800" y="150">쌍별 변환</text>
+  <text class="t xs an-m inv" x="800" y="172">유니버스 집계</text>
+
+  <path class="connw" d="M800 202 V236 H165 V194"/>
+  <circle class="ndw" cx="482" cy="236" r="16"/>
+  <text class="t b an-m inv" x="482" y="242">✕</text>
+  <rect class="chipw" x="520" y="224" width="236" height="24"/>
+  <text class="t xs an-m inv" x="638" y="241">이 배치는 조건을 어기기 쉽다</text>
+
+  <rect class="bandw" x="24" y="272" width="912" height="100"/>
+  <rect class="chipw" x="24" y="272" width="186" height="26"/>
+  <text class="t xs an-m inv" x="117" y="290">모든 단계의 공통 조건</text>
+  <rect class="boxw" x="48" y="306" width="276" height="50"/>
+  <text class="t s an-m" x="186" y="326">공개 시각 ≤ 의사결정 시각</text>
+  <text class="t xs an-m" x="186" y="345">사건 시각이 아니라 공개 시각</text>
+  <rect class="boxw" x="342" y="306" width="276" height="50"/>
+  <text class="t s an-m" x="480" y="326">적합 객체도 같은 감사</text>
+  <text class="t xs an-m" x="480" y="345">미래 모수로 돌린 필터는 누출</text>
+  <rect class="boxw" x="636" y="306" width="276" height="50"/>
+  <text class="t s an-m" x="774" y="326">유니버스 · 배정도 당시 판</text>
+  <text class="t xs an-m" x="774" y="345">섹터 · 국가 · 구성 종목</text>
+</svg>

@@ -571,7 +571,11 @@ date = "2026-11-14"
 title = "Chapter 9. 모델 기반 특성 추출"
 presenters = ["원미"]
 chapters = ["Chapter 9"]
-status = "scheduled"
+status = "materials-published"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-14-ch09/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-14-ch09/" },
+]
 
 reference_videos = [
   { title = "Ch.9 모델 기반 특성 추출 · 한국어 참고 해설", youtube_video_id = "qpcq67FRPg0", status = "public", description = "원서 9장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },

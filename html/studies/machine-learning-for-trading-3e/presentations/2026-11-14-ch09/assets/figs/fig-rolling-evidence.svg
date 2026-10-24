@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-labelledby="t d">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .an-s{text-anchor:start} .an-m{text-anchor:middle} .an-e{text-anchor:end}
+    .h{font-size:16px;font-weight:900;fill:#0F0F10}
+    .b{font-size:14px;font-weight:800;fill:#0F0F10}
+    .s{font-size:13px;font-weight:700;fill:#0F0F10}
+    .xs{font-size:12px;font-weight:700;fill:#475569}
+    .num{font-size:15px;font-weight:900;fill:#0F2C59}
+    .inv{fill:#FFFFFF}
+    .box{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxa{fill:#E8EDF5;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxd{fill:#0F2C59;stroke:#0F2C59;stroke-width:2;rx:10}
+    .boxw{fill:#FDF0E6;stroke:#C2703A;stroke-width:2;rx:10}
+    .chip{fill:#0F2C59;stroke:none;rx:9}
+    .chipw{fill:#C2703A;stroke:none;rx:9}
+    .chipl{fill:#E8EDF5;stroke:#0F2C59;stroke-width:1.5;rx:9}
+    .band{fill:#F1F5F9;stroke:#CBD5E1;stroke-width:1.5;rx:14}
+    .bandw{fill:#FBEAE0;stroke:#E2B79B;stroke-width:1.5;rx:14}
+    .conn{fill:none;stroke:#0F2C59;stroke-width:2.2}
+    .connw{fill:none;stroke:#C2703A;stroke-width:2.2}
+    .thin{fill:none;stroke:#94A3B8;stroke-width:1.6}
+    .dash{fill:none;stroke:#64748B;stroke-width:2;stroke-dasharray:7 5}
+    .dashw{fill:none;stroke:#C2703A;stroke-width:2;stroke-dasharray:7 5}
+    .axis{fill:none;stroke:#94A3B8;stroke-width:1.5}
+    .grid{fill:none;stroke:#E2E8F0;stroke-width:1}
+    .nd{fill:#FFFFFF;stroke:#0F2C59;stroke-width:2}
+    .nda{fill:#0F2C59;stroke:#0F2C59;stroke-width:2}
+    .ndw{fill:#C2703A;stroke:#C2703A;stroke-width:2}
+    .dot{fill:#0F2C59}
+    .dotw{fill:#C2703A}
+    .bar{fill:#0F2C59}
+    .barw{fill:#C2703A}
+    .barl{fill:#9DB2CE}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F2C59"/></marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C2703A"/></marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker>
+  </defs>
+  <title id="t">국면이 바뀌는 스프레드의 롤링 ADF·KPSS 통계량</title>
+  <desc id="d">위 칸은 전반부가 안정적이고 후반부에 표류가 생기는 스프레드이고, 아래 칸은 같은 기간의 롤링 ADF와 KPSS 통계량이 넓은 전이 구간에 걸쳐 서서히 바뀌는 모습이다.</desc>
+  <rect x="0" y="0" width="960" height="400" fill="#FAFAF9"/>
+
+  <rect class="band" x="24" y="26" width="912" height="140"/>
+  <rect class="chip" x="36" y="34" width="150" height="24"/>
+  <text class="t xs an-m inv" x="111" y="51">스프레드 · 수준</text>
+  <rect x="560" y="26" width="180" height="140" fill="#FBEAE0" stroke="none"/>
+  <path class="axis" d="M96 150 H922 M96 150 V72"/>
+  <text class="t xs an-e" x="90" y="78">+2</text>
+  <text class="t xs an-e" x="90" y="148">−2</text>
+  <path class="conn" d="M100 112 L130 100 L160 122 L190 104 L220 118 L250 102 L280 120 L310 106 L340 116 L370 104 L400 120 L430 108 L460 114 L490 104 L520 118 L550 108 L580 112 L610 100 L640 96 L670 90 L700 86 L730 80 L760 82 L790 78 L820 76 L850 74 L880 76 L915 74"/>
+  <rect class="chipw" x="578" y="30" width="144" height="22"/>
+  <text class="t xs an-m inv" x="650" y="46">전이 구간</text>
+
+  <rect class="band" x="24" y="192" width="912" height="186"/>
+  <rect class="chip" x="36" y="200" width="196" height="24"/>
+  <text class="t xs an-m inv" x="134" y="217">롤링 통계량 · 표준화</text>
+  <rect x="560" y="192" width="180" height="186" fill="#FBEAE0" stroke="none"/>
+  <path class="axis" d="M96 362 H922 M96 362 V238"/>
+  <path class="dash" d="M96 300 H922"/>
+  <rect class="chipl" x="770" y="288" width="104" height="24"/>
+  <text class="t xs an-m" x="822" y="305">임계값</text>
+  <path class="conn" d="M100 340 L140 344 L180 338 L220 342 L260 336 L300 340 L340 338 L380 342 L420 336 L460 340 L500 334 L540 328 L580 316 L620 306 L660 296 L700 288 L740 282 L780 276 L820 272 L860 270 L915 268"/>
+  <path class="connw" d="M100 352 L140 350 L180 354 L220 348 L260 352 L300 346 L340 350 L380 346 L420 350 L460 344 L500 340 L540 332 L580 320 L620 308 L660 294 L700 284 L740 274 L780 266 L820 260 L860 256 L915 252"/>
+  <rect class="chip" x="110" y="244" width="110" height="24"/>
+  <text class="t xs an-m inv" x="165" y="261">ADF</text>
+  <rect class="chipw" x="232" y="244" width="110" height="24"/>
+  <text class="t xs an-m inv" x="287" y="261">KPSS</text>
+  <text class="t xs an-m" x="110" y="378">안정</text>
+  <text class="t xs an-m" x="650" y="378">증거 침식</text>
+  <text class="t xs an-m" x="880" y="378">표류</text>
+</svg>

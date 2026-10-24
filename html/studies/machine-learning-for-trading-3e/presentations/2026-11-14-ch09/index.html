@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="ko" class="theme-light" data-deck-template="study-deck-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모델 기반 특성 추출 · 발표자료</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/deck.css">
+  <link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#deck">발표자료로 건너뛰기</a>
+  <div class="deck-settings" aria-label="설정">
+    <button id="settingsToggle" class="deck-settings-toggle" type="button" aria-label="설정 열기" aria-controls="settingsPanel" aria-expanded="false" title="설정">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.67 4.14a2.34 2.34 0 0 1 4.66 0 2.34 2.34 0 0 0 3.32 1.91 2.34 2.34 0 0 1 2.33 4.04 2.34 2.34 0 0 0 0 3.82 2.34 2.34 0 0 1-2.33 4.04 2.34 2.34 0 0 0-3.32 1.91 2.34 2.34 0 0 1-4.66 0 2.34 2.34 0 0 0-3.32-1.91 2.34 2.34 0 0 1-2.33-4.04 2.34 2.34 0 0 0 0-3.82 2.34 2.34 0 0 1 2.33-4.04 2.34 2.34 0 0 0 3.32-1.91"/></svg>
+    </button>
+    <div id="settingsPanel" class="deck-settings-panel" aria-hidden="true">
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">화면</span><button id="themeButton" type="button" aria-label="화면 테마 전환">☀</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">발표</span><button class="deck-settings-action" type="button" id="fullscreenButton">Fullscreen</button></div>
+      <div class="deck-settings-panel__group"><span class="deck-settings-panel__label">이동</span><nav class="deck-quick-links" aria-label="회차 링크"><a href="../../">Index</a><a href="./" aria-current="page">Slides</a><a href="report.html">Report</a></nav></div>
+    </div>
+  </div>
+
+  <main class="stage" id="deck" aria-live="polite" data-report-source="report.html" data-caption-scope="deck" data-figure-captions="none">
+    <section class="slide slide--cover" id="slide-cover" aria-label="표지" data-report-refs="summary">
+          <header class="cover-brand"><span class="brand-name">AIML Quant</span><span class="brand-sub">STUDY PRESENTATION</span></header>
+          <div class="cover-hero">
+            <p class="eyebrow">트레이딩을 위한 머신러닝 3판</p>
+            <h1>모델 기반 특성 추출</h1>
+            <p class="cover-subtitle">적합 절차의 출력을 시점 기준으로 안전한 특성으로 바꾸기</p>
+          </div>
+          <dl class="cover-meta">
+            <div><dt>발표자</dt><dd>원미</dd></div>
+            <div><dt>범위</dt><dd>Chapter 9</dd></div>
+            <div><dt>발표일</dt><dd>2026-11-14</dd></div>
+          </dl>
+        </section>
+        <section class="slide slide--teaching" id="slide-opening" aria-label="이 장의 핵심 질문" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 9</span></header>
+      <h1>적합 절차의 출력 가운데 무엇이 의사결정 시점에 실제로 존재했는가</h1>
+      <p class="lead">8장의 특성은 관측을 집계하거나 결정론적으로 변환해 만들었습니다. 이 장의 특성은 먼저 모델을 적합하고 그 출력을 가져옵니다. 얻는 것과 치르는 것이 함께 바뀝니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article><h2>무엇을 얻는가</h2><p>직접 변환이 눌러 버리는 구조를 복원합니다. 같은 20일 창에서 이동평균은 수준만 남기지만, 칼만 필터는 관측 하나를 수준·기울기·혁신·상태 불확실성 네 특성으로 바꿉니다.</p></article>
+          <article><h2>무엇을 꺼내 쓰는가</h2><p>같은 적합 객체의 출력이라도 안전한 것과 그렇지 않은 것이 갈립니다. 필터링과 평활, 회고적 단절일과 온라인 경보, 전체 표본 차수 선택과 폴드 내 선택이 그 경계입니다.</p></article>
+          <article><h2>어디까지 믿는가</h2><p>불확실성과 국면 확률은 독립 거래 신호가 아니라 다른 특성을 조건짓는 변수입니다. 자산별 시간 출력을 다중 자산 판단에 쓸 때는 작업 순서가 결과를 바꿉니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">특성이 추정 절차의 출력이면, 그 절차의 모수·차수·창 길이를 언제 어떤 데이터로 골랐는지가 모두 누출 경로가 됩니다. 평가 코드에는 보이지 않는 종류의 누출입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#summary">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-roadmap" aria-label="오늘의 학습 흐름" data-report-refs="summary table-overview">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 9</span></header>
+      <h1>같은 질문을 일곱 번, 서로 다른 도구에 대해 다시 묻는다</h1>
+      <p class="lead">장은 경제적 계열이 아니라 추출 방법을 기준으로 구성됩니다. 적합 절차 하나가 여러 종류의 특성을 한꺼번에 낳기 때문입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>9.1 진단 · 9.2 신호 변환</h2><p>계열의 성질이 지금 얼마나 안정적인가, 그리고 롤링 통계가 눌러 버린 구조는 무엇인가. 롤링 정상성 통계량·단절 특성·분수 차분에서 시작해 잠재 상태·주파수·스케일·경로 기하로 넘어갑니다.</p></article>
+          <article><h2>9.3 변동성 · 9.4 불확실성</h2><p>조건부 동학에서 무엇을 꺼낼 수 있는가, 그리고 그 추정을 얼마나 믿는지를 어떻게 전달하는가. 조건부 분산과 지속성·비대칭 모수에 이어 구간 너비와 사후 산포를 다룹니다.</p></article>
+          <article><h2>9.5 국면 · 9.6 패널 · 9.7 정리</h2><p>반복해서 돌아오는 환경을 확률로 표현하고, 자산별 시간 출력을 시장 안의 상대 위치로 바꿉니다. 마지막은 이 많은 특성을 작고 비중복인 집합으로 관리하는 문제입니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">일곱 절이 각자의 도구에 대해 같은 시점 기준 질문을 반복합니다. 도구가 달라도 게이트는 하나입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-overview">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-extraction-paths" aria-label="다섯 종류의 특성과 공통 게이트" data-report-refs="summary fig-extraction-paths">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 9</span></header>
+      <h1>하나의 적합 절차가 다섯 종류의 특성을 낳고, 모두 같은 게이트를 통과한다</h1>
+      <p class="lead">출력이 한 번 추정되고 느리게 바뀌는 수량인지, 관측마다 갱신되는 수량인지에 따라 운용 방식이 달라집니다.</p>
+      <div class="slide-body">
+        <div class="teaching-wide-visual">
+          <figure data-deck-figure-title="적합 절차에서 다섯 특성으로 가는 경로와 시점 기준 게이트" class="deck-report-figure">
+            <img src="assets/figs/fig-extraction-paths.svg" alt="학습 창에서 적합한 절차가 구조적 수량과 갱신 출력으로 갈라지고, 다섯 종류의 특성이 나온 뒤 아래쪽 시점 기준 게이트의 세 조건을 함께 통과하는 흐름도">
+          </figure>
+          <p class="figure-reading">왼쪽의 학습 창에서 시작해 가운데 두 갈래로 나뉘는 지점을 먼저 봅니다. 구조적 수량은 계수와 지속성 측도처럼 한 번 추정하면 느리게 바뀌고, 갱신 출력은 잠재 상태·혁신·조건부 분산·국면 확률처럼 관측마다 다시 계산됩니다. 오른쪽 다섯 칩이 그 결과이고, 아래쪽 게이트의 세 조건은 장 전체에서 반복됩니다. 조건 하나만 어겨도 그 특성은 백테스트에서만 작동합니다.</p>
+        </div>
+      </div>
+      <p class="takeaway">특성의 종류가 달라도 통과해야 하는 조건은 같습니다. 필터링 출력만 쓰고, 학습 창 안에서 고르고, 워크포워드 안에서 재추정합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-extraction-paths">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-div-9-1" aria-label="§9.1 구분" data-report-refs="s91" data-source-refs="section:9.1" data-source-title="section:9.1" data-section-divider="9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>진단 및 정상성 특성 — 모델을 고르기 전에 계열의 성질부터 특성으로 만들기</h1>
+      <p class="lead">예측 모델을 적합하기 전에 하는 진단은 전처리의 문지기로만 쓰이는 경우가 많습니다. 이 절은 같은 진단이 특성 생성기이기도 하다고 말합니다.</p>
+      <div class="slide-body">
+        <div class="section-number" aria-hidden="true">9.1</div>
+      </div>
+      <p class="takeaway">롤링 정상성 통계량은 국면 지표가 되고, 탐지된 단절일은 조건화 변수가 되며, 지속성 추정치는 충격이 얼마나 빨리 사라지는지를 요약합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s91">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-diagnostic-role" aria-label="진단의 두 역할" data-report-refs="s91 s91-stationarity" data-source-refs="section:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>진단은 전처리 결정을 안내하면서 동시에 쓸 수 있는 수량을 만들어 낸다</h1>
+      <p class="lead">실무 워크플로는 작은 시각 진단 집합에서 출발합니다. 계열 그림, 자기상관 그림, 분포 그림 셋입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>ACF · 자기상관 함수</h2><p>현재 값이 여러 시차 길이의 과거 값과 얼마나 강하게 함께 움직이는지를 보입니다. 중간 시차를 거쳐 전달된 의존까지 합친 총 선형 기억입니다.</p></article>
+          <article><h2>PACF · 편자기상관 함수</h2><p>더 짧은 시차를 모두 통제한 뒤 시차 k가 여전히 무언가를 더하는지만 잽니다. 그래서 AR(1)은 PACF 첫 시차만 튀고 MA(1)은 그 반대입니다.</p></article>
+          <article><h2>Q-Q 그림과 다음 질문</h2><p>경험 분포를 정규분포와 비교해 왜도·두꺼운 꼬리·이상치를 드러냅니다. 세 그림은 정상성을 증명하지 않고 어떤 검정을 돌릴 가치가 있는지를 가리킵니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">수익률 ACF가 평평한데 제곱 수익률 ACF가 남으면 구조가 평균이 아니라 분산에 있습니다. 이 구분이 9.3절 변동성 특성의 출발점입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s91-stationarity">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-four-panels" aria-label="네 칸 진단이 던지는 네 질문" data-report-refs="s91 fig-diagnostic-four-panels" data-source-refs="section:9.1 figure:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1 · 그림 9.1</span></header>
+      <h1>같은 자료를 네 가지로 보면 네 가지 다른 후속 질문이 나온다</h1>
+      <p class="lead">S&amp;P 500 자료에 대한 첫 진단입니다. 각 칸의 수치는 원서가 보고한 값입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="S&amp;P 500 네 칸 진단" class="deck-report-figure">
+            <img src="assets/figs/fig-diagnostic-four-panels.svg" alt="2×2 네 칸 진단 도해. 가격 수준이 2006년 약 100에서 2024년 약 600까지 추세를 그리고, 일별 수익률이 2008년과 2020년에 ±10% 안팎으로 군집하며, VIX가 80까지 치솟고 기준선 20 아래로 되돌아오고, 수익률 분포의 표본 첨도 17.5가 정규분포 3.0과 대비된다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>(a) 가격 수준 → (b) 일별 수익률 → (c) VIX → (d) 수익률 분포 순으로 보고, 각 칸이 던지는 질문을 따로 받아 적습니다.</p></article>
+            <article><h2>각 칸의 관찰</h2><p>(a) 100에서 600 근처로 추세. (b) 2008·2020년에 ±10% 안팎 군집. (c) 80까지 급등 후 기준선 20 복귀. (d) 표본 첨도 17.5 대 정규 3.0.</p></article>
+            <article><h2>해석 경계</h2><p>(c)의 VIX는 표류하는 가격 계열이 아니라 지속적이면서 평균회귀하는 상태 변수처럼 행동합니다. 가격과 같은 처방을 적용할 대상이 아닙니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">네 칸이 함께 던지는 질문은 셋입니다. 계열이 정상적인가, 국면이 바뀌었는가, 비정상이라면 가장 덜 파괴적인 변환은 무엇인가.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-diagnostic-four-panels">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-adf-kpss" aria-label="ADF와 KPSS의 결합 해석" data-report-refs="s91 table-adf-kpss" data-source-refs="section:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>네 조합 가운데 둘은 결론이 아니다</h1>
+      <p class="lead">두 검정은 서로 반대 방향의 귀무가설에서 출발합니다. ADF는 단위근을, KPSS는 정상성을 귀무가설로 둡니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 1</span> ADF·KPSS 결합 판정</caption>
+          <thead><tr><th>ADF</th><th>KPSS</th><th>읽는 법</th></tr></thead>
+          <tbody>
+            <tr><td>단위근 기각</td><td>정상성 기각 안 함</td><td>선택한 명세 아래에서 증거가 정상성을 지지합니다</td></tr>
+            <tr><td>기각 안 함</td><td>기각</td><td>증거가 비정상성을 지지합니다</td></tr>
+            <tr><td>기각</td><td>기각</td><td>두 검정이 충돌합니다. 결정론적 추세·구조적 단절·비선형 평균회귀·변하는 변동성 가운데 어느 검정도 깔끔히 잡지 못하는 불안정성이 있을 수 있습니다</td></tr>
+            <tr><td>기각 안 함</td><td>기각 안 함</td><td>결론 없음으로 보는 편이 낫습니다. 창이 짧거나 과정이 매우 지속적이거나 검정력이 낮은 경우가 많습니다</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">p-값은 귀무가설과 검정 가정이 맞을 때 관측치 이상으로 극단적인 통계량이 나올 꼬리 확률입니다. 귀무가설이 참일 확률도, 경제적 중요성의 증명도 아닙니다.</p>
+      </div>
+      <p class="takeaway">두 검정이 어긋나는 이유는 대개 유한 표본의 모호함입니다. 상수·추세·시차 명세를 먼저 정하고 결합 판정과 함께 기록합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-adf-kpss">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-rolling" aria-label="롤링 통계량을 특성으로 쓰는 방법" data-report-refs="s91 fig-rolling-evidence" data-source-refs="section:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>롤링 ADF·KPSS는 단절일을 찍어 주지 않고 증거가 침식되는 속도를 보여 준다</h1>
+      <p class="lead">특성 공학에서는 최종 판정만큼 검정 출력 자체가 중요합니다. 두 통계량과 p-값은 롤링 창에서 추적할 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="국면이 바뀌는 스프레드의 롤링 안정성 통계량" class="deck-report-figure">
+            <img src="assets/figs/fig-rolling-evidence.svg" alt="위 칸은 전반부가 안정적이고 후반부에 표류가 생기는 스프레드 경로, 아래 칸은 같은 기간의 롤링 ADF와 KPSS 통계량이 넓은 전이 구간에 걸쳐 서서히 바뀌는 모습">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>위 칸에서 표류가 시작되는 지점을 찾고, 아래 칸에서 두 통계량이 그 지점 전후로 어떻게 움직이는지 봅니다.</p></article>
+            <article><h2>관찰과 원리</h2><p>안정 구간에서는 ADF가 임계값 아래, KPSS가 낮게 머물다가 표류가 시작되면 ADF 증거가 약해지고 KPSS가 오릅니다. 두 선이 언제 교차하는지가 아니라 얼마나 넓은 구간에 걸쳐 바뀌는지가 요점입니다.</p></article>
+            <article><h2>해석 경계</h2><p>선의 모양은 Primer가 서술한 패턴을 보이는 모식도이며 특정 자산의 측정 결과가 아닙니다. 롤링 p-값이 5%를 넘는 순간을 국면 경계로 읽지 않습니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">특성은 “정상 대 비정상”이라는 두 값이 아니라, 의사결정 시점에 기저 과정이 얼마나 안정적으로 보이는지를 나타내는 시간 가변 측도입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-rolling-evidence">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-breaks" aria-label="구조적 단절 특성" data-report-refs="s91 s91-breaks" data-source-refs="section:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>회고적으로 설명하는 일과 자라나는 동안 탐지하는 일은 다른 과제다</h1>
+      <p class="lead">계열이 정상성 검정에 실패하는 이유는 하나가 아닙니다. 계속 표류할 수도 있고, 안정적이다가 국면 변화로 끊길 수도 있습니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article><h2>회고적 분할</h2><p>Zivot-Andrews 검정은 단위근 틀을 확장해 데이터에서 단절 하나를 내생적으로 고릅니다. 표본이 길면 여러 후보 단절일을 찾는 Bai-Perron 분할이 더 현실적입니다. 두 방법 모두 단절 양쪽 자료를 씁니다.</p></article>
+          <article><h2>온라인 모니터링</h2><p>CUSUM 통계량은 목표 수준에서의 편차를 누적하다가 지속적 표류가 무시하기 어려울 만큼 커지면 경보를 냅니다. 보완적으로 위치·척도·의존·분포 형태의 여러 약한 신호를 분류기가 집계하게 할 수도 있습니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">출력이 특성이 됩니다. 단절일, 마지막 단절 이후 경과 시간, 단절 전후 평균, CUSUM 통계량, 분류기 확률 모두 조건화 정보가 됩니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s91-breaks">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-break-timeline" aria-label="같은 날짜가 두 이름을 가질 수 없는 이유" data-report-refs="s91 fig-break-timeline" data-source-refs="section:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>한 시간선 위의 세 시각이 서로 다른 특성 이름을 요구한다</h1>
+      <p class="lead">이 절에서 가장 흔한 누출이 여기 숨어 있습니다. 회고적 단절일은 실제 변화에 가까울 수 있지만 바로 그 이유로 실시간 안전이 아닙니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="실제 변화·온라인 경보·회고적 단절일의 세 시각" class="deck-report-figure">
+            <img src="assets/figs/fig-break-timeline.svg" alt="시간선 위에 실제 구조 변화 시점, 그보다 뒤의 온라인 경보 시점, 전체 표본을 본 뒤 추정한 회고적 단절일이 각각 다른 위치에 표시되고, 각각에서 파생되는 특성이 아래로 연결되며 회고적 경로에는 누출 표시가 붙어 있다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>세 눈금의 순서를 먼저 확인하고, 그다음 각 눈금에서 아래로 내려가는 화살표가 어떤 특성 이름에 닿는지 봅니다.</p></article>
+            <article><h2>관찰과 원리</h2><p>CUSUM이 경계를 넘는 시각은 탐지 시각이지 단절 시각이 아닙니다. 탐지 지연은 결함이 아니라 대상의 일부입니다. 그래서 time_since_last_break와 days_since_last_alert는 바꿔 쓸 수 없습니다.</p></article>
+            <article><h2>해석 경계</h2><p>3월의 변화가 4월에 탐지됐다면 3월의 과거 특성에 이미 단절을 안 것처럼 표시할 수 없습니다. 단절 점수는 경제적 원인도, 새 국면의 영속성도 말하지 않습니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">순수한 분산 변화에는 제곱 CUSUM 같은 분산 지향 절차가 따로 필요하고, 변동성이 서서히 변할 때는 단절일 자체가 시간에 걸쳐 번집니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-break-timeline">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-fdiff-formula" aria-label="분수 차분이 계산하는 것" data-report-refs="s91 s91-fdiff" data-source-refs="section:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>차분 차수를 실수로 열어 두면 지속성을 얼마나 뺄지 고를 수 있다</h1>
+      <p class="lead">보통의 1차 차분은 효과적이지만 필요한 저주파 성분까지 한 번에 제거할 수 있습니다. 분수 차분은 그 연산자를 일반화합니다.</p>
+      <div class="slide-body">
+        <div class="formula-main">\[( 1 - L ) ^ { d } x_{t} = \sum_{k = 0} ^ { \infty } \omega_{k} x_{t - k} , \qquad \omega_{0} = 1 , \qquad \omega_{k} = - \omega_{k - 1} \frac { d - k + 1 } { k }\]</div>
+        <div class="teaching-rows">
+          <article><h2>계산 대상과 기호</h2><p>변환된 계열의 한 시점 값입니다. 현재 관측에 가중치 1을 주고 과거 관측에는 ω(k)를 곱해 모두 더합니다. L은 한 기간 시차 연산자, d는 차분 차수, k는 시차입니다.</p></article>
+          <article><h2>작은 수로 읽기</h2><p>d=0.4에서 처음 네 가중치는 1, −0.4, −0.12, −0.064입니다. 시차 0의 양의 가중치 뒤로 크기가 서서히 줄어드는 음의 꼬리가 이어지고 부호는 교대하지 않습니다.</p></article>
+          <article><h2>양 끝의 두 극단</h2><p>d=0이면 가중치가 (1, 0, 0, …)인 항등 필터이고, d=1이면 (1, −1, 0, …)의 보통 차분이어서 두 항만 필요합니다. 변환된 계열은 그 사이 연속체 위의 정확한 한 점입니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">정상적인 장기 기억 사례(보통 0 &lt; d &lt; 0.5)에서는 자기상관이 ARMA의 지수적 속도가 아니라 쌍곡선적으로 감소합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s91-fdiff">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-fdiff-weights" aria-label="d 하나를 고르는 문제가 아니다" data-report-refs="s91 fig-fdiff-weights" data-source-refs="section:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>고르는 대상은 d와 절단 규칙과 유효성 마스크의 묶음이다</h1>
+      <p class="lead">실무에서 분수 차분은 무한 가중치열이 아니라 유한한 룩백으로 구현됩니다. 절단 임계값 너머의 가중치는 버립니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="차분 차수별 가중치와 절단에 따른 표본 비용" class="deck-report-figure">
+            <img src="assets/figs/fig-fdiff-weights.svg" alt="왼쪽은 d가 0.2, 0.4, 0.8일 때 시차 0부터 4까지의 가중치 막대로 d가 작을수록 꼬리가 길게 남고, 오른쪽은 절단 임계값이 엄격해질수록 사용 가능 표본 비율이 줄어드는 꺾은선과 유효성 마스크로 잃는 몫의 음영">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>왼쪽에서 꼬리의 길이를 보고, 오른쪽에서 그 꼬리를 근사하는 데 드는 표본 비용을 봅니다.</p></article>
+            <article><h2>두 경계 관례</h2><p>전체 창 구현은 룩백이 쌓일 때까지 첫 관측들을 사용 불가로 처리해 워밍업 기간과 유효성 마스크를 만듭니다. 경계 부분 구현은 행 수를 보존하되 초기 관측을 짧은 유효 필터로 만듭니다.</p></article>
+            <article><h2>해석 경계</h2><p>어느 관례든 정당화할 수 있지만 선택은 특성 정의의 일부입니다. 같은 d를 고른 두 사람도 절단 허용치가 다르면 서로 다른 특성을 갖습니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">다운스트림 모델은 어느 관측이 부분 필터에 의존하는지, 전체 창 관례였다면 몇 개의 관측을 잃었을지를 알아야 합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-fdiff-weights">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-91-workflow" aria-label="학습 창 안에서 가장 작은 충분한 차수" data-report-refs="s91 s91-workflow" data-source-refs="section:9.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.1</span></header>
+      <h1>데이터로 고른 변환 규칙도 학습 결과이므로 폴드 안에서 골라야 한다</h1>
+      <p class="lead">목표는 전체 표본의 전역 최적값이 아니라, 받아들일 만한 정상성 진단을 내면서 기억은 최대한 보존하는 가장 작은 d입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>세 걸음</h2><p>학습 창에서 유계 격자의 d 값들을 평가하고, 변환된 각 계열에 ADF 통계량 같은 정상성 진단을 계산하고, 원계열과의 상관이 얼마나 남았는지 평가합니다.</p></article>
+          <article><h2>왜 학습 창 안인가</h2><p>워크포워드는 배포 시뮬레이터입니다. 각 결정일에 그때까지 알던 것으로 학습하고 다음 미관측 블록을 예측합니다. 한 시뮬레이션 예에서 k-겹의 결정계수는 약 0.19(표준편차 0.07), 워크포워드는 약 0.12(표준편차 0.19)였습니다. 평균이 아니라 표준편차가 요점입니다.</p></article>
+          <article><h2>가장 흔한 누출원</h2><p>스케일러나 주성분분석을 전체 표본에 적합해 두고 나누는 것과 똑같이, 분수 차분의 d와 절단 규칙도 각 학습 블록 안에서 적합해야 합니다. 뒤에 나올 ARIMA 차수와 칼만 잡음 공분산도 같습니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">k-겹은 국면 전환을 촘촘한 분포 뒤에 숨기고, 워크포워드는 어떤 폴드가 무너지는지를 드러냅니다. 수치는 그 예의 설정에 한정됩니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s91-workflow">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-div-9-2" aria-label="§9.2 구분" data-report-refs="s92" data-source-refs="section:9.2" data-source-title="section:9.2" data-section-divider="9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>숨겨진 구조를 드러내기 위한 신호 변환 — 잠재 상태·주파수·스케일·경로 모양을 따로 보기</h1>
+      <p class="lead">롤링 통계는 창 안에서 일어난 일을 요약하지만, 예측에 중요할 수 있는 구조의 상당 부분을 눌러 버립니다.</p>
+      <div class="slide-body">
+        <div class="section-number" aria-hidden="true">9.2</div>
+      </div>
+      <p class="takeaway">이동평균은 평균 수준을, 롤링 변동성은 산포를 잡습니다. 어느 쪽도 경로가 매끄러웠는지, 요동이 창의 어디에서 일어났는지, 잡음 아래에 주기가 있었는지는 말해 주지 않습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s92">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-four-transforms" aria-label="네 변환이 복원하는 구조" data-report-refs="s92 table-transforms" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>네 변환은 목적이 다르지만 같은 논리를 공유한다</h1>
+      <p class="lead">각각 복원하려는 숨은 구조의 종류가 다르고, 따라서 답하는 질문도 다릅니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 2</span> 네 신호 변환의 대상과 질문</caption>
+          <thead><tr><th>변환</th><th>복원하는 구조</th><th>답하는 질문</th></tr></thead>
+          <tbody>
+            <tr><td>칼만 필터</td><td>잡음 섞인 관측 아래의 숨은 상태</td><td>지금 수준과 추세는 무엇이고, 오늘 관측은 얼마나 놀라운가</td></tr>
+            <tr><td>스펙트럼 방법</td><td>변동이 주파수에 어떻게 분포하는가</td><td>어떤 주기가 얼마나 강한가</td></tr>
+            <tr><td>웨이블릿</td><td>서로 다른 스케일의 성분</td><td>어느 시간 스케일이 언제 움직였는가</td></tr>
+            <tr><td>경로 시그니처</td><td>끝점이나 모멘트가 아닌 경로의 순서 기하</td><td>같은 곳에 도착한 두 경로는 어떻게 달랐는가</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="takeaway">목표는 원시 순차 데이터를 단순한 롤링 통계보다 정보성이 높을 수 있는 요약으로 바꾸는 것입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-transforms">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-kalman-concept" aria-label="칼만 필터가 이동평균과 다른 점" data-report-refs="s92 s92-kalman" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>고정 창과 고정 가중치 대신 추정된 신호 대 잡음비에 따라 이득이 적응한다</h1>
+      <p class="lead">단순 이동평균은 해석하기 쉽지만 경직돼 있습니다. 강한 추세에서는 너무 느리게, 잡음 많은 횡보장에서는 너무 빨리 반응할 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>관측하는 것과 추론하려는 것</h2><p>관측 계열은 가격·수익률·스프레드 같은 시장 변수입니다. 잠재 상태는 그 관측을 만들어 냈다고 믿는 더 매끄럽거나 더 지속적인 대상, 이를테면 기저 수준과 추세입니다.</p></article>
+          <article><h2>두 단계의 반복</h2><p>예측 단계에서 모델의 전이 규칙으로 상태를 앞으로 투영하고, 갱신 단계에서 새 관측으로 그 투영을 수정합니다. 국소 선형 추세 모델에서는 상태가 수준과 기울기를 함께 담습니다.</p></article>
+          <article><h2>비유와 그 경계</h2><p>자동차 내비게이션이 GPS와 속도계를 합치는 일과 같습니다. 다만 내비게이션이 상황을 보고 스스로 신중해지는 것이 아니라, 미리 넣어 둔 오차 가정이 기울이는 비중을 정해 둡니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">원서는 관측이 요동칠 때 필터가 더 조심스러워진다고 적습니다. 잡음 모수를 고정한 필터는 스스로 조심해지지 않고, 혁신이 커지면 같은 이득에서 갱신량만 커집니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s92-kalman">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-state-space" aria-label="상태공간 두 식이 말하는 것" data-report-refs="s92 s92-kalman" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>상태가 스스로 움직이는 법과 상태가 관측으로 드러나는 법</h1>
+      <p class="lead">원래 항법과 제어를 위해 개발된(Kalman, 1960) 모델이고, 두 식이 각각 전이와 측정을 담당합니다.</p>
+      <div class="slide-body">
+        <div class="formula-main">\[x_{t} = F x_{t - 1} + w_{t} , \qquad y_{t} = H x_{t} + v_{t}\]</div>
+        <div class="teaching-rows">
+          <article><h2>기호</h2><p>x는 숨은 상태 벡터(국소 선형 추세에서는 수준과 기울기), y는 관측값, F는 상태가 진화하는 방식을 정하는 전이 행렬, H는 상태를 관측 척도로 사상하는 측정 행렬, w와 v는 각각 과정 잡음과 관측 잡음입니다.</p></article>
+          <article><h2>무엇이 특성이 되는가</h2><p>칼만 수준은 적응형 추세 기준점, 칼만 추세는 고정 룩백 없는 모멘텀, 혁신은 필터가 기대한 값과 실제 관측의 차이인 놀라움 변수, 상태 불확실성은 필터가 자기 추정을 얼마나 확신하는지입니다.</p></article>
+          <article><h2>확장</h2><p>같은 논리가 동적 헤지 비율로 확장됩니다. 계수를 고정 상수가 아니라 시간에 따라 진화하는 값으로 두는 것이고, 9.6절의 쌍별 특성에서 다시 나옵니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">이 출력들은 이동평균 교차보다 많은 정보를 담습니다. 모든 것을 선 하나로 뭉개지 않고 방향·놀라움·확신을 구별하기 때문입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s92-kalman">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-kalman-step" aria-label="관측 하나가 네 특성이 되는 한 걸음" data-report-refs="s92 fig-kalman-step" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>같은 관측에서 방향·놀라움·척도 조정된 놀라움·확신이 서로 다른 열로 나온다</h1>
+      <p class="lead">어제의 필터링 수준 100, 사후 분산 1.2, 과정 분산 0.3, 오늘 관측 101.8, 관측 잡음 분산 2.5로 한 걸음을 따라갑니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="칼만 한 걸음의 계산 순서와 네 출력" class="deck-report-figure">
+            <img src="assets/figs/fig-kalman-step.svg" alt="왼쪽에서 어제 수준 100과 사후 분산 1.2가 예측 단계로 들어가 예측 분산 1.5가 되고, 가운데에서 오늘 관측 101.8과 비교해 혁신 1.8, 혁신 분산 4.0, 이득 0.375가 계산되고, 오른쪽에서 갱신 수준 100.675, 갱신 분산 0.9375, 표준화 혁신 0.9가 나와 네 특성 칩으로 이어지는 도해">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>왼쪽에서 오른쪽으로 한 걸음만 따라가고, 마지막에 아래쪽 네 칩이 어느 계산에서 왔는지 확인합니다.</p></article>
+            <article><h2>관찰과 원리</h2><p>이득은 예측 공분산과 가정한 잡음 공분산으로 정해집니다. 과정 잡음을 크게 두면 상태가 빨리 적응하고 관측 잡음을 크게 두면 새 관측을 덜 믿어 더 평활해집니다.</p></article>
+            <article><h2>해석 경계</h2><p>잡음 모수 선택이 특성의 의미 자체를 바꾸므로 학습 창에서 정해 검증 구간 동안 고정합니다. 작은 사후 분산은 모델 가정 안의 확신이지 경제적 참이 아닙니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">숫자가 아니라 갈라짐이 요점입니다. 관측 하나가 필터링 수준·혁신·표준화 혁신·사후 불확실성이라는 네 특성이 됩니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-kalman-step">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-kalman-ic" aria-label="적응형 필터가 신호를 더 잘 분리한 사례" data-report-refs="s92 s92-kalman" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>SPY 칼만 기울기의 정보 계수가 20일 롤링 OLS 기울기보다 대략 아홉 배 강했다</h1>
+      <p class="lead">etfs 사례 연구에서 일별 수익률에 국소 선형 추세 칼만 필터를 적용한 결과입니다. 정보 계수는 특성과 선행 수익률의 상관입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article><h2>관찰한 값</h2><p>SPY에서 칼만 기울기는 5일 선행 수익률에 대해 −0.16의 정보 계수를 달성했고, 20일 롤링 OLS 기울기는 −0.02였습니다. 둘 다 음수이므로 단기 평균회귀와 일관되지만, 요점은 부호가 아니라 크기 차이입니다.</p></article>
+          <article><h2>지표의 성격</h2><p>정보 계수는 예측 정확도 계열의 지표이며 수익률도, 비용 차감 후 성과도 아닙니다. 이 값만으로는 거래 가능성을 알 수 없고, 회전율과 거래비용을 거치면 유의한 상관도 쓸모없어질 수 있습니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">혁신 특성은 실적 시즌과 거시 발표 전후에 높은 값을 보입니다. 필터의 매끄러운 모델이 거듭 놀라는 시기이며, 다른 신호의 선별을 조건화할 수 있습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s92-kalman">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-kalman-panels" aria-label="세 출력을 같은 날짜에서 겹쳐 읽기" data-report-refs="s92 fig-kalman-three-panels" data-source-refs="section:9.2 figure:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2 · 그림 9.2</span></header>
+      <h1>같은 필터가 방향·놀라움·확신을 서로 다른 세 계열로 내놓는다</h1>
+      <p class="lead">2018년부터 2024년까지의 SPY입니다. 각 칸의 임계 수치는 원서가 보고한 값입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="SPY 칼만 필터의 수준·혁신·기울기" class="deck-report-figure">
+            <img src="assets/figs/fig-kalman-three-panels.svg" alt="세 칸 도해. 가격 위에 칼만 수준이 불확실성 띠와 함께 거의 붙어 겹쳐 있고, 혁신이 2020년 초와 2022년에 절대값 12.7을 넘는 값으로 군집하며, 칼만 기울기가 2020년 3월에 −4 아래로 떨어진 뒤 빠르게 양수로 돌아오고 2022년 내내 0 주위를 넘나든다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>세 칸을 세로로 겹쳐 같은 날짜를 따라 읽습니다.</p></article>
+            <article><h2>관찰과 원리</h2><p>(a)에서 두 선이 거의 붙어 있다는 것이 곧 (b)의 혁신이 작다는 뜻이고, (b)의 군집 시기가 (c)의 기울기가 급변하는 시기와 겹칩니다.</p></article>
+            <article><h2>해석 경계</h2><p>기울기 단위는 달러/일이므로 자산 가격 수준이 다르면 직접 비교할 수 없습니다. 혁신 임계 12.7도 같은 척도의 값입니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">하나의 적합 객체가 세 종류의 정보를 따로 내놓습니다. 평활한 선 하나로 뭉개면 이 구분이 사라집니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-kalman-three-panels">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-exp-code" aria-label="필터와 평활의 차이를 반증 실험으로 재기" data-report-refs="s92 notebook-filter-smoother" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2 · 실습</span></header>
+      <h1>미래 구간만 바꾼 가상 경로를 만들고 과거 출력이 반응하는지 본다</h1>
+      <p class="lead">입력은 공식 번들 AAPL 일별 종가의 로그값입니다. 앞 80관측으로 관측 잡음 분산 R을 정하고 과정 분산은 Q = 0.1R로 미리 고정합니다. 최적 모형을 탐색하지 않는 교육용 비율입니다.</p>
+      <div class="slide-body">
+        <pre data-code-language="Python"><code>log_price9 = np.log(load_reference_prices(BOOK_ROOT)[&quot;AAPL&quot;])
+train9, observations9 = log_price9.iloc[:80], log_price9.iloc[80:]
+R9 = max(float(train9.diff().dropna().var()), 1e-8)
+Q9 = .1 * R9                      # 사전 고정한 교육용 비율
+
+cutoff9 = log_price9.index[160]
+changed9 = observations9.copy()
+changed9.loc[changed9.index &gt; cutoff9] += .15   # 이후 구간만 바꾼 가상 경로
+
+filtered9         = local_level_filter9(observations9, Q9, R9, float(train9.iloc[-1]))
+filtered_changed9 = local_level_filter9(changed9,      Q9, R9, float(train9.iloc[-1]))
+smoothed9         = retrospective_smoother9(filtered9, Q9)
+smoothed_changed9 = retrospective_smoother9(filtered_changed9, Q9)
+
+past9 = observations9.index &lt;= cutoff9          # 기준일 이전 구간만 비교
+filtered_difference9 = (filtered9.filtered_state - filtered_changed9.filtered_state).loc[past9].abs().max()
+smoothed_difference9 = (smoothed9 - smoothed_changed9).loc[past9].abs().max()</code></pre>
+        <p class="explain-line">마지막 두 줄이 이 실험의 전부입니다. 기준일 <em>이후</em>만 바꾼 뒤 기준일 <em>이전</em> 구간에서 두 출력의 차이를 절대값 최대로 잽니다. 상태 출력은 80관측 뒤에만 만들고, 적합 종료일이 온라인 시작일보다 앞서는지를 실행 중 assertion이 확인합니다.</p>
+      </div>
+      <p class="takeaway">다음 화면에서 두 숫자를 비교합니다. 필터와 평활 가운데 어느 쪽의 과거가 미래에 반응했는지가 곧 특성 사용 가능성입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#notebook-filter-smoother">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-exp-result" aria-label="필터 대 평활의 기록된 결과" data-report-refs="s92 notebook-filter-smoother table-filter-smoother notebook-filter-smoother-output" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2 · 실습 결과</span></header>
+      <h1>필터의 과거는 정확히 0만큼, 평활의 과거는 0.063287만큼 움직였다</h1>
+      <p class="lead">앞 화면과 같은 데이터·기간·고정 모수입니다. 조건은 fit_end=2021-04-28, online_start=2021-04-29, Q=0.00003755, R=0.00037554입니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 3</span> 미래만 바꾼 뒤 과거 출력의 변화</caption>
+          <thead><tr><th>출력</th><th>과거 구간 최대 절대 변화 (로그가격)</th><th>온라인 입력으로 허용</th></tr></thead>
+          <tbody>
+            <tr><td>필터 (filter)</td><td>0.000000</td><td>True</td></tr>
+            <tr><td>평활 (smoother)</td><td>0.063287</td><td>False</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">평활은 설계상 미래 관측을 쓰기 때문입니다. 같은 실행이 기록한 두 자동 검사는 적합 종료일과 온라인 시작일이 겹치지 않는다는 것, 그리고 모든 상태값이 유한하다는 것입니다.</p>
+      </div>
+      <p class="takeaway">성과 비교가 아닙니다. AAPL 2021년 고정 표본의 교육용 실험이며, Q와 R을 미리 고정했으므로 상태 공분산이 실제 충격 크기에 반응하지 않습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-filter-smoother">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-exp-figure" aria-label="필터 경로와 평활 경로" data-report-refs="s92 notebook-filter-smoother fig-guide-filter-smoother" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2 · 실습 결과</span></header>
+      <h1>평활 경로가 관측 변화보다 먼저 꺾이는 구간이 미래 정보를 쓴 흔적이다</h1>
+      <p class="lead">앞 표와 같은 실행이 함께 남긴 그림입니다. 축 단위는 로그가격입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="기록된 실행 결과 · 필터 경로와 평활 경로" class="deck-report-figure">
+            <img src="assets/figs/guide-filter-vs-smoother.png" alt="회색 관측 로그가격 위에 필터링 상태 경로와 회고적 평활 경로가 겹쳐 있고, 평활 경로가 관측 변화보다 앞서 움직이는 구간이 보이는 선 그래프">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>관측선을 기준으로 두 상태선의 꺾이는 타이밍을 비교합니다.</p></article>
+            <article><h2>관찰과 원리</h2><p>필터는 관측을 본 뒤에만 움직이고, 평활은 뒤로 가는 패스에서 미래 관측을 쓰므로 변화 지점보다 앞서 꺾입니다.</p></article>
+            <article><h2>해석 경계</h2><p>필터를 썼다는 사실만으로 안전해지지 않습니다. Q·R·초기 상태를 전체 표본으로 골랐다면 과거 방향으로 실행한 필터도 누출입니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">이 경계는 9.4절의 사후 불확실성과 9.5절의 국면 확률에서 같은 형태로 다시 나타납니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-guide-filter-smoother">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-dft" aria-label="스펙트럼이 묻는 다른 질문" data-report-refs="s92 s92-spectral" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>하루하루 어떻게 변했는지 대신, 변동이 반복되는 주기를 중심으로 조직돼 있는지를 묻는다</h1>
+      <p class="lead">주파수는 단위 시간당 반복 횟수이고 그 역수가 주기입니다. 일별 데이터의 주간 주기는 주기 5, 주파수 1/5입니다.</p>
+      <div class="slide-body">
+        <div class="formula-main">\[X_{k} = \sum_{t = 0} ^ { N - 1 } x_{t} e^{- 2 \pi i k t / N}\]</div>
+        <div class="teaching-rows">
+          <article><h2>계산 대상과 기호</h2><p>k번째 주파수 성분의 계수입니다. N은 계열 길이, x는 관측, k는 주파수 인덱스이고 지수항은 k번째 이산 진동입니다. 따라서 X는 계열이 그 진동과 얼마나 잘 맞아떨어지는지를 잽니다.</p></article>
+          <article><h2>정보를 잃지 않는 좌표 변경</h2><p>날짜 하나씩을 골라내는 표준 기저 대신 주기를 골라내는 진동 기저로 같은 벡터를 다시 쓰는 것이며, 역변환이 원계열을 그대로 복원합니다. 주기도표의 봉우리 주파수 f는 주기 1/f에 해당합니다.</p></article>
+          <article><h2>세 실패 양상</h2><p>에일리어싱은 나이퀴스트 한계를 넘는 진동이 낮은 주파수로 접히는 것, 스펙트럼 누설은 창 안에 사이클이 정수 개가 아닐 때 에너지가 이웃 빈으로 새는 것, 국면 평균은 지배 주파수가 국면마다 바뀔 때 전체 표본 스펙트럼이 평균이 되는 것입니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">봉우리는 표본이 그 정현파와 강하게 정렬됐다는 뜻일 뿐입니다. 일시적 사건·국면 전환·표본화 인공물도 같은 봉우리를 만듭니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s92-spectral">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-spectral" aria-label="후행 창 하나에서 나오는 네 특성" data-report-refs="s92 fig-spectral-features" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>창 길이가 곧 주파수 해상도이고, 창이 시점 왼쪽에서 끝나야 인과적이다</h1>
+      <p class="lead">시점 t에서 변환은 전체 표본이 아니라 후행 창만 써야 합니다. 아주 짧은 창에서는 분기 주기를 분해할 수 없습니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="후행 창 FFT에서 네 스펙트럼 특성으로" class="deck-report-figure">
+            <img src="assets/figs/fig-spectral-features.svg" alt="왼쪽은 시점 t에서 뒤로 뻗은 후행 창과 회색으로 차단된 미래 구간, 가운데는 저주파 영역과 주기 5 근처에 봉우리가 있는 파워 스펙트럼 막대, 오른쪽은 네 특성 칩이 스펙트럼의 어느 부분을 읽는지 연결선으로 표시된 도해">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>왼쪽에서 가운데로, 가운데에서 오른쪽으로 읽고 네 연결선이 각 특성이 스펙트럼의 어느 부분을 읽는지 가리킵니다.</p></article>
+            <article><h2>네 특성</h2><p>스펙트럼 에너지는 총 또는 대역 파워, 지배 주기는 가장 큰 봉우리에 대응하는 주기, 스펙트럼 엔트로피는 파워가 몰렸는지 퍼졌는지, 저주파 비율은 절단점 아래 에너지의 비중입니다.</p></article>
+            <article><h2>해석 경계</h2><p>달력 인코딩은 알려진 주기를 부과하고, 스펙트럼 특성은 그 주기가 실제로 있는지와 세기가 변하는지를 묻습니다. 여러 창 길이(21·63·126일)가 서로 다른 주기를 잡습니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">주기 구조 자체가 시간에 따라 변할 때 8장의 결정론적 달력 특성과 이 특성의 구분이 중요해집니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-spectral-features">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-wavelet" aria-label="웨이블릿은 배포할 특성이 아니라 다리다" data-report-refs="s92 fig-wavelet-bridge" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>시간 국소화와 인과성은 다른 말이고, 가장 새 계수가 가장 위험하다</h1>
+      <p class="lead">푸리에는 어떤 주파수가 있는지는 알려 주지만 그 주파수가 언제 활동했는지는 훨씬 덜 알려 줍니다. 웨이블릿은 스케일과 타이밍을 함께 보존합니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="연구 진단에서 배포 안전 대리값으로" class="deck-report-figure">
+            <img src="assets/figs/fig-wavelet-bridge.svg" alt="왼쪽 연구 영역에서 느린 표류와 국소 변동성 폭발이 섞인 계열이 근사 대역과 D1에서 D4까지의 세부 대역으로 분해되고 폭발 에너지가 짧은 세부 대역에 몰리며, 오른쪽 배포 영역에서는 같은 기간 질문이 후행 저역 상태·단기 폭발 탐지기·최근 대 직전 대비로 바뀌고 가운데 경계선이 오프라인 계수를 차단하는 도해">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>왼쪽에서 구조가 어느 기간에 사는지를 읽고 가운데 경계에서 멈춥니다. 오른쪽으로 넘어가는 것은 계수가 아니라 질문입니다.</p></article>
+            <article><h2>왜 새는가</h2><p>웨이블릿 계수는 그 시점 주변 이웃에 의존하고, 표본 가장자리에서는 필터 지지가 모자라 패딩이 개입하므로 오른쪽 끝 계수가 실시간에 없었을 정보를 쓸 수 있습니다.</p></article>
+            <article><h2>안전 워크플로</h2><p>연구에서 기간을 찾고, 평가 전에 “16–32일 스케일” 같은 대응을 고정하고, 계수를 지지 구간이 전부 과거인 후행 대리값으로 바꾸고, 폴드마다 다시 계산합니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">16일 대비의 예는 최근 16일 평균에서 직전 16일 평균을 뺀 값입니다. 웨이블릿 계수가 아니라 같은 질문을 감사 가능하게 묻는 특성입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-wavelet-bridge">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-92-signature" aria-label="끝점이 같은 두 경로를 무엇이 가르는가" data-report-refs="s92 fig-signature-order" data-source-refs="section:9.2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.2</span></header>
+      <h1>깊이 2의 교차항이 “먼저 이것, 그다음 저것”을 기록한다</h1>
+      <p class="lead">두 창이 시작·끝·실현 변동성이 같으면서도 거기까지 가는 길이 크게 다를 수 있습니다. 전통적 시차 특성은 창을 끝점과 산포로 압축해 이 둘을 비슷하게 취급합니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="순서가 뒤집힌 두 경로와 깊이별 시그니처" class="deck-report-figure">
+            <img src="assets/figs/fig-signature-order.svg" alt="같은 좌표계의 두 경로. 경로 A는 가로로 먼저 이동한 뒤 세로로 올라가고 경로 B는 세로로 먼저 올라간 뒤 가로로 이동하며 시작점과 끝점은 같다. 각 경로 아래에 깊이 1 증분이 둘 다 (1,1)로 같고 깊이 2 교차항 값이 서로 맞바뀐다는 표시가 있다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>두 경로의 끝점이 같다는 것을 먼저 확인하고, 그다음 아래쪽 두 값의 자리가 바뀐 것을 봅니다.</p></article>
+            <article><h2>무엇을 읽는가</h2><p>두 좌표를 누적 수익률과 누적 주문 불균형으로 읽으면 “불균형이 먼저 움직이고 가격이 따랐다”와 그 반대가 끝값이 같아도 구별됩니다.</p></article>
+            <article><h2>1차원의 함정</h2><p>경로 하나의 시그니처는 총 증분의 지수급수로 무너져 창 안의 순서 바꿈을 복원할 수 없습니다. 그래서 단조 증가하는 시간 좌표를 붙이거나 선후행 임베딩을 씁니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">전체 시그니처의 좌표 수는 채널 3·깊이 3이면 상수항 포함 40개로 자랍니다. 대수적 중복을 걷어 낸 깊이 2 로그 시그니처가 합리적인 출발점입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-signature-order">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-div-9-3" aria-label="§9.3 구분" data-report-refs="s93" data-source-refs="section:9.3" data-source-title="section:9.3" data-section-divider="9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>변동성 특성 — 과거 산포를 넘어 조건부 동학을 추출하기</h1>
+      <p class="lead">8장의 실현 변동성과 범위 기반 추정량은 가격 변동을 효율적으로 요약하지만 어디까지나 후향 요약입니다.</p>
+      <div class="slide-body">
+        <div class="section-number" aria-hidden="true">9.3</div>
+      </div>
+      <p class="takeaway">이 절은 적합된 변동성 모델로 넘어갑니다. 목표는 8장을 대체하는 것이 아니라 변동성이 어떻게 진화하는지를 모델링하고 그 동학에서 시점 기준으로 안전한 요약을 뽑는 것입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s93">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-three-objects" aria-label="변동성이라는 한 단어 뒤의 세 대상" data-report-refs="s93" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>실현·내재·조건부 변동성은 서로 다른 질문에 답하므로 같은 성과 지표처럼 묶을 수 없다</h1>
+      <p class="lead">적합된 변동성 모델은 직접 집계가 주지 못하는 세 종류의 정보를 줍니다. 조건부 추정치, 기간별 기여의 분리, 그리고 지속성·비대칭 모수입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>실현 변동성</h2><p>창 안 수익률의 표본 표준편차로, 지난 창에서 수익률이 얼마나 퍼졌는지의 후향 요약입니다.</p></article>
+          <article><h2>내재 변동성</h2><p>옵션 가격을 재현하는 변동성 입력입니다. VIX는 향후 30일 기대 분산의 위험중립 추정치를 연율 단위로 인용한 지수입니다. Marra (2023)는 내재 표준편차가 표본의 약 84% 달에서 이후 실현 변동성을 과대평가했다고 기록합니다.</p></article>
+          <article><h2>조건부 변동성</h2><p>정보 집합이 주어졌을 때의 예측 분산입니다. GARCH 재귀는 추정량이 아니라 분산이 진화하는 방식의 모델입니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">연율화에 쓰는 시간의 제곱근 규칙은 한 기간 분산이 같고 시차 공분산이 0이면 정확히 성립하고(독립은 충분조건), 그렇지 않으면 근사에 그칩니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s93">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-arima" aria-label="ARIMA는 예측기보다 잔차 생성기다" data-report-refs="s93 s93-arima" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>유동 수익률에서는 잔차가 예측보다 유용하다</h1>
+      <p class="lead">주된 용도는 변동성 모델링 전에 단순 선형 구조를 걷어 내거나, 일별 수익률보다 예측 가능한 보조 계열에 적합 특성을 만드는 것입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article><h2>세 글자의 역할</h2><p>AR은 현재가 자기 과거에 의존하는 구조로 양의 계수는 지속성, 음의 계수는 평균회귀를 뜻합니다. MA는 롤링 창 평균이 아니라 최근 혁신들의 가중합입니다. I는 차분 뒤에 ARMA를 놓는다는 뜻이고, 차분 방정식의 상수항이 0이 아니면 수준의 결정론적 추세를 뜻합니다.</p></article>
+          <article><h2>두 출력과 차수 선택</h2><p>잔차는 모델의 기대 경로에서 벗어난 정도를, 한 걸음 예측은 다음 기간 수준의 모델 기반 추정치를 줍니다. 정상 입력에는 저차 모델이 보통 충분하고, 차수 탐색은 워크포워드 학습 창마다 반복해야 합니다. 그렇지 않으면 시차 구조 자체가 뒤 데이터를 알고 선택된 것입니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">짧은 기간에서는 매수–매도 반동이 MA 구조처럼 잡힙니다. 잔차로 걷어 내는 것은 옳지만 그 “평균회귀”를 신호로 착각하면 안 됩니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s93-arima">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-garch-formula" aria-label="GARCH 재귀가 계산하는 것" data-report-refs="s93 s93-garch" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>오늘의 조건부 분산이 바닥 수준·어제 충격·어제 분산의 합으로 분해된다</h1>
+      <p class="lead">Engle (1982)이 ARCH 경우를 도입하고 Bollerslev (1986)가 일반화했습니다. 특성 공학에서는 예측 도구보다 변동성 동학의 구조화된 분해로서 중요합니다.</p>
+      <div class="slide-body">
+        <div class="formula-main">\[\sigma_{t} ^ { 2 } = \omega + \alpha \epsilon_{t - 1} ^ { 2 } + \beta \sigma_{t - 1} ^ { 2 }\]</div>
+        <div class="teaching-rows">
+          <article><h2>기호와 단위</h2><p>σ²는 조건부 분산, ε는 혁신(평균 제거 후 수익률), ω는 분산의 바닥 수준, α는 어제 충격의 크기가 오늘 분산을 얼마나 키우는지, β는 어제 분산이 오늘로 얼마나 이월되는지입니다. 단위는 수익률 제곱이므로 표준편차로 보려면 제곱근을 취합니다.</p></article>
+          <article><h2>세 특성</h2><p>적합된 조건부 표준편차를 cond_vol로 저장하고, α는 shock_impact, β는 vol_persistence가 됩니다. 두 합은 변동성 충격이 얼마나 느리게 사라지는지를 잡습니다.</p></article>
+          <article><h2>반감기 환산</h2><p>정상 GARCH에서 충격의 근사 반감기는 log(0.5)/log(α+β)입니다. SPY 적합은 α≈0.17, β≈0.80이므로 합 0.97이고 함의된 반감기는 약 23거래일, 곧 한 달 남짓입니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">이것이 평균 수익률 모델은 그렇지 못할 때에도 변동성 모델이 유용한 특성을 자주 내놓는 이유입니다. 변동성은 군집하고 그 군집은 간결하게 요약됩니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s93-garch">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-garch-figure" aria-label="장기 분산이 특성이 될 수 있는 조건" data-report-refs="s93 fig-garch-decomposition" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>지속성 합이 1에 닿으면 무조건 분산이 사라지므로 해석할 수 없다</h1>
+      <p class="lead">모델은 장기 분산 수준도 함의합니다. 분모가 1에서 두 계수의 합을 뺀 값이므로 그 합이 제약입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="GARCH 세 항과 지속성 합의 제약" class="deck-report-figure">
+            <img src="assets/figs/fig-garch-decomposition.svg" alt="위쪽은 GARCH 재귀의 세 항이 각각 어떤 특성 이름으로 나가는지 보이고, 아래쪽은 알파 더하기 베타 축에서 1보다 작은 영역에만 반감기와 장기 분산이 정의되며 SPY의 0.97과 반감기 약 23거래일이 표시되고 1 이상 영역이 장기 분산 무효로 차단된 도해">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>위에서 세 항이 어떤 특성 이름으로 나가는지 읽고, 아래 축에서 지속성 합의 위치를 확인합니다.</p></article>
+            <article><h2>경계의 구분</h2><p>합이 정확히 1인 경우는 적분 GARCH의 경계이고 1보다 큰 경우는 그 바깥입니다. 원서는 두 경우를 묶어 적지만 서로 다른 경우이며, 어느 쪽이든 유한한 무조건 분산이 없습니다.</p></article>
+            <article><h2>해석 경계</h2><p>반감기 눈금은 1 근처에서 급격히 늘어나므로 작은 추정 오차가 큰 차이를 냅니다. 23거래일도 시장 상수가 아니라 잡음 섞인 표본 요약입니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">실무에서는 추정을 정상 적합으로 제약하거나 비정상 추정치를 명시적으로 플래그하는 편이 안전합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-garch-decomposition">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-egarch" aria-label="하락 충격의 더 큰 영향을 따로 측정하기" data-report-refs="s93 s93-egarch" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>로그 분산을 모델링하면 충격의 크기와 부호를 분리할 수 있다</h1>
+      <p class="lead">표준 GARCH는 제곱 혁신에 의존하므로 양의 충격과 음의 충격을 대칭으로 다룹니다. 많은 주식시장에서 음의 수익률 뒤에는 변동성이 더 크게 오릅니다.</p>
+      <div class="slide-body">
+        <div class="formula-main">\[\log ( \sigma_{t} ^ { 2 } ) = \omega + \alpha \frac { | \epsilon_{t - 1} | } { \sigma_{t - 1} } + \gamma \frac { \epsilon_{t - 1} } { \sigma_{t - 1} } + \beta \log ( \sigma_{t - 1} ^ { 2 } )\]</div>
+        <div class="teaching-rows">
+          <article><h2>세 항의 역할</h2><p>두 번째 항은 표준화한 충격의 크기에, 세 번째 항은 부호가 살아 있는 값에 반응하며, 마지막 항은 어제의 로그 분산을 이월합니다. 로그를 취했으므로 계수에 비음 제약 없이도 분산이 음수가 되지 않습니다.</p></article>
+          <article><h2>레버리지 모수</h2><p>비대칭은 γ를 통해 들어옵니다. γ가 음수이면 음의 충격이 양의 충격보다 미래 변동성을 더 많이 올립니다(Nelson, 1991). 이 모수가 leverage_effect 특성이 됩니다.</p></article>
+          <article><h2>대안과 주의</h2><p>GJR-GARCH는 로그 분산 대신 음의 충격 지시변수로 비대칭을 넣고 역할은 비슷합니다. γ는 혁신 표준화에 상대적으로만 의미가 있어, 잔차 모델이 오명세되면 큰 음의 γ가 두꺼운 꼬리나 이상치를 흡수할 수 있습니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">대칭 GARCH는 군집과 일부 두꺼운 꼬리를 재현할 수 있어도 부호 비대칭에는 별도 구조가 필요합니다. 강하게 음인 레버리지 모수는 단독 예측보다 조건화 변수로 유용합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s93-egarch">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-har" aria-label="일·주·월 지속성을 한 식에 담기" data-report-refs="s93 s93-har" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>내일의 변동성을 세 기간 평균의 가중합으로 설명한다</h1>
+      <p class="lead">HAR 모델(Corsi, 2009)은 서로 다른 기간에 걸친 일별 변동성 지속성을 잡습니다. 기간별 변동성 측도는 8장의 입력이고, HAR이 더하는 것은 그 위의 적합 층입니다.</p>
+      <div class="slide-body">
+        <div class="formula-main">\[R V_{t + 1} ^ { ( d ) } = c + \beta_{d} R V_{t} ^ { ( d ) } + \beta_{w} R V_{t} ^ { ( w ) } + \beta_{m} R V_{t} ^ { ( m ) } + \epsilon_{t + 1}\]</div>
+        <div class="teaching-rows">
+          <article><h2>기호</h2><p>RV는 실현 변동성이고 위첨자 d·w·m은 각각 오늘까지의 하루·한 주·한 달 평균입니다. c는 절편, ε는 오차항입니다. 세 계수는 단기·중기·장기 변동성이 다음 날 예측에 얼마나 기여하는지를 잽니다.</p></article>
+          <article><h2>SPY에서 관찰한 값</h2><p>주별 성분이 지배적이었습니다(β_w≈0.43). 표본 밖 비교에서 HAR은 GARCH의 대략 절반 RMSE를 달성했습니다(0.061 대 0.111). 다기간 분해가 단일 시차 재귀가 놓치는 지속성 구조를 잡는다는 확인입니다.</p></article>
+          <article><h2>공선성 주의</h2><p>일·주·월 회귀변수는 구성상 강하게 공선적입니다. 한 주 평균 안에 오늘이 있고 한 달 평균 안에 그 한 주가 있습니다. 견고한 대상은 원시 계수 벡터가 아니라 적합값이나 기간 스프레드입니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">0.061 대 0.111은 점추정 두 개이고 그 차이의 불확실성은 아직 재지 않았습니다. 손실 차이 시계열에 HAC 추론을 적용하는 것이 그 질문입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s93-har">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-roles" aria-label="세 모델은 같은 척도의 경쟁 예측이 아니다" data-report-refs="s93 fig-vol-model-roles" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>입력이 다르고 출력 대상이 달라서 바꿔 쓸 수 없다</h1>
+      <p class="lead">GARCH·EGARCH는 필터링된 조건부 변동성을 내고 HAR은 실현 변동성을 앞으로 투영합니다. 비교가 가능한 지점은 평가 손실입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="세 변동성 모델의 입력과 출력 대상" class="deck-report-figure">
+            <img src="assets/figs/fig-vol-model-roles.svg" alt="세 세로 열로 구성된 도해. GARCH 열은 수익률을 받아 필터링된 조건부 분산과 모수를 출력하고, EGARCH 열은 같은 입력에서 충격의 크기와 부호를 분리해 레버리지 모수를 더하며, HAR 열은 일별 실현 변동성을 받아 다음 날 실현 변동성의 투영과 세 기간 계수를 출력한다. 아래쪽 공통 띠에 QLIKE 평가 손실이 놓여 있다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>열 단위로 위에서 아래로 읽고, 입력 행과 출력 대상 행이 다르다는 점을 확인합니다.</p></article>
+            <article><h2>평가 손실</h2><p>잠재 분산이 관측되지 않으므로 실현 분산 대용치에 강건한 QLIKE를 씁니다(Patton, 2011). 예측 분산과 실현 분산 대용치가 같으면 0이고 어긋날수록 커집니다.</p></article>
+            <article><h2>해석 경계</h2><p>이 도해는 측정 결과가 아니라 역할 분담을 보이는 구조 도식입니다. 어느 열이 더 낫다는 비교가 아닙니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">QLIKE에서 롤링 기준선을 못 이기는 적합 경로는 추가 복잡성을 정당화하지 못한 것입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-vol-model-roles">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-refit" aria-label="느린 모수와 빠른 상태를 분리하기" data-report-refs="s93 table-vol-models" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>모수를 얼마나 자주 재추정하는가와 그 사이에 특성을 어떻게 갱신하는가는 다른 결정이다</h1>
+      <p class="lead">변동성 특성은 현재의 변동성 환경을 반영할 때만 유용합니다. 재적합 주기는 모수의 안정성과 모델의 비용에 맞춥니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 4</span> 모델별 입력·핵심 특성·재적합 주기와 조건</caption>
+          <thead><tr><th>모델</th><th>핵심 특성</th><th>재적합 주기</th><th>쓸 때의 조건</th></tr></thead>
+          <tbody>
+            <tr><td>ARIMA</td><td>arima_residual · arima_forecast</td><td>워크포워드 창마다 차수 재탐색</td><td>유동 수익률에서는 예측보다 잔차가 유용</td></tr>
+            <tr><td>GARCH(1,1)</td><td>cond_vol · shock_impact · vol_persistence · long_run_vol</td><td>주간·월간, 사이에는 재귀로 매일 갱신</td><td>지속성 합이 1 이상이면 long_run_vol 무효</td></tr>
+            <tr><td>EGARCH·GJR</td><td>leverage_effect</td><td>주간·월간</td><td>단독 예측보다 조건화 변수</td></tr>
+            <tr><td>HAR</td><td>세 기간 계수 · 적합 RV</td><td>롤링 일정, 입력은 매일 갱신</td><td>계수가 국면에 민감</td></tr>
+            <tr><td>확률적 변동성</td><td>사후 평균·표준편차·신용 구간</td><td>월간 이하, 사이에는 필터링 갱신</td><td>필터링 사후분포만 사용</td></tr>
+            <tr><td>허스트 지수</td><td>H (거칠기)</td><td>252일 창, 주간 갱신</td><td>느린 국면 서술자로만</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">흔한 운영 방식은 밤사이 유니버스 전체의 모수를 재추정하고 다음 거래일 동안 재귀 특성을 갱신하는 것입니다. 지수 평활 근사는 대체물이 될 수 있지만 고정된 장기 분산 복귀점이 없다는 차이가 있습니다.</p>
+      </div>
+      <p class="takeaway">GARCH는 무조건 분산으로 되돌아오는 앵커가 있고 EWMA는 없습니다. 급등 뒤 정상화 속도와 새 국면 지속 시 과소 반응이 이 차이에서 나옵니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-vol-models">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-93-hurst" aria-label="지속적인데 동시에 거칠 수 있다" data-report-refs="s93 fig-hurst-axis" data-source-refs="section:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.3</span></header>
+      <h1>수준의 지속성과 증분의 불규칙성은 서로 다른 성질이다</h1>
+      <p class="lead">GARCH와 HAR은 지속성을 잘 서술하지만 비교적 매끄러운 변동성 동학을 부과합니다. 거친 변동성은 다른 경험적 관찰에서 출발합니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="허스트 축 위의 수익률과 로그 변동성 증분" class="deck-report-figure">
+            <img src="assets/figs/fig-hurst-axis.svg" alt="0에서 1까지의 허스트 지수 축에서 0.5 왼쪽이 반지속 영역, 0.5가 브라운 스케일링, 오른쪽이 지속 영역이고, SPY 수익률이 0.5 근처, SPY 로그 변동성 증분이 0.12에서 0.23 구간, Gatheral 등이 기록한 0.1 근처가 눈금으로 표시된 도해">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>축 위의 세 눈금이 같은 종류의 계열이 아니라는 점을 먼저 확인합니다.</p></article>
+            <article><h2>관찰한 값</h2><p>SPY 수익률은 0.5 근처로 랜덤워크와 일관되고, 로그 변동성 증분은 추정량에 따라 0.12에서 0.23 사이로 확실히 거친 영역에 있습니다. Gatheral et al. (2014)는 주가지수에서 0.1 근처를 기록했습니다.</p></article>
+            <article><h2>해석 경계</h2><p>추정치가 잡음이 커서 252일 창을 주간 갱신하는 편이 낫습니다. 큰 하루 변동은 대개 구조적 단절이 아니라 추정 잡음입니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">추정치가 0.5보다 크게 낮아지면 표준 변동성 재귀는 변동성이 얼마나 급히 튀었다 가라앉을 수 있는지를 과소평가할 수 있습니다. 무효가 되는 것은 아니지만 해석이 달라집니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-hurst-axis">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-div-9-4" aria-label="§9.4 구분" data-report-refs="s94" data-source-refs="section:9.4" data-source-title="section:9.4" data-section-divider="9.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.4</span></header>
+      <h1>불확실성 특성 — 예측값과 그 예측을 얼마나 믿을지 함께 전달하기</h1>
+      <p class="lead">앞 절들은 적합 모델에서 값을 꺼냈습니다. 이 절은 같은 적합 객체에서 한 겹 더 꺼냅니다.</p>
+      <div class="slide-body">
+        <div class="section-number" aria-hidden="true">9.4</div>
+      </div>
+      <p class="takeaway">같은 20% 변동성 예측이라도 좁은 구간에 둘러싸인 경우와 넓은 구간에 둘러싸인 경우는 운용상 뜻이 다릅니다. 점추정만 남기면 두 경우가 구별되지 않습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s94">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-94-principle" aria-label="불확실성은 점추정을 대체하지 않고 조건짓는다" data-report-refs="s94 table-uncertainty-kinds" data-source-refs="section:9.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.4</span></header>
+      <h1>섞기 쉬운 세 불확실성 가운데 필터링된 것만 거래 가능한 특성이다</h1>
+      <p class="lead">적합 모델이 값 하나가 아니라 분포를 내놓는 순간 사후 표준편차, 신용 구간 너비, 꼬리 확률, 예측 표준오차, 예측 구간 너비가 생깁니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 5</span> 세 종류의 불확실성</caption>
+          <thead><tr><th>종류</th><th>무엇에 대한 불확실성인가</th><th>특성으로 쓸 수 있는가</th></tr></thead>
+          <tbody>
+            <tr><td>잠재 상태</td><td>지금 숨은 상태가 어디에 있는지</td><td>필터링 사후분포에서 뽑으면 가능</td></tr>
+            <tr><td>예측</td><td>상태를 완벽히 알아도 내일의 충격 때문에 남는 몫</td><td>가능. 예측 구간 너비·표준오차로 전달</td></tr>
+            <tr><td>모수</td><td>부정확한 모수 추정이 위 둘로 전파되는 몫</td><td>구간에 반영하되 별도 특성으로 쓸 때는 안정성 확인</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">현재 국면은 꽤 확신하면서 내일 실현 변동성은 매우 불확실할 수 있습니다. 두 번째와 첫 번째가 다른 대상이기 때문입니다. 실시간 경계는 필터링과 평활 사이에 있고, 9.2절 실습이 그 경계를 숫자로 보였습니다.</p>
+      </div>
+      <p class="takeaway">구간 너비는 척도 의존입니다. 너비 1%p는 예측 수준이 2%일 때와 20%일 때 뜻이 다르므로, 양의 타깃에는 같은 척도의 예측 수준으로 나눈 상대 불확실성이 더 이식성이 좋습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-uncertainty-kinds">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-94-equal-means" aria-label="같은 점예측, 다른 특성" data-report-refs="s94 fig-uncertainty-equal-means" data-source-refs="section:9.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.4</span></header>
+      <h1>중심이 같아도 상대 너비가 네 배 다르면 운용 의미가 다르다</h1>
+      <p class="lead">다음 날 변동성 예측이 두 모델 모두 1.8%인 경우입니다. 90% 구간은 각각 1.6–2.0%와 1.0–2.6%입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="같은 점예측의 두 구간과 두 불확실성 경로" class="deck-report-figure">
+            <img src="assets/figs/fig-uncertainty-equal-means.svg" alt="왼쪽 칸은 같은 1.8퍼센트 점예측에 모델 A의 좁은 90퍼센트 구간과 모델 B의 넓은 구간을 나란히 두고 상대 너비 0.22와 0.89를 표시하고, 오른쪽 칸은 필터링 불확실성 경로와 미래 관측으로 수정된 평활 경로를 겹쳐 특성 사용 불가 표시를 붙인 도해">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>왼쪽에서 두 구간의 중심이 같다는 것을 확인하고 상대 너비 두 값을 비교합니다. 그다음 오른쪽에서 두 경로가 갈라지는 구간을 봅니다.</p></article>
+            <article><h2>관찰과 원리</h2><p>상대 너비 0.22와 0.89는 같은 중심에 대해 B가 훨씬 덜 믿을 만하다는 뜻입니다. 오른쪽에서 두 경로가 갈라지는 구간이 곧 미래 정보가 들어간 구간입니다.</p></article>
+            <article><h2>해석 경계</h2><p>분모가 0 근처에서 값이 튀지 않도록 작은 안정화 상수나 분모 하한을 더합니다. 90% 구간이 실현값을 60%만 덮으면 특성으로 쓰기 전에 보정부터 확인합니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">좋은 불확실성 특성은 타깃·기간·척도·추출 규칙을 이름에 명시합니다. 단위는 연율 변동성 퍼센트포인트입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-uncertainty-equal-means">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-94-sv" aria-label="관측되지 않는 변동성 상태의 분포를 쓰기" data-report-refs="s94 s94-sv" data-source-refs="section:9.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.4</span></header>
+      <h1>변동성 추정치 하나가 뭉뚱그렸을 세 경우가 갈린다</h1>
+      <p class="lead">확률적 변동성 모델(Taylor, 1982)은 변동성 자체를 고유한 충격항을 가지고 진화하는 잠재 과정으로 다룹니다. 따라서 추정은 경로 하나가 아니라 분포를 냅니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>세 경우의 구분</h2><p>변동성이 낮고 잘 식별된 경우, 높고 잘 식별된 경우, 높지만 잘 식별되지 않은 경우입니다. 두 달 모두 사후 평균이 연율 20%인데 90% 신용 구간이 19–21%와 14–27%라면, 사후 평균만 남기면 두 달이 같아 보입니다.</p></article>
+          <article><h2>왜 계산이 비싼가</h2><p>미지 대상은 세 모수에 잠재 경로 전체가 더해진 고차원 객체라 사후분포의 평균·분위수를 닫힌 형태로 얻지 못합니다. 그래서 MCMC나 변분 추론을 씁니다. 변분 추론은 훨씬 빠르지만 불확실성을 과소평가할 수 있어 불확실성 자체가 특성일 때는 바꿔 쓰기 어렵습니다.</p></article>
+          <article><h2>믿기 전에 진단</h2><p>트레이스 그림에서 연쇄가 서로 다른 영역에 갇히지 않아야 하고, 유효 표본 수가 아주 작지 않아야 하며, R̂이 1에 가깝고 사후 예측 점검에 뚜렷한 불일치가 없어야 합니다. 잘 섞이지 않은 연쇄는 거짓 확신도 거짓 모호함도 만들어 냅니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">사후 표준편차가 크다는 것은 모델이 높은 위험을 감지했을 뿐 아니라 그 위험 상태가 어디에 있는지도 덜 확신한다는 뜻입니다. 높은 변동성만으로 얻는 경고보다 강할 수 있습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s94-sv">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-94-arima-uncertainty" aria-label="보조 계열의 점예측에 구간을 붙이기" data-report-refs="s94 s94-arima-uncertainty" data-source-refs="section:9.4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.4</span></header>
+      <h1>실현 변동성처럼 양수인 타깃은 로그로 모델링하면 구간이 비대칭이 된다</h1>
+      <p class="lead">ARIMA는 적합값과 잔차 이상을 냅니다. 변동성형 계열에서는 수익률에 직접 적용하는 것보다 보조 계열에 쓰는 편이 유용한 경우가 많습니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article><h2>왜 로그인가</h2><p>로그 변환은 척도를 안정시키고 역변환 뒤 음의 예측이 나오는 것을 막습니다. 또 원래 척도의 예측 구간을 비대칭으로 만드는데, 하방은 0 근처에 묶여 있고 상방 급등은 클 수 있는 변동성에는 이쪽이 더 현실적입니다.</p></article>
+          <article><h2>세 특성</h2><p>예측 표준오차는 모델링한 척도(로그)에서의 불확실성, 예측 구간 너비는 원래 척도에서의 불확실성, 상대 불확실성은 구간 너비를 같은 척도의 예측 수준으로 나눈 값입니다. 상대 불확실성이 높으면 점예측이 커 보여도 모델의 예측이 약하게 식별된 것입니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">차수 선택, 구간 추정, 재적합은 모두 워크포워드 안에 머물러야 합니다. 불확실성 특성은 불확실성 자체가 선견 편향 없이 측정됐을 때만 유용합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s94-arima-uncertainty">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-div-9-5" aria-label="§9.5 구분" data-report-refs="s95" data-source-refs="section:9.5" data-source-title="section:9.5" data-section-divider="9.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.5</span></header>
+      <h1>국면 특성 — 반복해서 돌아오는 시장 환경을 확률로 표현하기</h1>
+      <p class="lead">많은 금융 계열은 안정된 분포 하나 주위에서 오르내린다기보다 반복되는 시장 환경 사이를 오간다고 서술하는 편이 낫습니다.</p>
+      <div class="slide-body">
+        <div class="section-number" aria-hidden="true">9.5</div>
+      </div>
+      <p class="takeaway">9.1절의 구조적 단절은 자료 생성 과정의 불연속적 변화를 표시하고, 국면 모델은 계열이 이전 상태를 다시 방문할 수 있다고 가정합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s95">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-95-rules" aria-label="감사 가능한 기준선부터 세우기" data-report-refs="s95 s95-rules" data-source-refs="section:9.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.5</span></header>
+      <h1>임계값 특성은 투명하게 실패한다</h1>
+      <p class="lead">가장 단순한 국면 특성은 관측 데이터에 적용한 결정론적 규칙입니다. VIX 임계값, 긴 이동평균 대비 가격, 초피니스 지수나 추세 효율성 측도가 그 예입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-columns">
+          <article><h2>왜 여전히 유용한가</h2><p>투명하고, 잠재 상태 추정이 필요 없고, 운용에서 감사하기 쉽습니다. VIX가 특정 유니버스나 기간에서 정보성을 잃으면 그 실패는 진단하기 쉽습니다. 더 유연한 잠재 상태 모델은 풍부한 동학을 표현하지만 가정과 실패 양상도 더 많이 들여옵니다.</p></article>
+          <article><h2>무엇을 인코딩하는가</h2><p>예측이 아니라 시장 맥락입니다. 변동성 임계값은 그 자체로 수익률을 예측하지 않고, 다른 특성을 평온한 환경에서 해석해야 할지 스트레스 환경에서 해석해야 할지를 다운스트림 모델에 알려 줍니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">실무에서 이 조건화 역할이 국면 특성 전반의 가장 중요한 기능인 경우가 많습니다. 정교한 모델을 더하더라도 기준선 특성으로 남습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s95-rules">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-95-hmm-structure" aria-label="숨은 상태가 관측을 만드는 구조" data-report-refs="s95 fig-hmm-structure" data-source-refs="section:9.5 figure:9.3">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.5 · 그림 9.3</span></header>
+      <h1>세로 경계선이 선견 편향의 자리를 표시한다</h1>
+      <p class="lead">HMM은 관측되지 않는 상태 변수가 마르코프 연쇄를 따른다고 가정합니다(Rabiner, 1989). 전이·방출 수치는 원서가 보고한 값입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="두 상태 HMM의 전이·방출과 과거·미래 경계" class="deck-report-figure">
+            <img src="assets/figs/fig-hmm-structure.svg" alt="두 층 도해. 위층은 저변동성 상태(일별 평균 +0.05%, 연율 표준편차 8%, 유지 확률 0.97)와 고변동성 상태(−0.02%, 25%, 0.95)가 교차 화살표 0.03과 0.05로 연결되고, 아래층은 관측 수익률 여섯 개로 점선 방출이 내려오며, 가운데 세로 점선이 이용 가능한 과거와 이용 불가능한 미래를 가른다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>위층에서 두 상태의 자기 고리 확률을 먼저 읽고, 아래층으로 내려오는 점선이 방출임을 확인한 뒤, 마지막으로 세로 경계선을 봅니다.</p></article>
+            <article><h2>마르코프 성질</h2><p>“기억이 없다”는 것은 지속성이 없다는 뜻이 아니라 현재 상태가 과거를 충분히 요약한다는 뜻입니다. 큰 대각 원소가 바로 지속성입니다.</p></article>
+            <article><h2>해석 경계</h2><p>경계선 오른쪽 관측을 쓰는 순간 특성이 아니라 회고 분석이 됩니다. 방출 모수는 연율 표준편차와 일별 평균이며 서로 다른 단위입니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">필터링 확률은 왼쪽만 쓰고 평활 확률은 양쪽을 씁니다. 9.2절 실습과 9.4절 사후 불확실성에서 본 것과 같은 경계입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-hmm-structure">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-95-filtering" aria-label="필터링은 예측 한 줄과 갱신 한 줄이다" data-report-refs="s95 s95-hmm" data-source-refs="section:9.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.5</span></header>
+      <h1>그 두 줄에서 네 가지 파생 특성이 나온다</h1>
+      <p class="lead">가장 중요한 출력은 시점까지 이용 가능한 정보만으로 계산한 필터링 상태 확률입니다. 평활 확률은 미래 관측을 쓰므로 회고 분석에만 적합합니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>두 줄의 재귀</h2><p>전이 행렬과 필터링 상태 벡터에서 한 걸음 예측을 만들고, 새 관측을 본 뒤 베이즈 규칙으로 상태별 방출 밀도를 곱해 정규화합니다. 평활 확률은 뒤로 가는 패스로 미래 정보를 더합니다.</p></article>
+          <article><h2>네 파생 특성</h2><p>상태별 필터링 확률, 다음 상태 예측 확률, 기대 지속 기간, 필터링 벡터의 엔트로피입니다. 앞 화면의 저변동성 상태라면 기대 지속 기간은 1/(1−0.97), 약 33기간입니다. 엔트로피는 한 상태가 지배하면 낮고 모델이 헷갈리면 높습니다.</p></article>
+          <article><h2>두 구현 문제</h2><p>상태에는 이름표가 없어 한 창의 “상태 0”이 다음 창의 “상태 1”일 수 있으므로 분산 같은 안정된 특징으로 재레이블링합니다. 상태 수는 강한 이유가 없으면 적게 유지합니다. 두 상태 명세가 해석이 쉽고 표본 밖에서 더 안정적인 경우가 많습니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">필터링 확률은 불확실성을 보존하므로 하드 상태 레이블보다 대개 유용합니다. 다음 두 화면이 그 이유를 구체적으로 보입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s95-hmm">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-95-approaches" aria-label="네 접근이 국면을 가르는 기준" data-report-refs="s95 table-regime-approaches" data-source-refs="section:9.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.5</span></header>
+      <h1>모멘트로 가르는 모델과 분포 형태로 가르는 모델은 다른 것을 본다</h1>
+      <p class="lead">HMM 같은 모멘트 기반 모델은 평균과 분산으로 상태를 구별합니다. 주된 차이가 왜도나 꼬리 행동에 있으면 놓칠 수 있습니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 6</span> 네 국면 접근의 기준·출력·주의</caption>
+          <thead><tr><th>접근</th><th>국면을 가르는 것</th><th>주요 출력</th><th>주의</th></tr></thead>
+          <tbody>
+            <tr><td>관측 가능한 규칙</td><td>VIX 임계값, 이동평균 대비 가격, 추세 효율성</td><td>이진 또는 범주형 시장 맥락</td><td>예측이 아니라 맥락</td></tr>
+            <tr><td>HMM</td><td>상태별 방출 분포(평균·분산)</td><td>필터링 확률, 전이 행렬, 기대 지속 기간, 엔트로피</td><td>레이블 전환, 상태 수</td></tr>
+            <tr><td>MS-AR</td><td>국면별 자기회귀 계수</td><td>국면별 지속성·분산</td><td>변동성만 다르면 HMM으로 충분</td></tr>
+            <tr><td>분포 기반 군집</td><td>왜도·꼬리 같은 분포 형태(바서슈타인 거리)</td><td>군집 레이블, 중심까지 거리, 모멘트 기반과의 불일치</td><td>합성 벤치마크 ARI 0.87 대 0.31은 국면 구조가 분포 형태에 있을 때의 결과</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">바서슈타인 거리는 한 분포를 다른 분포로 바꾸는 비용이고, 1차원에서는 분위수 함수 사이의 거리로 읽을 수 있습니다. 조정 랜드 지수는 군집 결과와 참 레이블의 일치도로 1이 완전 일치, 0이 무작위 수준입니다.</p>
+      </div>
+      <p class="takeaway">0.87 대 0.31은 국면 구조가 애초에 분포 형태에 있도록 만든 합성 벤치마크 결과입니다. 실제 시장에서 같은 격차를 기대하는 근거로 쓸 수 없습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-regime-approaches">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-95-soft-hard" aria-label="하드 스위치가 가장 많은 정보를 버리는 지점" data-report-refs="s95 fig-regime-soft-hard" data-source-refs="section:9.5">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.5</span></header>
+      <h1>국면 정보가 가장 중요한 바로 그때 국면 추론이 불확실하다</h1>
+      <p class="lead">두 상태 설정에서 필터링 스트레스 확률이 월 0.08, 화 0.22, 수 0.47, 목 0.74로 진화하는 경로입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="같은 확률 경로의 두 사용 방식" class="deck-report-figure">
+            <img src="assets/figs/fig-regime-soft-hard.svg" alt="위 칸은 네 날에 걸쳐 0.08, 0.22, 0.47, 0.74로 올라가는 필터링 스트레스 확률 막대와 0.5 문턱선이고, 아래 왼쪽은 목요일에 한 번 계단식으로 전환하는 하드 레이블 경로, 아래 오른쪽은 네 날 모두 다른 노출을 가지는 연속 조건 경로이며 엔트로피가 0.5 근처에서 최대라는 눈금이 있다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>위 칸의 네 막대를 아래 두 경로와 세로로 맞춰 읽습니다.</p></article>
+            <article><h2>관찰과 원리</h2><p>하드 경로는 수요일의 0.47과 월요일의 0.08을 같은 값으로 취급합니다. 전환 근처에서 확률의 작은 변화가 활성 예측기의 큰 변화로 이어지므로 하드 스위칭은 불안정해집니다.</p></article>
+            <article><h2>해석 경계</h2><p>확률과 엔트로피를 전달하면 모델이 국면 불확실성에 따라 반응을 달리하도록 학습하거나 설계할 수 있지만, 실제로 비중을 줄이는지는 모델과 운용 규칙에 달려 있습니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">원서는 경계에서 부드럽게 성능이 낮아진다고 적습니다. 확률을 입력해도 뒤에 임계값으로 자르는 규칙이 있으면 출력은 불연속일 수 있습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-regime-soft-hard">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-div-9-6" aria-label="§9.6 구분" data-report-refs="s96" data-source-refs="section:9.6" data-source-title="section:9.6" data-section-divider="9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6</span></header>
+      <h1>횡단면 및 패널 특성 — 자산별 상태를 시장 안의 상대 위치로 바꾸기</h1>
+      <p class="lead">연율 25%의 조건부 변동성 추정치는 유틸리티 주식과 바이오테크 주식에서 뜻이 다릅니다. 칼만 추세·국면 확률·스펙트럼 에너지도 마찬가지입니다.</p>
+      <div class="slide-body">
+        <div class="section-number" aria-hidden="true">9.6</div>
+      </div>
+      <p class="takeaway">시간 특성은 먼저 각 계열의 자기 역사에서 자산별로 계산됩니다. 다중 자산 설정에서는 횡단면 맥락에 놓거나 관련 자산과 결합할 때 더 유용해집니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s96">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-96-cross" aria-label="같은 날짜의 자산들을 비교 가능한 척도로 정렬하기" data-report-refs="s96 table-cross-transforms" data-source-refs="section:9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6</span></header>
+      <h1>세 변환의 선택은 무엇을 남기고 무엇을 버리는지의 절충이다</h1>
+      <p class="lead">각 날짜에 자산별로 이미 확정된 시간 특성을 가져와 원시 값을 적격 유니버스 대비 순위·백분위·z-점수로 바꿉니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 7</span> 세 횡단면 변환의 절충</caption>
+          <thead><tr><th>변환</th><th>남기는 정보</th><th>강점</th><th>약점</th></tr></thead>
+          <tbody>
+            <tr><td>순위</td><td>순서만</td><td>이상치에 강건, 이질적 자산 간 비교 가능</td><td>거리 정보 소실</td></tr>
+            <tr><td>z-점수</td><td>유니버스 평균 대비 거리</td><td>분산이 중요할 때 정보 보존</td><td>이상치에 민감</td></tr>
+            <tr><td>백분위</td><td>순위를 0–1의 유계 척도로</td><td>유계, 해석 용이</td><td>원자료 값 사이의 거리 정보 소실</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">원시 칼만 추세는 유니버스 상대 모멘텀이 되고, 조건부 변동성은 변동성 백분위가 되며, 국면 확률은 그 자산이 동종 집단보다 더 스트레스 상태인지의 측도가 됩니다.</p>
+      </div>
+      <p class="takeaway">시간 모델이 여전히 일차 추출을 맡습니다. 횡단면 변환은 신호를 처음부터 만들지 않고 이미 의미 있는 수량을 다중 자산 판단에 맞게 다시 표현합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-cross-transforms">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-96-benchmark" aria-label="공통 시장 움직임과 자산 고유 성분 분리하기" data-report-refs="s96 s96-benchmark" data-source-refs="section:9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6</span></header>
+      <h1>많은 시간 특성이 체계적 변동과 고유 변동을 섞어 담는다</h1>
+      <p class="lead">석유 섹터 ETF는 주식시장 전체가 오르고 있다는 이유만으로 강한 절대 모멘텀을 보일 수 있습니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>세 가지 조정</h2><p>자산 모멘텀에서 시장이나 섹터 모멘텀을 빼면 고유 성분이 분리됩니다. 조건부 변동성을 시장 변동성으로 나누면 자산 고유 위험과 시장 전체 스트레스가 구별됩니다. 유니버스 평균 스트레스 확률에서 자산의 스트레스 확률을 빼면 상대적 방어성이 나오며, 이때 양수가 방어적이라는 뜻입니다.</p></article>
+          <article><h2>쌍별 특성과 공적분</h2><p>공적분은 “높은 상관 + 평균회귀”가 아니라 두 비정상 계열의 선형 결합이 정상이라는 진술입니다. 같은 시장 이유로 오르는 두 주식은 수준 상관이 1에 가깝지만 둘의 차이는 한없이 방황할 수 있습니다. 칼만 헤지 비율로 만든 스프레드에서 z-점수와 반감기가 나옵니다.</p></article>
+          <article><h2>왜 예측력이 생기는가</h2><p>오차수정 표현에서 장기 관계로부터의 편차가 미래 변화에 들어가기 때문입니다. 다만 추정 헤지 비율은 시간 불변이 아니고, 통계적으로 정상인 스프레드도 회귀가 느리거나 비용이 커서 운용상 무의미할 수 있습니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">이 수량들은 거래 규칙이 아니라 상태 요약으로 해석합니다. 짧은 반감기가 그 자체로 거래를 정당화하지 않습니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s96-benchmark">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-96-universe" aria-label="개별 상태의 폭과 분산으로 시장 전체를 보기" data-report-refs="s96 table-universe-agg" data-source-refs="section:9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6</span></header>
+      <h1>평균이 높은 것과 폭이 넓은 것과 분산이 큰 것은 서로 다른 상황이다</h1>
+      <p class="lead">자산 수준 시간 특성이 있으면 유니버스 전체에 걸쳐 집계해 시장 전반의 조건을 요약할 수 있습니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 8</span> 네 유니버스 집계의 읽는 법</caption>
+          <thead><tr><th>집계</th><th>계산</th><th>읽는 법</th></tr></thead>
+          <tbody>
+            <tr><td>유니버스 평균</td><td>자산별 조건부 변동성이나 스트레스 확률의 횡단면 평균</td><td>전체 변동성 상태, 압력이 광범위한지</td></tr>
+            <tr><td>분산</td><td>자산별 값의 횡단면 산포</td><td>자산들이 비슷하게 움직이는지 뚜렷이 갈리는지</td></tr>
+            <tr><td>폭</td><td>스트레스 확률이 높은 자산의 비율</td><td>얼마나 많은 자산이 동시에 스트레스인지</td></tr>
+            <tr><td>이탈</td><td>자산 값에서 유니버스 평균을 뺀 것</td><td>시장 국면과 함께 움직이는지 반대로 움직이는지</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">이탈은 양수가 평균 대비 초과 스트레스를 뜻하므로 앞 화면의 상대적 방어성과 부호가 반대입니다. 두 특성을 같은 패널에 둘 때 방향을 함께 적어야 합니다.</p>
+      </div>
+      <p class="takeaway">분산이 높으면 유니버스 안에 의견 차이가 있다는 뜻이고 로테이션·분절·선택적 위험 감수와 함께 나타나는 경우가 많습니다. 이 조합이 단일 자산 레이블보다 정보성이 큽니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-universe-agg">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-96-panel-order" aria-label="작업 순서와 그 순서가 지키려는 조건" data-report-refs="s96 fig-panel-order" data-source-refs="section:9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6</span></header>
+      <h1>누출 판정 기준은 순서 자체가 아니라 각 단계의 정보 집합이다</h1>
+      <p class="lead">먼저 각 자산의 시간 특성을 자기 후행 역사에서 계산하고, 그 출력을 의사결정일에 정렬한 뒤, 그다음에야 횡단면을 구성합니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="패널 특성의 세 단계와 가용성 조건" class="deck-report-figure">
+            <img src="assets/figs/fig-panel-order.svg" alt="왼쪽에서 오른쪽으로 세 단계가 이어지는 흐름도. 1단계는 자산별 시간 특성 계산, 2단계는 의사결정일 정렬, 3단계는 횡단면 순위·벤치마크 조정·쌍별 변환·유니버스 집계이며, 각 단계 아래에 공개 시각이 의사결정 시각보다 앞서야 한다는 조건이 붙고 3단계에서 1단계로 되돌아가는 역방향 화살표에 차단 표시가 있다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>왼쪽에서 오른쪽으로 읽고, 아래쪽 조건 칸을 단계별로 함께 봅니다.</p></article>
+            <article><h2>세 시각 규칙</h2><p>모든 사실에 사건 시각·공개 시각·의사결정 시각을 붙이고, 허용 규칙은 공개 시각이 의사결정 시각보다 앞선다는 한 줄입니다. 운용에서는 값이 파이프라인에 실제로 도착한 시스템 가용 시각이 결정적일 수 있습니다.</p></article>
+            <article><h2>해석 경계</h2><p>역방향 차단 표시는 그 배치가 금지라는 뜻이 아니라 그 배치에서 가용성 조건을 어기기 쉽다는 뜻입니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">이익수익률 예가 규칙을 수치로 보입니다. 4월 15일에 알려진 주당순이익이 4.00이고 주가가 50이면 올바른 값은 8.0%이며, 5월에 공시된 4.40을 쓴 8.8%는 오답입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-panel-order">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-96-exp-data" aria-label="실습에 쓰인 참조 데이터의 조건" data-report-refs="s96 notebook-pit-features fig-guide-reference-data" data-source-refs="section:9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6 · 실습</span></header>
+      <h1>입력 조건을 먼저 확인하지 않으면 뒤의 표를 해석할 수 없다</h1>
+      <p class="lead">교재 저장소의 장 가이드 노트북이 함께 기록한 데이터 진단입니다. 성과 실험이 아니라 배치 확인용 고정 표본입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="기록된 실행 결과 · 공통 참조 데이터" class="deck-report-figure">
+            <img src="assets/figs/guide-reference-data.png" alt="장 가이드 노트북이 기록한 참조 데이터 진단 그래프. AlgoSeek 번들 S&P 500 일별 바에서 가져온 5개 종목의 2021년 경로를 보인다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>축과 기간을 먼저 확인하고 종목 수를 셉니다.</p></article>
+            <article><h2>기록된 조건</h2><p>출처는 AlgoSeek 번들 S&amp;P 500 일별 바, 기간은 2021-01-04부터 2021-12-31까지, 5개 종목·252거래일·총 1,260행입니다.</p></article>
+            <article><h2>자동 검사</h2><p>같은 실행이 결측 가격 0개, 0 이하 가격 0개, 중복 종목·날짜 0개, 최대 절대 일별 수익률 0.120423을 기록했습니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">5종목 2021년 고정 표본의 교육용 자료입니다. 장의 본 실험은 공식 소스와 사례 연구의 동일한 데이터 경계·비용 계약에서 다시 수행합니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-guide-reference-data">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-96-exp-code" aria-label="지연 상태 특성을 만드는 코드" data-report-refs="s96 notebook-pit-features" data-source-refs="section:9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6 · 실습</span></header>
+      <h1>이름에 붙은 t_minus_1이 설계를 그대로 드러낸다</h1>
+      <p class="lead">대표 실험의 목적은 수익률을 높이는 것이 아니라 필터·스펙트럼·변동성·국면 모델의 출력을 시점 기준 특성으로 바꾸는 방법을 검사 가능한 형태로 만드는 것입니다.</p>
+      <div class="slide-body">
+        <pre data-code-language="Python"><code>demo = run_demo(BOOK_ROOT, SPEC)
+display(demo.table.round(6))                              # 네 열의 기술통계
+display(pd.Series(demo.checks, name=&quot;passed&quot;).to_frame())  # 자동 검사 결과
+display(demo.figure)
+print(demo.note)</code></pre>
+        <p class="explain-line"><code>demo.table</code>은 수익률과 세 개의 지연 상태 특성을 한 표로 만들고, <code>demo.checks</code>는 그 배치를 실행 중에 검사합니다. 핵심 검사는 상태 계열이 관측 계열보다 늦게 시작하는지입니다. 상태는 의사결정 시점 <em>이전</em>의 값만 씁니다.</p>
+      </div>
+      <p class="takeaway">다음 화면에서 네 열의 기술통계와 두 자동 검사 결과를 봅니다. 숫자의 크기보다 열 이름과 시작 시점이 요점입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#notebook-pit-features">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-96-exp-result" aria-label="지연 상태 특성의 기록된 결과" data-report-refs="s96 notebook-pit-features table-pit-demo notebook-pit-output" data-source-refs="section:9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6 · 실습 결과</span></header>
+      <h1>상태 계열이 관측 계열보다 늦게 시작한다는 것을 자동 검사가 확인한다</h1>
+      <p class="lead">앞 화면과 같은 데이터·기간입니다. 두 자동 검사는 state_starts_later와 finite이고 둘 다 통과했습니다.</p>
+      <div class="slide-body">
+        <table class="teaching-table">
+          <caption><span data-deck-caption="table">표 9</span> 수익률과 지연 상태 특성의 기술통계</caption>
+          <thead><tr><th>열</th><th>평균</th><th>표준편차</th><th>최소</th><th>최대</th></tr></thead>
+          <tbody>
+            <tr><td>return</td><td>0.001849</td><td>0.014135</td><td>−0.041126</td><td>0.040604</td></tr>
+            <tr><td>state_t_minus_1</td><td>0.002306</td><td>0.002699</td><td>−0.005150</td><td>0.009344</td></tr>
+            <tr><td>residual</td><td>−0.000458</td><td>0.014553</td><td>−0.041477</td><td>0.045755</td></tr>
+            <tr><td>vol_state_t_minus_1</td><td>0.015390</td><td>0.005346</td><td>0.008445</td><td>0.046346</td></tr>
+          </tbody>
+        </table>
+        <p class="explain-line">state_t_minus_1의 표준편차 0.002699가 return의 0.014135보다 훨씬 작은 것은 상태가 평활된 수량이기 때문이고, vol_state_t_minus_1이 모두 양수인 것은 변동성 상태의 정의상 그렇습니다.</p>
+      </div>
+      <p class="takeaway">이 표는 성과가 아니라 배치를 확인하는 표입니다. 2021년 5종목 고정 표본의 관측 한 번이며 범위나 우위를 추정해 덧붙일 근거가 아닙니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-pit-demo">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-96-exp-figure" aria-label="워밍업 구간을 메우면 누출이 된다" data-report-refs="s96 notebook-pit-features fig-guide-pit-demo" data-source-refs="section:9.6">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.6 · 실습 결과</span></header>
+      <h1>두 계열의 시작점 차이가 곧 시점 기준 설계의 비용이다</h1>
+      <p class="lead">앞 표와 같은 실행이 함께 남긴 그림입니다. 축 단위는 일별 수익률과 같은 척도의 상태값입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-visual">
+          <figure data-deck-figure-title="기록된 실행 결과 · 수익률과 지연 상태 특성" class="deck-report-figure">
+            <img src="assets/figs/guide-pit-demo.png" alt="장 가이드 노트북이 기록한 대표 실험 그래프. 일별 수익률 계열과 지연된 상태 특성 계열이 같은 시간축에 겹쳐 있고 상태 계열이 관측 계열보다 늦게 시작한다">
+          </figure>
+          <div class="teaching-rows">
+            <article><h2>읽는 순서</h2><p>두 계열의 시작점을 먼저 비교합니다.</p></article>
+            <article><h2>관찰과 원리</h2><p>상태 계열이 늦게 시작하는 만큼이 워밍업 구간입니다. 그 구간을 앞으로 채우면 아직 존재하지 않았던 상태를 과거에 배치하는 것이 됩니다.</p></article>
+            <article><h2>경계 사례</h2><p>같은 노트북은 정규화의 경계도 기록했습니다. 기준 창이 상수이면 min-max 분모가 0이 되고, 새 값 40.0에서 min-max 기준은 1.5, 경험 백분위는 1.0입니다. 백분위는 유계라 1에서 포화하고 min-max는 범위를 벗어난 값을 그대로 키웁니다.</p></article>
+          </div>
+        </div>
+      </div>
+      <p class="takeaway">전체 표본으로 HMM이나 스펙트럼을 맞춘 뒤 과거에 배치하면 미래 정보가 역류합니다. 정규화는 정상성의 증명이 아닙니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-guide-pit-demo">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching chapter-divider" id="slide-div-9-7" aria-label="§9.7 구분" data-report-refs="s97" data-source-refs="section:9.7" data-source-title="section:9.7" data-section-divider="9.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.7</span></header>
+      <h1>요약 — 적합 모델의 출력을 작고 안전한 특성 집합으로 관리하기</h1>
+      <p class="lead">이 장은 특성 공학을 직접 변환에서 적합 절차가 만드는 특성으로 확장했습니다.</p>
+      <div class="slide-body">
+        <div class="section-number" aria-hidden="true">9.7</div>
+      </div>
+      <p class="takeaway">남은 질문은 하나입니다. 이 방법들이 만들 수 있는 특성을 모두 넣을 것인가, 집합을 해석 가능하고 비중복으로 유지할 것인가.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s97">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-97-summary" aria-label="최대 목록보다 간결한 기준선" data-report-refs="s97" data-source-refs="section:9.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.7</span></header>
+      <h1>많은 계열이 겹치므로 작은 비중복 집합이 더 잘 작동하는 경우가 많다</h1>
+      <p class="lead">절별로 보태진 것을 되짚으면 진단은 안정성과 단절 위험의 롤링 측도, 신호 변환은 잠재 상태·주파수·스케일·경로 기하, 변동성 모델은 조건부 분산과 지속성·비대칭·기간별 성분, 불확실성 모델은 구간 너비와 사후 산포, 국면 모델은 임계값·필터링 확률·지속 기간·분포 기반 군집입니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>출발점으로 충분한 집합</h2><p>변동성 특성 하나나 둘, 국면 특성 하나, 신호 변환 특성 하나, 제한된 횡단면 변환 몇 개면 적합 방법이 무엇을 더하는지 확인하기에 보통 충분합니다.</p></article>
+          <article><h2>그다음 판정</h2><p>거기서부터 특성 선택이 추가 구조가 모델을 개선하는지 복잡성만 늘리는지를 결정합니다. 중복된 계열을 모두 넣으면 어느 것이 기여했는지 판정할 수 없습니다.</p></article>
+          <article><h2>다음 장으로</h2><p>10장은 같은 적합 객체 규율을 텍스트 특성에 적용합니다. 거기서는 타이밍, 감쇠, 임베딩 모델 의존성이 핵심 제약 조건이 됩니다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">도구가 일곱 절에 걸쳐 달라졌지만 게이트는 하나였습니다. 의사결정 시점에 실제로 존재했던 정보만으로 만들었는가입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s97">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-checkpoint" aria-label="이해를 확인하는 질문" data-report-refs="s97 table-adf-kpss fig-wavelet-bridge table-filter-smoother s97-questions" data-source-refs="section:9.7">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §9.7 · 확인 질문</span></header>
+      <h1>본문의 근거로 답할 수 있는 세 질문</h1>
+      <p class="lead">각 질문은 앞에서 본 표와 그림에 근거가 있습니다. 답을 설명할 때 그 화면을 다시 확인합니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>질문 1 · 롤링 안정성 통계량</h2><p>어떤 스프레드에서 롤링 ADF 통계량이 몇 주에 걸쳐 0 쪽으로 올라오고 롤링 KPSS 통계량도 함께 오르고 있습니다. 이 두 경로가 말하는 것은 무엇이고 말하지 않는 것은 무엇입니까? 특성으로 넣을 때 “정상 대 비정상” 레이블 대신 무엇을 넣어야 할까요?</p></article>
+          <article><h2>질문 2 · 웨이블릿 계수</h2><p>동료가 32–64일 세부 대역의 계수를 그대로 실시간 특성으로 배포하려 합니다. 왜 가장 최근 계수가 특히 위험한지, 그리고 같은 질문을 안전하게 묻는 후행 대리값은 어떤 형태인지 설명해 보세요.</p></article>
+          <article><h2>질문 3 · 같은 사후 평균</h2><p>두 날짜에 확률적 변동성 모델의 사후 평균이 모두 연율 20%입니다. 두 날짜를 구별하는 특성은 무엇이고, 그 특성을 필터링 사후분포에서 뽑아야 하는 이유는 무엇이며, 국면 확률에서 같은 규칙이 어떻게 반복됩니까?</p></article>
+        </div>
+      </div>
+      <p class="takeaway">세 질문 모두 같은 구조입니다. 출력이 무엇을 측정했는지, 그 출력이 의사결정 시점에 존재했는지, 그리고 레이블로 압축하면 무엇이 사라지는지입니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#s97-questions">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+    <section class="slide slide--teaching" id="slide-closing" aria-label="정리와 질의응답" data-report-refs="summary references">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">Chapter 9 · Q&amp;A</span></header>
+      <h1>적합 절차의 출력은 시점 기준 게이트를 통과한 만큼만 특성이다</h1>
+      <p class="lead">같은 적합 객체에서 나온 두 출력 가운데 하나는 특성이고 하나는 회고 분석인 경우가 반복해서 나타났습니다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>핵심 원리</h2><p>적합 절차는 과거를 예측 타깃과 관련된 방향으로 더 효과적으로 요약합니다. 칼만 필터 하나가 수준·기울기·혁신·상태 불확실성을 내고, GARCH 하나가 조건부 변동성과 지속성 모수를 함께 내며, 국면 모델 하나가 확률·지속 기간·엔트로피를 냅니다.</p></article>
+          <article><h2>근거와 조건</h2><p>필터의 과거 출력은 미래 변경에 0만큼 반응했고 평활은 0.063287만큼 반응했습니다. 회고적 단절일과 온라인 경보는 다른 시각이고, 지속성 합이 1에 닿으면 장기 분산은 해석할 수 없으며, 하드 레이블은 확률이 0.5 근처일 때 가장 많은 정보를 버립니다.</p></article>
+          <article><h2>토론</h2><p>지금 쓰는 특성 가운데 적합 절차의 출력은 무엇이고, 그 절차의 모수·차수·창 길이를 언제 어떤 데이터로 골랐습니까? 특성 이름만 보고 필터링인지 평활인지 구별할 수 있습니까?</p></article>
+        </div>
+      </div>
+      <p class="takeaway">자료: <a href="report.html">상세 리포트</a> · <a href="../../">회차 목록</a></p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#references">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+  </main>
+
+  <button class="toc-button control" id="tocButton" type="button" aria-label="목차 열기" aria-expanded="false">☰</button>
+  <aside class="toc" id="toc" aria-label="슬라이드 목차" aria-hidden="true"><h2>목차</h2><div id="tocItems"></div></aside>
+  <nav class="deck-controls" aria-label="슬라이드 제어">
+    <button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><span id="deckCounter" aria-live="polite">1 / 1</span><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button>
+  </nav>
+  <div class="deck-progress" aria-hidden="true"><span id="progress"></span></div>
+  <script src="assets/deck.js"></script>
+  <script src="assets/deck-lightbox.js"></script>
+  <script defer src="assets/katex/katex.min.js"></script>
+  <script defer src="assets/katex/auto-render.min.js"></script>
+  <script defer src="assets/katex/katex-init.js"></script>
+</body>
+</html>
