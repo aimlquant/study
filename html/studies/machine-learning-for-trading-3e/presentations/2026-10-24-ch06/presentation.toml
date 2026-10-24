@@ -1,0 +1,21 @@
+study_id = "machine-learning-for-trading-3e-2026"
+session_id = "2026-10-24-ch06"
+title = "전략 연구 프레임워크"
+date = "2026-10-24"
+presenters = ["종훈(S)"]
+chapters = ["Chapter 6"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+# 작성 시작부터 검사한다. 원본 경로가 비어 있으면 발행 검증이 실패한다.
+# 초안: 원본 구조 대조 및 전체 시각 검증 전
+source_material = "materials/quant/active/machine-learning-for-trading-3e/chapter_06_strategy_research_framework/06_chapter_06_strategy_research_framework_ko.md"
+# report_quality는 정식 내용 검토 후 설정
+# 절별 설명·근거·실습 상태와 원본/산출물 해시를 남기는 제작자용 JSON.
+content_review = ""
+
+# 덱 본문을 작성할 때 검토 기록을 채운다. 리포트 단독에는 적용하지 않는다.
+# deck_quality는 정식 내용 검토 후 설정
+deck_review = ""
