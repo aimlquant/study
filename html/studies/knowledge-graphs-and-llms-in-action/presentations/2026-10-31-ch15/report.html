@@ -410,7 +410,7 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
       </table>
 
       <h3 id="etf-ui">이번 구현의 화면 — 답과 근거를 한 화면에</h3>
-      <p>화면은 FastAPI 서버가 내보내는 페이지 하나다. React와 htm(JSX 대신 쓰는 작은 템플릿 라이브러리)을 로컬 파일로 두어, 빌드 단계나 외부 CDN 없이 동작한다. 질문 입력 위의 버튼 네 개는 §15.3의 질문 1–4다. ETF는 질문에 이름을 써도 되고, 그래프에 있는 ETF 28개 목록에서 2–5개를 골라도 된다. 이 선택 칸은 책의 선택 열을 ETF 목록으로 바꾼 것이다.</p>
+      <p>화면은 FastAPI 서버가 내보내는 페이지 하나다. React와 htm(JSX 대신 쓰는 작은 템플릿 라이브러리)을 로컬 파일로 두어, 빌드 단계나 외부 CDN 없이 동작한다. 질문 입력 위의 버튼 네 개는 §15.3의 질문 1–4다. ETF는 질문에 이름을 써도 되고, 그래프에 있는 ETF 28개 목록에서 2–5개를 골라도 된다. 이 선택 칸은 책의 선택 열을 ETF 목록으로 바꾼 것이다. 발표 시연 주소는 <a href="https://lecture.restful3.store/kg15c/">lecture.restful3.store/kg15c</a>이며, 스터디 로그인이 있어야 열린다.</p>
       <figure class="report-figure" id="fig-6-etf-ui" data-deck-use="required">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">질문 2의 실행 기록을 재생한 화면</span></figcaption>
         <img src="assets/figs/fig-etf-ui-q2-run.png" alt="ETF 겹침 점검 화면. 위쪽에 고른 ETF 네 개(069500 KODEX 200, 091160 KODEX 반도체, 305720 KODEX 2차전지산업, 487240 KODEX AI전력핵심설비)가 있다. 왼쪽에 다섯 노드의 진행이 있고 스키마 추출 노드만 흐리다. 오른쪽에 선택한 고정 Cypher와 매개변수, 여섯 쌍의 겹침 표, 가장 많이 겹치는 쌍의 공통 종목 네 개, 답이 있다. 맨 아래에 출처와 기준일이 있다.">

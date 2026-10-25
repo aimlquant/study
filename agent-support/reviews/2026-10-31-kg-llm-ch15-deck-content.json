@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "153f8075eaba39fa3c3fb6c9ed59649f1614754043fb96dadaf13a91abd737a7",
-  "deck_sha256": "03191548f81c3b6eb86cf0c40d026c2e4248f3f019668af733af760b559fe104",
+  "report_sha256": "34bf494be6ed2cb24ad484b92fe489e93e7c55c163408dbf53160ed6e1e33dc3",
+  "deck_sha256": "8ae392ded8bd9a9a38930701c447b8397d083b26b39ab86bf51b4c1f71b1f2f4",
   "reviewer": "claude (author self-check before pair review)",
-  "review_date": "2026-10-24",
-  "review_scope": "report.html에서 파생한 56장 덱(책 47장 + ETF 구현·실행 9장)의 설명 대응, 리포트 근거, 렌더",
+  "review_date": "2026-10-25",
+  "review_scope": "report.html v4에서 파생한 51장 덱(책 43장 + ETF 구현·실행 8장)의 설명 대응, 리포트 근거, 렌더",
   "units": [
     {
       "question": "이 장은 무엇을 만들고 어떤 질문에 답하는가?",
@@ -29,30 +29,25 @@
       "conditions": "화이트보드 비유의 한계와 '코드로 보면 라우터 쪽'이라는 판단을 화면에 함께 둔다.",
       "report_refs": [
         "source-15-1",
-        "fig-1-system-overview",
-        "fig-2-state-evolution"
+        "fig-1-state-evolution"
       ],
       "slide_ids": [
         "slide-section-15-1",
-        "slide-15-1-overview",
         "slide-15-1-state",
         "slide-15-1-graph"
       ]
     },
     {
       "question": "14장의 설계는 어떤 그래프와 백엔드 구성이 되는가?",
-      "explanation": "단계마다 에이전트 함수 하나라는 대응과, 설정·스키마 제공자와 질문 처리 인터페이스의 책임을 설명한다.",
+      "explanation": "14장의 단계가 다섯 노드와 조건부 엣지 하나로 된 그래프가 된다는 것을 그림으로 보인다. 백엔드 구성도는 리포트 v3에서 빠져 덱에서도 뺐다.",
       "evidence": "파이프라인 그래프(실선·점선), 백엔드 아키텍처 그림과 읽는 법.",
       "conditions": "시각화가 노드가 아니라는 점을 takeaway로 둔다.",
       "report_refs": [
         "source-15-1-1",
-        "fig-3-pipeline-graph",
-        "fig-4-backend-architecture",
-        "table-2-backend-roles"
+        "fig-2-pipeline-graph"
       ],
       "slide_ids": [
-        "slide-15-1-1-title",
-        "slide-15-1-1-backend"
+        "slide-15-1-1-title"
       ]
     },
     {
@@ -94,7 +89,7 @@
       "report_refs": [
         "source-15-1-4",
         "source-listing-15-5",
-        "table-3-state-fields"
+        "table-4-state-fields"
       ],
       "slide_ids": [
         "slide-15-1-4-title",
@@ -108,11 +103,7 @@
       "conditions": "Listing 15.7은 원서가 이미지로만 실어 저장소 코드로 옮겼다고 밝혔다. success 미사용과 ClientError 한정은 코드·노트북 근거로 적었다.",
       "report_refs": [
         "source-15-1-5",
-        "fig-7-agent-state-fields",
-        "source-listing-15-6",
-        "source-listing-15-7",
-        "source-listing-15-8",
-        "source-listing-15-9"
+        "fig-3-agent-state-fields"
       ],
       "slide_ids": [
         "slide-15-1-5-title",
@@ -128,9 +119,9 @@
       "conditions": "최대 세 번 실행이 저자들의 '세 번 시도'와 같은 뜻임을 밝혔다. self.memory 누락은 코드 대조로 표시했다.",
       "report_refs": [
         "source-15-1-5",
-        "fig-8-post-query-routing",
+        "fig-4-post-query-routing",
+        "table-5-routing-check",
         "source-listing-15-10",
-        "table-4-routing-check",
         "source-listing-15-11",
         "source-listing-15-12"
       ],
@@ -147,9 +138,9 @@
       "conditions": "실행 시간과 모델·버전 조건을 붙였다. labels/label 키 차이는 코드 대조로 표시했다.",
       "report_refs": [
         "source-15-1-6",
-        "fig-9-event-stream",
-        "source-listing-15-13",
-        "table-5-event-types"
+        "fig-5-event-stream",
+        "table-6-event-types",
+        "source-listing-15-13"
       ],
       "slide_ids": [
         "slide-15-1-6-title",
@@ -165,7 +156,7 @@
       "conditions": "운영에는 더 전문화된 화면이 필요할 수 있다는 저자들의 단서를 takeaway로 둔다.",
       "report_refs": [
         "source-15-2",
-        "table-6-streamlit-fit"
+        "table-7-ui-coords"
       ],
       "slide_ids": [
         "slide-section-15-2",
@@ -174,12 +165,12 @@
     },
     {
       "question": "화면의 각 영역은 어떤 역할을 하는가?",
-      "explanation": "캔버스·선택·대화 이력·질문 입력의 역할과 질문 사이의 맥락 통로를 설명한다.",
+      "explanation": "책 화면의 네 영역(그래프 캔버스, 선택 열, 대화 이력, 질문 입력)을 글로 정리했다. 원서 그림 15.10 도식은 리포트 v3에서 빠져 덱에서도 뺐다.",
       "evidence": "화면 배치 도식과 읽는 법.",
       "conditions": "도식은 실제 비율이 아니며 화면 캡처를 옮긴 것이 아니다.",
       "report_refs": [
         "source-15-2-1",
-        "fig-10-app-layout"
+        "table-7-ui-coords"
       ],
       "slide_ids": [
         "slide-15-2-1-title"
@@ -194,7 +185,7 @@
         "source-15-2-2",
         "source-listing-15-14",
         "source-listing-15-15",
-        "table-7-ui-events"
+        "table-7-ui-coords"
       ],
       "slide_ids": [
         "slide-15-2-2-title",
@@ -203,19 +194,14 @@
     },
     {
       "question": "수사 시나리오는 어떤 그래프와 흐름으로 진행되는가?",
-      "explanation": "다섯 노드 타입의 고리와, 선택을 이어 받는 다섯 질문의 흐름을 설명한다.",
+      "explanation": "수사 시나리오는 리포트 v3·v4처럼 절 머리와 다섯 하위 절 슬라이드로만 요약했다. 수사 그래프·단계 도식은 덱에서 뺐다.",
       "evidence": "수사 스키마 그림, 다섯 단계 도식.",
       "conditions": "차량–소유자 관계의 방향 미확인, 결과 줄이 원서 화면 캡처의 요약이라는 점을 표시했다.",
       "report_refs": [
-        "source-15-3",
-        "fig-11-investigation-schema",
-        "fig-12-investigation-steps",
-        "table-8-investigation-steps"
+        "source-15-3"
       ],
       "slide_ids": [
-        "slide-section-15-3",
-        "slide-15-3-schema",
-        "slide-15-3-steps"
+        "slide-section-15-3"
       ]
     },
     {
@@ -279,57 +265,55 @@
       ]
     },
     {
-      "question": "책의 파이프라인이 다른 도메인 그래프에서도 그대로 동작하는가?",
-      "explanation": "ETF 200개 표본 그래프의 구성과 수, 책 구성요소와 ETF 구현의 대응, 바꾼 이유를 보인다.",
-      "evidence": "레이블별 노드·관계 수(CSV 계산=DB 실측, 덱 표 5), 대응표 여덟 줄(덱 표 6·7).",
-      "conditions": "기준일 미상 표본, 가격·수익률 없음. 섹터·테마는 LLM 추출값이라 표기가 흔들린다.",
+      "question": "책의 파이프라인을 KRX ETF 구성 종목 그래프에 옮기면 무엇이 그대로이고 무엇이 바뀌는가?",
+      "explanation": "2026-10-23 기준 KRX 파일로 만든 ETF 28개 구성 종목 그래프의 규모(파일 계산 = DB 실측)와, 책 구성요소별로 ETF 구현에서 바꾼 것(설정·스키마 생략, 고정 질의, 되묻기 분기)을 보인다.",
+      "evidence": "리포트 표 10·11, src/krx-etf var/load-report.json.",
+      "conditions": "데이터 범위는 테마 4개 × 시가총액 상위 7개다. 순자산총액이 0으로 와서 시가총액으로 골랐다.",
       "report_refs": [
-        "etf-implementation",
         "etf-data",
-        "table-9-etf-graph-counts",
+        "table-10-etf-graph-counts",
         "etf-mapping",
-        "table-10-etf-mapping"
+        "table-11-etf-mapping"
       ],
       "slide_ids": [
         "slide-etf-data",
-        "slide-etf-map-1",
-        "slide-etf-map-2"
+        "slide-etf-map"
       ]
     },
     {
-      "question": "책의 라우팅에 무엇을 더했고, LLM 질의 실행은 어떻게 막았는가?",
-      "explanation": "0행 넓히기를 더한 라우터 코드와, 서버 읽기 전용·질의 검사·상한의 세 겹 경계.",
-      "evidence": "route_after_query 실제 코드, CREATE 거부 확인.",
-      "conditions": "retries는 총 실행 횟수, 넓히기도 3회 안. 드라이버 읽기 세션은 접근 제어가 아니다.",
+      "question": "겹침 비중은 어떻게 계산하고, 조건부 엣지는 어디서 갈라지는가?",
+      "explanation": "겹침 비중의 정의와 고정 매개변수 Cypher, 세 조건부 엣지(건너뛰기·되묻기·요약), 읽기 전용 서버와 시간 제한을 보인다.",
+      "evidence": "리포트 etf-router·etf-readonly, src/krx-etf agent.py.",
+      "conditions": "LLM은 의도와 ETF 이름만 뽑는다. 숫자를 내는 질의는 앱이 고정했다.",
       "report_refs": [
         "etf-router",
         "etf-readonly"
       ],
       "slide_ids": [
         "slide-etf-router",
-        "slide-etf-readonly"
+        "slide-etf-edges"
       ]
     },
     {
-      "question": "실제로 던진 질문에서 무엇이 관찰됐는가?",
-      "explanation": "화면 구성, 세 질문의 경로·행·시간, 질문 1의 Cypher, 질문 2·3과 요약 경로의 관찰.",
-      "evidence": "실행 기록 재생 화면(그림 13), 각 3회 실측(덱 표 8), 질문 1 생성 Cypher와 결과.",
-      "conditions": "넓히기 분기는 실제 실행에서 지나가지 않고 단위 시험으로만 확인. 결과는 투자 판단이 아니다.",
+      "question": "실제로 던진 질문에서 무엇이 관찰됐고, 숫자는 믿을 수 있는가?",
+      "explanation": "질문 2 화면, 378쌍 독립 대조와 질문 1–4의 경로·실측, 공통 종목 수와 겹침 비중의 차이, 미지원과 되묻기 분기를 보인다.",
+      "evidence": "리포트 표 12·그림 6, src/krx-etf var/verify-report.json·demo-runs.json·runs.",
+      "conditions": "2026-10-23 하루의 구성이며 투자 판단이 아니다. KRX 자료의 화면 사용 허용 여부는 확인하지 못했다.",
       "report_refs": [
         "etf-ui",
-        "fig-13-etf-ui",
+        "fig-6-etf-ui",
         "etf-runs",
-        "table-11-etf-runs",
+        "table-12-etf-runs",
         "etf-q1",
         "etf-q2",
         "etf-q3",
-        "etf-graph-intent"
+        "etf-q4"
       ],
       "slide_ids": [
         "slide-etf-ui",
         "slide-etf-runs",
-        "slide-etf-q1",
-        "slide-etf-q2q3"
+        "slide-etf-q1q2",
+        "slide-etf-q3q4"
       ]
     },
     {
@@ -339,7 +323,7 @@
       "conditions": "경로는 저자들의 제안이며 구현되지 않았다. 오른쪽 열은 AIML Quant 보충이다.",
       "report_refs": [
         "source-15-4",
-        "table-12-evolution-paths"
+        "table-13-evolution-coords"
       ],
       "slide_ids": [
         "slide-section-15-4",
@@ -400,5 +384,5 @@
     }
   ],
   "experiments": [],
-  "visual_review": "1280×720 전체와 390px 표본(표지·그림·코드·표·마지막)을 렌더해 확인했다. 넘침·겹침은 보이지 않았다. 이벤트 대응 그림(fig-15-9)은 발표 크기에서 읽히도록 큰 글자의 덱용 재구성 두 장(intentional adaptation)으로 나눴고 전체 그림은 리포트 링크로 연결한다. 390px에서는 16:9 덱 전체를 화면 폭에 맞춰 줄이므로 확대 없이 세부를 읽기 어렵다. 2026-10-24 ETF 9장(41–49)과 표 번호가 바뀐 3·51번을 1600×900으로, 41·44·49번을 390px로 렌더해 확인했다. 46번 화면 캡처는 좌우 배치로 두었고 캡처 속 작은 글씨는 확대 보기로 읽으며, 같은 Cypher·행은 47·48번에 큰 글씨로 다시 나온다."
+  "visual_review": "1280×720 전체와 390px 표본(표지·그림·코드·표·마지막)을 렌더해 확인했다. 넘침·겹침은 보이지 않았다. 이벤트 대응 그림(fig-15-9)은 발표 크기에서 읽히도록 큰 글자의 덱용 재구성 두 장(intentional adaptation)으로 나눴고 전체 그림은 리포트 링크로 연결한다. 390px에서는 16:9 덱 전체를 화면 폭에 맞춰 줄이므로 확대 없이 세부를 읽기 어렵다. 2026-10-24 ETF 9장(41–49)과 표 번호가 바뀐 3·51번을 1600×900으로, 41·44·49번을 390px로 렌더해 확인했다. 46번 화면 캡처는 좌우 배치로 두었고 캡처 속 작은 글씨는 확대 보기로 읽으며, 같은 Cypher·행은 47·48번에 큰 글씨로 다시 나온다. 2026-10-25 v4: ETF 8장(37–44)과 바꾼 28번을 1280×720으로, 42번을 390px로 렌더해 확인했다. 넘침·겹침 없음. 41번 화면 캡처는 세로가 길어 작게 보이며 확대 보기로 읽고, 같은 숫자는 42–43번에 큰 글씨로 다시 나온다."
 }

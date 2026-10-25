@@ -89,23 +89,7 @@
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-overview" aria-label="Streamlit과 LangGraph의 역할 분담" data-report-refs="source-15-1 fig-1-system-overview" data-source-refs="section:15.1">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1 · 그림 15.1</span></header>
-      <h1>화면의 입력·출력은 Streamlit이, 그 사이 단계 실행은 LangGraph가 맡는다</h1>
-      <p class="lead">14장에서 설계한 처리 순서가 이 장에서 실행 코드가 된다.</p>
-      <div class="slide-body">
-        <div class="teaching-wide-visual">
-          <figure data-deck-figure-title="Streamlit이 입력과 출력을, LangGraph가 그 사이의 파이프라인을 맡는 구조" class="deck-report-figure">
-            <img src="assets/figs/fig-15-1-system-overview.svg" alt="왼쪽 Streamlit 입력에 질문과 선택한 노드, 가운데 LangGraph 파이프라인에 의도 감지·스키마 추출·질의 생성·질의 실행·요약 생성, 오른쪽 Streamlit 출력에 시각화와 요약이 있다.">
-          </figure>
-          <p class="figure-reading">양 끝은 같은 Streamlit 앱의 입력 쪽과 출력 쪽이다. 14장의 시각화 단계는 그리는 일이 화면 몫이라 출력 쪽에 있다.</p>
-        </div>
-      </div>
-      <p class="takeaway">가운데 다섯 단계가 이 절에서 만들 노드다. 화면 쪽은 §15.2에서 붙인다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-1-system-overview">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-state" aria-label="공유 상태가 자라는 RAG 예" data-report-refs="source-15-1 fig-2-state-evolution" data-source-refs="section:15.1">
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-state" aria-label="공유 상태가 자라는 RAG 예" data-report-refs="source-15-1 fig-1-state-evolution" data-source-refs="section:15.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1 · 그림 15.2</span></header>
       <h1>에이전트를 지날 때마다 공유 상태에 필드가 하나씩 늘어난다</h1>
       <p class="lead">익숙한 RAG 예로 본다. 문서 검색과 답변 생성 두 작업뿐이다.</p>
@@ -118,7 +102,7 @@
         </div>
       </div>
       <p class="takeaway">데이터는 상태를 거쳐서만 전달되므로 에이전트끼리는 서로의 존재를 몰라도 된다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-2-state-evolution">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-1-state-evolution">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching" id="slide-15-1-graph" aria-label="유향 그래프와 동적 엣지" data-report-refs="source-15-1" data-source-refs="section:15.1">
@@ -136,7 +120,7 @@
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-1-title" aria-label="파이프라인 그래프" data-report-refs="source-15-1-1 fig-3-pipeline-graph" data-source-refs="section:15.1.1" data-source-title="section:15.1.1">
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-1-title" aria-label="파이프라인 그래프" data-report-refs="source-15-1-1 fig-2-pipeline-graph" data-source-refs="section:15.1.1" data-source-title="section:15.1.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1.1 · 그림 15.3</span></header>
       <h1>15.1.1 시스템 아키텍처 개요 — 전문가 모방을 실행 가능한 그래프로</h1>
       <p class="lead">처리 단계마다 에이전트 함수 하나를 두면 14장의 설계가 그대로 그래프가 된다.</p>
@@ -149,23 +133,7 @@
         </div>
       </div>
       <p class="takeaway">14장의 시각화 단계는 노드가 아니다. 파이프라인은 형식을 정하고 결과를 준비할 뿐, 그리는 일은 화면이 한다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-3-pipeline-graph">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-1-backend" aria-label="백엔드 네 구성요소" data-report-refs="source-15-1-1 fig-4-backend-architecture table-2-backend-roles" data-source-refs="section:15.1.1">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1.1 · 그림 15.4</span></header>
-      <h1>워크플로는 두 제공자에게서 재료를 받고 인터페이스를 거쳐 화면과 이어진다</h1>
-      <p class="lead">백엔드는 책임이 하나씩인 네 덩어리다.</p>
-      <div class="slide-body">
-        <div class="teaching-wide-visual">
-          <figure data-deck-figure-title="LangGraph 파이프라인이 지원 구성요소와 통합되는 백엔드 아키텍처" class="deck-report-figure">
-            <img src="assets/figs/fig-15-4-backend-architecture.svg" alt="가운데 LangGraph 워크플로가 오른쪽 위 설정 제공자에게서 프롬프트·주석을, 오른쪽 아래 스키마 제공자에게서 개념 스키마를 받는다. 왼쪽 질문 처리 인터페이스가 프런트엔드와 질문·이벤트를 주고받는다.">
-          </figure>
-          <p class="figure-reading">오른쪽 두 줄은 실행 중에 가져다 쓰는 재료, 왼쪽 줄은 사용자와 주고받는 통로다. 질문 처리 인터페이스는 실행을 화면이 받을 이벤트 스트림으로 바꾼다.</p>
-        </div>
-      </div>
-      <p class="takeaway">이어서 두 제공자(§15.1.2–15.1.3), 상태(§15.1.4), 에이전트(§15.1.5), 통합 계층(§15.1.6) 순서로 본다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-4-backend-architecture">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-2-pipeline-graph">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching" id="slide-15-1-2-title" aria-label="설정 파일의 세 부분" data-report-refs="source-15-1-2 source-listing-15-1" data-source-refs="section:15.1.2 listing:15.1" data-source-title="section:15.1.2">
@@ -281,7 +249,7 @@ def apply_configuration(config):
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-15-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-15-1-4-keys" aria-label="선언한 키와 실제 키" data-report-refs="source-15-1-4 table-3-state-fields" data-source-refs="section:15.1.4">
+    <section class="slide slide--teaching" id="slide-15-1-4-keys" aria-label="선언한 키와 실제 키" data-report-refs="source-15-1-4 table-4-state-fields" data-source-refs="section:15.1.4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1.4 · 코드 대조</span></header>
       <h1>선언한 키와 실제로 쓰는 키가 두 군데서 어긋난다</h1>
       <p class="lead">교재 Listing 15.5의 선언과, 교재 저장소 코드가 실제로 반환하고 읽는 키를 대조했다.</p>
@@ -298,10 +266,10 @@ def apply_configuration(config):
         </table>
       </div>
       <p class="takeaway">노트북 실행(LangGraph 0.2.19)은 끝까지 돌았지만, &ldquo;누가 무엇을 채우는지&rdquo;라는 선언의 계약은 이름이 어긋나는 순간 조용히 깨진다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-3-state-fields">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-4-state-fields">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-5-title" aria-label="다섯 에이전트와 반환 필드" data-report-refs="source-15-1-5 fig-7-agent-state-fields" data-source-refs="section:15.1.5" data-source-title="section:15.1.5">
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-5-title" aria-label="다섯 에이전트와 반환 필드" data-report-refs="source-15-1-5 fig-3-agent-state-fields" data-source-refs="section:15.1.5" data-source-title="section:15.1.5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1.5 · 그림 15.7</span></header>
       <h1>15.1.5 파이프라인 에이전트 구현 — 단계마다 전문 에이전트 하나</h1>
       <p class="lead">다섯 에이전트는 모두 <code>AgentState</code>를 받아 자기가 채울 필드만 딕셔너리로 돌려준다.</p>
@@ -314,7 +282,7 @@ def apply_configuration(config):
         </div>
       </div>
       <p class="takeaway">LLM을 부르는 세 에이전트는 설정에서 프롬프트를 받아 공통 함수 <code>run_prompt</code>로 실행한다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-7-agent-state-fields">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-3-agent-state-fields">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching" id="slide-15-1-5-intent" aria-label="의도 감지와 방어적 파싱" data-report-refs="source-15-1-5 source-listing-15-6" data-source-refs="section:15.1.5 listing:15.6">
@@ -376,7 +344,7 @@ def text_to_cypher(self, state: AgentState):             # Listing 15.8
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-15-9">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-5-routing" aria-label="실행 후 라우팅" data-report-refs="source-15-1-5 fig-8-post-query-routing source-listing-15-10 table-4-routing-check" data-source-refs="section:15.1.5 listing:15.10">
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-5-routing" aria-label="실행 후 라우팅" data-report-refs="source-15-1-5 fig-4-post-query-routing source-listing-15-10 table-5-routing-check" data-source-refs="section:15.1.5 listing:15.10">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1.5 · 그림 15.8 · Listing 15.10</span></header>
       <h1>실행 뒤 다음 노드는 오류 여부, 그다음 횟수나 형식으로 고른다</h1>
       <p class="lead"><code>post_query_execution</code>은 상태를 바꾸지 않고 행선지 문자열만 돌려주는 동적 엣지다.</p>
@@ -389,7 +357,7 @@ def text_to_cypher(self, state: AgentState):             # Listing 15.8
         </div>
       </div>
       <p class="takeaway">retries가 실행 횟수이므로 첫 실행과 재시도 두 번, 최대 세 번 실행된다. 저자들의 &ldquo;최대 세 번 시도&rdquo;와 같은 뜻이다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-8-post-query-routing">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-4-post-query-routing">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching" id="slide-15-1-5-summary" aria-label="요약 생성 에이전트" data-report-refs="source-15-1-5 source-listing-15-11" data-source-refs="section:15.1.5 listing:15.11">
@@ -445,7 +413,7 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-1-6">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-6-events-1" aria-label="이벤트 대응 1: 진행 알림" data-report-refs="source-15-1-6 fig-9-event-stream" data-source-refs="section:15.1.6" data-report-visual-adaptation="intentional">
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-6-events-1" aria-label="이벤트 대응 1: 진행 알림" data-report-refs="source-15-1-6 fig-5-event-stream" data-source-refs="section:15.1.6" data-report-visual-adaptation="intentional">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1.6 · 그림 15.9 (1/2)</span></header>
       <h1>노드가 끝날 때마다 다음 단계를 알리는 update가 나간다</h1>
       <p class="lead">왼쪽은 LangGraph가 알리는 일, 오른쪽은 화면이 받는 이벤트다. 실행 시작부터 텍스트-투-사이퍼까지.</p>
@@ -458,10 +426,10 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
         </div>
       </div>
       <p class="takeaway">텍스트-투-사이퍼가 끝나면 진행 알림과 함께 질의 근거를 result 이벤트로 보낸다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-9-event-stream">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-5-event-stream">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-6-events-2" aria-label="이벤트 대응 2: 결과·오류·요약·종료" data-report-refs="source-15-1-6 fig-9-event-stream" data-source-refs="section:15.1.6" data-report-visual-adaptation="intentional">
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-1-6-events-2" aria-label="이벤트 대응 2: 결과·오류·요약·종료" data-report-refs="source-15-1-6 fig-5-event-stream" data-source-refs="section:15.1.6" data-report-visual-adaptation="intentional">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1.6 · 그림 15.9 (2/2)</span></header>
       <h1>질의 실행 뒤에는 결과 데이터, 오류, 요약, END가 나간다</h1>
       <p class="lead">질의 실행의 성공과 오류, 요약 생성, 스트림 종료에 대응하는 이벤트다.</p>
@@ -474,10 +442,10 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
         </div>
       </div>
       <p class="takeaway">모든 이벤트에 현재 상태가 함께 실리므로, 화면은 무엇을 어떻게 보여 줄지 스스로 정할 수 있다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-9-event-stream">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-5-event-stream">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-15-1-6-code" aria-label="processQuestion 제너레이터" data-report-refs="source-15-1-6 source-listing-15-13 table-5-event-types" data-source-refs="section:15.1.6 listing:15.13">
+    <section class="slide slide--teaching" id="slide-15-1-6-code" aria-label="processQuestion 제너레이터" data-report-refs="source-15-1-6 source-listing-15-13 table-6-event-types" data-source-refs="section:15.1.6 listing:15.13">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1.6 · Listing 15.13</span></header>
       <h1>모든 이벤트는 (타입, 내용, 현재 상태) 세 항목 튜플이다</h1>
       <p class="lead"><code>stream_mode=&quot;updates&quot;</code>는 바뀐 필드만 주므로 전체 상태는 <code>get_state</code>로 따로 읽는다.</p>
@@ -506,7 +474,7 @@ for result in results:
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-15-2-fit" aria-label="화면 요구와 Streamlit 기능" data-report-refs="source-15-2 table-6-streamlit-fit" data-source-refs="section:15.2">
+    <section class="slide slide--teaching" id="slide-15-2-fit" aria-label="화면 요구와 Streamlit 기능" data-report-refs="source-15-2 table-7-ui-coords" data-source-refs="section:15.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.2</span></header>
       <h1>네 가지 화면 요구는 Streamlit 기본 기능과 맞물린다</h1>
       <p class="lead">저자들은 이 선택을 시제품과 시연 단계에 맞는 것으로 본다.</p>
@@ -523,23 +491,23 @@ for result in results:
         </table>
       </div>
       <p class="takeaway">운영 배포에는 더 전문화된 인터페이스가 필요할 수 있다는 것이 저자들의 단서다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-6-streamlit-fit">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-7-ui-coords">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-2-1-title" aria-label="화면의 네 영역" data-report-refs="source-15-2-1 fig-10-app-layout" data-source-refs="section:15.2.1" data-source-title="section:15.2.1">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.2.1 · 그림 15.10</span></header>
+    <section class="slide slide--teaching" id="slide-15-2-1-title" aria-label="화면의 네 영역" data-report-refs="source-15-2-1 table-7-ui-coords" data-source-refs="section:15.2.1" data-source-title="section:15.2.1">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.2.1</span></header>
       <h1>15.2.1 애플리케이션 개요 — 화면 구성과 각 영역의 역할</h1>
       <p class="lead">그래프 캔버스를 가운데 두고 선택, 대화 이력, 질문 입력이 둘러싼다.</p>
       <div class="slide-body">
-        <div class="teaching-wide-visual">
-          <figure data-deck-figure-title="애플리케이션 인터페이스 레이아웃" class="deck-report-figure">
-            <img src="assets/figs/fig-15-10-app-layout.svg" alt="왼쪽 선택 열, 가운데 그래프 캔버스, 오른쪽 대화 이력, 아래 질문 입력란으로 된 화면 배치 도식.">
-          </figure>
-          <p class="figure-reading">선택 열의 노드는 질문에서 &ldquo;선택한 범죄&rdquo;처럼 가리킨다. 대화 이력은 답에 따라 지도·표로 형식을 바꾸고 처리 중에도 갱신된다.</p>
+        <div class="teaching-rows">
+          <article><h2>그래프 캔버스</h2><p>질의 결과의 노드와 관계를 그리고, 노드를 더블클릭해 고른다.</p></article>
+          <article><h2>선택 열</h2><p>고른 노드를 모아 두고, 질문에서 &ldquo;선택한 범죄&rdquo;처럼 가리키게 한다.</p></article>
+          <article><h2>대화 이력</h2><p>답의 형식에 따라 지도·표·요약으로 바뀌고, 처리 중에도 갱신된다.</p></article>
+          <article><h2>질문 입력</h2><p>질문과 현재 선택을 함께 파이프라인에 넘긴다.</p></article>
         </div>
       </div>
-      <p class="takeaway">질문마다 새 thread_id로 실행되므로, 결과를 다음 질문으로 넘기는 통로는 선택이다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-10-app-layout">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <p class="takeaway">질문마다 새 thread_id로 실행되므로, 결과를 다음 질문으로 넘기는 통로는 선택이다. 이 회차의 화면은 뒤의 ETF 구현에서 본다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-2-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching" id="slide-15-2-2-title" aria-label="MessageHistory" data-report-refs="source-15-2-2 source-listing-15-14" data-source-refs="section:15.2.2 listing:15.14" data-source-title="section:15.2.2">
@@ -561,7 +529,7 @@ for result in results:
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-15-14">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-15-2-2-handler" aria-label="사용자 입력 핸들러" data-report-refs="source-15-2-2 source-listing-15-15 table-7-ui-events" data-source-refs="section:15.2.2 listing:15.15">
+    <section class="slide slide--teaching" id="slide-15-2-2-handler" aria-label="사용자 입력 핸들러" data-report-refs="source-15-2-2 source-listing-15-15 table-7-ui-coords" data-source-refs="section:15.2.2 listing:15.15">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.2.2 · Listing 15.15</span></header>
       <h1>화면은 이벤트 타입마다 자리표시자, 캔버스, 이력 중 하나를 고친다</h1>
       <p class="lead">질문이 들어오면 캔버스에서 고른 노드를 꺼내 질문과 함께 넘긴다. 분기만 줄여 보인다.</p>
@@ -588,38 +556,6 @@ for result in results:
       <div class="slide-body"><div class="section-number" aria-hidden="true">15.3</div></div>
       <p class="takeaway">다섯 질문이 앞 결과를 선택으로 이어 받으며 범죄 무단침입 사건의 관심 차량을 좁힌다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-3-schema" aria-label="수사에 쓰는 그래프 일부" data-report-refs="source-15-3 fig-11-investigation-schema" data-source-refs="section:15.3">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.3 · 그림 15.11</span></header>
-      <h1>범죄에서 카메라·감지 기록·차량·소유자를 거쳐 다시 범죄로</h1>
-      <p class="lead">수사는 다섯 노드 타입으로 된 그래프 일부를 쓴다. 시계 방향이 §15.3.1–15.3.5의 순서다.</p>
-      <div class="slide-body">
-        <div class="teaching-wide-visual">
-          <figure data-deck-figure-title="수사 질의에 쓰이는 초점 스키마" class="deck-report-figure">
-            <img src="assets/figs/fig-15-11-investigation-schema.svg" alt="Crime과 ANPRCamera는 점선 근접, ANPRCamera에서 HAS_EVENT로 ANPRCameraEvent, PLATE_READ_EVENT로 Vehicle, Vehicle과 Person은 소유자 선, Person에서 COMMITTED로 Crime.">
-          </figure>
-          <p class="figure-reading">범죄–카메라 점선은 저장된 관계가 아니라 위치로 계산하는 근접이다. 차량–소유자는 OWNED_BY라는 이름은 있지만 방향을 확인하지 못해 방향 없이 그렸다.</p>
-        </div>
-      </div>
-      <p class="takeaway">저자들은 이 단순한 구조가 공간·시간·관계 탐색을 결합한 질의를 가능하게 한다고 본다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-11-investigation-schema">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-15-3-steps" aria-label="다섯 질문의 흐름" data-report-refs="source-15-3 fig-12-investigation-steps table-8-investigation-steps" data-source-refs="section:15.3">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.3</span></header>
-      <h1>다섯 질문이 선택을 이어 받으며 사건을 좁혀 간다</h1>
-      <p class="lead">앞 단계의 결과 노드를 선택에 넣고, 다음 질문이 그 선택을 가리킨다.</p>
-      <div class="slide-body">
-        <div class="teaching-wide-visual">
-          <figure data-deck-figure-title="다섯 질문이 선택을 이어 받으며 사건을 좁혀 간다" class="deck-report-figure">
-            <img src="assets/figs/sec-15-3-investigation-steps.svg" alt="다섯 열이 수사 단계이고, 각 열에 단계 이름, 넘긴 선택, 원서가 보고한 결과가 위에서 아래로 있다.">
-          </figure>
-          <p class="figure-reading">가운데 줄이 넘긴 선택, 아래 줄이 원서가 화면 캡처로 보고한 결과를 줄인 것이다.</p>
-        </div>
-      </div>
-      <p class="takeaway">질문마다 파이프라인 상태는 새로 시작한다. 단계 사이의 맥락은 선택이 나른다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-12-investigation-steps">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching" id="slide-15-3-1" aria-label="첫 질문: 수사 중인 범죄" data-report-refs="source-15-3-1" data-source-refs="section:15.3.1" data-source-title="section:15.3.1">
@@ -697,174 +633,149 @@ for result in results:
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-3-5">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-etf-data" aria-label="ETF 그래프" data-report-refs="etf-implementation etf-data table-9-etf-graph-counts">
+    <section class="slide slide--teaching" id="slide-etf-data" aria-label="ETF 구성 종목 그래프" data-report-refs="etf-data table-10-etf-graph-counts">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · ETF 구현</span></header>
-      <h1>같은 다섯 노드를 국내 ETF 200개 그래프에 얹었다</h1>
-      <p class="lead">§15.3의 수사 그래프 자리에 강의 실습용 ETF 표본을 넣었다. 기준일 미상, 가장 늦은 상장일 2024-12-03, 가격·수익률 없음.</p>
+      <h1>같은 다섯 노드를 KRX ETF 28개의 구성 종목 그래프에 얹었다</h1>
+      <p class="lead">§15.3의 수사 그래프 자리에 한국거래소 KRX Data Marketplace에서 받은 2026-10-23 기준 파일을 넣었다. 코스피 200·반도체·2차전지·AI 테마별로 시가총액 상위 7개씩.</p>
       <div class="slide-body">
         <table class="teaching-table">
-          <caption><span data-deck-caption="table">표 5</span> 레이블별 노드와 ETF에서 들어오는 관계(CSV 계산 = DB 실측)</caption>
-          <thead><tr><th>레이블</th><th>노드</th><th>관계</th><th>관계 수</th></tr></thead>
+          <caption><span data-deck-caption="table">표 5</span> 파일에서 계산한 수 = 적재 뒤 DB에서 센 수</caption>
+          <thead><tr><th>노드</th><th>수</th><th>관계</th><th>수</th></tr></thead>
           <tbody>
-            <tr><td><code>AssetManager</code></td><td>21</td><td><code>MANAGED_BY</code></td><td>200</td></tr>
-            <tr><td><code>Sector</code> · <code>Technology</code> · <code>InvestmentTheme</code></td><td>131 · 71 · 286</td><td><code>FOCUSES_ON</code></td><td>203 · 91 · 461</td></tr>
-            <tr><td><code>Market</code> · <code>AssetClass</code></td><td>122 · 123</td><td><code>INVESTS_IN</code></td><td>708 · 608</td></tr>
-            <tr><td><code>ETF</code> 포함 합계</td><td>954</td><td>관계 타입 3개</td><td>2,271</td></tr>
+            <tr><td><code>ETF</code></td><td>28</td><td><code>HOLDS {weight}</code> (ETF → Stock)</td><td>1,681</td></tr>
+            <tr><td><code>Stock</code></td><td>341</td><td><code>IN_INDUSTRY</code> (Stock → Industry)</td><td>341</td></tr>
+            <tr><td><code>Industry</code> · <code>AssetManager</code> · <code>Index</code></td><td>24 · 7 · 22</td><td><code>MANAGED_BY</code> · <code>TRACKS</code></td><td>28 · 28</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="takeaway">섹터·테마 이름은 LLM이 뽑은 문자열 그대로다. 「전력 인프라」(띄어 씀)라는 노드는 없고 「전력인프라」·「전력」이 있다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#etf-implementation">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <p class="takeaway">현금 행은 종목으로 넣지 않고 비중을 다시 맞추지도 않는다. 파일은 화면에서 사람이 받았고 비공개 폴더에만 둔다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#etf-data">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-etf-map-1" aria-label="책과 ETF 구현의 대응 1" data-report-refs="etf-mapping table-10-etf-mapping">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.1.2–15.1.5</span></header>
-      <h1>설정·스키마·상태·노드는 책의 설계를 그대로 따른다</h1>
+    <section class="slide slide--teaching" id="slide-etf-map" aria-label="책과 ETF 구현의 대응" data-report-refs="etf-mapping table-11-etf-mapping">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.1–15.2</span></header>
+      <h1>노드와 상태는 그대로, 바뀐 것은 질의를 누가 만드느냐다</h1>
       <p class="lead">책 코드를 옮겨 적지 않고, 같은 원리로 새로 작성했다.</p>
       <div class="slide-body">
         <table class="teaching-table">
-          <caption><span data-deck-caption="table">표 6</span> 책의 구성요소와 ETF 구현(앞 네 줄)</caption>
+          <caption><span data-deck-caption="table">표 6</span> 책의 구성요소와 ETF 구현</caption>
           <thead><tr><th>책</th><th>ETF 구현</th><th>바꾼 이유</th></tr></thead>
           <tbody>
-            <tr><td>설정(§15.1.2)</td><td><code>config.yaml</code>: 스키마 설명, 숨길 속성, "없는 데이터"(수익률·가격·구성 종목)</td><td>미지원 판정에 쓸 목록이 하나 늘었다</td></tr>
-            <tr><td>스키마 제공자(§15.1.3)</td><td>내장 <code>db.schema.*</code> 프로시저를 고정 질의로</td><td>APOC 없이 같은 정보를 얻는다</td></tr>
-            <tr><td>상태(§15.1.4)</td><td>같은 원칙. 선택 ETF·넓히기·중단 이유 필드 추가</td><td>분기와 화면 표시에 필요한 값만</td></tr>
-            <tr><td>노드(§15.1.5)</td><td>같은 다섯 노드. 의도는 table·graph·미지원</td><td>위치 정보가 없어 지도를 빼고, 답할 수 없는 질문을 가린다</td></tr>
+            <tr><td>설정·스키마 제공자</td><td>설정 파일 없음. 스키마 추출은 겹침 점검에서 건너뜀</td><td>질의가 고정이라 주석·스키마가 필요 없다</td></tr>
+            <tr><td>노드 다섯</td><td>그대로. 의도는 겹침 점검·미지원, 텍스트-투-사이퍼는 이름→코드 후 고정 질의 선택</td><td>숫자가 틀리면 안 되는 자리다</td></tr>
+            <tr><td>실행 후 라우팅</td><td>재생성 고리 대신 &ldquo;이름이 모호하면 되묻고 종료&rdquo;</td><td>고정 질의는 고칠 오류가 없다</td></tr>
+            <tr><td>통합 계층·화면</td><td>같은 이벤트를 SSE로, FastAPI+React 한 페이지</td><td>답과 근거를 나란히 보인다</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="takeaway">노드는 여전히 자기 몫의 상태 필드만 돌려준다. 바뀐 것은 그래프와 프롬프트다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-10-etf-mapping">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <p class="takeaway">노드는 여전히 자기 몫의 상태 필드만 돌려준다. LangGraph 1.2에서도 상태·노드·엣지의 실행 모델은 책과 같다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-11-etf-mapping">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-etf-map-2" aria-label="책과 ETF 구현의 대응 2" data-report-refs="etf-mapping table-10-etf-mapping">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.1.5–15.2</span></header>
-      <h1>분기 두 개를 더하고, 조립·스트리밍·화면은 현재 API로 줄였다</h1>
-      <p class="lead">더한 분기는 ETF 데이터 때문에 필요한 것이다.</p>
+    <section class="slide slide--teaching" id="slide-etf-router" aria-label="겹침 비중과 고정 질의" data-report-refs="etf-router">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · F1 겹침 점검</span></header>
+      <h1>겹침 비중은 LLM이 아니라 고정 질의가 계산한다</h1>
+      <p class="lead">겹침 비중 = 공통 종목마다 두 ETF 안의 비중 가운데 작은 값을 더한 값. 같은 금액을 넣었을 때 같은 종목에 겹쳐 들어간 몫이다.</p>
       <div class="slide-body">
-        <table class="teaching-table">
-          <caption><span data-deck-caption="table">표 7</span> 책의 구성요소와 ETF 구현(뒤 네 줄)</caption>
-          <thead><tr><th>책</th><th>ETF 구현</th><th>바꾼 이유</th></tr></thead>
-          <tbody>
-            <tr><td>실행 후 라우팅</td><td>같은 규칙 + 0행이면 포함 조건으로 한 번 넓히기. 합쳐서 실행 3회까지</td><td>표기 흔들림으로 정확 일치가 빈 결과를 낸다</td></tr>
-            <tr><td>조립</td><td><code>add_edge(START, …)</code>, 체크포인터 없음, 의도 뒤 조건부 엣지</td><td>LangGraph 1.2 권장 표기. 실행 기록은 파일로</td></tr>
-            <tr><td>통합 계층(§15.1.6)</td><td>같은 세 이벤트를 SSE로. 시작은 <code>get_stream_writer</code>, 완료는 <code>stream_mode="updates"</code></td><td>생성기 코드를 줄였다</td></tr>
-            <tr><td>화면(§15.2)</td><td>FastAPI + React 한 페이지: 노드 진행·Cypher·행·답·시간</td><td>답과 근거를 나란히. 그래프 캔버스는 없다</td></tr>
-          </tbody>
-        </table>
+        <pre data-code-language="Cypher"><code>UNWIND $pairs AS p
+MATCH (a:ETF {code:p[0]}), (b:ETF {code:p[1]})
+OPTIONAL MATCH (a)-[ha:HOLDS]-&gt;(s:Stock)&lt;-[hb:HOLDS]-(b)
+WITH a, b, collect(CASE WHEN s IS NULL THEN NULL
+                        ELSE {wa:ha.weight, wb:hb.weight} END) AS cs
+RETURN a.code AS etf_a, b.code AS etf_b, size(cs) AS common_count,
+       round(reduce(t = 0.0, c IN cs |
+             t + CASE WHEN c.wa &lt; c.wb THEN c.wa ELSE c.wb END) * 100, 2) AS overlap_pct</code></pre>
+        <p class="explain-line">LLM은 의도와 ETF 이름만 뽑는다. 텍스트-투-사이퍼 노드가 이름을 코드로 바꾸고 <code>$pairs</code>에 코드 쌍만 넣는다.</p>
       </div>
-      <p class="takeaway">책은 LangGraph 0.2 기준이다. 현재 1.x에서도 상태·노드·엣지와 실행 모델은 그대로라 구조를 바꿀 필요가 없었다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-10-etf-mapping">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--teaching" id="slide-etf-router" aria-label="ETF 라우터" data-report-refs="etf-router">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 Listing 15.10 대응</span></header>
-      <h1>실행 후 라우팅에 "0행이면 한 번 넓히기" 한 줄을 더했다</h1>
-      <p class="lead">판단 순서는 책과 같다. 오류를 먼저, 출력 형식을 나중에 본다.</p>
-      <div class="slide-body">
-        <pre data-code-language="Python"><code>def route_after_query(state):
-    if state.get('stop_reason') == 'deadline':
-        return END                                   # 질문 전체 120초 초과
-    if state.get('error'):
-        return 'text_to_cypher' if state['retries'] &lt; 3 else END   # 책: 오류면 재시도
-    if state.get('feedback_kind') == 'broaden' and state['retries'] &lt; 3:
-        return 'text_to_cypher'                      # 추가: 0행이면 포함 조건으로
-    if not state.get('rows'):
-        return END                                   # 넓힌 뒤에도 0행이면 종료
-    return 'generate_summary' if state['intent'] == 'graph' else END</code></pre>
-        <p class="explain-line"><code>retries</code>는 책과 같이 첫 실행부터 센 총 실행 횟수다. 넓히기도 이 3회 안에서만 일어난다. 0행일 때 남기는 피드백은 책에서 오류 메시지를 다음 생성에 넘기던 <code>information</code> 경로와 같다.</p>
-      </div>
-      <p class="takeaway">의도 감지 뒤에도 조건부 엣지가 하나 있다. "미지원"이면 스키마 추출로 가지 않고 끝낸다.</p>
+      <p class="takeaway">책은 LLM이 쓴 질의를 실행했다. 이 구현은 숫자를 내는 질의를 앱이 고정했다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#etf-router">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-etf-readonly" aria-label="읽기 전용 경계" data-report-refs="etf-readonly">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 안전 경계</span></header>
-      <h1>LLM이 만든 질의를 실행하므로, 쓰기는 서버가 막는다</h1>
-      <p class="lead">드라이버의 읽기 세션은 접근 제어가 아니다(Neo4j 드라이버 문서).</p>
+    <section class="slide slide--teaching" id="slide-etf-edges" aria-label="세 조건부 엣지와 읽기 전용" data-report-refs="etf-router etf-readonly">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.1.5 대응</span></header>
+      <h1>조건부 엣지 세 개가 건너뛰기·되묻기·요약을 정한다</h1>
+      <p class="lead">책은 질의 실행 뒤 한 곳에서 갈라졌다. 이 구현은 세 곳에서 갈라진다.</p>
       <div class="slide-body">
-        <div class="teaching-rows">
-          <article><h2>서버</h2><p>적재 뒤 데이터베이스를 읽기 전용으로 다시 띄운다. <code>CREATE</code>를 직접 보내 거부되는 것을 확인했고, 앱은 읽기 전용이 아니면 기동하지 않는다.</p></article>
-          <article><h2>앱</h2><p>생성 질의는 한 문장, 읽기 절로 시작해야 한다. 쓰기·관리 키워드와 전문 검색 밖의 <code>CALL</code>은 실행하지 않고 오류로 돌려 다시 생성하게 한다.</p></article>
-          <article><h2>상한</h2><p>DB 질의 10초, LLM 요청 30초, 질문 전체 120초, 동시에 한 질문. 오류 메시지는 코드와 정해진 문구로만 보인다.</p></article>
-        </div>
+        <pre data-code-language="Python"><code>graph.add_conditional_edges('intent_detection',
+    lambda s: 'text_to_cypher' if s['intent'] == 'overlap' else END)
+graph.add_conditional_edges('text_to_cypher',
+    lambda s: END if s.get('stop_reason') else 'query_execution')   # 모호·개수 → 되묻고 종료
+graph.add_conditional_edges('query_execution',
+    lambda s: 'generate_summary' if s.get('rows') else END)</code></pre>
+        <p class="explain-line">적재가 끝나면 Neo4j를 읽기 전용으로 다시 띄우고, <code>CREATE</code>가 거부되는 것을 확인했다. DB 10초·LLM 30초·질문 90초 제한, 한 번에 한 질문.</p>
       </div>
-      <p class="takeaway">책의 질의 실행 에이전트는 <code>ClientError</code>만 잡았다. 여기서는 실패의 종류마다 갈 곳을 정했다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#etf-readonly">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <p class="takeaway">재생성 고리가 빠진 자리에, 사람의 입력이 모호할 때 멈추는 분기가 들어왔다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#etf-router">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching slide--teaching-visual" id="slide-etf-ui" aria-label="ETF 에이전트 화면" data-report-refs="etf-ui fig-13-etf-ui">
+    <section class="slide slide--teaching slide--teaching-visual" id="slide-etf-ui" aria-label="ETF 겹침 점검 화면" data-report-refs="etf-ui fig-6-etf-ui">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.2 대응</span></header>
-      <h1>답 옆에 그 답을 만든 Cypher와 반환 행을 둔다</h1>
-      <p class="lead">책의 세 이벤트(진행·텍스트·표)를 그대로 받아 그린다.</p>
+      <h1>답 옆에 그 답을 만든 질의와 반환 행을 둔다</h1>
+      <p class="lead">시연: <a href="https://lecture.restful3.store/kg15c/">lecture.restful3.store/kg15c</a>(스터디 로그인). 화면 아래에는 출처와 기준일, &ldquo;투자 권유가 아님&rdquo;을 늘 적는다.</p>
       <div class="slide-body">
         <div class="teaching-visual">
-          <figure data-deck-figure-title="질문 1의 실행 기록을 재생한 화면" class="deck-report-figure">
-            <img src="assets/figs/fig-etf-ui-q1-run.png" alt="ETF 질의 에이전트 화면. 왼쪽 다섯 노드 진행에서 요약 생성만 흐리다. 오른쪽에 생성된 Cypher, 검색 조건 설명, 반환 행 세 개가 있다.">
+          <figure data-deck-figure-title="질문 2의 실행 기록을 재생한 화면" class="deck-report-figure">
+            <img src="assets/figs/fig-etf-ui-q2-run.png" alt="ETF 겹침 점검 화면. 왼쪽 다섯 노드 진행에서 스키마 추출만 흐리다. 오른쪽에 고정 Cypher와 매개변수, 여섯 쌍의 겹침 표, 공통 종목 네 개, 답이 있다.">
           </figure>
           <div class="teaching-rows">
-            <article><h2>왼쪽</h2><p>초록 테두리가 지나간 노드, 흐린 칸이 지나가지 않은 노드다. 표 결과라 요약 노드는 실행되지 않았다.</p></article>
-            <article><h2>오른쪽</h2><p>생성된 Cypher, LLM이 설명한 검색 조건, 반환 행, 시간(전체·DB·LLM 호출)이 차례로 나온다.</p></article>
-            <article><h2>위쪽 표시</h2><p>이 화면이 실시간 실행인지 기록 재생인지 알려 준다.</p></article>
+            <article><h2>왼쪽</h2><p>초록 테두리가 지나간 노드, 흐린 칸이 건너뛴 스키마 추출이다.</p></article>
+            <article><h2>오른쪽</h2><p>고정 Cypher와 매개변수, ETF 쌍별 겹침, 가장 많이 겹치는 쌍의 공통 종목, 답과 시간.</p></article>
+            <article><h2>위쪽</h2><p>ETF는 질문에 이름을 써도, 목록에서 2–5개를 골라도 된다. 실시간 실행인지 기록 재생인지도 표시한다.</p></article>
           </div>
         </div>
       </div>
-      <p class="takeaway">매 실행의 이벤트를 파일로 남겨 다시 재생할 수 있다. 네트워크가 막히면 시연은 기록 재생으로 바꾸고 그렇게 표시한다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-13-etf-ui">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <p class="takeaway">매 실행의 이벤트를 파일로 남긴다. 시연 중 LLM이 멈추면 기록 재생으로 바꾸고 그렇게 표시한다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#fig-6-etf-ui">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-etf-runs" aria-label="질문 세 개의 실측" data-report-refs="etf-runs table-11-etf-runs">
+    <section class="slide slide--teaching" id="slide-etf-runs" aria-label="질문 네 개와 독립 대조" data-report-refs="etf-runs table-12-etf-runs">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 실행 기록</span></header>
-      <h1>질문 세 개를 세 번씩 실행해 아홉 번 모두 기대값과 같았다</h1>
-      <p class="lead">기대값은 그래프와 LLM 없이 원본 CSV만 읽어 계산했다(2026-10-24, gpt-6.1-sol).</p>
+      <h1>378개 쌍 전부에서 그래프 결과가 파일 계산과 같았다</h1>
+      <p class="lead">기대값은 그래프와 LLM 없이 PDF 파일만 읽어 계산했다. 질문은 2026-10-25에 발표 화면과 같은 외부 경로로 실행했다.</p>
       <div class="slide-body">
         <table class="teaching-table">
-          <caption><span data-deck-caption="table">표 8</span> 질문별 경로와 실측</caption>
-          <thead><tr><th>질문</th><th>경로</th><th>행</th><th>LLM</th><th>DB</th><th>전체</th></tr></thead>
+          <caption><span data-deck-caption="table">표 7</span> 질문별 경로와 실측</caption>
+          <thead><tr><th>질문</th><th>경로</th><th>결과</th><th>LLM</th><th>전체</th></tr></thead>
           <tbody>
-            <tr><td>1. (471760 선택) 섹터·기술이 겹치는 ETF를 보수 낮은 순으로</td><td>table → 종료</td><td>3</td><td>2회</td><td>8–166 ms</td><td>10–12초</td></tr>
-            <tr><td>2. 전력 인프라에 투자하는 ETF는?</td><td>table → 종료</td><td>2</td><td>2회</td><td>38–90 ms</td><td>14–16초</td></tr>
-            <tr><td>3. 작년 수익률이 가장 높았던 AI ETF는?</td><td>미지원 → 종료</td><td>—</td><td>1회</td><td>없음</td><td>2–4초</td></tr>
+            <tr><td>1. KODEX 반도체와 TIGER 반도체TOP10은 얼마나 겹쳐?</td><td>겹침 → 질의 → 요약</td><td>8종목, 54.66%</td><td>2회</td><td>8.4초</td></tr>
+            <tr><td>2. (네 ETF 선택) 서로 가장 많이 겹치는 쌍은?</td><td>같음</td><td>최대 35.28%</td><td>2회</td><td>9.8초</td></tr>
+            <tr><td>3. KODEX 반도체의 작년 수익률은?</td><td>미지원 → 종료</td><td>미지원</td><td>1회</td><td>2.9초</td></tr>
+            <tr><td>4. 반도체 ETF와 KODEX 200은 얼마나 겹쳐?</td><td>겹침 → 되묻고 종료</td><td>후보 7개</td><td>1회</td><td>3.2초</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="takeaway">시간의 대부분은 LLM 호출이다. 이 세 질문이 실시연(5–10분)의 순서다.</p>
+      <p class="takeaway">공통 종목이 있는 256쌍은 상위 15개 목록도 순서까지 같았다. 이 네 질문이 실시연의 순서다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#etf-runs">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-etf-q1" aria-label="질문 1의 Cypher" data-report-refs="etf-q1">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.3.4 대응</span></header>
-      <h1>"이 ETF"가 무엇인지는 화면의 선택에서 읽는다</h1>
-      <p class="lead">§15.3에서 "선택한 범죄"를 현재 선택으로 풀던 것과 같다. 한 실행에서 생성된 질의:</p>
-      <div class="slide-body">
-        <pre data-code-language="Cypher"><code>MATCH (selected:ETF {code: '471760'})-[:FOCUSES_ON]-&gt;(sector:Sector)&lt;-[:FOCUSES_ON]-(etf:ETF)
-WHERE etf.code &lt;&gt; selected.code
-  AND EXISTS {
-    MATCH (selected)-[:FOCUSES_ON]-&gt;(technology:Technology)&lt;-[:FOCUSES_ON]-(etf)
-  }
-RETURN DISTINCT etf.code AS code, etf.name AS name,
-       etf.total_fee AS total_fee, etf.management_company AS management_company
-ORDER BY total_fee ASC, code ASC
-LIMIT 200</code></pre>
-        <p class="explain-line">섹터와 기술을 모두 공유해야 한다는 조건을 <code>EXISTS</code> 부분 질의로 표현하고, 선택한 ETF 자신은 뺐다. 결과: 407160(0.445%), 479620(0.45%), 480310(0.49%), 공통 섹터 「반도체」·기술 「AI」.</p>
-      </div>
-      <p class="takeaway">출력 형식이 표라서 책의 라우팅대로 요약 없이 끝난다. 답은 표 자체다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#etf-q1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
-    </section>
-
-    <section class="slide slide--teaching" id="slide-etf-q2q3" aria-label="질문 2와 3, 요약 경로" data-report-refs="etf-runs etf-q2 etf-q3 etf-graph-intent">
-      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 실행 기록</span></header>
-      <h1>분기는 데이터가 만든다 — 넓히기는 실제로 한 번도 지나가지 않았다</h1>
-      <p class="lead">관찰한 것과 시험으로만 확인한 것을 나눠 적는다.</p>
+    <section class="slide slide--teaching" id="slide-etf-q1q2" aria-label="질문 1과 2" data-report-refs="etf-q1 etf-q2">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.3.2–15.3.3 대응</span></header>
+      <h1>공통 종목 수와 겹침 비중은 다른 말이다</h1>
+      <p class="lead">질문 2는 &ldquo;이 네 ETF&rdquo;를 화면의 선택에서 읽는다. §15.3에서 &ldquo;선택한 범죄&rdquo;를 풀던 방식과 같다.</p>
       <div class="slide-body">
         <div class="teaching-rows">
-          <article><h2>질문 2</h2><p>LLM이 처음부터 「전력」·「송전」 등을 포함하는지 묻는 질의를 만들어, 넓히기 없이 486450·491010 두 개를 찾았다. 넓히기 분기는 0행을 돌려주는 가짜 DB로 단위 시험에서만 확인했다.</p></article>
-          <article><h2>질문 3</h2><p>의도 감지가 "없는 데이터" 목록을 보고 미지원으로 판정해 바로 끝났다. Cypher·DB 질의 없음, 숫자를 지어내지 않았다.</p></article>
-          <article><h2>요약이 붙는 경로</h2><p>graph 의도 시험(35초)에서 요약이 다섯 코드를 모두 행에서 인용했다. 다만 반환 열에 테마 이름이 없어 요약 스스로 "테마 포함 여부는 확인할 수 없다"고 적었다.</p></article>
+          <article><h2>질문 1</h2><p>KODEX 반도체 × TIGER 반도체TOP10: 공통 8종목, 54.66%. 삼성전자(18.75%·27.46%)와 SK하이닉스(16.15%·25.39%)의 작은 쪽만 더해도 34.90%다.</p></article>
+          <article><h2>질문 2</h2><p>KODEX 200 × KODEX 반도체가 35.28%(공통 4종목)로 가장 컸다. KODEX 200 × 2차전지산업은 공통 12종목인데 3.47%다. 반도체·2차전지·AI전력끼리는 공통 종목이 없었다.</p></article>
+          <article><h2>28개 전체</h2><p>같은 지수를 따르면 이름이 달라도 거의 같은 바구니다. KODEX 200 × RISE 200 99.73%, KODEX 반도체 × TIGER 반도체 99.64%.</p></article>
         </div>
       </div>
-      <p class="takeaway">결과는 기준일 미상 표본에서 나온 목록이다. 어떤 ETF가 더 좋다는 투자 판단이 아니다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#etf-runs">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <p class="takeaway">요약 노드는 반환 행의 숫자만 옮긴다. 숫자는 모두 고정 질의에서 나왔다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#etf-q2">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+    </section>
+
+    <section class="slide slide--teaching" id="slide-etf-q3q4" aria-label="질문 3과 4" data-report-refs="etf-q3 etf-q4">
+      <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책에 없는 분기</span></header>
+      <h1>답할 수 없으면 끝내고, 모호하면 계산하지 않고 되묻는다</h1>
+      <p class="lead">두 질문 모두 숫자를 하나도 만들지 않는 것이 합격 조건이다.</p>
+      <div class="slide-body">
+        <div class="teaching-rows">
+          <article><h2>질문 3 · 수익률</h2><p>그래프에 가격·수익률이 없다. 의도 감지가 미지원으로 판정해 바로 끝났다. LLM 1회, DB 질의·Cypher 없음.</p></article>
+          <article><h2>질문 4 · 반도체 ETF</h2><p>상품 이름이 아니라 묶음 이름이다. &ldquo;ETF&rdquo;를 떼고 찾으니 일곱 개가 맞아, 후보만 보이고 끝났다. 처음엔 그대로 찾아 0개였고, 이 노드를 고친 뒤 다시 실행했다.</p></article>
+          <article><h2>말할 수 없는 것</h2><p>결과는 2026-10-23 하루의 구성이다. 겹침이 크거나 작다는 것이 투자 판단은 아니다. KRX 자료의 화면 사용 허용 여부는 확인하지 못했다.</p></article>
+        </div>
+      </div>
+      <p class="takeaway">출처: 한국거래소 KRX Data Marketplace, 기준일 2026-10-23. 투자 권유가 아니다.</p>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#etf-q4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching chapter-divider" id="slide-section-15-4" aria-label="15.4 향후 방향과 개선" data-report-refs="source-15-4" data-section-divider="15.4" data-source-refs="section:15.4" data-source-title="section:15.4">
@@ -876,13 +787,13 @@ LIMIT 200</code></pre>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
-    <section class="slide slide--teaching" id="slide-15-4-paths" aria-label="개선 경로와 맞닿는 자리" data-report-refs="source-15-4 table-12-evolution-paths" data-source-refs="section:15.4">
+    <section class="slide slide--teaching" id="slide-15-4-paths" aria-label="개선 경로와 맞닿는 자리" data-report-refs="source-15-4 table-13-evolution-coords" data-source-refs="section:15.4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.4 · AIML Quant 보충</span></header>
       <h1>개선 경로는 모두 지금 파이프라인의 특정 자리에 맞닿는다</h1>
       <p class="lead">경로는 저자들의 제안이며 이 장에서 구현되지 않았다. 오른쪽 열은 AIML Quant 보충이다.</p>
       <div class="slide-body">
         <table class="teaching-table">
-          <caption><span data-deck-caption="table">표 9</span> 저자들이 제안한 개선 경로</caption>
+          <caption><span data-deck-caption="table">표 8</span> 저자들이 제안한 개선 경로</caption>
           <thead><tr><th>절</th><th>개선 경로</th><th>지금 구현에서 맞닿는 자리</th></tr></thead>
           <tbody>
             <tr><td>15.4.1</td><td>불만형 질문 분류, 성공 사례 보존, 질문 군집화</td><td>END에 실리는 상태, 설정의 examples</td></tr>
@@ -892,7 +803,7 @@ LIMIT 200</code></pre>
         </table>
       </div>
       <p class="takeaway">저자들은 투명성이 디버깅을 넘어 피드백을 모으고 개선점을 찾는 자연스러운 지점이 된다고 본다.</p>
-      <footer class="slide-footer"><a class="report-ref" href="report.html#table-12-evolution-paths">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
+      <footer class="slide-footer"><a class="report-ref" href="report.html#table-13-evolution-coords">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching" id="slide-15-4-1" aria-label="사용에서 배우기" data-report-refs="source-15-4-1" data-source-refs="section:15.4.1" data-source-title="section:15.4.1">
