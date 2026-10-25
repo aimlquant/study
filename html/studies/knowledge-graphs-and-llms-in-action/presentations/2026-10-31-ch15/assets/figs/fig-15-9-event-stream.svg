@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .edge-label{paint-order:stroke fill;stroke:#fafaf9;stroke-width:4px;stroke-linejoin:round}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+
+  <title id="figTitle">질문 처리 인터페이스가 상태 갱신을 이벤트로 바꾸는 대응</title>
+  <desc id="figDesc">왼쪽은 LangGraph stream이 내놓는 노드별 갱신, 가운데는 processQuestion 제너레이터, 오른쪽은 프런트엔드가 받는 이벤트다. 노드가 끝날 때마다 다음 단계를 알리는 update, 추론·오류·요약을 담은 result, 시각화 데이터 이벤트, 마지막 END가 나온다.</desc>
+  <rect width="960" height="560" fill="#fafaf9"/>
+  <rect class="fill-tint" x="330" y="70" width="230" height="470" rx="10"/>
+  <text class="mono m an-m" x="445.0" y="300.5" fill="#0f2c59">processQuestion</text>
+  <text class="mono xs an-m" x="445.0" y="319.5" fill="#0f2c59">match node</text>
+  <rect class="box" x="20" y="70" width="230" height="50" rx="10"/>
+  <text class="t s an-m" x="135.0" y="100.0" fill="#0f172a">실행 시작</text>
+  <rect class="box" x="640" y="70" width="300" height="50" rx="10"/>
+  <text class="mono s an-m" x="790.0" y="100.0" fill="#0f172a">update · detecting intent</text>
+  <path class="arw" d="M250 95L326 95"/>
+  <path class="arw-navy" d="M560 95L636 95"/>
+  <rect class="box" x="20" y="130" width="230" height="50" rx="10"/>
+  <text class="mono s an-m" x="135.0" y="160.0" fill="#0f172a">intent_detection</text>
+  <rect class="box" x="640" y="130" width="300" height="50" rx="10"/>
+  <text class="mono s an-m" x="790.0" y="160.0" fill="#0f172a">update · extracting schema</text>
+  <path class="arw" d="M250 155L326 155"/>
+  <path class="arw-navy" d="M560 155L636 155"/>
+  <rect class="box" x="20" y="190" width="230" height="50" rx="10"/>
+  <text class="mono s an-m" x="135.0" y="220.0" fill="#0f172a">schema_extraction</text>
+  <rect class="box" x="640" y="190" width="300" height="50" rx="10"/>
+  <text class="mono s an-m" x="790.0" y="220.0" fill="#0f172a">update · generating query</text>
+  <path class="arw" d="M250 215L326 215"/>
+  <path class="arw-navy" d="M560 215L636 215"/>
+  <rect class="box" x="20" y="250" width="230" height="50" rx="10"/>
+  <text class="mono s an-m" x="135.0" y="280.0" fill="#0f172a">text_to_cypher</text>
+  <rect class="fill-tint" x="640" y="250" width="300" height="50" rx="10"/>
+  <text class="mono xs an-m" x="790.0" y="270.5" fill="#0f2c59">update · executing the query</text>
+  <text class="mono xs an-m" x="790.0" y="289.5" fill="#0f2c59">result · Reasoning</text>
+  <path class="arw" d="M250 275L326 275"/>
+  <path class="arw-navy" d="M560 275L636 275"/>
+  <rect class="box" x="20" y="310" width="230" height="50" rx="10"/>
+  <text class="mono s an-m" x="135.0" y="330.5" fill="#0f172a">query_execution</text>
+  <text class="t xs an-m" x="135.0" y="349.5" fill="#0f172a">성공</text>
+  <rect class="fill-ok" x="640" y="310" width="300" height="50" rx="10"/>
+  <text class="mono xs an-m" x="790.0" y="330.5" fill="#14532d">graph · table · map 데이터</text>
+  <text class="mono xs an-m" x="790.0" y="349.5" fill="#14532d">update · summary generation</text>
+  <path class="arw" d="M250 335L326 335"/>
+  <path class="arw-navy" d="M560 335L636 335"/>
+  <rect class="box" x="20" y="370" width="230" height="50" rx="10"/>
+  <text class="mono s an-m" x="135.0" y="390.5" fill="#0f172a">query_execution</text>
+  <text class="t xs an-m" x="135.0" y="409.5" fill="#0f172a">오류</text>
+  <rect class="fill-bad" x="640" y="370" width="300" height="50" rx="10"/>
+  <text class="mono s an-m" x="790.0" y="400.0" fill="#7f1d1d">result · ERROR</text>
+  <path class="arw" d="M250 395L326 395"/>
+  <path class="arw-navy" d="M560 395L636 395"/>
+  <rect class="box" x="20" y="430" width="230" height="50" rx="10"/>
+  <text class="mono s an-m" x="135.0" y="460.0" fill="#0f172a">generate_summary</text>
+  <rect class="fill-tint" x="640" y="430" width="300" height="50" rx="10"/>
+  <text class="mono s an-m" x="790.0" y="460.0" fill="#0f2c59">result · Summary</text>
+  <path class="arw" d="M250 455L326 455"/>
+  <path class="arw-navy" d="M560 455L636 455"/>
+  <rect class="box" x="20" y="490" width="230" height="50" rx="10"/>
+  <text class="t s an-m" x="135.0" y="520.0" fill="#0f172a">스트림 종료</text>
+  <rect class="fill-navy" x="640" y="490" width="300" height="50" rx="10"/>
+  <text class="mono s an-m" x="790.0" y="520.0" fill="#ffffff">END · 최종 상태</text>
+  <path class="arw" d="M250 515L326 515"/>
+  <path class="arw-navy" d="M560 515L636 515"/>
+</svg>

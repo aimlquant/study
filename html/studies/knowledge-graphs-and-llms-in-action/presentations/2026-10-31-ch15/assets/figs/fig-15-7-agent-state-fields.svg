@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 290" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .edge-label{paint-order:stroke fill;stroke:#fafaf9;stroke-width:4px;stroke-linejoin:round}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+
+  <title id="figTitle">에이전트마다 돌려주는 상태 필드</title>
+  <desc id="figDesc">다섯 에이전트가 순서대로 실행되고, 각 에이전트 아래에 그 에이전트가 반환해 상태에 병합되는 필드를 적었다. output_reason과 summary_analisys는 AgentState의 선언 이름과 다르다.</desc>
+  <rect width="1020" height="290" fill="#fafaf9"/>
+  <rect class="fill-tint" x="20" y="30" width="164" height="64" rx="10"/>
+  <text class="t m an-m" x="102.0" y="57.5" fill="#0f2c59">의도 감지</text>
+  <text class="mono xs an-m" x="102.0" y="76.5" fill="#0f2c59">intent_detection</text>
+  <rect class="box" x="20" y="140" width="164" height="120" rx="10"/>
+  <text class="mono s an-m" x="102.0" y="195.5" fill="#0f172a">output_type</text>
+  <text class="mono s an-m" x="102.0" y="214.5" fill="#b45309">output_reason</text>
+  <path class="arw-navy" d="M102 94L102 136"/>
+  <path class="arw-navy" d="M184 62L220 62"/>
+  <rect class="fill-tint" x="224" y="30" width="164" height="64" rx="10"/>
+  <text class="t m an-m" x="306.0" y="57.5" fill="#0f2c59">스키마 추출</text>
+  <text class="mono xs an-m" x="306.0" y="76.5" fill="#0f2c59">schema_extraction</text>
+  <rect class="box" x="224" y="140" width="164" height="120" rx="10"/>
+  <text class="mono s an-m" x="306.0" y="195.5" fill="#0f172a">schema</text>
+  <text class="mono s an-m" x="306.0" y="214.5" fill="#0f172a">retries = 0</text>
+  <path class="arw-navy" d="M306 94L306 136"/>
+  <path class="arw-navy" d="M388 62L424 62"/>
+  <rect class="fill-tint" x="428" y="30" width="164" height="64" rx="10"/>
+  <text class="t m an-m" x="510.0" y="57.5" fill="#0f2c59">텍스트-투-사이퍼</text>
+  <text class="mono xs an-m" x="510.0" y="76.5" fill="#0f2c59">text_to_cypher</text>
+  <rect class="box" x="428" y="140" width="164" height="120" rx="10"/>
+  <text class="mono s an-m" x="510.0" y="186.0" fill="#0f172a">query</text>
+  <text class="mono s an-m" x="510.0" y="205.0" fill="#0f172a">query_reasoning</text>
+  <text class="mono s an-m" x="510.0" y="224.0" fill="#0f172a">query_message</text>
+  <path class="arw-navy" d="M510 94L510 136"/>
+  <path class="arw-navy" d="M592 62L628 62"/>
+  <rect class="fill-tint" x="632" y="30" width="164" height="64" rx="10"/>
+  <text class="t m an-m" x="714.0" y="57.5" fill="#0f2c59">질의 실행</text>
+  <text class="mono xs an-m" x="714.0" y="76.5" fill="#0f2c59">query_execution</text>
+  <rect class="box" x="632" y="140" width="164" height="120" rx="10"/>
+  <text class="mono s an-m" x="714.0" y="186.0" fill="#0f172a">results_error</text>
+  <text class="mono s an-m" x="714.0" y="205.0" fill="#0f172a">retries + 1</text>
+  <text class="mono s an-m" x="714.0" y="224.0" fill="#0f172a">information</text>
+  <path class="arw-navy" d="M714 94L714 136"/>
+  <path class="arw-warn" d="M796 62L832 62"/>
+  <rect class="fill-tint" x="836" y="30" width="164" height="64" rx="10"/>
+  <text class="t m an-m" x="918.0" y="57.5" fill="#0f2c59">요약 생성</text>
+  <text class="mono xs an-m" x="918.0" y="76.5" fill="#0f2c59">generate_summary</text>
+  <rect class="box" x="836" y="140" width="164" height="120" rx="10"/>
+  <text class="mono s an-m" x="918.0" y="186.0" fill="#0f172a">summary</text>
+  <text class="mono s an-m" x="918.0" y="205.0" fill="#0f172a">summary_reason</text>
+  <text class="mono s an-m" x="918.0" y="224.0" fill="#b45309">summary_analisys</text>
+  <path class="arw-navy" d="M918 94L918 136"/>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .edge-label{paint-order:stroke fill;stroke:#fafaf9;stroke-width:4px;stroke-linejoin:round}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+
+  <title id="figTitle">질의 실행 뒤 다음 노드를 고르는 두 번의 판정</title>
+  <desc id="figDesc">먼저 실행 오류가 있는지 본다. 오류가 있으면 retries가 3보다 작을 때만 retry로 텍스트-투-사이퍼로 돌아가고, 아니면 END로 끝난다. 오류가 없으면 출력 형식이 지도나 그래프일 때 summarize, 표면 END로 간다.</desc>
+  <rect width="900" height="420" fill="#fafaf9"/>
+  <rect class="box" x="330" y="20" width="260" height="56" rx="10"/>
+  <text class="t m an-m" x="460.0" y="53.0" fill="#0f172a">질의 실행 결과</text>
+  <path class="arw" d="M460 76L460 112"/>
+  <rect class="fill-warn" x="310" y="116" width="300" height="56" rx="10"/>
+  <text class="t s an-m" x="460.0" y="139.5" fill="#7c2d12">실행 오류가 있는가?</text>
+  <text class="mono xs an-m" x="460.0" y="158.5" fill="#7c2d12">results_error is not None</text>
+  <rect class="fill-warn" x="90" y="226" width="280" height="56" rx="10"/>
+  <text class="t s an-m" x="230.0" y="249.5" fill="#7c2d12">재시도 여유가 있는가?</text>
+  <text class="mono xs an-m" x="230.0" y="268.5" fill="#7c2d12">retries &lt; 3</text>
+  <rect class="fill-warn" x="530" y="226" width="280" height="56" rx="10"/>
+  <text class="t s an-m" x="670.0" y="249.5" fill="#7c2d12">지도·그래프 출력인가?</text>
+  <text class="mono xs an-m" x="670.0" y="268.5" fill="#7c2d12">output_type in (map, graph)</text>
+  <path class="arw" d="M460 172L460 199L230 199L230 222"/>
+  <path class="arw" d="M460 199L670 199L670 222"/>
+  <text class="t s edge-label an-m" x="340" y="192" fill="#334155">예</text>
+  <text class="t s edge-label an-m" x="580" y="192" fill="#334155">아니오</text>
+  <rect class="fill-tint" x="30" y="340" width="180" height="56" rx="10"/>
+  <text class="mono m an-m" x="120.0" y="363.5" fill="#0f2c59">retry</text>
+  <text class="mono xs an-m" x="120.0" y="382.5" fill="#0f2c59">text_to_cypher로</text>
+  <rect class="fill-bad" x="250" y="340" width="180" height="56" rx="10"/>
+  <text class="mono m an-m" x="340.0" y="363.5" fill="#7f1d1d">END</text>
+  <text class="t xs an-m" x="340.0" y="382.5" fill="#7f1d1d">재시도 소진</text>
+  <rect class="fill-ok" x="470" y="340" width="180" height="56" rx="10"/>
+  <text class="mono m an-m" x="560.0" y="363.5" fill="#14532d">summarize</text>
+  <text class="mono xs an-m" x="560.0" y="382.5" fill="#14532d">generate_summary로</text>
+  <rect class="box" x="690" y="340" width="180" height="56" rx="10"/>
+  <text class="mono m an-m" x="780.0" y="363.5" fill="#0f172a">END</text>
+  <text class="t xs an-m" x="780.0" y="382.5" fill="#0f172a">표는 여기서 끝</text>
+  <path class="arw" d="M230 282L230 311L120 311L120 336"/>
+  <path class="arw" d="M230 311L340 311L340 336"/>
+  <path class="arw" d="M670 282L670 311L560 311L560 336"/>
+  <path class="arw" d="M670 311L780 311L780 336"/>
+  <text class="t s edge-label an-m" x="170" y="304" fill="#334155">예</text>
+  <text class="t s edge-label an-m" x="290" y="304" fill="#334155">아니오</text>
+  <text class="t s edge-label an-m" x="610" y="304" fill="#334155">예</text>
+  <text class="t s edge-label an-m" x="730" y="304" fill="#334155">아니오</text>
+</svg>

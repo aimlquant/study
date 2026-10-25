@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 420" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .m{font-size:24px;font-weight:800}
+    .s{font-size:21px;font-weight:700}
+    .xs{font-size:18px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .edge-label{paint-order:stroke fill;stroke:#fafaf9;stroke-width:4px;stroke-linejoin:round}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+
+  <title id="figTitle">이벤트 대응 뒤 네 행: 질의 실행부터 스트림 종료까지</title>
+  <desc id="figDesc">query_execution 성공은 시각화 데이터와 summary generation 알림, 오류는 result ERROR, generate_summary는 result Summary, 스트림 종료는 END와 최종 상태로 대응한다.</desc>
+  <rect width="1180" height="420" fill="#fafaf9"/>
+  <rect class="fill-tint" x="400" y="20" width="280" height="380" rx="10"/>
+  <text class="mono m an-m" x="540.0" y="201.0" fill="#0f2c59">processQuestion</text>
+  <text class="mono xs an-m" x="540.0" y="229.0" fill="#0f2c59">match node</text>
+  <rect class="box" x="20" y="20" width="300" height="80" rx="10"/>
+  <text class="mono s an-m" x="170.0" y="51.0" fill="#0f172a">query_execution</text>
+  <text class="t xs an-m" x="170.0" y="79.0" fill="#0f172a">성공</text>
+  <rect class="fill-ok" x="760" y="20" width="400" height="80" rx="10"/>
+  <text class="mono xs an-m" x="960.0" y="51.0" fill="#14532d">graph · table · map 데이터</text>
+  <text class="mono xs an-m" x="960.0" y="79.0" fill="#14532d">update · summary generation</text>
+  <path class="arw" d="M320 60L396 60"/>
+  <path class="arw-navy" d="M680 60L756 60"/>
+  <rect class="box" x="20" y="120" width="300" height="80" rx="10"/>
+  <text class="mono s an-m" x="170.0" y="151.0" fill="#0f172a">query_execution</text>
+  <text class="t xs an-m" x="170.0" y="179.0" fill="#0f172a">오류</text>
+  <rect class="fill-bad" x="760" y="120" width="400" height="80" rx="10"/>
+  <text class="mono s an-m" x="960.0" y="165.0" fill="#7f1d1d">result · ERROR</text>
+  <path class="arw" d="M320 160L396 160"/>
+  <path class="arw-navy" d="M680 160L756 160"/>
+  <rect class="box" x="20" y="220" width="300" height="80" rx="10"/>
+  <text class="mono s an-m" x="170.0" y="265.0" fill="#0f172a">generate_summary</text>
+  <rect class="fill-tint" x="760" y="220" width="400" height="80" rx="10"/>
+  <text class="mono s an-m" x="960.0" y="265.0" fill="#0f2c59">result · Summary</text>
+  <path class="arw" d="M320 260L396 260"/>
+  <path class="arw-navy" d="M680 260L756 260"/>
+  <rect class="box" x="20" y="320" width="300" height="80" rx="10"/>
+  <text class="t m an-m" x="170.0" y="365.0" fill="#0f172a">스트림 종료</text>
+  <rect class="fill-navy" x="760" y="320" width="400" height="80" rx="10"/>
+  <text class="mono s an-m" x="960.0" y="365.0" fill="#ffffff">END · 최종 상태</text>
+  <path class="arw" d="M320 360L396 360"/>
+  <path class="arw-navy" d="M680 360L756 360"/>
+</svg>

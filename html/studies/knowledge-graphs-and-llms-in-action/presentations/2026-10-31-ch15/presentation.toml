@@ -1,0 +1,29 @@
+study_id = "kg-llm-in-action-2026"
+session_id = "2026-10-31-ch15"
+title = "LangGraph로 QA 에이전트 만들기"
+date = "2026-10-31"
+presenters = ["태영"]
+chapters = ["Chapter 15"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+# 작성 시작부터 검사한다. 원본 경로가 비어 있으면 발행 검증이 실패한다.
+source_fidelity = "source-structure-v1"
+source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/15_building_a_qa_agent_with_langgraph_ko_explained.md"
+report_quality = "source-learning-v1"
+# 절별 설명·근거·실습 상태와 원본/산출물 해시를 남기는 제작자용 JSON.
+content_review = "agent-support/reviews/2026-10-31-kg-llm-ch15-content.json"
+
+# 덱 본문을 작성할 때 검토 기록을 채운다. 리포트 단독에는 적용하지 않는다.
+deck_quality = "report-teaching-v1"
+deck_review = "agent-support/reviews/2026-10-31-kg-llm-ch15-deck-content.json"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/fig-15-5-config-provider.svg"
+reason = "리포트 v3에서 §15.1.2를 표로 줄여 빠졌다. v2·이전 판과 덱 v2 작성 때 다시 쓸 수 있어 보존한다."
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/fig-15-6-schema-provider.svg"
+reason = "리포트 v3에서 §15.1.3을 표로 줄여 빠졌다. v2·이전 판과 덱 v2 작성 때 다시 쓸 수 있어 보존한다."

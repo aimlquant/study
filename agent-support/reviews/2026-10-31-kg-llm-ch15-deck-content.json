@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "153f8075eaba39fa3c3fb6c9ed59649f1614754043fb96dadaf13a91abd737a7",
+  "deck_sha256": "03191548f81c3b6eb86cf0c40d026c2e4248f3f019668af733af760b559fe104",
+  "reviewer": "claude (author self-check before pair review)",
+  "review_date": "2026-10-24",
+  "review_scope": "report.html에서 파생한 56장 덱(책 47장 + ETF 구현·실행 9장)의 설명 대응, 리포트 근거, 렌더",
+  "units": [
+    {
+      "question": "이 장은 무엇을 만들고 어떤 질문에 답하는가?",
+      "explanation": "14장의 단계를 공유 상태 위의 LangGraph 노드로 옮기고 Streamlit 화면을 붙인다는 장의 결론과 세 핵심 질문을 제시한다.",
+      "evidence": "구조·분기·상호작용 세 질문, 절별 질문·답 표(덱 표 1).",
+      "conditions": "절별 답은 뒤 슬라이드에서 코드·그림과 함께 다시 설명한다.",
+      "report_refs": [
+        "summary",
+        "table-1-overview"
+      ],
+      "slide_ids": [
+        "slide-cover",
+        "slide-opening",
+        "slide-roadmap"
+      ]
+    },
+    {
+      "question": "여러 단계가 서로를 부르지 않고 어떻게 협업하는가?",
+      "explanation": "LangGraph 정의, Streamlit·LangGraph 역할 분담, RAG 예로 본 공유 상태 소통, 유향 그래프·동적 엣지·라우터 스펙트럼을 설명한다.",
+      "evidence": "시스템 개요 그림, 상태가 자라는 그림, 노드·동적 엣지·스펙트럼 행 설명.",
+      "conditions": "화이트보드 비유의 한계와 '코드로 보면 라우터 쪽'이라는 판단을 화면에 함께 둔다.",
+      "report_refs": [
+        "source-15-1",
+        "fig-1-system-overview",
+        "fig-2-state-evolution"
+      ],
+      "slide_ids": [
+        "slide-section-15-1",
+        "slide-15-1-overview",
+        "slide-15-1-state",
+        "slide-15-1-graph"
+      ]
+    },
+    {
+      "question": "14장의 설계는 어떤 그래프와 백엔드 구성이 되는가?",
+      "explanation": "단계마다 에이전트 함수 하나라는 대응과, 설정·스키마 제공자와 질문 처리 인터페이스의 책임을 설명한다.",
+      "evidence": "파이프라인 그래프(실선·점선), 백엔드 아키텍처 그림과 읽는 법.",
+      "conditions": "시각화가 노드가 아니라는 점을 takeaway로 둔다.",
+      "report_refs": [
+        "source-15-1-1",
+        "fig-3-pipeline-graph",
+        "fig-4-backend-architecture",
+        "table-2-backend-roles"
+      ],
+      "slide_ids": [
+        "slide-15-1-1-title",
+        "slide-15-1-1-backend"
+      ]
+    },
+    {
+      "question": "프롬프트와 주석은 어디에 두고 어떻게 꺼내는가?",
+      "explanation": "설정 파일의 notes·examples·prompts와 ChainConfiguration의 get_prompt·getAnnotations를 설명한다.",
+      "evidence": "Listing 15.1 YAML 발췌, Listing 15.2 핵심 줄, 다시 읽기 시점과 렌더러 변경 메모.",
+      "conditions": "다시 읽기 시점은 AIML Quant 보충으로, 렌더러 교체는 노트북 실행 조건으로 표시했다.",
+      "report_refs": [
+        "source-15-1-2",
+        "source-listing-15-1",
+        "source-listing-15-2"
+      ],
+      "slide_ids": [
+        "slide-15-1-2-title",
+        "slide-15-1-2-config"
+      ]
+    },
+    {
+      "question": "기술 스키마를 어떻게 개념 스키마로 바꾸는가?",
+      "explanation": "스킵 리스트·설명 섹션과 추출→거르기→설명의 세 단계, Neo4jSchema 코드 흐름을 설명한다.",
+      "evidence": "Listing 15.3–15.4 핵심 줄, 노트북 저장 출력의 크기 비교(덱 표 2).",
+      "conditions": "관계에는 설명이 붙지 않는다는 코드 대조, 실측이 LLM 없는 결정적 단계라는 조건을 표시했다.",
+      "report_refs": [
+        "source-15-1-3",
+        "source-listing-15-3",
+        "source-listing-15-4"
+      ],
+      "slide_ids": [
+        "slide-15-1-3-title",
+        "slide-15-1-3-code",
+        "slide-15-1-3-result"
+      ]
+    },
+    {
+      "question": "공유 상태에는 무엇이 있고 누가 채우는가?",
+      "explanation": "AgentState 필드 묶음과 책임의 사슬, 선언 키와 실제 키의 차이를 설명한다.",
+      "evidence": "Listing 15.5, 선언·실제 키·읽는 곳 표(덱 표 3).",
+      "conditions": "표는 일부 필드만 보이며 전체는 리포트 표 3에 있다. 완주 기록에는 LangGraph 버전을 붙였다.",
+      "report_refs": [
+        "source-15-1-4",
+        "source-listing-15-5",
+        "table-3-state-fields"
+      ],
+      "slide_ids": [
+        "slide-15-1-4-title",
+        "slide-15-1-4-keys"
+      ]
+    },
+    {
+      "question": "다섯 에이전트는 각자 무엇을 읽고 돌려주는가?",
+      "explanation": "에이전트별 반환 필드와 run_prompt의 방어적 파싱, 스키마 추출·텍스트-투-사이퍼·질의 실행의 핵심 동작을 설명한다.",
+      "evidence": "에이전트·필드 그림, Listing 15.6–15.9 발췌, information 피드백과 retries 증가 위치.",
+      "conditions": "Listing 15.7은 원서가 이미지로만 실어 저장소 코드로 옮겼다고 밝혔다. success 미사용과 ClientError 한정은 코드·노트북 근거로 적었다.",
+      "report_refs": [
+        "source-15-1-5",
+        "fig-7-agent-state-fields",
+        "source-listing-15-6",
+        "source-listing-15-7",
+        "source-listing-15-8",
+        "source-listing-15-9"
+      ],
+      "slide_ids": [
+        "slide-15-1-5-title",
+        "slide-15-1-5-intent",
+        "slide-15-1-5-schema-cypher",
+        "slide-15-1-5-exec"
+      ]
+    },
+    {
+      "question": "실행 뒤 어디로 가고, 그래프는 어떻게 조립되는가?",
+      "explanation": "동적 엣지의 두 판정, 요약 에이전트, StateGraph 조립과 체크포인터를 설명한다.",
+      "evidence": "라우팅 판정 나무 그림과 노트북 16조합 확인, Listing 15.10–15.12 발췌.",
+      "conditions": "최대 세 번 실행이 저자들의 '세 번 시도'와 같은 뜻임을 밝혔다. self.memory 누락은 코드 대조로 표시했다.",
+      "report_refs": [
+        "source-15-1-5",
+        "fig-8-post-query-routing",
+        "source-listing-15-10",
+        "table-4-routing-check",
+        "source-listing-15-11",
+        "source-listing-15-12"
+      ],
+      "slide_ids": [
+        "slide-15-1-5-routing",
+        "slide-15-1-5-summary",
+        "slide-15-1-5-assembly"
+      ]
+    },
+    {
+      "question": "실행을 어떻게 화면이 받을 이벤트로 바꾸는가?",
+      "explanation": "invoke·stream·제너레이터의 차이, 노드별 이벤트 대응, 세 항목 튜플 구조를 설명한다.",
+      "evidence": "이벤트 대응 그림, Listing 15.13 발췌, 노트북 완주 기록(이벤트 9개, 12.8초).",
+      "conditions": "실행 시간과 모델·버전 조건을 붙였다. labels/label 키 차이는 코드 대조로 표시했다.",
+      "report_refs": [
+        "source-15-1-6",
+        "fig-9-event-stream",
+        "source-listing-15-13",
+        "table-5-event-types"
+      ],
+      "slide_ids": [
+        "slide-15-1-6-title",
+        "slide-15-1-6-events-1",
+        "slide-15-1-6-events-2",
+        "slide-15-1-6-code"
+      ]
+    },
+    {
+      "question": "화면은 무엇을 갖춰야 하고 왜 Streamlit인가?",
+      "explanation": "네 가지 화면 요구와 Streamlit 기능의 대응, 같은 파이썬 프로세스라는 이점을 설명한다.",
+      "evidence": "요구·기능 표(덱 표 4).",
+      "conditions": "운영에는 더 전문화된 화면이 필요할 수 있다는 저자들의 단서를 takeaway로 둔다.",
+      "report_refs": [
+        "source-15-2",
+        "table-6-streamlit-fit"
+      ],
+      "slide_ids": [
+        "slide-section-15-2",
+        "slide-15-2-fit"
+      ]
+    },
+    {
+      "question": "화면의 각 영역은 어떤 역할을 하는가?",
+      "explanation": "캔버스·선택·대화 이력·질문 입력의 역할과 질문 사이의 맥락 통로를 설명한다.",
+      "evidence": "화면 배치 도식과 읽는 법.",
+      "conditions": "도식은 실제 비율이 아니며 화면 캡처를 옮긴 것이 아니다.",
+      "report_refs": [
+        "source-15-2-1",
+        "fig-10-app-layout"
+      ],
+      "slide_ids": [
+        "slide-15-2-1-title"
+      ]
+    },
+    {
+      "question": "화면은 이벤트를 받아 어떻게 갱신하는가?",
+      "explanation": "MessageHistory의 두 역할과 임시·영구 갱신, 입력 핸들러의 타입별 처리를 설명한다.",
+      "evidence": "Listing 15.14·15.15 발췌.",
+      "conditions": "화면 계층은 노트북도 실행하지 않았고 코드 읽기로 설명한다고 밝혔다. 15.15는 분기만 줄인 발췌다.",
+      "report_refs": [
+        "source-15-2-2",
+        "source-listing-15-14",
+        "source-listing-15-15",
+        "table-7-ui-events"
+      ],
+      "slide_ids": [
+        "slide-15-2-2-title",
+        "slide-15-2-2-handler"
+      ]
+    },
+    {
+      "question": "수사 시나리오는 어떤 그래프와 흐름으로 진행되는가?",
+      "explanation": "다섯 노드 타입의 고리와, 선택을 이어 받는 다섯 질문의 흐름을 설명한다.",
+      "evidence": "수사 스키마 그림, 다섯 단계 도식.",
+      "conditions": "차량–소유자 관계의 방향 미확인, 결과 줄이 원서 화면 캡처의 요약이라는 점을 표시했다.",
+      "report_refs": [
+        "source-15-3",
+        "fig-11-investigation-schema",
+        "fig-12-investigation-steps",
+        "table-8-investigation-steps"
+      ],
+      "slide_ids": [
+        "slide-section-15-3",
+        "slide-15-3-schema",
+        "slide-15-3-steps"
+      ]
+    },
+    {
+      "question": "첫 질문은 무엇을 찾고 무엇을 남기는가?",
+      "explanation": "시각화 선택과 상태 조건, 원서 결과와 EB 차량 단서를 설명한다.",
+      "evidence": "원서 결과, 노트북 재실행 질의와 3회 반복 결과.",
+      "conditions": "노트북 결과는 집필 시점 스냅샷과 해당 모델 조건의 기록이다.",
+      "report_refs": [
+        "source-15-3-1"
+      ],
+      "slide_ids": [
+        "slide-15-3-1"
+      ]
+    },
+    {
+      "question": "선택한 범죄 근처의 카메라를 어떻게 찾는가?",
+      "explanation": "선택 인식 공간 질의와 그래프·지도 동시 표시, 저자들의 해석을 설명한다.",
+      "evidence": "원서 결과, 노트북 point.distance 질의와 329 m·200 m 기록.",
+      "conditions": "교차로 해석을 저자들에게 귀속했다. 빈 결과가 정상 응답일 수 있음을 takeaway로 둔다.",
+      "report_refs": [
+        "source-15-3-2"
+      ],
+      "slide_ids": [
+        "slide-15-3-2"
+      ]
+    },
+    {
+      "question": "명시 제약과 선택을 함께 쓰면 무엇을 얻는가?",
+      "explanation": "선택 지칭과 시간·외양·번호판 제약을 한 질의로 합친 결과를 설명한다.",
+      "evidence": "원서 결과, 노트북 7행·6대와 원서 화면 일치 기록.",
+      "conditions": "일치 판정은 노트북 기록 인용이다.",
+      "report_refs": [
+        "source-15-3-3"
+      ],
+      "slide_ids": [
+        "slide-15-3-3"
+      ]
+    },
+    {
+      "question": "역할과 의도를 알리면 무엇이 달라지는가?",
+      "explanation": "같은 데이터에 분석 절이 붙는 과정과 구현상의 분석 분기를 설명한다.",
+      "evidence": "원서 결과(두 번 감지된 차량), 저자들의 해석, results_analysis 분기.",
+      "conditions": "분기 연결은 AIML Quant 보충으로 표시했다.",
+      "report_refs": [
+        "source-15-3-4"
+      ],
+      "slide_ids": [
+        "slide-15-3-4"
+      ]
+    },
+    {
+      "question": "소유자 이력까지 넓히면 무엇이 드러나고 어디까지 믿을 수 있는가?",
+      "explanation": "소유 관계와 전과로 넓힌 분석, 전과자 정의의 출처, 해석 경계를 설명한다.",
+      "evidence": "원서 결과, Listing 15.1 노트, 저자들이 꼽은 네 성과.",
+      "conditions": "노트북 미재현, 그래프 보증 범위와 LLM 판단의 구분을 AIML Quant 보충으로 표시했다.",
+      "report_refs": [
+        "source-15-3-5"
+      ],
+      "slide_ids": [
+        "slide-15-3-5"
+      ]
+    },
+    {
+      "question": "책의 파이프라인이 다른 도메인 그래프에서도 그대로 동작하는가?",
+      "explanation": "ETF 200개 표본 그래프의 구성과 수, 책 구성요소와 ETF 구현의 대응, 바꾼 이유를 보인다.",
+      "evidence": "레이블별 노드·관계 수(CSV 계산=DB 실측, 덱 표 5), 대응표 여덟 줄(덱 표 6·7).",
+      "conditions": "기준일 미상 표본, 가격·수익률 없음. 섹터·테마는 LLM 추출값이라 표기가 흔들린다.",
+      "report_refs": [
+        "etf-implementation",
+        "etf-data",
+        "table-9-etf-graph-counts",
+        "etf-mapping",
+        "table-10-etf-mapping"
+      ],
+      "slide_ids": [
+        "slide-etf-data",
+        "slide-etf-map-1",
+        "slide-etf-map-2"
+      ]
+    },
+    {
+      "question": "책의 라우팅에 무엇을 더했고, LLM 질의 실행은 어떻게 막았는가?",
+      "explanation": "0행 넓히기를 더한 라우터 코드와, 서버 읽기 전용·질의 검사·상한의 세 겹 경계.",
+      "evidence": "route_after_query 실제 코드, CREATE 거부 확인.",
+      "conditions": "retries는 총 실행 횟수, 넓히기도 3회 안. 드라이버 읽기 세션은 접근 제어가 아니다.",
+      "report_refs": [
+        "etf-router",
+        "etf-readonly"
+      ],
+      "slide_ids": [
+        "slide-etf-router",
+        "slide-etf-readonly"
+      ]
+    },
+    {
+      "question": "실제로 던진 질문에서 무엇이 관찰됐는가?",
+      "explanation": "화면 구성, 세 질문의 경로·행·시간, 질문 1의 Cypher, 질문 2·3과 요약 경로의 관찰.",
+      "evidence": "실행 기록 재생 화면(그림 13), 각 3회 실측(덱 표 8), 질문 1 생성 Cypher와 결과.",
+      "conditions": "넓히기 분기는 실제 실행에서 지나가지 않고 단위 시험으로만 확인. 결과는 투자 판단이 아니다.",
+      "report_refs": [
+        "etf-ui",
+        "fig-13-etf-ui",
+        "etf-runs",
+        "table-11-etf-runs",
+        "etf-q1",
+        "etf-q2",
+        "etf-q3",
+        "etf-graph-intent"
+      ],
+      "slide_ids": [
+        "slide-etf-ui",
+        "slide-etf-runs",
+        "slide-etf-q1",
+        "slide-etf-q2q3"
+      ]
+    },
+    {
+      "question": "이 토대 위에 무엇을 쌓을 수 있는가?",
+      "explanation": "완제품이 아닌 토대라는 관점과 개선 경로가 지금 구현에서 맞닿는 자리를 설명한다.",
+      "evidence": "개선 경로 표(덱 표 9).",
+      "conditions": "경로는 저자들의 제안이며 구현되지 않았다. 오른쪽 열은 AIML Quant 보충이다.",
+      "report_refs": [
+        "source-15-4",
+        "table-12-evolution-paths"
+      ],
+      "slide_ids": [
+        "slide-section-15-4",
+        "slide-15-4-paths"
+      ]
+    },
+    {
+      "question": "사용 기록에서 무엇을 배울 수 있는가?",
+      "explanation": "불만형 질문, 성공 사례, 질문 군집의 세 활용을 설명한다.",
+      "evidence": "세 활용 행 설명.",
+      "conditions": "END 상태를 원자료로 쓰는 방법과 사람 확인 단계는 AIML Quant 보충이다.",
+      "report_refs": [
+        "source-15-4-1"
+      ],
+      "slide_ids": [
+        "slide-15-4-1"
+      ]
+    },
+    {
+      "question": "스키마 처리는 어떻게 강화할 수 있는가?",
+      "explanation": "스키마 보강 에이전트와 다층 스키마 관리 제안을 설명한다.",
+      "evidence": "두 제안 행 설명과 §15.1.3 실측과의 연결.",
+      "conditions": "저자들의 '할 수 있다' 강도를 유지했다.",
+      "report_refs": [
+        "source-15-4-2"
+      ],
+      "slide_ids": [
+        "slide-15-4-2"
+      ]
+    },
+    {
+      "question": "인컨텍스트 학습 다음 경로는 무엇인가?",
+      "explanation": "확장성 한계, 파인튜닝 경로와 인용 근거, 교체 단위를 설명한다.",
+      "evidence": "저자들이 인용한 연구 두 편의 결론 요지.",
+      "conditions": "'시사한다'의 강도를 유지했고 이 장에서 측정하지 않았다고 밝혔다. 교체 단위는 AIML Quant 보충이다.",
+      "report_refs": [
+        "source-15-4-3"
+      ],
+      "slide_ids": [
+        "slide-15-4-3"
+      ]
+    },
+    {
+      "question": "오늘 내용을 스스로 설명할 수 있는가?",
+      "explanation": "상태 필드의 쓰기·읽기, 재시도 피드백, 요약 차이, 보증 범위를 묻는 확인 질문과 정리.",
+      "evidence": "확인 질문 네 개와 정리 세 행, 리포트·용어·회차 링크.",
+      "conditions": "확인 질문과 토론 질문은 모두 리포트 §15.4.3 끝의 확인 질문에서 골랐다.",
+      "report_refs": [
+        "source-15-4-3",
+        "summary",
+        "glossary",
+        "references"
+      ],
+      "slide_ids": [
+        "slide-checkpoint",
+        "slide-closing"
+      ]
+    }
+  ],
+  "experiments": [],
+  "visual_review": "1280×720 전체와 390px 표본(표지·그림·코드·표·마지막)을 렌더해 확인했다. 넘침·겹침은 보이지 않았다. 이벤트 대응 그림(fig-15-9)은 발표 크기에서 읽히도록 큰 글자의 덱용 재구성 두 장(intentional adaptation)으로 나눴고 전체 그림은 리포트 링크로 연결한다. 390px에서는 16:9 덱 전체를 화면 폭에 맞춰 줄이므로 확대 없이 세부를 읽기 어렵다. 2026-10-24 ETF 9장(41–49)과 표 번호가 바뀐 3·51번을 1600×900으로, 41·44·49번을 390px로 렌더해 확인했다. 46번 화면 캡처는 좌우 배치로 두었고 캡처 속 작은 글씨는 확대 보기로 읽으며, 같은 Cypher·행은 47·48번에 큰 글씨로 다시 나온다."
+}

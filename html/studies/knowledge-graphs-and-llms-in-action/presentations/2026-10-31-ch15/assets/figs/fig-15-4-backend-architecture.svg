@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 360" role="img" aria-labelledby="figTitle figDesc">
+  <style>
+    .t{font-family:'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',NanumGothic,Inter,system-ui,sans-serif}
+    .mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+    .m{font-size:14.5px;font-weight:800}
+    .s{font-size:12.5px;font-weight:700}
+    .xs{font-size:11px;font-weight:700}
+    .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.6}
+    .fill-navy{fill:#0f2c59;stroke:#0f2c59;stroke-width:1.6}
+    .fill-tint{fill:#e8eef7;stroke:#0f2c59;stroke-width:1.6}
+    .fill-warn{fill:#fef3e2;stroke:#b45309;stroke-width:1.6}
+    .fill-bad{fill:#fdeceb;stroke:#b91c1c;stroke-width:1.6}
+    .fill-ok{fill:#eaf5ec;stroke:#15803d;stroke-width:1.6}
+    .fill-mute{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.4;stroke-dasharray:5 4}
+    .arw{stroke:#64748b;stroke-width:2.1;fill:none;marker-end:url(#ah)}
+    .arw-navy{stroke:#0f2c59;stroke-width:2.6;fill:none;marker-end:url(#ahn)}
+    .arw-warn{stroke:#b45309;stroke-width:2.2;fill:none;marker-end:url(#ahw);stroke-dasharray:6 4}
+    .edge-label{paint-order:stroke fill;stroke:#fafaf9;stroke-width:4px;stroke-linejoin:round}
+    .an-s{text-anchor:start}
+    .an-m{text-anchor:middle}
+    .an-e{text-anchor:end}
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker>
+    <marker id="ahn" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0f2c59"/></marker>
+    <marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+  </defs>
+
+  <title id="figTitle">LangGraph 워크플로를 둘러싼 백엔드 구성요소</title>
+  <desc id="figDesc">가운데 LangGraph 워크플로가 설정 제공자에게서 프롬프트와 주석을, 스키마 제공자에게서 개념 스키마를 받는다. 왼쪽 질문 처리 인터페이스가 프런트엔드의 질문을 실행으로 넘기고 상태 갱신을 이벤트로 돌려준다.</desc>
+  <rect width="1060" height="360" fill="#fafaf9"/>
+  <rect class="box" x="20" y="140" width="150" height="80" rx="10"/>
+  <text class="t m an-m" x="95.0" y="175.5" fill="#0f172a">프런트엔드</text>
+  <text class="mono xs an-m" x="95.0" y="194.5" fill="#0f172a">Streamlit</text>
+  <rect class="box" x="215" y="140" width="180" height="80" rx="10"/>
+  <text class="t m an-m" x="305.0" y="175.5" fill="#0f172a">질문 처리</text>
+  <text class="t m an-m" x="305.0" y="194.5" fill="#0f172a">인터페이스</text>
+  <rect class="fill-navy" x="445" y="110" width="200" height="140" rx="10"/>
+  <text class="mono m an-m" x="545.0" y="175.5" fill="#ffffff">LangGraph</text>
+  <text class="t s an-m" x="545.0" y="194.5" fill="#ffffff">워크플로</text>
+  <rect class="box" x="700" y="40" width="170" height="70" rx="10"/>
+  <text class="t m an-m" x="785.0" y="70.5" fill="#0f172a">설정 제공자</text>
+  <text class="mono xs an-m" x="785.0" y="89.5" fill="#0f172a">ChainConfiguration</text>
+  <rect class="box" x="700" y="250" width="170" height="70" rx="10"/>
+  <text class="t m an-m" x="785.0" y="280.5" fill="#0f172a">스키마 제공자</text>
+  <text class="mono xs an-m" x="785.0" y="299.5" fill="#0f172a">Neo4jSchema</text>
+  <rect class="box" x="920" y="40" width="120" height="70" rx="10"/>
+  <text class="t m an-m" x="980.0" y="70.5" fill="#0f172a">설정 파일</text>
+  <text class="mono xs an-m" x="980.0" y="89.5" fill="#0f172a">yaml · template</text>
+  <rect class="box" x="920" y="250" width="120" height="70" rx="10"/>
+  <text class="mono m an-m" x="980.0" y="280.5" fill="#0f172a">Neo4j</text>
+  <text class="t s an-m" x="980.0" y="299.5" fill="#0f172a">그래프 DB</text>
+  <path class="arw-navy" d="M170 165L211 165"/>
+  <path class="arw-navy" d="M215 195L174 195"/>
+  <path class="arw-navy" d="M395 165L441 165"/>
+  <path class="arw-navy" d="M445 195L399 195"/>
+  <text class="t s edge-label an-m" x="192" y="155" fill="#334155">질문</text>
+  <text class="t s edge-label an-m" x="192" y="213" fill="#334155">이벤트</text>
+  <text class="t s edge-label an-m" x="420" y="155" fill="#334155">실행</text>
+  <text class="t s edge-label an-m" x="420" y="213" fill="#334155">갱신</text>
+  <path class="arw-navy" d="M920 75L874 75"/>
+  <path class="arw-navy" d="M920 285L874 285"/>
+  <path class="arw-navy" d="M700 75L545 75L545 106"/>
+  <path class="arw-navy" d="M700 285L545 285L545 254"/>
+  <text class="t s edge-label an-m" x="622" y="67" fill="#334155">프롬프트·주석</text>
+  <text class="t s edge-label an-m" x="622" y="303" fill="#334155">개념 스키마</text>
+</svg>

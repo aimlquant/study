@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "248ab6caccd98bab4713a506f651cb3191040a945adb028d0d35f8d0ea613275",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/15_building_a_qa_agent_with_langgraph.md",
+      "sha256": "cab1b3a1b8213469df02fb911f8db5abfe5b0fc6638eb05cf6d5f0e678f56eb6",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "outline",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/15_building_a_qa_agent_with_langgraph_ko_explained.md",
+      "sha256": "f074b9c7682f404253ba6c6c8c8b90e9fb57366c42400d96e955fad515fe2ab7",
+      "revision": "2058c0d24858db7b79fefb9a10064e5b0e55427f",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "errata",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/errata.toml",
+      "sha256": "1d382bad194c7738d3987285982438e8cad2808bd2156df6320207d7d4e3385f",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "notebook",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/15_chapter_guide.ipynb",
+      "sha256": "aad70b7173ee68fbeea44be5c5e9d99057c95036a21dbaad7d705962cc1b3a65",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "code",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/investigator.py",
+      "sha256": "80f1a52bed6eb72df124f468b0d1784855ffc4a666b3a9bd69db2ada2792f0ef",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "code",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/chain_config.yaml",
+      "sha256": "1ef412f2844fa8d2629c80598fae4bddda0f187ff842d0642c6c6fb9e3fc94be",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "code",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/templates/text_to_cypher.template",
+      "sha256": "db0838d6ab9f7a71da9fd233b984f9c43c514d3b6bf219b926cdadccbc8f451d",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "code",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/templates/summary.template",
+      "sha256": "f09a79eff978eac617d801ed960ef9b82131387ce6757cc092c2e3c05bdc5474",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "code",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/tools/schema.py",
+      "sha256": "7cedada134ddb049734bef1dd4c3b0efbcc84c4fb659016d03b476f887d3334d",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "code",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/tools/schema_config.yaml",
+      "sha256": "8a92eda1f79eb24f4fed95146881b0d1efaa00d05dacab3ef475a86092563b9b",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    },
+    {
+      "role": "code",
+      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/app.py",
+      "sha256": "d0d77c50f36f458bf2d844205d5db80ba49c1f5776ce5712ee7ab19c303454a8",
+      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision_sha256_matches": true
+    }
+  ],
+  "sections": [
+    {
+      "ref": "15.1",
+      "report_id": "source-15-1",
+      "explanation": "2026-10-25 v3(도라 12549): LangGraph 정의, 공유 상태(그림 1), 화이트보드 비유의 한계, 유향 그래프와 동적 엣지를 남겼다. Streamlit 전체 구성 그림과 라우터–자율 스펙트럼 문단은 뺐고, 라우터형이라는 결론만 한 문장으로 남겼다.",
+      "evidence": "원문 §15.1 서술.",
+      "limits": "화면 구성은 §15.2로 넘겼다.",
+      "visuals": "그림 1(상태 변화). 원서 그림 15.1은 옮기지 않았다."
+    },
+    {
+      "ref": "15.1.1",
+      "report_id": "source-15-1-1",
+      "explanation": "2026-10-25 v3(도라 12549): 14장 단계와 노드의 대응, 파이프라인 그림, 시각화가 노드가 아니라는 점을 남기고, 백엔드 네 구성요소는 ETF 구현의 대응과 함께 한 문단으로 줄였다.",
+      "evidence": "원문 §15.1.1 서술.",
+      "limits": "백엔드 구성 그림과 표는 뺐다.",
+      "visuals": "그림 2(파이프라인 그래프)."
+    },
+    {
+      "ref": "15.1.2",
+      "report_id": "source-15-1-2",
+      "explanation": "2026-10-25 v3(도라 12549): 설정 구성요소의 원리(텍스트 자원 중앙화, Jinja2, notes·examples·prompts)를 한 문단으로 줄이고, Listing 15.1·15.2는 표 2의 행으로 책 구현과 ETF 구현을 대응시켰다.",
+      "evidence": "원문 §15.1.2와 Listing 15.1·15.2, ETF config.yaml.",
+      "limits": "코드 발췌, 재로딩 시점과 렌더러 버전 보충은 뺐다.",
+      "visuals": "표 2."
+    },
+    {
+      "ref": "15.1.3",
+      "report_id": "source-15-1-3",
+      "explanation": "2026-10-25 v3(도라 12549): 기술 스키마와 개념 스키마의 간극, 스킵 리스트와 설명 섹션, 노트북 저장 출력의 크기 비교 결론을 남기고, Listing 15.3·15.4는 표 3의 행으로 대응시켰다.",
+      "evidence": "원문 §15.1.3, 교재 저장소 노트북 저장 출력, ETF 구현의 db.schema 고정 질의.",
+      "limits": "코드 발췌와 관계 설명 누락 보충은 뺐다.",
+      "visuals": "표 3."
+    },
+    {
+      "ref": "15.1.4",
+      "report_id": "source-15-1-4",
+      "explanation": "상태 객체가 공유 메모리이자 책임의 사슬이 되는 방식과 필드 묶음별 역할을 정리했다.",
+      "evidence": "Listing 15.5 필드 전체를 원문의 묶음대로 실었고, 표 4이 필드마다 Listing 15.5의 선언, 저장소에서 실제로 반환되는 키와 쓰는 곳, 저장소 코드·템플릿·화면 코드에서 읽는 곳을 나눠 보인다.",
+      "limits": "선언과 반환 필드 이름의 두 불일치(output_type_reason, summary_analysis)는 교재와 저장소를 대조한 코드 메모로 구분했고, 완주 여부는 노트북 실행 조건을 붙여 적었다.",
+      "visuals": "도형 없음. 필드와 쓰기·읽기 위치의 대응은 표 4이 맡고, 에이전트별 반환 필드는 §15.1.5의 그림 3에 있다."
+    },
+    {
+      "ref": "15.1.5",
+      "report_id": "source-15-1-5",
+      "explanation": "다섯 에이전트와 실행 후 라우팅, 그래프 조립을 Listing 순서대로 설명했다.",
+      "evidence": "Listing 15.6–15.12 핵심 줄과 각 입력·상태 필드·분기·출력 해설, 라우팅 16조합 실측(표 5)을 실었다. 최대 세 번 실행이라는 원문 서술을 retries 증가 위치와 함께 설명했다.",
+      "limits": "Listing 15.7은 원서가 이미지로만 싣는 사실을 밝히고 저장소 코드를 옮겼다. information 피드백 경로, success 미사용, ClientError만 잡는 한계, 체크포인터 생성 누락은 코드 대조로 구분했다. 스키마 캐시는 AIML Quant 보충으로 표시했다.",
+      "visuals": "그림 3이 그림 15.7을 에이전트별 반환 필드 중심으로, 그림 4이 그림 15.8을 판정 나무로 다시 그렸다."
+    },
+    {
+      "ref": "15.1.6",
+      "report_id": "source-15-1-6",
+      "explanation": "invoke와 stream의 차이, 제너레이터 인터페이스, 이벤트 세 쌍과 세 부류를 설명했다.",
+      "evidence": "Listing 15.13 발췌와 각 case의 이벤트, 표 6의 이벤트 종류, 노트북의 완주 실행(이벤트 9개, 12.8초)을 실었다.",
+      "limits": "selection 딕셔너리의 labels 키와 템플릿의 label 불일치를 코드 대조로 구분했다. 실행 시간과 생성 문구는 비결정적이라고 밝혔다.",
+      "visuals": "그림 5가 그림 15.9를 Listing 15.13의 분기별 행 대응으로 다시 그렸다."
+    },
+    {
+      "ref": "15.2",
+      "report_id": "source-15-2",
+      "explanation": "2026-10-25 v2(도라 12540): 책의 Streamlit 화면 설계(네 요구, 파이썬 우선 구조, 시제품·시연 범위, 자리표시자와 MessageHistory)를 두 문단으로 줄이고, 그 자리를 이번 ETF 구현의 FastAPI+React 화면, SSE 이벤트, 실행 기록과 기록 재생 설명으로 바꿨다.",
+      "evidence": "책 요약은 원문 §15.2–15.2.2 서술에서 왔다. 이번 화면의 서술은 src/etf-qa-agent의 api.py(SSE, 15초 ping, 연결 끊김 시 취소, 한 번에 한 질문 실행)와 static/app.js(같은 함수로 실시간·재생 반영)에서 확인했다. 그림 6은 2026-10-24 질문 1 실행 기록의 재생 캡처다.",
+      "limits": "책의 Streamlit 앱은 다시 실행하지 않았다. 이번 화면에는 그래프 캔버스와 지도가 없고 선택은 ETF 하나라고 밝혔다.",
+      "visuals": "그림 6(이번 구현 화면). 표 7이 원서 하위 절·Listing과 이번 구현의 대응을, 표 8이 SSE 이벤트별 처리를 맡는다."
+    },
+    {
+      "ref": "15.2.1",
+      "report_id": "source-15-2-1",
+      "explanation": "2026-10-25 v2(도라 12540): 표 7의 한 행으로 줄였다. 책 화면의 네 영역과 선택 지칭을 적고, 이번 구현에서 맡는 화면 요소를 대응시켰다.",
+      "evidence": "원문 §15.2.1의 영역 서술과 이번 화면(그림 6).",
+      "limits": "원서 그림 15.10 화면 캡처는 옮기지 않았다.",
+      "visuals": "표 7의 행, 그림 6."
+    },
+    {
+      "ref": "15.2.2",
+      "report_id": "source-15-2-2",
+      "explanation": "2026-10-25 v2(도라 12540): 표 7의 한 행으로 줄였다. 이벤트마다 갱신하고 END에서 영구 이력으로 마감하는 책의 처리를, 이번 구현의 SSE 수신과 같은 함수 반영에 대응시켰다.",
+      "evidence": "원문 §15.2.2 서술과 Listing 15.14·15.15, 이번 구현의 app.js.",
+      "limits": "Listing 15.14·15.15 코드 발췌는 뺐다. 책 화면 계층은 실행하지 않았다.",
+      "visuals": "표 7의 행, 표 8."
+    },
+    {
+      "ref": "15.3",
+      "report_id": "source-15-3",
+      "explanation": "2026-10-25 v2(도라 12540): 책의 경찰 수사 사례를 두 문단과 표 9로 줄이고, 그 자리를 ETF 지식그래프 구현(데이터와 그래프, 책 구성요소와의 대응, 실행 후 라우팅, 읽기 전용 경계, 질문 세 개의 실행 기록, 요약 경로의 한계)으로 채웠다.",
+      "evidence": "책 요약은 원문 §15.3–15.3.5 서술에서 왔다. ETF 부분의 수치는 2026-10-24 실측 기록(적재 대조, 질문 1–3 각 3회, graph 의도 1회)을 그대로 옮겼고 새 LLM 실행은 하지 않았다.",
+      "limits": "수사 사례는 다시 실행하지 않았다. ETF 표본은 기준일 미상이고 섹터·테마는 LLM 추출값이며, 투자 판단이 아니라고 밝혔다. 0행 넓히기는 단위 시험으로만 확인했다고 적었다.",
+      "visuals": "표 9(수사 단계와 ETF 구현의 범위), 표 10–12. 원서 그림 15.11과 15.12–15.16은 옮기지 않았다."
+    },
+    {
+      "ref": "15.3.1",
+      "report_id": "source-15-3-1",
+      "explanation": "2026-10-25 v2(도라 12540): 표 9의 한 행으로 줄였다. 질문의 요지와 원서가 꼽은 능력을 적고, ETF 구현에서 다룬 범위를 밝혔다(질문 2(이름 조건 해석)에 대응, 단일 노드 요약은 다루지 않음).",
+      "evidence": "원문 §15.3.1 서술. ETF 쪽 대응은 같은 절의 실행 기록(etf-runs)에 근거한다.",
+      "limits": "원서 결과는 다시 실행하지 않았고, 대응은 능력 수준의 비교일 뿐 같은 질의라는 뜻이 아니다.",
+      "visuals": "표 9의 행. 원서 화면 캡처는 옮기지 않았다."
+    },
+    {
+      "ref": "15.3.2",
+      "report_id": "source-15-3-2",
+      "explanation": "2026-10-25 v2(도라 12540): 표 9의 한 행으로 줄였다. 질문의 요지와 원서가 꼽은 능력을 적고, ETF 구현에서 다룬 범위를 밝혔다(질문 1(선택 인식)에 대응, 공간 질의와 지도는 없음).",
+      "evidence": "원문 §15.3.2 서술. ETF 쪽 대응은 같은 절의 실행 기록(etf-runs)에 근거한다.",
+      "limits": "원서 결과는 다시 실행하지 않았고, 대응은 능력 수준의 비교일 뿐 같은 질의라는 뜻이 아니다.",
+      "visuals": "표 9의 행. 원서 화면 캡처는 옮기지 않았다."
+    },
+    {
+      "ref": "15.3.3",
+      "report_id": "source-15-3-3",
+      "explanation": "2026-10-25 v2(도라 12540): 표 9의 한 행으로 줄였다. 질문의 요지와 원서가 꼽은 능력을 적고, ETF 구현에서 다룬 범위를 밝혔다(질문 1(선택·조건·정렬 결합)에 대응).",
+      "evidence": "원문 §15.3.3 서술. ETF 쪽 대응은 같은 절의 실행 기록(etf-runs)에 근거한다.",
+      "limits": "원서 결과는 다시 실행하지 않았고, 대응은 능력 수준의 비교일 뿐 같은 질의라는 뜻이 아니다.",
+      "visuals": "표 9의 행. 원서 화면 캡처는 옮기지 않았다."
+    },
+    {
+      "ref": "15.3.4",
+      "report_id": "source-15-3-4",
+      "explanation": "2026-10-25 v2(도라 12540): 표 9의 한 행으로 줄였다. 질문의 요지와 원서가 꼽은 능력을 적고, ETF 구현에서 다룬 범위를 밝혔다(요약 노드는 graph 의도로 따로 시험, 역할·의도 질문은 시험하지 않음).",
+      "evidence": "원문 §15.3.4 서술. ETF 쪽 대응은 같은 절의 실행 기록(etf-runs)에 근거한다.",
+      "limits": "원서 결과는 다시 실행하지 않았고, 대응은 능력 수준의 비교일 뿐 같은 질의라는 뜻이 아니다.",
+      "visuals": "표 9의 행. 원서 화면 캡처는 옮기지 않았다."
+    },
+    {
+      "ref": "15.3.5",
+      "report_id": "source-15-3-5",
+      "explanation": "2026-10-25 v2(도라 12540): 표 9의 한 행으로 줄였다. 질문의 요지와 원서가 꼽은 능력을 적고, ETF 구현에서 다룬 범위를 밝혔다(다루지 않음, 질문 3의 미지원 분기를 책에 없는 분기로 구분).",
+      "evidence": "원문 §15.3.5 서술. ETF 쪽 대응은 같은 절의 실행 기록(etf-runs)에 근거한다.",
+      "limits": "원서 결과는 다시 실행하지 않았고, 대응은 능력 수준의 비교일 뿐 같은 질의라는 뜻이 아니다.",
+      "visuals": "표 9의 행. 원서 화면 캡처는 옮기지 않았다."
+    },
+    {
+      "ref": "15.4",
+      "report_id": "source-15-4",
+      "explanation": "2026-10-25 v3(도라 12549): 저자들이 구현을 토대로 보는 관점과 세 발전 경로를 한 문단과 표 13으로 요약하고, ETF 구현과의 관계(실행 기록, 작은 그래프, 노드 교체 가능성)를 적었다.",
+      "evidence": "원문 §15.4–15.4.3 서술.",
+      "limits": "세부 논의(불만형 질문 분류 방식, 다층 스키마 예시, 인용 연구)는 뺐다. 파인튜닝은 시험하지 않았다.",
+      "visuals": "표 13."
+    },
+    {
+      "ref": "15.4.1",
+      "report_id": "source-15-4-1",
+      "explanation": "2026-10-25 v3(도라 12549): 표 13의 한 행으로 줄였다(사용 기록에서 배우기).",
+      "evidence": "원문 §15.4.1 서술.",
+      "limits": "세부 논의는 뺐다.",
+      "visuals": "표 13의 행."
+    },
+    {
+      "ref": "15.4.2",
+      "report_id": "source-15-4-2",
+      "explanation": "2026-10-25 v3(도라 12549): 표 13의 한 행으로 줄였다(전문가 관점의 스키마 강화).",
+      "evidence": "원문 §15.4.2 서술.",
+      "limits": "세부 논의는 뺐다.",
+      "visuals": "표 13의 행."
+    },
+    {
+      "ref": "15.4.3",
+      "report_id": "source-15-4-3",
+      "explanation": "2026-10-25 v3(도라 12549): 표 13의 한 행으로 줄였다(파인튜닝 경로).",
+      "evidence": "원문 §15.4.3 서술.",
+      "limits": "세부 논의는 뺐다.",
+      "visuals": "표 13의 행."
+    }
+  ],
+  "experiments": [
+    {
+      "status": "stored-output",
+      "scope": "스키마 제공자를 시드 그래프(chicago, 노드 타입 8종)에 적용한 전후 크기 비교. LLM을 쓰지 않는 결정적 단계다.",
+      "source": "교재 저장소 노트북 15_chapter_guide.ipynb의 실습 15-A 셀(id 5589f510)과 15.4 셀(id 308d150c)의 저장 출력.",
+      "report_ids": [
+        "source-15-1-3",
+        "source-listing-15-4"
+      ],
+      "interpretation": "속성은 96개에서 87개로 줄고 스키마 텍스트는 3,595자에서 4,342자로 늘었다. 설명 주석이 붙기 때문이며 스키마 번역이 압축이 아님을 보여 준다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "post_query_execution에 오류 유무·retries 1–4·출력 형식 두 가지의 16조합을 넣은 전수 확인.",
+      "source": "교재 저장소 노트북 15_chapter_guide.ipynb의 실습 15-B 셀(id 2331fbca) 저장 출력.",
+      "report_ids": [
+        "table-5-routing-check",
+        "source-listing-15-10"
+      ],
+      "interpretation": "retry는 오류가 있고 retries가 3 미만인 네 조합에서만 나온다. retries가 실행 횟수이므로 첫 실행 포함 최대 세 번 실행된다."
+    },
+    {
+      "status": "book-only",
+      "scope": "§15.3 다섯 질문에 대한 원서의 실행 화면(그림 15.12–15.16).",
+      "source": "원문 §15.3.1–15.3.5의 화면 캡처와 서술. 모델 이름과 실행 시점은 원문에 적혀 있지 않다.",
+      "report_ids": [
+        "source-15-3",
+        "table-9-case-coords"
+      ],
+      "interpretation": "저자들이 한 번 진행한 수사의 기록이다. 각 단계의 능력을 보여 주지만 정답률 평가가 아니므로 역사적 스냅숏으로 다룬다."
+    },
+    {
+      "status": "not-run",
+      "scope": "Streamlit 화면 계층(Listing 15.14·15.15).",
+      "source": "저장소 app.py를 정적으로 읽었다. 노트북도 이 둘을 documented-only로 분류해 실행하지 않았다.",
+      "report_ids": [
+        "source-listing-15-14",
+        "source-listing-15-15",
+        "table-7-ui-coords"
+      ],
+      "interpretation": "이벤트별 화면 동작은 코드 읽기에서 나온 설명이며 실제 화면에서 확인하지 않았다."
+    },
+    {
+      "status": "executed",
+      "scope": "ETF 200개 표본 CSV를 전용 Neo4j 5.26에 적재한 뒤 레이블별 노드·관계 수를 CSV 독립 집계와 대조.",
+      "source": "study-materials 15장 src/etf-qa-agent의 load_graph.py와 var/load-report.json(실행 기록, git 제외).",
+      "report_ids": [
+        "etf-data",
+        "table-10-etf-graph-counts"
+      ],
+      "interpretation": "모든 칸이 같았다(노드 954, 관계 2,271). 강의 노트북 GraphDocument 출력과도 같다."
+    },
+    {
+      "status": "executed",
+      "scope": "ETF 질의 에이전트(5노드+조건부 엣지)에 질문 1–3을 각 3회 실행하고 CSV 독립 기대값과 대조. 2026-10-24, 모델 gpt-6.1-sol.",
+      "source": "src/etf-qa-agent의 bench.py, tests/expected.py, var/bench-core-report.json과 var/runs/*.jsonl.",
+      "report_ids": [
+        "etf-runs",
+        "table-12-etf-runs",
+        "etf-q1",
+        "etf-q2",
+        "etf-q3",
+        "fig-6-etf-ui"
+      ],
+      "interpretation": "9회 모두 기대값과 같은 행 또는 미지원 판정. 표 질문 전체 10–16초, 미지원 2–4초. 0행 넓히기 분기는 실제 실행에서 지나가지 않았고 단위 시험으로만 확인했다."
+    },
+    {
+      "status": "executed",
+      "scope": "graph 의도 질문으로 요약 노드와 코드 참조·행에 없는 수치 검사를 시험.",
+      "source": "var/bench-graph-report.json, var/bench-graph-initial-failure.json.",
+      "report_ids": [
+        "etf-graph-intent"
+      ],
+      "interpretation": "범위를 적은 질문에서 5행·코드 참조 일치·행에 없는 수치 0, 35.3초. 범위를 적지 않은 첫 질문은 모델 6행 대 기대 5행으로 불일치했다."
+    }
+  ]
+}
