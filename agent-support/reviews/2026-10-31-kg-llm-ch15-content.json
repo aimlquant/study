@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "c33f42ee0bb3f84f19b9cb37547f711eeb5ee50f2f2cc9643f0a686efc502d08",
+  "report_sha256": "892a15232966130b00903bfe22234eb6a5f8adf49e9d27a9c553a383214412aa",
   "sources": [
     {
       "role": "original",
@@ -101,7 +101,7 @@
     {
       "ref": "15.1.2",
       "report_id": "source-15-1-2",
-      "explanation": "2026-10-25 v3(도라 12549): 설정 구성요소의 원리(텍스트 자원 중앙화, Jinja2, notes·examples·prompts)를 한 문단으로 줄이고, Listing 15.1·15.2는 표 2의 행으로 책 구현과 ETF 구현을 대응시켰다.",
+      "explanation": "2026-10-25 v3(도라 12549): 설정 구성요소의 원리(텍스트 자원 중앙화, Jinja2, notes·examples·prompts)를 한 문단으로 줄이고, Listing 15.1·15.2는 표 2의 행으로 책 구현과 ETF 구현을 대응시켰다. v4: ETF 대응 열을 KRX 겹침 점검 구현(설정 파일 없음, 스키마 추출을 건너뜀)으로 고쳤다.",
       "evidence": "원문 §15.1.2와 Listing 15.1·15.2, ETF config.yaml.",
       "limits": "코드 발췌, 재로딩 시점과 렌더러 버전 보충은 뺐다.",
       "visuals": "표 2."
@@ -109,7 +109,7 @@
     {
       "ref": "15.1.3",
       "report_id": "source-15-1-3",
-      "explanation": "2026-10-25 v3(도라 12549): 기술 스키마와 개념 스키마의 간극, 스킵 리스트와 설명 섹션, 노트북 저장 출력의 크기 비교 결론을 남기고, Listing 15.3·15.4는 표 3의 행으로 대응시켰다.",
+      "explanation": "2026-10-25 v3(도라 12549): 기술 스키마와 개념 스키마의 간극, 스킵 리스트와 설명 섹션, 노트북 저장 출력의 크기 비교 결론을 남기고, Listing 15.3·15.4는 표 3의 행으로 대응시켰다. v4: ETF 대응 열을 KRX 겹침 점검 구현(설정 파일 없음, 스키마 추출을 건너뜀)으로 고쳤다.",
       "evidence": "원문 §15.1.3, 교재 저장소 노트북 저장 출력, ETF 구현의 db.schema 고정 질의.",
       "limits": "코드 발췌와 관계 설명 누락 보충은 뺐다.",
       "visuals": "표 3."
