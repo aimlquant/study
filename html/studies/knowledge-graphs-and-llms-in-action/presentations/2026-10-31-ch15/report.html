@@ -47,7 +47,7 @@
       <div class="callout--hero"><span class="callout__kicker">One Sentence</span><span class="callout__body">이 장은 14장에서 설계한 질의 단계를 <strong>공유 상태를 읽고 쓰는 LangGraph 노드</strong>로 옮긴다. 노드는 자기가 맡은 상태 필드만 돌려주고, 실행 실패와 출력 형식에 따른 분기는 조건부 엣지 하나가 정한다. 이 리포트는 책의 Streamlit 화면과 경찰 수사 사례를 짧게 줄이고, 그 자리에 같은 구조를 KRX 공개 데이터의 ETF 구성 종목 그래프에 옮긴 겹침 점검 구현과 실행 기록을 싣는다.</span></div>
       <p>14장은 자연어 질문을 Cypher 질의로 바꾸는 과정을 의도 감지, 스키마 추출, 질의 생성, 질의 실행, 시각화, 요약의 단계로 나눴다. 15장은 그 설계를 실제로 돌아가는 애플리케이션으로 만든다. 단계 사이의 실행 흐름은 <strong>LangGraph</strong>가 조율하고, 사용자가 질문을 입력하고 결과를 보는 화면은 <strong>Streamlit</strong>이 맡는다. 저자들의 코드 저장소에 전체 구현과 설정 파일이 들어 있다.</p>
       <p>장은 네 부분으로 이어진다. 먼저 파이프라인의 뼈대(설정·스키마 제공자, 상태, 에이전트, 이벤트 인터페이스)를 세우고(§15.1), 그 위에 화면을 붙이고(§15.2), 실제 수사 시나리오에서 질문 다섯 개를 이어 던져 시스템이 무엇을 할 수 있는지 보이고(§15.3), 이 구조를 어떻게 발전시킬지 정리한다(§15.4).</p>
-      <p>이 리포트는 ETF 구현을 이해하는 데 필요한 이론을 중심으로 쓴다. §15.1에서는 공유 상태, 다섯 노드의 역할, 질의 생성과 실행 후 라우팅, 이벤트 스트림을 자세히 다루고, 설정 제공자와 스키마 제공자(§15.1.2–15.1.3)는 원리와 ETF 구현의 대응만 짧게 적는다. §15.4는 저자들이 제시한 세 발전 경로를 표 하나로 요약한다. 책의 Streamlit 화면과 경찰 수사 사례는 각 절 첫머리에서 짧게 요약하고, 그 자리를 이번 회차에 만든 ETF 구현으로 채운다. §15.2에는 FastAPI+React 화면과 이벤트 처리를(<a href="#etf-ui">이번 구현의 화면</a>), §15.3에는 KRX에서 받은 ETF 28개의 구성 종목 그래프, 책에서 바꾼 것, 질문 네 개의 실행 기록과 독립 대조를 실었다(<a href="#etf-runs">질문 네 개</a>).</p>
+      <p>이 리포트는 ETF 구현을 이해하는 데 필요한 이론을 중심으로 쓴다. §15.1에서는 공유 상태, 다섯 노드의 역할, 질의 생성과 실행 후 라우팅, 이벤트 스트림을 자세히 다루고, 설정 제공자와 스키마 제공자(§15.1.2–15.1.3)는 원리와 ETF 구현의 대응만 짧게 적는다. §15.4는 저자들이 제시한 세 발전 경로를 표 하나로 요약한다. 책의 Streamlit 화면과 경찰 수사 사례는 각 절 첫머리에서 짧게 요약하고, 그 자리를 이번 회차에 만든 ETF 구현으로 채운다. §15.2에는 FastAPI+React 화면과 이벤트 처리를(<a href="#etf-ui">이번 구현의 화면</a>), §15.3에는 KRX에서 받은 ETF 28개의 구성 종목 그래프, 책에서 바꾼 것, 질문 다섯 개의 실행 기록과 독립 대조를 실었다(<a href="#etf-runs">질문 다섯 개</a>).</p>
       <div class="section-summary"><div class="section-summary__kicker">핵심 질문</div><div class="section-summary__body"><ul>
         <li><strong>구조</strong> — 여러 단계가 서로를 직접 호출하지 않고 협업하려면 무엇을 공유해야 하는가?</li>
         <li><strong>분기</strong> — 생성된 질의가 실패하거나 출력 형식이 다를 때 다음 단계는 어디서 결정되는가?</li>
@@ -56,7 +56,7 @@
       <table class="cmp-table" id="table-1-overview">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 1</span><span class="asset-caption__title">장의 전체 흐름</span></div></caption>
         <thead><tr><th>절</th><th>질문</th><th>이 장의 답</th><th>구현에서 볼 것</th></tr></thead>
-        <tbody><tr><td>15.1</td><td>14장의 단계를 어떻게 실행 가능한 그래프로 만드는가?</td><td>단계마다 에이전트 함수 하나, 함수끼리는 공유 상태로만 소통한다.</td><td>설정·스키마 제공자, <code>AgentState</code>, 다섯 노드와 조건부 엣지, 이벤트 제너레이터.</td></tr><tr><td>15.2</td><td>사용자는 이 파이프라인과 어떻게 대화하는가?</td><td>책은 캔버스·선택·질문 입력·대화 이력으로 나눈 Streamlit 화면을 쓴다. 이 회차는 노드 진행과 Cypher·반환 행·답을 나란히 보이는 FastAPI+React 화면으로 바꿨다.</td><td>SSE로 받는 이벤트, 실행 기록과 기록 재생.</td></tr><tr><td>15.3</td><td>실제 질문에서 쓸 만한가?</td><td>책은 수사 질문 다섯 개로 사건을 좁혀 간다. 이 회차는 같은 다섯 노드를 ETF 구성 종목 그래프에 옮겨 겹침 점검 질문 네 개로 확인한다.</td><td>구성 종목 그래프, 고정 매개변수 Cypher, 미지원 종료와 되묻기, 378쌍 독립 대조, 질문 네 개의 실행 기록.</td></tr><tr><td>15.4</td><td>이 토대를 어떻게 키우는가?</td><td>관찰 가능성과 &ldquo;전문가라면 무엇을 할까&rdquo;라는 질문이 개선의 출발점이다.</td><td>사용 기록에서 배우기, 스키마 처리 강화, 파인튜닝 경로.</td></tr></tbody>
+        <tbody><tr><td>15.1</td><td>14장의 단계를 어떻게 실행 가능한 그래프로 만드는가?</td><td>단계마다 에이전트 함수 하나, 함수끼리는 공유 상태로만 소통한다.</td><td>설정·스키마 제공자, <code>AgentState</code>, 다섯 노드와 조건부 엣지, 이벤트 제너레이터.</td></tr><tr><td>15.2</td><td>사용자는 이 파이프라인과 어떻게 대화하는가?</td><td>책은 캔버스·선택·질문 입력·대화 이력으로 나눈 Streamlit 화면을 쓴다. 이 회차는 노드 진행과 Cypher·반환 행·답을 나란히 보이는 FastAPI+React 화면으로 바꿨다.</td><td>SSE로 받는 이벤트, 실행 기록과 기록 재생.</td></tr><tr><td>15.3</td><td>실제 질문에서 쓸 만한가?</td><td>책은 수사 질문 다섯 개로 사건을 좁혀 간다. 이 회차는 같은 다섯 노드를 ETF 구성 종목 그래프에 옮겨 겹침 점검 질문 다섯 개로 확인한다.</td><td>구성 종목 그래프, 고정 매개변수 Cypher, 미지원 종료와 되묻기, 378쌍 독립 대조, 질문 다섯 개의 실행 기록.</td></tr><tr><td>15.4</td><td>이 토대를 어떻게 키우는가?</td><td>관찰 가능성과 &ldquo;전문가라면 무엇을 할까&rdquo;라는 질문이 개선의 출발점이다.</td><td>사용 기록에서 배우기, 스키마 처리 강화, 파인튜닝 경로.</td></tr></tbody>
       </table>
       <div class="callout--insight"><span class="callout__kicker">이 리포트를 읽는 법</span><div class="callout__body">
         <p>코드는 교재 Listing에서 설명에 필요한 줄만 발췌했다. 교재가 코드를 이미지로만 싣거나 교재 Listing과 저장소 코드가 어긋나는 곳은 교재 저장소의 15장 코드(<code>src/ch15</code>)와 대조했고, 해당 자리에 출처를 밝혀 표시했다. 실행 결과는 교재 저장소의 15장 노트북에 저장된 출력을 인용했으며, LLM이 관여하는 결과는 실행할 때마다 달라질 수 있다. 책의 Streamlit 앱과 §15.3의 수사 사례는 다시 실행하지 않았다. §15.2와 §15.3의 실행 기록과 화면은 모두 이번 ETF 구현을 2026-10-25에 실행한 결과이며, 데이터 기준일은 2026-10-23이다.</p>
@@ -113,7 +113,7 @@
         <thead><tr><th>원서 좌표</th><th>책의 구현</th><th>ETF 구현</th></tr></thead>
         <tbody>
           <tr id="source-listing-15-1" data-source-kind="listing" data-source-ref="15.1"><td>Listing 15.1 설정 파일 예시</td><td><code>chain_config.yaml</code>의 <code>notes</code>·<code>examples</code>·<code>prompts</code>. 노트에는 수사 그래프의 업무 정의(&ldquo;전과자는 범죄 노드에 연결된 사람&rdquo;)가 들어 있다.</td><td>설정 파일을 두지 않았다. 업무 정의(&ldquo;겹침 비중은 공통 종목마다 두 비중 중 작은 값의 합&rdquo;)는 고정 질의와 요약 지시문에 들어 있고, 기준일·출처는 <code>settings.py</code> 한 곳에 둔다.</td></tr>
-          <tr id="source-listing-15-2" data-source-kind="listing" data-source-ref="15.2"><td>Listing 15.2 설정 구성요소</td><td><code>ChainConfiguration.get_prompt</code>가 템플릿 파일을 읽어 값을 채우고, <code>getAnnotations</code>가 노트와 예시를 돌려준다.</td><td>노드 함수 안에 짧은 시스템 지시를 두고, 질문·고른 ETF·반환 행을 JSON으로 넘긴다. 템플릿 파일과 예시 묶음은 쓰지 않았다.</td></tr>
+          <tr id="source-listing-15-2" data-source-kind="listing" data-source-ref="15.2"><td>Listing 15.2 설정 구성요소</td><td><code>ChainConfiguration.get_prompt</code>가 템플릿 파일을 읽어 값을 채우고, <code>getAnnotations</code>가 노트와 예시를 돌려준다.</td><td>모델을 부르는 의도 감지 노드에만 짧은 시스템 지시를 두고, 질문과 고른 ETF 코드를 JSON으로 넘긴다. 템플릿 파일과 예시 묶음은 쓰지 않았다.</td></tr>
         </tbody>
       </table>
     </section>
@@ -410,13 +410,13 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
       </table>
 
       <h3 id="etf-ui">이번 구현의 화면 — 답과 근거를 한 화면에</h3>
-      <p>화면은 FastAPI 서버가 내보내는 페이지 하나다. React와 htm(JSX 대신 쓰는 작은 템플릿 라이브러리)을 로컬 파일로 두어, 빌드 단계나 외부 CDN 없이 동작한다. 질문 입력 위의 버튼 네 개는 §15.3의 질문 1–4다. ETF는 질문에 이름을 써도 되고, 그래프에 있는 ETF 28개 목록에서 2–5개를 골라도 된다. 이 선택 칸은 책의 선택 열을 ETF 목록으로 바꾼 것이다. 발표 시연 주소는 <a href="https://lecture.restful3.store/kg15c/">lecture.restful3.store/kg15c</a>이며, 스터디 로그인이 있어야 열린다.</p>
+      <p>화면은 FastAPI 서버가 내보내는 페이지 하나다. React와 htm(JSX 대신 쓰는 작은 템플릿 라이브러리)을 로컬 파일로 두어, 빌드 단계나 외부 CDN 없이 동작한다. 질문 입력 위의 버튼 다섯 개는 §15.3의 질문 1–5다. ETF는 질문에 이름을 써도 되고, 그래프에 있는 ETF 28개 목록에서 2–5개를 골라도 된다. 이 선택 칸은 책의 선택 열을 ETF 목록으로 바꾼 것이다. 발표 시연 주소는 <a href="https://lecture.restful3.store/kg15c/">lecture.restful3.store/kg15c</a>이며, 스터디 로그인이 있어야 열린다.</p>
       <figure class="report-figure" id="fig-6-etf-ui" data-deck-use="required">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">질문 2의 실행 기록을 재생한 화면</span></figcaption>
-        <img src="assets/figs/fig-etf-ui-q2-run.png" alt="ETF 겹침 점검 화면. 위쪽에 고른 ETF 네 개(069500 KODEX 200, 091160 KODEX 반도체, 305720 KODEX 2차전지산업, 487240 KODEX AI전력핵심설비)가 있다. 왼쪽에 다섯 노드의 진행이 있고 스키마 추출 노드만 흐리다. 오른쪽에 선택한 고정 Cypher와 매개변수, 여섯 쌍의 겹침 표, 가장 많이 겹치는 쌍의 공통 종목 네 개, 답이 있다. 맨 아래에 출처와 기준일이 있다.">
-        <small class="asset-note">왼쪽은 지나간 노드(초록 테두리)와 건너뛴 노드(흐림), 오른쪽은 위에서부터 고정 Cypher와 매개변수, ETF 쌍별 겹침, 가장 많이 겹치는 쌍의 공통 종목, 답이다. 겹침 점검은 스키마 추출을 건너뛴다. 맨 아래에 출처와 기준일을 늘 적는다. 2026-10-25 실행 기록을 재생해 캡처했다.</small>
+        <img src="assets/figs/fig-etf-ui-q2-run.png" alt="ETF 겹침 점검 화면. 위쪽에 고른 ETF 네 개(069500 KODEX 200, 091160 KODEX 반도체, 305720 KODEX 2차전지산업, 487240 KODEX AI전력핵심설비)가 있다. 왼쪽에 다섯 노드의 진행이 있고 스키마 추출과 요약 생성 노드가 흐리다. 오른쪽에 선택한 고정 Cypher와 매개변수, 여섯 쌍의 겹침 표, 네 ETF의 계산 범위 표, 가장 많이 겹치는 쌍의 공통 종목 네 개, 답이 있다. 맨 아래에 출처와 기준일이 있다.">
+        <small class="asset-note">왼쪽은 지나간 노드(초록 테두리)와 건너뛴 노드(흐림), 오른쪽은 위에서부터 고정 Cypher와 매개변수, ETF 쌍별 겹침, 계산에 넣은 비중, 가장 많이 겹치는 쌍의 공통 종목, 답이다. 겹침 점검은 스키마 추출과 요약 생성을 건너뛴다. 맨 아래에 출처와 기준일을 늘 적는다. 2026-10-25 실행 기록을 재생해 캡처했다.</small>
       </figure>
-      <p>왼쪽 노드 목록은 책의 다섯 노드와 조건부 엣지를 그대로 보여 준다. 오른쪽은 위에서부터 앱이 고른 Cypher와 매개변수, ETF 쌍별 겹침 비중, 가장 많이 겹치는 쌍의 공통 종목과 업종, 답이다. 답 아래에는 전체 시간, DB 질의 시간, LLM 호출 수가 붙는다. 답의 숫자가 어디서 왔는지를 화면 안에서 Cypher와 반환 행으로 바로 대조할 수 있게 하려는 배치다.</p>
+      <p>왼쪽 노드 목록은 책의 다섯 노드와 조건부 엣지를 그대로 보여 준다. 오른쪽은 위에서부터 앱이 고른 Cypher와 매개변수, ETF 쌍별 겹침 비중, 고른 ETF마다 기준일과 계산에 넣은 주식 비중·뺀 비중, 가장 많이 겹치는 쌍의 공통 종목과 업종, 답이다. 답은 반환 행에서 그대로 만든 한 문장이고, 아래에 전체 시간, DB 질의 시간, LLM 호출 수가 붙는다. 답의 숫자가 어디서 왔는지를 화면 안에서 Cypher와 반환 행으로 바로 대조할 수 있게 하려는 배치다.</p>
       <p>화면 맨 아래에는 &ldquo;출처: 한국거래소 KRX Data Marketplace, 기준일 2026-10-23&rdquo;과 &ldquo;투자 권유가 아닙니다&rdquo;를 늘 적는다. 원자료 파일을 내려받는 버튼은 두지 않았고, 화면에는 질문에 필요한 행과 계산 결과만 나온다.</p>
 
       <h3 id="etf-events">이벤트를 화면으로 — SSE</h3>
@@ -426,8 +426,9 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
         <thead><tr><th>이벤트</th><th>언제 오는가</th><th>화면이 하는 일</th><th>책의 대응</th></tr></thead>
         <tbody>
           <tr><td><code>update</code></td><td>노드가 시작할 때와 끝날 때</td><td>왼쪽 노드 목록에 지금 실행 중인 노드와 지나간 노드를 표시한다. 끝까지 지나가지 않은 노드는 흐리게 둔다.</td><td><code>update</code></td></tr>
-          <tr><td><code>result</code></td><td>미지원 이유, 고른 Cypher와 매개변수, 되묻기, 요약이 나올 때</td><td>제목별 칸을 채운다.</td><td><code>result</code></td></tr>
+          <tr><td><code>result</code></td><td>미지원 이유, 고른 Cypher와 매개변수, 되묻기, 답이 나올 때</td><td>제목별 칸을 채운다.</td><td><code>result</code></td></tr>
           <tr><td><code>table</code></td><td>질의 실행이 끝났을 때</td><td>ETF 쌍별 겹침 표를 그린다.</td><td><code>table</code> 등 시각화 이벤트</td></tr>
+          <tr><td><code>coverage</code></td><td>Cypher 선택이 끝났을 때</td><td>고른 ETF마다 기준일, 계산에 넣은 주식 비중과 뺀 비중을 표로 그린다.</td><td>책에는 없다</td></tr>
           <tr><td><code>common</code></td><td><code>table</code> 바로 뒤</td><td>가장 많이 겹치는 쌍의 공통 종목 표를 그린다.</td><td><code>table</code> 등 시각화 이벤트</td></tr>
           <tr><td><code>candidates</code></td><td>ETF 이름이 여러 ETF에 맞을 때</td><td>계산하지 않았다는 문구와 후보 ETF 목록을 보인다.</td><td>책에는 없다</td></tr>
           <tr><td><code>end</code></td><td>마지막에 한 번</td><td>최종 상태, 시간, 실행 ID, 출처를 받아 마감한다.</td><td><code>END</code></td></tr>
@@ -447,7 +448,7 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
         <li>숫자는 LLM이 만든 질의가 아니라 앱이 고정한 매개변수 Cypher가 낸다. 378개 ETF 쌍 전부에서 그래프 결과가 파일만으로 따로 계산한 기대값과 같았다.</li>
       </ul></div></div>
       <p>저자들은 수사관이 자연어 질문만으로 범죄, ANPR(자동 번호판 인식) 카메라, 카메라의 감지 기록, 차량, 소유자 사이의 연결을 따라가는 시나리오를 보인다. 앞 질문의 결과 노드를 선택에 넣고, 다음 질문에서 &ldquo;선택한 범죄&rdquo;, &ldquo;선택한 카메라&rdquo;로 가리킨다. 이렇게 범죄 무단침입 사건 하나에서 출발해 근처 카메라, 인상착의에 맞는 차량, 소유자의 전과까지 다섯 질문으로 좁혀 간다. 저자들은 이 과정이 맥락 유지, 공간·시간·이력 증거의 통합, 패턴 식별, 의사결정에 맞춘 제시를 보여 준다고 정리한다. 결과는 원서의 화면 캡처로 보고된다.</p>
-      <p>이번 회차는 이 수사 사례를 다시 돌리지 않았다. 대신 같은 다섯 노드를 ETF 구성 종목 그래프에 옮겨, 각 단계가 시험한 능력 가운데 이 데이터로 보일 수 있는 것을 질문 네 개로 다시 보인다(<a class="asset-ref" href="#table-9-case-coords">표 9</a>). 이 절의 나머지는 교재 내용이 아니라 AIML Quant가 이번 회차를 위해 만든 구현이다. 책의 코드(<code>chains/investigator.py</code>)를 옮겨 적지 않고 §15.1의 설계 원리를 따라 새로 작성했으며, 코드는 참가자 전용 교재 저장소의 15장 폴더 아래 <code>src/krx-etf/</code>에 있다.</p>
+      <p>이번 회차는 이 수사 사례를 다시 돌리지 않았다. 대신 같은 다섯 노드를 ETF 구성 종목 그래프에 옮겨, 각 단계가 시험한 능력 가운데 이 데이터로 보일 수 있는 것을 질문 다섯 개로 다시 보인다(<a class="asset-ref" href="#table-9-case-coords">표 9</a>). 이 절의 나머지는 교재 내용이 아니라 AIML Quant가 이번 회차를 위해 만든 구현이다. 책의 코드(<code>chains/investigator.py</code>)를 옮겨 적지 않고 §15.1의 설계 원리를 따라 새로 작성했으며, 코드는 참가자 전용 교재 저장소의 15장 폴더 아래 <code>src/krx-etf/</code>에 있다.</p>
       <table class="cmp-table" id="table-9-case-coords">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 9</span><span class="asset-caption__title">수사 다섯 단계가 시험한 능력과 ETF 구현에서 다룬 범위</span><span class="cmp-table__sub">질문은 원서의 프롬프트를 줄여 옮겼다</span></div></caption>
         <thead><tr><th>원서 좌표</th><th>질문의 요지</th><th>원서가 보여 준 능력</th><th>ETF 구현에서</th></tr></thead>
@@ -455,7 +456,7 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
           <tr id="source-15-3-1" data-source-kind="section" data-source-ref="15.3.1"><td>15.3.1 초기 사건 식별하기 — 수사의 출발점</td><td>수사 중인 범죄 노드 하나</td><td>명시적 제약과 암묵적 기대의 해석, 노드 속성 요약</td><td>질문 1이 &ldquo;얼마나 겹쳐?&rdquo;를 겹침 점검 의도로, 두 이름을 ETF 코드로 해석하는 것을 보인다. 단일 노드 요약은 다루지 않았다.</td></tr>
           <tr id="source-15-3-2" data-source-kind="section" data-source-ref="15.3.2"><td>15.3.2 감시 범위의 공간 분석 — 근처 카메라 찾기</td><td>선택한 범죄에서 1 km 안의 ANPR 카메라</td><td>공간 질의, 선택 인식, 지도 시각화 선택</td><td>선택 인식은 질문 2가 보인다(&ldquo;이 네 ETF&rdquo;). 위치 정보가 없어 공간 질의와 지도는 없다.</td></tr>
           <tr id="source-15-3-3" data-source-kind="section" data-source-ref="15.3.3"><td>15.3.3 차량 패턴 감지 — 용의 차량 좁히기</td><td>선택한 카메라가 그날 감지한, 인상착의에 맞는 차량</td><td>선택·시간 제약·속성 일치를 한 질의로 결합</td><td>질문 2가 고른 ETF 네 개의 여섯 쌍을 한 질의로 계산하고 겹침 비중 순으로 정렬한다.</td></tr>
-          <tr id="source-15-3-4" data-source-kind="section" data-source-ref="15.3.4"><td>15.3.4 맥락 인식 요청 정제 — 역할과 의도를 알려주기</td><td>수사관이라는 역할을 밝히고 특히 의심스러운 차량을 묻는다</td><td>선택한 노드에서 제약 추출, 맥락에 따른 분석 요약</td><td>요약 노드가 반환 행만 근거로 답을 쓴다. 역할·의도를 밝힌 질문은 시험하지 않았다.</td></tr>
+          <tr id="source-15-3-4" data-source-kind="section" data-source-ref="15.3.4"><td>15.3.4 맥락 인식 요청 정제 — 역할과 의도를 알려주기</td><td>수사관이라는 역할을 밝히고 특히 의심스러운 차량을 묻는다</td><td>선택한 노드에서 제약 추출, 맥락에 따른 분석 요약</td><td>겹침 점검에서는 요약 노드를 쓰지 않고, 답 문장을 반환 행에서 그대로 만든다. 역할·의도를 밝힌 질문은 시험하지 않았다.</td></tr>
           <tr id="source-15-3-5" data-source-kind="section" data-source-ref="15.3.5"><td>15.3.5 과거 기록 분석 — 소유자의 범죄 이력까지</td><td>전과자 소유일 수 있다는 단서를 더해 가장 유력한 차량을 묻는다</td><td>소유 관계와 범죄 기록까지 확장한 분석</td><td>다루지 않았다. 대신 책에 없는 두 분기를 보인다. 질문 3은 데이터에 없는 수익률을 미지원으로 끝내고, 질문 4는 여러 ETF에 맞는 이름을 계산하지 않고 되묻는다.</td></tr>
         </tbody>
       </table>
@@ -490,11 +491,11 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
           <tr><td>설정 구성요소(§15.1.2)</td><td>Jinja2 템플릿과 그래프 주석 YAML</td><td>노드마다 짧은 지시문과, 화면에 쓸 기준일·출처 한 곳</td><td>질의를 LLM이 만들지 않으므로 그래프 주석이 필요 없다.</td></tr>
           <tr><td>스키마 제공자(§15.1.3)</td><td><code>apoc.meta.schema</code>로 기술 스키마를 뽑고 skip list·설명으로 다듬음</td><td>노드는 남겨 두되 겹침 점검 경로에서는 건너뜀</td><td>고정 질의를 쓰므로 스키마를 프롬프트에 넣을 일이 없다.</td></tr>
           <tr><td>상태(§15.1.4)</td><td><code>AgentState</code>, 노드마다 자기 필드만 반환</td><td>같은 원칙. 질문 속 ETF 이름, 확정한 코드, 후보, 매개변수, 쌍별 결과, 공통 종목, 중단 이유</td><td>아래 분기와 화면 표시에 필요한 값만 두었다.</td></tr>
-          <tr><td>노드(§15.1.5)</td><td>의도 감지·스키마 추출·텍스트-투-사이퍼·질의 실행·요약 생성</td><td>같은 다섯 노드. 의도는 겹침 점검·미지원 둘. 텍스트-투-사이퍼는 이름을 코드로 바꾸고 고정 질의를 고른다</td><td>계산이 틀리면 안 되는 자리라 숫자를 만드는 질의를 LLM에 맡기지 않았다.</td></tr>
-          <tr><td>실행 후 라우팅(§15.1.5)</td><td>오류면 재시도, graph·map이면 요약, 아니면 종료</td><td>의도 감지 뒤(미지원이면 종료), Cypher 선택 뒤(이름이 모호하거나 2–5개가 아니면 되묻고 종료), 질의 실행 뒤(행이 있으면 요약)</td><td>질의가 고정이라 재생성할 오류가 없다. 대신 입력이 모호한 경우를 가른다.</td></tr>
+          <tr><td>노드(§15.1.5)</td><td>의도 감지·스키마 추출·텍스트-투-사이퍼·질의 실행·요약 생성</td><td>같은 다섯 노드. 의도는 겹침 점검·미지원 둘. 텍스트-투-사이퍼는 이름을 코드로 바꾸고 고정 질의를 고른다. 겹침 점검에서는 스키마 추출과 요약 생성을 건너뛴다</td><td>계산이 틀리면 안 되는 자리라 숫자를 만드는 질의를 LLM에 맡기지 않았다.</td></tr>
+          <tr><td>실행 후 라우팅(§15.1.5)</td><td>오류면 재시도, graph·map이면 요약, 아니면 종료</td><td>의도 감지 뒤(미지원이면 종료), Cypher 선택 뒤(이름이 모호하거나, 2–5개가 아니거나, 같은 ETF를 두 번 골랐거나, 구성 종목을 받지 않은 ETF가 있으면 되묻고 종료), 질의 실행 뒤 종료</td><td>질의가 고정이라 재생성할 오류가 없다. 대신 입력을 확인하고, 답은 모델 없이 반환 행에서 만든다.</td></tr>
           <tr><td>조립(§15.1.5)</td><td><code>set_entry_point</code>, <code>MemorySaver</code></td><td><code>add_edge(START, …)</code>, 체크포인터 없음</td><td>현재 LangGraph(1.2)의 권장 표기. 대화 이력이 필요 없고 실행 기록은 파일로 남긴다.</td></tr>
-          <tr><td>통합 계층(§15.1.6)</td><td>스트림을 받아 update·result·시각화 세 종류로 바꾸는 생성기</td><td>같은 세 종류에 공통 종목·후보 이벤트를 더해 SSE로 보낸다</td><td>표가 두 개이고, 되묻기를 화면에 보여야 한다.</td></tr>
-          <tr><td>화면(§15.2)</td><td>Streamlit, 그래프 캔버스, 지도, 대화 이력</td><td>FastAPI가 내는 React 한 페이지: 노드 진행, 고정 Cypher, 쌍별 겹침, 공통 종목, 답, 출처(§15.2에서 설명)</td><td>발표 화면에서 답과 근거(Cypher·행)를 나란히 보이기 위해서다.</td></tr>
+          <tr><td>통합 계층(§15.1.6)</td><td>스트림을 받아 update·result·시각화 세 종류로 바꾸는 생성기</td><td>같은 세 종류에 계산 범위·공통 종목·후보 이벤트를 더해 SSE로 보낸다</td><td>표가 세 개이고, 되묻기를 화면에 보여야 한다.</td></tr>
+          <tr><td>화면(§15.2)</td><td>Streamlit, 그래프 캔버스, 지도, 대화 이력</td><td>FastAPI가 내는 React 한 페이지: 노드 진행, 고정 Cypher, 쌍별 겹침, 계산에 넣은 비중, 공통 종목, 답, 출처(§15.2에서 설명)</td><td>발표 화면에서 답과 근거(Cypher·행)를 나란히 보이기 위해서다. 설계에 있던 겹침 행렬의 색 농도와 ETF–종목 관계 그림은 이번 화면에 넣지 않고 표로 줄였다.</td></tr>
         </tbody>
       </table>
 
@@ -509,34 +510,34 @@ RETURN a.code AS etf_a, b.code AS etf_b, size(cs) AS common_count,
        round(reduce(t = 0.0, c IN cs |
              t + CASE WHEN c.wa &lt; c.wb THEN c.wa ELSE c.wb END) * 100, 2) AS overlap_pct
 ORDER BY overlap_pct DESC</code></pre>
-      <p>가장 많이 겹치는 쌍에는 공통 종목을 작은 비중 순으로 15개까지 돌려주는 고정 질의를 하나 더 실행한다. 조건부 엣지는 세 곳이다. 의도 감지 뒤에는 겹침 점검이면 스키마 추출을 건너뛰고 텍스트-투-사이퍼로 가며, 미지원이면 끝낸다. 텍스트-투-사이퍼 뒤에는 이름이 여러 ETF에 맞거나 ETF가 2–5개가 아니면 계산하지 않고 끝낸다. 질의 실행 뒤에는 반환 행이 있으면 요약으로 간다.</p>
+      <p>가장 많이 겹치는 쌍에는 공통 종목을 15개까지 돌려주는 고정 질의를 하나 더 실행한다. 순서는 두 비중 가운데 작은 값이 큰 순이고, 같으면 종목 코드 순이다. 질의를 실행하기 전에 텍스트-투-사이퍼 노드는 고른 ETF 전부가 그래프에 있는지(구성 종목을 받은 ETF인지) 고정 질의로 확인하고, 각 ETF의 기준일과 계산에 넣은 비중을 함께 가져온다. 조건부 엣지는 두 곳이다. 의도 감지 뒤에는 겹침 점검이면 스키마 추출을 건너뛰고 텍스트-투-사이퍼로 가며, 미지원이면 끝낸다. 텍스트-투-사이퍼 뒤에는 이름이 여러 ETF에 맞거나, ETF가 2–5개가 아니거나, 같은 ETF를 두 번 골랐거나, 구성 종목을 받지 않은 ETF가 있으면 계산하지 않고 끝낸다. 질의 실행 뒤에는 요약 생성으로 가지 않고 끝낸다.</p>
       <pre data-code-language="Python"><code>graph.add_conditional_edges('intent_detection',
     lambda s: 'text_to_cypher' if s['intent'] == 'overlap' else END)
 graph.add_conditional_edges('text_to_cypher',
     lambda s: END if s.get('stop_reason') else 'query_execution')   # 모호·개수 → 되묻고 종료
-graph.add_conditional_edges('query_execution',
-    lambda s: 'generate_summary' if s.get('rows') else END)</code></pre>
-      <p>책의 라우터는 생성된 질의가 실패하면 오류를 들고 다시 생성했다. 이 구현은 질의가 고정이라 그 고리가 필요 없고, 대신 사람의 입력이 모호할 때 멈추는 분기가 생겼다. 요약 노드는 반환 행만 근거로 답을 쓰고, 수치는 행의 값을 그대로 옮긴다.</p>
+graph.add_edge('query_execution', END)                              # 요약 모델 없이 종료</code></pre>
+      <p>책의 라우터는 생성된 질의가 실패하면 오류를 들고 다시 생성했다. 이 구현은 질의가 고정이라 그 고리가 필요 없고, 대신 사람의 입력이 모호하거나 계산할 수 없는 ETF가 섞였을 때 멈추는 분기가 생겼다. 답 문장은 요약 모델을 부르지 않고 반환 행에서 그대로 만든다(&ldquo;가장 많이 겹치는 쌍: … — 공통 n종목, 겹침 비중 x%&rdquo;). 그래서 답의 숫자는 표의 숫자와 같다. 질의가 돌려준 쌍이 요청한 쌍과 하나라도 다르면 결과를 내지 않고 오류로 끝낸다.</p>
 
       <h3 id="etf-readonly">질의 경계 — 읽기 전용 서버</h3>
       <p>이 구현의 질의는 앱이 고정한 것뿐이지만, 데이터베이스 쪽 경계는 지난 구현과 같이 두었다. 적재가 끝나면 Neo4j를 데이터베이스 읽기 전용 설정으로 다시 띄우고, 이 상태에서 <code>CREATE</code>를 직접 보내 거부되는 것과 시험 노드가 0개인 것을 확인했다. 앱은 DB가 읽기 전용이 아니면 기동하지 않는다. 이 밖에 DB 질의 10초, LLM 요청 30초, 질문 전체 90초 제한을 두고, 동시에 한 질문만 실행한다.</p>
 
-      <h3 id="etf-runs">질문 네 개 — 실행 기록과 독립 대조</h3>
+      <h3 id="etf-runs">질문 다섯 개 — 실행 기록과 독립 대조</h3>
       <p>기대값은 그래프와 LLM을 쓰지 않고 PDF 파일만 읽어 계산했다. 그래프에 있는 ETF 28개로 만들 수 있는 378개 쌍 전부에서 공통 종목 수와 겹침 비중이 기대값과 같았고, 공통 종목이 있는 256개 쌍은 상위 15개 공통 종목 목록도 순서까지 같았다. 처음 대조에서는 한 쌍이 15번째 자리에서 달랐다. 반올림하면 같은 비중(0.65%)인 종목 둘을 그래프와 파일 계산이 서로 다르게 골랐기 때문이다. 두 쪽 모두 반올림 전 비중과 종목 코드 순으로 정렬하게 고친 뒤 모두 같아졌다.</p>
-      <p>질문은 2026-10-25에 발표 화면과 같은 외부 경로로 실행했다. 같은 질문도 LLM이 뽑는 이름과 요약 문장은 실행마다 달라질 수 있지만, 표의 숫자는 고정 질의가 내므로 같다.</p>
+      <p>질문은 2026-10-25에 발표 화면과 같은 외부 경로로 실행했다. 같은 기준일 데이터에서 같은 ETF 코드 쌍을 계산하면 결과는 늘 같다. 다만 자연어 질문은 LLM이 이름을 다르게 해석하면 대상 ETF부터 달라질 수 있으므로, 결과를 볼 때는 화면의 매개변수와 계산 범위 표에서 대상 ETF를 먼저 확인한다.</p>
       <table class="cmp-table" id="table-12-etf-runs">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 12</span><span class="asset-caption__title">질문별 경로와 실측</span></div></caption>
         <thead><tr><th>질문</th><th>지나간 경로</th><th>결과</th><th>LLM 호출</th><th>DB 질의</th><th>전체 응답</th></tr></thead>
         <tbody>
-          <tr><td>1. KODEX 반도체와 TIGER 반도체TOP10은 얼마나 겹쳐?</td><td>의도(겹침) → Cypher 선택 → 실행 → 요약 → 종료</td><td>공통 8종목, 겹침 54.66%</td><td>2회</td><td>67 ms</td><td>8.4초</td></tr>
-          <tr><td>2. (네 ETF 선택) 이 네 ETF 중 서로 가장 많이 겹치는 쌍은?</td><td>같음</td><td>여섯 쌍, 최대 35.28%</td><td>2회</td><td>55 ms</td><td>9.8초</td></tr>
-          <tr><td>3. KODEX 반도체의 작년 수익률은?</td><td>의도(미지원) → 종료</td><td>미지원</td><td>1회</td><td>실행 안 함</td><td>2.9초</td></tr>
-          <tr><td>4. 반도체 ETF와 KODEX 200은 얼마나 겹쳐?</td><td>의도(겹침) → Cypher 선택 → 되묻고 종료</td><td>후보 7개 제시, 계산 안 함</td><td>1회</td><td>이름 검색만</td><td>3.2초</td></tr>
+          <tr><td>1. KODEX 반도체와 TIGER 반도체TOP10은 얼마나 겹쳐?</td><td>의도(겹침) → Cypher 선택 → 실행 → 종료</td><td>공통 8종목, 겹침 54.66%</td><td>1회</td><td>8 ms</td><td>2.8초</td></tr>
+          <tr><td>2. (네 ETF 선택) 이 네 ETF 중 서로 가장 많이 겹치는 쌍은?</td><td>같음</td><td>여섯 쌍, 최대 35.28%</td><td>1회</td><td>10 ms</td><td>3.9초</td></tr>
+          <tr><td>3. KODEX 반도체의 작년 수익률은?</td><td>의도(미지원) → 종료</td><td>미지원</td><td>1회</td><td>실행 안 함</td><td>2.8초</td></tr>
+          <tr><td>4. 반도체 ETF와 KODEX 200은 얼마나 겹쳐?</td><td>의도(겹침) → Cypher 선택 → 되묻고 종료</td><td>후보 7개 제시, 계산 안 함</td><td>1회</td><td>이름 검색만</td><td>3.3초</td></tr>
+          <tr><td>5. (2차전지 세 ETF 선택) 이 세 ETF는 서로 얼마나 겹쳐?</td><td>질문 1과 같음</td><td>세 쌍, 최대 76.15%</td><td>1회</td><td>6 ms</td><td>3.7초</td></tr>
         </tbody>
       </table>
 
       <h3 id="etf-q1">질문 1 — 이름 두 개로 겹침 묻기</h3>
-      <p>의도 감지 노드가 질문을 겹침 점검으로 분류하고 이름 두 개를 뽑았다. 텍스트-투-사이퍼 노드는 두 이름이 각각 ETF 하나에 정확히 맞는 것을 확인하고 코드 쌍(091160, 396500)을 매개변수로 넣었다. 결과는 공통 8종목, 겹침 비중 54.66%다. 공통 종목은 반도체 제조와 장비주이고, 겹침의 대부분은 두 종목에서 온다. 삼성전자는 두 ETF에서 18.75%와 27.46%, SK하이닉스는 16.15%와 25.39%로, 작은 쪽만 더해도 34.90%다. 나머지 여섯 종목은 작은 쪽 비중이 2.34–5.32%다. 요약 노드는 이 행의 숫자를 그대로 옮겨 답했다.</p>
+      <p>의도 감지 노드가 질문을 겹침 점검으로 분류하고 이름 두 개를 뽑았다. 텍스트-투-사이퍼 노드는 두 이름이 각각 ETF 하나에 정확히 맞는 것을 확인하고 코드 쌍(091160, 396500)을 매개변수로 넣었다. 결과는 공통 8종목, 겹침 비중 54.66%다. 공통 종목은 반도체 제조와 장비주이고, 겹침의 대부분은 두 종목에서 온다. 삼성전자는 두 ETF에서 18.75%와 27.46%, SK하이닉스는 16.15%와 25.39%로, 작은 쪽만 더해도 34.90%다. 나머지 여섯 종목은 작은 쪽 비중이 2.34–5.32%다. 답 문장은 이 행에서 그대로 만들었다.</p>
 
       <h3 id="etf-q2">질문 2 — 고른 ETF 네 개를 맥락으로 쓰기</h3>
       <p>화면에서 KODEX 200, KODEX 반도체, KODEX 2차전지산업, KODEX AI전력핵심설비를 고르고 &ldquo;이 네 ETF&rdquo;라고만 묻는다. §15.3.2에서 &ldquo;선택한 범죄&rdquo;가 어느 범죄인지를 시스템이 현재 선택에서 읽던 것과 같은 방식이다. 고정 질의가 여섯 쌍을 한 번에 계산했고, 가장 많이 겹치는 쌍은 KODEX 200과 KODEX 반도체(공통 4종목, 35.28%)였다. KODEX 200과 2차전지산업은 공통 종목이 12개지만 겹침은 3.47%에 그쳤다. 공통 종목 수와 겹침 비중이 다른 말이라는 것을 이 표가 보여 준다. 반도체·2차전지·AI전력 테마끼리는 공통 종목이 없었다(<a class="asset-ref" href="#fig-6-etf-ui">그림 6</a>).</p>
@@ -547,6 +548,9 @@ graph.add_conditional_edges('query_execution',
 
       <h3 id="etf-q4">질문 4 — 여러 ETF에 맞는 이름</h3>
       <p>&ldquo;반도체 ETF&rdquo;는 상품 이름이 아니라 묶음 이름이다. 텍스트-투-사이퍼 노드는 &ldquo;ETF&rdquo;를 떼고 &ldquo;반도체&rdquo;로 찾은 결과가 일곱 개라는 것을 확인하고, 아무것도 계산하지 않은 채 후보 일곱 개를 보이며 끝났다. 처음 실행에서는 &ldquo;반도체 ETF&rdquo;를 그대로 찾아 후보가 0개로 나왔고, 이 노드를 고친 뒤 다시 실행한 기록이 <a class="asset-ref" href="#table-12-etf-runs">표 12</a>의 값이다. 맞는 ETF가 하나로 정해지지 않으면 하나를 골라 계산하지 않는다는 것이 이 분기의 규칙이다.</p>
+
+      <h3 id="etf-q5">질문 5 — 비중 합이 100%를 넘는 ETF</h3>
+      <p>2차전지 ETF 세 개(KODEX 2차전지산업, KODEX 전고체배터리ESS TOP2플러스, TIGER 2차전지TOP10)를 고르고 서로 얼마나 겹치는지 묻는다. 가장 많이 겹치는 쌍은 KODEX 2차전지산업과 TIGER 2차전지TOP10(공통 10종목, 76.15%)이었다. 이 질문에서 볼 것은 계산 범위 표다. KODEX 전고체배터리ESS TOP2플러스(0209D0)는 계산에 넣은 주식 비중이 101.85%, 뺀 비중이 −1.85%다. PDF의 현금 행이 음수로 적혀 있기 때문이며, 화면은 이 값을 100%로 자르거나 다시 맞추지 않고 그대로 보인다. 이 ETF가 들어간 쌍의 겹침 비중은 주식 비중이 100%를 조금 넘는 상태에서 계산한 값이다.</p>
 
       <div class="callout--insight"><span class="callout__kicker">AIML Quant 보충 · 이 구현에서 말할 수 있는 것과 없는 것</span><div class="callout__body">
         <p>말할 수 있는 것: 책의 다섯 노드와 상태 설계가 다른 도메인 그래프에서도 그대로 동작했고, 겹침 비중은 그래프 결과와 파일 계산이 378쌍 모두에서 같았다. 말할 수 없는 것: 결과는 2026-10-23 하루의 구성이며 그 뒤의 변화는 담지 않는다. 겹침이 크다고 함께 사면 안 된다거나, 작다고 분산이 잘 된다는 투자 판단이 아니다. KRX 자료를 스터디 화면에 보이는 것이 이용약관상 허용되는지는 확인하지 못했고, 도라의 판단으로 로그인한 참가자에게만 보인다.</p>
@@ -576,7 +580,7 @@ graph.add_conditional_edges('query_execution',
           <li>책의 라우터는 질의가 실패하면 오류를 들고 다시 생성한다. ETF 구현에는 이 고리가 없다. 무엇이 그 자리를 대신하고, 왜 필요 없어졌는가?</li>
           <li>책의 화면은 이벤트를 같은 프로세스 안에서 받았고, 이번 구현은 SSE로 브라우저에 보낸다. 같은 이벤트가 두 화면에서 각각 어디서 그려지는지 설명해 보라.</li>
           <li>질문 2에서 KODEX 200과 2차전지산업은 공통 종목이 12개인데 겹침은 3.47%다. 공통 종목 수와 겹침 비중은 각각 무엇을 말하는가?</li>
-          <li>질문 1의 결과에서 고정 질의가 보증하는 부분과 LLM이 정한 부분(의도, ETF 이름, 요약 문장)을 나눠 보라.</li>
+          <li>질문 1의 결과에서 고정 질의가 보증하는 부분과 LLM이 정한 부분(의도, ETF 이름)을 나눠 보라.</li>
         </ol>
       </div></div>
     </section>
