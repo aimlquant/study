@@ -108,12 +108,12 @@
     <section class="slide slide--teaching" id="slide-15-1-graph" aria-label="유향 그래프와 동적 엣지" data-report-refs="source-15-1" data-source-refs="section:15.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.1</span></header>
       <h1>워크플로는 유향 그래프이고, 다음 노드는 앞 노드의 출력으로 고를 수 있다</h1>
-      <p class="lead">노드는 에이전트 함수, 엣지는 다음에 무엇을 실행할지다.</p>
+      <p class="lead">노드는 에이전트 함수, 엣지는 다음에 실행할 노드를 정한다.</p>
       <div class="slide-body">
         <div class="teaching-rows">
           <article><h2>노드</h2><p>상태에서 필요한 데이터를 읽고, 끝나면 자기 결과로 상태를 갱신하는 함수</p></article>
           <article><h2>동적 엣지 결정</h2><p>다음 노드를 고정하지 않고 앞 에이전트의 출력을 보고 임의의 로직으로 고른다</p></article>
-          <article><h2>라우터에서 자율까지</h2><p>LLM이 구성요소 하나인 라우터부터 LLM이 경로를 정하는 완전 자율 시스템까지 만들 수 있다. 이 장의 파이프라인은 코드로 보면 라우터 쪽이다.</p></article>
+          <article><h2>라우터에서 자율까지</h2><p>LLM이 구성요소 하나로만 쓰이는 라우터부터 LLM이 경로를 정하는 완전 자율 시스템까지 만들 수 있다. 이 장의 파이프라인은 코드로 보면 라우터 쪽이다.</p></article>
         </div>
       </div>
       <p class="takeaway">저자들은 이 흐름 제어의 유연성을 LangGraph를 고른 이유로 든다. 이 장에서 다음 노드는 상태 필드를 검사하는 파이썬 조건문이 고른다.</p>
@@ -151,7 +151,7 @@ prompts:
                    template: templates/text_to_cypher.template}</code></pre>
         <p class="explain-line"><code>notes</code>는 도메인 규칙, <code>examples</code>는 질문·Cypher·근거 묶음, <code>prompts</code>는 단계별 템플릿 경로다.</p>
       </div>
-      <p class="takeaway">템플릿은 Jinja2로 쓰고 별도 파일에 둔다. 저자들은 한곳에서의 조정, 확장 토대, 프롬프트 버전 관리를 이점으로 든다.</p>
+      <p class="takeaway">템플릿은 Jinja2로 쓰고 별도 파일에 둔다. 저자들은 한곳에서 조정할 수 있고, 확장의 토대가 되며, 프롬프트 버전을 관리할 수 있다는 점을 이점으로 든다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-15-1">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
@@ -539,7 +539,7 @@ for result in results:
         case &quot;END&quot;: state.messages.update(current_state, finalize=True); st.rerun()</code></pre>
         <p class="explain-line">(설명용 축약 — 그대로 실행하는 코드 아님) 표·result를 쓴 뒤에는 새 말풍선과 자리표시자를 연다. 그러지 않으면 다음 update가 덮어쓴다.</p>
       </div>
-      <p class="takeaway">지도 응답은 캔버스와 이력 두 곳에 나타난다. 화면 계층은 노트북도 실행하지 않았고 코드 읽기로 설명한다.</p>
+      <p class="takeaway">지도 응답은 캔버스와 이력 두 곳에 나타난다. 화면 코드는 노트북에서도 실행하지 않아, 코드를 읽고 설명한다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-listing-15-15">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
@@ -548,14 +548,14 @@ for result in results:
       <h1>전문가 모방 수사 — 실제 사건을 따라가 보기</h1>
       <p class="lead">수사관이 자연어 질문만으로 범죄·카메라·차량·소유자의 연결을 따라간다.</p>
       <div class="slide-body"><div class="section-number" aria-hidden="true">15.3</div></div>
-      <p class="takeaway">다섯 질문이 앞 결과를 선택으로 이어 받으며 범죄 무단침입 사건의 관심 차량을 좁힌다.</p>
+      <p class="takeaway">다섯 질문이 앞 결과를 선택으로 이어받으며 무단침입 사건의 관심 차량을 좁힌다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-3">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
     <section class="slide slide--teaching" id="slide-15-3-1" aria-label="첫 질문: 수사 중인 범죄" data-report-refs="source-15-3-1" data-source-refs="section:15.3.1" data-source-title="section:15.3.1">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.3.1</span></header>
       <h1>15.3.1 초기 사건 식별하기 — 수사의 출발점</h1>
-      <p class="lead">원서 결과는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
+      <p class="lead">원서의 질의는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
       <div class="slide-body">
         <div class="teaching-rows">
           <article><h2>질문의 요지</h2><p>수사 중인 범죄 노드 하나</p></article>
@@ -570,7 +570,7 @@ for result in results:
     <section class="slide slide--teaching" id="slide-15-3-2" aria-label="근처 카메라 찾기" data-report-refs="source-15-3-2" data-source-refs="section:15.3.2" data-source-title="section:15.3.2">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.3.2</span></header>
       <h1>15.3.2 감시 범위의 공간 분석 — 근처 카메라 찾기</h1>
-      <p class="lead">원서 결과는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
+      <p class="lead">원서의 질의는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
       <div class="slide-body">
         <div class="teaching-rows">
           <article><h2>질문의 요지</h2><p>선택한 범죄에서 1 km 안의 ANPR 카메라</p></article>
@@ -585,12 +585,12 @@ for result in results:
     <section class="slide slide--teaching" id="slide-15-3-3" aria-label="용의 차량 좁히기" data-report-refs="source-15-3-3" data-source-refs="section:15.3.3" data-source-title="section:15.3.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.3.3</span></header>
       <h1>15.3.3 차량 패턴 감지 — 용의 차량 좁히기</h1>
-      <p class="lead">원서 결과는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
+      <p class="lead">원서의 질의는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
       <div class="slide-body">
         <div class="teaching-rows">
           <article><h2>질문의 요지</h2><p>선택한 카메라가 그날 감지한, 인상착의에 맞는 차량</p></article>
           <article><h2>원서가 보여 준 능력</h2><p>선택·시간 제약·속성 일치를 한 질의로 결합</p></article>
-          <article><h2>ETF 구현에서</h2><p>질문 2가 고른 ETF 네 개의 여섯 쌍을 한 질의로 계산하고 겹침 비중 순으로 정렬한다.</p></article>
+          <article><h2>ETF 구현에서</h2><p>질문 2는 고른 ETF 네 개로 만든 여섯 쌍을 한 질의로 계산하고 겹침 비중 순으로 정렬한다.</p></article>
         </div>
       </div>
       <p class="takeaway">대응은 능력 수준의 비교이며 같은 질의라는 뜻이 아니다.</p>
@@ -600,7 +600,7 @@ for result in results:
     <section class="slide slide--teaching" id="slide-15-3-4" aria-label="역할과 의도를 알린 질문" data-report-refs="source-15-3-4" data-source-refs="section:15.3.4" data-source-title="section:15.3.4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.3.4</span></header>
       <h1>15.3.4 맥락 인식 요청 정제 — 역할과 의도를 알려주기</h1>
-      <p class="lead">원서 결과는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
+      <p class="lead">원서의 질의는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
       <div class="slide-body">
         <div class="teaching-rows">
           <article><h2>질문의 요지</h2><p>수사관이라는 역할을 밝히고 특히 의심스러운 차량을 묻는다</p></article>
@@ -615,7 +615,7 @@ for result in results:
     <section class="slide slide--teaching" id="slide-15-3-5" aria-label="소유자의 전과" data-report-refs="source-15-3-5" data-source-refs="section:15.3.5" data-source-title="section:15.3.5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §15.3.5</span></header>
       <h1>15.3.5 과거 기록 분석 — 소유자의 범죄 이력까지</h1>
-      <p class="lead">원서 결과는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
+      <p class="lead">원서의 질의는 다시 실행하지 않았다. 질문의 요지와 원서가 꼽은 능력, 이번 구현의 대응만 본다.</p>
       <div class="slide-body">
         <div class="teaching-rows">
           <article><h2>질문의 요지</h2><p>전과자 소유일 수 있다는 단서를 더해 가장 유력한 차량을 묻는다</p></article>
@@ -687,7 +687,7 @@ RETURN a.code AS etf_a, b.code AS etf_b, size(cs) AS common_count,
 
     <section class="slide slide--teaching" id="slide-etf-edges" aria-label="세 조건부 엣지와 읽기 전용" data-report-refs="etf-router etf-readonly">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.1.5 대응</span></header>
-      <h1>조건부 엣지 두 개가 건너뛰기와 되묻기를 정하고, 질의 실행 뒤에는 끝난다</h1>
+      <h1>조건부 엣지 두 개가 건너뛰기와 되묻기를 정하고, 파이프라인은 질의 실행 뒤에 끝난다</h1>
       <p class="lead">책은 질의 실행 뒤에서 갈라졌다. 이 구현은 그 앞의 두 곳에서 갈라지고, 요약 모델은 부르지 않는다.</p>
       <div class="slide-body">
         <pre data-code-language="Python"><code>graph.add_conditional_edges('intent_detection',
@@ -695,7 +695,7 @@ RETURN a.code AS etf_a, b.code AS etf_b, size(cs) AS common_count,
 graph.add_conditional_edges('text_to_cypher',
     lambda s: END if s.get('stop_reason') else 'query_execution')   # 모호·개수 → 되묻고 종료
 graph.add_edge('query_execution', END)          # 답은 반환 행에서 만든다</code></pre>
-        <p class="explain-line">되묻는 경우: 이름이 여러 ETF에 맞을 때, 2–5개가 아닐 때, 같은 ETF를 두 번 골랐을 때, 구성 종목을 받지 않은 ETF가 있을 때. DB는 읽기 전용으로 띄웠고 <code>CREATE</code>가 거부되는 것을 확인했다.</p>
+        <p class="explain-line">되묻는 경우: 이름이 여러 ETF에 맞을 때, 고른 ETF가 2–5개가 아닐 때, 같은 ETF를 두 번 골랐을 때, 구성 종목을 받지 않은 ETF가 있을 때. DB는 읽기 전용으로 띄웠고 <code>CREATE</code>가 거부되는 것을 확인했다.</p>
       </div>
       <p class="takeaway">재생성 고리가 빠진 자리에, 입력을 확인하고 멈추는 분기가 들어왔다. 돌려받은 쌍이 요청과 다르면 결과를 내지 않는다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#etf-router">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -704,7 +704,7 @@ graph.add_edge('query_execution', END)          # 답은 반환 행에서 만든
     <section class="slide slide--teaching slide--teaching-visual" id="slide-etf-ui" aria-label="ETF 겹침 점검 화면" data-report-refs="etf-ui fig-6-etf-ui">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">AIML Quant 보충 · 책 §15.2 대응</span></header>
       <h1>답 옆에 그 답을 만든 질의와 반환 행을 둔다</h1>
-      <p class="lead">시연: <a href="https://lecture.restful3.store/kg15c/">lecture.restful3.store/kg15c</a>(스터디 로그인). 화면 아래에는 출처와 기준일, &ldquo;투자 권유가 아님&rdquo;을 늘 적는다.</p>
+      <p class="lead">시연 주소는 스터디 방에서 안내한다(스터디 로그인). 화면 아래에는 출처와 기준일, &ldquo;투자 권유가 아님&rdquo;을 늘 적는다.</p>
       <div class="slide-body">
         <div class="teaching-visual">
           <figure data-deck-figure-title="질문 2의 실행 기록을 재생한 화면" class="deck-report-figure">
@@ -717,7 +717,7 @@ graph.add_edge('query_execution', END)          # 답은 반환 행에서 만든
           </div>
         </div>
       </div>
-      <p class="takeaway">매 실행의 이벤트를 파일로 남긴다. 시연 중 LLM이 멈추면 기록 재생으로 바꾸고 그렇게 표시한다.</p>
+      <p class="takeaway">실행마다 이벤트를 파일로 남긴다. 시연 중 LLM이 멈추면 기록 재생으로 바꾸고 그렇게 표시한다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#fig-6-etf-ui">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
@@ -777,7 +777,7 @@ graph.add_edge('query_execution', END)          # 답은 반환 행에서 만든
       <h1>향후 방향과 개선 — 이 토대 위에 무엇을 쌓을까</h1>
       <p class="lead">저자들은 이 구현을 완제품이 아니라 토대로 본다.</p>
       <div class="slide-body"><div class="section-number" aria-hidden="true">15.4</div></div>
-      <p class="takeaway">강점은 관찰 가능성과 &ldquo;이 상황에서 전문가라면 무엇을 할까?&rdquo;라는 질문에서 나온다.</p>
+      <p class="takeaway">이 토대의 강점은 관찰 가능성과 &ldquo;이 상황에서 전문가라면 무엇을 할까?&rdquo;라는 질문에서 나온다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#source-15-4">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
@@ -796,7 +796,7 @@ graph.add_edge('query_execution', END)          # 답은 반환 행에서 만든
           </tbody>
         </table>
       </div>
-      <p class="takeaway">저자들은 투명성이 디버깅을 넘어 피드백을 모으고 개선점을 찾는 자연스러운 지점이 된다고 본다.</p>
+      <p class="takeaway">저자들은 투명한 구조가 디버깅뿐 아니라 피드백을 모으고 개선점을 찾는 출발점이 된다고 본다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#table-13-evolution-coords">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
@@ -837,7 +837,7 @@ graph.add_edge('query_execution', END)          # 답은 반환 행에서 만든
       <div class="slide-body">
         <div class="teaching-rows">
           <article><h2>파인튜닝</h2><p>스키마 자체를 훈련 데이터로 삼아 그래프 구조를 이해하는 에이전트를 만든다.</p></article>
-          <article><h2>저자들의 근거</h2><p>인용한 연구 두 편: 인컨텍스트 학습이 과제 특화 적응보다 일관되게 낮았다. 저자들은 개선 가능성을 &ldquo;시사한다&rdquo;고 쓴다.</p></article>
+          <article><h2>저자들의 근거</h2><p>인용한 연구 두 편: 인컨텍스트 학습의 성능이 과제 특화 적응보다 일관되게 낮았다. 저자들은 개선 가능성을 &ldquo;시사한다&rdquo;고 쓴다.</p></article>
           <article><h2>교체 단위</h2><p>반환 필드만 지키면 에이전트 하나를 골라 바꿔도 나머지가 그대로 돈다. (AIML Quant 보충)</p></article>
         </div>
       </div>

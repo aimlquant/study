@@ -496,7 +496,18 @@
       "title": "Chapter 7. 학습 과제 정의"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "상세 리포트",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-31-ch15/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "발표자료",
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-31-ch15/"
+        }
+      ],
       "chapters": [
         "Chapter 15"
       ],
@@ -516,7 +527,7 @@
           "youtube_video_id": "uVnn9ikCDpA"
         }
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "kg-llm-in-action-2026",
       "title": "Chapter 15. LangGraph로 QA 에이전트 구축"
     },

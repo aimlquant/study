@@ -400,8 +400,13 @@ date = "2026-10-31"
 title = "Chapter 15. LangGraph로 QA 에이전트 구축"
 presenters = ["태영"]
 chapters = ["Chapter 15"]
-status = "scheduled"
+status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq/j.php?MTID=macf41df59efb9845bf8c6ecb4969a38b"
+
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-31-ch15/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-31-ch15/" },
+]
 
 reference_videos = [
   { title = "Ch.15 LangGraph로 QA 에이전트 구축 · 한국어 참고 해설", youtube_video_id = "uVnn9ikCDpA", status = "public", description = "원서 15장과 최신 한국어 해설·정오표를 바탕으로 NotebookLM이 생성한 예습·복습용 학습 보조 영상입니다. 세부 정의와 검증 조건은 회차 자료 및 영상 설명란을 함께 확인해 주세요." },

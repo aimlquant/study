@@ -27,3 +27,23 @@ reason = "리포트 v3에서 §15.1.2를 표로 줄여 빠졌다. v2·이전 판
 [[retained_unreferenced_assets]]
 path = "assets/figs/fig-15-6-schema-provider.svg"
 reason = "리포트 v3에서 §15.1.3을 표로 줄여 빠졌다. v2·이전 판과 덱 v2 작성 때 다시 쓸 수 있어 보존한다."
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/fig-15-1-system-overview.svg"
+reason = "리포트·덱 v4에서 해당 절을 표와 ETF 구현 설명으로 바꿔 빠졌다. 이전 판과 비교하거나 회차 뒤 보강할 때 다시 쓸 수 있어 보존한다."
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/fig-15-4-backend-architecture.svg"
+reason = "리포트·덱 v4에서 해당 절을 표와 ETF 구현 설명으로 바꿔 빠졌다. 이전 판과 비교하거나 회차 뒤 보강할 때 다시 쓸 수 있어 보존한다."
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/fig-15-10-app-layout.svg"
+reason = "리포트·덱 v4에서 해당 절을 표와 ETF 구현 설명으로 바꿔 빠졌다. 이전 판과 비교하거나 회차 뒤 보강할 때 다시 쓸 수 있어 보존한다."
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/fig-15-11-investigation-schema.svg"
+reason = "리포트·덱 v4에서 해당 절을 표와 ETF 구현 설명으로 바꿔 빠졌다. 이전 판과 비교하거나 회차 뒤 보강할 때 다시 쓸 수 있어 보존한다."
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/sec-15-3-investigation-steps.svg"
+reason = "리포트·덱 v4에서 해당 절을 표와 ETF 구현 설명으로 바꿔 빠졌다. 이전 판과 비교하거나 회차 뒤 보강할 때 다시 쓸 수 있어 보존한다."

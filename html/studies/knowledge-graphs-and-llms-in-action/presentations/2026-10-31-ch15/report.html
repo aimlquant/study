@@ -72,13 +72,13 @@
         <li>워크플로는 유향 그래프다. 노드는 에이전트 함수, 엣지는 실행 순서이며, 엣지는 앞 노드의 출력에 따라 동적으로 정할 수 있다.</li>
       </ul></div></div>
       <p><strong>LangGraph</strong>는 LLM으로 구동되는 <em>상태 유지형(stateful)</em>, <em>다중 액터(multi-actor)</em> 애플리케이션을 만들기 위한 라이브러리다. 저자들은 14장의 질의 파이프라인처럼 여러 단계의 추론과 판단이 얽힌 워크플로를 조율하는 데 이 라이브러리가 잘 맞는다고 보고 고른다. 화면은 책에서는 Streamlit이, 이 회차의 ETF 구현에서는 FastAPI+React가 맡는다(§15.2). 이 절은 두 구현이 공통으로 쓰는 LangGraph의 원리만 다룬다.</p>
-      <p>작동 원리는 익숙한 예부터 보면 잡힌다. 문서를 검색해 질문에 답하는 기본 <strong>RAG(검색 증강 생성)</strong> 시스템은 문서 검색과 답변 생성 두 작업으로 이루어진다. 보통의 코드라면 검색 함수의 반환값을 생성 함수의 인자로 넘길 것이다. LangGraph에서는 그렇게 하지 않는다. 두 구성요소 모두 하나의 <strong>공유 상태(shared state)</strong>와만 상호작용한다. 상태는 사용자의 질문 하나를 담고 출발한다. 검색 에이전트는 상태에서 질문을 읽고 찾은 문서를 상태에 더한다. 생성 에이전트는 상태에 들어 있는 질문과 문서를 함께 읽어 답을 만들고, 그 답을 다시 상태에 더한다(<a class="asset-ref" href="#fig-1-state-evolution">그림 1</a>).</p>
+      <p>작동 원리는 익숙한 예부터 보면 이해하기 쉽다. 문서를 검색해 질문에 답하는 기본 <strong>RAG(검색 증강 생성)</strong> 시스템은 문서 검색과 답변 생성 두 작업으로 이루어진다. 보통의 코드라면 검색 함수의 반환값을 생성 함수의 인자로 넘길 것이다. LangGraph에서는 그렇게 하지 않는다. 두 구성요소 모두 하나의 <strong>공유 상태(shared state)</strong>와만 상호작용한다. 상태는 사용자의 질문 하나를 담고 출발한다. 검색 에이전트는 상태에서 질문을 읽고 찾은 문서를 상태에 더한다. 생성 에이전트는 상태에 들어 있는 질문과 문서를 함께 읽어 답을 만들고, 그 답을 다시 상태에 더한다(<a class="asset-ref" href="#fig-1-state-evolution">그림 1</a>).</p>
       <figure class="report-figure" id="fig-1-state-evolution" data-deck-use="required">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 1</span><span class="asset-caption__title">에이전트가 지날 때마다 공유 상태에 필드가 하나씩 늘어난다</span></figcaption>
         <img src="assets/figs/fig-15-2-state-evolution.svg" alt="왼쪽부터 세 개의 상태 상자와 두 개의 에이전트 상자가 번갈아 놓여 있다. 시작 상태에는 question만 있고, 문서 검색 에이전트를 지나면 documents가, 답변 생성 에이전트를 지나면 answer가 새로 채워진다. 새로 채워진 필드는 진한 색으로 표시되어 있다.">
         <small class="asset-note">왼쪽에서 오른쪽으로 읽으며 진하게 칠한 칸이 그 에이전트가 새로 쓴 필드다. 두 에이전트를 잇는 화살표는 실행 순서이고, 데이터는 상태를 거쳐서만 전달된다. 원본 좌표 그림 15.2 「LangGraph에서 에이전트 함수들 사이의 상태 기반 소통」의 의미를 시간 순서의 상태 변화로 다시 그렸다.</small>
       </figure>
-      <p>저자들은 이 방식을 각 에이전트가 앞선 작업을 읽고 자기 결과를 덧붙이는 <strong>화이트보드</strong>에 비유한다. 비유가 맞지 않는 지점도 있다. 실제 화이트보드에서는 누구나 아무 때나 아무 칸이나 고칠 수 있지만, LangGraph의 에이전트 함수는 상태를 직접 고치지 않는다. 바뀐 필드만 담은 딕셔너리를 반환하고, 그 반환값을 상태에 합치는 일은 LangGraph가 한다. 또 누가 언제 쓰는지는 그래프의 엣지가 정한다. 그래서 에이전트끼리는 서로의 존재를 몰라도 되고(저자들의 표현으로 <em>결합되지 않은 채</em>), 상태는 워크플로 전체에서 일관되게 유지된다.</p>
+      <p>저자들은 이 방식을 각 에이전트가 앞선 작업을 읽고 자기 결과를 덧붙이는 <strong>화이트보드</strong>에 비유한다. 비유가 맞지 않는 지점도 있다. 실제 화이트보드에서는 누구나 아무 때나 아무 칸이나 고칠 수 있지만, LangGraph의 에이전트 함수는 상태를 직접 고치지 않는다. 바뀐 필드만 담은 딕셔너리를 반환하고, 그 반환값을 상태에 합치는 일은 LangGraph가 한다. 또 누가 언제 쓰는지는 그래프의 엣지가 정한다. 그래서 에이전트끼리는 서로의 존재를 몰라도 되고(저자들의 표현으로는 <em>결합되지 않은</em> 상태로), 상태는 워크플로 전체에서 일관되게 유지된다.</p>
       <p>구조로 보면 LangGraph는 워크플로를 <strong>유향 그래프(directed graph)</strong>로 구현한다. 각 <strong>노드</strong>는 하나의 에이전트 함수이고, 이 함수는 전역 상태에서 필요한 데이터를 읽고 실행이 끝나면 자기 결과로 상태를 갱신한다. <strong>엣지</strong>는 다음에 어느 노드를 실행할지 정한다. 여기서 중요한 기능이 <strong>동적 엣지 결정(dynamic edge resolution)</strong>이다. 다음 노드를 고정해 두지 않고 앞 에이전트의 출력을 보고 임의의 로직으로 고를 수 있어서, 워크플로가 조건에 따라 갈라질 수 있다. 이 장에서 질의 실행이 실패했는지에 따라 재시도할지 끝낼지를 고르는 자리(§15.1.5)가 이 기능을 쓴다. 코드로 보면 이 장의 파이프라인은 다음 노드를 LLM이 아니라 상태 필드를 검사하는 파이썬 조건문이 고르는 라우터형이다. ETF 구현도 같다.</p>
     </section>
 
@@ -86,7 +86,7 @@
       <div class="report-section__kicker">교재 §15.1.1 · System architecture overview</div>
       <h1>15.1.1 시스템 아키텍처 개요 — 전문가 모방을 실행 가능한 그래프로</h1>
       <div class="section-summary"><div class="section-summary__kicker">섹션 요약</div><div class="section-summary__body"><ul>
-        <li>14장의 처리 단계는 각각 상태를 받아 갱신하는 에이전트 함수 하나로 대응된다.</li>
+        <li>14장의 처리 단계는 각각 상태를 받아 갱신하는 에이전트 함수 하나에 대응한다.</li>
         <li>주 흐름은 실선으로 이어지고, 질의 실행 결과에 따른 분기만 조건부 경로다.</li>
         <li>파이프라인 바깥에는 설정 제공자, 스키마 제공자, 질문 처리 인터페이스가 각자 한 가지 책임을 맡는다.</li>
       </ul></div></div>
@@ -97,7 +97,7 @@
         <small class="asset-note">실선은 항상 따라가는 주 흐름, 점선은 질의 실행 결과에 따라 하나만 고르는 조건부 경로다. 노드 안의 영문 이름은 코드에서 쓰는 노드 이름이다. 원본 좌표 그림 15.3 「지식 그래프 질의 파이프라인의 LangGraph 구현」의 실선·점선 구분을 유지해 다시 배치했다.</small>
       </figure>
       <p>그림을 14장의 구성과 비교하면 한 가지가 눈에 띈다. 14장의 단계 중 <strong>시각화는 그래프의 노드가 아니다</strong>. 파이프라인은 시각화 형식을 정하고(의도 감지) 그 형식에 맞춰 결과를 준비할 뿐이며, 실제로 그리는 일은 결과를 받은 프런트엔드가 한다. 그 결과를 넘기는 통로가 아래의 질문 처리 인터페이스다.</p>
-      <p>워크플로 바깥에는 구성요소가 세 개 더 있다. <strong>설정 제공자</strong>는 프롬프트 템플릿과 그래프 주석을 한곳에서 공급하고(§15.1.2), <strong>스키마 제공자</strong>는 데이터베이스 스키마를 LLM이 읽기 좋은 형태로 다듬으며(§15.1.3), <strong>질문 처리 인터페이스</strong>는 워크플로의 실행을 화면이 받을 <strong>이벤트 스트림</strong>으로 바꾼다(§15.1.6). ETF 구현도 같은 네 덩어리로 나뉘지만 두 제공자는 거의 비었다. 질의를 LLM이 만들지 않고 고정해 두었기 때문이다. 설정은 노드마다 짧은 지시문과 기준일·출처 한 곳이고, 스키마 추출 노드는 겹침 점검 경로에서 건너뛴다. 인터페이스는 SSE를 내보내는 FastAPI 엔드포인트가 맡는다.</p>
+      <p>워크플로 바깥에는 구성요소가 세 개 더 있다. <strong>설정 제공자</strong>는 프롬프트 템플릿과 그래프 주석을 한곳에서 공급하고(§15.1.2), <strong>스키마 제공자</strong>는 데이터베이스 스키마를 LLM이 읽기 좋은 형태로 다듬으며(§15.1.3), <strong>질문 처리 인터페이스</strong>는 워크플로의 실행을 화면이 받을 <strong>이벤트 스트림</strong>으로 바꾼다(§15.1.6). ETF 구현도 같은 네 덩어리로 나뉘지만 두 제공자는 거의 비었다. 질의를 LLM이 만들지 않고 고정해 두었기 때문이다. 설정은 노드마다 둔 짧은 지시문과, 기준일·출처를 적은 한 곳뿐이고, 스키마 추출 노드는 겹침 점검 경로에서 건너뛴다. 인터페이스는 SSE를 내보내는 FastAPI 엔드포인트가 맡는다.</p>
     </section>
 
     <section class="report-section s1512 page-break" id="source-15-1-2" data-source-kind="section" data-source-ref="15.1.2">
@@ -220,7 +220,7 @@ def intent_detection(self, state: AgentState):
     return {"schema": str(self.neo4j_schema), "retries": 0}</code></pre>
         <p>실제 작업은 <code>Neo4jSchema</code> 인스턴스가 한다. 에이전트는 스키마 객체가 주입되어 있는지 먼저 확인하고, 현재 스키마를 가져와 설정을 적용한 뒤, 그 결과를 문자열로 바꿔 <code>schema</code>에 넣는다. 함께 <code>retries</code>를 0으로 초기화해, 뒤에서 일어날 수 있는 질의 재시도를 셀 준비를 한다.</p>
       </article>
-      <p>코드에서 읽히는 비용이 하나 있다. 이 에이전트는 질문마다 실행되므로 <code>apoc.meta.schema</code>도 질문마다 데이터베이스 전체를 대상으로 다시 불린다. 노트북의 시드 그래프에서는 이 호출이 0.03초였다. 그래프가 크면 이 단계의 시간이 늘어날 수 있으므로, 스키마가 자주 바뀌지 않는 환경이라면 결과를 캐시하는 선택지를 검토할 만하다(AIML Quant 보충).</p>
+      <p>코드를 보면 드는 비용이 하나 있다. 이 에이전트는 질문마다 실행되므로 <code>apoc.meta.schema</code>도 질문마다 데이터베이스 전체를 대상으로 다시 불린다. 노트북의 시드 그래프에서는 이 호출이 0.03초였다. 그래프가 크면 이 단계의 시간이 늘어날 수 있으므로, 스키마가 자주 바뀌지 않는 환경이라면 결과를 캐시하는 선택지를 검토할 만하다(AIML Quant 보충).</p>
 
       <h3 id="text-to-cypher-agent">텍스트-투-사이퍼 에이전트</h3>
       <p>자연어 질문을 Cypher 질의로 바꾼다. 그래프 스키마뿐 아니라 화면에서 사용자가 지금 선택해 둔 노드도 함께 고려한다. 이 맥락 인식 덕분에 사용자는 선택한 노드를 일일이 설명하지 않고 &ldquo;선택한 사건&rdquo;처럼 가리킬 수 있다(14장 §14.7.2). 이를 위해 에이전트는 프롬프트를 실행하기 전에 두 가지 정보를 상태에 덧붙인다. 설정 제공자의 주석(노트와 예시)과 시각화 화면의 현재 선택이다.</p>
@@ -262,7 +262,7 @@ def intent_detection(self, state: AgentState):
     retries = state.get("retries", 0) + 1
     return {"results_error": results_error,
             "retries": retries, "information": information}</code></pre>
-        <p>성공하면 결과 형태가 의도에 따라 갈린다. 그래프나 지도로 그릴 결과는 노드와 경로를 그대로 써야 하므로 레코드 리스트로 두고, 표로 보여 줄 결과는 Neo4j 드라이버의 변환 기능으로 pandas DataFrame으로 바꾼다. 결과 자체는 상태가 아니라 에이전트 객체의 <code>self.results</code>에 둔다. 실패하면, 저자들 설명으로는 주로 문법 오류나 스키마 불일치 때문에, 오류를 붙잡아 로그에 남기고, 시도한 질의와 오류 설명을 함께 담은 문장을 <code>information</code>에 만든다. <code>information</code> 문자열은 원서에서 여러 줄이지만 한 줄로 줄였다.</p>
+        <p>성공하면 결과 형태가 의도에 따라 갈린다. 그래프나 지도로 그릴 결과는 노드와 경로를 그대로 써야 하므로 레코드 리스트로 두고, 표로 보여 줄 결과는 Neo4j 드라이버의 변환 기능으로 pandas DataFrame으로 바꾼다. 결과 자체는 상태가 아니라 에이전트 객체의 <code>self.results</code>에 둔다. 저자들 설명으로는 실패의 원인이 주로 문법 오류나 스키마 불일치다. 실패하면 오류를 붙잡아 로그에 남기고, 시도한 질의와 오류 설명을 함께 담은 문장을 <code>information</code>에 만든다. <code>information</code> 문자열은 원서에서 여러 줄이지만 한 줄로 줄였다.</p>
       </article>
       <p>상태에는 세 필드가 갱신된다. <code>results_error</code>는 실패했을 때 오류 메시지, 성공했을 때 <code>None</code>이다. <code>retries</code>는 실행 시도 횟수를 센다. 발췌에서 보이듯 이 줄은 <code>try</code> 밖에 있어서 성공한 실행도 한 번으로 센다. 스키마 추출이 0으로 맞춰 두었으므로 첫 실행 뒤에는 1, 두 번째 실행 뒤에는 2가 된다. <code>information</code>은 다음 재시도에서 LLM에게 줄 오류 맥락이다. 이 정보를 받아 다음 행선지를 정하는 것이 바로 다음의 라우팅 로직이다.</p>
 
@@ -309,7 +309,7 @@ def intent_detection(self, state: AgentState):
             "summary_analisys": results["results_analysis"]}</code></pre>
         <p>구조는 텍스트-투-사이퍼 에이전트와 같다. 다른 점은 덧붙이는 값이다. 질의 실행이 <code>self.results</code>에 남긴 레코드가 <code>records</code>로 들어간다. 결과는 요약 본문(<code>summary</code>), 요약의 근거(<code>summary_reason</code>), 추가 분석을 했는지 나타내는 플래그 세 가지다. 플래그의 키 이름 철자는 §15.1.4의 코드 대조에서 다뤘다.</p>
       </article>
-      <p>교재 저장소의 요약 템플릿이 받는 값은 질문, 생성된 질의, 출력 형식, 레코드, 선택이다. 템플릿은 사용자가 결과를 화면에서 그래프로도 본다는 점을 알려 주고, 반환된 데이터 중 질문과 무관한 것을 걸러 사실만 요약하라고 지시한다. 저자들의 설명으로는 이 요약이 붙으면서 원래의 사용자 질문이 검색된 정보에 대한 의미 있는 설명으로 바뀌고, 파이프라인이 끝난다.</p>
+      <p>교재 저장소의 요약 템플릿이 받는 값은 질문, 생성된 질의, 출력 형식, 레코드, 선택이다. 템플릿은 사용자가 결과를 화면에서 그래프로도 본다는 점을 알려 주고, 반환된 데이터 중 질문과 무관한 것을 걸러 사실만 요약하라고 지시한다. 저자들의 설명으로는 이 요약이 붙으면서 사용자의 원래 질문에 검색된 정보를 의미 있게 설명하는 답이 붙고, 파이프라인이 끝난다.</p>
 
       <h3 id="pipeline-assembly">파이프라인 조립</h3>
       <p>지금까지 만든 함수들을 하나의 그래프로 잇는다. 이 조립 코드가 <a class="asset-ref" href="#fig-2-pipeline-graph">그림 2</a>를 그대로 코드로 옮긴 것이다.</p>
@@ -397,7 +397,7 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
         <li>책이 나눈 임시 표시와 영구 이력은 실행마다 남기는 이벤트 기록과 &ldquo;기록 재생&rdquo;으로 옮겼다.</li>
       </ul></div></div>
       <p>저자들은 화면이 갖출 요구를 전문가 모방 접근에서 끌어낸다. 그래프의 노드와 관계를 둘러보고 고를 수 있어야 하고, 여러 단계를 거치는 동안 진행이 보여야 하며, 자연어로 주고받는 채팅이어야 하고, 무엇을 선택했고 처리가 어디까지 왔는지를 기억해야 한다. 이 요구를 받칠 도구로 <strong>Streamlit</strong>을 고른 가장 큰 이유는 파이썬 우선 구조다. 화면과 파이프라인이 같은 파이썬 프로세스에서 돌아서 별도의 API 없이 §15.1.6의 제너레이터를 <code>for</code> 문으로 바로 돌릴 수 있다. 저자들은 이 선택이 시제품과 시연 단계에 맞고, 운영에는 더 전문화된 화면이 필요할 수 있다고 덧붙인다.</p>
-      <p>책의 화면은 가운데 그래프 캔버스를 선택 열, 질문 입력란, 대화 이력이 둘러싼다. 질문을 보내면 이벤트가 올 때마다 자리표시자(나중에 내용을 바꿔 끼우는 빈 화면 요소)에 진행이 잠깐 보이고, <code>MessageHistory</code>가 메시지의 상태를 모았다가 END 이벤트에서 화면을 다시 그려 영구 이력으로 바꾼다. <a class="asset-ref" href="#table-7-ui-coords">표 7</a>은 원서의 하위 절과 Listing이 보이는 것과, 이번 구현에서 그 자리를 맡는 것을 나란히 적었다.</p>
+      <p>책의 화면에서는 가운데 그래프 캔버스를 선택 열, 질문 입력란, 대화 이력이 둘러싼다. 질문을 보내면 이벤트가 올 때마다 자리표시자(나중에 내용을 바꿔 끼우는 빈 화면 요소)에 진행이 잠깐 보이고, <code>MessageHistory</code>가 메시지의 상태를 모았다가 END 이벤트에서 화면을 다시 그려 영구 이력으로 바꾼다. <a class="asset-ref" href="#table-7-ui-coords">표 7</a>은 원서의 하위 절과 Listing이 보이는 것과, 이번 구현에서 그 자리를 맡는 것을 나란히 적었다.</p>
       <table class="cmp-table" id="table-7-ui-coords">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 7</span><span class="asset-caption__title">책의 화면 설계와 이번 구현의 대응</span></div></caption>
         <thead><tr><th>원서 좌표</th><th>원서가 보이는 것</th><th>이번 구현에서 맡는 것</th></tr></thead>
@@ -410,7 +410,7 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
       </table>
 
       <h3 id="etf-ui">이번 구현의 화면 — 답과 근거를 한 화면에</h3>
-      <p>화면은 FastAPI 서버가 내보내는 페이지 하나다. React와 htm(JSX 대신 쓰는 작은 템플릿 라이브러리)을 로컬 파일로 두어, 빌드 단계나 외부 CDN 없이 동작한다. 질문 입력 위의 버튼 다섯 개는 §15.3의 질문 1–5다. ETF는 질문에 이름을 써도 되고, 그래프에 있는 ETF 28개 목록에서 2–5개를 골라도 된다. 이 선택 칸은 책의 선택 열을 ETF 목록으로 바꾼 것이다. 발표 시연 주소는 <a href="https://lecture.restful3.store/kg15c/">lecture.restful3.store/kg15c</a>이며, 스터디 로그인이 있어야 열린다.</p>
+      <p>화면은 FastAPI 서버가 내보내는 페이지 하나다. React와 htm(JSX 대신 쓰는 작은 템플릿 라이브러리)을 로컬 파일로 두어, 빌드 단계나 외부 CDN 없이 동작한다. 질문 입력 위의 버튼 다섯 개는 §15.3의 질문 1–5다. ETF는 질문에 이름을 써도 되고, 그래프에 있는 ETF 28개 목록에서 2–5개를 골라도 된다. 이 선택 칸은 책의 선택 열을 ETF 목록으로 바꾼 것이다. 발표 시연 주소는 스터디 방에서 안내하며, 스터디 로그인이 있어야 열린다.</p>
       <figure class="report-figure" id="fig-6-etf-ui" data-deck-use="required">
         <figcaption class="asset-caption asset-caption--figure"><span class="asset-caption__chip">그림 6</span><span class="asset-caption__title">질문 2의 실행 기록을 재생한 화면</span></figcaption>
         <img src="assets/figs/fig-etf-ui-q2-run.png" alt="ETF 겹침 점검 화면. 위쪽에 고른 ETF 네 개(069500 KODEX 200, 091160 KODEX 반도체, 305720 KODEX 2차전지산업, 487240 KODEX AI전력핵심설비)가 있다. 왼쪽에 다섯 노드의 진행이 있고 스키마 추출과 요약 생성 노드가 흐리다. 오른쪽에 선택한 고정 Cypher와 매개변수, 여섯 쌍의 겹침 표, 네 ETF의 계산 범위 표, 가장 많이 겹치는 쌍의 공통 종목 네 개, 답이 있다. 맨 아래에 출처와 기준일이 있다.">
@@ -447,7 +447,7 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
         <li>데이터는 한국거래소 KRX Data Marketplace 화면에서 받은 2026-10-23 기준 파일이다. 국내 주식형 ETF 28개의 구성 종목(PDF)을 그래프로 만들고, 기능은 ETF 겹침 점검 하나로 좁혔다.</li>
         <li>숫자는 LLM이 만든 질의가 아니라 앱이 고정한 매개변수 Cypher가 낸다. 378개 ETF 쌍 전부에서 그래프 결과가 파일만으로 따로 계산한 기대값과 같았다.</li>
       </ul></div></div>
-      <p>저자들은 수사관이 자연어 질문만으로 범죄, ANPR(자동 번호판 인식) 카메라, 카메라의 감지 기록, 차량, 소유자 사이의 연결을 따라가는 시나리오를 보인다. 앞 질문의 결과 노드를 선택에 넣고, 다음 질문에서 &ldquo;선택한 범죄&rdquo;, &ldquo;선택한 카메라&rdquo;로 가리킨다. 이렇게 범죄 무단침입 사건 하나에서 출발해 근처 카메라, 인상착의에 맞는 차량, 소유자의 전과까지 다섯 질문으로 좁혀 간다. 저자들은 이 과정이 맥락 유지, 공간·시간·이력 증거의 통합, 패턴 식별, 의사결정에 맞춘 제시를 보여 준다고 정리한다. 결과는 원서의 화면 캡처로 보고된다.</p>
+      <p>저자들은 수사관이 자연어 질문만으로 범죄, ANPR(자동 번호판 인식) 카메라, 카메라의 감지 기록, 차량, 소유자 사이의 연결을 따라가는 시나리오를 보인다. 앞 질문의 결과 노드를 선택에 넣고, 다음 질문에서 &ldquo;선택한 범죄&rdquo;, &ldquo;선택한 카메라&rdquo;로 가리킨다. 이렇게 무단침입 사건 하나에서 출발해 근처 카메라, 인상착의에 맞는 차량, 소유자의 전과까지 다섯 질문으로 좁혀 간다. 저자들은 이 과정이 맥락 유지, 공간·시간·이력 증거의 통합, 패턴 식별, 의사결정에 맞춘 제시를 보여 준다고 정리한다. 원서는 결과를 화면 캡처로 보여 준다.</p>
       <p>이번 회차는 이 수사 사례를 다시 돌리지 않았다. 대신 같은 다섯 노드를 ETF 구성 종목 그래프에 옮겨, 각 단계가 시험한 능력 가운데 이 데이터로 보일 수 있는 것을 질문 다섯 개로 다시 보인다(<a class="asset-ref" href="#table-9-case-coords">표 9</a>). 이 절의 나머지는 교재 내용이 아니라 AIML Quant가 이번 회차를 위해 만든 구현이다. 책의 코드(<code>chains/investigator.py</code>)를 옮겨 적지 않고 §15.1의 설계 원리를 따라 새로 작성했으며, 코드는 참가자 전용 교재 저장소의 15장 폴더 아래 <code>src/krx-etf/</code>에 있다.</p>
       <table class="cmp-table" id="table-9-case-coords">
         <caption class="cmp-table__caption asset-caption asset-caption--table"><div class="asset-caption__inner"><span class="asset-caption__chip">표 9</span><span class="asset-caption__title">수사 다섯 단계가 시험한 능력과 ETF 구현에서 다룬 범위</span><span class="cmp-table__sub">질문은 원서의 프롬프트를 줄여 옮겼다</span></div></caption>
@@ -455,7 +455,7 @@ self.graph = graph.compile(checkpointer=self.memory)</code></pre>
         <tbody>
           <tr id="source-15-3-1" data-source-kind="section" data-source-ref="15.3.1"><td>15.3.1 초기 사건 식별하기 — 수사의 출발점</td><td>수사 중인 범죄 노드 하나</td><td>명시적 제약과 암묵적 기대의 해석, 노드 속성 요약</td><td>질문 1이 &ldquo;얼마나 겹쳐?&rdquo;를 겹침 점검 의도로, 두 이름을 ETF 코드로 해석하는 것을 보인다. 단일 노드 요약은 다루지 않았다.</td></tr>
           <tr id="source-15-3-2" data-source-kind="section" data-source-ref="15.3.2"><td>15.3.2 감시 범위의 공간 분석 — 근처 카메라 찾기</td><td>선택한 범죄에서 1 km 안의 ANPR 카메라</td><td>공간 질의, 선택 인식, 지도 시각화 선택</td><td>선택 인식은 질문 2가 보인다(&ldquo;이 네 ETF&rdquo;). 위치 정보가 없어 공간 질의와 지도는 없다.</td></tr>
-          <tr id="source-15-3-3" data-source-kind="section" data-source-ref="15.3.3"><td>15.3.3 차량 패턴 감지 — 용의 차량 좁히기</td><td>선택한 카메라가 그날 감지한, 인상착의에 맞는 차량</td><td>선택·시간 제약·속성 일치를 한 질의로 결합</td><td>질문 2가 고른 ETF 네 개의 여섯 쌍을 한 질의로 계산하고 겹침 비중 순으로 정렬한다.</td></tr>
+          <tr id="source-15-3-3" data-source-kind="section" data-source-ref="15.3.3"><td>15.3.3 차량 패턴 감지 — 용의 차량 좁히기</td><td>선택한 카메라가 그날 감지한, 인상착의에 맞는 차량</td><td>선택·시간 제약·속성 일치를 한 질의로 결합</td><td>질문 2는 고른 ETF 네 개로 만든 여섯 쌍을 한 질의로 계산하고 겹침 비중 순으로 정렬한다.</td></tr>
           <tr id="source-15-3-4" data-source-kind="section" data-source-ref="15.3.4"><td>15.3.4 맥락 인식 요청 정제 — 역할과 의도를 알려주기</td><td>수사관이라는 역할을 밝히고 특히 의심스러운 차량을 묻는다</td><td>선택한 노드에서 제약 추출, 맥락에 따른 분석 요약</td><td>겹침 점검에서는 요약 노드를 쓰지 않고, 답 문장을 반환 행에서 그대로 만든다. 역할·의도를 밝힌 질문은 시험하지 않았다.</td></tr>
           <tr id="source-15-3-5" data-source-kind="section" data-source-ref="15.3.5"><td>15.3.5 과거 기록 분석 — 소유자의 범죄 이력까지</td><td>전과자 소유일 수 있다는 단서를 더해 가장 유력한 차량을 묻는다</td><td>소유 관계와 범죄 기록까지 확장한 분석</td><td>다루지 않았다. 대신 책에 없는 두 분기를 보인다. 질문 3은 데이터에 없는 수익률을 미지원으로 끝내고, 질문 4는 여러 ETF에 맞는 이름을 계산하지 않고 되묻는다.</td></tr>
         </tbody>
@@ -553,7 +553,7 @@ graph.add_edge('query_execution', END)                              # 요약 모
       <p>2차전지 ETF 세 개(KODEX 2차전지산업, KODEX 전고체배터리ESS TOP2플러스, TIGER 2차전지TOP10)를 고르고 서로 얼마나 겹치는지 묻는다. 가장 많이 겹치는 쌍은 KODEX 2차전지산업과 TIGER 2차전지TOP10(공통 10종목, 76.15%)이었다. 이 질문에서 볼 것은 계산 범위 표다. KODEX 전고체배터리ESS TOP2플러스(0209D0)는 계산에 넣은 주식 비중이 101.85%, 뺀 비중이 −1.85%다. PDF의 현금 행이 음수로 적혀 있기 때문이며, 화면은 이 값을 100%로 자르거나 다시 맞추지 않고 그대로 보인다. 이 ETF가 들어간 쌍의 겹침 비중은 주식 비중이 100%를 조금 넘는 상태에서 계산한 값이다.</p>
 
       <div class="callout--insight"><span class="callout__kicker">AIML Quant 보충 · 이 구현에서 말할 수 있는 것과 없는 것</span><div class="callout__body">
-        <p>말할 수 있는 것: 책의 다섯 노드와 상태 설계가 다른 도메인 그래프에서도 그대로 동작했고, 겹침 비중은 그래프 결과와 파일 계산이 378쌍 모두에서 같았다. 말할 수 없는 것: 결과는 2026-10-23 하루의 구성이며 그 뒤의 변화는 담지 않는다. 겹침이 크다고 함께 사면 안 된다거나, 작다고 분산이 잘 된다는 투자 판단이 아니다. KRX 자료를 스터디 화면에 보이는 것이 이용약관상 허용되는지는 확인하지 못했고, 도라의 판단으로 로그인한 참가자에게만 보인다.</p>
+        <p>말할 수 있는 것: 책의 다섯 노드와 상태 설계가 다른 도메인 그래프에서도 그대로 동작했고, 겹침 비중은 그래프 결과와 파일 계산이 378쌍 모두에서 같았다. 말할 수 없는 것: 결과는 2026-10-23 하루의 구성이며 그 뒤의 변화는 담지 않는다. 겹침이 크다고 함께 사면 안 된다거나, 작다고 분산이 잘 된다는 투자 판단이 아니다. KRX 자료를 스터디 화면에 보이는 것이 이용약관상 허용되는지는 확인하지 못했고, 운영자 판단으로 로그인한 참가자에게만 보인다.</p>
       </div></div>
     </section>
 
@@ -570,7 +570,7 @@ graph.add_edge('query_execution', END)                              # 요약 모
         <thead><tr><th>원서 좌표</th><th>저자들의 제안</th><th>ETF 구현과의 관계</th></tr></thead>
         <tbody>
           <tr id="source-15-4-1" data-source-kind="section" data-source-ref="15.4.1"><td>15.4.1 사용에서 배우기 — 관찰 가능성이 여는 진화</td><td>처리한 질의마다 남는 의도·질의·결과를 모아, 불만형 질문은 개선 단서로 분류하고 유용했던 상호작용은 예시로 보존한다.</td><td>실행 기록 파일에 질문, 의도, 고른 질의와 매개변수, 반환 행, 시간이 남는다. 예시로 승격할 기준은 아직 정하지 않았다.</td></tr>
-          <tr id="source-15-4-2" data-source-kind="section" data-source-ref="15.4.2"><td>15.4.2 핵심 역량 강화하기 — 전문가라면 무엇을 할까</td><td>&ldquo;전문가라면 무엇을 할까&rdquo;를 물어 스키마 처리를 강화한다. 큰 그래프에는 추상화 수준을 나눈 다층 스키마를 제안한다.</td><td>겹침 점검은 고정 질의라 스키마를 쓰지 않는다. 자유 질문을 다시 열어 그래프가 커지면 이 제안이 필요해진다.</td></tr>
+          <tr id="source-15-4-2" data-source-kind="section" data-source-ref="15.4.2"><td>15.4.2 핵심 역량 강화하기 — 전문가라면 무엇을 할까</td><td>&ldquo;전문가라면 무엇을 할까&rdquo;를 물어 스키마 처리를 강화한다. 큰 그래프에는 추상화 수준을 나눈 다층 스키마를 제안한다.</td><td>겹침 점검은 고정 질의라 스키마를 쓰지 않는다. 자유 질문을 다시 받고 그래프가 커지면 이 제안이 필요해진다.</td></tr>
           <tr id="source-15-4-3" data-source-kind="section" data-source-ref="15.4.3"><td>15.4.3 고급 진화 경로 — 파인튜닝으로 나아가기</td><td>스키마와 예시를 프롬프트에 넣는 인컨텍스트 학습 대신, 일부 구성요소를 파인튜닝한 모델로 바꾼다. 파이프라인 구조는 그대로 둔다.</td><td>노드가 정해진 필드만 돌려주므로, 의도 감지 노드 하나만 바꿔 끼워도 나머지는 그대로 동작한다. 이 회차에서 시험하지는 않았다.</td></tr>
         </tbody>
       </table>
