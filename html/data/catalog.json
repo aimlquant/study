@@ -513,8 +513,7 @@
       ],
       "date": "2026-10-31",
       "id": "2026-10-31-kg-llm-ch15",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq/j.php?MTID=macf41df59efb9845bf8c6ecb4969a38b",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-10-31-kg-llm-ch15/",
       "presenters": [
         "태영"
@@ -527,9 +526,11 @@
           "youtube_video_id": "uVnn9ikCDpA"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "Chapter 15. LangGraph로 QA 에이전트 구축"
+      "title": "Chapter 15. LangGraph로 QA 에이전트 구축",
+      "youtube_url": "https://www.youtube.com/watch?v=atO5bnKqRfo",
+      "youtube_video_id": "atO5bnKqRfo"
     },
     {
       "artifacts": [],

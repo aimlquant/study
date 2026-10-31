@@ -400,8 +400,9 @@ date = "2026-10-31"
 title = "Chapter 15. LangGraph로 QA 에이전트 구축"
 presenters = ["태영"]
 chapters = ["Chapter 15"]
-status = "materials-published"
-meeting_url = "https://lgehq.webex.com/lgehq/j.php?MTID=macf41df59efb9845bf8c6ecb4969a38b"
+status = "video-public"
+youtube_video_id = "atO5bnKqRfo"
+meeting_status = "ended"
 
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-10-31-ch15/report.html" },
