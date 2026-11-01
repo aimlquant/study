@@ -1,7 +1,6 @@
 {
   "version": 1,
   "scope": [
-    "장 도입",
     "8.1"
   ],
   "sources": [
@@ -121,5 +120,6 @@
       "source": "동점 없는 경우의 Spearman 순위 상관 계산식"
     }
   ],
-  "image_review": "원본 그림8.1·박스 필기 아이콘·Primer 산점도를 실제 이미지로 대조함. Primer 열 점 좌표는 원본 판독값, IC는 해당 순위로 재계산."
+  "image_review": "원본 그림8.1·박스 필기 아이콘·Primer 산점도를 실제 이미지로 대조함. Primer 열 점 좌표는 원본 판독값, IC는 해당 순위로 재계산.",
+  "include_intro": true
 }

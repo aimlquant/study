@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "scope": {
+    "version": "sections-v1",
+    "sections": [
+      "8.1"
+    ],
+    "include_intro": true
+  },
+  "report_sha256": "d1d2577d6e533607c7b98e93d8c6ccebe19eb1a63b18e174ce98a13a63668e97",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_08_financial_feature_engineering/08_chapter_08_financial_feature_engineering.md",
+      "sha256": "57f24b88154239ae7e917ed35f2756e76dd0223d21ee5dbb06e38d7f589b6518",
+      "revision": "4370d10055aa7f3740bcc9e57e75ec6ed14af448"
+    },
+    {
+      "role": "outline",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_08_financial_feature_engineering/08_chapter_08_financial_feature_engineering_ko_explained.md",
+      "sha256": "88dc70fffc6652a01a91937515d460cb4f7391a3e691f5583f54b6b68b65eb6c",
+      "revision": "4370d10055aa7f3740bcc9e57e75ec6ed14af448"
+    }
+  ],
+  "introduction": {
+    "report_id": "summary",
+    "explanation": "독립 검토자가 특성과 레이블의 차이·관측 시점·세 특성 계열의 도입을 전체 읽고 막힌 문장을 수정한 뒤 닫았다."
+  },
+  "sections": [
+    {
+      "ref": "8.1",
+      "report_id": "s81",
+      "explanation": "조건부 분포에서 출발해 기간·동인·역할의 세 필터와 패턴의 증거 기준, 순위IC, 기준프레임·표현·집계, 특성명세·평가 연결을 각각 설명한다. 정의식과 기호 풀이·작은 계산 예를 포함한다.",
+      "evidence": "원문·해설판 도입–8.1 전수 대조. 그림8.1의 입력/필터1–3/출력·7장연결·공통선택 라벨/연결 모두 재작도. 표8.1 세 특성의9필드 보존. Primer 열 순위좌표 판독·제곱합110으로IC1/3 재계산, 세종목IC0.5와IR0.5 예를 독립 검산했다.",
+      "limits": "도입과8.1만 검토·게시한다. 8.2–8.7은 미집필/미검수이며 이 승인에 포함하지 않는다. 조건부분포와IC 정의식은 설명용 보충이고 원서 번호를 붙이지 않았다. 룩백 부등식은 절대규칙이 아님을 구분한다.",
+      "visuals": "도입2·8.1 11개SVG. 그림8.1 세로배치와 본문 방향 일치, 긴/짧은 집계선은같은원자료의3/7관측평균, 상태별평가 도해는 신호·상태의 관계를 설명한다. PC/390 bbox·KaTeX, A4 PDF20쪽 및 대표도해 실이미지 독립검수."
+    }
+  ],
+  "experiments": [
+    {
+      "status": "executed",
+      "scope": "Primer 열 종목의 순위좌표로 순위IC 재계산",
+      "source": "source-inventory.json의Primer산점도 이미지 대응; 원본판독값 A–J의 순위차 제곱합110, IC=1−6×110/(10×99)=1/3",
+      "report_ids": [
+        "eq-rank-ic",
+        "ic-example",
+        "fig-rank-ic"
+      ],
+      "interpretation": "공식Primer의설명예 검산이며새시장실험이나비용차감성과가아니다."
+    }
+  ],
+  "review_basis": [
+    {
+      "kind": "independent-reader-and-Korean",
+      "source_sha256": "fe4fd48f42ee371058da3c0316cef95a11c9be59ce83d2fc94a3c83dd7dc7c46",
+      "result": "도입·8.1의읽기/한국어지적과근호누락 수정뒤0건"
+    },
+    {
+      "kind": "independent-content-and-render",
+      "source_sha256": "b381596e4ca2f472f8c80fbf23b58c936cb7b681f003c968e1074dd590ced3ee",
+      "result": "v7 본문·A4 PDF AGREED, PDF SHA c2eef4206ea8357698040b4b14bccc8c5c558ff67404ba5a912516c87ffca9e1"
+    }
+  ],
+  "publication_delta": {
+    "reviewed_report_sha256": "90e4312b01cdf9263b1bbce43da8ae895704194cba703a8f1642b1ab0842f4ae",
+    "change": "기존검토본문불변, 표지에 부분공개범위 한줄만추가. 이문구는부분게시구현C3에서최종확인."
+  }
+}

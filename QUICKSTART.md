@@ -40,7 +40,7 @@ aimlquant/
 
 현재 교재는 `materials/<track>/active/<study-slug>/` 아래에 있다. 실행 환경과 노트북은
 [`study-materials` 절차](agent-support/procedures/study-materials.md)를 따르고, 회차 리포트와
-슬라이드는 [`study-presentation` 절차](agent-support/procedures/study-presentation.md)를 따른다.
+슬라이드는 [`study-presentation` 절차](agent-support/procedures/study-presentation.md)를 따른다. 새 회차는 도해·원본 충실도 관문이 기본이므로 작업 브랜치에서 작성하고, 원장·검토를 채우기 전에는 main에 push하지 않는다.
 새 회차는 가능하면 상세 리포트를 먼저 완성·검토하고 그 내용을 발표자료로 압축한다.
 
 교재를 고쳤으면 `study-materials` 에서 커밋·push하고, 발표자료를 고쳤으면

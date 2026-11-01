@@ -518,7 +518,7 @@ def parse_source_outline(
     exercise_counts: dict[str, int] = {}
     section_re = re.compile(r"^#{1,6}\s+(\d+(?:\.\d+)+)\s+(.+?)\s*$")
     named_re = re.compile(
-        r"^(?:#{1,6}\s+)?(Listing|리스팅|목록|Example|예제|Box|상자)\s+"
+        r"^(?:#{1,6}\s+)?(Listing|리스팅|목록|Example|예제|Box|상자|박스)\s+"
         r"(\d+\.\d+)(?:\s*[:—-]\s*|\s+)(.+?)\s*$",
         re.IGNORECASE,
     )
@@ -570,6 +570,7 @@ def parse_source_outline(
                 "예제": "example",
                 "box": "box",
                 "상자": "box",
+                "박스": "box",
             }[raw_kind.lower() if raw_kind.isascii() else raw_kind]
             result[(kind, source_ref)] = normalize_source_title(title)
             line_index += 1
@@ -722,6 +723,50 @@ def print_source_outline(metadata_path: Path, stream=None) -> int:
     return 0
 
 
+def report_scope_sections(metadata, trace, report_html, errors):
+    """Declared partial reports still require complete in-scope content."""
+    scope = metadata.get("report_scope")
+    if scope is None:
+        return None
+    sections = scope.get("sections") if isinstance(scope, dict) else None
+    if (not isinstance(scope, dict) or scope.get("version") != "sections-v1"
+            or not isinstance(sections, list) or not sections
+            or any(not isinstance(x, str) or not x for x in sections)
+            or len(set(sections)) != len(sections)
+            or not isinstance(scope.get("include_intro"), bool)):
+        errors.append(f"invalid report_scope in {report_html}")
+        return []
+    actual = [ref for kind, ref in trace.source_anchor_order if kind == "section"]
+    if actual != sections:
+        errors.append(f"report_scope section coverage/order differs in {report_html}: {actual}")
+    parser = CompletenessParser()
+    parser.feed(report_html.read_text())
+    notice = parser.nodes.get("report-scope-notice", {}).get("text", "")
+    if not notice or any(ref not in notice for ref in sections) or "작성 중" not in notice:
+        errors.append(f"partial report needs visible scope and unfinished notice in {report_html}")
+    return sections
+
+
+def scoped_source_outline(expected, metadata, errors, report_html):
+    scope = metadata.get("report_scope")
+    if not scope or not isinstance(scope, dict) or scope.get("version") != "sections-v1":
+        return expected
+    selected = scope["sections"]
+    available = [ref for kind, ref in expected if kind == "section"]
+    if any(ref not in available for ref in selected):
+        errors.append(f"report_scope names unknown source section in {report_html}")
+    if [ref for ref in available if ref in selected] != selected:
+        errors.append(f"report_scope is not in source order in {report_html}")
+    current = None
+    result = {}
+    for key, title in expected.items():
+        if key[0] == "section":
+            current = key[1]
+        if current in selected or (current is None and scope["include_intro"]):
+            result[key] = title
+    return result
+
+
 def validate_source_fidelity(
     metadata: dict,
     study: dict,
@@ -732,6 +777,9 @@ def validate_source_fidelity(
     errors: list[str],
     warnings: list[str] | None = None,
 ) -> None:
+    declared_sections = report_scope_sections(metadata, report_trace, report_html, errors)
+    if declared_sections == []:
+        return
     fidelity = metadata.get("source_fidelity")
     source_material = metadata.get("source_material")
     if not fidelity and not source_material:
@@ -783,7 +831,7 @@ def validate_source_fidelity(
             f"{exercise_style!r}"
         )
         return
-    expected = parse_source_outline(source_path, outline_style, exercise_style)
+    expected = scoped_source_outline(parse_source_outline(source_path, outline_style, exercise_style), metadata, errors, report_html)
     expected_chapter_title = parse_source_chapter_title(source_path)
     actual = report_trace.source_anchors
     if not expected:
@@ -978,6 +1026,15 @@ def validate_content_review(metadata, study, trace, report_html, errors, warning
             raise ValueError("expected review schema_version=1")
         if review.get("report_sha256") != hashlib.sha256(report_html.read_bytes()).hexdigest():
             errors.append(f"content_review report hash is stale: {report_html}")
+        if metadata.get("report_scope") is not None:
+            if not isinstance(metadata["report_scope"], dict):
+                raise ValueError("invalid partial scope")
+            if review.get("scope") != metadata["report_scope"]:
+                raise ValueError("content review scope differs from report_scope")
+            if metadata["report_scope"].get("include_intro"):
+                intro = review.get("introduction", {})
+                if intro.get("report_id") not in trace.ids or not intro.get("explanation"):
+                    raise ValueError("partial report introduction review is missing")
         sources = review.get("sources", [])
         if not isinstance(sources, list) or not sources:
             raise ValueError("review sources are required")
@@ -2083,7 +2140,7 @@ def validate_figure_density(metadata, report_html: Path, errors: list[str]) -> N
 
 
 
-# Inventory is kept outside public HTML. Source occurrences are retained even
+# Inventory is kept separate from report markup. Source occurrences are retained even
 # when two sources describe one equation in the report.
 SOURCE_MATH_RE = re.compile(r"\$\$[\s\S]*?\$\$|(?<!\\)\$(?!\$)[^$\n]+?(?<!\\)\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)")
 SOURCE_IMAGE_RE = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
@@ -2120,7 +2177,7 @@ class CompletenessParser(HTMLParser):
             node["text"] += data
 
 
-def validate_source_completeness(metadata, report_html: Path, errors: list[str]) -> None:
+def validate_source_completeness(metadata, report_html: Path, errors: list[str], warnings=None) -> None:
     mode = metadata.get("source_completeness")
     if mode is None:
         return
@@ -2128,12 +2185,21 @@ def validate_source_completeness(metadata, report_html: Path, errors: list[str])
         errors.append(f"unknown source_completeness: {mode!r}")
         return
     try:
-        inventory_path = (REPO_ROOT / metadata["source_inventory"]).resolve()
-        if not within(inventory_path, (REPO_ROOT / "agent-support/reviews").resolve()):
-            raise ValueError("source_inventory must be under agent-support/reviews")
+        name = metadata["source_inventory"]
+        if name == "source-inventory.json":
+            inventory_path = (report_html.parent / name).resolve()
+            if not within(inventory_path, report_html.parent.resolve()):
+                raise ValueError("inventory must remain inside the session")
+        else:
+            inventory_path = (REPO_ROOT / name).resolve()
+            if not within(inventory_path, (REPO_ROOT / "agent-support/reviews").resolve()):
+                raise ValueError("source_inventory must be under agent-support/reviews or session source-inventory.json")
         inventory = json.loads(inventory_path.read_text())
         if inventory["version"] != 1 or not inventory["scope"]:
             raise ValueError("inventory version/scope missing")
+        scope = metadata.get("report_scope")
+        if scope is not None and (inventory["scope"] != scope["sections"] or inventory.get("include_intro") != scope["include_intro"]):
+            raise ValueError("source inventory scope differs from report_scope")
         parser = CompletenessParser()
         parser.feed(report_html.read_text())
         if parser.duplicates:
@@ -2148,19 +2214,30 @@ def validate_source_completeness(metadata, report_html: Path, errors: list[str])
             path = (REPO_ROOT / source["path"]).resolve()
             if not within(path, (REPO_ROOT / "materials").resolve()):
                 raise ValueError("source must be in materials")
-            raw = path.read_bytes()
-            if hashlib.sha256(raw).hexdigest() != source["sha256"]:
-                raise ValueError(f"stale source: {source['id']}")
-            lines = raw.decode().splitlines(keepends=True)
+            if not re.fullmatch(r"[0-9a-f]{64}", source["sha256"]):
+                raise ValueError("invalid source hash")
             start, end = source["lines"]
-            if not 1 <= start <= end <= len(lines):
+            if not isinstance(start, int) or not isinstance(end, int) or not 1 <= start <= end:
                 raise ValueError("invalid source range")
-            text = "".join(lines[start-1:end])
-            # Exact source occurrence offsets prevent silently dropping a formula.
-            occurrences = {m.start(): m.group() for m in SOURCE_MATH_RE.finditer(text)}
+            text = None
+            if (REPO_ROOT / "materials").is_dir():
+                raw = path.read_bytes()
+                if hashlib.sha256(raw).hexdigest() != source["sha256"]:
+                    raise ValueError(f"stale source: {source['id']}")
+                lines = raw.decode().splitlines(keepends=True)
+                if end > len(lines):
+                    raise ValueError("invalid source range")
+                text = "".join(lines[start-1:end])
+            elif warnings is not None:
+                warnings.append(f"source inventory original hash/re-extraction skipped: materials unavailable for {report_html}")
             recorded = source["math"]
-            if len({x["offset"] for x in recorded}) != len(recorded) or {x["offset"]: x["tex"] for x in recorded} != occurrences:
-                raise ValueError(f"math occurrence coverage mismatch: {source['id']}")
+            offsets = [x["offset"] for x in recorded]
+            if len(set(offsets)) != len(offsets):
+                raise ValueError("duplicate math occurrence")
+            if text is not None:
+                occurrences = {m.start(): m.group() for m in SOURCE_MATH_RE.finditer(text)}
+                if {x["offset"]: x["tex"] for x in recorded} != occurrences:
+                    raise ValueError(f"math occurrence coverage mismatch: {source['id']}")
             for item in recorded:
                 if item.get("classification") == "symbol":
                     if not item.get("reason") or re.search(r"[=<>+*/]|\\(?:approx|sum|frac|sqrt)", item["tex"]):
@@ -2178,9 +2255,9 @@ def validate_source_completeness(metadata, report_html: Path, errors: list[str])
                     if not evidence or not evidence["text"].strip():
                         raise ValueError(f"missing equation explanation {target}: {field}")
                 mapped_math.add(target)
-            images = {m.start(): m[1] for m in SOURCE_IMAGE_RE.finditer(text)}
+            images = {m.start(): m[1] for m in SOURCE_IMAGE_RE.finditer(text)} if text is not None else None
             listed_images = source["images"]
-            if len({x["offset"] for x in listed_images}) != len(listed_images) or {x["offset"]: x["path"] for x in listed_images} != images:
+            if len({x["offset"] for x in listed_images}) != len(listed_images) or (images is not None and {x["offset"]: x["path"] for x in listed_images} != images):
                 raise ValueError(f"image occurrence coverage mismatch: {source['id']}")
             for image in listed_images:
                 if image.get("classification") == "correspondence":
@@ -2194,9 +2271,9 @@ def validate_source_completeness(metadata, report_html: Path, errors: list[str])
                         raise ValueError("duplicate/table image needs a report target")
                 else:
                     raise ValueError("image needs correspondence or reviewed classification")
-            captions = {(('figure' if m[1] in ('Figure', '그림') else 'table'), m[2]) for m in SOURCE_VISUAL_RE.finditer(text)}
+            captions = {(('figure' if m[1] in ('Figure', '그림') else 'table'), m[2]) for m in SOURCE_VISUAL_RE.finditer(text)} if text is not None else None
             listed = {(x["kind"], x["ref"]) for x in source["visuals"]}
-            if captions != listed or len(listed) != len(source["visuals"]):
+            if (captions is not None and captions != listed) or len(listed) != len(source["visuals"]):
                 raise ValueError(f"visual inventory coverage mismatch: {source['id']}")
             for item in source["visuals"]:
                 expected.add((item["kind"], item["ref"]))
@@ -2341,7 +2418,7 @@ def validate_metadata(
                 warnings,
             )
             validate_figure_density(metadata, report_html, errors)
-            validate_source_completeness(metadata, report_html, errors)
+            validate_source_completeness(metadata, report_html, errors, warnings)
             validate_content_review(metadata, studies[study_id], report_trace, report_html, errors, warnings)
             if metadata.get("source_fidelity") == SOURCE_FIDELITY_VERSION:
                 validate_source_fidelity_report_css(metadata_path.parent, errors)

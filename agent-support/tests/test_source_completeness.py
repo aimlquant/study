@@ -38,6 +38,15 @@ class SourceCompletenessTests(unittest.TestCase):
         self.assertEqual(['thumb.png'],[m[1] for m in v.SOURCE_IMAGE_RE.finditer(text)])
     def test_decoration_needs_reason(self):
         self.sources[0]['images'][0].update(classification='decoration');self.assertIn('reason',self.check_inventory()[0])
+    def test_complete_inventory_without_materials_still_checks_report(self):
+        (self.root/'materials').rename(self.root/'saved-materials')
+        self.assertEqual([],self.check_inventory())
+        self.sources[0]['math'][0]['report_id']='missing'
+        self.assertIn('missing report equation',self.check_inventory()[0])
+    def test_empty_sources_fail_without_materials(self):
+        (self.root/'materials').rename(self.root/'saved-materials')
+        self.inventory['sources']=[]
+        self.assertIn('both required',self.check_inventory()[0])
     def test_missing_math_occurrence(self):
         self.sources[0]['math']=[];self.assertIn('coverage mismatch',self.check_inventory()[0])
     def test_missing_visual(self):

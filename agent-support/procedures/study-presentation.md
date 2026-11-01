@@ -104,7 +104,7 @@ python3 agent-support/scripts/new-presentation.py \
 
 개념·절차·비교·시간축·인과를 설명할 때 문단 가까이에 SVG 도식·흐름도·타임라인·비교 그림·작은 계산 예 그림을 적극 배치한다. 원본 그림 좌표는 유지하며 추가 설명 그림에는 `AIML Quant 도해`를 표시하고 원본 번호를 지어내지 않는다. 원고를 그림의 짧은 라벨로 대체하지 않는다. 그림은 한 질문과 관계를 설명하며 의미 없는 상자·장식으로 계수를 채우지 않는다.
 
-`presentation.toml`의 `figure_density = "rich-v1"`은 회차별 opt-in이다. validate-site는 `data-source-kind="section"`인 원본 H2 절마다 설명 도해 2개 이상, 각 H3 설명 단위(그 제목부터 다음 H3 전까지)마다 1개 이상을 요구한다. 원본 H3의 보존은 원자료 감사와 내용 검토로 별도 확인한다. 참고 링크 목록처럼 설명 단위가 아닌 H3만 `data-visual-exempt="구체적인 이유"`로 제외하며 짝 검토한다. 계수 대상은 회차 안 로컬 SVG를 img로 연결한 figure다. text 1개·도형 2개 이상이 필요하고 defs 안 도형·순수 표·아이콘·KaTeX는 세지 않는다. 같은 파일·같은 바이트를 재사용해 계수를 채우지 않는다. 플래그 없는 이전 회차는 변경하지 않는다.
+새 회차의 `presentation.toml`에는 `figure_density = "rich-v1"`이 기본이다. `--figure-density none`으로 생략할 수 있고 기존 회차는 바꾸지 않는다. validate-site는 `data-source-kind="section"`인 원본 H2 절마다 설명 도해 2개 이상, 각 H3 설명 단위(그 제목부터 다음 H3 전까지)마다 1개 이상을 요구한다. 원본 H3의 보존은 원자료 감사와 내용 검토로 별도 확인한다. 참고 링크 목록처럼 설명 단위가 아닌 H3만 `data-visual-exempt="구체적인 이유"`로 제외하며 짝 검토한다. 계수 대상은 회차 안 로컬 SVG를 img로 연결한 figure다. text 1개·도형 2개 이상이 필요하고 defs 안 도형·순수 표·아이콘·KaTeX는 세지 않는다. 같은 파일·같은 바이트를 재사용해 계수를 채우지 않는다. 플래그 없는 이전 회차는 변경하지 않는다.
 
 최종 표시 크기의 도형·텍스트·화살표는 agent-writing의 SVG 규칙과 FDE `storyboard-kit-v1/CHECKLIST.md`, `motion-design-review.md`, `practice-storyboard-playbook.md`의 관계·공통 그리드·면 중앙 연결·실제 화면 검수를 따른다. FDE의 색·브랜드나 영상 전용 작업 절차를 옮기는 것은 아니다.
 
@@ -124,7 +124,7 @@ h1-run --mem 4G --timeout 120 -- 'node agent-support/scripts/check-svg-bboxes.mj
 
 원문·해설판의 수식·유도·변형을 집필 범위별로 모두 목록화한다. 번호는 유지하고 식마다 `무엇을 계산하나 → 기호와 단위 → 작은 숫자 예`를 설명한다. 같은 식 하나가 두 출처 좌표에 함께 대응할 수 있으며 중복 게재를 강요하지 않는다. 원장의 입력 해시·줄 범위·식 발생 오프셋과 실제 본문 대응을 검사한다. 단순 변수는 이유를 적어 구분한다. 원서가 말로만 설명한 개념에 정의식이 필요하면 설명용으로 추가하되 원서 번호를 지어내지 않는다. 예: ML4T 3판 8장 §8.1의 조건부 분포와 순위 IC.
 
-`source_completeness="visual-math-v1"`, `source_inventory="agent-support/reviews/<session>-source-inventory.json"`을 지정한다. JSON version=1, scope=집필 범위, sources의 각 항목은 id/path/sha256/lines(양끝 포함)/math/visuals다. math는 offset/tex/report_id/purpose_id/symbols_id/example_id, 번호가 있으면 number를 기록한다. 단순 변수는 classification=symbol/reason을 기록한다. visuals는 kind/ref/report_id/method(structural-redraw, recomputed, source-reading)다. source별 수식 발생 목록과 그림·표 좌표 전체를 실제 소스에서 다시 추출하며, 본문 좌표 집합과 일치해야 한다. 해시가 낡거나 대응 식·풀이가 없으면 실패한다. 두 입력의 같은 식은 하나의 대응식으로 센다. 의미 일치와 원장 범위의 충실성은 짝이 별도 검수한다.
+새 회차에는 `source_completeness="visual-math-v1"`, `source_inventory="source-inventory.json"`과 회차 옆 빈 원장이 기본 생성된다. `--no-source-completeness`로 생략할 수 있다. 기존 agent-support/reviews 아래 원장 경로도 계속 허용한다. JSON version=1, scope=집필 범위, sources의 각 항목은 id/path/sha256/lines(양끝 포함)/math/visuals다. math는 offset/tex/report_id/purpose_id/symbols_id/example_id, 번호가 있으면 number를 기록한다. 단순 변수는 classification=symbol/reason을 기록한다. visuals는 kind/ref/report_id/method(structural-redraw, recomputed, source-reading)다. source별 수식 발생 목록과 그림·표 좌표 전체를 실제 소스에서 다시 추출하며, 본문 좌표 집합과 일치해야 한다. 해시가 낡거나 대응 식·풀이가 없으면 실패한다. 두 입력의 같은 식은 하나의 대응식으로 센다. 의미 일치와 원장 범위의 충실성은 짝이 별도 검수한다.
 
 위 DOM 예외 스크립트는 같은 자원·시간·캡처 금지 조건에서 회차의 로컬 KaTeX만 로드해 오류 노드·남은 구분자·수식/근호 SVG의 0크기를 검사한다. 실제 PNG/PDF는 설치본 러너만 사용한다. PDF의 큰 빈 공간은 필요한 인쇄 묶음 규칙만 풀어 줄이고 내용·그림을 삭제하지 않는다. 독립 읽기에는 교재를 열지 않고 특성의 뜻, 기간과 시점, 신호/상태의 차이, 그림의 모든 라벨, 수식 계산과 예, 실패 조건을 설명할 수 있는지 확인하는 질문을 둔다.
 
@@ -449,3 +449,9 @@ curl -fsSL "https://aimlquant.github.io/study/<public-path>" | rg "<release-mark
 기계 검사는 해시·앵커·대응 범위와 코드·출력 요소의 존재를 확인한다. 덱이 함께 등록된 새 교재 회차는 리포트에도 해당 덱의 상대 링크가 있어야 한다. 링크를 추가했다고 기록하기 전에 실제 anchor와 설정 메뉴를 확인한다. 항목 수·글자 수·설명 span의 존재로 이해를 판정하지 않는다. 최종 검토에서는 발표자 설명 없이 화면을 읽으며 (1) 낯선 대상의 정의 (2) 결론에 이르는 중간 원리 (3) 도형·표·결과에서 실제 볼 부분 (4) 주장과 해석의 조건이 이어지는지 확인한다. 제목·lead·takeaway가 같은 결론을 반복하거나 핵심 의미가 발표자 노트에만 있으면 수정한다.
 
 모든 원본/해설판 Markdown 이미지 발생(링크로 감싼 썸네일 포함)을 원장 images에 offset/path/classification/report_id로 기록한다. correspondence는 실제 시각자료에 연결한다. 캡션 없는 이미지도 생략하지 않는다. duplicate/table-image는 대응 대상과 이유, decoration은 구체적인 이유를 기록하고 짝이 확인한다. 캡션 집합만 맞아도 이미지 발생이 빠지면 실패한다.
+
+### 부분 집필 게시와 새 회차 시작
+
+새 회차는 도해·원본충실도 관문이 기본이다. 원장·검토를 채우기 전 main에 push하면 CI가 실패하므로 작업 브랜치에서 집필한다. 골격의 빈 scope/sources는 자료 없는 CI에서도 실패한다. 완성한 원장은 CI에서 본문 대응·해시형식·경로를 검사하고, materials가 없으면 원본 파일 해시 대조·이미지/수식 재추출만 경고로 생략한다. materials가 있으면 모두 대조하며 --check-materials의 존재 요구도 유지한다. 수동/의미 검토를 자동 통과로 표시하지 않는다.
+
+부분 게시에는 `report_scope={version="sections-v1",sections=["8.1"],include_intro=true}`처럼 실제 집필 절을 선언한다. 교재의 실제 순서에서 해당 절에 속한 그림·표·박스까지 전부 검사한다. 본문 section 집합/순서·content_review.scope·원장 scope와 include_intro가 같아야 하며, report-scope-notice라는 id의 가시 문구로 공개 절과 '작성 중'을 밝힌다. 선언하지 않은 회차는 종전 전체 범위 계약이다. 도입 포함 시 content_review.introduction에 실제 도입 id와 검토 explanation을 기록한다. 미집필 절의 검토를 채우거나 제목만 넣어 통과시키지 않는다.

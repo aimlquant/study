@@ -40,6 +40,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--title", required=True, help="Presentation title")
     parser.add_argument("--subtitle", help="Cover subtitle; defaults to the chapter list")
     parser.add_argument("--artifacts", choices=("report", "paired"), default="paired")
+    parser.add_argument("--figure-density", choices=("rich-v1", "none"), default="rich-v1")
+    parser.add_argument("--no-source-completeness", action="store_true", help="Omit the source visual/math completeness gate")
     parser.add_argument("--source-material", default="", help="Registry-relative source outline path; required before publication")
     parser.add_argument("--date", required=True, help="Presentation date in YYYY-MM-DD")
     parser.add_argument(
@@ -222,6 +224,10 @@ def main() -> int:
             metadata_template.name,
         )
 
+        if args.figure_density != "none":
+            metadata += '\nfigure_density = "rich-v1"\n'
+        if not args.no_source_completeness:
+            metadata += '\nsource_completeness = "visual-math-v1"\nsource_inventory = "source-inventory.json"\n'
         target = args.site.resolve() / "studies" / slug / "presentations" / args.session
         if target.exists():
             raise ValueError(f"presentation directory already exists: {target}")
@@ -233,6 +239,8 @@ def main() -> int:
             report_html = report_html.replace('<a href="./">발표자료</a>', '')
         (target / "report.html").write_text(report_html, encoding="utf-8")
         (target / "presentation.toml").write_text(metadata, encoding="utf-8")
+        if not args.no_source_completeness:
+            (target / "source-inventory.json").write_text(json.dumps({"version": 1, "scope": [], "sources": []}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         if args.artifacts == "paired":
             shutil.copytree(assets_template, target / "assets")
         shutil.copytree(report_assets_template, target / "assets", dirs_exist_ok=True)
