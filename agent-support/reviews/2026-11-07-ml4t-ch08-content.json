@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "verdict": "reviewed",
+  "report_sha256": "5c13fa53915bc90a620226831894208885ccd1f3e01e3208a0bf7da57ce78d57",
+  "sources": [
+    {
+      "role": "original",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_08_financial_feature_engineering/08_chapter_08_financial_feature_engineering.md",
+      "sha256": "57f24b88154239ae7e917ed35f2756e76dd0223d21ee5dbb06e38d7f589b6518",
+      "revision": "4370d10055aa7f3740bcc9e57e75ec6ed14af448"
+    },
+    {
+      "role": "outline",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_08_financial_feature_engineering/08_chapter_08_financial_feature_engineering_ko_explained.md",
+      "sha256": "88dc70fffc6652a01a91937515d460cb4f7391a3e691f5583f54b6b68b65eb6c",
+      "revision": "4370d10055aa7f3740bcc9e57e75ec6ed14af448"
+    }
+  ],
+  "introduction": {
+    "report_id": "summary",
+    "explanation": "독립 검토자가 특성과 레이블의 차이·관측 시점·세 특성 계열의 도입을 전체 읽고 막힌 문장을 수정한 뒤 닫았다."
+  },
+  "sections": [
+    {
+      "ref": "8.1",
+      "report_id": "s81",
+      "explanation": "조건부 분포에서 출발해 기간·동인·역할의 세 필터와 패턴의 증거 기준, 순위IC, 기준프레임·표현·집계, 특성명세·평가 연결을 각각 설명한다. 정의식과 기호 풀이·작은 계산 예를 포함한다.",
+      "evidence": "원문·해설판 도입–8.1 전수 대조. 그림8.1의 입력/필터1–3/출력·7장연결·공통선택 라벨/연결 모두 재작도. 표8.1 세 특성의9필드 보존. Primer 열 순위좌표 판독·제곱합110으로IC1/3 재계산, 세종목IC0.5와IR0.5 예를 독립 검산했다.",
+      "limits": "조건부 분포와 IC 정의식은 설명용 보충이며 원서 번호를 붙이지 않았다. 그림의 룩백 부등식을 절대 규칙으로 읽지 않으며, 8.6의126일/20일 예와 연결한다.",
+      "visuals": "도입2·8.1 11개SVG. 그림8.1 세로배치와 본문 방향 일치, 긴/짧은 집계선은같은원자료의3/7관측평균, 상태별평가 도해는 신호·상태의 관계를 설명한다. PC/390 bbox·KaTeX, A4 PDF20쪽 및 대표도해 실이미지 독립검수."
+    },
+    {
+      "ref": "8.2",
+      "report_id": "s82",
+      "explanation": "공통기간·분포제약과계열별역할을설명하고, 추세/모멘텀·앵커반전·변동성/꼬리위험·거래량/미시구조/주문흐름을기호·수식·작은예·실행근거와연결한다. 축소·윈저화·GARCH·VaR/CVaR도처음나온자리에서푼다.",
+      "evidence": "그림8.2의13계열·역할·기간·사례, 표8.2/8.3, 그림8.3의SPY2766봉·네추정량·효율범례와종가축을보존. Primer다섯도식전수. OFI인쇄값+.053/−.011과저장값+.5220/+.2133을나란히해석.",
+      "limits": "원본효율값의성격은미확정임을밝힘. 21일/252연율화 재계산과다른표본의저장출력을구분. Kyle기본구현은정규화거래량비율이며OLS로바꾸어주장하지않고Amihud척도·표본수차이를밝힘. 작은분산예는차트실측값이아님.",
+      "visuals": "16SVG·4표·20수식. 원본그림8.2/8.3·다섯Primer도식과각계열설명용도해를각소절에배치. 원본OHLC입력해시및재계산독립검산차이1e-10미만을기록."
+    },
+    {
+      "ref": "8.3",
+      "report_id": "s83",
+      "explanation": "캐리·펀딩·기간구조, 무기한 선물의 지급구조, 교차자산 상대가치·잔차모멘텀·선후행, 누출을 막는 범주 인코딩, 옵션표면과호가시점을 각각 예·수식·기호로 설명한다.",
+      "evidence": "s83-figure-8-4: 원본29상품·8섹터·축·0선·부호·정렬보존. s83-primer-carry·s83-primer-encoding·s83-primer-pit: 원본Primer관계/수치 재작도. s83-notebook-carry·s83-notebook-options: 공식저장시리즈 전체기간/모든점.",
+      "limits": "원본판독값의근사단위를캡션에밝힘. 저장노트북25-delta RR 명칭이머니니스구간대용치이며VRP의RV는후행20일임을구분. 만기/가용시각·보간정책을맞추고미래손익·비용차감성과로승격하지않음.",
+      "visuals": "15개SVG. 캐리/기간구조, 펀딩분해, 상대가치·선후행, 안전한범주인코딩, 옵션표면/ATM·OTM/PIT와저장시리즈를각소절에배치."
+    },
+    {
+      "ref": "8.4",
+      "report_id": "s84",
+      "explanation": "느린펀더멘털의갱신과명목표본, 시점별빈티지·as-of조인, 달력·사건전후·순환인코딩·감쇠, 수익률곡선기울기/곡률·정책금리·스트레스·나우캐스트·서프라이즈를설명한다.",
+      "evidence": "s84-primer-vintages: 날짜·510/498·가용구간보존. s84-notebook-roe·s84-notebook-month-circle·s84-notebook-events·s84-notebook-yield-curve: 전체저장값재작도. 숫자예와5개수식기호풀이. R1에서곡률과정책금리의뜻·시점설명을추가해독립재판정닫힘.",
+      "limits": "가상시총·실적일정·보고지연은구성예로표시. 사건거리는달력일, 월원형은가로cos/세로sin. 실제시점감사·매매성과로해석하지않으며수정이력은ALFRED빈티지로구분.",
+      "visuals": "10개SVG. 느린자료·반복관측·장부대시가, 빈티지·ROE, 사건단계·월원형·사건거리, 거시상태·금리차를각설명단위에배치."
+    },
+    {
+      "ref": "8.5",
+      "report_id": "s85",
+      "explanation": "학습표현의 적합·버전·학습창, 포지셔닝·온체인 분류, 폭과IC, 직접집계 네한계를 문장과예로 설명.",
+      "evidence": "s85-eq-breadth; s85-fig-breadth; s85-hidden",
+      "limits": "N은 종목수의 도식적폭이며 유효독립기회·비용·제약을 대체하지 않음.",
+      "visuals": "s85-fig-learned; s85-fig-positioning; s85-fig-breadth; s85-fig-hidden"
+    },
+    {
+      "ref": "8.6",
+      "report_id": "s86",
+      "explanation": "신호와상태의 세결합, 구조·폴드·실시간진단, 비율, ETF국면, 인과구조, 사건연구, 중복제거와학습변환을 원문순서로 설명.",
+      "evidence": "s86-table-84; s86-table-85; s86-table-86; s86-fig-event-caar; s86-fig-selection",
+      "limits": "교재인쇄값·저장출력차이와서로다른기간·표본·검정을구분. 실제매매전략 성과·인과로승격하지 않음.",
+      "visuals": "s86-fig-templates; s86-fig-diagnostics; s86-fig-ratios; s86-fig-regime-process; s86-fig-regime-result; s86-fig-causal; s86-fig-simpson; s86-fig-event-time; s86-fig-event-caar; s86-fig-dedup; s86-fig-selection; s86-fig-fitted"
+    },
+    {
+      "ref": "8.7",
+      "report_id": "s87",
+      "explanation": "가설클래스와설계선택, 결합·탐색통제, 후보명세와다음장시점규율, 해설판확인질문·용어표를 설명.",
+      "evidence": "s87-checks; s87-table-glossary; s87-eq-distance",
+      "limits": "구현선택의의미는경제적주장에따라판정하며 명세완성과검증완료를구분.",
+      "visuals": "s87-fig-hypothesis; s87-fig-deliverable; s87-fig-checks"
+    }
+  ],
+  "experiments": [
+    {
+      "status": "executed",
+      "scope": "Primer 열 종목의 순위좌표로 순위IC 재계산",
+      "source": "source-inventory.json의Primer산점도 이미지 대응; 원본판독값 A–J의 순위차 제곱합110, IC=1−6×110/(10×99)=1/3",
+      "report_ids": [
+        "eq-rank-ic",
+        "ic-example",
+        "fig-rank-ic"
+      ],
+      "interpretation": "공식Primer의설명예 검산이며새시장실험이나비용차감성과가아니다."
+    },
+    {
+      "status": "stored-output",
+      "scope": "아홉사례 종목수/최고IC/도식적IR",
+      "source": "case_study_feature_summary.ipynb cells7,15,16",
+      "report_ids": [
+        "s85-fig-breadth",
+        "s85-breadth-example"
+      ],
+      "interpretation": "IR산술만재계산; 모델·자료갱신없음."
+    },
+    {
+      "status": "stored-output",
+      "scope": "국면별IC와매개변수탐색",
+      "source": "06_robustness_sensitivity.ipynb cells12,16,20,25,29,37",
+      "report_ids": [
+        "s86-regime",
+        "s86-table-86"
+      ],
+      "interpretation": "교재와저장HAC수치차이·횡단면과시계열대상차이를보존."
+    },
+    {
+      "status": "stored-output",
+      "scope": "ETF돌파사건연구",
+      "source": "07_event_studies.ipynb cells19,21,26,29,37",
+      "report_ids": [
+        "s86-events",
+        "s86-fig-event-caar",
+        "s86-eq-short"
+      ],
+      "interpretation": "교재창[-3,+10]과저장창[-5,+10],단순검정과Boehmer,롱·숏구분."
+    },
+    {
+      "status": "stored-output",
+      "scope": "중복제거와선택",
+      "source": "05_feature_selection.ipynb cells10,16,21,23,25,26,29,32,37",
+      "report_ids": [
+        "s86-search",
+        "s86-fig-selection"
+      ],
+      "interpretation": "인쇄10개와저장8개구분,상관필터와FDR목적구분."
+    },
+    {
+      "status": "executed",
+      "scope": "8.2 SPY volatility curves and Primer clustering arithmetic verification",
+      "source": "0b1a006 lanes/a2/recompute/recalculation-verification.json; ETF OHLC SHA5f8fbf52f39cc2fb8245b425964abb80e1081764cd65801db23ba7031b8b406a",
+      "report_ids": [
+        "s82-fig-vol-estimators",
+        "s82-fig-primer-vol-clustering"
+      ],
+      "interpretation": "SPY2015-01-02–2025-12-31 2766봉·21일/252연율화네추정량과2018–2024군집도식1761행을독립산술검산. 노트북·모델재실행0;저장곡선과차이1e-10미만."
+    },
+    {
+      "status": "stored-output",
+      "scope": "8.2 order flow and liquidity proxies",
+      "source": "02_microstructure_features.ipynb; 0b1a006 lanes/a2/recompute/microstructure-stored-evidence.json",
+      "report_ids": [
+        "s82-fig-ofi-correlation",
+        "s82-table-ofi-snapshots",
+        "s82-kyle-implementation",
+        "s82-table-liquidity-stored"
+      ],
+      "interpretation": "교재+.053/−.011과저장+.5220/+.2133의다른표본을구분. Kyle정규화거래량비율·Amihud스케일과표본수를명시하며투자성과로승격하지않음."
+    },
+    {
+      "status": "stored-output",
+      "scope": "8.3 structural notebook outputs",
+      "source": "03_structural_cross_instrument_features.ipynb cells12,38,40,42,47",
+      "report_ids": [
+        "s83-notebook-carry",
+        "s83-etf-output",
+        "s83-options-output",
+        "s83-notebook-options"
+      ],
+      "interpretation": "노트북저장출력의전체시리즈와기록수치를해석. 노트북재실행0, 교재그림8.4를기간시계열로대체하지않음."
+    },
+    {
+      "status": "stored-output",
+      "scope": "8.4 fundamentals and macro/calendar outputs",
+      "source": "04_fundamentals_macro_calendar.ipynb cells15,31,39,46",
+      "report_ids": [
+        "s84-notebook-roe",
+        "s84-notebook-month-circle",
+        "s84-notebook-events",
+        "s84-notebook-yield-curve"
+      ],
+      "interpretation": "가상입력·일수단위·as-of갱신·달력축을구분한저장출력해석; 매매성과주장없음."
+    }
+  ],
+  "review_basis": [
+    {
+      "kind": "independent-reader-and-Korean",
+      "source_sha256": "fe4fd48f42ee371058da3c0316cef95a11c9be59ce83d2fc94a3c83dd7dc7c46",
+      "result": "도입·8.1의읽기/한국어지적과근호누락 수정뒤0건"
+    },
+    {
+      "kind": "independent-content-and-render",
+      "source_sha256": "b381596e4ca2f472f8c80fbf23b58c936cb7b681f003c968e1074dd590ced3ee",
+      "result": "v7 본문·A4 PDF AGREED, PDF SHA c2eef4206ea8357698040b4b14bccc8c5c558ff67404ba5a912516c87ffca9e1"
+    },
+    {
+      "kind": "independent-section-reader-Korean-render",
+      "section": "8.2",
+      "commit": "0b1a006",
+      "review_sha256": "5e759887dcebdd8218f9acc128fc5b6cc6ea9fff6e2ea96586ff79251594788d",
+      "fragment_sha256": "eff12292b38913aa59f1e3ea6b0f5198ffb08c680d589db927521afe64939272",
+      "result": "AGREED; approved fragment transformed only for asset paths and global captions"
+    },
+    {
+      "kind": "independent-section-reader-Korean-render",
+      "section": "8.3",
+      "commit": "af6411e014e8dec243d444dc0c69c6fc5bd92089",
+      "review_sha256": "5c4182f81450ef628cfd79fc70f85681a6fa7fd3cfa3b1e884d77615dd1ba4eb",
+      "fragment_sha256": "f4e28dc0ae5615504ef15e02a22fb764921d1ab1bd91fd18b54cab715ba6bdaa",
+      "result": "AGREED; approved fragment transformed only for asset paths and global captions"
+    },
+    {
+      "kind": "independent-section-reader-Korean-render",
+      "section": "8.4",
+      "commit": "4059334075e7bca20c26c475ed04f48e4fdb594b",
+      "review_sha256": "0e19e8cb675cbce778343a9ddef91a3ddd8b35ff3e7c98507b42806c8a4e164d",
+      "fragment_sha256": "fbca7bb62d3a675bb082968769ac2933282823a1185eace7eae6ffbccfba9d9d",
+      "result": "AGREED; approved fragment transformed only for asset paths and global captions"
+    },
+    {
+      "kind": "independent-section-reader-Korean-render",
+      "section": "8.5",
+      "commit": "2fa8e10",
+      "review_sha256": "fe584bb25da159459d3d74e52203f551ff99545ecda5b7d5ee78db89b78eeeae",
+      "fragment_sha256": "cf040775c56226ca3518e73b1dfaab3a59f4b931da7ba3a4d3342fb2221db11d",
+      "result": "AGREED; approved fragment transformed only for asset paths and global captions"
+    },
+    {
+      "kind": "independent-section-reader-Korean-render",
+      "section": "8.6",
+      "commit": "2fa8e10",
+      "review_sha256": "41e4a2f44ab68aec1adc7fcd5333b854773649138031892ccb6c4c5137032b5b",
+      "fragment_sha256": "8ec2059f01015c0e3345cc2b9860e116fa6842a4f6123152f082b476a401591f",
+      "result": "AGREED; approved fragment transformed only for asset paths and global captions"
+    },
+    {
+      "kind": "independent-section-reader-Korean-render",
+      "section": "8.7",
+      "commit": "2fa8e10",
+      "review_sha256": "873ee01456d9e684a371d618fbc4be60d97f4613ed6db73f614b76add374162d",
+      "fragment_sha256": "082392f7458f28f681014bad19e51ee7044380863cef365fe0d6d2edd698fda7",
+      "result": "AGREED; approved fragment transformed only for asset paths and global captions"
+    }
+  ],
+  "integration_c3": {
+    "status": "pending",
+    "assembly_manifest_sha256": "6aecaec5120af8fe28bc792a89913b22a713c0a1201ccae3913d9329455cb36a",
+    "transformations": "asset paths and global figure/table numbering only; partial scope removed"
+  }
+}

@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="396pt" viewBox="0 0 864 396" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-01T13:27:18.807938</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 396
+L 864 396
+L 864 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 65.81 354.084334
+L 851.04 354.084334
+L 851.04 13.705352
+L 65.81 13.705352
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 101.502273 258.202931
+L 121.331313 258.202931
+L 121.331313 339.702124
+L 101.502273 339.702124
+z
+" clip-path="url(#p22bce22b62)" style="fill: #808080; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 126.288573 258.202931
+L 146.117614 258.202931
+L 146.117614 290.562905
+L 126.288573 290.562905
+z
+" clip-path="url(#p22bce22b62)" style="fill: #8c8c8c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 151.074874 258.202931
+L 170.903914 258.202931
+L 170.903914 284.570317
+L 151.074874 284.570317
+z
+" clip-path="url(#p22bce22b62)" style="fill: #8c8c8c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 175.861174 258.202931
+L 195.690215 258.202931
+L 195.690215 272.585141
+L 175.861174 272.585141
+z
+" clip-path="url(#p22bce22b62)" style="fill: #b2b2b2; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 200.647475 258.202931
+L 220.476515 258.202931
+L 220.476515 271.985883
+L 200.647475 271.985883
+z
+" clip-path="url(#p22bce22b62)" style="fill: #666666; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 225.433775 258.202931
+L 245.262816 258.202931
+L 245.262816 271.386624
+L 225.433775 271.386624
+z
+" clip-path="url(#p22bce22b62)" style="fill: #e6e6e6; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 250.220076 258.202931
+L 270.049116 258.202931
+L 270.049116 270.188106
+L 250.220076 270.188106
+z
+" clip-path="url(#p22bce22b62)" style="fill: #4c4c4c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 275.006376 258.202931
+L 294.835417 258.202931
+L 294.835417 270.188106
+L 275.006376 270.188106
+z
+" clip-path="url(#p22bce22b62)" style="fill: #e6e6e6; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 299.792677 258.202931
+L 319.621717 258.202931
+L 319.621717 268.989589
+L 299.792677 268.989589
+z
+" clip-path="url(#p22bce22b62)" style="fill: #b2b2b2; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 324.578977 258.202931
+L 344.408018 258.202931
+L 344.408018 268.989589
+L 324.578977 268.989589
+z
+" clip-path="url(#p22bce22b62)" style="fill: #4c4c4c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 349.365278 258.202931
+L 369.194318 258.202931
+L 369.194318 267.791071
+L 349.365278 267.791071
+z
+" clip-path="url(#p22bce22b62)" style="fill: #b2b2b2; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 374.151578 258.202931
+L 393.980619 258.202931
+L 393.980619 267.191813
+L 374.151578 267.191813
+z
+" clip-path="url(#p22bce22b62)" style="fill: #b2b2b2; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 398.937879 258.202931
+L 418.766919 258.202931
+L 418.766919 262.397742
+L 398.937879 262.397742
+z
+" clip-path="url(#p22bce22b62)" style="fill: #8c8c8c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 423.724179 258.202931
+L 443.55322 258.202931
+L 443.55322 259.401449
+L 423.724179 259.401449
+z
+" clip-path="url(#p22bce22b62)" style="fill: #cccccc; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 448.51048 258.202931
+L 468.33952 258.202931
+L 468.33952 258.922041
+L 448.51048 258.922041
+z
+" clip-path="url(#p22bce22b62)" style="fill: #e6e6e6; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 473.29678 258.202931
+L 493.125821 258.202931
+L 493.125821 258.562486
+L 473.29678 258.562486
+z
+" clip-path="url(#p22bce22b62)" style="fill: #cccccc; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 498.083081 258.202931
+L 517.912121 258.202931
+L 517.912121 257.843376
+L 498.083081 257.843376
+z
+" clip-path="url(#p22bce22b62)" style="fill: #cccccc; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 522.869381 258.202931
+L 542.698422 258.202931
+L 542.698422 254.607378
+L 522.869381 254.607378
+z
+" clip-path="url(#p22bce22b62)" style="fill: #e6e6e6; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 547.655682 258.202931
+L 567.484722 258.202931
+L 567.484722 254.607378
+L 547.655682 254.607378
+z
+" clip-path="url(#p22bce22b62)" style="fill: #e6e6e6; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 572.441982 258.202931
+L 592.271023 258.202931
+L 592.271023 253.408861
+L 572.441982 253.408861
+z
+" clip-path="url(#p22bce22b62)" style="fill: #262626; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 597.228283 258.202931
+L 617.057323 258.202931
+L 617.057323 252.809602
+L 597.228283 252.809602
+z
+" clip-path="url(#p22bce22b62)" style="fill: #cccccc; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 622.014583 258.202931
+L 641.843624 258.202931
+L 641.843624 252.210343
+L 622.014583 252.210343
+z
+" clip-path="url(#p22bce22b62)" style="fill: #808080; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 646.800884 258.202931
+L 666.629924 258.202931
+L 666.629924 248.614791
+L 646.800884 248.614791
+z
+" clip-path="url(#p22bce22b62)" style="fill: #262626; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 671.587184 258.202931
+L 691.416225 258.202931
+L 691.416225 243.82072
+L 671.587184 243.82072
+z
+" clip-path="url(#p22bce22b62)" style="fill: #8c8c8c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 696.373485 258.202931
+L 716.202525 258.202931
+L 716.202525 243.82072
+L 696.373485 243.82072
+z
+" clip-path="url(#p22bce22b62)" style="fill: #262626; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 721.159785 258.202931
+L 740.988826 258.202931
+L 740.988826 239.02665
+L 721.159785 239.02665
+z
+" clip-path="url(#p22bce22b62)" style="fill: #666666; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 745.946086 258.202931
+L 765.775126 258.202931
+L 765.775126 235.431098
+L 745.946086 235.431098
+z
+" clip-path="url(#p22bce22b62)" style="fill: #8c8c8c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 770.732386 258.202931
+L 790.561427 258.202931
+L 790.561427 229.43851
+L 770.732386 229.43851
+z
+" clip-path="url(#p22bce22b62)" style="fill: #8c8c8c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_31">
+    <path d="M 795.518687 258.202931
+L 815.347727 258.202931
+L 815.347727 30.484598
+L 795.518687 30.484598
+z
+" clip-path="url(#p22bce22b62)" style="fill: #262626; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m214a7e7489" d="M 0 0
+L 0 3.5
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m214a7e7489" x="111.416793" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(108.180951 377.758796) rotate(-45)">HE</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m214a7e7489" x="136.203093" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(131.840024 380.013252) rotate(-45)">ZW</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m214a7e7489" x="160.989394" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(157.755982 377.753935) rotate(-45)">ZC</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m214a7e7489" x="185.775694" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(181.95102 378.93646) rotate(-45)">NQ</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m214a7e7489" x="210.561995" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(206.770135 378.870832) rotate(-45)">HG</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m214a7e7489" x="235.348295" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(232.551191 376.881321) rotate(-45)">6S</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m214a7e7489" x="260.134596" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(258.664642 374.227019) rotate(-45)">SI</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m214a7e7489" x="284.920896" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(283.445474 374.237957) rotate(-45)">6J</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m214a7e7489" x="309.707197" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(306.927107 376.847291) rotate(-45)">ES</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m214a7e7489" x="334.493497" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(330.910676 378.452755) rotate(-45)">GC</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m214a7e7489" x="359.279798" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(354.254976 381.336757) rotate(-45)">RTY</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m214a7e7489" x="384.066098" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(380.481454 378.456401) rotate(-45)">YM</text>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m214a7e7489" x="408.852399" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(406.374321 376.243268) rotate(-45)">LE</text>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m214a7e7489" x="433.638699" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(430.884132 376.796247) rotate(-45)">ZF</text>
+     </g>
+    </g>
+    <g id="xtick_15">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m214a7e7489" x="458.425" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(455.42858 377.279952) rotate(-45)">6B</text>
+     </g>
+    </g>
+    <g id="xtick_16">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m214a7e7489" x="483.211301" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(480.318184 377.073345) rotate(-45)">ZT</text>
+     </g>
+    </g>
+    <g id="xtick_17">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#m214a7e7489" x="507.997601" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(504.570343 378.141628) rotate(-45)">ZN</text>
+     </g>
+    </g>
+    <g id="xtick_18">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m214a7e7489" x="532.783902" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(529.998343 376.858229) rotate(-45)">6E</text>
+     </g>
+    </g>
+    <g id="xtick_19">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m214a7e7489" x="557.570202" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(554.526384 377.374749) rotate(-45)">6C</text>
+     </g>
+    </g>
+    <g id="xtick_20">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m214a7e7489" x="582.356503" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(579.620165 376.759787) rotate(-45)">CL</text>
+     </g>
+    </g>
+    <g id="xtick_21">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m214a7e7489" x="607.142803" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(603.95679 377.659138) rotate(-45)">ZB</text>
+     </g>
+    </g>
+    <g id="xtick_22">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m214a7e7489" x="631.929104" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(628.825126 377.495067) rotate(-45)">GF</text>
+     </g>
+    </g>
+    <g id="xtick_23">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m214a7e7489" x="656.715404" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(653.491108 377.735705) rotate(-45)">RB</text>
+     </g>
+    </g>
+    <g id="xtick_24">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m214a7e7489" x="681.501705" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(678.817019 376.656483) rotate(-45)">ZL</text>
+     </g>
+    </g>
+    <g id="xtick_25">
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#m214a7e7489" x="706.288005" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(702.448139 378.966844) rotate(-45)">HO</text>
+     </g>
+    </g>
+    <g id="xtick_26">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m214a7e7489" x="731.074306" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(728.463148 376.509427) rotate(-45)">PA</text>
+     </g>
+    </g>
+    <g id="xtick_27">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#m214a7e7489" x="755.860606" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(752.873909 377.260507) rotate(-45)">ZS</text>
+     </g>
+    </g>
+    <g id="xtick_28">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m214a7e7489" x="780.646907" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(776.773619 379.033688) rotate(-45)">ZM</text>
+     </g>
+    </g>
+    <g id="xtick_29">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#m214a7e7489" x="805.433207" y="354.084334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_29">
+      <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif;" transform="translate(801.656539 378.840449) rotate(-45)">NG</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_30">
+      <defs>
+       <path id="m99ce0167d6" d="M 0 0
+L -3.5 0
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m99ce0167d6" x="65.81" y="318.128808" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_30">
+      <text style="font-size: 12px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: end" x="58.81" y="322.687871" transform="rotate(-0 58.81 322.687871)">−0.5</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m99ce0167d6" x="65.81" y="258.202931" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_31">
+      <text style="font-size: 12px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: end" x="58.81" y="262.761993" transform="rotate(-0 58.81 262.761993)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m99ce0167d6" x="65.81" y="198.277054" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_32">
+      <text style="font-size: 12px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: end" x="58.81" y="202.836116" transform="rotate(-0 58.81 202.836116)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#m99ce0167d6" x="65.81" y="138.351177" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_33">
+      <text style="font-size: 12px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: end" x="58.81" y="142.910239" transform="rotate(-0 58.81 142.910239)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m99ce0167d6" x="65.81" y="78.425299" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_34">
+      <text style="font-size: 12px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: end" x="58.81" y="82.984362" transform="rotate(-0 58.81 82.984362)">1.5</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#m99ce0167d6" x="65.81" y="18.499422" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_35">
+      <text style="font-size: 12px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: end" x="58.81" y="23.058485" transform="rotate(-0 58.81 23.058485)">2.0</text>
+     </g>
+    </g>
+    <g id="text_36">
+     <text style="font-size: 12px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: middle" x="23.175" y="183.894843" transform="rotate(-90 23.175 183.894843)">Annualized Roll Yield</text>
+    </g>
+   </g>
+   <g id="line2d_36">
+    <path d="M 65.81 258.202931
+L 851.04 258.202931
+" clip-path="url(#p22bce22b62)" style="fill: none; stroke: #808080; stroke-linecap: square"/>
+   </g>
+   <g id="patch_32">
+    <path d="M 65.81 354.084334
+L 65.81 13.705352
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_33">
+    <path d="M 65.81 354.084334
+L 851.04 354.084334
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; fill: #696969" transform="translate(258.360193 298.036521)">Contango</text>
+    <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; fill: #696969" transform="translate(248.38285 314.533256)">(holder pays)</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; fill: #696969" transform="translate(615.932045 82.303363)">Backwardation</text>
+    <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; fill: #696969" transform="translate(617.889701 98.800098)">(holder earns)</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_34">
+     <path d="M 75.71 31.963633
+L 97.71 31.963633
+L 97.71 24.263633
+L 75.71 24.263633
+z
+" style="fill: #8c8c8c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_39">
+     <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: start" x="106.51" y="31.963633" transform="rotate(-0 106.51 31.963633)">Agriculture</text>
+    </g>
+    <g id="patch_35">
+     <path d="M 75.71 48.109571
+L 97.71 48.109571
+L 97.71 40.409571
+L 75.71 40.409571
+z
+" style="fill: #262626; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_40">
+     <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: start" x="106.51" y="48.109571" transform="rotate(-0 106.51 48.109571)">Energy</text>
+    </g>
+    <g id="patch_36">
+     <path d="M 188.997969 31.963633
+L 210.997969 31.963633
+L 210.997969 24.263633
+L 188.997969 24.263633
+z
+" style="fill: #e6e6e6; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_41">
+     <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: start" x="219.797969" y="31.963633" transform="rotate(-0 219.797969 31.963633)">FX</text>
+    </g>
+    <g id="patch_37">
+     <path d="M 188.997969 48.109571
+L 210.997969 48.109571
+L 210.997969 40.409571
+L 188.997969 40.409571
+z
+" style="fill: #b2b2b2; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_42">
+     <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: start" x="219.797969" y="48.109571" transform="rotate(-0 219.797969 48.109571)">Financials</text>
+    </g>
+    <g id="patch_38">
+     <path d="M 295.697969 31.963633
+L 317.697969 31.963633
+L 317.697969 24.263633
+L 295.697969 24.263633
+z
+" style="fill: #4c4c4c; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_43">
+     <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: start" x="326.497969" y="31.963633" transform="rotate(-0 326.497969 31.963633)">Gold/Silver</text>
+    </g>
+    <g id="patch_39">
+     <path d="M 295.697969 48.109571
+L 317.697969 48.109571
+L 317.697969 40.409571
+L 295.697969 40.409571
+z
+" style="fill: #666666; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_44">
+     <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: start" x="326.497969" y="48.109571" transform="rotate(-0 326.497969 48.109571)">Metals</text>
+    </g>
+    <g id="patch_40">
+     <path d="M 408.392969 31.963633
+L 430.392969 31.963633
+L 430.392969 24.263633
+L 408.392969 24.263633
+z
+" style="fill: #808080; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_45">
+     <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: start" x="439.192969" y="31.963633" transform="rotate(-0 439.192969 31.963633)">Other</text>
+    </g>
+    <g id="patch_41">
+     <path d="M 408.392969 48.109571
+L 430.392969 48.109571
+L 430.392969 40.409571
+L 408.392969 40.409571
+z
+" style="fill: #cccccc; stroke: #000000; stroke-width: 0.4; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_46">
+     <text style="font-size: 11px; font-family: 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', NanumGothic, Inter, system-ui, sans-serif; text-anchor: start" x="439.192969" y="48.109571" transform="rotate(-0 439.192969 48.109571)">Rates</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p22bce22b62">
+   <rect x="65.81" y="13.705352" width="785.23" height="340.378982"/>
+  </clipPath>
+ </defs>
+</svg>

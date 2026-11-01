@@ -567,7 +567,10 @@ date = "2026-11-07"
 title = "Chapter 8. 금융 특성 공학"
 presenters = ["태영"]
 chapters = ["Chapter 8"]
-status = "scheduled"
+status = "materials-published"
+artifacts = [
+  { kind = "report", label = "상세 리포트", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-07-ch08/report.html" },
+]
 
 reference_videos = [
   { title = "Ch.8 금융 특성 공학 · 한국어 참고 해설", youtube_video_id = "lUmnIuD9wjk", status = "public", description = "원서 8장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },

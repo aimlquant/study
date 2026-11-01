@@ -1,0 +1,1234 @@
+{
+  "version": 1,
+  "scope": [
+    "8.1",
+    "8.2",
+    "8.3",
+    "8.4",
+    "8.5",
+    "8.6",
+    "8.7"
+  ],
+  "include_intro": true,
+  "offset_basis": "slice",
+  "sources": [
+    {
+      "id": "original",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_08_financial_feature_engineering/08_chapter_08_financial_feature_engineering.md",
+      "sha256": "57f24b88154239ae7e917ed35f2756e76dd0223d21ee5dbb06e38d7f589b6518",
+      "lines": [
+        1,
+        661
+      ],
+      "math": [
+        {
+          "offset": 19716,
+          "tex": "$$\n\\begin{array}{r} { \\widehat { \\sigma }_{P} ^ { 2 } = \\frac { 1 } { 4 l n 2 } ( l n H_{t} - l n L_{t} ) ^ { 2 } . } \\end{array}\n$$",
+          "report_id": "s82-eq-parkinson",
+          "purpose_id": "s82-park-purpose",
+          "symbols_id": "s82-park-symbols",
+          "example_id": "s82-park-example"
+        },
+        {
+          "offset": 19907,
+          "tex": "$$\n\\hat { \\sigma }_{G K} ^ { 2 } = 0 . 5 ( l n H_{t} - l n L_{t} ) ^ { 2 } - ( 2 l n 2 - 1 ) ( l n C_{t} - l n O_{t} ) ^ { 2 } .\n$$",
+          "report_id": "s82-eq-gk",
+          "purpose_id": "s82-gk-purpose",
+          "symbols_id": "s82-gk-symbols",
+          "example_id": "s82-gk-example"
+        },
+        {
+          "offset": 20426,
+          "tex": "$$\n\\hat { \\sigma }_{P} ( n ) = \\sqrt { \\frac { 1 } { n } \\sum_{i = 0} ^ { n - 1 } \\hat { \\sigma }_{P , t - i} ^ { 2 } }\n$$",
+          "report_id": "s82-eq-parkinson-window",
+          "purpose_id": "s82-window-purpose",
+          "symbols_id": "s82-window-symbols",
+          "example_id": "s82-rolling-example"
+        },
+        {
+          "offset": 52607,
+          "tex": "$( I C \\times { \\sqrt { N } } )$",
+          "report_id": "s85-eq-breadth",
+          "purpose_id": "s85-breadth-purpose",
+          "symbols_id": "s85-breadth-symbols",
+          "example_id": "s85-breadth-example"
+        },
+        {
+          "offset": 61537,
+          "tex": "$$\nA R_{i , \\tau} = R_{i , \\tau} - \\widehat { E } \\big ( R_{i , \\tau} \\mid X_{\\tau} \\big )\n$$",
+          "report_id": "s86-eq-ar",
+          "purpose_id": "s86-ar-purpose",
+          "symbols_id": "s86-ar-symbols",
+          "example_id": "s86-ar-example"
+        },
+        {
+          "offset": 61638,
+          "tex": "$R_{i , \\tau}$",
+          "report_id": "s86-eq-ar",
+          "purpose_id": "s86-ar-purpose",
+          "symbols_id": "s86-ar-symbols",
+          "example_id": "s86-ar-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 61702,
+          "tex": "$\\tau ,$",
+          "report_id": "s86-eq-ar",
+          "purpose_id": "s86-ar-purpose",
+          "symbols_id": "s86-ar-symbols",
+          "example_id": "s86-ar-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 61859,
+          "tex": "$[ \\tau_{1} , \\tau_{2} ]$",
+          "report_id": "s86-eq-window",
+          "purpose_id": "s86-window-purpose",
+          "symbols_id": "s86-window-symbols",
+          "example_id": "s86-window-example"
+        },
+        {
+          "offset": 61890,
+          "tex": "$$\nC A R_{i} ( \\tau_{1} , \\tau_{2} ) = \\sum_{\\tau = \\tau _ { 1} }^{\\tau _ { 2} } A R_{i , \\tau}\n$$",
+          "report_id": "s86-eq-car",
+          "purpose_id": "s86-car-purpose",
+          "symbols_id": "s86-car-symbols",
+          "example_id": "s86-car-example"
+        },
+        {
+          "offset": 62758,
+          "tex": "$( \\mathrm{t} { = } 3 . 2 8 , \\mathrm{p} { = } 0 . 0 0 1 )$",
+          "report_id": "s86-eq-event-test",
+          "purpose_id": "s86-event-test-purpose",
+          "symbols_id": "s86-event-test-symbols",
+          "example_id": "s86-event-test-example"
+        },
+        {
+          "offset": 63229,
+          "tex": "$( \\mathrm { C A A R { = } } . 2 5 \\% , \\mathrm { t = } . 1 . 3 1 )$",
+          "report_id": "s86-eq-short",
+          "purpose_id": "s86-short-purpose",
+          "symbols_id": "s86-short-symbols",
+          "example_id": "s86-short-example"
+        },
+        {
+          "offset": 64975,
+          "tex": "$\\mathsf { p } \\times \\mathsf { p }$",
+          "report_id": "s86-eq-matrix",
+          "purpose_id": "s86-matrix-purpose",
+          "symbols_id": "s86-matrix-symbols",
+          "example_id": "s86-matrix-example"
+        },
+        {
+          "offset": 65104,
+          "tex": "$1 - | \\rho | ,$",
+          "report_id": "s86-eq-distance",
+          "purpose_id": "s86-distance-purpose",
+          "symbols_id": "s86-distance-symbols",
+          "example_id": "s86-distance-example"
+        },
+        {
+          "offset": 65256,
+          "tex": "$| \\rho | \\approx 0 . 6 \\mathrm{to} 0 . 8$",
+          "report_id": "s86-eq-threshold",
+          "purpose_id": "s86-threshold-purpose",
+          "symbols_id": "s86-threshold-symbols",
+          "example_id": "s86-threshold-example"
+        }
+      ],
+      "images": [
+        {
+          "offset": 4487,
+          "path": "images/a5d601abd2f28146b95d4cbd94c016bae37014a825ae0c7a0fbd672157c31706.jpg",
+          "classification": "correspondence",
+          "report_id": "fig-three-filters"
+        },
+        {
+          "offset": 4830,
+          "path": "images/7d6aa37ba8d1bec88646c4f5513813ac35a25b765a6df7bca6b7df1db58acdff.jpg",
+          "classification": "decoration",
+          "reason": "실제 원본 이미지는 펜·메모 아이콘으로 수치·관계·정의 정보가 없다. 박스8.1의 본문 내용은 모두 설명함."
+        },
+        {
+          "offset": 10654,
+          "path": "images/d44ecc21eee2d14121e89c83348d86586155eecd10cf9386b4c411a3a44b0a94.jpg",
+          "classification": "correspondence",
+          "report_id": "s82-fig-feature-families"
+        },
+        {
+          "offset": 12069,
+          "path": "images/7f49ed528e0893105312e063ed1f300d7c555931370456a9b0c48c30a0726390.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 12329,
+          "path": "images/cd2e4252a20a18480198ee7ecf37a8ba782471bd281bef506ed21782ac7bbbdb.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 16379,
+          "path": "images/f680747a0564d0a2bb7d82a0fddb3241f90f9f3014c16c676523aa7b90a34edc.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 20594,
+          "path": "images/88a93480b349ed65bd7665679d1c2bde134d599252d2a137ff418de69a2151bc.jpg",
+          "classification": "correspondence",
+          "report_id": "s82-fig-vol-estimators"
+        },
+        {
+          "offset": 21044,
+          "path": "images/9cf20b5ae1852b58b8c26ee234828e20451f28523e61c163556ca829232eb530.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 25417,
+          "path": "images/556bfe913c605949d5e5db02b0f41696c826b570df5faa61c094e61d5ab62de2.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 27690,
+          "path": "images/9352afb51c9c66052e4616c8e6a40964ab6e61774267c6c7469ae08ad421dea7.jpg",
+          "classification": "correspondence",
+          "report_id": "s83-figure-8-4"
+        },
+        {
+          "offset": 28881,
+          "path": "images/fb28e252ec8716df3c8185e6b7b2a0f3187435fe9a893a0b2ddfc230bd67e789.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 29653,
+          "path": "images/8eb57bdd3147c869c30862f8b6c5d3656459ba8081cb131720bc07da03c9f5d9.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 31062,
+          "path": "images/c2cebd3be9ff569d3cc2a6ef61660b297aa74f2a29041137cc3de4f1effec763.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 35474,
+          "path": "images/65f373113114ad4b223989431ff0431829ba6cfd2746f26abe206bd2e48001da.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 41932,
+          "path": "images/fd6c23651bc5b0e22704ac596479e07f687e6cd9154a1c2c5f1784e511541173.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 50180,
+          "path": "images/9955d14cb42fd9fdd9f665f728da174fa705b34f1e348f92e73bd7ada858e8cc.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 59746,
+          "path": "images/a5ab7715129c380c08b509699d14e11f8fa2f0745565bcf273691f0e76ac7cc0.jpg",
+          "classification": "decoration",
+          "reason": "실제 이미지를 열어 확인한 펜과 메모 아이콘이다. 수치·도표·관계 정보가 없으며 인접 구현 설명은 본문에 보존했다."
+        },
+        {
+          "offset": 63001,
+          "path": "images/94772373ba40868f090946d4625dc44e46c5dc801e922375746ff6b108534d55.jpg",
+          "classification": "decoration",
+          "reason": "실제 이미지를 열어 확인한 펜과 메모 아이콘이다. 수치·도표·관계 정보가 없으며 인접 구현 설명은 본문에 보존했다."
+        },
+        {
+          "offset": 65906,
+          "path": "images/64d4fab47536d5d633ab373db2dbeb53d313570301cbe391b39546d041be2321.jpg",
+          "classification": "decoration",
+          "reason": "실제 이미지를 열어 확인한 펜과 메모 아이콘이다. 수치·도표·관계 정보가 없으며 인접 구현 설명은 본문에 보존했다."
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "figure",
+          "ref": "8.1",
+          "report_id": "fig-three-filters",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.1",
+          "report_id": "table-feature-spec",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.2",
+          "report_id": "s82-table-8-2",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "figure",
+          "ref": "8.2",
+          "report_id": "s82-fig-feature-families",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.3",
+          "report_id": "s82-table-8-3",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "figure",
+          "ref": "8.3",
+          "report_id": "s82-fig-vol-estimators",
+          "method": "recomputed"
+        },
+        {
+          "kind": "figure",
+          "ref": "8.4",
+          "report_id": "s83-figure-8-4",
+          "method": "source-reading"
+        },
+        {
+          "kind": "table",
+          "ref": "8.4",
+          "report_id": "s86-table-84",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.5",
+          "report_id": "s86-table-85",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.6",
+          "report_id": "s86-table-86",
+          "method": "structural-redraw"
+        }
+      ]
+    },
+    {
+      "id": "explainer",
+      "path": "materials/quant/active/machine-learning-for-trading-3e/chapter_08_financial_feature_engineering/08_chapter_08_financial_feature_engineering_ko_explained.md",
+      "sha256": "88dc70fffc6652a01a91937515d460cb4f7391a3e691f5583f54b6b68b65eb6c",
+      "lines": [
+        1,
+        793
+      ],
+      "math": [
+        {
+          "offset": 4201,
+          "tex": "$IR \\approx IC\\sqrt{B}$",
+          "report_id": "eq-ir",
+          "purpose_id": "ir-purpose",
+          "symbols_id": "ir-symbols",
+          "example_id": "ir-example"
+        },
+        {
+          "offset": 4229,
+          "tex": "$B$",
+          "report_id": "eq-ir",
+          "purpose_id": "ir-purpose",
+          "symbols_id": "ir-symbols",
+          "example_id": "ir-example",
+          "classification": "symbol",
+          "reason": "IR 근사식의 폭 기호 하나이며 ir-symbols에서 정의함"
+        },
+        {
+          "offset": 11212,
+          "tex": "$r_{t:t+k} = \\sum_{i=1}^{k} r_{t+i}$",
+          "report_id": "s82-eq-time",
+          "purpose_id": "s82-time-purpose",
+          "symbols_id": "s82-time-symbols",
+          "example_id": "s82-time-example"
+        },
+        {
+          "offset": 11346,
+          "tex": "$+10\\%$",
+          "report_id": "s82-eq-compound",
+          "purpose_id": "s82-time-purpose",
+          "symbols_id": "s82-time-symbols",
+          "example_id": "s82-time-example"
+        },
+        {
+          "offset": 11356,
+          "tex": "$-10\\%$",
+          "report_id": "s82-eq-compound",
+          "purpose_id": "s82-time-purpose",
+          "symbols_id": "s82-time-symbols",
+          "example_id": "s82-time-example"
+        },
+        {
+          "offset": 11376,
+          "tex": "$0\\%$",
+          "report_id": "s82-eq-compound",
+          "purpose_id": "s82-time-purpose",
+          "symbols_id": "s82-time-symbols",
+          "example_id": "s82-time-example"
+        },
+        {
+          "offset": 11387,
+          "tex": "$(1.10)(0.90) - 1 = -1\\%$",
+          "report_id": "s82-eq-compound",
+          "purpose_id": "s82-time-purpose",
+          "symbols_id": "s82-time-symbols",
+          "example_id": "s82-time-example"
+        },
+        {
+          "offset": 11423,
+          "tex": "$\\ln(1.10) + \\ln(0.90) = \\ln(0.99)$",
+          "report_id": "s82-eq-compound",
+          "purpose_id": "s82-time-purpose",
+          "symbols_id": "s82-time-symbols",
+          "example_id": "s82-time-example"
+        },
+        {
+          "offset": 11533,
+          "tex": "$e^{0.0576} - 1 \\approx 5.92\\%$",
+          "report_id": "s82-eq-cross-log",
+          "purpose_id": "s82-cross-purpose",
+          "symbols_id": "s82-cross-symbols",
+          "example_id": "s82-cross-example"
+        },
+        {
+          "offset": 13064,
+          "tex": "$k$",
+          "classification": "symbol",
+          "reason": "기간 수 k는 시간 집계식과 설명에 정의"
+        },
+        {
+          "offset": 13398,
+          "tex": "$p_t = v_t + \\tfrac{c_t}{2}s_t + \\eta_t$",
+          "report_id": "s82-eq-bounce",
+          "purpose_id": "s82-bounce-purpose",
+          "symbols_id": "s82-bounce-symbols",
+          "example_id": "s82-bounce-example"
+        },
+        {
+          "offset": 13454,
+          "tex": "$v_t$",
+          "classification": "symbol",
+          "reason": "효율 가격 v_t는 호가 반동 식 뒤 정의"
+        },
+        {
+          "offset": 13466,
+          "tex": "$c_t$",
+          "classification": "symbol",
+          "reason": "스프레드 c_t는 호가 반동 식 뒤 정의"
+        },
+        {
+          "offset": 13483,
+          "tex": "$s_t \\in \\{+1, -1\\}$",
+          "report_id": "s82-eq-bounce",
+          "purpose_id": "s82-bounce-purpose",
+          "symbols_id": "s82-bounce-symbols",
+          "example_id": "s82-bounce-example"
+        },
+        {
+          "offset": 16165,
+          "tex": "$-2.5\\%$",
+          "report_id": "s82-eq-shock",
+          "purpose_id": "s82-shock-purpose",
+          "symbols_id": "s82-shock-symbols",
+          "example_id": "s82-shock-example"
+        },
+        {
+          "offset": 16175,
+          "tex": "$1.8\\%$",
+          "report_id": "s82-eq-shock",
+          "purpose_id": "s82-shock-purpose",
+          "symbols_id": "s82-shock-symbols",
+          "example_id": "s82-shock-example"
+        },
+        {
+          "offset": 16184,
+          "tex": "$-3.0\\%$",
+          "report_id": "s82-eq-shock",
+          "purpose_id": "s82-shock-purpose",
+          "symbols_id": "s82-shock-symbols",
+          "example_id": "s82-shock-example"
+        },
+        {
+          "offset": 16287,
+          "tex": "$\\sqrt{\\text{시간}}$",
+          "report_id": "s82-eq-annual",
+          "purpose_id": "s82-annual-purpose",
+          "symbols_id": "s82-annual-symbols",
+          "example_id": "s82-annual-symbols"
+        },
+        {
+          "offset": 17775,
+          "tex": "$$\n\\widehat{\\sigma}_{P}^{2} = \\frac{1}{4\\ln 2}\\left(\\ln H_{t} - \\ln L_{t}\\right)^{2}.\n$$",
+          "report_id": "s82-eq-parkinson",
+          "purpose_id": "s82-park-purpose",
+          "symbols_id": "s82-park-symbols",
+          "example_id": "s82-park-example"
+        },
+        {
+          "offset": 17906,
+          "tex": "$$\n\\hat{\\sigma}_{GK}^{2} = 0.5\\left(\\ln H_{t} - \\ln L_{t}\\right)^{2} - (2\\ln 2 - 1)\\left(\\ln C_{t} - \\ln O_{t}\\right)^{2}.\n$$",
+          "report_id": "s82-eq-gk",
+          "purpose_id": "s82-gk-purpose",
+          "symbols_id": "s82-gk-symbols",
+          "example_id": "s82-gk-example"
+        },
+        {
+          "offset": 18215,
+          "tex": "$n$",
+          "classification": "symbol",
+          "reason": "창의 봉 수 n은 롤링 평균 식과 설명에 정의"
+        },
+        {
+          "offset": 18255,
+          "tex": "$$\n\\hat{\\sigma}_{P}(n) = \\sqrt{\\frac{1}{n}\\sum_{i=0}^{n-1}\\hat{\\sigma}_{P,t-i}^{2}}\n$$",
+          "report_id": "s82-eq-parkinson-window",
+          "purpose_id": "s82-window-purpose",
+          "symbols_id": "s82-window-symbols",
+          "example_id": "s82-rolling-example"
+        },
+        {
+          "offset": 19226,
+          "tex": "$o_t = \\ln(O_t/C_{t-1})$",
+          "report_id": "s82-eq-yz-returns",
+          "purpose_id": "s82-yz-purpose",
+          "symbols_id": "s82-yz-symbols",
+          "example_id": "s82-yz-returns-example"
+        },
+        {
+          "offset": 19263,
+          "tex": "$c_t = \\ln(C_t/O_t)$",
+          "report_id": "s82-eq-yz-returns",
+          "purpose_id": "s82-yz-purpose",
+          "symbols_id": "s82-yz-symbols",
+          "example_id": "s82-yz-returns-example"
+        },
+        {
+          "offset": 19318,
+          "tex": "$\\hat\\sigma_{YZ}^2 = \\hat\\sigma_o^2 + k\\hat\\sigma_c^2 + (1-k)\\hat\\sigma_{RS}^2$",
+          "report_id": "s82-eq-yz",
+          "purpose_id": "s82-yz-variance-purpose",
+          "symbols_id": "s82-yz-variance-symbols",
+          "example_id": "s82-yz-example"
+        },
+        {
+          "offset": 19399,
+          "tex": "$k = 0.34/(1.34 + \\tfrac{n+1}{n-1})$",
+          "report_id": "s82-eq-yz-weight",
+          "purpose_id": "s82-yz-weight-purpose",
+          "symbols_id": "s82-yz-variance-symbols",
+          "example_id": "s82-yz-example"
+        },
+        {
+          "offset": 22834,
+          "tex": "$\\lambda$",
+          "classification": "symbol",
+          "reason": "Kyle 가격 충격 계수 λ의 뜻·단위와 원서 보고값을 본문에 설명"
+        },
+        {
+          "offset": 22879,
+          "tex": "$t + \\varepsilon$",
+          "report_id": "s82-eq-delay",
+          "purpose_id": "s82-delay-purpose",
+          "symbols_id": "s82-delay-symbols",
+          "example_id": "s82-delay-example"
+        },
+        {
+          "offset": 22909,
+          "tex": "$t + 5$",
+          "report_id": "s82-eq-delay",
+          "purpose_id": "s82-delay-purpose",
+          "symbols_id": "s82-delay-symbols",
+          "example_id": "s82-delay-example"
+        },
+        {
+          "offset": 23320,
+          "tex": "$\\lambda$",
+          "classification": "symbol",
+          "reason": "같은 Kyle λ 기호의 재등장"
+        },
+        {
+          "offset": 26723,
+          "tex": "$b(t,T) = [\\ln F(t,T) - \\ln S_t]/\\tau(t,T)$",
+          "report_id": "s83-basis",
+          "purpose_id": "s83-basis-purpose",
+          "symbols_id": "s83-basis-symbols",
+          "example_id": "s83-basis-example"
+        },
+        {
+          "offset": 26874,
+          "tex": "$-f_t^{exch}$",
+          "report_id": "s83-funding",
+          "purpose_id": "s83-funding-purpose",
+          "symbols_id": "s83-funding-symbols",
+          "example_id": "s83-funding-example"
+        },
+        {
+          "offset": 27001,
+          "tex": "$\\ln(102/100)/(30/365) \\approx 24\\%$",
+          "report_id": "s83-basis",
+          "purpose_id": "s83-basis-purpose",
+          "symbols_id": "s83-basis-symbols",
+          "example_id": "s83-basis-example"
+        },
+        {
+          "offset": 27078,
+          "tex": "$\\ln(102/103)/(30/365) \\approx -12\\%$",
+          "report_id": "s83-roll-log",
+          "purpose_id": "s83-roll-log-purpose",
+          "symbols_id": "s83-roll-log-symbols",
+          "example_id": "s83-roll-log-example"
+        },
+        {
+          "offset": 27214,
+          "tex": "$-3 \\times 365 \\times 0.00015 \\approx -16.4\\%$",
+          "report_id": "s83-funding",
+          "purpose_id": "s83-funding-purpose",
+          "symbols_id": "s83-funding-symbols",
+          "example_id": "s83-funding-example"
+        },
+        {
+          "offset": 30921,
+          "tex": "$\\text{enc}_i(c) = \\dfrac{\\sum_{t_j < t_i,\\ x_j = c} y_j + a p}{\\sum_{t_j < t_i,\\ x_j = c} 1 + a}$",
+          "report_id": "s83-encoding",
+          "purpose_id": "s83-encoding-purpose",
+          "symbols_id": "s83-encoding-symbols",
+          "example_id": "s83-encoding-example"
+        },
+        {
+          "offset": 31049,
+          "tex": "$p$",
+          "classification": "symbol",
+          "reason": "단독 변수 기호이며 해당 수식의 symbols 문단에서 뜻과 단위를 설명함."
+        },
+        {
+          "offset": 31061,
+          "tex": "$a$",
+          "classification": "symbol",
+          "reason": "단독 변수 기호이며 해당 수식의 symbols 문단에서 뜻과 단위를 설명함."
+        },
+        {
+          "offset": 31109,
+          "tex": "$t_j < t_i$",
+          "report_id": "s83-encoding",
+          "purpose_id": "s83-encoding-purpose",
+          "symbols_id": "s83-encoding-symbols",
+          "example_id": "s83-encoding-example"
+        },
+        {
+          "offset": 31141,
+          "tex": "$y_j$",
+          "classification": "symbol",
+          "reason": "단독 변수 기호이며 해당 수식의 symbols 문단에서 뜻과 단위를 설명함."
+        },
+        {
+          "offset": 31174,
+          "tex": "$p$",
+          "classification": "symbol",
+          "reason": "단독 변수 기호이며 해당 수식의 symbols 문단에서 뜻과 단위를 설명함."
+        },
+        {
+          "offset": 35362,
+          "tex": "$t_e$",
+          "classification": "symbol",
+          "reason": "단독 변수 기호이며 해당 수식의 symbols 문단에서 뜻과 단위를 설명함."
+        },
+        {
+          "offset": 35387,
+          "tex": "$t_p$",
+          "classification": "symbol",
+          "reason": "단독 변수 기호이며 해당 수식의 symbols 문단에서 뜻과 단위를 설명함."
+        },
+        {
+          "offset": 35419,
+          "tex": "$t_d$",
+          "classification": "symbol",
+          "reason": "단독 변수 기호이며 해당 수식의 symbols 문단에서 뜻과 단위를 설명함."
+        },
+        {
+          "offset": 35427,
+          "tex": "$t_p \\le t_d$",
+          "report_id": "s83-availability",
+          "purpose_id": "s83-availability-purpose",
+          "symbols_id": "s83-availability-symbols",
+          "example_id": "s83-availability-example"
+        },
+        {
+          "offset": 35776,
+          "tex": "$4.40/50 = 8.8\\%$",
+          "report_id": "s83-eps",
+          "purpose_id": "s83-eps-purpose",
+          "symbols_id": "s83-eps-symbols",
+          "example_id": "s83-eps-example"
+        },
+        {
+          "offset": 35816,
+          "tex": "$4.00/50 = 8.0\\%$",
+          "report_id": "s83-eps",
+          "purpose_id": "s83-eps-purpose",
+          "symbols_id": "s83-eps-symbols",
+          "example_id": "s83-eps-example"
+        },
+        {
+          "offset": 37810,
+          "tex": "$N$",
+          "classification": "symbol",
+          "reason": "단독 변수 기호이며 해당 수식의 symbols 문단에서 뜻과 단위를 설명함."
+        },
+        {
+          "offset": 39023,
+          "tex": "$a_j \\le t$",
+          "report_id": "s84-vintage",
+          "purpose_id": "s84-vintage-purpose",
+          "symbols_id": "s84-vintage-symbols",
+          "example_id": "s84-vintage-example"
+        },
+        {
+          "offset": 39143,
+          "tex": "$\\text{BM}^{PIT}_{i,t} = \\text{BookEquity}_{i,\\tau(i,t)}/\\text{MarketCap}_{i,t}$",
+          "report_id": "s84-bm",
+          "purpose_id": "s84-bm-purpose",
+          "symbols_id": "s84-bm-symbols",
+          "example_id": "s84-bm-example"
+        },
+        {
+          "offset": 39225,
+          "tex": "$\\tau(i,t) = \\max\\{j : \\text{known\\_from}_{i,j} \\le t\\}$",
+          "report_id": "s84-vintage",
+          "purpose_id": "s84-vintage-purpose",
+          "symbols_id": "s84-vintage-symbols",
+          "example_id": "s84-vintage-example"
+        },
+        {
+          "offset": 43601,
+          "tex": "$(IC \\times \\sqrt{N})$",
+          "report_id": "s85-eq-breadth",
+          "purpose_id": "s85-breadth-purpose",
+          "symbols_id": "s85-breadth-symbols",
+          "example_id": "s85-breadth-example"
+        },
+        {
+          "offset": 43710,
+          "tex": "$N$",
+          "report_id": "s85-eq-breadth",
+          "purpose_id": "s85-breadth-purpose",
+          "symbols_id": "s85-breadth-symbols",
+          "example_id": "s85-breadth-example",
+          "classification": "symbol",
+          "reason": "종목 수 N 하나이며 s85-breadth-symbols에서 정의한다."
+        },
+        {
+          "offset": 46269,
+          "tex": "$t$",
+          "report_id": "s86-eq-decision",
+          "purpose_id": "s86-decision-purpose",
+          "symbols_id": "s86-decision-symbols",
+          "example_id": "s86-decision-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 46348,
+          "tex": "$t$",
+          "report_id": "s86-eq-decision",
+          "purpose_id": "s86-decision-purpose",
+          "symbols_id": "s86-decision-symbols",
+          "example_id": "s86-decision-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 47055,
+          "tex": "$X \\leftarrow C \\rightarrow Y$",
+          "report_id": "s86-eq-confound",
+          "purpose_id": "s86-confound-purpose",
+          "symbols_id": "s86-confound-symbols",
+          "example_id": "s86-confound-example"
+        },
+        {
+          "offset": 47090,
+          "tex": "$X \\rightarrow M \\rightarrow Y$",
+          "report_id": "s86-eq-mediate",
+          "purpose_id": "s86-mediate-purpose",
+          "symbols_id": "s86-mediate-symbols",
+          "example_id": "s86-mediate-example"
+        },
+        {
+          "offset": 47126,
+          "tex": "$X \\rightarrow K \\leftarrow Y$",
+          "report_id": "s86-eq-collider",
+          "purpose_id": "s86-collider-purpose",
+          "symbols_id": "s86-collider-symbols",
+          "example_id": "s86-collider-example"
+        },
+        {
+          "offset": 47632,
+          "tex": "$P(Y \\mid X)$",
+          "report_id": "s86-eq-observe",
+          "purpose_id": "s86-observe-purpose",
+          "symbols_id": "s86-observe-symbols",
+          "example_id": "s86-observe-example"
+        },
+        {
+          "offset": 47650,
+          "tex": "$P(Y \\mid do(X))$",
+          "report_id": "s86-eq-intervene",
+          "purpose_id": "s86-intervene-purpose",
+          "symbols_id": "s86-intervene-symbols",
+          "example_id": "s86-intervene-example"
+        },
+        {
+          "offset": 49132,
+          "tex": "$t = 0$",
+          "report_id": "s86-eq-zero",
+          "purpose_id": "s86-zero-purpose",
+          "symbols_id": "s86-zero-symbols",
+          "example_id": "s86-zero-example"
+        },
+        {
+          "offset": 49454,
+          "tex": "$$\nAR_{i,\\tau} = R_{i,\\tau} - \\widehat{E}\\big(R_{i,\\tau} \\mid X_{\\tau}\\big)\n$$",
+          "report_id": "s86-eq-ar",
+          "purpose_id": "s86-ar-purpose",
+          "symbols_id": "s86-ar-symbols",
+          "example_id": "s86-ar-example"
+        },
+        {
+          "offset": 49538,
+          "tex": "$R_{i,\\tau}$",
+          "report_id": "s86-eq-ar",
+          "purpose_id": "s86-ar-purpose",
+          "symbols_id": "s86-ar-symbols",
+          "example_id": "s86-ar-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 49558,
+          "tex": "$\\tau$",
+          "report_id": "s86-eq-ar",
+          "purpose_id": "s86-ar-purpose",
+          "symbols_id": "s86-ar-symbols",
+          "example_id": "s86-ar-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 49570,
+          "tex": "$i$",
+          "report_id": "s86-eq-ar",
+          "purpose_id": "s86-ar-purpose",
+          "symbols_id": "s86-ar-symbols",
+          "example_id": "s86-ar-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 49630,
+          "tex": "$[\\tau_1, \\tau_2]$",
+          "report_id": "s86-eq-window",
+          "purpose_id": "s86-window-purpose",
+          "symbols_id": "s86-window-symbols",
+          "example_id": "s86-window-example"
+        },
+        {
+          "offset": 49673,
+          "tex": "$$\nCAR_{i}(\\tau_{1}, \\tau_{2}) = \\sum_{\\tau = \\tau_{1}}^{\\tau_{2}} AR_{i,\\tau}\n$$",
+          "report_id": "s86-eq-car",
+          "purpose_id": "s86-car-purpose",
+          "symbols_id": "s86-car-symbols",
+          "example_id": "s86-car-example"
+        },
+        {
+          "offset": 50106,
+          "tex": "$t = 3.28$",
+          "report_id": "s86-eq-event-test",
+          "purpose_id": "s86-event-test-purpose",
+          "symbols_id": "s86-event-test-symbols",
+          "example_id": "s86-event-test-example"
+        },
+        {
+          "offset": 50118,
+          "tex": "$p = 0.001$",
+          "report_id": "s86-eq-event-test",
+          "purpose_id": "s86-event-test-purpose",
+          "symbols_id": "s86-event-test-symbols",
+          "example_id": "s86-event-test-example"
+        },
+        {
+          "offset": 50350,
+          "tex": "$t = 3.30$",
+          "report_id": "s86-eq-long",
+          "purpose_id": "s86-long-purpose",
+          "symbols_id": "s86-long-symbols",
+          "example_id": "s86-long-example"
+        },
+        {
+          "offset": 50392,
+          "tex": "$t = −1.31$",
+          "report_id": "s86-eq-short",
+          "purpose_id": "s86-short-purpose",
+          "symbols_id": "s86-short-symbols",
+          "example_id": "s86-short-example"
+        },
+        {
+          "offset": 51194,
+          "tex": "$\\rho$",
+          "report_id": "s86-eq-distance",
+          "purpose_id": "s86-distance-purpose",
+          "symbols_id": "s86-distance-symbols",
+          "example_id": "s86-distance-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 51209,
+          "tex": "$p$",
+          "report_id": "s86-eq-matrix",
+          "purpose_id": "s86-matrix-purpose",
+          "symbols_id": "s86-matrix-symbols",
+          "example_id": "s86-matrix-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 51218,
+          "tex": "$p \\times p$",
+          "report_id": "s86-eq-matrix",
+          "purpose_id": "s86-matrix-purpose",
+          "symbols_id": "s86-matrix-symbols",
+          "example_id": "s86-matrix-example"
+        },
+        {
+          "offset": 51259,
+          "tex": "$1 - |\\rho|$",
+          "report_id": "s86-eq-distance",
+          "purpose_id": "s86-distance-purpose",
+          "symbols_id": "s86-distance-symbols",
+          "example_id": "s86-distance-example"
+        },
+        {
+          "offset": 51338,
+          "tex": "$|\\rho| \\approx 0.6$",
+          "report_id": "s86-eq-threshold",
+          "purpose_id": "s86-threshold-purpose",
+          "symbols_id": "s86-threshold-symbols",
+          "example_id": "s86-threshold-example"
+        },
+        {
+          "offset": 51361,
+          "tex": "$0.8$",
+          "report_id": "s86-eq-threshold",
+          "purpose_id": "s86-threshold-purpose",
+          "symbols_id": "s86-threshold-symbols",
+          "example_id": "s86-threshold-example"
+        },
+        {
+          "offset": 52419,
+          "tex": "$d = 1$",
+          "report_id": "s86-eq-difference",
+          "purpose_id": "s86-difference-purpose",
+          "symbols_id": "s86-difference-symbols",
+          "example_id": "s86-difference-example"
+        },
+        {
+          "offset": 52443,
+          "tex": "$d$",
+          "report_id": "s86-eq-difference",
+          "purpose_id": "s86-difference-purpose",
+          "symbols_id": "s86-difference-symbols",
+          "example_id": "s86-difference-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 52493,
+          "tex": "$d = 0.4$",
+          "report_id": "s86-eq-difference",
+          "purpose_id": "s86-difference-purpose",
+          "symbols_id": "s86-difference-symbols",
+          "example_id": "s86-difference-example"
+        },
+        {
+          "offset": 52508,
+          "tex": "$d = 1.0$",
+          "report_id": "s86-eq-difference",
+          "purpose_id": "s86-difference-purpose",
+          "symbols_id": "s86-difference-symbols",
+          "example_id": "s86-difference-example"
+        },
+        {
+          "offset": 52586,
+          "tex": "$d$",
+          "report_id": "s86-eq-difference",
+          "purpose_id": "s86-difference-purpose",
+          "symbols_id": "s86-difference-symbols",
+          "example_id": "s86-difference-example",
+          "classification": "symbol",
+          "reason": "단독 기호이며 연결된 기호 풀이에서 뜻과 단위를 정의한다."
+        },
+        {
+          "offset": 55302,
+          "tex": "$1 - \\lvert\\rho\\rvert$",
+          "report_id": "s87-eq-distance",
+          "purpose_id": "s87-distance-purpose",
+          "symbols_id": "s87-distance-symbols",
+          "example_id": "s87-distance-example"
+        }
+      ],
+      "images": [
+        {
+          "offset": 2758,
+          "path": "images/a5d601abd2f28146b95d4cbd94c016bae37014a825ae0c7a0fbd672157c31706.jpg",
+          "classification": "correspondence",
+          "report_id": "fig-three-filters"
+        },
+        {
+          "offset": 3483,
+          "path": "images/7d6aa37ba8d1bec88646c4f5513813ac35a25b765a6df7bca6b7df1db58acdff.jpg",
+          "classification": "decoration",
+          "reason": "실제 원본 이미지는 펜·메모 아이콘으로 수치·관계·정의 정보가 없다. 박스8.1의 본문 내용은 모두 설명함."
+        },
+        {
+          "offset": 4376,
+          "path": "../official-resources/primer/images/the-information-coefficient/ic_rank_scatter-84d4c79384.png",
+          "classification": "correspondence",
+          "report_id": "fig-rank-ic"
+        },
+        {
+          "offset": 6861,
+          "path": "images/d44ecc21eee2d14121e89c83348d86586155eecd10cf9386b4c411a3a44b0a94.jpg",
+          "classification": "correspondence",
+          "report_id": "s82-fig-feature-families"
+        },
+        {
+          "offset": 8198,
+          "path": "images/7f49ed528e0893105312e063ed1f300d7c555931370456a9b0c48c30a0726390.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 8396,
+          "path": "images/cd2e4252a20a18480198ee7ecf37a8ba782471bd281bef506ed21782ac7bbbdb.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 10277,
+          "path": "../official-resources/primer/images/momentum-and-mean-reversion/term_structure_of_predictability-a6f10dd734.png",
+          "classification": "correspondence",
+          "report_id": "s82-fig-primer-term-structure"
+        },
+        {
+          "offset": 11628,
+          "path": "../official-resources/primer/images/simple-returns-vs-log-returns/simple_vs_log_returns_aggregation-757c3229f5.png",
+          "classification": "correspondence",
+          "report_id": "s82-fig-primer-return-aggregation"
+        },
+        {
+          "offset": 13931,
+          "path": "../official-resources/primer/images/microstructure-noise-and-bid-ask-bounce/bid_ask_bounce-8586b7cfda.png",
+          "classification": "correspondence",
+          "report_id": "s82-fig-primer-bid-ask-bounce"
+        },
+        {
+          "offset": 14583,
+          "path": "images/f680747a0564d0a2bb7d82a0fddb3241f90f9f3014c16c676523aa7b90a34edc.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 16422,
+          "path": "../official-resources/primer/images/volatility-realized-implied-and-why-it-clusters/volatility_clustering-145506b10d.png",
+          "classification": "correspondence",
+          "report_id": "s82-fig-primer-vol-clustering"
+        },
+        {
+          "offset": 18362,
+          "path": "images/88a93480b349ed65bd7665679d1c2bde134d599252d2a137ff418de69a2151bc.jpg",
+          "classification": "correspondence",
+          "report_id": "s82-fig-vol-estimators"
+        },
+        {
+          "offset": 19721,
+          "path": "../official-resources/primer/images/range-based-volatility-estimators-from-ohlc-data/range_volatility_comparison-de66903cb5.png",
+          "classification": "correspondence",
+          "report_id": "s82-fig-primer-overnight-gap"
+        },
+        {
+          "offset": 20714,
+          "path": "images/9cf20b5ae1852b58b8c26ee234828e20451f28523e61c163556ca829232eb530.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 23183,
+          "path": "images/556bfe913c605949d5e5db02b0f41696c826b570df5faa61c094e61d5ab62de2.jpg",
+          "classification": "decoration",
+          "reason": "필기·메모 아이콘 장식. 이 절의 다섯 파일을 실제 이미지로 열어 수치·도식·정보가 없는 것을 확인함."
+        },
+        {
+          "offset": 24407,
+          "path": "images/9352afb51c9c66052e4616c8e6a40964ab6e61774267c6c7469ae08ad421dea7.jpg",
+          "classification": "correspondence",
+          "report_id": "s83-figure-8-4"
+        },
+        {
+          "offset": 25310,
+          "path": "images/fb28e252ec8716df3c8185e6b7b2a0f3187435fe9a893a0b2ddfc230bd67e789.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 25724,
+          "path": "images/8eb57bdd3147c869c30862f8b6c5d3656459ba8081cb131720bc07da03c9f5d9.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 27399,
+          "path": "../official-resources/primer/images/carry-basis-and-roll-yield-across-futures-and-perpetuals/carry_basis_curve-8a43e23337.png",
+          "classification": "correspondence",
+          "report_id": "s83-primer-carry"
+        },
+        {
+          "offset": 28186,
+          "path": "images/c2cebd3be9ff569d3cc2a6ef61660b297aa74f2a29041137cc3de4f1effec763.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 31312,
+          "path": "../official-resources/primer/images/leakage-safe-categorical-encoding-for-financial-ml/encoding_leakage-452433cf12.png",
+          "classification": "correspondence",
+          "report_id": "s83-primer-encoding"
+        },
+        {
+          "offset": 32017,
+          "path": "images/65f373113114ad4b223989431ff0431829ba6cfd2746f26abe206bd2e48001da.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 35966,
+          "path": "../official-resources/primer/images/point-in-time-data-and-decision-time-correctness/pit_timeline-55f43b3dc3.png",
+          "classification": "correspondence",
+          "report_id": "s83-primer-pit"
+        },
+        {
+          "offset": 36602,
+          "path": "images/fd6c23651bc5b0e22704ac596479e07f687e6cd9154a1c2c5f1784e511541173.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 39760,
+          "path": "../official-resources/primer/images/point-in-time-feature-construction-and-data-vintages/pit_feature_vintages_timeline-fe9180b506.png",
+          "classification": "correspondence",
+          "report_id": "s84-primer-vintages"
+        },
+        {
+          "offset": 42419,
+          "path": "images/9955d14cb42fd9fdd9f665f728da174fa705b34f1e348f92e73bd7ada858e8cc.jpg",
+          "classification": "decoration",
+          "reason": "원본 이미지를 직접 열어 필기·메모 아이콘임을 확인. 데이터·수치·관계 정보가 없으며 해당 본문은 절 안에서 설명함."
+        },
+        {
+          "offset": 47717,
+          "path": "../official-resources/primer/images/causality-confounding-and-why-good-signals-can-be-misleading/causal_structures_dag-2f7617a0d2.png",
+          "classification": "correspondence",
+          "report_id": "s86-fig-causal"
+        },
+        {
+          "offset": 48539,
+          "path": "images/a5ab7715129c380c08b509699d14e11f8fa2f0745565bcf273691f0e76ac7cc0.jpg",
+          "classification": "decoration",
+          "reason": "실제 이미지를 열어 확인한 펜과 메모 아이콘이다. 수치·도표·관계 정보가 없으며 인접 구현 설명은 본문에 보존했다."
+        },
+        {
+          "offset": 50211,
+          "path": "images/94772373ba40868f090946d4625dc44e46c5dc801e922375746ff6b108534d55.jpg",
+          "classification": "decoration",
+          "reason": "실제 이미지를 열어 확인한 펜과 메모 아이콘이다. 수치·도표·관계 정보가 없으며 인접 구현 설명은 본문에 보존했다."
+        },
+        {
+          "offset": 51658,
+          "path": "images/64d4fab47536d5d633ab373db2dbeb53d313570301cbe391b39546d041be2321.jpg",
+          "classification": "decoration",
+          "reason": "실제 이미지를 열어 확인한 펜과 메모 아이콘이다. 수치·도표·관계 정보가 없으며 인접 구현 설명은 본문에 보존했다."
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "figure",
+          "ref": "8.1",
+          "report_id": "fig-three-filters",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.1",
+          "report_id": "table-feature-spec",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.2",
+          "report_id": "s82-table-8-2",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "figure",
+          "ref": "8.2",
+          "report_id": "s82-fig-feature-families",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.3",
+          "report_id": "s82-table-8-3",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "figure",
+          "ref": "8.3",
+          "report_id": "s82-fig-vol-estimators",
+          "method": "recomputed"
+        },
+        {
+          "kind": "figure",
+          "ref": "8.4",
+          "report_id": "s83-figure-8-4",
+          "method": "source-reading"
+        },
+        {
+          "kind": "table",
+          "ref": "8.4",
+          "report_id": "s86-table-84",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.5",
+          "report_id": "s86-table-85",
+          "method": "structural-redraw"
+        },
+        {
+          "kind": "table",
+          "ref": "8.6",
+          "report_id": "s86-table-86",
+          "method": "structural-redraw"
+        }
+      ]
+    }
+  ]
+}
