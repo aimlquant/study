@@ -454,4 +454,4 @@ curl -fsSL "https://aimlquant.github.io/study/<public-path>" | rg "<release-mark
 
 새 회차는 도해·원본충실도 관문이 기본이다. 원장·검토를 채우기 전 main에 push하면 CI가 실패하므로 작업 브랜치에서 집필한다. 골격의 빈 scope/sources는 자료 없는 CI에서도 실패한다. 완성한 원장은 CI에서 본문 대응·해시형식·경로를 검사하고, materials가 없으면 원본 파일 해시 대조·이미지/수식 재추출만 경고로 생략한다. materials가 있으면 모두 대조하며 --check-materials의 존재 요구도 유지한다. 수동/의미 검토를 자동 통과로 표시하지 않는다.
 
-부분 게시에는 `report_scope={version="sections-v1",sections=["8.1"],include_intro=true}`처럼 실제 집필 절을 선언한다. 교재의 실제 순서에서 해당 절에 속한 그림·표·박스까지 전부 검사한다. 본문 section 집합/순서·content_review.scope·원장 scope와 include_intro가 같아야 하며, report-scope-notice라는 id의 가시 문구로 공개 절과 '작성 중'을 밝힌다. 선언하지 않은 회차는 종전 전체 범위 계약이다. 도입 포함 시 content_review.introduction에 실제 도입 id와 검토 explanation을 기록한다. 미집필 절의 검토를 채우거나 제목만 넣어 통과시키지 않는다.
+부분 게시는 하지 않는다. 장 전체 C3 뒤 한 번 게시한다. 공개 사이트 메타데이터에 `report_scope`가 있으면 집필 범위와 무관하게 검증이 실패한다. 절별 작업 사본의 범위 대조 기능은 내부 집필·검수용으로만 남긴다.

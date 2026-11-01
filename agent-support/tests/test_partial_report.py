@@ -62,3 +62,27 @@ class NewGateDefaultsTests(unittest.TestCase):
         target,meta=self.scaffold([]);errors=[]
         with patch.object(v,'REPO_ROOT',target.parents[3]):v.validate_source_completeness(meta,target/'report.html',errors,[])
         self.assertTrue(any('scope missing' in e for e in errors))
+
+class PublicPartialReportRejectionTests(unittest.TestCase):
+    def test_any_report_scope_is_rejected_in_every_session_metadata(self):
+        for value in ['false', '"sections-v1"', '{version="sections-v1",sections=["1.1"],include_intro=true}']:
+            with self.subTest(value=value), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                # Even malformed/unknown session metadata cannot evade the public prohibition.
+                for slug in ('one', 'two'):
+                    target = root/'studies'/slug/'presentations'/'session'/'presentation.toml'
+                    target.parent.mkdir(parents=True)
+                    target.write_text('study_id="unknown"\nreport_scope='+value+'\n')
+                errors=[]
+                v.validate_metadata(root, {}, errors, [])
+                self.assertEqual(2, sum('partial report publication is disabled' in e for e in errors))
+
+    def test_full_metadata_does_not_trigger_partial_error(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            target=root/'studies'/'one'/'presentations'/'session'/'presentation.toml'
+            target.parent.mkdir(parents=True)
+            target.write_text('study_id="unknown"\n')
+            errors=[]
+            v.validate_metadata(root, {}, errors, [])
+            self.assertFalse(any('partial report publication is disabled' in e for e in errors))

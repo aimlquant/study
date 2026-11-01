@@ -2315,6 +2315,8 @@ def validate_metadata(
         site.glob("studies/*/presentations/*/presentation.toml")
     ):
         metadata = load_toml(metadata_path, errors)
+        if "report_scope" in metadata:
+            errors.append(f"partial report publication is disabled: {metadata_path}")
         study_id = metadata.get("study_id")
         session_id = metadata.get("session_id")
         if study_id not in studies:

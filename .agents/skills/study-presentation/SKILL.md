@@ -86,3 +86,9 @@ Narrow DOM-geometry exception: only `agent-support/scripts/check-svg-bboxes.mjs`
 새 회차는 도해·원본충실도 관문이 기본이다. 원장·검토를 채우기 전 main에 push하면 CI가 실패하므로 작업 브랜치에서 집필한다. 골격의 빈 scope/sources는 자료 없는 CI에서도 실패한다. 완성한 원장은 CI에서 본문 대응·해시형식·경로를 검사하고, materials가 없으면 원본 파일 해시 대조·이미지/수식 재추출만 경고로 생략한다. materials가 있으면 모두 대조하며 --check-materials의 존재 요구도 유지한다. 수동/의미 검토를 자동 통과로 표시하지 않는다.
 
 부분 게시에는 `report_scope={version="sections-v1",sections=["8.1"],include_intro=true}`처럼 실제 집필 절을 선언한다. 교재의 실제 순서에서 해당 절에 속한 그림·표·박스까지 전부 검사한다. 본문 section 집합/순서·content_review.scope·원장 scope와 include_intro가 같아야 하며, report-scope-notice라는 id의 가시 문구로 공개 절과 '작성 중'을 밝힌다. 선언하지 않은 회차는 종전 전체 범위 계약이다. 도입 포함 시 content_review.introduction에 실제 도입 id와 검토 explanation을 기록한다. 미집필 절의 검토를 채우거나 제목만 넣어 통과시키지 않는다.
+
+## 모션·시연판
+
+전체 제작 전에 모션·시연·내레이션을 포함한 대표 3–5장을 실제 재생 형태로 만들고 도라 확인을 받는다. 기존 강의·세미나 자료를 품질 기준으로 삼고 내레이션은 한국어 관문을 거친다. 모션판은 기존 비공개 경계를 유지한다.
+
+`python agent-support/scripts/check-media-continuity.py VIDEO`는 ffprobe로 영상/소리 시작·끝 차와 스트림별 정렬 PTS 간격만 검사한다. 무음·문장 품질·플레이어 정지를 판정하지 않는다. 파일 검사가 통과해도 실제 주소에서 재생을 한 번 누른 뒤 추가 입력 없이 ended까지 이어지는지와 의도하지 않은 pause/waiting 유무를 별도로 기록한다. 기존 소유자 러너가 이를 지원하지 않으면 사람 확인으로 남긴다. raw Chrome/Puppeteer 예외를 만들지 않는다. 합성 파일 실패는 파일 검사만 검증한다.
