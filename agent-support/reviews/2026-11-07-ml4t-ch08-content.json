@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "5c13fa53915bc90a620226831894208885ccd1f3e01e3208a0bf7da57ce78d57",
+  "report_sha256": "378bfe1e4d3a650829d3ae173512aca32af321a1b897fc331107596317d085ca",
   "sources": [
     {
       "role": "original",
@@ -242,5 +242,10 @@
     "status": "pending",
     "assembly_manifest_sha256": "6aecaec5120af8fe28bc792a89913b22a713c0a1201ccae3913d9329455cb36a",
     "transformations": "asset paths and global figure/table numbering only; partial scope removed"
+  },
+  "readability_revision_review": {
+    "basis": "레인 ra d8c2583 / rb 7e6177e, 통합 ab4ae95, 독자 지적 수정 2f30c55. 그림73·표11·식62·코드7 직렬화, 기존ID·수치·href 및 source-inventory 보존 검사 통과.",
+    "independent_reader": "management d06cf0c: 도입–8.7 전수 읽기 후 최종 막힘0, report SHA 결속 기록을 별도 복사",
+    "cross_sample": "Codex 시드16341, 8.2–8.6 본문 30문단(절별6) 선판정 후 대조: 막힘0, 일치30/30. 표본으로 전수 검수를 대체하지 않음."
   }
 }

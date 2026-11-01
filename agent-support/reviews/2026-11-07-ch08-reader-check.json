@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "report_sha256": "378bfe1e4d3a650829d3ae173512aca32af321a1b897fc331107596317d085ca",
+  "reader": "aimlquant-claude (Claude), independent first-time reader; task 83fe65a6276a, 도라 16341",
+  "reader_profile": "1–7장을 읽은 스터디원, 이 장과 교재는 처음",
+  "read_basis": "ab4ae95 전수 읽기(본문 578·메모 57) 뒤 막힘 2·반복 1 수정, 2f30c55에서 수정 3곳 재확인",
+  "status": "complete",
+  "remaining_blockers": 0,
+  "introduction": {
+    "status": "complete",
+    "remaining_blockers": 0,
+    "body_paragraphs": 9
+  },
+  "sections": [
+    {
+      "ref": "8.1",
+      "status": "complete",
+      "remaining_blockers": 0,
+      "body_paragraphs": 69,
+      "note_paragraphs": 2
+    },
+    {
+      "ref": "8.2",
+      "status": "complete",
+      "remaining_blockers": 0,
+      "body_paragraphs": 153,
+      "note_paragraphs": 17
+    },
+    {
+      "ref": "8.3",
+      "status": "complete",
+      "remaining_blockers": 0,
+      "body_paragraphs": 111,
+      "note_paragraphs": 12
+    },
+    {
+      "ref": "8.4",
+      "status": "complete",
+      "remaining_blockers": 0,
+      "body_paragraphs": 67,
+      "note_paragraphs": 9
+    },
+    {
+      "ref": "8.5",
+      "status": "complete",
+      "remaining_blockers": 0,
+      "body_paragraphs": 31,
+      "note_paragraphs": 0
+    },
+    {
+      "ref": "8.6",
+      "status": "complete",
+      "remaining_blockers": 0,
+      "body_paragraphs": 127,
+      "note_paragraphs": 17
+    },
+    {
+      "ref": "8.7",
+      "status": "complete",
+      "remaining_blockers": 0,
+      "body_paragraphs": 10,
+      "note_paragraphs": 0
+    }
+  ],
+  "resolved": [
+    {
+      "section": "8.2",
+      "type": "source-note-in-body",
+      "fix": "OFI 인쇄/저장 표 뒤 문단을 독자 결론(두 행 모두 다음 봉 관계가 약함)으로 교체, 조건 차이는 s82 메모에 존재"
+    },
+    {
+      "section": "8.3",
+      "type": "order",
+      "fix": "옵션 IV/RV 소절에서 재무 공시 예로 넘어가는 다리 문장 추가"
+    },
+    {
+      "section": "8.6",
+      "type": "duplicate-intro",
+      "fix": "같은 표를 두 번 소개하던 두 문단을 하나로"
+    }
+  ],
+  "advisories": [
+    "식마다 예 소개→식→기호 풀이→같은 예 계산으로 같은 숫자를 2–3번 반복하는 곳 약 34곳. 막힘은 아님. 다음 회차 규칙 보강 후보"
+  ]
+}

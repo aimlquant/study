@@ -24,3 +24,6 @@ figure_density = "rich-v1"
 
 source_completeness = "visual-math-v1"
 source_inventory = "source-inventory.json"
+
+reader_review = "full-v1"
+reader_review_record = "agent-support/reviews/2026-11-07-ch08-reader-check.json"
