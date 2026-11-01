@@ -1,0 +1,33 @@
+study_id = "machine-learning-for-trading-3e-2026"
+session_id = "2026-11-07-ch08"
+title = "금융 특성 공학"
+date = "2026-11-07"
+presenters = ["태영"]
+chapters = ["Chapter 8"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report"]
+# 작성 시작부터 검사한다. 원본 경로가 비어 있으면 발행 검증이 실패한다.
+source_fidelity = "source-structure-v1"
+source_material = "materials/quant/active/machine-learning-for-trading-3e/chapter_08_financial_feature_engineering/08_chapter_08_financial_feature_engineering_ko_explained.md"
+report_quality = "source-learning-v1"
+# 절별 설명·근거·실습 상태와 원본/산출물 해시를 남기는 제작자용 JSON.
+content_review = ""
+
+# 덱 본문을 작성할 때 검토 기록을 채운다. 리포트 단독에는 적용하지 않는다.
+deck_quality = "report-teaching-v1"
+deck_review = ""
+
+figure_density = "rich-v1"
+
+source_completeness = "visual-math-v1"
+source_inventory = "agent-support/reviews/2026-11-07-ml4t-ch08-source-inventory.json"
+
+[[retained_unreferenced_assets]]
+path = "assets/figs/mechanism-path.svg"
+reason = "원래 생성 골격의 자산. 집필 중 원본 보존하며 완성 시 실제 사용 여부 확인."
+[[retained_unreferenced_assets]]
+path = "assets/figs/operating-loop.svg"
+reason = "원래 생성 골격의 자산. 집필 중 원본 보존하며 완성 시 실제 사용 여부 확인."
