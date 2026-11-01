@@ -1978,6 +1978,255 @@ def validate_materials_links(site: Path, errors: list[str]) -> None:
             )
 
 
+class RichFigureParser(HTMLParser):
+    """Collect source sections and H3 units without changing legacy parsing."""
+
+    def __init__(self):
+        super().__init__()
+        self.sections = []
+        self.stack = []
+        self.current = None
+        self.unit = None
+        self.figure = None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == "section" and attrs.get("data-source-kind") == "section":
+            self.current = {"id": attrs.get("id", ""), "figures": [], "units": []}
+            self.sections.append(self.current)
+            self.unit = None
+        if tag == "h3" and self.current is not None:
+            self.unit = {"id": attrs.get("id", ""), "exempt": attrs.get("data-visual-exempt"), "figures": []}
+            self.current["units"].append(self.unit)
+        if tag == "figure" and self.current is not None:
+            self.figure = {"id": attrs.get("id", ""), "sources": []}
+            self.current["figures"].append(self.figure)
+            if self.unit is not None:
+                self.unit["figures"].append(self.figure)
+        if tag == "img" and self.figure is not None:
+            self.figure["sources"].append(attrs.get("src", ""))
+        if tag not in {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}:
+            self.stack.append(tag)
+
+    def handle_endtag(self, tag):
+        if tag == "figure":
+            self.figure = None
+        if tag == "section":
+            self.current = None
+            self.unit = None
+        if tag in self.stack:
+            self.stack = self.stack[:len(self.stack) - 1 - self.stack[::-1].index(tag)]
+
+
+def validate_figure_density(metadata, report_html: Path, errors: list[str]) -> None:
+    """rich-v1 is opt-in; counting is a floor, not a semantic verdict."""
+    mode = metadata.get("figure_density")
+    if mode is None:
+        return
+    if mode != "rich-v1":
+        errors.append(f"unknown figure_density in {report_html}: {mode!r}")
+        return
+    parser = RichFigureParser()
+    parser.feed(report_html.read_text(encoding="utf-8"))
+    root = report_html.parent.resolve()
+    seen = set()
+    valid = set()
+    shapes = {"rect", "circle", "ellipse", "line", "polyline", "polygon", "path"}
+    for section in parser.sections:
+        for figure in section["figures"]:
+            for source in figure["sources"]:
+                parsed = urlparse(source)
+                path = (root / unquote(parsed.path)).resolve()
+                if parsed.scheme or parsed.netloc or not within(path, root) or path.suffix.lower() != ".svg":
+                    continue
+                if not path.is_file():
+                    errors.append(f"rich-v1 missing SVG: {path}")
+                    continue
+                try:
+                    svg = ET.fromstring(path.read_bytes())
+                except (ET.ParseError, OSError) as exc:
+                    errors.append(f"rich-v1 invalid SVG {path}: {exc}")
+                    continue
+                elements = []
+                def collect(node):
+                    name = node.tag.split("}")[-1]
+                    if name in {"defs", "symbol", "metadata", "title", "desc"}:
+                        return
+                    elements.append(node)
+                    for child in node:
+                        collect(child)
+                collect(svg)
+                text_count = sum(n.tag.split("}")[-1] == "text" and bool("".join(n.itertext()).strip()) for n in elements)
+                shape_count = sum(n.tag.split("}")[-1] in shapes for n in elements)
+                if text_count < 1 or shape_count < 2:
+                    errors.append(f"rich-v1 SVG needs text>=1 and shapes>=2: {path}")
+                    continue
+                digest = hashlib.sha256(path.read_bytes()).hexdigest()
+                if digest in seen:
+                    errors.append(f"rich-v1 duplicate SVG cannot satisfy another figure: {path}")
+                    continue
+                seen.add(digest)
+                valid.add(id(figure))
+                break
+        count = sum(id(f) in valid for f in section["figures"])
+        if count < 2:
+            errors.append(f"rich-v1 source section {section['id']!r} needs >=2 explanatory SVG figures, found {count}")
+        for unit in section["units"]:
+            # Exemption is explicit, nonempty, and inspected in peer review.
+            if unit["exempt"] is not None and unit["exempt"].strip():
+                continue
+            count = sum(id(f) in valid for f in unit["figures"])
+            if count < 1:
+                errors.append(f"rich-v1 H3 unit {unit['id']!r} needs >=1 explanatory SVG figure")
+    if not parser.sections:
+        errors.append(f"rich-v1 needs source sections in {report_html}")
+
+
+
+# Inventory is kept outside public HTML. Source occurrences are retained even
+# when two sources describe one equation in the report.
+SOURCE_MATH_RE = re.compile(r"\$\$[\s\S]*?\$\$|(?<!\\)\$(?!\$)[^$\n]+?(?<!\\)\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)")
+SOURCE_IMAGE_RE = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
+SOURCE_VISUAL_RE = re.compile(r"(?m)^\s*(Figure|Table|그림|표)\s+(\d+\.\d+)\s*[:：]\s*(.+)$")
+
+
+class CompletenessParser(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.nodes = {}
+        self.stack = []
+        self.duplicates = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        node = {"tag": tag, "attrs": attrs, "text": "", "children": []}
+        if attrs.get("id"):
+            if attrs["id"] in self.nodes:
+                self.duplicates.append(attrs["id"])
+            self.nodes[attrs["id"]] = node
+        for parent in self.stack:
+            parent["children"].append(node)
+        if tag not in {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}:
+            self.stack.append(node)
+
+    def handle_endtag(self, tag):
+        for i in range(len(self.stack)-1, -1, -1):
+            if self.stack[i]["tag"] == tag:
+                del self.stack[i:]
+                break
+
+    def handle_data(self, data):
+        for node in self.stack:
+            node["text"] += data
+
+
+def validate_source_completeness(metadata, report_html: Path, errors: list[str]) -> None:
+    mode = metadata.get("source_completeness")
+    if mode is None:
+        return
+    if mode != "visual-math-v1":
+        errors.append(f"unknown source_completeness: {mode!r}")
+        return
+    try:
+        inventory_path = (REPO_ROOT / metadata["source_inventory"]).resolve()
+        if not within(inventory_path, (REPO_ROOT / "agent-support/reviews").resolve()):
+            raise ValueError("source_inventory must be under agent-support/reviews")
+        inventory = json.loads(inventory_path.read_text())
+        if inventory["version"] != 1 or not inventory["scope"]:
+            raise ValueError("inventory version/scope missing")
+        parser = CompletenessParser()
+        parser.feed(report_html.read_text())
+        if parser.duplicates:
+            raise ValueError(f"duplicate report IDs: {parser.duplicates}")
+        expected = set()
+        mapped_math = set()
+        source_ids = set()
+        for source in inventory["sources"]:
+            if source["id"] in source_ids:
+                raise ValueError("duplicate source ID")
+            source_ids.add(source["id"])
+            path = (REPO_ROOT / source["path"]).resolve()
+            if not within(path, (REPO_ROOT / "materials").resolve()):
+                raise ValueError("source must be in materials")
+            raw = path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != source["sha256"]:
+                raise ValueError(f"stale source: {source['id']}")
+            lines = raw.decode().splitlines(keepends=True)
+            start, end = source["lines"]
+            if not 1 <= start <= end <= len(lines):
+                raise ValueError("invalid source range")
+            text = "".join(lines[start-1:end])
+            # Exact source occurrence offsets prevent silently dropping a formula.
+            occurrences = {m.start(): m.group() for m in SOURCE_MATH_RE.finditer(text)}
+            recorded = source["math"]
+            if len({x["offset"] for x in recorded}) != len(recorded) or {x["offset"]: x["tex"] for x in recorded} != occurrences:
+                raise ValueError(f"math occurrence coverage mismatch: {source['id']}")
+            for item in recorded:
+                if item.get("classification") == "symbol":
+                    if not item.get("reason") or re.search(r"[=<>+*/]|\\(?:approx|sum|frac|sqrt)", item["tex"]):
+                        raise ValueError("expression cannot be excluded as a bare symbol")
+                    continue
+                target = item["report_id"]
+                node = parser.nodes.get(target)
+                if not node or not SOURCE_MATH_RE.search(node["text"]):
+                    raise ValueError(f"missing report equation: {target}")
+                # The source number is explicit; do not infer it from local order.
+                if item.get("number") and node["attrs"].get("data-source-equation") != item["number"]:
+                    raise ValueError(f"equation number mismatch: {target}")
+                for field in ("purpose_id", "symbols_id", "example_id"):
+                    evidence = parser.nodes.get(item[field])
+                    if not evidence or not evidence["text"].strip():
+                        raise ValueError(f"missing equation explanation {target}: {field}")
+                mapped_math.add(target)
+            images = {m.start(): m[1] for m in SOURCE_IMAGE_RE.finditer(text)}
+            listed_images = source["images"]
+            if len({x["offset"] for x in listed_images}) != len(listed_images) or {x["offset"]: x["path"] for x in listed_images} != images:
+                raise ValueError(f"image occurrence coverage mismatch: {source['id']}")
+            for image in listed_images:
+                if image.get("classification") == "correspondence":
+                    target = parser.nodes.get(image["report_id"])
+                    if not target or not any(n["tag"] in {"img", "svg", "table"} for n in [target] + target["children"]):
+                        raise ValueError("image correspondence has no report visual")
+                elif image.get("classification") in {"duplicate", "decoration", "table-image"}:
+                    if not image.get("reason"):
+                        raise ValueError("image classification needs a reason")
+                    if image["classification"] != "decoration" and image.get("report_id") not in parser.nodes:
+                        raise ValueError("duplicate/table image needs a report target")
+                else:
+                    raise ValueError("image needs correspondence or reviewed classification")
+            captions = {(('figure' if m[1] in ('Figure', '그림') else 'table'), m[2]) for m in SOURCE_VISUAL_RE.finditer(text)}
+            listed = {(x["kind"], x["ref"]) for x in source["visuals"]}
+            if captions != listed or len(listed) != len(source["visuals"]):
+                raise ValueError(f"visual inventory coverage mismatch: {source['id']}")
+            for item in source["visuals"]:
+                expected.add((item["kind"], item["ref"]))
+                node = parser.nodes.get(item["report_id"])
+                if not node or node["attrs"].get("data-source-kind") != item["kind"] or node["attrs"].get("data-source-ref") != item["ref"]:
+                    raise ValueError(f"missing visual correspondence: {item['ref']}")
+                if item["kind"] == "figure":
+                    images = [n for n in node["children"] if n["tag"] == "img"]
+                    if not images or any(not n["attrs"].get("src", "").endswith(".svg") for n in images):
+                        raise ValueError("source figure must be a local SVG redraw")
+                    for image in images:
+                        image_path = (report_html.parent / image["attrs"]["src"]).resolve()
+                        if not within(image_path, report_html.parent.resolve()) or not image_path.is_file():
+                            raise ValueError("redraw asset missing or outside session")
+                if item["method"] not in {"structural-redraw", "recomputed", "source-reading"}:
+                    raise ValueError("unknown redraw method")
+                if item["method"] == "source-reading" and "원본 판독값" not in node["text"]:
+                    raise ValueError("source-reading caption must say 원본 판독값")
+        if len(source_ids) < 2:
+            raise ValueError("original and explainer sources are both required")
+        actual = [(n["attrs"].get("data-source-kind"), n["attrs"].get("data-source-ref")) for n in parser.nodes.values() if n["attrs"].get("data-source-kind") in {"figure", "table"}]
+        if len(actual) != len(set(actual)) or set(actual) != expected:
+            raise ValueError("source/report visual coordinate sets differ")
+        # One report equation may cover identical occurrences from both sources.
+        # Coverage is of source occurrences, not a demand for duplicate printing.
+        if len(mapped_math) > len(SOURCE_MATH_RE.findall(report_html.read_text())):
+            raise ValueError("report equation count below mapped equation count")
+    except (KeyError, TypeError, ValueError, OSError, json.JSONDecodeError) as exc:
+        errors.append(f"visual-math-v1 {report_html}: {exc}")
+
 def validate_metadata(
     site: Path,
     studies: dict[str, dict],
@@ -2091,6 +2340,8 @@ def validate_metadata(
                 errors,
                 warnings,
             )
+            validate_figure_density(metadata, report_html, errors)
+            validate_source_completeness(metadata, report_html, errors)
             validate_content_review(metadata, studies[study_id], report_trace, report_html, errors, warnings)
             if metadata.get("source_fidelity") == SOURCE_FIDELITY_VERSION:
                 validate_source_fidelity_report_css(metadata_path.parent, errors)
