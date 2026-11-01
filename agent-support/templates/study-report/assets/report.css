@@ -3925,3 +3925,22 @@ svg.report-lightbox__visual {
   .continuous-mode .report-section pre { break-inside: avoid-page; page-break-inside: avoid; }
   .continuous-mode .report-section .source-note { font-size: 12px; line-height: 1.55; break-before: avoid-page; }
 }
+
+/* Text-only provenance/implementation checks; always expanded in screen and print. */
+.verification-note {
+  margin: 1.5em 0;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  break-inside: auto;
+}
+.verification-note > :first-child { margin-top: 0; }
+.verification-note > :last-child { margin-bottom: 0; }
+.verification-note p + p { margin-top: 0.75em; }
+@media print {
+  .verification-note { background: transparent; border-color: currentColor; }
+}

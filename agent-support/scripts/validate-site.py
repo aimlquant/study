@@ -1097,6 +1097,76 @@ def validate_content_review(metadata, study, trace, report_html, errors, warning
         errors.append(f"invalid content_review {review_name}: {exc}")
 
 
+def validate_reader_review(metadata, study, trace, report_html, errors, warnings):
+    """Bind a completed independent full-read record to this exact report.
+
+    This validates the recorded contract, not whether a reader understood prose.
+    Existing sessions without reader_review keep their previous contract.
+    """
+    mode = metadata.get("reader_review")
+    if mode is None:
+        return
+    if mode != "full-v1":
+        errors.append(f"unknown reader_review: {mode!r}")
+        return
+    try:
+        name = metadata["reader_review_record"]
+        if not isinstance(name, str) or not name:
+            raise ValueError("reader_review_record is required")
+        relative = Path(name)
+        path = (REPO_ROOT / relative).resolve()
+        if relative.is_absolute() or not within(path, (REPO_ROOT / "agent-support/reviews").resolve()):
+            raise ValueError("reader_review_record must be under agent-support/reviews")
+        record = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(record, dict) or type(record.get("schema_version")) is not int or record["schema_version"] != 1:
+            raise ValueError("expected reader review schema_version=1")
+        if record.get("report_sha256") != hashlib.sha256(report_html.read_bytes()).hexdigest():
+            raise ValueError("reader review report hash is stale")
+
+        def completed(item):
+            return (isinstance(item, dict) and item.get("status") == "complete"
+                    and type(item.get("remaining_blockers")) is int and item["remaining_blockers"] == 0)
+
+        if not completed(record):
+            raise ValueError("reader review is unfinished or has remaining blockers")
+        if not completed(record.get("introduction")):
+            raise ValueError("reader review introduction is unfinished")
+        expected = {ref for kind, ref in trace.source_anchors if kind == "section"}
+        if not expected:
+            raise ValueError("reader review needs source section coordinates")
+        if metadata.get("source_fidelity") != SOURCE_FIDELITY_VERSION:
+            raise ValueError("full-v1 requires source_fidelity")
+        source_name = metadata["source_material"]
+        source = (REPO_ROOT / source_name).resolve()
+        materials = (REPO_ROOT / study["materials_path"]).resolve()
+        if Path(source_name).is_absolute() or not within(source, materials):
+            raise ValueError("reader review source must remain under materials_path")
+        if materials.is_dir():
+            source_sections = {ref for kind, ref in parse_source_outline(
+                source, metadata.get("source_outline_style"), metadata.get("source_exercise_style")
+            ) if kind == "section"}
+            if not source_sections or expected != source_sections:
+                raise ValueError("reader review report/source section coverage differs")
+            expected = source_sections
+        else:
+            warnings.append(f"reader review source section comparison skipped: materials unavailable for {report_html}")
+        sections = record.get("sections")
+        if not isinstance(sections, list):
+            raise ValueError("reader review sections must be a list")
+        seen = set()
+        for section in sections:
+            if not completed(section) or not isinstance(section.get("ref"), str):
+                raise ValueError("reader review section is unfinished or invalid")
+            ref = section["ref"]
+            if ref in seen:
+                raise ValueError("duplicate reader review section")
+            seen.add(ref)
+        if seen != expected:
+            raise ValueError("reader review must cover every source section exactly")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        errors.append(f"invalid reader_review: {exc}")
+
+
 def within(path: Path, parent: Path) -> bool:
     try:
         path.relative_to(parent)
@@ -2422,6 +2492,7 @@ def validate_metadata(
             validate_figure_density(metadata, report_html, errors)
             validate_source_completeness(metadata, report_html, errors, warnings)
             validate_content_review(metadata, studies[study_id], report_trace, report_html, errors, warnings)
+            validate_reader_review(metadata, studies[study_id], report_trace, report_html, errors, warnings)
             if metadata.get("source_fidelity") == SOURCE_FIDELITY_VERSION:
                 validate_source_fidelity_report_css(metadata_path.parent, errors)
                 validate_svg_connector_fill_contract(metadata_path.parent, errors)

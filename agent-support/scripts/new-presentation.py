@@ -224,6 +224,7 @@ def main() -> int:
             metadata_template.name,
         )
 
+        metadata += f'\nreader_review = "full-v1"\nreader_review_record = "agent-support/reviews/{args.session}-reader-check.json"\n'
         if args.figure_density != "none":
             metadata += '\nfigure_density = "rich-v1"\n'
         if not args.no_source_completeness:
