@@ -1,27 +1,27 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "d7dd57e1c5fc63661f53e24c7da9e6a38dfad3e49a62b2ef994236a2831473cf",
+  "report_sha256": "c134f2a30d63ba86cebde79fb97878a87a0d423f9636bb03fec67b0d057a6aad",
   "sources": [
     {
       "role": "original",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_14_asking_a_kg_questions_with_natural_language/14_asking_a_kg_questions_with_natural_language.md",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_14_asking_a_kg_questions_with_natural_language/14_asking_a_kg_questions_with_natural_language.md",
       "sha256": "9974304de4aed09578061d608e47713233f58dd8ac3501683bafbbbc9a98873a",
-      "revision": "d666c97cb67939544aef453e1ac8a3df6195a65f",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "outline",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_14_asking_a_kg_questions_with_natural_language/14_asking_a_kg_questions_with_natural_language_ko_explained.md",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_14_asking_a_kg_questions_with_natural_language/14_asking_a_kg_questions_with_natural_language_ko_explained.md",
       "sha256": "0f989a9c21e5c5c7541dd636d799af5da6c6637d190ddb2dce3f0cb34ceef563",
-      "revision": "d666c97cb67939544aef453e1ac8a3df6195a65f",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "errata",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/errata.toml",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/errata.toml",
       "sha256": "1d382bad194c7738d3987285982438e8cad2808bd2156df6320207d7d4e3385f",
-      "revision": "d666c97cb67939544aef453e1ac8a3df6195a65f",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     }
   ],

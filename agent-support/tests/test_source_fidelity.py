@@ -28,19 +28,19 @@ SPEC.loader.exec_module(validate_site)
 
 CHAPTER_THREE_SOURCE = (
     REPO_ROOT
-    / "materials/aiml/active/knowledge-graphs-and-llms-in-action"
+    / "materials/aiml/archive/knowledge-graphs-and-llms-in-action"
     / "chapter_03_create_your_first_knowledge_graph_from_ontologies"
     / "03_create_your_first_knowledge_graph_from_ontologies_ko_explained.md"
 )
 CHAPTER_ONE_SOURCE = (
     REPO_ROOT
-    / "materials/aiml/active/knowledge-graphs-and-llms-in-action"
+    / "materials/aiml/archive/knowledge-graphs-and-llms-in-action"
     / "chapter_01_knowledge_graphs_and_llms_a_killer_combination"
     / "01_knowledge_graphs_and_llms_a_killer_combination_ko_explained.md"
 )
 CHAPTER_TWO_SOURCE = (
     REPO_ROOT
-    / "materials/aiml/active/knowledge-graphs-and-llms-in-action"
+    / "materials/aiml/archive/knowledge-graphs-and-llms-in-action"
     / "chapter_02_intelligent_systems_a_hybrid_approach"
     / "02_intelligent_systems_a_hybrid_approach_ko_explained.md"
 )

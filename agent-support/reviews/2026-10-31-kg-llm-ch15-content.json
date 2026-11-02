@@ -1,83 +1,83 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "26c858b66710a59030db56f0eec9e8db1ec1f00635f6a48e72c123f5f561d1d1",
+  "report_sha256": "f69574a0e02424d7302239e0dd5c617c69ef4520aaecd3d251e4b71a2ac15fb8",
   "sources": [
     {
       "role": "original",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/15_building_a_qa_agent_with_langgraph.md",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/15_building_a_qa_agent_with_langgraph.md",
       "sha256": "cab1b3a1b8213469df02fb911f8db5abfe5b0fc6638eb05cf6d5f0e678f56eb6",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "outline",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/15_building_a_qa_agent_with_langgraph_ko_explained.md",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/15_building_a_qa_agent_with_langgraph_ko_explained.md",
       "sha256": "f074b9c7682f404253ba6c6c8c8b90e9fb57366c42400d96e955fad515fe2ab7",
-      "revision": "2058c0d24858db7b79fefb9a10064e5b0e55427f",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "errata",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/errata.toml",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/errata.toml",
       "sha256": "1d382bad194c7738d3987285982438e8cad2808bd2156df6320207d7d4e3385f",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "notebook",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/15_chapter_guide.ipynb",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/15_chapter_guide.ipynb",
       "sha256": "aad70b7173ee68fbeea44be5c5e9d99057c95036a21dbaad7d705962cc1b3a65",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "code",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/investigator.py",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/investigator.py",
       "sha256": "80f1a52bed6eb72df124f468b0d1784855ffc4a666b3a9bd69db2ada2792f0ef",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "code",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/chain_config.yaml",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/chain_config.yaml",
       "sha256": "1ef412f2844fa8d2629c80598fae4bddda0f187ff842d0642c6c6fb9e3fc94be",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "code",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/templates/text_to_cypher.template",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/templates/text_to_cypher.template",
       "sha256": "db0838d6ab9f7a71da9fd233b984f9c43c514d3b6bf219b926cdadccbc8f451d",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "code",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/templates/summary.template",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/chains/templates/summary.template",
       "sha256": "f09a79eff978eac617d801ed960ef9b82131387ce6757cc092c2e3c05bdc5474",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "code",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/tools/schema.py",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/tools/schema.py",
       "sha256": "7cedada134ddb049734bef1dd4c3b0efbcc84c4fb659016d03b476f887d3334d",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "code",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/tools/schema_config.yaml",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/tools/schema_config.yaml",
       "sha256": "8a92eda1f79eb24f4fed95146881b0d1efaa00d05dacab3ef475a86092563b9b",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     },
     {
       "role": "code",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/app.py",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_15_building_a_qa_agent_with_langgraph/src/ch15/app.py",
       "sha256": "d0d77c50f36f458bf2d844205d5db80ba49c1f5776ce5712ee7ab19c303454a8",
-      "revision": "c999d203188774b113de4cbf954a0d8406671332",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0",
       "revision_sha256_matches": true
     }
   ],
