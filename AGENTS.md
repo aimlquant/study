@@ -37,6 +37,7 @@
 - `agent-support/studies.toml`: 진행 교재와 공개 경로
 - `agent-support/sessions.toml`: 일정, 발표자, 공개 Webex, 발행 상태, 공개 YouTube video ID
 - 새 Webex 링크를 받으면: 회차별 `meeting_url`에 넣기 → build·push로 게시 → 실제 회차·과정 페이지를 열어 링크 확인 → `media/scripts/study_links.py sync-calendar --date <토요일> --apply`로 캘린더를 맞추고 `check`로 페이지·캘린더·녹화 run 일치 확인 → 보고. 비밀번호는 공개 페이지에 넣지 않는다.
+- 회차 일정·회의 안내는 한 묶음으로 끝낸다: 회차·링크를 `sessions.toml` 정본에 반영 → 실제 회차·과정 페이지·README·캘린더(`study_links.py sync-calendar`·`check`)·녹화 run 확인 → 카톡 공지 문안을 만들어 운영자 확인 → 카톡방 글 게시 → 방 공지 등록(기존 공지는 내리고 글은 지우지 않음) → 카톡 화면에서 실제로 보이는지 확인 → 운영 창구에 보고.
 - `agent-support/procedures/study-lifecycle.md`: 교안과 영상의 양방향 연결 절차
 
 ## Safety boundaries
