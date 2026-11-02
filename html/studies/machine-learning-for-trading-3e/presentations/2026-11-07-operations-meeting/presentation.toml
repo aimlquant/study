@@ -1,0 +1,14 @@
+study_id = "machine-learning-for-trading-3e-2026"
+session_id = "2026-11-07-operations-meeting"
+title = "운영회의 · 관심 주제 소개와 다음 과정 정하기"
+date = "2026-11-07"
+presenters = ["참석자 전원"]
+chapters = ["운영회의"]
+template = "study-deck-v1"
+report_template = "study-report-v1"
+workflow = "raw-report-deck-v1"
+report_source = "report.html"
+artifacts = ["report", "slides"]
+# 교재 장 해설이 아닌 운영회의 자료다(절차 '설명·실습 근거 기록'의 운영 문서 예외).
+# 원본 대응·도해 밀도·원장·전체 독자 기록 계약은 적용하지 않고,
+# 근거는 비공개 회의 메모(management 2026-11-03)와 공개 링크로 남긴다. 짝 검토 1회.

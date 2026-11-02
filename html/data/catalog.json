@@ -450,7 +450,18 @@
       "title": "Chapter 9. 모델 기반 특성 추출"
     },
     {
-      "artifacts": [],
+      "artifacts": [
+        {
+          "kind": "report",
+          "label": "회의 자료",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-11-07-operations-meeting/report.html"
+        },
+        {
+          "kind": "slides",
+          "label": "회의용 발표자료",
+          "url": "studies/machine-learning-for-trading-3e/presentations/2026-11-07-operations-meeting/"
+        }
+      ],
       "chapters": [],
       "date": "2026-11-07",
       "id": "2026-11-07-operations-meeting",
@@ -460,7 +471,7 @@
       "presenters": [
         "참석자 전원"
       ],
-      "status": "scheduled",
+      "status": "materials-published",
       "study_id": "machine-learning-for-trading-3e-2026",
       "title": "운영회의 · 관심 주제 소개와 다음 과정 정하기"
     },
