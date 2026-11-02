@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-STUDIES_ROOT = REPO_ROOT / "materials" / "aiml" / "active"
+STUDIES_ROOT = REPO_ROOT / "materials" / "aiml" / "archive"
 sys.path.insert(0, str(REPO_ROOT / "agent-support"))
 
 from studykit import config, listing_map  # noqa: E402
@@ -85,7 +85,7 @@ class TitleExtractionTests(unittest.TestCase):
 class RealStudyTitleTests(unittest.TestCase):
     """실제 교재에서 산문이 제목으로 잡히지 않는가."""
 
-    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML active 교재가 없다")
+    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML archive 교재가 없다")
     def test_no_prose_titles_in_declared_listings(self) -> None:
         paths = sorted(STUDIES_ROOT.glob(f"*/{config.CONFIG_NAME}"))
         if not paths:

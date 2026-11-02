@@ -5,13 +5,15 @@
   "sources": [
     {
       "role": "original",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_10_graph_feature_engineering_manual_and_semiautomated_approaches/10_graph_feature_engineering_manual_and_semiautomated_approaches.md",
-      "sha256": "0e6fb6f4e3bf52dee4e47ccf907f97e77d658b9e1295a2503f3a07751a398c7c"
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_10_graph_feature_engineering_manual_and_semiautomated_approaches/10_graph_feature_engineering_manual_and_semiautomated_approaches.md",
+      "sha256": "0e6fb6f4e3bf52dee4e47ccf907f97e77d658b9e1295a2503f3a07751a398c7c",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0"
     },
     {
       "role": "outline",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_10_graph_feature_engineering_manual_and_semiautomated_approaches/10_graph_feature_engineering_manual_and_semiautomated_approaches_ko_explained.md",
-      "sha256": "546695afd2c8655964c0242d73d76a5ce32b23321f6e54a198b86122b5869897"
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_10_graph_feature_engineering_manual_and_semiautomated_approaches/10_graph_feature_engineering_manual_and_semiautomated_approaches_ko_explained.md",
+      "sha256": "546695afd2c8655964c0242d73d76a5ce32b23321f6e54a198b86122b5869897",
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0"
     }
   ],
   "sections": [

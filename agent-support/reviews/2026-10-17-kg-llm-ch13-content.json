@@ -8,15 +8,15 @@
   "sources": [
     {
       "role": "original",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_13_knowledge_graph_powered_retrieval_augmented_generation/13_knowledge_graph_powered_retrieval_augmented_generation.md",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_13_knowledge_graph_powered_retrieval_augmented_generation/13_knowledge_graph_powered_retrieval_augmented_generation.md",
       "sha256": "73621a96aebf18029b214e791b9763d20220c05f1e7c9e8b33aa8b577a1ef622",
-      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0"
     },
     {
       "role": "outline",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_13_knowledge_graph_powered_retrieval_augmented_generation/13_knowledge_graph_powered_retrieval_augmented_generation_ko_explained.md",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_13_knowledge_graph_powered_retrieval_augmented_generation/13_knowledge_graph_powered_retrieval_augmented_generation_ko_explained.md",
       "sha256": "0c9b56e1f5a2c290431bb210e631fb8e9c6890d162464b19433e13bb71184cad",
-      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0"
     }
   ],
   "sections": [

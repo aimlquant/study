@@ -41,11 +41,11 @@ html/             # GitHub Pages 배포 산출물
 
 현재 교재:
 
-- [`Knowledge Graphs and LLMs in Action`](materials/aiml/active/knowledge-graphs-and-llms-in-action)
 - [`Machine Learning for Trading` 3판](materials/quant/active/machine-learning-for-trading-3e)
 
 종료된 교재:
 
+- [`Knowledge Graphs and LLMs in Action`](materials/aiml/archive/knowledge-graphs-and-llms-in-action) — 2026-10-31 종료. 회차 페이지와 교안은 그대로 공개된다.
 - [`Machine Trading`](materials/quant/archive/machine-trading) — 2026-08-29 종료. 회차 페이지와 교안은 그대로 공개된다.
 
 ## 일정·발표자·Webex
@@ -54,10 +54,10 @@ html/             # GitHub Pages 배포 산출물
 확정되는 대로 갱신한다. 모바일에 최적화된 일정은 각 스터디의 GitHub Pages에서 볼 수 있다.
 
 - [Quant 전체 일정](https://aimlquant.github.io/study/studies/machine-learning-for-trading-3e/#schedule): 08:00–09:00, 2026-09-05~2027-04-03
-- [AI/ML 전체 일정](https://aimlquant.github.io/study/studies/knowledge-graphs-and-llms-in-action/#schedule): 09:00–10:00, 2026-07-25~2026-10-31
+- [AI/ML 종료 과정 일정](https://aimlquant.github.io/study/studies/knowledge-graphs-and-llms-in-action/#schedule): 09:00–10:00, 2026-07-25~2026-10-31
 - Quant 발표자: 태영, 핀조이 (미정 25회). 9월 5일 오리엔테이션과 마지막 전권 회고는 참석자 전원
 - 종료된 스터디: [머신 트레이딩](https://aimlquant.github.io/study/studies/machine-trading/) 2026-07-25~2026-08-29, 08:00–09:00. 발표자 정훈, 종훈, 태호, 태영, 핀조이, 원미
-- AI/ML 발표자: 수경, 태영, 종훈(S), 두균, 종훈(L), 재익, 태호, 정훈 (미정 2회)
+- 종료된 AI/ML 과정 발표자: 수경, 태영, 종훈(S), 두균, 종훈(L), 재익, 태호, 정훈 (미정 2회)
 - 2026-09-26은 추석 연휴로 휴회하며, 이후 AI/ML 회차는 한 주씩 미뤄졌다
 
 ### Quant · Machine Trading (종료)

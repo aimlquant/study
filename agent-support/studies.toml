@@ -7,7 +7,7 @@ slug = "knowledge-graphs-and-llms-in-action"
 title = "Knowledge Graphs and LLMs in Action"
 title_ko = "지식 그래프와 LLM 실전"
 description_ko = "지식 그래프와 LLM을 결합해 검증 가능하고 설명 가능한 하이브리드 지능형 시스템을 설계합니다."
-status = "active"
+status = "archived"
 start_date = "2026-07-25"
 end_date = "2026-10-31"
 weekday = "saturday"
@@ -20,7 +20,7 @@ planned_chapters = [
   "Chapter 6", "Chapter 7", "Chapter 8", "Chapter 9", "Chapter 10",
   "Chapter 11", "Chapter 12", "Chapter 13", "Chapter 14", "Chapter 15",
 ]
-materials_path = "materials/aiml/active/knowledge-graphs-and-llms-in-action"
+materials_path = "materials/aiml/archive/knowledge-graphs-and-llms-in-action"
 archive_path = "materials/aiml/archive/knowledge-graphs-and-llms-in-action"
 presentation_path = "html/studies/knowledge-graphs-and-llms-in-action"
 source_repository = "https://github.com/restful3/ds4th_study"

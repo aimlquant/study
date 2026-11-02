@@ -760,7 +760,7 @@ class RealRegistryTest(unittest.TestCase):
             sessions,
         )[Path("index.html")]
 
-        self.assertEqual(root_page.count('class="track-schedule"'), 2)
+        self.assertEqual(root_page.count('class="track-schedule"'), sum(study["status"] == "active" for study in studies))
         # 종료된 교재의 회차는 허브 일정에서 빠지고 교재 페이지에만 남는다.
         active_ids = {
             study["id"] for study in studies if study["status"] == "active"
@@ -868,7 +868,7 @@ class SourceBookTest(unittest.TestCase):
 
 
 class RealBookRegistryTest(unittest.TestCase):
-    def test_both_active_studies_declare_a_verifiable_book(self) -> None:
+    def test_all_studies_declare_a_verifiable_book(self) -> None:
         _, studies, _ = build_site.load_model(
             build_site.DEFAULT_SITE_CONFIG,
             build_site.DEFAULT_STUDIES,
@@ -876,7 +876,7 @@ class RealBookRegistryTest(unittest.TestCase):
         )
 
         active = [study for study in studies if study["status"] == "active"]
-        self.assertEqual(len(active), 2)
+        self.assertEqual(len(active), 1)
         self.assertEqual(len(studies), 3)
         for study in studies:
             with self.subTest(study=study["id"]):

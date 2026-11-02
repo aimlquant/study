@@ -10,4 +10,4 @@ workflow = "raw-report-deck-v1"
 report_source = "report.html"
 artifacts = ["report", "slides"]
 source_fidelity = "source-structure-v1"
-source_material = "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_05_extracting_domain_specific_knowledge_from_unstructured_data/05_extracting_domain_specific_knowledge_from_unstructured_data_ko_explained.md"
+source_material = "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_05_extracting_domain_specific_knowledge_from_unstructured_data/05_extracting_domain_specific_knowledge_from_unstructured_data_ko_explained.md"

@@ -15,7 +15,7 @@ import unittest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-STUDIES_ROOT = REPO_ROOT / "materials" / "aiml" / "active"
+STUDIES_ROOT = REPO_ROOT / "materials" / "aiml" / "archive"
 sys.path.insert(0, str(REPO_ROOT / "agent-support"))
 
 from studykit import listing_source  # noqa: E402
@@ -380,7 +380,7 @@ class GateIntegrationTests(unittest.TestCase):
         )
         self.assertTrue(any("10.6" in f for f in failures), failures)
 
-    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML active 교재가 없다 (sparse checkout)")
+    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML archive 교재가 없다 (sparse checkout)")
     def test_real_study_declarations_resolve(self) -> None:
         """실제 교재의 모든 repo-file 선언이 파일·심볼까지 해결되는가."""
         from studykit import config
@@ -396,7 +396,7 @@ class GateIntegrationTests(unittest.TestCase):
 class StudyFacadeTests(unittest.TestCase):
     """노트북이 쓰는 얇은 진입점. 노트북마다 표와 ast 헬퍼를 재구현하지 않게 한다."""
 
-    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML active 교재가 없다 (sparse checkout)")
+    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML archive 교재가 없다 (sparse checkout)")
     def setUp(self) -> None:
         from studykit import config
         paths = sorted(STUDIES_ROOT.glob(f"*/{config.CONFIG_NAME}"))
@@ -473,7 +473,7 @@ class SuffixTrapTests(unittest.TestCase):
 class TitleTests(unittest.TestCase):
     """대조표에 책 리스팅 제목이 붙어야 노트북이 자체 표를 들지 않는다."""
 
-    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML active 교재가 없다")
+    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML archive 교재가 없다")
     def setUp(self) -> None:
         from studykit import config
         paths = sorted(STUDIES_ROOT.glob(f"*/{config.CONFIG_NAME}"))
@@ -622,7 +622,7 @@ class Ch03OffsetAuditTests(unittest.TestCase):
     다시 검사한다 — 정본이 아니라 정본을 검사하는 assertion 이라 중복 정본이 아니다.
     """
 
-    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML active 교재가 없다")
+    @unittest.skipIf(not STUDIES_ROOT.is_dir(), "AIML archive 교재가 없다")
     def setUp(self) -> None:
         from studykit import config
         paths = sorted(STUDIES_ROOT.glob(f"*/{config.CONFIG_NAME}"))

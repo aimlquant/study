@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "26c858b66710a59030db56f0eec9e8db1ec1f00635f6a48e72c123f5f561d1d1",
+  "report_sha256": "f69574a0e02424d7302239e0dd5c617c69ef4520aaecd3d251e4b71a2ac15fb8",
   "deck_sha256": "32c1f64fba9215e547f0d30df72d57a4a462c3b3835472987acff679680408a8",
   "reviewer": "claude (author self-check before pair review)",
   "review_date": "2026-10-25",

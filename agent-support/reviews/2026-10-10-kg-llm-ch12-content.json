@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "7903e337ca67a6a832ea51903fc4cc62083c8683a7df107d80c8b9dc2782189d",
+  "report_sha256": "11a23eefc8bb514a176fe7c6a6d71292ad7bea6b95c7deff793dc26e2ec0dec3",
   "reviewer": "Codex",
   "review_date": "2026-10-10",
   "review_scope": "기존 12장 자료의 발행 기록 보완: 원문 텍스트·해설 목차, 본문 절/리스팅/표 연결과 수치의 출처·실행 상태를 검토했다. 모델 재학습, 라이브러리 버전별 동작 및 전체 화면의 시각 검증을 수행했다는 기록이 아니다.",
   "sources": [
     {
       "role": "original",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_12_node_classification_and_link_prediction_with_gnns/12_node_classification_and_link_prediction_with_gnns.md",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_12_node_classification_and_link_prediction_with_gnns/12_node_classification_and_link_prediction_with_gnns.md",
       "sha256": "a2cd898b42c8803e403c772ccf738a16303fd38afc1a4a21321b4294ec4db169",
-      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0"
     },
     {
       "role": "outline",
-      "path": "materials/aiml/active/knowledge-graphs-and-llms-in-action/chapter_12_node_classification_and_link_prediction_with_gnns/12_node_classification_and_link_prediction_with_gnns_ko_explained.md",
+      "path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action/chapter_12_node_classification_and_link_prediction_with_gnns/12_node_classification_and_link_prediction_with_gnns_ko_explained.md",
       "sha256": "4d643caed8a3151d419a00950e78f3fdf8704f9aea2d7cd710d1975f74770e2f",
-      "revision": "c579bc67e2ec2ce664059f4bfdf3393f5a5f78f4"
+      "revision": "46ae30468221fcc3248a1aab4be933deeb14f1d0"
     }
   ],
   "sections": [
