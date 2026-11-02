@@ -720,8 +720,9 @@ class RealRegistryTest(unittest.TestCase):
         # 스터디로 옮겨 오리엔테이션(1회)·27개 장·전권 회고와 함께 30회가 된다.
         self.assertEqual(counts["machine-trading-2026"], 7)
         self.assertEqual(counts["kg-llm-in-action-2026"], 14)
-        self.assertEqual(counts["machine-learning-for-trading-3e-2026"], 30)
-        self.assertEqual(len(sessions), 51)
+        # 11/7 운영회의(AI/ML 시간)가 더해져 31회.
+        self.assertEqual(counts["machine-learning-for-trading-3e-2026"], 31)
+        self.assertEqual(len(sessions), 52)
         status_by_id = {study["id"]: study["status"] for study in studies}
         self.assertEqual(status_by_id["machine-trading-2026"], "archived")
         self.assertEqual(
@@ -800,7 +801,8 @@ class RealRegistryTest(unittest.TestCase):
             study = study_by_id[session["study_id"]]
             self.assertIn(str(session["date"]), row)
             self.assertIn(
-                f"{study['start_time']}–{study['end_time']}",
+                f"{session.get('start_time', study['start_time'])}–"
+                f"{session.get('end_time', study['end_time'])}",
                 row,
             )
             self.assertIn(build_site.presenter_label(session), row)
