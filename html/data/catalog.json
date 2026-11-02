@@ -454,12 +454,12 @@
         {
           "kind": "report",
           "label": "회의 자료",
-          "url": "studies/machine-learning-for-trading-3e/presentations/2026-11-07-operations-meeting/report.html"
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-11-07-operations-meeting/report.html"
         },
         {
           "kind": "slides",
           "label": "회의용 발표자료",
-          "url": "studies/machine-learning-for-trading-3e/presentations/2026-11-07-operations-meeting/"
+          "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-11-07-operations-meeting/"
         }
       ],
       "chapters": [],
@@ -472,7 +472,7 @@
         "참석자 전원"
       ],
       "status": "materials-published",
-      "study_id": "machine-learning-for-trading-3e-2026",
+      "study_id": "kg-llm-in-action-2026",
       "title": "운영회의 · 관심 주제 소개와 다음 과정 정하기"
     },
     {
@@ -1603,7 +1603,7 @@
         "year": "2025"
       },
       "description_ko": "지식 그래프와 LLM을 결합해 검증 가능하고 설명 가능한 하이브리드 지능형 시스템을 설계합니다.",
-      "end_date": "2026-10-31",
+      "end_date": "2026-11-07",
       "end_time": "10:00",
       "id": "kg-llm-in-action-2026",
       "materials_path": "materials/aiml/archive/knowledge-graphs-and-llms-in-action",

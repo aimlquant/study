@@ -719,9 +719,9 @@ class RealRegistryTest(unittest.TestCase):
         # 머신 트레이딩은 7개 장으로 종료됐고, 다음 교재 논의 회차는 ML4T 3판
         # 스터디로 옮겨 오리엔테이션(1회)·27개 장·전권 회고와 함께 30회가 된다.
         self.assertEqual(counts["machine-trading-2026"], 7)
-        self.assertEqual(counts["kg-llm-in-action-2026"], 14)
-        # 11/7 운영회의(AI/ML 시간)가 더해져 31회.
-        self.assertEqual(counts["machine-learning-for-trading-3e-2026"], 31)
+        # 11/7 AI/ML 운영회의를 지식 그래프 과정의 마지막 회차로 붙였다.
+        self.assertEqual(counts["kg-llm-in-action-2026"], 15)
+        self.assertEqual(counts["machine-learning-for-trading-3e-2026"], 30)
         self.assertEqual(len(sessions), 52)
         status_by_id = {study["id"]: study["status"] for study in studies}
         self.assertEqual(status_by_id["machine-trading-2026"], "archived")

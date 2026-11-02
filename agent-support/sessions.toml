@@ -579,24 +579,22 @@ reference_videos = [
 
 [[sessions]]
 id = "2026-11-07-operations-meeting"
-study_id = "machine-learning-for-trading-3e-2026"
+study_id = "kg-llm-in-action-2026"
 date = "2026-11-07"
-start_time = "09:00"
-end_time = "10:00"
 title = "운영회의 · 관심 주제 소개와 다음 과정 정하기"
 kind = "operations"
 presenters = ["참석자 전원"]
 chapters = []
 status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mb9394de4af2495445a5ff6968a462172"
-summary = "지식 그래프 과정을 마친 뒤 AI/ML 시간(09:00–10:00)에 여는 운영회의입니다. 10/31 오프라인 스터디에서 나온 이야기를 바탕으로 앞으로 몇 주 동안의 진행 방식과 다음 과정을 정합니다."
+summary = "지식 그래프 책을 마친 뒤 AI/ML 시간에 여는 운영회의로, 이 과정의 마지막 회차입니다. 10월 31일 오프라인 모임에서 나온 이야기를 바탕으로 11월 14일부터 이 시간에 무엇을 할지 정합니다."
 artifacts = [
-  { kind = "report", label = "회의 자료", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-07-operations-meeting/report.html" },
-  { kind = "slides", label = "회의용 발표자료", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-07-operations-meeting/" },
+  { kind = "report", label = "회의 자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-11-07-operations-meeting/report.html" },
+  { kind = "slides", label = "회의용 발표자료", url = "studies/knowledge-graphs-and-llms-in-action/presentations/2026-11-07-operations-meeting/" },
 ]
 discussion_points = [
-  "각자 관심 있는 내용을 짧게 소개하는 시간을 몇 주간 진행하는 방식(기간·한 사람 시간·순서·자료 형식)을 정합니다.",
-  "다음 과정 후보(GitHub 스타가 많은 저장소, 강의, 교재)를 비교하고 선정 방법을 정합니다.",
+  "몇 주 동안 각자 관심 있는 주제를 소개할지, 한 사람에게 몇 분을 주고 어떤 순서로 할지 정합니다.",
+  "다음 과정을 GitHub 저장소, 강의, 교재 가운데 언제, 어떻게 고를지 정합니다.",
 ]
 
 [[sessions]]
