@@ -450,6 +450,21 @@
       "title": "Chapter 9. 모델 기반 특성 추출"
     },
     {
+      "artifacts": [],
+      "chapters": [],
+      "date": "2026-11-07",
+      "id": "2026-11-07-operations-meeting",
+      "meeting_status": "available",
+      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mb9394de4af2495445a5ff6968a462172",
+      "page_url": "https://aimlquant.github.io/study/sessions/2026-11-07-operations-meeting/",
+      "presenters": [
+        "참석자 전원"
+      ],
+      "status": "scheduled",
+      "study_id": "machine-learning-for-trading-3e-2026",
+      "title": "운영회의 · 관심 주제 소개와 다음 과정 정하기"
+    },
+    {
       "artifacts": [
         {
           "kind": "report",
