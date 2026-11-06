@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "report_sha256": "378bfe1e4d3a650829d3ae173512aca32af321a1b897fc331107596317d085ca",
+  "report_sha256": "15d6d1a27483bc681352c732b1d7e35435b7f8bcc358df867c00b96df3f4be7d",
   "reader": "aimlquant-claude (Claude), independent first-time reader; task 83fe65a6276a, 도라 16341",
   "reader_profile": "1–7장을 읽은 스터디원, 이 장과 교재는 처음",
   "read_basis": "ab4ae95 전수 읽기(본문 578·메모 57) 뒤 막힘 2·반복 1 수정, 2f30c55에서 수정 3곳 재확인",
@@ -81,5 +81,15 @@
   ],
   "advisories": [
     "식마다 예 소개→식→기호 풀이→같은 예 계산으로 같은 숫자를 2–3번 반복하는 곳 약 34곳. 막힘은 아님. 다음 회차 규칙 보강 후보"
+  ],
+  "report_hash_updates": [
+    {
+      "date": "2026-11-06",
+      "reviewer": "aimlquant-codex-ch08deck",
+      "previous_sha256": "378bfe1e4d3a650829d3ae173512aca32af321a1b897fc331107596317d085ca",
+      "report_sha256": "15d6d1a27483bc681352c732b1d7e35435b7f8bcc358df867c00b96df3f4be7d",
+      "reason": "설정 메뉴의 Slides 상대 링크 한 개 추가만 확인. 링크 제거 시 이전 report SHA 재현. 교육 내용 및 기존 내용·독자 판정은 변경 없음.",
+      "review_record": "_workspace/ch08deck/review-codex-deck-r1.md (aimlquant 작업 공간)"
+    }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verdict": "reviewed",
-  "report_sha256": "378bfe1e4d3a650829d3ae173512aca32af321a1b897fc331107596317d085ca",
+  "report_sha256": "15d6d1a27483bc681352c732b1d7e35435b7f8bcc358df867c00b96df3f4be7d",
   "sources": [
     {
       "role": "original",
@@ -247,5 +247,15 @@
     "basis": "레인 ra d8c2583 / rb 7e6177e, 통합 ab4ae95, 독자 지적 수정 2f30c55. 그림73·표11·식62·코드7 직렬화, 기존ID·수치·href 및 source-inventory 보존 검사 통과.",
     "independent_reader": "management d06cf0c: 도입–8.7 전수 읽기 후 최종 막힘0, report SHA 결속 기록을 별도 복사",
     "cross_sample": "Codex 시드16341, 8.2–8.6 본문 30문단(절별6) 선판정 후 대조: 막힘0, 일치30/30. 표본으로 전수 검수를 대체하지 않음."
-  }
+  },
+  "report_hash_updates": [
+    {
+      "date": "2026-11-06",
+      "reviewer": "aimlquant-codex-ch08deck",
+      "previous_sha256": "378bfe1e4d3a650829d3ae173512aca32af321a1b897fc331107596317d085ca",
+      "report_sha256": "15d6d1a27483bc681352c732b1d7e35435b7f8bcc358df867c00b96df3f4be7d",
+      "reason": "설정 메뉴의 Slides 상대 링크 한 개 추가만 확인. 링크 제거 시 이전 report SHA 재현. 교육 내용 및 기존 내용·독자 판정은 변경 없음.",
+      "review_record": "_workspace/ch08deck/review-codex-deck-r1.md (aimlquant 작업 공간)"
+    }
+  ]
 }

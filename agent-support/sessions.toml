@@ -571,6 +571,7 @@ status = "materials-published"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mb9394de4af2495445a5ff6968a462172"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-07-ch08/report.html" },
+  { kind = "slides", label = "발표자료", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-07-ch08/" },
 ]
 
 reference_videos = [
