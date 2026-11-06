@@ -2,7 +2,7 @@
  "schema_version": 1,
  "verdict": "reviewed",
  "report_sha256": "15d6d1a27483bc681352c732b1d7e35435b7f8bcc358df867c00b96df3f4be7d",
- "deck_sha256": "7952a03ba9572049ae4e5e38089eed0103a22f89221b93bba9d49b76ed60b502",
+ "deck_sha256": "989b3d183679133b98e6feb3271bf7c3e290519d1c11b51a48c114f0cbd604e2",
  "units": [
   {
    "question": "이 장이 묻는 질문은 무엇인가?",
