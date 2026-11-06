@@ -103,7 +103,7 @@
 
     <section class="slide slide--teaching slide--teaching-visual" id="slide-10" aria-label="세 단계 필터" data-report-refs="s81 fig-pattern-validation fig-three-filters" data-source-refs="section:8.1 figure:8.1 box:8.1" data-report-visual-adaptation="intentional">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.1 · 그림 8.1 · 박스 8.1</span></header>
-      <h1>이유와 시간, 계산이 서로 맞게 명세를 만들고, 명세를 만들 때 쓰지 않은 자료로 다시 확인합니다</h1>
+      <h1>투자 이유와 기간, 계산 방법이 어긋나지 않게 명세를 만들고, 명세를 만들 때 쓰지 않은 자료로 다시 확인합니다</h1>
       <p class="lead">책의 설계 흐름을 왼쪽에서 오른쪽으로 따라가면 막연한 아이디어가 계산할 수 있는 명세로 바뀝니다.</p>
       <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="세 단계 필터" class="deck-report-figure "><img src="assets/figs/deck-three-filters.svg" alt="세 단계 필터. 무엇을 예측할지 정하고, 입력과 결과의 시간을 맞추고, 기대하는 움직임과 입력의 역할을 따진 뒤 명세를 씁니다."></figure><div class="teaching-columns ch08-cols"><article><h2>따라 읽기</h2><p>무엇을 예측할지 정하고, 입력과 결과의 시간을 맞추고, 기대하는 움직임과 입력의 역할을 따진 뒤 명세를 씁니다.</p></article><article><h2>그림의 시간 칸</h2><p>룩백을 예측 기간 이하로 둔 것은 한 가지 예입니다. 모든 특성이 지킬 규칙은 아닙니다.</p></article><article><h2>메커니즘 없는 패턴</h2><p>이유를 설명하지 못하는 패턴도 바로 버리지 않되, 더 엄격히 확인하며 잠정적으로 다룹니다.</p></article></div></div></div>
       <p class="takeaway">과거에 좋아 보인 것을 앞으로도 쓸 수 있다고 말하려면 검증이 필요합니다.</p>
@@ -132,7 +132,7 @@
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.2</span></header>
       <h1>끝점이 같아도 경로는 다를 수 있고, +10%와 −10%를 지나면 가격은 1% 낮아집니다</h1>
       <p class="lead">모멘텀은 최근 움직임이 이어진다는 생각입니다. 출발점과 끝점만 보면 지나온 길을 알 수 없습니다.</p>
-      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="같은 끝점과 다른 가격 경로" class="deck-report-figure "><img src="assets/figs/s82-momentum-path.svg" alt="같은 끝점과 다른 가격 경로. 둘 다 +5%지만 최근 가격 세 개의 평균은 104.00과 104.67로 다릅니다."></figure><div class="teaching-columns ch08-cols"><article><h2>경로 두 개</h2><p>둘 다 +5%지만 최근 가격 세 개의 평균은 104.00과 104.67로 다릅니다.</p></article><article><h2>수익률 묶기</h2><p>100은 110을 지나 99가 됩니다. \((1.10)(0.90)-1=-1\%\)입니다.</p></article><article><h2>기록하기</h2><p>수익률을 어떤 방식으로 어느 기간에 묶었는지, 바꿔 본 기간까지 명세에 적습니다.</p></article></div></div></div>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="같은 끝점과 다른 가격 경로" class="deck-report-figure "><img src="assets/figs/s82-momentum-path.svg" alt="같은 끝점과 다른 가격 경로. 둘 다 +5%지만 최근 가격 세 개의 평균은 104.00과 104.67로 다릅니다."></figure><div class="teaching-columns ch08-cols"><article><h2>경로 두 개</h2><p>둘 다 +5%지만 최근 가격 세 개의 평균은 104.00과 104.67로 다릅니다.</p></article><article><h2>수익률 합치기</h2><p>100은 110을 지나 99가 됩니다. \((1.10)(0.90)-1=-1\%\)입니다.</p></article><article><h2>기록하기</h2><p>수익률을 어떤 방식으로 어느 기간에 합쳤는지, 바꿔 본 기간까지 명세에 적습니다.</p></article></div></div></div>
       <p class="takeaway">시작과 끝 사이의 변화를 볼지, 평균이 움직인 경로를 볼지에 따라 재는 내용이 달라집니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s82-fig-momentum-path">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -202,7 +202,7 @@
 
     <section class="slide slide--teaching slide--teaching-visual" id="slide-21" aria-label="상대값과 타깃 인코딩" data-report-refs="s83 s83-relative-value s83-lead-lag s83-encoding-timing" data-source-refs="section:8.3">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.3</span></header>
-      <h1>비교 상대를 정하면 얼마나 더 강한지 볼 수 있고, 업종 평균 같은 입력에는 이미 확인된 정답만 넣습니다</h1>
+      <h1>비교 상대를 정하면 얼마나 더 강한지 볼 수 있고, 업종별 정답 평균을 입력으로 쓸 때는 이미 확인된 정답만 모읍니다</h1>
       <p class="lead">한 종목이 3% 올랐어도 동종 종목이 모두 5% 올랐다면 상대적으로 약한 움직임입니다.</p>
       <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="동종 대비 편차를 자기 변동성으로 나누기" class="deck-report-figure "><img src="assets/figs/s83-relative-value.svg" alt="동종 대비 편차를 자기 변동성으로 나누기. 내 종목 수익률 3%, 비교 집단 1%, 내 변동성 2%면 상대값은 ((3-1)/2=1)입니다."></figure><div class="teaching-columns ch08-cols"><article><h2>상대값</h2><p>내 종목 수익률 3%, 비교 집단 1%, 내 변동성 2%면 상대값은 \((3-1)/2=1\)입니다.</p></article><article><h2>선후행</h2><p>같은 날 함께 움직였는지와 다음 날까지 이어졌는지는 다른 질문입니다.</p></article><article><h2>타깃 인코딩</h2><p>업종 같은 범주를 그 범주의 정답 평균으로 바꾸는 방법입니다. 이미 확정된 정답만 모읍니다.</p></article></div></div></div>
       <p class="takeaway">비교 집단과 계산 방법까지 입력의 뜻에 들어갑니다.</p>
@@ -213,7 +213,7 @@
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.3</span></header>
       <h1>내재 변동성은 옵션 가격에 담긴 흔들림의 척도이고, 풋과 콜 사이, 만기 사이를 비교해 읽습니다</h1>
       <p class="lead">옵션은 어떤 상품을 정해진 가격에 사거나(콜) 팔(풋) 수 있는 권리입니다.</p>
-      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="호가에서 고정된 정의의 옵션 특성으로" class="deck-report-figure "><img src="assets/figs/s83-option-surface.svg" alt="호가에서 고정된 정의의 옵션 특성으로. 정해진 가격이 그 상품의 지금 가격과 가까운 옵션을 봅니다. 이 옵션의 시장 가격을 모형에 넣어 거꾸로 구한 흔들림이 내재 변동성(IV)입니다. 실제 변동성(RV)과 같다고 보장되지 않습니다."></figure><div class="teaching-columns ch08-cols"><article><h2>수준(ATM)</h2><p>정해진 가격이 그 상품의 지금 가격과 가까운 옵션을 봅니다. 이 옵션의 시장 가격을 모형에 넣어 거꾸로 구한 흔들림이 내재 변동성(IV)입니다. 실제 변동성(RV)과 같다고 보장되지 않습니다.</p></article><article><h2>풋과 콜(스큐)</h2><p>만기를 맞추고 가격 반응이 비슷한 풋과 콜을 고릅니다. 풋의 IV가 25%, 콜의 IV가 20%면 차이는 5%포인트이고, 이 차이로 하락에 대비하는 옵션이 얼마나 비싼지 봅니다.</p></article><article><h2>만기(기간구조)</h2><p>단기 옵션의 IV가 장기보다 높으면 임박한 사건의 불확실성을 살펴봅니다.</p></article></div></div></div>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="호가에서 고정된 정의의 옵션 특성으로" class="deck-report-figure "><img src="assets/figs/s83-option-surface.svg" alt="호가에서 고정된 정의의 옵션 특성으로. 정해진 가격이 그 상품의 지금 가격과 가까운 옵션을 봅니다. 이 옵션의 시장 가격을 모형에 넣어 거꾸로 구한 흔들림이 내재 변동성(IV)입니다. 실제 변동성(RV)과 같다고 보장되지 않습니다."></figure><div class="teaching-columns ch08-cols"><article><h2>수준(ATM)</h2><p>정해진 가격이 그 상품의 지금 가격과 가까운 옵션을 봅니다. 이 옵션의 시장 가격을 모형에 넣어 거꾸로 구한 흔들림이 내재 변동성(IV)입니다. 실제 변동성(RV)과 같다고 보장되지 않습니다.</p></article><article><h2>풋과 콜(스큐)</h2><p>만기를 맞추고, 상품 가격이 움직일 때 옵션 가격이 변하는 크기가 비슷한 풋과 콜을 고릅니다. 풋의 IV가 25%, 콜의 IV가 20%면 차이는 5%포인트이고, 이 차이로 하락에 대비하는 옵션이 얼마나 비싼지 봅니다.</p></article><article><h2>만기(기간구조)</h2><p>단기 옵션의 IV가 장기보다 높으면 임박한 사건의 불확실성을 살펴봅니다.</p></article></div></div></div>
       <p class="takeaway">오래된 호가를 거르는 방법과 만기를 맞추는 방법도 특성의 정의에 들어갑니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s83-option-surface">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -230,7 +230,7 @@
     <section class="slide slide--teaching chapter-divider" id="slide-24" aria-label="8.4 시작" data-report-refs="s84" data-section-divider="8.4" data-source-refs="section:8.4" data-source-title="section:8.4">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.4</span></header>
       <h1>맥락적·느리게 변하는 특성 — 시장 가격 밖의 세 계열</h1>
-      <p class="lead">분기 실적을 오늘도 내일도 붙이면 매일 새로운 정보를 얻은 걸까요?</p>
+      <p class="lead">분기 실적 하나를 날짜별 표의 오늘 행에도 내일 행에도 붙이면 매일 새로운 정보를 얻은 걸까요?</p>
       <div class="slide-body"><div class="section-number" aria-hidden="true">8.4</div></div>
       <p class="takeaway">기업 정보, 달력, 거시 경제의 세 가지 배경에서 무엇이 새로 바뀌었고 그때 무엇을 알 수 있었는지 묻습니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s84">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
@@ -241,7 +241,7 @@
       <h1>여러 날에 붙여도 공시는 한 번이고, 그날까지 알려진 버전을 골라야 합니다</h1>
       <p class="lead">나중에 수정된 정확한 숫자를 과거 모든 날에 붙이면 될까요?</p>
       <div class="slide-body"><div class="teaching-visual"><figure data-deck-figure-title="같은 분기 사실도 공개·가용·수정 버전이 다르다" class="deck-report-figure "><img src="assets/figs/s84-primer-vintages.svg" alt="같은 분기 사실도 공개·가용·수정 버전이 다르다. 분기 값 하나를 63거래일에 붙이면 행은 63개이지만 공시는 한 번입니다."></figure><div class="teaching-rows"><article><h2>반복된 행</h2><p>분기 값 하나를 63거래일에 붙이면 행은 63개이지만 공시는 한 번입니다.</p></article><article><h2>시가총액 대비 장부자본</h2><p>자산에서 부채를 뺀 장부자본을, 주가에 주식 수를 곱한 시가총액으로 나눕니다. 장부자본 510, 시가총액 1,000이면 0.51이고, 시가총액만 1,020이면 0.50입니다.</p></article><article><h2>버전 고르기</h2><p>510은 5/5부터, 수정값 498은 8/12부터 씁니다. 6/1에는 510을 고릅니다.</p></article></div></div></div>
-      <p class="takeaway">정해진 기간을 기다렸다 써도 실제 발표 시각을 확인한 것은 아닙니다. 원본과 수정본, 그리고 쓸 수 있게 된 시각을 함께 남깁니다.</p>
+      <p class="takeaway">분기 말 뒤로 정해 둔 날수만큼 기다렸다 써도 실제 발표 시각을 확인한 것은 아닙니다. 원본과 수정본, 그리고 쓸 수 있게 된 시각을 함께 남깁니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s84-primer-vintages">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
@@ -249,7 +249,7 @@
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.4</span></header>
       <h1>예정된 일정은 오늘 알 수 있어도 결과는 알 수 없습니다</h1>
       <p class="lead">내일 실적 발표가 있다는 사실과 이익이 얼마라는 사실은 다릅니다.</p>
-      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="예정된 사건 앞뒤에서 허용되는 정보" class="deck-report-figure "><img src="assets/figs/s84-event-phases.svg" alt="예정된 사건 앞뒤에서 허용되는 정보. 다음 사건까지 남은 날을 세되 상한을 둡니다. 80일이 남아도 상한이 63이면 입력은 63입니다."></figure><div class="teaching-columns ch08-cols"><article><h2>남은 시간</h2><p>다음 사건까지 남은 날을 세되 상한을 둡니다. 80일이 남아도 상한이 63이면 입력은 63입니다.</p></article><article><h2>세는 단위</h2><p>달력일인지 거래일인지 정합니다. 휴일이 끼면 같은 날수라도 시간이 다릅니다.</p></article><article><h2>반복되는 달</h2><p>12와 1은 숫자로는 멀어도 이웃한 달입니다. 월을 원 위의 좌표 두 개로 놓으면 이웃으로 나타납니다.</p></article></div></div></div>
+      <div class="slide-body"><div class="teaching-wide-visual"><figure data-deck-figure-title="예정된 사건 앞뒤에서 허용되는 정보" class="deck-report-figure "><img src="assets/figs/s84-event-phases.svg" alt="예정된 사건 앞뒤에서 허용되는 정보. 다음 사건까지 남은 날을 세되 상한을 둡니다. 80일이 남아도 상한이 63이면 입력은 63입니다."></figure><div class="teaching-columns ch08-cols"><article><h2>남은 시간</h2><p>다음 사건까지 남은 날을 세되 상한을 둡니다. 80일이 남아도 상한이 63이면 입력은 63입니다.</p></article><article><h2>세는 단위</h2><p>달력일인지 거래일인지 정합니다. 휴일이 끼면 달력으로 같은 날수라도 거래일은 더 적습니다.</p></article><article><h2>반복되는 달</h2><p>12와 1은 숫자로는 멀어도 이웃한 달입니다. 월을 원 위의 좌표 두 개로 놓으면 이웃으로 나타납니다.</p></article></div></div></div>
       <p class="takeaway">분기 말에 일정한 날수를 더한 가상 일정은 계산 방법을 보여 줄 뿐 실제 공시 시각을 재현하지 못합니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s84-event-phases">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
@@ -313,7 +313,7 @@
       <h1>신호와 상태를 결합하는 방식에 따라 거래 여부, 거래 크기, 특성 후보가 달라집니다</h1>
       <p class="lead">숫자 하나를 더 붙인 것 같아도 실제로 바뀌는 결정은 서로 다릅니다.</p>
       <div class="slide-body"><table class="teaching-table ch08-compact"><caption><span data-deck-caption="table">표 4</span> 흔한 상호작용 패턴</caption><thead><tr><th>템플릿</th><th>하는 일</th><th>예</th><th>전략에 미치는 효과</th></tr></thead><tbody><tr><td>게이팅</td><td>유리한 상태에서만 거래하고 나머지에서는 포지션을 비운다.</td><td>변동성이 67번째 백분위보다 낮을 때만 모멘텀을 거래한다.</td><td>활성 표본을 바꾸므로 회전율과 수용 가능한 거래 규모도 달라진다.</td></tr><tr><td>스케일링</td><td>상태에 따라 신호 강도를 연속적으로 조정한다.</td><td>모멘텀을 실현 변동성으로 나눈다.</td><td>상태에 따라 포지션 크기를 바꾼다.</td></tr><tr><td>조건부 변형</td><td>특정 국면의 신호를 별도 버전의 특성으로 기록한다.</td><td>저변동성 모멘텀과 고변동성 모멘텀을 각각 후보로 둔다.</td><td>상호작용마다 따로 검정할 가설을 만든다.</td></tr></tbody></table><table class="teaching-table ch08-compact"><caption><span data-deck-caption="table">표 5</span> 특성 상호작용 예</caption><thead><tr><th>비율 특성</th><th>공식</th><th>해석</th></tr></thead><tbody><tr><td>위험 조정 모멘텀</td><td>momentum / volatility</td><td>위험 스케일링</td></tr><tr><td>캐리 대 변동성</td><td>carry / implied_vol</td><td>위험 조정 캐리</td></tr><tr><td>모멘텀 대 스프레드</td><td>momentum / bid-ask spread</td><td>비용 조정 신호</td></tr></tbody></table></div>
-      <p class="takeaway">분모가 0에 가까우면 점수가 지나치게 커지므로, 분모의 최솟값과 처리 방식도 특성의 버전에 적습니다.</p>
+      <p class="takeaway">분모가 0에 가까우면 점수가 지나치게 커지므로, 분모의 최솟값과 처리 방식도 특성 명세에 버전과 함께 적습니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s86-table-84">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
@@ -330,8 +330,8 @@
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.6</span></header>
       <h1>변수를 더 통제한다고 언제나 더 정확해지지는 않습니다</h1>
       <p class="lead">상태에 따라 차이가 보였을 때 우리는 무엇을 알게 된 걸까요? 조건을 붙여 관계를 본 것과 원인을 알아낸 것은 다릅니다.</p>
-      <div class="slide-body"><div class="teaching-visual"><figure data-deck-figure-title="조건을 붙일 때 효과가 달라지는 인과 구조" class="deck-report-figure "><img src="assets/figs/s86-causal.svg" alt="조건을 붙일 때 효과가 달라지는 인과 구조. 시장이 평온해서 신호와 수익률이 함께 좋아졌다면, 같은 상태끼리 비교해 그 영향을 구분할 수 있습니다."></figure><div class="teaching-rows"><article><h2>공통 원인</h2><p>시장이 평온해서 신호와 수익률이 함께 좋아졌다면, 같은 상태끼리 비교해 그 영향을 구분할 수 있습니다.</p></article><article><h2>중간 경로</h2><p>신호에서 결과로 가는 중간 값을 고정하면 알아보려던 길을 막을 수 있습니다.</p></article><article><h2>생존 선택</h2><p>살아남은 펀드만 고르면 원래 없던 관계가 생길 수 있습니다.</p></article></div></div></div>
-      <p class="takeaway">구성비가 다르면 합산 평균에서 방향이 뒤집힐 수 있고, 관측한 차이만으로 신호를 직접 바꿨을 때의 효과를 알 수는 없습니다.</p>
+      <div class="slide-body"><div class="teaching-visual"><figure data-deck-figure-title="조건을 붙일 때 효과가 달라지는 인과 구조" class="deck-report-figure "><img src="assets/figs/s86-causal.svg" alt="조건을 붙일 때 효과가 달라지는 인과 구조. 시장이 평온해서 신호와 수익률이 함께 좋아졌다면, 같은 상태끼리 비교해 그 영향을 구분할 수 있습니다."></figure><div class="teaching-rows"><article><h2>공통 원인</h2><p>시장이 평온해서 신호와 수익률이 함께 좋아졌다면, 같은 상태끼리 비교해 그 영향을 구분할 수 있습니다.</p></article><article><h2>중간 경로</h2><p>신호에서 결과로 가는 중간 값을 고정하면 알아보려던 영향이 가려질 수 있습니다.</p></article><article><h2>생존 선택</h2><p>살아남은 펀드만 고르면 원래 없던 관계가 생길 수 있습니다.</p></article></div></div></div>
+      <p class="takeaway">신호가 높은 쪽과 낮은 쪽에 국면이 섞인 비율이 다르면 국면별로 본 결과와 전체 평균의 결과가 반대로 나올 수 있고, 관측한 차이만으로 신호를 직접 바꿨을 때의 효과를 알 수는 없습니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s86-fig-causal">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
@@ -339,7 +339,7 @@
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.6</span></header>
       <h1>평균 경로의 끝값이 양수라는 것과 사건 뒤에도 계속 올랐다는 것은 다릅니다</h1>
       <p class="lead">사건 연구는 기준 모형으로 설명되지 않은 수익률을 사건별로 더한 뒤 여러 사건에서 평균합니다. 복리로 계산한 투자 성과와는 다릅니다.</p>
-      <div class="slide-body"><div class="teaching-visual"><figure data-deck-figure-title="공식 저장 출력의 사건 전후 CAAR 경로" class="deck-report-figure "><img src="assets/figs/s86-event-caar.svg" alt="공식 저장 출력의 사건 전후 CAAR 경로. 실제 1.2%에서 기대 0.5%를 빼면 0.7%포인트가 남습니다. 이 차이가 비정상 수익률입니다."></figure><div class="teaching-rows"><article><h2>계산</h2><p>실제 1.2%에서 기대 0.5%를 빼면 0.7%포인트가 남습니다. 이 차이가 비정상 수익률입니다.</p></article><article><h2>읽는 법</h2><p>공식 노트북에 저장된 결과로, 사건 전 5일부터 사건 후 10일까지입니다. 사건일까지 약 1.3%가 쌓이고 일부 줄어 약 1.1%가 남습니다.</p></article><article><h2>해석할 때</h2><p>신호를 정한 당일의 상승을 다시 세면 안 되고, 주문 시점과 비용을 넣은 성과는 따로 평가합니다.</p></article></div></div></div>
+      <div class="slide-body"><div class="teaching-visual"><figure data-deck-figure-title="공식 저장 출력의 사건 전후 CAAR 경로" class="deck-report-figure "><img src="assets/figs/s86-event-caar.svg" alt="공식 저장 출력의 사건 전후 CAAR 경로. 실제 1.2%에서 기대 0.5%를 빼면 0.7%포인트가 남습니다. 이 차이가 비정상 수익률입니다."></figure><div class="teaching-rows"><article><h2>계산</h2><p>실제 1.2%에서 기대 0.5%를 빼면 0.7%포인트가 남습니다. 이 차이가 비정상 수익률입니다.</p></article><article><h2>읽는 법</h2><p>공식 노트북에 저장된 결과로, 사건 전 5일부터 사건 후 10일까지입니다. 사건일까지 약 1.3%가 쌓이고 일부 줄어 약 1.1%가 남습니다.</p></article><article><h2>해석할 때</h2><p>신호를 정한 당일의 상승은 성과로 다시 세면 안 되고, 주문 시점과 비용을 넣은 성과는 따로 평가합니다.</p></article></div></div></div>
       <p class="takeaway">여러 사건이 같은 시장 움직임을 공유하면 사건 하나하나를 별개의 시도로 셀 수 없습니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s86-fig-event-caar">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
