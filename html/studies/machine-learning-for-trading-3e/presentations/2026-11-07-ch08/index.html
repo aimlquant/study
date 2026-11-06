@@ -310,7 +310,7 @@
 
     <section class="slide slide--teaching" id="slide-33" aria-label="결합 방식" data-report-refs="s86 s86-table-84 s86-fig-templates s86-table-85 s86-fig-ratios" data-source-refs="section:8.6 table:8.4 table:8.5">
       <header class="slide-header"><span class="brand-name">AIML Quant</span><span class="section-tag">교재 §8.6 · 표 8.4 · 표 8.5</span></header>
-      <h1>신호와 상태를 결합하는 방식에 따라 거래 여부, 거래 크기, 후보가 달라집니다</h1>
+      <h1>신호와 상태를 결합하는 방식에 따라 거래 여부, 거래 크기, 특성 후보가 달라집니다</h1>
       <p class="lead">숫자 하나를 더 붙인 것 같아도 실제로 바뀌는 결정은 서로 다릅니다.</p>
       <div class="slide-body"><table class="teaching-table ch08-compact"><caption><span data-deck-caption="table">표 4</span> 흔한 상호작용 패턴</caption><thead><tr><th>템플릿</th><th>하는 일</th><th>예</th><th>전략에 미치는 효과</th></tr></thead><tbody><tr><td>게이팅</td><td>유리한 상태에서만 거래하고 나머지에서는 포지션을 비운다.</td><td>변동성이 67번째 백분위보다 낮을 때만 모멘텀을 거래한다.</td><td>활성 표본을 바꾸므로 회전율과 수용 가능한 거래 규모도 달라진다.</td></tr><tr><td>스케일링</td><td>상태에 따라 신호 강도를 연속적으로 조정한다.</td><td>모멘텀을 실현 변동성으로 나눈다.</td><td>상태에 따라 포지션 크기를 바꾼다.</td></tr><tr><td>조건부 변형</td><td>특정 국면의 신호를 별도 버전의 특성으로 기록한다.</td><td>저변동성 모멘텀과 고변동성 모멘텀을 각각 후보로 둔다.</td><td>상호작용마다 따로 검정할 가설을 만든다.</td></tr></tbody></table><table class="teaching-table ch08-compact"><caption><span data-deck-caption="table">표 5</span> 특성 상호작용 예</caption><thead><tr><th>비율 특성</th><th>공식</th><th>해석</th></tr></thead><tbody><tr><td>위험 조정 모멘텀</td><td>momentum / volatility</td><td>위험 스케일링</td></tr><tr><td>캐리 대 변동성</td><td>carry / implied_vol</td><td>위험 조정 캐리</td></tr><tr><td>모멘텀 대 스프레드</td><td>momentum / bid-ask spread</td><td>비용 조정 신호</td></tr></tbody></table></div>
       <p class="takeaway">분모가 0에 가까우면 점수가 지나치게 커지므로, 분모의 최솟값과 처리 방식도 특성의 버전에 적습니다.</p>
@@ -322,7 +322,7 @@
       <h1>이 사례에서는 변동성이 높을수록 모멘텀과 이후 수익률의 관계가 약해지지만, 그 관계가 음수라고 반대로 거래하지는 않습니다</h1>
       <p class="lead">신호는 126거래일 모멘텀, 정답은 그 뒤 20거래일 수익률, 상태는 SPY의 42거래일 변동성입니다. 낮음·중간·높음의 경계는 그때까지의 과거 분포로 정합니다.</p>
       <div class="slide-body"><div class="teaching-visual" style="grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)"><figure data-deck-figure-title="변동성이 높아질수록 약해지는 모멘텀 IC" class="deck-report-figure "><img src="assets/figs/s86-regime-result.svg" alt="변동성이 높아질수록 약해지는 모멘텀 IC. 신호는 126거래일 모멘텀, 정답은 그 뒤 20거래일 수익률, 상태는 SPY의 42거래일 변동성입니다. 낮음·중간·높음의 경계는 그때까지의 과거 분포로 정합니다."></figure><table class="teaching-table ch08-compact"><caption><span data-deck-caption="table">표 6</span> 특성 상호작용 예</caption><thead><tr><th>변동성 삼분위</th><th>모멘텀 IC</th><th>HAC t-통계량</th><th>p-값</th></tr></thead><tbody><tr><td>낮음</td><td>+0.071</td><td>2.8</td><td>0.006</td></tr><tr><td>중간</td><td>+0.025</td><td>1.3</td><td>0.21</td></tr><tr><td>높음</td><td>−0.034</td><td>−1.1</td><td>0.26</td></tr></tbody></table></div></div>
-      <p class="takeaway">IC는 수익률이 아니라 순서가 맞는 정도이고, 시간상 연관을 반영한 t 값(HAC t)과 p 값으로 그 값이 0과 다른지 판단합니다. 높음 구간은 t −1.1, p 0.26으로 분명한 음수가 아니어서, 모멘텀을 잠시 쓰지 않는 방법을 시험할 이유로만 읽습니다.</p>
+      <p class="takeaway">IC는 수익률이 아니라 순서가 맞는 정도입니다. 시간상 연관을 반영한 t 값(HAC t)과 p 값으로 IC가 0과 다른지 판단합니다. 높음 구간은 t −1.1, p 0.26으로 분명한 음수가 아니어서, 모멘텀을 잠시 쓰지 않는 방법을 시험할 이유로만 읽습니다.</p>
       <footer class="slide-footer"><a class="report-ref" href="report.html#s86-fig-regime-result">상세 설명 ↗</a><span><b data-slide-number></b> / <b data-slide-total></b></span></footer>
     </section>
 
