@@ -484,6 +484,18 @@ artifacts = [
                     with self.assertRaisesRegex(ValueError, "reference video requires public"):
                         build_site.load_model(*paths)
 
+    def test_extra_video_requires_explicit_public_status(self):
+        for status in ("private", "unlisted", "public"):
+            with self.subTest(status=status), tempfile.TemporaryDirectory() as directory:
+                extra = ('extra_videos = [{ title = "풀버전", '
+                         'youtube_video_id = "123456789ab", status = "' + status + '" }]')
+                paths = self.write_metadata(Path(directory), "materials-published", extra)
+                if status == "public":
+                    build_site.load_model(*paths)
+                else:
+                    with self.assertRaisesRegex(ValueError, "extra video requires public"):
+                        build_site.load_model(*paths)
+
     def test_public_status_requires_video_id(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             paths = self.write_metadata(

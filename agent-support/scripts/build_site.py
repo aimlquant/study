@@ -478,6 +478,18 @@ def load_model(
             if reference["youtube_video_id"] in seen_references:
                 raise ValueError(f"duplicate reference video for {session_id}")
             seen_references.add(reference["youtube_video_id"])
+        extras = session.get("extra_videos", [])
+        if not isinstance(extras, list):
+            raise ValueError(f"extra_videos must be an array for {session_id}")
+        for extra in extras:
+            if (not isinstance(extra, dict)
+                    or extra.get("status") != "public"
+                    or not isinstance(extra.get("youtube_video_id"), str)
+                    or not VIDEO_ID_RE.fullmatch(extra["youtube_video_id"])
+                    or not isinstance(extra.get("title"), str)
+                    or not extra["title"].strip()
+                    or not isinstance(extra.get("description", ""), str)):
+                raise ValueError(f"extra video requires public status, title and valid ID for {session_id}")
         meeting_url = session.get("meeting_url")
         meeting_status = session.get("meeting_status")
         if meeting_status is not None and meeting_status not in {
@@ -1189,6 +1201,20 @@ def render_files(
       <a class="button button--secondary" href="https://www.youtube.com/watch?v={ref_id}">YouTube에서 참고 해설 보기</a>
     </section>
 '''
+        extra_section = ""
+        for extra in session.get("extra_videos", []):
+            extra_id = extra["youtube_video_id"]
+            extra_title = html.escape(extra["title"])
+            extra_description = html.escape(extra.get("description", ""))
+            extra_section += f'''
+    <section class="session-extra">
+      <h2>{extra_title}</h2>
+      <p>{extra_description}</p>
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/{extra_id}" title="{extra_title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <a class="button button--secondary" href="https://www.youtube.com/watch?v={extra_id}">YouTube에서 보기</a>
+    </section>'''
         if session["status"] == "cancelled":
             meeting_access = '<p class="session-venue">휴강(취소)</p>'
         body = f"""    <header class="site-masthead">
@@ -1210,7 +1236,7 @@ def render_files(
 {reference_section}    <section>
       <h2>스터디 영상</h2>
       {video}
-    </section>"""
+    </section>{extra_section}"""
         canonical = (
             site["pages_url"] + f"sessions/{session['id']}/"
         )
@@ -1250,6 +1276,8 @@ def render_files(
             )
         if session.get("reference_videos"):
             public["reference_videos"] = session["reference_videos"]
+        if session.get("extra_videos"):
+            public["extra_videos"] = session["extra_videos"]
         catalog_sessions.append(public)
     catalog = {
         "schema_version": 1,

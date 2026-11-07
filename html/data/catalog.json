@@ -495,6 +495,14 @@
         "Chapter 8"
       ],
       "date": "2026-11-07",
+      "extra_videos": [
+        {
+          "description": "발표 시간에 다 못 다룬 내용까지 담은 전체판입니다. 합성 음성으로 읽었습니다.",
+          "status": "public",
+          "title": "Machine Learning for Trading 8장 풀버전(강의 음성)",
+          "youtube_video_id": "fAlyOc0TG4o"
+        }
+      ],
       "id": "2026-11-07-ml4t-ch08",
       "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-11-07-ml4t-ch08/",

@@ -579,6 +579,10 @@ reference_videos = [
   { title = "Ch.8 금융 특성 공학 · 한국어 참고 해설", youtube_video_id = "lUmnIuD9wjk", status = "public", description = "원서 8장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요." },
 ]
 
+extra_videos = [
+  { title = "Machine Learning for Trading 8장 풀버전(강의 음성)", youtube_video_id = "fAlyOc0TG4o", status = "public", description = "발표 시간에 다 못 다룬 내용까지 담은 전체판입니다. 합성 음성으로 읽었습니다." },
+]
+
 [[sessions]]
 id = "2026-11-07-operations-meeting"
 study_id = "kg-llm-in-action-2026"
