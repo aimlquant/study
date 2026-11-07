@@ -455,7 +455,7 @@
       "artifacts": [
         {
           "kind": "report",
-          "label": "회의 자료",
+          "label": "회의록과 회의 자료",
           "url": "studies/knowledge-graphs-and-llms-in-action/presentations/2026-11-07-operations-meeting/report.html"
         },
         {
@@ -467,15 +467,16 @@
       "chapters": [],
       "date": "2026-11-07",
       "id": "2026-11-07-operations-meeting",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mb9394de4af2495445a5ff6968a462172",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-11-07-operations-meeting/",
       "presenters": [
         "참석자 전원"
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "kg-llm-in-action-2026",
-      "title": "운영회의 · 관심 주제 소개와 다음 과정 정하기"
+      "title": "운영회의 · 관심 주제 소개와 다음 과정 정하기",
+      "youtube_url": "https://www.youtube.com/watch?v=9_WVwVDjWaU",
+      "youtube_video_id": "9_WVwVDjWaU"
     },
     {
       "artifacts": [
@@ -495,8 +496,7 @@
       ],
       "date": "2026-11-07",
       "id": "2026-11-07-ml4t-ch08",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mb9394de4af2495445a5ff6968a462172",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-11-07-ml4t-ch08/",
       "presenters": [
         "태영"
@@ -509,9 +509,11 @@
           "youtube_video_id": "lUmnIuD9wjk"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-learning-for-trading-3e-2026",
-      "title": "Chapter 8. 금융 특성 공학"
+      "title": "Chapter 8. 금융 특성 공학",
+      "youtube_url": "https://www.youtube.com/watch?v=h5g7dahXvIk",
+      "youtube_video_id": "h5g7dahXvIk"
     },
     {
       "artifacts": [],
