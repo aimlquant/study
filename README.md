@@ -92,7 +92,7 @@ html/             # GitHub Pages 배포 산출물
 | 2026-12-05 | 08:00–09:00 | Chapter 12 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-05-ml4t-ch12/) |
 | 2026-12-12 | 08:00–09:00 | Chapter 13 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-12-ml4t-ch13/) |
 | 2026-12-19 | 08:00–09:00 | Chapter 14 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-19-ml4t-ch14/) |
-| 2026-12-26 | 08:00–09:00 | Chapter 15 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-26-ml4t-ch15/) |
+| 2026-12-26 | 08:00–09:00 | Chapter 15 | 원미 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-26-ml4t-ch15/) |
 | 2027-01-02 | 08:00–09:00 | Chapter 16 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-02-ml4t-ch16/) |
 | 2027-01-09 | 08:00–09:00 | Chapter 17 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-09-ml4t-ch17/) |
 | 2027-01-16 | 08:00–09:00 | Chapter 18 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-16-ml4t-ch18/) |
