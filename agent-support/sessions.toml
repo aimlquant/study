@@ -694,7 +694,7 @@ id = "2026-12-26-ml4t-ch15"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-12-26"
 title = "Chapter 15. 인과 머신러닝"
-presenters = []
+presenters = ["원미"]
 chapters = ["Chapter 15"]
 status = "scheduled"
 
