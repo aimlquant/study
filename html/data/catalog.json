@@ -447,8 +447,7 @@
       ],
       "date": "2026-11-14",
       "id": "2026-11-14-ml4t-ch09",
-      "meeting_status": "available",
-      "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=mb1ee8c9c8c12e57e5a765bc2d441a2e4",
+      "meeting_status": "ended",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-11-14-ml4t-ch09/",
       "presenters": [
         "원미"
@@ -461,9 +460,11 @@
           "youtube_video_id": "qpcq67FRPg0"
         }
       ],
-      "status": "materials-published",
+      "status": "video-public",
       "study_id": "machine-learning-for-trading-3e-2026",
-      "title": "Chapter 9. 모델 기반 특성 추출"
+      "title": "Chapter 9. 모델 기반 특성 추출",
+      "youtube_url": "https://www.youtube.com/watch?v=y6m0jT1vR1k",
+      "youtube_video_id": "y6m0jT1vR1k"
     },
     {
       "artifacts": [

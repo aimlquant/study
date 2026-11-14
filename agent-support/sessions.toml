@@ -611,8 +611,9 @@ date = "2026-11-14"
 title = "Chapter 9. 모델 기반 특성 추출"
 presenters = ["원미"]
 chapters = ["Chapter 9"]
-status = "materials-published"
-meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=mb1ee8c9c8c12e57e5a765bc2d441a2e4"
+status = "video-public"
+meeting_status = "ended"
+youtube_video_id = "y6m0jT1vR1k"
 artifacts = [
   { kind = "report", label = "상세 리포트", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-14-ch09/report.html" },
   { kind = "slides", label = "발표자료", url = "studies/machine-learning-for-trading-3e/presentations/2026-11-14-ch09/" },
