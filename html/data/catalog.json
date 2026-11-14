@@ -244,7 +244,9 @@
       "id": "2027-01-09-ml4t-ch17",
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-01-09-ml4t-ch17/",
-      "presenters": [],
+      "presenters": [
+        "김태호"
+      ],
       "reference_videos": [
         {
           "description": "원서 17장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
@@ -266,7 +268,9 @@
       "id": "2027-01-02-ml4t-ch16",
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2027-01-02-ml4t-ch16/",
-      "presenters": [],
+      "presenters": [
+        "이종훈"
+      ],
       "reference_videos": [
         {
           "description": "원서 16장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
@@ -312,7 +316,9 @@
       "id": "2026-12-19-ml4t-ch14",
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-12-19-ml4t-ch14/",
-      "presenters": [],
+      "presenters": [
+        "한재연"
+      ],
       "reference_videos": [
         {
           "description": "원서 14장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
@@ -334,7 +340,9 @@
       "id": "2026-12-12-ml4t-ch13",
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-12-12-ml4t-ch13/",
-      "presenters": [],
+      "presenters": [
+        "정세훈"
+      ],
       "reference_videos": [
         {
           "description": "원서 13장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
@@ -356,7 +364,9 @@
       "id": "2026-12-05-ml4t-ch12",
       "meeting_status": "pending",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-12-05-ml4t-ch12/",
-      "presenters": [],
+      "presenters": [
+        "이문창"
+      ],
       "reference_videos": [
         {
           "description": "원서 12장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",
@@ -404,7 +414,9 @@
       "meeting_status": "available",
       "meeting_url": "https://lgehq.webex.com/lgehq-en/j.php?MTID=m0c4a8462e78d773a710d8a04a81ad39b",
       "page_url": "https://aimlquant.github.io/study/sessions/2026-11-21-ml4t-ch10/",
-      "presenters": [],
+      "presenters": [
+        "송종훈"
+      ],
       "reference_videos": [
         {
           "description": "원서 10장과 한국어 해설판을 바탕으로 NotebookLM이 생성한 학습 보조 영상입니다. 예습·복습에 활용하고, 세부 정의와 수치는 원서 및 영상 설명란을 함께 확인해 주세요.",

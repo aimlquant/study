@@ -627,7 +627,7 @@ id = "2026-11-21-ml4t-ch10"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-11-21"
 title = "Chapter 10. 텍스트 특성 공학"
-presenters = []
+presenters = ["송종훈"]
 chapters = ["Chapter 10"]
 status = "scheduled"
 meeting_url = "https://lgehq.webex.com/lgehq-en/j.php?MTID=m0c4a8462e78d773a710d8a04a81ad39b"
@@ -655,7 +655,7 @@ id = "2026-12-05-ml4t-ch12"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-12-05"
 title = "Chapter 12. 표 형식 데이터 고급 모델"
-presenters = []
+presenters = ["이문창"]
 chapters = ["Chapter 12"]
 status = "scheduled"
 
@@ -668,7 +668,7 @@ id = "2026-12-12-ml4t-ch13"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-12-12"
 title = "Chapter 13. 시계열 딥러닝"
-presenters = []
+presenters = ["정세훈"]
 chapters = ["Chapter 13"]
 status = "scheduled"
 
@@ -681,7 +681,7 @@ id = "2026-12-19-ml4t-ch14"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2026-12-19"
 title = "Chapter 14. 잠재 요인 모델"
-presenters = []
+presenters = ["한재연"]
 chapters = ["Chapter 14"]
 status = "scheduled"
 
@@ -707,7 +707,7 @@ id = "2027-01-02-ml4t-ch16"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2027-01-02"
 title = "Chapter 16. 전략 시뮬레이션"
-presenters = []
+presenters = ["이종훈"]
 chapters = ["Chapter 16"]
 status = "scheduled"
 
@@ -720,7 +720,7 @@ id = "2027-01-09-ml4t-ch17"
 study_id = "machine-learning-for-trading-3e-2026"
 date = "2027-01-09"
 title = "Chapter 17. 포트폴리오 구성"
-presenters = []
+presenters = ["김태호"]
 chapters = ["Chapter 17"]
 status = "scheduled"
 

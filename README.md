@@ -87,14 +87,14 @@ html/             # GitHub Pages 배포 산출물
 | 2026-11-07 | 08:00–09:00 | Chapter 8 | 태영 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-11-07-ml4t-ch08/) |
 | 2026-11-07 | 09:00–10:00 | 운영회의 · 관심 주제 소개와 다음 과정 정하기 | 참석자 전원 | 종료 | [회차](https://aimlquant.github.io/study/sessions/2026-11-07-operations-meeting/) |
 | 2026-11-14 | 08:00–09:00 | Chapter 9 | 원미 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mb1ee8c9c8c12e57e5a765bc2d441a2e4) | [회차](https://aimlquant.github.io/study/sessions/2026-11-14-ml4t-ch09/) |
-| 2026-11-21 | 08:00–09:00 | Chapter 10 | 미정 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m0c4a8462e78d773a710d8a04a81ad39b) | [회차](https://aimlquant.github.io/study/sessions/2026-11-21-ml4t-ch10/) |
+| 2026-11-21 | 08:00–09:00 | Chapter 10 | 송종훈 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=m0c4a8462e78d773a710d8a04a81ad39b) | [회차](https://aimlquant.github.io/study/sessions/2026-11-21-ml4t-ch10/) |
 | 2026-11-28 | 08:00–09:00 | Chapter 11 | 핀조이 | [접속](https://lgehq.webex.com/lgehq-en/j.php?MTID=mdbaa139c2c9b16c1c40b9a4786b964b3) | [회차](https://aimlquant.github.io/study/sessions/2026-11-28-ml4t-ch11/) |
-| 2026-12-05 | 08:00–09:00 | Chapter 12 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-05-ml4t-ch12/) |
-| 2026-12-12 | 08:00–09:00 | Chapter 13 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-12-ml4t-ch13/) |
-| 2026-12-19 | 08:00–09:00 | Chapter 14 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-19-ml4t-ch14/) |
+| 2026-12-05 | 08:00–09:00 | Chapter 12 | 이문창 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-05-ml4t-ch12/) |
+| 2026-12-12 | 08:00–09:00 | Chapter 13 | 정세훈 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-12-ml4t-ch13/) |
+| 2026-12-19 | 08:00–09:00 | Chapter 14 | 한재연 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-19-ml4t-ch14/) |
 | 2026-12-26 | 08:00–09:00 | Chapter 15 | 원미 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2026-12-26-ml4t-ch15/) |
-| 2027-01-02 | 08:00–09:00 | Chapter 16 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-02-ml4t-ch16/) |
-| 2027-01-09 | 08:00–09:00 | Chapter 17 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-09-ml4t-ch17/) |
+| 2027-01-02 | 08:00–09:00 | Chapter 16 | 이종훈 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-02-ml4t-ch16/) |
+| 2027-01-09 | 08:00–09:00 | Chapter 17 | 김태호 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-09-ml4t-ch17/) |
 | 2027-01-16 | 08:00–09:00 | Chapter 18 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-16-ml4t-ch18/) |
 | 2027-01-23 | 08:00–09:00 | Chapter 19 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-23-ml4t-ch19/) |
 | 2027-01-30 | 08:00–09:00 | Chapter 20 | 미정 | 추후 공지 | [회차](https://aimlquant.github.io/study/sessions/2027-01-30-ml4t-ch20/) |
